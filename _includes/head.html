@@ -17,12 +17,29 @@ MathJax.Hub.Config({
     "HTML-CSS": {
         availableFonts: ["STIX","TeX"], //可选字体
         showMathMenu: false //关闭右击菜单显示
+        styles: {
+
+          ".MathJax_Display": {
+            "text-align": "center",
+            margin:       "1em 0em"
+          },
+
+          ".MathJax .merror": {
+            "background-color": "#FFFF88",
+            color:   "#000000",
+            border:  "1px solid #CC0000",
+            padding: "1px 3px",
+            "font-style": "normal",
+            "font-size":  "90%"
+          }
+
+        }
     }
 });
 MathJax.Hub.Queue(["Typeset",MathJax.Hub,mathId]);
 </script>
-<script src="https://cdn.bootcss.com/mathjax/2.7.5/latest.js"></script>
-  
+<script src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
     {% if page.crawlertitle %}
       {{ page.crawlertitle | escape }}
     {% elsif page.title %}

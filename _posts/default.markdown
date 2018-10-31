@@ -10,3 +10,4 @@ tags: ['front-end']
 author: redVi
 ---
 
+Mathjax配置： https://www.jianshu.com/p/6566f7eab7d5
