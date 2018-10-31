@@ -1,6 +1,6 @@
 ---
 ​---
-bg: "/MeanFilter/origin.jpg"
+bg: "MeanFilter/origin.jpg"
 layout: post
 title:  "均值滤波"
 crawlertitle: "均值滤波"
