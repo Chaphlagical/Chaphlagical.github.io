@@ -12,6 +12,8 @@ author: Chaf
 
 均值滤波通过对像素邻域取平均来达到降低噪声影响。
 
+本文介绍均值滤波算法。
+
 # 一、算术均值滤波器Arithmetic Mean Filter
 
 $$Img'(x,y)=\frac{1}{mn} \sum_{(s,t) \in S} Img(s,t)$$  
