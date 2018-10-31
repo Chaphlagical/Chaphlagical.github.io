@@ -46,7 +46,8 @@ void cv::boxFilter(
 
 boxFilter用的卷积核如下：
 
-$$\begin{equation}
+$$
+\begin{equation}
 A=\frac{1}{a}\left[
 \begin{matrix}  
 1&1&1&……&1&\\\\  
@@ -55,24 +56,29 @@ A=\frac{1}{a}\left[
 1&1&1&……&1&   
 \end{matrix}
 \right]
-\end{equation}$$
+\end{equation}
+$$
+
 
 其中,   
-$$a=
+$$
+a=
 \begin{cases}
 Asize.height*Asize.width& \text{normalize=true}\\\\  
 1& \text{normalize=false}
-\end{cases}$$
+\end{cases}
+$$
 
-滤波效果如下（按顺序分别为原图像、(5,5)卷积核滤波，(20,20)卷积核滤波，(1,20)卷积核滤波，(20,1)卷积核滤波，未归一化的(2,2)卷积核滤波）：  
-<figure class="Img">
-    <img src="/assets/images/MeanFilter/origin.jpg" title='原图像' width="100"/>
-    <img src="/assets/images/MeanFilter/(5,5)boxfilter.jpg" title='5*5均值滤波' width="230"/>
-	<img src="/assets/images/MeanFilter/(20,20)boxfilter.jpg"  title='20*20均值滤波' width="230"/>
-	<img src="/assets/images/MeanFilter/(1,20)boxfilter.jpg"  title='1*20均值滤波' width="230"/>
-	<img src="/assets/images/MeanFilter/(20,1)boxfilter.jpg"  title='20*1均值滤波' width="230"/>
-	<img src="/assets/images/MeanFilter/boxfilter.jpg"  title='2*2未归一化的盒状滤波' width="230"/>
-</figure>  
+
+滤波效果如下：  
+
+[原图像](/assets/images/MeanFilter/origin.jpg,"原图像")
+[5*5均值滤波](/assets/images/MeanFilter/(5,5)boxfilter.jpg,"5*5均值滤波") 
+[20*20均值滤波](/assets/images/MeanFilter/(20,20)boxfilter.jpg,"20*20均值滤波")
+[1*20均值滤波](/assets/images/MeanFilter/(1,20)boxfilter.jpg,"1*20均值滤波")
+[20*1均值滤波](/assets/images/MeanFilter/(20,1)boxfilter.jpg,"20*1均值滤波")
+[2*2未归一化的盒状滤波](/assets/images/MeanFilter/boxfilter.jpg,"2*2未归一化的盒状滤波")
+
 
 可以看出，算术均值滤波器能够有效过滤一些细节，但同时也模糊了边缘信息。
 
@@ -106,19 +112,13 @@ def GMF(img,m,n):
             Img[i][j] = multiply(img1[i:i + m, j:j + n])**(1/(m*n))
     return Img
 ```
-
-滤波效果（按顺序分别为原图像，(2,2)滤波，(5,5)滤波，(10,10)滤波，(2,20)滤波，(20,2)滤波）：  
-
-<figure class="Img">
-    <img src="/assets/images/MeanFilter/origin.jpg" title='原图像' width="230"/>
-	<img src="/assets/images/MeanFilter/(2,2)GMF.jpg"  title='2*2滤波' width="230"/>
-    <img src="/assets/images/MeanFilter/(5,5)GMF.jpg" title='5*5均值滤波' width="230"/>
-	<img src="/assets/images/MeanFilter/(10,10)GMF.jpg"  title='10*10均值滤波' width="230"/>
-	<img src="/assets/images/MeanFilter/(2,20)GMF.jpg"  title='2*20均值滤波' width="230"/>
-	<img src="/assets/images/MeanFilter/(20,2)GMF.jpg"  title='20*2均值滤波' width="230"/>
-</figure>  
-
-黑色边框是因为0边界扩展导致的。
+滤波效果：  
+[原图像](/assets/images/MeanFilter/origin.jpg,"原图像")
+[2*2滤波](/assets/images/MeanFilter/origin.jpg,"2*2滤波")
+[5*5均值滤波](/assets/images/MeanFilter/origin.jpg,"5*5均值滤波")
+[10*10均值滤波](/assets/images/MeanFilter/origin.jpg,"10*10均值滤波")
+[2*20均值滤波](/assets/images/MeanFilter/origin.jpg,"2*20均值滤波")
+[20*2均值滤波](/assets/images/MeanFilter/origin.jpg,"20*2均值滤波")
 
 # 三、谐波均值滤波器Harmonic Mean Filter
 $$\begin{equation} Img'(x,y)=\frac{mn}{\sum_{(s,t)\in S}\frac{1}{Img(s,t)}} \end{equation}$$  
@@ -150,17 +150,13 @@ def HMF(img,m,n):#谐波均值滤波
     return Img  
 ```
 
-滤波效果（按顺序分别为原图像，(2,2)滤波，(5,5)滤波，(10,10)滤波，(2,20)滤波，(20,2)滤波）： 
-
-<figure class="Img">
-    <img src="/assets/images/MeanFilter/origin.jpg" title='原图像' width="230"/>
-	<img src="/assets/images/MeanFilter/(2,2)HMF.jpg"  title='2*2滤波' width="230"/>
-    <img src="/assets/images/MeanFilter/(5,5)HMF.jpg" title='5*5均值滤波' width="230"/>
-	<img src="/assets/images/MeanFilter/(10,10)HMF.jpg"  title='10*10均值滤波' width="230"/>
-	<img src="/assets/images/MeanFilter/(2,20)HMF.jpg"  title='2*20均值滤波' width="230"/>
-	<img src="/assets/images/MeanFilter/(20,2)HMF.jpg"  title='20*2均值滤波' width="230"/>
-</figure>  
-
+滤波效果： 
+[原图像](/assets/images/MeanFilter/origin.jpg,"原图像")
+[2*2滤波](/assets/images/MeanFilter/(2,2)HMF.jpg,"2*2滤波")
+[5*5均值滤波](/assets/images/MeanFilter/(5,5)HMF.jpg,"5*5均值滤波")
+[10*10均值滤波](/assets/images/MeanFilter/(10,10)HMF.jpg,"10*10均值滤波")
+[2*20均值滤波](/assets/images/MeanFilter/(2,20)HMF.jpg,"2*20均值滤波")
+[20*2均值滤波](/assets/images/MeanFilter/(20,2)HMF.jpg,"20*2均值滤波")
 
 # 四、逆谐波均值滤波器Contra-Harmonic Mean Filter
 $$\begin{equation} Img'(x,y)=\frac{\sum Img(s,t)^{Q+1}}{\sum Img(s,t)^{Q}} \end{equation}$$
@@ -195,16 +191,13 @@ def CHMF(img,m,n,Q):
     return Img  
 ```
 
-滤波效果（按顺序原图像、Q=2&m=n=5，Q=2&m=n=10，Q=6&m=n=5，Q=-2&m=n=5，Q=-6&m=n=5）：
-
-<figure class="Img">
-    <img src="/assets/images/MeanFilter/origin.jpg" title='原图像' width="230"/>
-	<img src="/assets/images/images/DIP/MeanFilter/(Q=2&m=n=5)CHMF.jpg"  title='2*2滤波' width="230"/>
-    <img src="/assets/images/MeanFilter/(Q=2&m=n=10)CHMF.jpg" title='5*5均值滤波' width="230"/>
-	<img src="/assets/images/MeanFilter/(Q=6&m=n=5)CHMF.jpg"  title='10*10均值滤波' width="230"/>
-	<img src="/assets/images/MeanFilter/(Q=-2&m=n=5)CHMF.jpg"  title='2*20均值滤波' width="230"/>
-	<img src="/assets/images/MeanFilter/(Q=-6&m=n=5)CHMF.jpg"  title='20*2均值滤波' width="230"/>
-</figure>  
+滤波效果：
+[原图像](/assets/images/MeanFilter/origin.jpg,"原图像")
+[2*2滤波](/assets/images/MeanFilter/(Q=2&m=n=5)CHMF.jpg,"2*2滤波")
+[5*5均值滤波](/assets/images/MeanFilter/(Q=2&m=n=10)CHMF.jpg,"5*5均值滤波")
+[10*10均值滤波](/assets/images/MeanFilter/(Q=6&m=n=5)CHMF.jpg,"10*10均值滤波")
+[2*20均值滤波](/assets/images/MeanFilter/(Q=-2&m=n=5)CHMF.jpg,"2*20均值滤波")
+[20*2均值滤波](/assets/images/MeanFilter/(Q=-6&m=n=5)CHMF.jpg,"20*2均值滤波")
 
 # 五、非线性均值滤波器的推广  
 非线性均值滤波器定义为：  
