@@ -2,7 +2,7 @@
 bg: "about_bg.jpg"
 layout: page
 title: "About"
-crawlertitle: "Why and how this blog was created"
+crawlertitle: "About this blog"
 permalink: /about/
 summary: "About this blog"
 active: about
