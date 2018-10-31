@@ -1,5 +1,5 @@
 ---
-​bg: "MeanFilter/origin.jpg"
+bg: "MeanFilter.jpg"
 layout: post
 title:  "均值滤波"
 crawlertitle: "均值滤波"
@@ -19,26 +19,30 @@ $$Img'(x,y)=\frac{1}{mn} \sum_{(s,t) \in S} Img(s,t)$$
 其中S为操作区域。  
 OpenCV中有函数cv::blur可以实现算术均值滤波，原型：  
 
-	void cv::blur(  
-	  	cv::InputArray  src,  							//Input image
-		cv::OutputArray dst,  							//Result image
-		cv::Size 		ksize,  						//Kernel size
-		cv::Point		anchor	=cv::Point(-1,-1),  	//Location of anchor point
-		int 			borderType=cv::BORDER_DEFAULT   //Border extrapolation to use
-	);
+```C++
+void cv::blur(  
+  	cv::InputArray  src,  				//Input image
+	cv::OutputArray dst,  				//Result image
+	cv::Size ksize,						//Kernel size
+	cv::Point anchor=cv::Point(-1,-1),  //Location of anchor point
+	int borderType=cv::BORDER_DEFAULT   //Border extrapolation to use
+);
+```
 
 
 同时OpenCV的盒式滤波cv::boxFilter也可以做到相同的效果，原型：
 
-	void cv::boxFilter(
-		cv::InputArray  src,							//Input image
-		cv::OutputArray dst,							//Output image
-		int				deepth,							//Output depth(e.g.,CV_8U)
-		cv::Size		ksize,							//Kernel size
-		cv::Point		achor		=cv::Point(-1,-1),	//Location of anchor point
-		bool			normalize	=true,			    //If true,divide by box area
-		int				borderType	=cv::BORDER_DEFAULT //Border extrapolation to use
-	);
+```C++
+void cv::boxFilter(
+	cv::InputArray  src,				//Input image
+	cv::OutputArray dst,				//Output image
+	int	deepth,							//Output depth(e.g.,CV_8U)
+	cv::Size ksize,						//Kernel size
+	cv::Point achor=cv::Point(-1,-1),	//Location of anchor point
+	bool normalize=true,				//If true,divide by box area
+	int	borderType=cv::BORDER_DEFAULT 	//Border extrapolation to use
+);
+```
 
 boxFilter用的卷积核如下：
 
@@ -62,12 +66,12 @@ Asize.height*Asize.width& \text{normalize=true}\\\\
 
 滤波效果如下（按顺序分别为原图像、(5,5)卷积核滤波，(20,20)卷积核滤波，(1,20)卷积核滤波，(20,1)卷积核滤波，未归一化的(2,2)卷积核滤波）：  
 <figure class="Img">
-    <img src="/images/DIP/MeanFilter/origin.jpg" title='原图像' width="230"/>
-    <img src="/images/DIP/MeanFilter/(5,5)boxfilter.jpg" title='5*5均值滤波' width="230"/>
-	<img src="/images/DIP/MeanFilter/(20,20)boxfilter.jpg"  title='20*20均值滤波' width="230"/>
-	<img src="/images/DIP/MeanFilter/(1,20)boxfilter.jpg"  title='1*20均值滤波' width="230"/>
-	<img src="/images/DIP/MeanFilter/(20,1)boxfilter.jpg"  title='20*1均值滤波' width="230"/>
-	<img src="/images/DIP/MeanFilter/boxfilter.jpg"  title='2*2未归一化的盒状滤波' width="230"/>
+    <img src="/assets/images/MeanFilter/origin.jpg" title='原图像' width="230"/>
+    <img src="/assets/images/MeanFilter/(5,5)boxfilter.jpg" title='5*5均值滤波' width="230"/>
+	<img src="/assets/images/MeanFilter/(20,20)boxfilter.jpg"  title='20*20均值滤波' width="230"/>
+	<img src="/assets/images/MeanFilter/(1,20)boxfilter.jpg"  title='1*20均值滤波' width="230"/>
+	<img src="/assets/images/MeanFilter/(20,1)boxfilter.jpg"  title='20*1均值滤波' width="230"/>
+	<img src="/assets/images/MeanFilter/boxfilter.jpg"  title='2*2未归一化的盒状滤波' width="230"/>
 </figure>  
 
 可以看出，算术均值滤波器能够有效过滤一些细节，但同时也模糊了边缘信息。
@@ -79,37 +83,39 @@ $$\begin{equation} Img'(x,y)= [ \prod_{(s,t)\in S} Img(s,t)  ] \end{equation}^\f
 
 Pyhton实现： 
 
-	import numpy as np
-	
-	def GMF(img,m,n):
-	    img=img.astype('float64')
-	
-	    def multiply(a):
-	        s = 1
-	        for i in range(a.shape[0]):
-	            for j in range(a.shape[1]):
-	                s *= a[i][j]
-	        return s
-	
-	    row = img.shape[0]
-	    col = img.shape[1]
-	    Img = img.copy()
-	    img1 = np.zeros((row + 2 * int(m / 2), col + 2 * int(n / 2)))
-	    img1[int(m / 2):-int(m / 2), int(n / 2):-int(n / 2)] = img
-	    for i in range(row):
-	        for j in range(col):
-	            Img[i][j] = multiply(img1[i:i + m, j:j + n])**(1/(m*n))
-	    return Img
+```Python
+import numpy as np
+
+def GMF(img,m,n):
+    img=img.astype('float64')
+
+    def multiply(a):
+        s = 1
+        for i in range(a.shape[0]):
+            for j in range(a.shape[1]):
+                s *= a[i][j]
+        return s
+
+    row = img.shape[0]
+    col = img.shape[1]
+    Img = img.copy()
+    img1 = np.zeros((row + 2 * int(m / 2), col + 2 * int(n / 2)))
+    img1[int(m / 2):-int(m / 2), int(n / 2):-int(n / 2)] = img
+    for i in range(row):
+        for j in range(col):
+            Img[i][j] = multiply(img1[i:i + m, j:j + n])**(1/(m*n))
+    return Img
+```
 
 滤波效果（按顺序分别为原图像，(2,2)滤波，(5,5)滤波，(10,10)滤波，(2,20)滤波，(20,2)滤波）：  
 
 <figure class="Img">
-    <img src="/images/DIP/MeanFilter/origin.jpg" title='原图像' width="230"/>
-	<img src="/images/DIP/MeanFilter/(2,2)GMF.jpg"  title='2*2滤波' width="230"/>
-    <img src="/images/DIP/MeanFilter/(5,5)GMF.jpg" title='5*5均值滤波' width="230"/>
-	<img src="/images/DIP/MeanFilter/(10,10)GMF.jpg"  title='10*10均值滤波' width="230"/>
-	<img src="/images/DIP/MeanFilter/(2,20)GMF.jpg"  title='2*20均值滤波' width="230"/>
-	<img src="/MeanFilter/(20,2)GMF.jpg"  title='20*2均值滤波' width="230"/>
+    <img src="/assets/images/MeanFilter/origin.jpg" title='原图像' width="230"/>
+	<img src="/assets/images/MeanFilter/(2,2)GMF.jpg"  title='2*2滤波' width="230"/>
+    <img src="/assets/images/MeanFilter/(5,5)GMF.jpg" title='5*5均值滤波' width="230"/>
+	<img src="/assets/images/MeanFilter/(10,10)GMF.jpg"  title='10*10均值滤波' width="230"/>
+	<img src="/assets/images/MeanFilter/(2,20)GMF.jpg"  title='2*20均值滤波' width="230"/>
+	<img src="/assets/images/MeanFilter/(20,2)GMF.jpg"  title='20*2均值滤波' width="230"/>
 </figure>  
 
 黑色边框是因为0边界扩展导致的。
@@ -120,37 +126,39 @@ $$\begin{equation} Img'(x,y)=\frac{mn}{\sum_{(s,t)\in S}\frac{1}{Img(s,t)}} \end
 
 Python实现：  
 
-	import numpy as np
-	
-	def HMF(img,m,n):#谐波均值滤波
-	    img = img.astype('float64')
-	
-	    def multi(a):
-	        s = 0
-	        for i in range(a.shape[0]):
-	            for j in range(a.shape[1]):
-	                s += 1/a[i][j]
-	        return 1/s
-	
-	    row = img.shape[0]
-	    col = img.shape[1]
-	    Img = img.copy()
-	    img1 = np.zeros((row + 2 * int(m / 2), col + 2 * int(n / 2)))
-	    img1[int(m / 2):-int(m / 2), int(n / 2):-int(n / 2)] = img
-	    for i in range(row):
-	        for j in range(col):
-	            Img[i][j] = mutiply(img1[i:i + m, j:j + n])*m*n
-	    return Img  
+```python
+import numpy as np
+
+def HMF(img,m,n):#谐波均值滤波
+    img = img.astype('float64')
+
+    def multi(a):
+        s = 0
+        for i in range(a.shape[0]):
+            for j in range(a.shape[1]):
+                s += 1/a[i][j]
+        return 1/s
+
+    row = img.shape[0]
+    col = img.shape[1]
+    Img = img.copy()
+    img1 = np.zeros((row + 2 * int(m / 2), col + 2 * int(n / 2)))
+    img1[int(m / 2):-int(m / 2), int(n / 2):-int(n / 2)] = img
+    for i in range(row):
+        for j in range(col):
+            Img[i][j] = mutiply(img1[i:i + m, j:j + n])*m*n
+    return Img  
+```
 
 滤波效果（按顺序分别为原图像，(2,2)滤波，(5,5)滤波，(10,10)滤波，(2,20)滤波，(20,2)滤波）： 
 
 <figure class="Img">
-    <img src="/MeanFilter/origin.jpg" title='原图像' width="230"/>
-	<img src="/MeanFilter/(2,2)HMF.jpg"  title='2*2滤波' width="230"/>
-    <img src="/MeanFilter/(5,5)HMF.jpg" title='5*5均值滤波' width="230"/>
-	<img src="/MeanFilter/(10,10)HMF.jpg"  title='10*10均值滤波' width="230"/>
-	<img src="/MeanFilter/(2,20)HMF.jpg"  title='2*20均值滤波' width="230"/>
-	<img src="/MeanFilter/(20,2)HMF.jpg"  title='20*2均值滤波' width="230"/>
+    <img src="/assets/images/MeanFilter/origin.jpg" title='原图像' width="230"/>
+	<img src="/assets/images/MeanFilter/(2,2)HMF.jpg"  title='2*2滤波' width="230"/>
+    <img src="/assets/images/MeanFilter/(5,5)HMF.jpg" title='5*5均值滤波' width="230"/>
+	<img src="/assets/images/MeanFilter/(10,10)HMF.jpg"  title='10*10均值滤波' width="230"/>
+	<img src="/assets/images/MeanFilter/(2,20)HMF.jpg"  title='2*20均值滤波' width="230"/>
+	<img src="/assets/images/MeanFilter/(20,2)HMF.jpg"  title='20*2均值滤波' width="230"/>
 </figure>  
 
 
@@ -161,39 +169,41 @@ $$\begin{equation} Img'(x,y)=\frac{\sum Img(s,t)^{Q+1}}{\sum Img(s,t)^{Q}} \end{
 
 Python实现：  
 
-	import numpy as np
-	
-	def CHMF(img,m,n,Q):
-		img = img.astype('float64')
-	
-	    def multi(a):
-	        s1 = 0
-	        s2=0
-	        for i in range(a.shape[0]):
-	            for j in range(a.shape[1]):
-	                s1 +=a[i][j]**Q
-	                s2+=a[i][j]**(Q+1)
-	        return s2/s1
-	
-	    row = img.shape[0]
-	    col = img.shape[1]
-	    Img = img.copy()
-	    img1 = np.zeros((row + 2 * int(m / 2), col + 2 * int(n / 2)))
-	    img1[int(m / 2):-int(m / 2), int(n / 2):-int(n / 2)] = img
-	    for i in range(row):
-	        for j in range(col):
-	            Img[i][j] = multi(img1[i:i + m, j:j + n])
-	    return Img  
+```Python
+import numpy as np
+
+def CHMF(img,m,n,Q):
+	img = img.astype('float64')
+
+    def multi(a):
+        s1 = 0
+        s2=0
+        for i in range(a.shape[0]):
+            for j in range(a.shape[1]):
+                s1 +=a[i][j]**Q
+                s2+=a[i][j]**(Q+1)
+        return s2/s1
+
+    row = img.shape[0]
+    col = img.shape[1]
+    Img = img.copy()
+    img1 = np.zeros((row + 2 * int(m / 2), col + 2 * int(n / 2)))
+    img1[int(m / 2):-int(m / 2), int(n / 2):-int(n / 2)] = img
+    for i in range(row):
+        for j in range(col):
+            Img[i][j] = multi(img1[i:i + m, j:j + n])
+    return Img  
+```
 
 滤波效果（按顺序原图像、Q=2&m=n=5，Q=2&m=n=10，Q=6&m=n=5，Q=-2&m=n=5，Q=-6&m=n=5）：
 
 <figure class="Img">
-    <img src="/images/DIP/MeanFilter/origin.jpg" title='原图像' width="230"/>
-	<img src="/images/DIP/MeanFilter/(Q=2&m=n=5)CHMF.jpg"  title='2*2滤波' width="230"/>
-    <img src="/images/DIP/MeanFilter/(Q=2&m=n=10)CHMF.jpg" title='5*5均值滤波' width="230"/>
-	<img src="/images/DIP/MeanFilter/(Q=6&m=n=5)CHMF.jpg"  title='10*10均值滤波' width="230"/>
-	<img src="/images/DIP/MeanFilter/(Q=-2&m=n=5)CHMF.jpg"  title='2*20均值滤波' width="230"/>
-	<img src="/images/DIP/MeanFilter/(Q=-6&m=n=5)CHMF.jpg"  title='20*2均值滤波' width="230"/>
+    <img src="/assets/images/images/DIP/MeanFilter/origin.jpg" title='原图像' width="230"/>
+	<img src="/assets/images/images/DIP/MeanFilter/(Q=2&m=n=5)CHMF.jpg"  title='2*2滤波' width="230"/>
+    <img src="/assets/images/images/DIP/MeanFilter/(Q=2&m=n=10)CHMF.jpg" title='5*5均值滤波' width="230"/>
+	<img src="/assets/images/images/DIP/MeanFilter/(Q=6&m=n=5)CHMF.jpg"  title='10*10均值滤波' width="230"/>
+	<img src="/assets/images/images/DIP/MeanFilter/(Q=-2&m=n=5)CHMF.jpg"  title='2*20均值滤波' width="230"/>
+	<img src="/assets/images/images/DIP/MeanFilter/(Q=-6&m=n=5)CHMF.jpg"  title='20*2均值滤波' width="230"/>
 </figure>  
 
 # 五、非线性均值滤波器的推广  
