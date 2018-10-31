@@ -11,6 +11,7 @@ author: Chaf
 ---
 
 本文介绍均值滤波算法。
+<!-- more --!>
 
 # 一、算术均值滤波器Arithmetic Mean Filter
 
