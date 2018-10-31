@@ -1,6 +1,5 @@
 ---
-​---
-bg: "MeanFilter/origin.jpg"
+​bg: "MeanFilter/origin.jpg"
 layout: post
 title:  "均值滤波"
 crawlertitle: "均值滤波"
@@ -9,7 +8,6 @@ date:   2018-06-28 20:30:00 +0700
 categories: posts
 tags: ['数字图像处理']
 author: Chaf
-​---
 ---
 
 均值滤波通过对像素邻域取平均来达到降低噪声影响。
