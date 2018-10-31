@@ -1,0 +1,321 @@
+---
+layout: post
+title: 巴特沃斯滤波器
+categories: DIP
+date: 2018-07-02T20:30:00.000Z
+---
+
+巴特沃斯滤波器滤波分析
+
+# 一、巴特沃斯低通滤波器  
+
+巴特沃斯低通滤波器表示为：  
+$$H(u,v)=\frac{1}{1+(\frac{D(u,v)}{d})^{2n}}$$  
+
+其中 $$D(u,v)=[(u-P/2)^2+(v-Q/2)^2]^\frac{1}{2}$$  
+P和Q为图像填充后的长宽，D(u,v）即表示点(u,v)到中心的距离,n表示阶数。  
+
+下图分别为
+d=10&n=1,  
+d=20&n=1,  
+d=30&n=1,  
+d=10&n=2,  
+d=20&n=2,  
+d=30&n=2  
+的巴特沃斯低通滤波器图像：  
+
+<figure class="Img">
+	<img src="./DIP/ButterworthFilter/BLPF_Mask_10_1.jpeg" title='10_1' width='230'\>
+	<img src="./DIP/ButterworthFilter/BLPF_Mask_20_1.jpeg" title='20_1' width='230'\>
+	<img src="./DIP/ButterworthFilter/BLPF_Mask_30_1.jpeg" title='30_1' width='230'\>
+	<img src="./DIP/ButterworthFilter/BLPF_Mask_10_2.jpeg" title='10_2' width='230'\>
+	<img src="./DIP/ButterworthFilter/BLPF_Mask_20_2.jpeg" title='20_2' width='230'\>
+	<img src="./DIP/ButterworthFilter/BLPF_Mask_30_2.jpeg" title='30_2' width='230'\>
+
+</figure>  
+
+频谱:
+
+d=10&n=1,  
+
+![](./DIP/ButterworthFilter/BLPF_Spectrum_10_1.jpeg "d=10&n=1")  
+
+d=20&n=1,  
+
+![](./DIP/ButterworthFilter/BLPF_Spectrum_20_1.jpeg "d=20&n=1")  
+
+d=30&n=1,  
+
+![](./DIP/ButterworthFilter/BLPF_Spectrum_30_1.jpeg "d=30&n=1")  
+
+d=10&n=2,   
+
+![](./DIP/ButterworthFilter/BLPF_Spectrum_10_2.jpeg "d=10&n=2")  
+
+d=20&n=2,  
+
+![](./DIP/ButterworthFilter/BLPF_Spectrum_20_2.jpeg "d=20&n=2")  
+
+d=30&n=2
+
+![](./DIP/ButterworthFilter/BLPF_Spectrum_30_2.jpeg "d=30&n=2")   
+
+处理效果：  
+
+原始图像：
+
+![](./DIP/ButterworthFilter/origin.jpg "原图")  
+
+经过d=10&n=1,  
+d=20&n=1,  
+d=30&n=1,  
+d=10&n=2,  
+d=20&n=2,  
+d=30&n=2  
+处理后：  
+
+<figure class="Img">
+	<img src="./DIP/ButterworthFilter/BLPF_10_1.jpeg" title='10_1' width='230'\>
+	<img src="./DIP/ButterworthFilter/BLPF_20_1.jpeg" title='20_1' width='230'\>
+	<img src="./DIP/ButterworthFilter/BLPF_30_1.jpeg" title='30_1' width='230'\>
+	<img src="./DIP/ButterworthFilter/BLPF_10_2.jpeg" title='10_2' width='230'\>
+	<img src="./DIP/ButterworthFilter/BLPF_20_2.jpeg" title='20_2' width='230'\>
+	<img src="./DIP/ButterworthFilter/BLPF_30_2.jpeg" title='30_2' width='230'\>
+</figure>  
+
+
+
+# 二、巴特沃斯高通滤波器  
+
+高斯高通滤波器表示为：  
+$$H(u,v)=\frac{1}{1+(\frac{d}{D(u,v)})^{2n}}$$  
+
+其中 $$D(u,v)=[(u-P/2)^2+(v-Q/2)^2]^\frac{1}{2}$$  
+P和Q为图像填充后的长宽，D(u,v）即表示点(u,v)到中心的距离，n表示阶数。  
+
+下图分别为
+d=10&n=1,  
+d=20&n=1,  
+d=30&n=1,  
+d=10&n=2,  
+d=20&n=2,  
+d=30&n=2  
+的巴特沃斯高通滤波器图像：  
+
+<figure class="Img">
+	<img src="./DIP/ButterworthFilter/BHPF_Mask_10_1.jpeg" title='10_1' width='230'\>
+	<img src="./DIP/ButterworthFilter/BHPF_Mask_20_1.jpeg" title='20_1' width='230'\>
+	<img src="./DIP/ButterworthFilter/BHPF_Mask_30_1.jpeg" title='30_1' width='230'\>
+	<img src="./DIP/ButterworthFilter/BHPF_Mask_10_2.jpeg" title='10_2' width='230'\>
+	<img src="./DIP/ButterworthFilter/BHPF_Mask_20_2.jpeg" title='20_2' width='230'\>
+	<img src="./DIP/ButterworthFilter/BHPF_Mask_30_2.jpeg" title='30_2' width='230'\>
+
+</figure>  
+
+频谱:
+
+d=10&n=1,  
+
+![](./DIP/ButterworthFilter/BHPF_Spectrum_10_1.jpeg "d=10&n=1")  
+
+d=20&n=1,  
+
+![](./DIP/ButterworthFilter/BHPF_Spectrum_20_1.jpeg "d=20&n=1")  
+
+d=30&n=1,  
+
+![](./DIP/ButterworthFilter/BHPF_Spectrum_30_1.jpeg "d=30&n=1")  
+
+d=10&n=2,   
+
+![](./DIP/ButterworthFilter/BHPF_Spectrum_10_2.jpeg "d=10&n=2")  
+
+d=20&n=2,  
+
+![](./DIP/ButterworthFilter/BHPF_Spectrum_20_2.jpeg "d=20&n=2")  
+
+d=30&n=2
+
+![](./DIP/ButterworthFilter/BHPF_Spectrum_30_2.jpeg "d=30&n=2")   
+
+处理效果：  
+
+原始图像：
+
+![](./DIP/ButterworthFilter/origin.jpg "原图")  
+
+经过d=10&n=1,  
+d=20&n=1,  
+d=30&n=1,  
+d=10&n=2,  
+d=20&n=2,  
+d=30&n=2  
+处理后：  
+
+<figure class="Img">
+	<img src="./DIP/ButterworthFilter/BHPF_10_1.jpeg" title='10_1' width='230'\>
+	<img src="./DIP/ButterworthFilter/BHPF_20_1.jpeg" title='20_1' width='230'\>
+	<img src="./DIP/ButterworthFilter/BHPF_30_1.jpeg" title='30_1' width='230'\>
+	<img src="./DIP/ButterworthFilter/BHPF_10_2.jpeg" title='10_2' width='230'\>
+	<img src="./DIP/ButterworthFilter/BHPF_20_2.jpeg" title='20_2' width='230'\>
+	<img src="./DIP/ButterworthFilter/BHPF_30_2.jpeg" title='30_2' width='230'\>
+</figure>  
+
+
+
+# 三、巴特沃斯带阻滤波器  
+
+高斯带阻滤波器表示为：  
+$$H(u,v)=1-e^{-(\frac{D^2-D_0^2}{DW})^2}$$  
+
+其中 $$D(u,v)=[(u-P/2)^2+(v-Q/2)^2]^\frac{1}{2}$$  
+P和Q为图像填充后的长宽，D(u,v）即表示点(u,v)到中心的距离，d表示通带到中心距离，W表示带宽，n表示阶数。   
+
+
+下图分别为:  
+d=10&W=10&n=1，  
+d=10&W=10&n=5，  
+d=10&W=30&n=1，  
+d=10&W=30&n=5，  
+d=50&W=10&n=1，  
+d=50&W=10&n=5，  
+d=50&W=30&n=1，  
+d=50&W=30&n=5  
+的高斯带阻滤波器图像：  
+
+<figure class="Img">
+	<img src="./DIP/ButterworthFilter/BBRPF_Mask_10_10_1.jpeg" title='10_10_1' width='170'\>
+	<img src="./DIP/ButterworthFilter/BBRPF_Mask_10_10_5.jpeg" title='10_10_5' width='170'\>
+	<img src="./DIP/ButterworthFilter/BBRPF_Mask_10_30_1.jpeg" title='10_30_1' width='170'\>
+	<img src="./DIP/ButterworthFilter/BBRPF_Mask_10_30_5.jpeg" title='10_30_5' width='170'\>
+	<img src="./DIP/ButterworthFilter/BBRPF_Mask_50_10_1.jpeg" title='50_10_1' width='170'\>
+	<img src="./DIP/ButterworthFilter/BBRPF_Mask_50_10_5.jpeg" title='50_10_5' width='170'\>
+	<img src="./DIP/ButterworthFilter/BBRPF_Mask_50_30_1.jpeg" title='50_30_1' width='170'\>
+	<img src="./DIP/ButterworthFilter/BBRPF_Mask_50_30_5.jpeg" title='50_30_5' width='170'\>
+</figure>  
+
+频谱:
+
+d=10&W=10&n=1:  
+![](./DIP/ButterworthFilter/BBRPF_Spectrum_10_10_1.jpeg "d=10&W=10&n=1")   
+d=10&W=10&n=5:   
+![](./DIP/ButterworthFilter/BBRPF_Spectrum_10_10_5.jpeg "d=10&W=10&n=5") 
+d=10&W=30&n=1:   
+![](./DIP/ButterworthFilter/BBRPF_Spectrum_10_30_1.jpeg "d=10&W=30&n=1") 
+d=10&W=30&n=5:  
+![](./DIP/ButterworthFilter/BBRPF_Spectrum_10_30_5.jpeg "d=10&W=30&n=5") 
+d=50&W=10&n=1:    
+![](./DIP/ButterworthFilter/BBRPF_Spectrum_50_10_1.jpeg "d=50&W=10&n=1") 
+d=50&W=10&n=5:    
+![](./DIP/ButterworthFilter/BBRPF_Spectrum_50_10_5.jpeg "d=50&W=10&n=5") 
+d=50&W=30&n=1:    
+![](./DIP/ButterworthFilter/BBRPF_Spectrum_50_30_1.jpeg "d=50&W=30&n=1") 
+d=50&W=30&n=5:   
+![](./DIP/ButterworthFilter/BBRPF_Spectrum_50_30_5.jpeg "d=50&W=30&n=5") 
+
+处理效果：  
+
+原始图像：
+
+![](./DIP/ButterworthFilter/origin.jpg "原图")  
+
+经过  
+d=10&W=10&n=1，  
+d=10&W=10&n=5，  
+d=10&W=30&n=1，  
+d=10&W=30&n=5，  
+d=50&W=10&n=1，  
+d=50&W=10&n=5，  
+d=50&W=30&n=1，  
+d=50&W=30&n=5  
+高斯带阻滤波器处理后图像：  
+
+<figure class="Img">
+	<img src="./DIP/ButterworthFilter/BBRPF_10_10_1.jpeg" title='10_10_1' width='170'\>
+	<img src="./DIP/ButterworthFilter/BBRPF_10_10_5.jpeg" title='10_10_5' width='170'\>
+	<img src="./DIP/ButterworthFilter/BBRPF_10_30_1.jpeg" title='10_30_1' width='170'\>
+	<img src="./DIP/ButterworthFilter/BBRPF_10_30_5.jpeg" title='10_30_5' width='170'\>
+	<img src="./DIP/ButterworthFilter/BBRPF_50_10_1.jpeg" title='50_10_1' width='170'\>
+	<img src="./DIP/ButterworthFilter/BBRPF_50_10_5.jpeg" title='50_10_5' width='170'\>
+	<img src="./DIP/ButterworthFilter/BBRPF_50_30_1.jpeg" title='50_30_1' width='170'\>
+	<img src="./DIP/ButterworthFilter/BBRPF_50_30_5.jpeg" title='50_30_5' width='170'\>
+</figure>  
+
+
+# 四、高斯带通滤波器  
+
+高斯带通滤波器表示为：  
+$$H(u,v)=e^{-(\frac{D^2-D_0^2}{DW})^2}$$  
+
+其中 $$D(u,v)=[(u-P/2)^2+(v-Q/2)^2]^\frac{1}{2}$$  
+P和Q为图像填充后的长宽，D(u,v）即表示点(u,v)到中心的距离，d表示通带到中心距离，W表示带宽，n为阶数。   
+
+
+下图分别为:  
+d=10&W=10&n=1，  
+d=10&W=10&n=5，  
+d=10&W=30&n=1，  
+d=10&W=30&n=5，  
+d=50&W=10&n=1，  
+d=50&W=10&n=5，  
+d=50&W=30&n=1，  
+d=50&W=30&n=5  
+的高斯带阻滤波器图像：  
+
+<figure class="Img">
+	<img src="./DIP/ButterworthFilter/BBPPF_Mask_10_10_1.jpeg" title='10_10_1' width='170'\>
+	<img src="./DIP/ButterworthFilter/BBPPF_Mask_10_10_5.jpeg" title='10_10_5' width='170'\>
+	<img src="./DIP/ButterworthFilter/BBPPF_Mask_10_30_1.jpeg" title='10_30_1' width='170'\>
+	<img src="./DIP/ButterworthFilter/BBPPF_Mask_10_30_5.jpeg" title='10_30_5' width='170'\>
+	<img src="./DIP/ButterworthFilter/BBPPF_Mask_50_10_1.jpeg" title='50_10_1' width='170'\>
+	<img src="./DIP/ButterworthFilter/BBPPF_Mask_50_10_5.jpeg" title='50_10_5' width='170'\>
+	<img src="./DIP/ButterworthFilter/BBPPF_Mask_50_30_1.jpeg" title='50_30_1' width='170'\>
+	<img src="./DIP/ButterworthFilter/BBPPF_Mask_50_30_5.jpeg" title='50_30_5' width='170'\>
+</figure>  
+
+频谱:
+
+d=10&W=10&n=1:  
+![](./DIP/ButterworthFilter/BBPPF_Spectrum_10_10_1.jpeg "d=10&W=10&n=1")   
+d=10&W=10&n=5:   
+![](./DIP/ButterworthFilter/BBPPF_Spectrum_10_10_5.jpeg "d=10&W=10&n=5") 
+d=10&W=30&n=1:   
+![](./DIP/ButterworthFilter/BBPPF_Spectrum_10_30_1.jpeg "d=10&W=30&n=1") 
+d=10&W=30&n=5:  
+![](./DIP/ButterworthFilter/BBPPF_Spectrum_10_30_5.jpeg "d=10&W=30&n=5") 
+d=50&W=10&n=1:    
+![](./DIP/ButterworthFilter/BBPPF_Spectrum_50_10_1.jpeg "d=50&W=10&n=1") 
+d=50&W=10&n=5:    
+![](./DIP/ButterworthFilter/BBPPF_Spectrum_50_10_5.jpeg "d=50&W=10&n=5") 
+d=50&W=30&n=1:    
+![](./DIP/ButterworthFilter/BBPPF_Spectrum_50_30_1.jpeg "d=50&W=30&n=1") 
+d=50&W=30&n=5:   
+![](./DIP/ButterworthFilter/BBPPF_Spectrum_50_30_5.jpeg "d=50&W=30&n=5") 
+
+处理效果：  
+
+原始图像：
+
+![](./DIP/ButterworthFilter/origin.jpg "原图")  
+
+经过  
+d=10&W=10&n=1，  
+d=10&W=10&n=5，  
+d=10&W=30&n=1，  
+d=10&W=30&n=5，  
+d=50&W=10&n=1，  
+d=50&W=10&n=5，  
+d=50&W=30&n=1，  
+d=50&W=30&n=5  
+高斯带阻滤波器处理后图像：  
+
+<figure class="Img">
+	<img src="./DIP/ButterworthFilter/BBPPF_10_10_1.jpeg" title='10_10_1' width='170'\>
+	<img src="./DIP/ButterworthFilter/BBPPF_10_10_5.jpeg" title='10_10_5' width='170'\>
+	<img src="./DIP/ButterworthFilter/BBPPF_10_30_1.jpeg" title='10_30_1' width='170'\>
+	<img src="./DIP/ButterworthFilter/BBPPF_10_30_5.jpeg" title='10_30_5' width='170'\>
+	<img src="./DIP/ButterworthFilter/BBPPF_50_10_1.jpeg" title='50_10_1' width='170'\>
+	<img src="./DIP/ButterworthFilter/BBPPF_50_10_5.jpeg" title='50_10_5' width='170'\>
+	<img src="./DIP/ButterworthFilter/BBPPF_50_30_1.jpeg" title='50_30_1' width='170'\>
+	<img src="./DIP/ButterworthFilter/BBPPF_50_30_5.jpeg" title='50_30_5' width='170'\>
+</figure>  
