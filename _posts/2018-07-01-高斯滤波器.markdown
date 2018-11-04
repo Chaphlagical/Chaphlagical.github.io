@@ -1,20 +1,17 @@
 ---
-bg: "MeanFilter.jpg"
+bg: "GaussFilter.jpg"
 layout: post
-title:  "均值滤波"
-crawlertitle: "均值滤波"
-summary: "均值滤波解析"
-date:   2018-06-28 20:30:00 +0700
+title:  "高斯滤波"
+crawlertitle: "高斯滤波"
+summary: "高斯滤波解析"
+date:   2018-07-01 20:30:00 +0700
 categories: posts
 tags: ['数字图像处理']
 author: Chaf
 ---
 
-<img src="./DIP/GaussFilter/origin.jpg" width='480'>
+高斯滤波器滤波分析  
 
-高斯滤波器滤波分析
-
-<!-- more -->
 # 一、高斯低通滤波器  
 
 理想高斯滤波器表示为：  
