@@ -3,7 +3,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/png" href="favicon.png">
-<script type="text/x-mathjax-config">
+<!--  <script type="text/x-mathjax-config">
 var mathId = document.getElementById("post-content"); //选择公式识别范围
 MathJax.Hub.Config({
     showProcessingMessages: false, //关闭js加载过程信息
@@ -21,7 +21,13 @@ MathJax.Hub.Config({
     }
 });
 MathJax.Hub.Queue(["Typeset",MathJax.Hub,mathId]);
+</script>  --->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
 </script>
+
 <script src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
     {% if page.crawlertitle %}
