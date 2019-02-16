@@ -7,7 +7,7 @@ crawlertitle: "All articles"
 summary: "All articles"
 active: archive
 ---
-
+  <link rel="icon" type="image/png" href="favicon.png">
 {% for tag in site.tags %}
   {% assign t = tag | first %}
   {% assign posts = tag | last %}
