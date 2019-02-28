@@ -9,12 +9,13 @@ import sys
 import threading
 
 name=input("输入文章标题：")
+tag=input("输入分类：")
 t=time.strftime('%Y-%m-%d',time.localtime(time.time()))
 T=time.strftime('%Y-%m-%d %H:%m:%S',time.localtime(time.time()))
 file_name=t+'-'+name+'.md'
 os.system("touch ./_posts/"+file_name)
 file=open("./_posts/"+file_name,'r+')
-file.write('---\nbg: "'+t+'.jpg"\nlayout: post\ntitle:  "'+name+'"\ncrawlertitle: "'+name+'"\nsummary: "'+name+'"\ndate:   '+T+' +0700\ncategories: posts\ntags: [\''+name+'\']\nauthor: Chaf\n---')
+file.write('---\nbg: "'+t+'.jpg"\nlayout: post\ntitle:  "'+name+'"\ncrawlertitle: "'+name+'"\nsummary: "'+name+'"\ndate:   '+T+' +0700\ncategories: posts\ntags: [\''+tag+'\']\nauthor: Chaf\n---')
 file.close()
 
 '''img=None
