@@ -168,7 +168,69 @@ visual_tools.trigger();
 visual_tools.prompt("Press 'next' in the RvizVisualToolsGui window to continue the demo");
 ```
 
+## 八、路径约束规划
 
+定义路径约束：
+
+```c++
+moveit_msgs::OrientationConstraint ocm;
+ocm.link_name = "panda_link7";
+ocm.header.frame_id = "panda_link0";
+ocm.orientation.w = 1.0;
+ocm.absolute_x_axis_tolerance = 0.1;
+ocm.absolute_y_axis_tolerance = 0.1;
+ocm.absolute_z_axis_tolerance = 0.1;
+ocm.weight = 1.0;
+```
+
+为指定组设置路径约束
+
+```c++
+moveit_msgs::Constraints test_constraints;
+test_constraints.orientation_constraints.push_back(ocm);
+move_group.setPathConstraints(test_constraints);
+```
+
+设置末端执行器目标位姿
+
+```c++
+robot_state::RobotState start_state(*move_group.getCurrentState());
+geometry_msgs::Pose start_pose2;
+start_pose2.orientation.w = 1.0;
+start_pose2.position.x = 0.55;
+start_pose2.position.y = -0.05;
+start_pose2.position.z = 0.8;
+start_state.setFromIK(joint_model_group, start_pose2);
+move_group.setStartState(start_state);
+```
+
+规划从新的开始姿态移动到之前的目标姿态
+
+```c++
+move_group.setPoseTarget(target_pose1);
+move_group.setPlanningTime(10.0);
+
+success = (move_group.plan(my_plan) == moveit::planning_interface::MoveItErrorCode::SUCCESS);
+ROS_INFO_NAMED("tutorial", "Visualizing plan 3 (constraints) %s", success ? "" : "FAILED");
+```
+
+在Rviz中进行可视化：
+
+```c++
+visual_tools.deleteAllMarkers();
+visual_tools.publishAxisLabeled(start_pose2, "start");
+visual_tools.publishAxisLabeled(target_pose1, "goal");
+visual_tools.publishText(text_pose, "Constrained Goal", rvt::WHITE, rvt::XLARGE);
+visual_tools.publishTrajectoryLine(my_plan.trajectory_, joint_model_group);
+visual_tools.trigger();
+visual_tools.prompt("next step");
+```
+
+清除路径约束：
+
+```c++
+move_group.clearPathConstraints();
+```
 
 
 
