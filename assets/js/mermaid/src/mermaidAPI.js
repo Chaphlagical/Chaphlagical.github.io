@@ -12,38 +12,38 @@
  */
 import * as d3 from 'd3';
 import scope from 'scope-css';
-import pkg from '/assets/js/mermaid/package.json';
-import { setConfig, getConfig } from 'config';
-import { logger, setLogLevel } from 'logger';
-import utils from '/assets/js/mermaid/src/srcutils';
-import flowRenderer from '/assets/js/mermaid/src/diagrams/flowchart/flowRenderer';
-import flowParser from '/assets/js/mermaid/src/diagrams/flowchart/parser/flow';
-import flowDb from '/assets/js/mermaid/src/diagrams/flowchart/flowDb';
-import sequenceRenderer from '/assets/js/mermaid/src/diagrams/sequence/sequenceRenderer';
-import sequenceParser from '/assets/js/mermaid/src/diagrams/sequence/parser/sequenceDiagram';
-import sequenceDb from '/assets/js/mermaid/src/diagrams/sequence/sequenceDb';
-import ganttRenderer from '/assets/js/mermaid/src/diagrams/gantt/ganttRenderer';
-import ganttParser from '/assets/js/mermaid/src/diagrams/gantt/parser/gantt';
-import ganttDb from '/assets/js/mermaid/src/diagrams/gantt/ganttDb';
-import classRenderer from '/assets/js/mermaid/src/diagrams/class/classRenderer';
-import classParser from '/assets/js/mermaid/src/diagrams/class/parser/classDiagram';
-import classDb from '/assets/js/mermaid/src/diagrams/class/classDb';
-import stateRenderer from '/assets/js/mermaid/src/diagrams/state/stateRenderer';
-import stateParser from '/assets/js/mermaid/src/diagrams/state/parser/stateDiagram';
-import stateDb from '/assets/js/mermaid/src/diagrams/state/stateDb';
-import gitGraphRenderer from '/assets/js/mermaid/src/diagrams/git/gitGraphRenderer';
-import gitGraphParser from '/assets/js/mermaid/src/diagrams/git/parser/gitGraph';
-import gitGraphAst from '/assets/js/mermaid/src/diagrams/git/gitGraphAst';
-import infoRenderer from '/assets/js/mermaid/src/diagrams/info/infoRenderer';
-import infoParser from '/assets/js/mermaid/src/diagrams/info/parser/info';
-import infoDb from '/assets/js/mermaid/src/diagrams/info/infoDb';
-import pieRenderer from '/assets/js/mermaid/src/diagrams/pie/pieRenderer';
-import pieParser from '/assets/js/mermaid/src/diagrams/pie/parser/pie';
-import pieDb from '/assets/js/mermaid/src/diagrams/pie/pieDb';
+import pkg from '../package.json';
+import { setConfig, getConfig } from './config';
+import { logger, setLogLevel } from './logger';
+import utils from './utils';
+import flowRenderer from './diagrams/flowchart/flowRenderer';
+import flowParser from './diagrams/flowchart/parser/flow';
+import flowDb from './diagrams/flowchart/flowDb';
+import sequenceRenderer from './diagrams/sequence/sequenceRenderer';
+import sequenceParser from './diagrams/sequence/parser/sequenceDiagram';
+import sequenceDb from './diagrams/sequence/sequenceDb';
+import ganttRenderer from './diagrams/gantt/ganttRenderer';
+import ganttParser from './diagrams/gantt/parser/gantt';
+import ganttDb from './diagrams/gantt/ganttDb';
+import classRenderer from './diagrams/class/classRenderer';
+import classParser from './diagrams/class/parser/classDiagram';
+import classDb from './diagrams/class/classDb';
+import stateRenderer from './diagrams/state/stateRenderer';
+import stateParser from './diagrams/state/parser/stateDiagram';
+import stateDb from './diagrams/state/stateDb';
+import gitGraphRenderer from './diagrams/git/gitGraphRenderer';
+import gitGraphParser from './diagrams/git/parser/gitGraph';
+import gitGraphAst from './diagrams/git/gitGraphAst';
+import infoRenderer from './diagrams/info/infoRenderer';
+import infoParser from './diagrams/info/parser/info';
+import infoDb from './diagrams/info/infoDb';
+import pieRenderer from './diagrams/pie/pieRenderer';
+import pieParser from './diagrams/pie/parser/pie';
+import pieDb from './diagrams/pie/pieDb';
 
 const themes = {};
 for (const themeName of ['default', 'forest', 'dark', 'neutral']) {
-  themes[themeName] = require(`/assets/js/mermaid/src/themes/${themeName}/index.scss`);
+  themes[themeName] = require(`./themes/${themeName}/index.scss`);
 }
 
 /**

@@ -4,8 +4,8 @@
  */
 import he from 'he';
 
-import mermaidAPI from './mermaidAPI';
-import { logger } from './logger';
+import mermaidAPI from 'mermaidAPI';
+import { logger } from 'logger';
 
 /**
  * ## init
