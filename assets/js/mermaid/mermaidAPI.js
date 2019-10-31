@@ -13,8 +13,8 @@
 import * as d3 from 'd3';
 import scope from 'scope-css';
 import pkg from '/assets/js/mermaid/package.json';
-import { setConfig, getConfig } from 'config';
-import { logger, setLogLevel } from 'logger';
+import { setConfig, getConfig } from '/assets/js/mermaid/src/config';
+import { logger, setLogLevel } from '/assets/js/mermaid/src/logger';
 import utils from '/assets/js/mermaid/src/srcutils';
 import flowRenderer from '/assets/js/mermaid/src/diagrams/flowchart/flowRenderer';
 import flowParser from '/assets/js/mermaid/src/diagrams/flowchart/parser/flow';
