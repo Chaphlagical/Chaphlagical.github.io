@@ -1,80 +1,46 @@
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/png" href="favicon.png">
-  <script src="/assets/js/mermaid/src/mermaid.js"></script>
-<!--  <script type="text/x-mathjax-config">
-var mathId = document.getElementById("post-content"); //选择公式识别范围
-MathJax.Hub.Config({
-    showProcessingMessages: false, //关闭js加载过程信息
-    messageStyle: "none", //不显示信息
-    extensions: ["tex2jax.js"],
-    jax: ["input/TeX", "output/HTML-CSS"],
-    tex2jax: {
-        inlineMath: [ ['$','$'], ["\\(","\\)"] ], //行内公式选择符
-        displayMath: [ ['$$','$$'], ["\\[","\\]"] ], //段内公式选择符
-        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre','code','a'] //避开某些标签
-    },
-    "HTML-CSS": {
-        availableFonts: ["STIX","TeX"], //可选字体
-        showMathMenu: false //关闭右击菜单显示
-    }
-});
-MathJax.Hub.Queue(["Typeset",MathJax.Hub,mathId]);
-</script>  -->
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']],
-  displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
-  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre','code','a']}
-});
-</script>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
-<script src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script type='text/javascript' src='{{ site.baseurl }}/assets/js/Bug/bug-min.js'></script>
-    <script type='text/javascript'>
+{%- include snippets/get-article-title.html article=page -%}
+<title>{%- if __return -%}{{ __return }} - {{ site.title }}{%- else -%}{{ site.title }}{%- endif -%}</title>
 
-      new BugController({
-      });
+<meta name="description" content="{%- if page.excerpt -%}{{ page.excerpt | strip_html | strip_newlines | strip | truncate: 160 }}{%- else -%}{{ site.description }}{%- endif -%}">
+<link rel="canonical" href="{%- include snippets/page-url.html -%}">
 
-      new SpiderController({
-      });
-    </script>
+{%- assign _paths_rss = site.paths.rss | default: site.data.variables.default.paths.rss -%}
+{%- include snippets/get-nav-url.html path=_paths_rss -%}
+<link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ __return }}">
+<!-- begin favicon -->
+{%- include snippets/prepend-baseurl.html path='/assets/apple-touch-icon.png' -%}
+<link rel="apple-touch-icon" sizes="180x180" href="{{ __return }}">
 
-    {% if page.crawlertitle %}
-      {{ page.crawlertitle | escape }}
-    {% elsif page.title %}
-      {{ page.title | escape }}
-    {% else %}
-      {{ site.title | escape }}
-    {% endif %}
-  </title>
-  <meta name="description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.description }}{% endif %}">
+{%- include snippets/prepend-baseurl.html path='/assets/favicon-32x32.png' -%}
+<link rel="icon" type="image/png" sizes="32x32" href="{{ __return }}">
 
-  <link rel="canonical" href="{{ page.url | replace:'index.html','' | absolute_url }}">
-  <link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ "/feed.xml" | prepend: site.baseurl | prepend: site.url }}">
+{%- include snippets/prepend-baseurl.html path='/assets/favicon-16x16.png' -%}
+<link rel="icon" type="image/png" sizes="16x16" href="{{ __return }}">
 
-  <link href='https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|Roboto+Condensed:700&subset=latin' rel='stylesheet' type='text/css'>
-  <link rel="stylesheet" href="{{ "/assets/css/main.css" | relative_url }}">
+{%- include snippets/prepend-baseurl.html path='/assets/site.webmanifest' -%}
+<link rel="manifest" href="{{ __return }}">
 
-  <meta property="og:url" content="{{ page.url | absolute_url }}">
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="{{ page.title }}">
-  <meta property="og:description" content="{{ page.summary }}">
-  <meta property="og:site_name" content="{{ site.title }}">
+{%- include snippets/prepend-baseurl.html path='/assets/safari-pinned-tab.svg' -%}
+<link rel="mask-icon" href="{{ __return }}" color="#fc4d50">
 
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:url" content="{{ page.url | absolute_url }}">
-  <meta name="twitter:title" content="{{ page.title }}">
-  <meta name="twitter:description" content="{{ page.summary }}">
+{%- include snippets/prepend-baseurl.html path='/assets/favicon.ico' -%}
+<link rel="shortcut icon" href="{{ __return }}">
 
-  {% if page.bg %}
-    <meta property="og:image" content="{{ site.baseurl | prepend: site.url }}{{ site.images }}/{{ page.bg }}">
-    <meta name="twitter:image" content="{{ site.baseurl | prepend: site.url }}{{ site.images }}/{{ page.bg }}">
-  {% else %}
-    <meta property="og:image" content="{{ site.baseurl | prepend: site.url }}{{ site.images }}/bg.svg">
-    <meta name="twitter:image" content="{{ site.baseurl | prepend: site.url }}{{ site.images }}/bg.svg">
-  {% endif %}
+<meta name="msapplication-TileColor" content="#ffc40d">
 
-</head>
+{%- include snippets/prepend-baseurl.html path='/assets/browserconfig.xml' -%}
+<meta name="msapplication-config" content="{{ __return }}">
+
+<meta name="theme-color" content="#ffffff">
+<!-- end favicon -->
+
+{%- include snippets/prepend-baseurl.html path='/assets/css/main.css' -%}
+<link rel="stylesheet" href="{{ __return }}">
+
+{%- include snippets/get-sources.html -%}
+{%- assign _sources = __return -%}
+<link rel="stylesheet" href="{{ _sources.font_awesome }}" >
