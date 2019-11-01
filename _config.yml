@@ -37,12 +37,12 @@ author:
   type      : person
   name      : Chaf
   url       : chaphlagical.github.io
-  avatar    : # path or url of avatar image
+  avatar    : /favicon.png # path or url of avatar image
   bio       : An undergraduate student from USTC
   email     : chaf@mail.ustc.edu.cn
   facebook  : chaf.chen.3 # "user_name" the last part of your profile url, e.g. https://www.facebook.com/user_name
   twitter   : chen_418199378 # "user_name" the last part of your profile url, e.g. https://twitter.com/user_name
-  googleplus: # "user_id"   the last part of your profile url, e.g. https://plus.google.com/u/0/user_id
+  googleplus:  # "user_id"   the last part of your profile url, e.g. https://plus.google.com/u/0/user_id
   weibo     : # "user_id"   the last part of your profile url, e.g. https://www.weibo.com/user_id/profile?...
   douban    : Chaphlagical/ # "user_name" the last part of your profile url, e.g. https://www.douban.com/people/user_name/
   linkedin  : chaphlagical-chen-40a1a714b/ # "user_name" the last part of your profile url, e.g. https://www.linkedin.com/in/user_name/
@@ -143,7 +143,7 @@ comments:
 ## => Pageview
 ##############################
 pageview:
-  provider: false # false (default), "leancloud", "custom"
+  provider: custom # false (default), "leancloud", "custom"
 
   ## Leancloud
   leancloud:
@@ -155,12 +155,12 @@ pageview:
 ## => Analytics
 ##############################
 analytics:
-  provider: false # false (default), "google", "custom"
+  provider: google # false (default), "google", "custom"
 
   ## Google Analytics
   google:
-    tracking_id : # Google Analytics id for the site
-    anonymize_ip: false # Anonymize IP tracking for Analytics
+    tracking_id : UA-151337983-1 # Google Analytics id for the site
+    anonymize_ip: true # Anonymize IP tracking for Analytics
 
 
 ## => Build
