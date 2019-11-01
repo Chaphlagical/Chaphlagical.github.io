@@ -9,6 +9,8 @@ article_header:
 
 之前入手一个vultr的vps，顺便搭了ss梯子，整理一下。
 
+<!--more-->
+
 ## 一、SS服务器端配置
 
 [GitHub地址](https://github.com/Chaphlagical/shadowsocks)

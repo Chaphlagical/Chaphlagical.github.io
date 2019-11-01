@@ -7,7 +7,7 @@ article_header:
     src: /assets/images/Moveit.jpg
 ---
 
-使用Rviz可视化Moveit!机械臂控制入门
+<!--more-->
 
 ## 一、启动Demo与配置插件
 

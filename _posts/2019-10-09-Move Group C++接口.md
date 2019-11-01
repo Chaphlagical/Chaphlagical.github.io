@@ -7,7 +7,7 @@ article_header:
     src: /assets/images/Moveit.jpg
 ---
 
-本文介绍Moveit!中Move Group的C++接口
+<!--more-->
 
 ## 一、初始化
 
