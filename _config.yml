@@ -135,8 +135,8 @@ comments:
   ## Valine
   # please refer to https://valine.js.org/en/ for more info.
   valine:
-    app_id      : # LeanCloud App id
-    app_key     : # LeanCloud App key
+    app_id      : 6ywjDmbsr8IN0NXc3TnQ38D9-gzGzoHsz # LeanCloud App id
+    app_key     : 0sY35eMmXHr0g2arWDTwKPqV # LeanCloud App key
     placeholder : # Prompt information
 
 

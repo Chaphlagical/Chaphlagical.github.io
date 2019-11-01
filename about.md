@@ -1,1 +1,2 @@
-![](\assets\images\about.jpg)
+# About Blog
+
