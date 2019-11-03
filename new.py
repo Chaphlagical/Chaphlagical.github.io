@@ -19,7 +19,7 @@ file_name=t+'-'+name+'.md'
 #    os.system("touch ./_posts/"+file_name)
 
 file=open("./_posts/"+file_name,'w')
-file.write('---\ntitle: '+name+'\nTags: '+tag+'post\ntitle:  '+name+'\narticle_header:\n  type: cover\n  image:\n    src: /assets/images/'+img+'.jpg'+'\n---\n\n<!--more-->')
+file.write('---\ntitle: '+name+'\ntags: '+tag+'\narticle_header:\n  type: cover\n  image:\n    src: /assets/images/'+img+'.jpg'+'\n---\n\n<!--more-->')
 file.close()
     
 
