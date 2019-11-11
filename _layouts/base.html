@@ -5,7 +5,7 @@ layout: none
 {%- include snippets/get-lang.html -%}
 <html lang="{{ __return }}">
   <head>
-  	<embed src="/bg.mp3" hidden="true" autostart="true" loop="true"></embed>
+
     {%- include analytics.html -%}
     {%- include head.html -%}
     <script>
@@ -16,7 +16,7 @@ layout: none
     {%- include scripts/variables.html -%}
   </head>
   <body>
-
+  	<embed src="/bg.mp3" hidden="true" autostart="true" loop="true"></embed>
     <div class="root" data-is-touch="false">
       {{ content }}
     </div>
