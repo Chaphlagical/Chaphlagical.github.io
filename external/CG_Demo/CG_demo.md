@@ -12,4 +12,4 @@
 
 ## Resource
 
-[VC_redist.x64](VC_redist.x64.exe)
+[VC_redist.x64](https://aka.ms/vs/16/release/vc_redist.x64.exe)
