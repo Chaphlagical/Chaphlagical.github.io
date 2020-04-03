@@ -43,6 +43,6 @@
 ## Demo Video
 
 <video width="100%" height="100%" id="video" controls="" preload="none" poster="">
-      <source id="mp4" src="./MiniSUrfMeshPara/video/demo.mp4" type="video/mp4">
+      <source id="mp4" src="./MiniSurfMeshPara/video/demo.mp4" type="video/mp4">
       </video>
 
