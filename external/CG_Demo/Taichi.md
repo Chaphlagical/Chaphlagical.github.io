@@ -100,3 +100,9 @@ $$
       <source id="mp4" src="./Taichi/blender_fluid.mp4" type="video/mp4">
       </video>
 
+### Demo2
+
+<video width="100%" height="100%" id="video" controls="" preload="none" poster="">
+      <source id="mp4" src="./Taichi/blender_fluid2.mp4" type="video/mp4">
+      </video>
+
