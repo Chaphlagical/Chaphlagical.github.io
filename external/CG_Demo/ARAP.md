@@ -13,3 +13,8 @@
 <video width="100%" height="100%" id="video" controls="" preload="none" poster="">
       <source id="mp4" src="./ARAP/video/demo.mp4" type="video/mp4">
       </video>
+
+## Download
+
+[report](./ARAP/ARAP.pdf)
+

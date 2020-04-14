@@ -41,3 +41,5 @@
 ## Download
 
 [MiniDraw_Demo.zip](./MiniDraw/MiniDraw_Demo.zip)
+
+[report](./MiniDraw/MiniDraw.pdf)

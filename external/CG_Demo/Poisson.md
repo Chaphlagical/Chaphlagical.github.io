@@ -55,3 +55,5 @@
 ## Download
 
 [PoissonImageEditing](./Poisson/PoissonImageEditing.zip)
+
+[report](./Poisson/PoissonImageEditing.pdf)
