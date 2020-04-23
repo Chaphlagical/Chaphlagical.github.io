@@ -9,6 +9,7 @@
 5. [ARAP](ARAP.html)
 6. [Mass Spring](MassSpring.html)
 7. [Simulation Taichi](Taichi.html)
+8. [Shader](Shader.html)
 
 ## Resource
 
