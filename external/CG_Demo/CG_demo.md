@@ -10,6 +10,7 @@
 6. [Mass Spring](MassSpring.html)
 7. [Simulation Taichi](Taichi.html)
 8. [Shader](Shader.html)
+9. [PathTracing](PathTracing.html)
 
 ## Resource
 
