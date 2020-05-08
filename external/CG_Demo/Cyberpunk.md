@@ -41,25 +41,37 @@
 - [x] Character
 - [x] Scene Material
 
-- [ ]  Third Person Controller
-	- [ ] Movement
-		- [ ] Free
-		- [ ] Hold Melee Weapon
-		- [ ] Hold Gun
-	- [ ] Attack
-		- [ ] Melee Combat System
-		- [ ] Shooter Combat System
-	- [ ] NPC AI System
-		- [ ] Companion AI
-		- [ ] Enemy AI
-	- [ ] Weapon System
-		- [ ] Melee Weapon
-		- [ ] Shooter Weapon
-	- [ ] Vehicle System
-		- [ ] Switch
-		- [ ] Vehicle Controller
+- [ ] Third Person Controller
+  - [x] Movement
+  	- [x] Free
+  	- [x] Hold Melee Weapon
+  	- [x] Hold Gun
+  	- [x] Climb System
+  - [x] Attack
+  	- [x] Melee Combat System
+  	- [x] Shooter Combat System
+  	- [x] Stealth Kill
+  - [ ] NPC AI System
+  	- [ ] Companion AI
+  	- [ ] Enemy AI
+  - [x] Weapon System
+  	- [x] Melee Weapon
+  	- [x] Shooter Weapon
+  - [ ] Vehicle System
+  	- [ ] Switch
+  	- [ ] Vehicle Controller
 - [ ] Scene
-	- [ ] Object Collision
-	- [ ] Light Effect
+	- [x] Object Collision
+	- [x] Light Effect
 	- [ ] Vehicle AI
+
+## Demo
+
+<video width="100%" height="100%" id="video" controls="" preload="none" poster="">
+      <source id="mp4" src="./Cyberpunk.assets/videos/demo_1.mp4" type="video/mp4">
+      </video>
+
+<video width="100%" height="100%" id="video" controls="" preload="none" poster="">
+      <source id="mp4" src="./Cyberpunk.assets/videos/demo_2.mp4" type="video/mp4">
+      </video>
 
