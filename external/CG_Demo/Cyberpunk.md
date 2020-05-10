@@ -53,7 +53,7 @@
   	- [x] Stealth Kill
   - [ ] NPC AI System
   	- [ ] Companion AI
-  	- [ ] Enemy AI
+  	- [x] Enemy AI
   - [x] Weapon System
   	- [x] Melee Weapon
   	- [x] Shooter Weapon
@@ -67,11 +67,16 @@
 
 ## Demo
 
+### Weapon System and Third Person Controller
+
 <video width="100%" height="100%" id="video" controls="" preload="none" poster="">
       <source id="mp4" src="./Cyberpunk.assets/videos/demo_1.mp4" type="video/mp4">
-      </video>
+      </video> 
+### NPC Shooter System
+
 
 <video width="100%" height="100%" id="video" controls="" preload="none" poster="">
       <source id="mp4" src="./Cyberpunk.assets/videos/demo_2.mp4" type="video/mp4">
-      </video>
+      </video> 
+
 
