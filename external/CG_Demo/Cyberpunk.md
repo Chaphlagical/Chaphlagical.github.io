@@ -41,7 +41,7 @@
 - [x] Character
 - [x] Scene Material
 
-- [ ] Third Person Controller
+- [x] Third Person Controller
   - [x] Movement
   	- [x] Free
   	- [x] Hold Melee Weapon
@@ -51,8 +51,8 @@
   	- [x] Melee Combat System
   	- [x] Shooter Combat System
   	- [x] Stealth Kill
-  - [ ] NPC AI System
-  	- [ ] Companion AI
+  - [x] NPC AI System
+  	- [x] Companion AI
   	- [x] Enemy AI
   - [x] Weapon System
   	- [x] Melee Weapon
@@ -63,20 +63,10 @@
 - [ ] Scene
 	- [x] Object Collision
 	- [x] Light Effect
-	- [ ] Vehicle AI
+	- [x] Vehicle AI
 
 ## Demo
 
-### Weapon System and Third Person Controller
-
-<video width="100%" height="100%" id="video" controls="" preload="none" poster="">
-      <source id="mp4" src="./Cyberpunk.assets/videos/demo_1.mp4" type="video/mp4">
+<video width="100%" height="100%" id="video" controls="" prelod="none" poster="">
+      <source id="mp4" src="./Cyberpunk.assets/videos/demo.mp4" type="video/mp4">
       </video> 
-### NPC Shooter System
-
-
-<video width="100%" height="100%" id="video" controls="" preload="none" poster="">
-      <source id="mp4" src="./Cyberpunk.assets/videos/demo_2.mp4" type="video/mp4">
-      </video> 
-
-
