@@ -1,4 +1,13 @@
-## 数字图像处理
+---
+title: 数字图像处理
+tags: 数字图像处理
+article_header:
+  type: cover
+  image:
+    src: /assets/images/DIP.jpg
+---
+
+<!--more-->
 
 **图像处理基础：** \[[slide](./slide/图像处理基础.pdf)\] \[[note](./note/2020-03-05-数字图像处理基础)\]
 

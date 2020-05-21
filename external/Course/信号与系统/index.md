@@ -1,4 +1,13 @@
-## 信号与系统
+---
+title: 信号与系统
+tags: 信号与系统
+article_header:
+  type: cover
+  image:
+    src: /assets/images/signal&system.jpeg
+---
+
+<!--more-->
 
 **卷积：** \[[note](./2019-06-25-卷积)\]
 

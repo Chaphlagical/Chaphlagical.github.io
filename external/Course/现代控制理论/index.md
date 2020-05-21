@@ -1,4 +1,13 @@
-## 现代控制理论
+---
+title: 现代控制理论
+tags: 现代控制理论
+article_header:
+  type: cover
+  image:
+    src: /assets/images/control.png
+---
+
+<!--more-->
 
 **第一章：绪论** \[[slide](./Slide/第一章.pdf)\]
 

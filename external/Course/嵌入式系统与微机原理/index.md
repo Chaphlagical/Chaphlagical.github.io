@@ -1,4 +1,13 @@
-## 嵌入式系统与微机原理
+---
+title: 微机原理与嵌入式系统
+tags: 微机原理与嵌入式系统
+article_header:
+  type: cover
+  image:
+    src: /assets/images/embed.jpg
+---
+
+<!--more-->
 
 **概述：** [[slide](./slide/微嵌_第1章.pdf_)] [[note](./note/2020-02-22-微机原理与嵌入式系统概论)]
 
