@@ -67,6 +67,4 @@
 
 ## Demo
 
-<video width="100%" height="100%" id="video" controls="" prelod="none" poster="">
-      <source id="mp4" src="./Cyberpunk.assets/videos/demo.mp4" type="video/mp4">
-      </video> 
+<iframe src="//player.bilibili.com/player.html?aid=925705914&bvid=BV1zT4y1u7Ze&cid=192136832&page=1" scrolling="no" border="no" frameborder="no" framespacing="0" width="640" height="430" allowfullscreen="true"> </iframe>
