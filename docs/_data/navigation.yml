@@ -3,8 +3,10 @@ header:
     url:        /test/
   - title:      Docs
     url:        /docs/en/quick-start
+    key:        docs
   - title:      Samples
     url:        /samples.html
+    key:        samples
   - title:      Archive
     url:        /archive.html
   - title:      About
@@ -34,6 +36,8 @@ docs-en:
         url:    /docs/en/logo-and-favicon
       - title:  Authors
         url:    /docs/en/authors
+      - title:  Internationalization
+        url:    /docs/en/i18n
   - title:      Content
     children:
       - title:  Writing Posts
@@ -89,6 +93,8 @@ docs-zh:
         url:    /docs/zh/logo-and-favicon
       - title:  作者
         url:    /docs/zh/authors
+      - title:  国际化
+        url:    /docs/zh/i18n
   - title:      内容
     children:
       - title:  撰写博客
