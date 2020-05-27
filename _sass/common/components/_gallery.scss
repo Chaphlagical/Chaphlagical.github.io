@@ -8,14 +8,14 @@
   @include flex(1);
 }
 
-.gallery-item{
-  display: table;
-  width: 100%;
+.gallery-item {
+  @include flexbox();
+  @include align-items(center);
+  @include justify-content(center);
   height: 100%;
+  overflow: hidden;
 }
 
-.gallery-item__content {
-  display: table-cell;
-  text-align: center;
-  vertical-align: middle;
+.gallery-item__main {
+  display: block;
 }

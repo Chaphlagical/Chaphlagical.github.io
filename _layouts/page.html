@@ -68,7 +68,6 @@ layout: base
     <div class="{{ _page_main_class }} cell cell--auto">
 
       <div class="page__main-inner">
-        <div></div>
       {%- if _header != false -%}
         <div class="page__header d-print-none">
         {%- assign _header_theme = page.header.theme | default: layout.header.theme -%}
@@ -172,7 +171,7 @@ layout: base
             {%- if page.article_header.image.src -%}
               {%- include snippets/get-nav-url.html path=page.article_header.image.src -%}
               {%- assign _header_image_src = __return -%}
-              <img class="article__header--cover" src="{{ _header_image_src }}"></img>
+              <img class="article__header--cover" src="{{ _header_image_src }}" />
             {%- endif -%}
           {%- endif -%}
 
@@ -193,6 +192,7 @@ layout: base
               </div>
 
               <div class="col-main cell cell--auto">
+                {%- include main/top/custom.html -%}
                 {%- if _page_type == 'article' -%}
                   <article itemscope itemtype="http://schema.org/Article">
                 {%- elsif _page_type == 'webpage' -%}
@@ -214,6 +214,7 @@ layout: base
                       <section class="page__comments d-print-none">{%- include comments.html -%}</section>
                     {%- endif -%}
                 </article>
+                {%- include main/bottom/custom.html -%}
               </div>
             </div>
 
@@ -232,6 +233,7 @@ layout: base
   </div> {%- comment -%} end page__viewport {%- endcomment -%}
 {%- endif -%}
 
+<script>{%- include scripts/lib/modal.js -%}</script>
 {%- if _lightbox == true -%}
   <div class="modal d-print-none js-page-gallery-modal"><div class="gallery"></div></div>
 {%- endif -%}
@@ -245,7 +247,6 @@ layout: base
   {%- include scripts/lib/scroll-to.js -%}
   {%- include scripts/lib/affix.js -%}
   {%- include scripts/lib/toc.js -%}
-  {%- include scripts/lib/modal.js -%}
   {%- if _lightbox == true -%}
     {%- include scripts/lib/gallery.js -%}
     {%- include scripts/components/lightbox.js -%}
@@ -264,11 +265,6 @@ layout: base
   {%- include scripts/aside/affix.js -%}
 </script>
 {%- endif -%}
-
-{%- if _header != false -%}
-<script>{%- include scripts/components/search/search.js -%}</script>
-{%- endif -%}
-
 
 {%- include markdown-enhancements.html -%}
 {%- include pageview.html -%}

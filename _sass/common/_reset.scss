@@ -1,7 +1,21 @@
 @mixin block-elements {
-  h1, h2, h3, h4, h5, h6, p,
-  hr, blockquote, figure, pre, .highlighter-rouge,
-  ul, ol, dl, table, .footnotes {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  hr,
+  blockquote,
+  figure,
+  pre,
+  .highlighter-rouge,
+  ul,
+  ol,
+  dl,
+  table,
+  .footnotes {
     @content;
   }
 }
@@ -115,17 +129,7 @@ h6 {
 
 a {
   font-weight: map-get($base, font-weight-bold);
-  @include plain() {
-    text-decoration: none;
-  }
-  @include hover() {
-    text-decoration: underline;
-  }
-  @include active() {
-    text-decoration: none;
-  }
   @include link-colors($main-color-1);
-  @include transition(map-get($link, transition));
 }
 
 pre, code {
