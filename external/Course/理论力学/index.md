@@ -31,4 +31,4 @@ article_header:
 
 **第十一章：拉格朗日/哈密顿力学**：\[[slide](./Slide/第11章.pdf)\]
 
-**期末总复习：** [[review](./Note/review)]
+**期末总复习：** [[总复习](./Note/理论力学总复习)]
