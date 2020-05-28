@@ -41,3 +41,7 @@
 ![](./PathTracing/images/snow.png)
 
 ![](./PathTracing/images/objects.png)
+
+## Download
+
+[report](./PathTracing/PathTracing.pdf)
