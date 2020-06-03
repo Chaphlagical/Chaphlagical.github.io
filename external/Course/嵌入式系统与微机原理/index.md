@@ -23,4 +23,4 @@ article_header:
 
 **ARM程序设计：** [[slide](./slide/微嵌_第7章.pdf_)] [[note](./note/2020-05-22-ARM程序设计)]  [[lecture](./lecture/第7章.pdf)] [[video_1](https://www.eeo.cn/live.php?lessonKey=9241637f05fc5ad5)] [[video_2](https://www.eeo.cn/live.php?lessonKey=7fed10cb55ed24bc)] 
 
-**基于ARM微处理器硬件与软件系统设计开发：** [[slide](./slide/微嵌_第8章.pdf_)] [[note](./note/2020-05-22-ARM程序设计)]  [[lecture](./lecture/第8章.pdf)] [[video_1](https://www.eeo.cn/live.php?lessonKey=78235be0505fe024)] [[video_2](https://www.eeo.cn/live.php?lessonKey=3c9ffcce67bbc2ff)] [[video_3](https://www.eeo.cn/live.php?lessonKey=3d20cdf11a612bd5)]
+**基于ARM微处理器硬件与软件系统设计开发：** [[slide](./slide/微嵌_第8章.pdf_)] [[note](./note/2020-05-22-ARM程序设计)]  [[lecture](./lecture/第8章.pdf)] [[video_1](https://www.eeo.cn/live.php?lessonKey=78235be0505fe024)] [[video_2](https://www.eeo.cn/live.php?lessonKey=3c9ffcce67bbc2ff)] [[video_3](https://www.eeo.cn/live.php?lessonKey=3d20cdf11a612bd5)] [[video_4](https://www.eeo.cn/live.php?lessonKey=e871edaee2698fa8)] 
