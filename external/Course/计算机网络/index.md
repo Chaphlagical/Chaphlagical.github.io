@@ -1,6 +1,6 @@
 ---
-title: 理论力学
-tags: 理论力学
+title: 计算机网络
+tags: 计算机网络
 article_header:
   type: cover
   image:
