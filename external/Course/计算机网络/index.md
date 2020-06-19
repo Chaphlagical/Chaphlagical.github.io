@@ -25,6 +25,6 @@ article_header:
 
 **补充内容**：[slide](./slide/计算机网络-补课内容.pdf) [slide](./slide/计算机网络-补课内容2.pdf)
 
-**教材**：[中文版](./textbook/计算机网络.pdf) [英文版](./textbook/Computer Networking - A Top Down Approach, 7th, converted.pdf) [课后答案](./textbook/计算机网络：自顶向下方法(原书第7版)英文配套答案.pdf)
+**教材**：[中文版](./textbook/计算机网络.pdf) [英文版](./textbook/Computer Networking.pdf) [课后答案](./textbook/计算机网络：自顶向下方法(原书第7版)英文配套答案.pdf)
 
 **期末总复习：** [[总复习](./note/计网复习.html)] [[PDF](./note/计网复习.pdf)]
