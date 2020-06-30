@@ -19,7 +19,7 @@ article_header:
 
 **ARM处理器体系结构：** [[slide](./slide/微嵌_第5章.pdf)] [[note](./note/2020-04-30-ARM处理器体系结构)]  [[lecture](./lecture/第5章.pdf)] [[solution](./solution/第5章.pdf)] [[video_1](https://www.eeo.cn/live.php?lessonKey=54911c6fccb6cd89)] [[video_2](https://www.eeo.cn/live.php?lessonKey=ddf6626fcc698d16)] [[video_3](https://www.eeo.cn/live.php?lessonKey=558a577d39a4bdeb)] [[video_4](https://www.eeo.cn/live.php?lessonKey=be839f6e08c8ac92)] [[video_5](https://www.eeo.cn/live.php?lessonKey=e7665551e53ee955)] [[video_6](https://www.eeo.cn/live.php?lessonKey=acadbc6b30320b5f)]
 
-**ARM处理器指令系统：** [[slide](./slide/微嵌_第6章.pdf)] [[note](./note/2020-04-30-ARM处理器体系结构)]  [[lecture](./lecture/第6章.pdf)] [[solution](./solution/第6章.pdf)] [[video_1](https://www.eeo.cn/live.php?lessonKey=a26ad8cea452f61c)] [[video_2](https://www.eeo.cn/live.php?lessonKey=a26ad8cea452f61c)] [[video_3](https://www.eeo.cn/live.php?lessonKey=bce9259dfba9519b)] [[video_4](https://www.eeo.cn/live.php?lessonKey=9cb8e3d7e453b153)] 
+**ARM处理器指令系统：** [[slide](./slide/微嵌_第6章.pdf)] [[note](./note/2020-05-19-ARM处理器指令系统)]  [[lecture](./lecture/第6章.pdf)] [[solution](./solution/第6章.pdf)] [[video_1](https://www.eeo.cn/live.php?lessonKey=a26ad8cea452f61c)] [[video_2](https://www.eeo.cn/live.php?lessonKey=a26ad8cea452f61c)] [[video_3](https://www.eeo.cn/live.php?lessonKey=bce9259dfba9519b)] [[video_4](https://www.eeo.cn/live.php?lessonKey=9cb8e3d7e453b153)] 
 
 **ARM程序设计：** [[slide](./slide/微嵌_第7章.pdf)] [[note](./note/2020-05-22-ARM程序设计)]  [[lecture](./lecture/第7章.pdf)] [[solution](./solution/第7章.pdf)] [[video_1](https://www.eeo.cn/live.php?lessonKey=9241637f05fc5ad5)] [[video_2](https://www.eeo.cn/live.php?lessonKey=7fed10cb55ed24bc)] 
 
