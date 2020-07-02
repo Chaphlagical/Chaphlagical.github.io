@@ -204,6 +204,7 @@ exclude:
   # - /test
   - /vendor
   - /_posts
+  - /external
   - /index.html
 
 collections_dir: docs
