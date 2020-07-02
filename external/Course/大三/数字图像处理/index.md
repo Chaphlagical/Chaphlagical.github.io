@@ -1,0 +1,29 @@
+---
+title: 数字图像处理
+tags: 数字图像处理
+article_header:
+  type: cover
+  image:
+    src: /assets/images/DIP.jpg
+---
+
+<!--more-->
+
+**图像处理基础：** \[[slide](./slide/图像处理基础.pdf)\] \[[note](./note/2020-03-05-数字图像处理基础)\]
+
+**图像模型：** \[[slide](./slide/图像模型.pdf)\] \[[note](./note/2020-02-29-图像模型)\]
+
+**空域滤波：**  \[[slide](./slide/空域滤波.pdf)\] \[[note](./note/2020-03-19-空域滤波)\]
+
+**傅里叶分析与卷积：** \[[slide](./slide/傅里叶分析与卷积.pdf)\] \[[note](./note/2020-03-12-傅里叶分析与卷积)\]
+
+**频域滤波：**  \[[slide](./slide/频域滤波.pdf)\] \[[note](./note/2020-03-26-频域滤波)\]
+
+**自适应滤波：** \[[slide](./slide/自适应滤波.pdf)\] \[[note](./note/2020-04-02-自适应滤波)\]
+
+**图像复原：**  \[[slide](./slide/图像复原.pdf)\] \[[note](./note/2020-04-09-图像复原)\]
+
+**小波变换：** \[[slide](./slide/小波变换.pdf)\] \[[note](./note/2020-05-05-小波变换)\]
+
+**图像压缩：** \[[slide](./slide/图像压缩.pdf)\] \[[note](./note/2020-05-05-小波变换)\]
+

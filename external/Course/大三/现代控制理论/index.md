@@ -1,0 +1,32 @@
+---
+title: 现代控制理论
+tags: 现代控制理论
+article_header:
+  type: cover
+  image:
+    src: /assets/images/control.png
+---
+
+<!--more-->
+
+**第一章：绪论** \[[slide](./Slide/第一章.pdf)\]
+
+**第二章：系统的状态空间模型**：\[[slide](./Slide/第二章.pdf)\] \[[note](./Note/2020-03-09-系统的状态空间模型)\] [[solution](./Solution/第一章&第二章.pdf)]
+
+**第三章：状态空间方程的解**：\[[slide](./Slide/第三章.pdf)\] \[[note](./Note/2020-03-16-状态空间方程的解)\] 
+
+**第四章：系统的稳定性**：\[[slide](./Slide/第四章.pdf)\] \[[note](./Note/2020-03-25-系统的稳定性)\] [[solution](./Solution/第三章&第四章.pdf)]
+
+**第五章：能控性与能观性**：\[[slide](./Slide/第五章.pdf)\] \[[note](./Note/2020-04-10-能控性和能观性)\] 
+
+**第六章：传递函数的状态空间实现**：\[[slide](./Slide/第六章.pdf)\] \[[note](./Note/2020-04-13-传递函数的状态空间实现)\] [[solution](./Solution/第五章&第六章.pdf)]
+
+**第七章：状态反馈与状态观测器**：\[[slide](./Slide/第七章.pdf)\] \[[note](./Note/2020-4-26-状态反馈与状态控制器)\] [[solution](./Solution/第七章.pdf)]
+
+**第八章：最优性原理与动态规划**：\[[slide](./Slide/第八章.pdf)\] 
+
+**第九章：极小值原理**：\[[slide](./Slide/第九章.pdf)\] \[[note](./Note/2020-05-11-极小值原理)\] [[solution](./Solution/第八章&第九章.pdf)]
+
+**第十章：二次型指标的线性最优控制**：\[[slide](./Slide/第十章.pdf)\] \[[note](./Note/2020-05-19-二次型指标的线性最优控制)\] [[solution](./Solution/第十章.pdf)]
+
+**期末总复习：** [[总复习](./Note/2020-05-27-现代控制理论总复习.html)] [[pdf](./Note/2020-05-27-现代控制理论总复习.pdf)]
