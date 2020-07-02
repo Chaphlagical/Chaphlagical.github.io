@@ -30,3 +30,6 @@ Welcome to my Blog!
 
 I'm an undergraduate student in USTC.
 
+Check my resume at [home.ustc.edu.cn/~chaf](home.ustc.edu.cn/~chaf)
+
+Contact me: [chaf@mail.ustc.edu.cn](chaf@mail.ustc.edu.cn)
