@@ -7,7 +7,7 @@ comments: true
 gh-repo: Chaphlagical/USTC_CG
 gh-badge: [star, fork, follow]
 tags: [CG, Image Process, Qt]
-comments: true
+readtime: true
 ---
 
 Implement of Poisson Image Editing Algorithm from Siggraph 2003 paper.

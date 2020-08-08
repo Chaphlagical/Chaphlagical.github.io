@@ -7,7 +7,7 @@ comments: true
 gh-repo: Chaphlagical/USTC_CG
 gh-badge: [star, fork, follow]
 tags: [CG, Image Process, Qt]
-comments: true
+readtime: true
 ---
 
 Implement of Image Warping Algorithm from paper "*Image warping with scattered data interpolation*" and "*Image warping using few anchor points and radial functions*"

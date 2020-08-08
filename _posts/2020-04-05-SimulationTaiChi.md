@@ -7,7 +7,7 @@ comments: true
 gh-repo: Chaphlagical/USTC_CG
 gh-badge: [star, fork, follow]
 tags: [CG, Physics Simulation]
-comments: true
+readtime: true
 ---
 
 Physics Simulation based on Taichi

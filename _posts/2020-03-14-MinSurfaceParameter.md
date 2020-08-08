@@ -7,7 +7,7 @@ comments: true
 gh-repo: Chaphlagical/USTC_CG
 gh-badge: [star, fork, follow]
 tags: [CG, Geometry]
-comments: true
+readtime: true
 ---
 
 Minimal surface and mesh parameterization
