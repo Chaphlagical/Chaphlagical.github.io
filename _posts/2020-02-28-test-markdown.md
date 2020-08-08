@@ -8,6 +8,7 @@ comments: true
 gh-repo: daattali/beautiful-jekyll
 gh-badge: [star, fork, follow]
 tags: [test]
+readtime: true
 comments: true
 ---
 
