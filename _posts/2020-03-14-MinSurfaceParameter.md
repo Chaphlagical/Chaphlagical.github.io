@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Image Warping
+title: Minimum Surface Mesh Parameterization
 thumbnail-img: /assets/images/thumbnail-img/minsurf.jpg
 cover-img: /assets/images/cover-img/CG.png
 comments: true
