@@ -46,7 +46,6 @@ social-network-links:
   email: "chaf@mail.ustc.edu.cn"
   facebook: chaf.chen.3
   github: Chaphlagical
-  steam: "418199378"
   google-scholar: citations?user=lD3dpIQAAAAJ&hl=en
   rss: true
 #  reddit: yourname
@@ -141,7 +140,7 @@ google_analytics: "UA-151337983-1"
 # --- Comments --- #
 
 # To use Disqus comments, sign up to https://disqus.com and fill in your Disqus shortname (NOT the userid)
-#disqus: ""
+disqus: "chafchen"
 
 # To use Facebook Comments, create a Facebook app and fill in the Facebook App ID
 #fb_comment_id: ""
