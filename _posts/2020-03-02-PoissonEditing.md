@@ -61,7 +61,7 @@ $$
 Solving linear equation:
 
 $$
-\mathrm{for}\ \mathrm{all}\ p\in \Omega,\ |N_p|f_p-\sum\limits_{q\in N_p\cap \Omega} f_q=\sum\limits_{q\in N_p\cap \partial \Omega}f_p^*+\sum\limits_{q\in N_p}v_{pq}
+\mathrm{for}\ \mathrm{all}\ p\in \Omega,\ \mid N_p\mid f_p-\sum\limits_{q\in N_p\cap \Omega} f_q=\sum\limits_{q\in N_p\cap \partial \Omega}f_p^*+\sum\limits_{q\in N_p}v_{pq}
 $$
 
 As for the selection of gradient field $\boldsymbol{v}(\boldsymbol{x})$, the paper has given two different methods. One is completely using the internal gradient of the foreground image, like this:
@@ -75,7 +75,7 @@ Another is using Hybrid gradient:
 $$
 \mathrm{for}\ \mathrm{all}\ \boldsymbol{x}\in \Omega,\ \boldsymbol{v}(\boldsymbol{x})=\begin{cases}
 
-\nabla f^*(\boldsymbol{x})&\mathrm{if}\ |\nabla f^*(\boldsymbol{x})>|\nabla g(\boldsymbol{x})|,\\
+\nabla f^*(\boldsymbol{x})&\mathrm{if}\ \mid\nabla f^*(\boldsymbol{x})\mid>\mid\nabla g(\boldsymbol{x})\mid,\\
 
 \nabla g(\boldsymbol{x})&\mathrm{otherwise}
 
