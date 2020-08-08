@@ -143,3 +143,7 @@ $$
 ## Resource
 
 **Project**: [https://github.com/Chaphlagical/USTC_CG/tree/master/Homeworks/4_MinSurfMeshPara](https://github.com/Chaphlagical/USTC_CG/tree/master/Homeworks/4_MinSurfMeshPara) 
+
+## Reference
+
+*[1] Michael S Floater et al. Parametrization and smooth approximation of surface triangulations. Computer aided geometric design, 14(3):231–250, 1997.*
