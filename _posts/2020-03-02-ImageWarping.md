@@ -34,9 +34,10 @@ Implement of Image Warping Algorithm from paper "*Image warping with scattered d
 
 ### Inverse distance-weighted interpolation methods(IDW)
 
-IDW Algorithm is based given control points and control point pairs' translation vectors. Calculate the inverse distance weighted influence of the control point on the surrounding pixels to realize the displacement of each pixel of the image.
+IDW Algorithm is based given control points and control point pairs' displacement vectors. Calculate the inverse distance weighted influence of the control point on the surrounding pixels to realize the displacement of each pixel of the image.
 
 Select $n$ pairs of control points $(\boldsymbol{p_i},\boldsymbol{q_i}),i=1,2,\cdots,n$, target mapping $f:\mathbb{R}^2\rightarrow \mathbb{R}^2$ can be represented as:
+
 $$
 f(\boldsymbol{p})=\sum^n_{i=1}\omega_i(\boldsymbol{p})f_i(\boldsymbol{p})
 $$
