@@ -39,7 +39,7 @@ $$
 H(v_i)=0,\forall i
 $$
 
-![1](https://chaphlagical.github.io/assets/images/assets-img/Minsurf/1.jpg){: .mx-auto.d-block :}
+![1](https://chaphlagical.github.io/assets/images/assets-img/MinSurf/1.jpg){: .mx-auto.d-block :}
 
 As the figure shown, we have
 
@@ -65,7 +65,7 @@ $$
 
 $n$ is the number of internal points. By solving the sparse equations, the parameterized coordinates of the surface can be obtained. For different methods of obtaining the center of barycenter coordinates, the parametric grids obtained are also different. Using the parameterized texture coordinates to connect the texture image to realize texture mapping, as shown in the following figure, the texture mapping effect of different center of barycenter coordinates is also different:
 
-![begin](https://chaphlagical.github.io/assets/images/assets-img/Minsurf/Figures\begin.png){: .mx-auto.d-block :}
+![begin](https://chaphlagical.github.io/assets/images/assets-img/MinSurf/Figures\begin.png){: .mx-auto.d-block :}
 
 #### Uniform
 
@@ -81,7 +81,7 @@ Each adjacent point has the same weight.
 
 Cotangent center of barycenter coordinates, considering the positional relationship between internal points and adjacent points. As shown in the figure below, set the adjacent points connected by an internal point $v$ to be $v_{i-1}$, $v_i$, $v_{i+1}$, let $\beta_{i-1}=\angle{vv_{i-1}v_i}$ and $\gamma_i=\angle{vv_{i+1}v_i}$
 
-![2](https://chaphlagical.github.io/assets/images/assets-img/Minsurf/2.png){: .mx-auto.d-block :}
+![2](https://chaphlagical.github.io/assets/images/assets-img/MinSurf/2.png){: .mx-auto.d-block :}
 
 Barycenter coordinates can be represented as:
 
@@ -138,5 +138,9 @@ $$
 ## Demo Video
 
 <video width="100%" height="100%" id="video" controls="" preload="none" poster="">
-      <source id="mp4" src="https://chaphlagical.github.io/assets/images/videos/MinSuf/demo.mp4" type="video/mp4">
+      <source id="mp4" src="https://chaphlagical.github.io/assets/images/videos/MinSurf/demo.mp4" type="video/mp4">
       </video>
+
+## Resource
+
+**Project**: [https://github.com/Chaphlagical/USTC_CG/tree/master/Homeworks/4_MinSurfMeshPara](https://github.com/Chaphlagical/USTC_CG/tree/master/Homeworks/4_MinSurfMeshPara) 
