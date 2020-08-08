@@ -30,9 +30,9 @@ Implement of Poisson Image Editing Algorithm from Siggraph 2003 paper.
 
 Assume we have two images:
 
-![girl](D:\USTC_CG\Homeworks\3_PoissonImageEditing\report\Figures\girl.jpg)
+![girl](https://chaphlagical.github.io/assets/images/assets-img/PoissonEditing/girl.jpg){: .mx-auto.d-block :}
 
-![sea](D:\USTC_CG\Homeworks\3_PoissonImageEditing\report\Figures\sea.jpg)
+![sea](https://chaphlagical.github.io/assets/images/assets-img/PoissonEditing/sea.jpg){: .mx-auto.d-block :}
 
 Now we want to merge two images and make sure it look more natural, that's what Poisson Image Editing will do.
 
@@ -70,7 +70,7 @@ $$
 \mathrm{for}\ \mathrm{all}\ <p,q>,v_{pq}=g_p-g_q
 $$
 
-Another is using Hybrid gradient:
+Another is using hybrid gradient:
 
 $$
 \mathrm{for}\ \mathrm{all}\ \boldsymbol{x}\in \Omega,\ \boldsymbol{v}(\boldsymbol{x})=\begin{cases}
@@ -86,6 +86,65 @@ $$
 
 I learn about ordered edge table method from [https://blog.csdn.net/xiaowei\_cqu/article/details/7712451](https://blog.csdn.net/xiaowei\_cqu/article/details/7712451) 
 
+## Architecture
 
+![class](https://chaphlagical.github.io/assets/images/assets-img/PoissonEditing/class.png){: .mx-auto.d-block :}
 
-![class](D:\USTC_CG\Homeworks\3_PoissonImageEditing\report\Figures\class.png)
+## Demo
+
+### Standard Test
+
+**Original Images**
+
+![bear](https://chaphlagical.github.io/assets/images/assets-img/PoissonEditing/bear.jpg){: .mx-auto.d-block :}
+
+![1](https://chaphlagical.github.io/assets/images/assets-img/PoissonEditing/1.jpg){: .mx-auto.d-block :}
+
+![sea](https://chaphlagical.github.io/assets/images/assets-img/PoissonEditing/sea.jpg){: .mx-auto.d-block :}
+
+**Merge Images**
+
+| Rectangle                                                    | Polygon                                                      | Freedraw                                                     |
+| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| ![girlrect](https://chaphlagical.github.io/assets/images/assets-img/PoissonEditing/girlrect.png){: .mx-auto.d-block :} | ![girlpolygon](https://chaphlagical.github.io/assets/images/assets-img/PoissonEditing/girlpolygon.png){: .mx-auto.d-block :} | ![girlfree](https://chaphlagical.github.io/assets/images/assets-img/PoissonEditing/girlfree.png){: .mx-auto.d-block :} |
+| ![bearrect](https://chaphlagical.github.io/assets/images/assets-img/PoissonEditing/bearrect.png){: .mx-auto.d-block :} | ![bearpolygon](https://chaphlagical.github.io/assets/images/assets-img/PoissonEditing/bearpolygon.png){: .mx-auto.d-block :} | ![bearpolygon](https://chaphlagical.github.io/assets/images/assets-img/PoissonEditing/bearpolygon.png){: .mx-auto.d-block :} |
+| ![rect](https://chaphlagical.github.io/assets/images/assets-img/PoissonEditing/rect.jpg){: .mx-auto.d-block :} | ![polygon](https://chaphlagical.github.io/assets/images/assets-img/PoissonEditing/polygon.jpg){: .mx-auto.d-block :} | ![freedraw](https://chaphlagical.github.io/assets/images/assets-img/PoissonEditing/freedraw.jpg){: .mx-auto.d-block :} |
+
+### Two Different Gradients
+
+![compare](https://chaphlagical.github.io/assets/images/assets-img/PoissonEditing/compare.jpg){: .mx-auto.d-block :}
+
+### Remove Wrinkles
+
+**Before**
+
+![wrinkles](https://chaphlagical.github.io/assets/images/assets-img/PoissonEditing/wrinkles.jpg){: .mx-auto.d-block :}
+
+**After**
+
+![wrinklesprocess](https://chaphlagical.github.io/assets/images/assets-img/PoissonEditing/wrinklesprocess.jpg){: .mx-auto.d-block :}
+
+### Other interesting stuff
+
+**before**
+
+![banana](https://chaphlagical.github.io/assets/images/assets-img/PoissonEditing/banana.jpg){: .mx-auto.d-block :}
+
+**After**
+
+![bananaprocess](https://chaphlagical.github.io/assets/images/assets-img/PoissonEditing/bananaprocess.jpg){: .mx-auto.d-block :}
+
+### Demo Video
+
+<video width="100%" height="100%" id="video" controls="" preload="none" poster="">
+      <source id="mp4" src="https://chaphlagical.github.io/assets/videos/PoissonEditing/demo.mp4" type="video/mp4">
+      </video>
+
+## Resource
+
+**Project**: [https://github.com/Chaphlagical/USTC_CG/tree/master/Homeworks/3_PoissonImageEditing](https://github.com/Chaphlagical/USTC_CG/tree/master/Homeworks/3_PoissonImageEditing) 
+
+## Reference
+
+*[1] Patrick Pérez, Michel Gangnet, and Andrew Blake. Poisson image editing. In ACM SIGGRAPH 2003 Papers, pages 313–318. 2003.* 
+
