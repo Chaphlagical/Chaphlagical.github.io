@@ -1,24 +1,163 @@
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-{%- include snippets/get-article-title.html article=page -%}
-<title>{%- if __return -%}{{ __return }} - {{ site.title }}{%- else -%}{{ site.title }}{%- endif -%}</title>
+  <title>{% if page.use-site-title %}{{ site.title }} {{ site.title-separator | default: '-' }} {{ site.description }}{% elsif page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</title>
 
-<meta name="description" content="{%- if page.excerpt -%}{{ page.excerpt | strip_html | strip_newlines | strip | truncate: 160 }}{%- else -%}{{ site.description }}{%- endif -%}">
-<link rel="canonical" href="{%- include snippets/page-url.html -%}">
+  {% if site.author %}
+  <meta name="author" content="{{ site.author }}">
+  {% endif %}
 
-{%- assign _paths_rss = site.paths.rss | default: site.data.variables.default.paths.rss -%}
-{%- include snippets/get-nav-url.html path=_paths_rss -%}
-<link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ __return }}">
+  {% if page.description %}
+  <meta name="description" content="{{ page.description }}">
+  {% elsif page.subtitle %}
+  <meta name="description" content="{{ page.subtitle }}">
+  {% endif %}
 
-{%- include head/favicon.html -%}
+  {% if site.mobile-theme-col %}
+  <meta name="theme-color" content="{{ site.mobile-theme-col }}">
+  {% endif %}
 
-{%- include snippets/prepend-baseurl.html path='/assets/css/main.css' -%}
-<link rel="stylesheet" href="{{ __return }}">
+  {% if site.keywords %}
+  <meta name="keywords" content="{{ site.keywords }}">
+  {% endif %}
 
-{%- include snippets/get-sources.html -%}
-{%- assign _sources = __return -%}
-<link rel="stylesheet" href="{{ _sources.font_awesome }}" >
+  <link rel="alternate" type="application/rss+xml" title="{{ site.title | default: 'Untitled' }} {{ site.title-separator | default: '-' }} {{ site.description }}" href="{{ '/feed.xml' | absolute_url }}">
 
-{%- include head/custom.html -%}
+  {% include gtag.html %}
+  {% include gtm_head.html %}
+  {% include google_analytics.html %}
+
+  {% if layout.common-ext-css %}
+    {% for css in layout.common-ext-css %}
+      {% include ext-css.html css=css %}
+    {% endfor %}
+  {% endif %}
+
+  {% if layout.common-css %}
+    {% for css in layout.common-css %}
+      <link rel="stylesheet" href="{{ css | relative_url }}">
+    {% endfor %}
+  {% endif %}
+
+  {% if page.ext-css %}
+    {% for css in page.ext-css %}
+      {% include ext-css.html css=css %}
+    {% endfor %}
+  {% endif %}
+
+  {% if page.css %}
+    {% for css in page.css %}
+      <link rel="stylesheet" href="{{ css | relative_url }}">
+    {% endfor %}
+  {% endif %}
+
+  {% if site.site-css %}
+    {% for css in site.site-css %}
+      <link rel="stylesheet" href="{{ css | relative_url }}">
+    {% endfor %}
+  {% endif %}
+
+  <!-- Facebook OpenGraph tags -->
+  {% if site.fb_app_id %}
+  <meta property="fb:app_id" content="{{ site.fb_app_id }}">
+  {% endif %}
+
+  {% if site.title %}
+  <meta property="og:site_name" content="{{ site.title }}">
+  {% endif %}
+
+  {% if page.meta-title %}
+  <meta property="og:title" content="{{ page.meta-title }}">
+  {% elsif page.title %}
+  <meta property="og:title" content="{{ page.title }}">
+  {% elsif site.title %}
+  <meta property="og:title" content="{{ site.title }}">
+  {% endif %}
+
+  {% if page.meta-description %}
+  <meta property="og:description" content="{{ page.meta-description }}">
+  {% elsif page.subtitle %}
+  <meta property="og:description" content="{{ page.subtitle }}">
+  {% else %}
+  <meta property="og:description" content="{{ page.content | strip_html | xml_escape | truncatewords: 50 }}">
+  {% endif %}
+
+
+  {% if page.id %}
+  <meta property="og:type" content="article">
+  <meta property="og:article:author" content="{{ site.author }}">
+  <meta property="og:article:published_time" content="{{ page.date | date_to_xmlschema }}">
+  {% else %}
+  <meta property="og:type" content="website">
+  {% endif %}
+
+  {% if page.id %}
+  <meta property="og:url" content="{{ page.url | absolute_url }}">
+  <link rel="canonical" href="{{ page.url | absolute_url }}">
+  {% else %}
+  <meta property="og:url" content="{{ page.url | absolute_url | strip_index }}">
+  <link rel="canonical" href="{{ page.url | absolute_url | strip_index }}">
+  {% endif %}
+
+  {%- capture shareimg -%}
+    {% if page.share-img %}
+      {{ page.share-img }}
+    {% elsif page.cover-img %}
+      {% if page.cover-img.first %}
+        {{ page.cover-img[0].first.first }}
+      {% else %}
+        {{ page.cover-img }}
+      {% endif %}
+    {% elsif page.thumbnail-img %}
+      {{ page.thumbnail-img }}
+    {% elsif site.avatar %}
+      {{ site.avatar }}
+    {% endif %}
+  {% endcapture %}
+  {% assign shareimg=shareimg | strip %}
+
+  {% if shareimg != "" %}
+  <meta property="og:image" content="{{ shareimg | absolute_url }}">
+  {% endif %}
+
+
+  <!-- Twitter summary cards -->
+  {% if shareimg != "" and shareimg != site.avatar %}
+  <meta name="twitter:card" content="summary_large_image">
+  {% else %}
+  <meta name="twitter:card" content="summary">
+  {% endif %}
+  <meta name="twitter:site" content="@{{ site.social-network-links.twitter }}">
+  <meta name="twitter:creator" content="@{{ site.social-network-links.twitter }}">
+
+  {% if page.meta-title %}
+  <meta name="twitter:title" content="{{ page.meta-title }}">
+  {% elsif page.title %}
+  <meta name="twitter:title" content="{{ page.title }}">
+  {% else %}
+  <meta name="twitter:title" content="{{ site.title }}">
+  {% endif %}
+
+  {% if page.meta-description %}
+  <meta name="twitter:description" content="{{ page.meta-description }}">
+  {% elsif page.subtitle %}
+  <meta name="twitter:description" content="{{ page.subtitle }}">
+  {% else %}
+  <meta name="twitter:description" content="{{ page.content | strip_html | xml_escape | truncatewords: 50 }}">
+  {% endif %}
+
+  {% if shareimg != "" %}
+  <meta name="twitter:image" content="{{ shareimg | absolute_url }}">
+  {% endif %}
+
+  {% if site.matomo %}
+  {% include matomo.html %}
+  {% endif %}
+
+  {% if page.comments and site.staticman.repository and site.staticman.branch %}
+  <!-- Staticman -->
+  <link rel="stylesheet" href="{{ "/assets/css/staticman.css" | relative_url }}">
+  {% endif %}
+
+</head>
