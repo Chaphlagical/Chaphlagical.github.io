@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Poisson Editing
+subtitle: USTC CG Course 2020
 thumbnail-img: /assets/images/thumbnail-img/poisson.jpg
 cover-img: /assets/images/cover-img/CG.png
 comments: true

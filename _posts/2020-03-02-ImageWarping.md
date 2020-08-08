@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Image Warping
+subtitle: USTC CG Course 2020
 thumbnail-img: /assets/images/thumbnail-img/imagewarping.jpg
 cover-img: /assets/images/cover-img/CG.png
 comments: true

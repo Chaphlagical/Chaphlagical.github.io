@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Mass Spring
+subtitle: USTC CG Course 2020
 thumbnail-img: /assets/images/thumbnail-img/massSpring.jpg
 cover-img: /assets/images/cover-img/CG.png
 comments: true

@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Taichi Simulation
+subtitle: USTC CG Course 2020
 thumbnail-img: /assets/images/thumbnail-img/taichi.png
 cover-img: /assets/images/cover-img/CG.png
 comments: true

@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Minimal Surface & Mesh Parameterization
+subtitle: USTC CG Course 2020
 thumbnail-img: /assets/images/thumbnail-img/minsurf.png
 cover-img: /assets/images/cover-img/CG.png
 comments: true
