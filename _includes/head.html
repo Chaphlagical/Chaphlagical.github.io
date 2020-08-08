@@ -4,6 +4,10 @@
 
   <title>{% if page.use-site-title %}{{ site.title }} {{ site.title-separator | default: '-' }} {{ site.description }}{% elsif page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</title>
 
+  <script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
   {% if site.author %}
   <meta name="author" content="{{ site.author }}">
   {% endif %}

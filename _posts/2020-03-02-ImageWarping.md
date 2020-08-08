@@ -121,15 +121,15 @@ As for linear portion $\boldsymbol{A}\boldsymbol{p}+\boldsymbol{B}$, we just sim
 
 ## Architecture
 
-![2](https://chaphlagical.github.io/assets/images/assets-img/MiniDraw/2.png)
+![2](https://chaphlagical.github.io/assets/images/assets-img/ImageWarping/2.png){: .mx-auto.d-block :}
 
 ## Demo
 
 | Origin                                                       | demo1                                                        | demo2                                                        |
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| ![dog](https://chaphlagical.github.io/assets/images/assets-img/MiniDraw/dog.jpg) | ![dog1](https://chaphlagical.github.io/assets/images/assets-img/MiniDraw/dog1.jpg) | ![dog2](https://chaphlagical.github.io/assets/images/assets-img/MiniDraw/dog2.bmp) |
-| ![1](https://chaphlagical.github.io/assets/images/assets-img/MiniDraw/1.jpg) | ![2](https://chaphlagical.github.io/assets/images/assets-img/MiniDraw/2.bmp) | ![3](https://chaphlagical.github.io/assets/images/assets-img/MiniDraw/3.jpg) |
-| ![tag](https://chaphlagical.github.io/assets/images/assets-img/MiniDraw/tag.png) | ![RBF_mu=0_5_nofix](https://chaphlagical.github.io/assets/images/assets-img/MiniDraw/RBF_mu=0_5_nofix.jpg) | ![RBF_mu=0_5_fix](https://chaphlagical.github.io/assets/images/assets-img/MiniDraw/RBF_mu=0_5_fix.jpg) |
+| ![dog](https://chaphlagical.github.io/assets/images/assets-img/ImageWarping/dog.jpg){: .mx-auto.d-block :} | ![dog1](https://chaphlagical.github.io/assets/images/assets-img/ImageWarping/dog1.jpg){: .mx-auto.d-block :} | ![dog2](https://chaphlagical.github.io/assets/images/assets-img/ImageWarping/dog2.bmp){: .mx-auto.d-block :} |
+| ![1](https://chaphlagical.github.io/assets/images/assets-img/ImageWarping/1.jpg){: .mx-auto.d-block :} | ![2](https://chaphlagical.github.io/assets/images/assets-img/ImageWarping/2.bmp){: .mx-auto.d-block :} | ![3](https://chaphlagical.github.io/assets/images/assets-img/ImageWarping/3.jpg){: .mx-auto.d-block :} |
+| ![tag](https://chaphlagical.github.io/assets/images/assets-img/ImageWarping/tag.png){: .mx-auto.d-block :} | ![RBF_mu=0_5_nofix](https://chaphlagical.github.io/assets/images/assets-img/ImageWarping/RBF_mu=0_5_nofix.jpg){: .mx-auto.d-block :} | ![RBF_mu=0_5_fix](https://chaphlagical.github.io/assets/images/assets-img/ImageWarping/RBF_mu=0_5_fix.jpg){: .mx-auto.d-block :} |
 
 <video width="100%" height="100%" id="video" controls="" preload="none" poster="">
       <source id="mp4" src="https://chaphlagical.github.io/assets/videos/ImageWarping/demo.mp4" type="video/mp4">
