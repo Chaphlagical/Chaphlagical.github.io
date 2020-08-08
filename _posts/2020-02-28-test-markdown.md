@@ -2,6 +2,8 @@
 layout: post
 title: Sample blog post
 subtitle: Each post also has a subtitle
+thumbnail-img: /assets/img/avatar-icon.png
+cover-img: /assets/img/cover.png
 gh-repo: daattali/beautiful-jekyll
 gh-badge: [star, fork, follow]
 tags: [test]
