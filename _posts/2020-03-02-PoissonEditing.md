@@ -59,14 +59,19 @@ $$
 $$
 
 Solving linear equation:
+
 $$
 \mathrm{for}\ \mathrm{all}\ p\in \Omega,\ |N_p|f_p-\sum\limits_{q\in N_p\cap \Omega} f_q=\sum\limits_{q\in N_p\cap \partial \Omega}f_p^*+\sum\limits_{q\in N_p}v_{pq}
 $$
+
 As for the selection of gradient field $\boldsymbol{v}(\boldsymbol{x})$, the paper has given two different methods. One is completely using the internal gradient of the foreground image, like this:
+
 $$
 \mathrm{for}\ \mathrm{all}\ <p,q>,v_{pq}=g_p-g_q
 $$
+
 Another is using Hybrid gradient:
+
 $$
 \mathrm{for}\ \mathrm{all}\ \boldsymbol{x}\in \Omega,\ \boldsymbol{v}(\boldsymbol{x})=\begin{cases}
 
