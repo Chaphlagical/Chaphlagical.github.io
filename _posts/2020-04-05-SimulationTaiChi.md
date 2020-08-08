@@ -26,7 +26,7 @@ Physics Simulation based on Taichi
 
 ### MLS-MPM Algorithm Pipeline
 
-![process](D:\USTC_CG\Homeworks\7_SimulationTaichi\report\Figures\process.png)
+![process](https://chaphlagical.github.io/assets/images/assets-img/Taichi/process.png){: .mx-auto.d-block :}
 
 ### From Particle Interpolation to Grid Point
 
@@ -230,3 +230,12 @@ $$
 <video width="100%" height="100%" id="video" controls="" preload="none" poster="">
       <source id="mp4" src="https://chaphlagical.github.io/assets/videos/Taichi/blender_fluid2.mp4" type="video/mp4">
       </video>
+
+## Resource
+
+**Project**: [https://github.com/Chaphlagical/USTC_CG/tree/master/Homeworks/7_SimulationTaichi](https://github.com/Chaphlagical/USTC_CG/tree/master/Homeworks/7_SimulationTaichi)
+
+## Reference
+
+*[1] Yuanming Hu, Yu Fang, Ziheng Ge, Ziyin Qu, Yixin Zhu, Andre Pradhana, and Chenfanfu Jiang. A moving least squares material point method with displacement discontinuity and two-way rigid body
+coupling. ACM Transactions on Graphics (TOG), 37(4):150, 2018.*
