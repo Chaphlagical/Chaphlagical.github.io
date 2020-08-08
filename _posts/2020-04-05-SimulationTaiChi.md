@@ -54,7 +54,7 @@ $$
 \sum\limits_i w_{ip}\boldsymbol x_i=\boldsymbol x_p
 $$
 
-**Computing Mass of Grid Point **:
+**Computing Mass of Grid Point**:
 
 Interpolation of Mass:
 
