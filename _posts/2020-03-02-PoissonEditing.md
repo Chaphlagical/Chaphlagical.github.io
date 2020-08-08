@@ -50,7 +50,7 @@ $$
 \Delta f= \Delta \boldsymbol v\ \mathrm{over}\ \Omega \ \ \mathrm{with}\ f|_{\partial \Omega}=f^*|_{\partial \Omega}
 $$
 
-Take two images as examples, set area need to be copied in image I as $S$. Define $N_p$ as each pixel $p$ in $S$ connecting the neighborhood in four directions, and let $<p,q>$ be a pixel pair satisfying $q\in N_p$. The boundary $\Omega$ is defined as $\partial \Omega =\{p\in S\setminus \Omega: N_p \cap \Omega \neq \emptyset \}$, let $f_p$ be the pixel value $f$ at $p$, our goal is to solve the pixel value set $f|_\Omega =\{f_p,p\in \Omega\}$ 
+Take two images as examples, set area need to be copied in image I as $S$. Define $N_p$ as each pixel $p$ in $S$ connecting the neighborhood in four directions, and let $<p,q>$ be a pixel pair satisfying $q\in N_p$. The boundary $\Omega$ is defined as $\partial \Omega =\{p\in S\setminus \Omega: N_p \cap \Omega \neq \emptyset \}$, let $f_p$ be the pixel value $f$ at $p$, our goal is to solve the pixel value set $f\mid_\Omega =\{f_p,p\in \Omega\}$ 
 
 Using the basic principles of the Poisson Image Editing algorithm, the above problem can be transformed into an optimization problem:
 
