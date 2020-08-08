@@ -12,13 +12,14 @@ author: Chaphlagical
 # --- List of links in the navigation bar --- #
 
 navbar-links:
+  Home: "index"
+  Tags: "tags"
   About Me: "aboutme"
   Projects: 
     - ChafEngine: "https://github.com/Chaphlagical/Chaf-Engine"
     - CVLab: "https://github.com/Chaphlagical/CVLab"
     - Pinball Game: "https://github.com/Chaphlagical/Pinball-Game"
     - Intelligent Cart: ""
-  Tags: "tags"
   Resources:
     - Learn OpenGL: "https://learnopengl-cn.github.io"
   Author's home: "https://home.ustc.edu.cn/~chaf"
