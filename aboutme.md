@@ -1,16 +1,11 @@
 ---
 layout: page
 title: About me
-subtitle: Why you'd want to go on a date with me
+subtitle: What you may want to know about me
 ---
 
-My name is Inigo Montoya. I have the following qualities:
+My name is Wenbo Chen, an undergraduate student from University of Science and Technology of China. I am very interested in Computer Graphics, Computer Vision and Robotics. In my spare time, I love watching movies or playing games. If you have similar hobbies with me, contact me:smile:
 
-- I rock a great mustache
-- I'm extremely loyal to my family
+![Chaf's github stats](https://github-readme-stats.vercel.app/api?username=chaphlagical&count_private=true)
 
-What else do you need?
-
-### my history
-
-To be honest, I'm having some trouble remembering right now, so why don't you just watch [my movie](https://en.wikipedia.org/wiki/The_Princess_Bride_%28film%29) and it will answer **all** your questions.
+![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=chaphlagical&layout=compact)
