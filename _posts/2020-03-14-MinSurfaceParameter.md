@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Minimal Surface & Mesh Parameterization
-thumbnail-img: /assets/images/thumbnail-img/minsurf.jpg
+thumbnail-img: /assets/images/thumbnail-img/minsurf.png
 cover-img: /assets/images/cover-img/CG.png
 comments: true
 gh-repo: Chaphlagical/USTC_CG
