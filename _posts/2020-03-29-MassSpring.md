@@ -214,3 +214,11 @@ $$
 <video width="100%" height="100%" id="video" controls="" preload="none" poster="">
       <source id="mp4" src="https://chaphlagical.github.io/assets/videos/MassSpring/demo6.mp4" type="video/mp4">
       </video>
+
+## Resource
+
+**Project**: [https://github.com/Chaphlagical/USTC_CG/tree/master/Homeworks/6_MassSpring](https://github.com/Chaphlagical/USTC_CG/tree/master/Homeworks/6_MassSpring)
+
+## Reference
+
+*[1] Fast simulation of mass-spring systems. Acm Transactions on Graphics, 32(6):1–7.*
