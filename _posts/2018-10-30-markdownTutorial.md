@@ -4,6 +4,7 @@ title: Markdown Tutorial
 cover-img: /assets/images/cover-img/markdown.jpg
 tags: [Markdown, Note]
 readtime: true
+comments: false
 ---
 
 Markdown Tutorial
