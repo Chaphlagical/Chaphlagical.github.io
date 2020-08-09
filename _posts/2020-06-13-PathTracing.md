@@ -92,7 +92,7 @@ $$
 
 Define
 
-* Direct Light: $L_{\text{dir}}(\pmb{p},\pmb{\omega}_o)$：$\int_{\pmb{p},\pmb{\omega}_o,\pmb{\omega}_i}L_e(\pmb{p}^\prime,-\pmb{\omega}_i)$
+* Direct Light: $L_{\text{dir}}(\pmb{p},\pmb{\omega}_o)$: $\int_{\pmb{p},\pmb{\omega}_o,\pmb{\omega}_i}L_e(\pmb{p}^\prime,-\pmb{\omega}_i)$
 * Indirect Light: $L_{\text{indir}}(\pmb{p},\pmb{\omega}_o)$ ：$\int_{\pmb{p},\pmb{\omega}_o,\pmb{\omega}_i}L_r(\pmb{p}^\prime,-\pmb{\omega}_i)$
 
   ### Direct Light
@@ -262,7 +262,6 @@ $$
 &=\int_{\Omega}p(\pmb{\omega}_i)\mathrm{d}\pmb{\omega}_i\\
 
 \end{aligned}
-
 $$
 
 ![dwi_dA](https://chaphlagical.github.io/assets/images/assets-img/PathTracing/dwi_dA.jpg)
