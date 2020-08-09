@@ -1,0 +1,188 @@
+---
+title: 空气曲棍球机器人的视觉算法设计
+tags: 应用实例
+article_header:
+  type: cover
+  image:
+    src: /assets/images/project.jpg
+---
+
+<!--more-->
+
+## 一、背景
+
+本文是基于学校电子设计课程项目中关于空气曲棍球的视觉系统解决方案。
+
+项目主要灵感来自于如下视频：
+
+<video width="50%" height="50%" id="video" controls="" preload="none" poster="/assets/images/air-hockey-robot.jpg">
+      <source id="mp4" src="/assets/videos/2018.12.31.mp4" type="video/mp4">
+      </video>
+视觉系统主要解决项目中对球的识别追踪和运动预测以及手柄的定位和坐标系标定。
+
+## 二、球的运动检测
+
+由于实验对实时性要求性比较高，经试验霍夫变换圆检测效果和速度都没有基于颜色特征的识别效果好，故介绍基于颜色的球运动检测。
+
+### （一）球识别
+
+
+实验主要使用了OpenCV3、时间库time，以及矩阵运算库Numpy
+
+```python
+import cv2 as cv
+import numpy as np
+import time
+```
+
+#### 2、从摄像头获取图像
+
+定义视频流对象
+
+```python
+cap=cv.VideoCapture(0)
+cap.set(cv.CAP_PROP_FPS, 60)#设置帧速
+```
+
+当需要从视频中读取图像时，只需要：
+
+```python
+img=cap.read()
+```
+
+![原始图像](/assets/images/air-hockey-robot/1.png)
+
+#### 3、颜色空间转换
+
+因为RGB通道并不能很好地反映出物体具体的颜色信息 ， 而相对于RGB空间，HSV空间能够非常直观的表达色彩的明暗，色调，以及鲜艳程度，方便进行颜色之间的对比。故我们采用在HSV空间中进行颜色分割。
+
+![HSV颜色空间](/assets/images/air-hockey-robot/1.jpg)
+
+```python
+hsv = cv.cvtColor(img, cv.COLOR_BGR2HSV)
+```
+
+![HSV图像](/assets/images/air-hockey-robot/hsv.png)
+
+#### 4、颜色阈值分割
+
+![HSV颜色范围](/assets/images/air-hockey-robot/2.jpg)
+
+通过查表和调参，可以将目标颜色很容易地分离出来
+
+```python
+frame_thresh = cv.inRange(hsv, lower, upper)#获得分割后的二值化图像
+frame_segmentation = cv.bitwise_and(img, img, mask=frame_thresh)#通过位运算获得分割后图像
+```
+
+![HSV图像](/assets/images/air-hockey-robot/2.png)
+
+![HSV图像](/assets/images/air-hockey-robot/3.png)
+
+#### 5、降噪
+
+本实验使用开运算和闭运算来减少噪声和使分割的球更加闭合，便于轮廓检测
+
+```python
+kernel_open=np.ones((kernel_open_size, kernel_open_size),np.uint8)
+kernel_close=np.ones((kernel_close_size, kernel_close_size),np.uint8)
+frame_preprocess = cv.morphologyEx(frame_thresh, cv.MORPH_OPEN,kernel_open)  # 开运算
+frame_preprocess = cv.morphologyEx(frame_preprocess, cv.MORPH_CLOSE,kernel_close )#闭运算
+```
+
+其中kernel_open_size和kernel_close_size为设置的核大小，根据具体效果调整参数
+
+#### 6、轮廓检测
+
+```python
+image,contours,hierarchy=cv.findContours(frame_preprocess,cv.RETR_TREE,
+                                         cv.CHAIN_APPROX_SIMPLE)
+area = 0
+contour = None
+for i in contours:  # 筛选最大面积轮廓
+    if cv.contourArea(i) > area:
+        contour = i
+        area=cv.contourArea(i)
+(x,y),radius = cv.minEnclosingCircle(contour)  # 用圆拟合轮廓同时得到圆心坐标和半径等信息
+```
+
+![HSV图像](/assets/images/air-hockey-robot/4.png)
+
+###  （二）球运动分析
+
+为得到球运动的速度、方向等信息，通过分析连续两帧图像的差异信息求得
+
+```python
+try:
+	if abs(rx - pre_x)>1 or abs(ry-pre_y)>1:  # 设定一定范围，降低摄像头本身干扰
+        vx = (rx - pre_x)/(time.time-pretime)  # x方向速度
+		vy = (ry - pre_y)/(time.time-pretime)  # y方向速度
+		pretime=time.time  # 更新时间 
+    else:
+        vx=vy=0  # 若没运动，速度置零
+        pretime = time  # 更新时间
+except:
+    pass
+pre_x = rx
+pre_y = ry
+pre_vx = vx
+pre_vy = vy
+```
+
+其中用rx和ry表示是由于进行了坐标标定（后面讲到），通过vx和vy就可以知道球运动速度的方向和大小
+
+![运动分析](/assets/images/air-hockey-robot/5.png)
+
+## 三、手柄的定位
+
+手柄的定位与球的定位一样是基于颜色特征的分割，可以直接套用球定位的程序修改参数即可。
+
+## 四、坐标变换
+
+在实验中还遇到一个问题就是从摄像头坐标系到单片机控制坐标系的一个映射，这里我们使用透视变换解决，假设从摄像头坐标系**cam**到单片机坐标系**mcu**只有线性拉伸和平移的变换，即满足：
+
+$\begin{cases}
+mcu_x = a\times cam_x+b\times cam_y+c \\\\  
+mcu_y=d\times cam_x+e\times cam_y+f
+\end{cases}$
+
+写成矩阵形式有：
+
+$\begin{equation}
+\begin{bmatrix} 
+mcu_x & mcu_y & 1 
+\end{bmatrix}=
+\begin{bmatrix} 
+cam_x & cam_y & 1
+\end{bmatrix}
+\begin{bmatrix}
+a & d & 0 \\\\ b & e & 0 \\\\ c & f & 1
+\end{bmatrix}
+\end{equation}$
+
+做如下假设：
+
+$mcu= \begin{bmatrix}mcu_x & mcu_y & 1 \end{bmatrix}$  ， $cam= \begin{bmatrix}cam_x & cam_y & 1 \end{bmatrix}$  和 $T=\begin{bmatrix}a & d & 0 \\\\ b & e & 0 \\\\ c & f & 1\end{bmatrix}$
+
+则有$mcu=cam \times T$ 
+
+为了求T，我们需要三对**cam**和**mcu** ，
+
+设$\hat{mcu}= \begin{bmatrix}mcu_1 \\\\ mcu_2 \\\\ mcu_3 \end{bmatrix}$   和  $\hat{cam}= \begin{bmatrix}cam_1 \\\\ cam_2 \\\\ cam_3 \end{bmatrix}$ 
+
+依然有  $\hat{mcu}=\hat{cam}\times T$  
+
+由于  $\hat{cam}$  为$3\times3$矩阵，若 $\hat{cam}$ 可逆，则有$T=\hat{cam}^{-1}\times\hat{mcu}$  
+
+由此求得变换矩阵T，之后就可以很方便地从摄像头坐标系转到单片机坐标系了。
+
+程序也是简单的：
+
+```python
+def Correct(cam,mcu):#坐标纠正
+    return np.matmul(np.linalg.inv(cam),mcu)
+
+def Get_mcu(correct,cam):#获得单片机的坐标
+    real=np.matmul(cam,correct)
+    return real[0],real[1]
+```
