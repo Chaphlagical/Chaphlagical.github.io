@@ -146,11 +146,12 @@ The integral domain $A$ is all the area in the scene, but only at the light sour
 
 The number of light sources: $N_e$
 
-The light source set in the scene: $\{L_{e_i}\}_{i=1}^{N_e}$ 
+The light source set in the scene: $[L_{e_i}]_{i=1}^{N_e}$
 
-The corresponding area set: $\{A(L_{e_i})\}_{i=1}^{N_e}$
+The corresponding area set: $[A(L_{e_i})]_{i=1}^{N_e}$
 
 Then, we have
+
 $$
 L_{\text{dir}}(\pmb{x}\to\pmb{z})=\sum_{i=1}^{N_e}\int_{A(L_{e_i})} f_r(\pmb{y}\to\pmb{x}\to\pmb{z})L_e(\pmb{y}\to\pmb{x})G(\pmb{x}\to\pmb{y})\mathbb{d}A(\pmb{y})
 $$
