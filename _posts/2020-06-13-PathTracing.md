@@ -11,6 +11,12 @@ tags: [CG, OpenGL, Render]
 readtime: true
 ---
 
+Basic Path Tracing
+
+## Feature
+
+
+
 
 
 ## Resource
