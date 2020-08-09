@@ -2,7 +2,7 @@
 layout: post
 title: Markdown Tutorial
 cover-img: /assets/images/cover-img/markdown.jpg
-tags: [Markdown]
+tags: [Markdown, Note]
 readtime: true
 ---
 
