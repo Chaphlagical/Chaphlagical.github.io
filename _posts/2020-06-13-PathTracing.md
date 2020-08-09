@@ -43,32 +43,45 @@ $$
 * $\theta_{\pmb{\omega}_i,\pmb{n}(\pmb{p})}$ is the angle between $\pmb{\omega}_i$ and $\pmb{n}(\pmb{p})$ 
 
 Set
+
 $$
 \int_{\pmb{p},\pmb{\omega}_o,\pmb{\omega}_i}L=\int_{\mathcal{H}^2(\pmb{n}(\pmb{p}))} f_r(\pmb{p},\pmb{\omega}_i,\pmb{\omega}_o)L\cos\theta_{\pmb{\omega}_i,\pmb{n}(\pmb{p})}\mathbb{d}\pmb{\omega}_i.
 $$
+
 Then
+
 $$
 L_o(\pmb{p},\pmb{\omega}_o)=L_e(\pmb{p},\pmb{\pmb{\omega}_o})+\int_{\pmb{p},\pmb{\omega}_o,\pmb{\omega}_i}L_i(\pmb{p},\pmb{\omega}_i)
 $$
+
 The reflection equation will be
+
 $$
 L_r(\pmb{p},\pmb{\omega}_o)=\int_{\pmb{p},\pmb{\omega}_o,\pmb{\omega}_i}L_i(\pmb{p},\pmb{\omega}_i)
 $$
+
 As for $L_i$
+
 $$
 L_i(\pmb{p},\pmb{\omega}_i)=L_o(\mathop{raytrace}(\pmb{p},\pmb{\omega_i}),-\pmb{\omega_i})
 $$
+
 $raytrace$ is intersection function of ray and scene
 
 Set $\mathop{raytrace}(\pmb{p},\pmb{\omega}_i)$ to be $\pmb{p}^\prime$, we have
+
 $$
 L_i(\pmb{p},\pmb{\omega}_i)=L_o(\pmb{p}^\prime,-\pmb{\omega_i})
 $$
+
 Recursively,
+
 $$
 L_o(\pmb{p},\pmb{\omega}_o)=L_e(\pmb{p},\pmb{\pmb{\omega}_o})+\int_{\pmb{p},\pmb{\omega}_o,\pmb{\omega}_i}L_o(\pmb{p}^\prime,-\pmb{\omega_i})
 $$
+
 Expand $L_r$
+
 $$
 \begin{aligned}
 L_r(\pmb{p},\pmb{\omega}_o)
@@ -77,6 +90,7 @@ L_r(\pmb{p},\pmb{\omega}_o)
 +\int_{\pmb{p},\pmb{\omega}_o,\pmb{\omega}_i}L_r(\pmb{p}^\prime,-\pmb{\omega}_i)
 \end{aligned}
 $$
+
 Define
 
 * Direct Light: $L_{\text{dir}}(\pmb{p},\pmb{\omega}_o)$：$\int_{\pmb{p},\pmb{\omega}_o,\pmb{\omega}_i}L_e(\pmb{p}^\prime,-\pmb{\omega}_i)$
@@ -97,26 +111,33 @@ $\pmb{p}$,  $\pmb{\omega}_o$ and $\pmb{\omega}_i$ can be determined bt there poi
 $\pmb{x}$ is $\pmb{p}$，$\pmb{y}$ is $\pmb{p}^\prime$ 
 
 According to the geometry relationship, we know
+
 $$
 \mathbb{d}\pmb{\omega}_i=\frac{|\cos\theta_{\pmb{y},\pmb{x}}|}{\|\pmb{x}-\pmb{y}\|^2}\mathbb{d}A(\pmb{y})
 $$
+
 And $\theta_{\pmb{y},\pmb{x}}$ is the angle between $\pmb{x}-\pmb{y}$ and $\pmb{n}(\pmb{y})$ 
 
 Introduce geometric transmission term (describe the transmission efficiency between two points)
+
 $$
 G(\pmb{x}\leftrightarrow\pmb{y})=V(\pmb{x}\leftrightarrow\pmb{y})\frac{|\cos\theta_{\pmb{x},\pmb{y}}||\cos\theta_{\pmb{y},\pmb{x}}|}{\|\pmb{x}-\pmb{y}\|^2}
 $$
+
 $V(\pmb{x}\leftrightarrow\pmb{y})$ is visibility function. When no block between $\pmb x$ and $\pmb y$, $V(\pmb{x}\leftrightarrow\pmb{y})=1$. Otherwise, $V(\pmb{x}\leftrightarrow\pmb{y})=0$
 
 $G$ is symmetric function, $G(\pmb{x}\leftrightarrow\pmb{y})=G(\pmb{y}\leftrightarrow\pmb{x})$ 
 
 Then,
+
 $$
 L_{\text{dir}}(\pmb{x}\to\pmb{z})=\int_A f_r(\pmb{y}\to \pmb{x}\to\pmb{z})L_e(\pmb{y}\to\pmb{x})G(\pmb{x}\leftrightarrow\pmb{y})\mathbb{d}A(\pmb{y})
 $$
+
 The integral domain $A$ is all the area in the scene, but only at the light source $L_e(\pmb{y}\to\pmb{x})\neq 0$
 
 Set the number of light sources $N_e$, the light source set in the scene is $\{L_{e_i}\}_{i=1}^{N_e}$, and the corresponding area set is $\{A(L_{e_i})\}_{i=1}^{N_e}$, it can be written as
+
 $$
 L_{\text{dir}}(\pmb{x}\to\pmb{z})=\sum_{i=1}^{N_e}\int_{A(L_{e_i})} f_r(\pmb{y}\to\pmb{x}\to\pmb{z})L_e(\pmb{y}\to\pmb{x})G(\pmb{x}\to\pmb{y})\mathbb{d}A(\pmb{y})
 $$
@@ -124,6 +145,7 @@ $$
 ### Indirect Light
 
 Recursively,
+
 $$
 L_r(\pmb{p},\pmb{\omega}_o)=\int_{\pmb{p},\pmb{\omega}_o,\pmb{\omega}_i}L_e(\pmb{p}^\prime,-\pmb{\omega}_i)
 
@@ -151,18 +173,23 @@ In order to reduce the error, in addition to increasing the number of samples, y
 **Importance Sampling**
 
 If $p(x)=\frac{f(x)}{\int_D f(x)dx}$, then
+
 $$
 V\Big[\frac{f(x)}{p(x)}\Big]=V\Big[\frac{1}{\int_D f(x)dx}\Big]
 $$
+
 As long as the shapes of $p(x)$ and $f(x)$ are close, the variance will be smaller, such as $f(x)=g(x)h(x)$, $h(x)\approx c $, and the integral of $g(x)$ can be calculated, then $p(x)=\frac{g(x)}{\int_D g(x)dx}$
 
 ### Solving Rendering Equation
 
 We need to calculate following integration
+
 $$
 L_r(\pmb{p},\pmb{\omega}_o)=L_{\text{dir}}+L_{\text{indir}}
 $$
+
 Using Monte Carlo Method can transform integration into sampling
+
 $$
 \begin{aligned}
 
@@ -176,6 +203,7 @@ L_{\text{indir}}(\pmb{p},\pmb{\omega}_o)
 
 \end{aligned}
 $$
+
 $L_{\text{dir}}$ Sampling in each light source area
 
 For $L_{\text{indir}}$ hemisphere sampling
@@ -220,6 +248,7 @@ As long as not all table entries are exactly full, repeat the following steps:
 5. Assign entry $i$ to the appropriate category based on the new value of $U_i$.
 
 After generating alias table, we can use discrete pixels. The probability relationship is
+
 $$
 \begin{aligned}
 
@@ -234,8 +263,11 @@ $$
 &=\int_{\Omega}p(\pmb{\omega}_i)\mathrm{d}\pmb{\omega}_i\\
 
 \end{aligned}
+
 $$
+
 ![dwi_dA](https://chaphlagical.github.io/assets/images/assets-img/PathTracing/dwi_dA.jpg)
+
 $$
 \begin{aligned}
 
@@ -247,7 +279,9 @@ $$
 
 \end{aligned}
 $$
+
 We can get
+
 $$
 p(\pmb{\omega}_i)=\frac{wh}{2\pi^2\sin\theta}p_{\text{img}}(i,j)
 $$
