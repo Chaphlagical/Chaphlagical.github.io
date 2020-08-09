@@ -37,7 +37,6 @@ $$
 * $L_e$ is lighting radiance
 * $\pmb{n}(\pmb{p})$ 
 * ${\mathcal{H}^2(\pmb{n}(\pmb{p}))} $ is the hemisphere of normal $\pmb{n}(\pmb{p})$ 
-
 * $f_r$ is the Bidirectional Reflectance Distribution Function (BRDF)
 * $L_i$ is exit radiance
 * $\theta_{\pmb{\omega}_i,\pmb{n}(\pmb{p})}$ is the angle between $\pmb{\omega}_i$ and $\pmb{n}(\pmb{p})$ 
