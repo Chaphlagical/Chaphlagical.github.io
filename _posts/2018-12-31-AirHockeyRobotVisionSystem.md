@@ -18,8 +18,9 @@ Vision System Design for Air Hockey Robot
 项目主要灵感来自于如下视频：
 
 <video width="50%" height="50%" id="video" controls="" preload="none" poster="/assets/images/air-hockey-robot.jpg">
-      <source id="mp4" src="/assets/videos/2018.12.31.mp4" type="video/mp4">
+      <source id="mp4" src="https://chaphlagical.github.io/assets/videos/air-hockey-robot/demo.mp4" type="video/mp4">
       </video>
+
 视觉系统主要解决项目中对球的识别追踪和运动预测以及手柄的定位和坐标系标定。
 
 ## 二、球的运动检测
