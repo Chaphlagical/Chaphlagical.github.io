@@ -1,13 +1,15 @@
 ---
-title: 双目视觉标定
-tags: 计算机视觉
-article_header:
-  type: cover
-  image:
-    src: /assets/images/project.jpg
+layout: post
+title: Stereo Camera Calibration
+subtitle: Camera Calibration Series
+thumbnail-img: /assets/images/thumbnail-img/stereo.jpg
+cover-img: /assets/images/cover-img/vision.jpg
+comments: true
+tags: [Computer Vision]
+readtime: true
 ---
 
-<!--more-->
+Stereo Camera Calibration.
 
 ## 一、坐标系
 
@@ -29,7 +31,9 @@ $P_{lC}=\begin{bmatrix}R_l&T_l\\\\0&1\end{bmatrix}P_W$ 和 $P_{rC}=\begin{bmatri
 
 其中$R_r$和$R_l$是正交旋转矩阵，需要三个外参确定：
 
-$R=\begin{bmatrix}r_{11}&r_{12}&r_{13}\\\\r_{21}&r_{22}&r_{23}\\\\r_{31}&r_{32}&r_{33}\end{bmatrix}$
+$$
+R=\begin{bmatrix}r_{11}&r_{12}&r_{13}\\\\r_{21}&r_{22}&r_{23}\\\\r_{31}&r_{32}&r_{33}\end{bmatrix}
+$$
 
 $T_r$和$T_l$是平移矩阵，需要三个外参确定：
 
@@ -39,7 +43,15 @@ $T=[t_x,t_y,t_z]^T$
 
 由三角形相似原理：
 
-$\begin{cases}x_p=f\frac{x_c}{z_c}\\\\y_p=f\frac{y_c}{z_c}\end{cases}$ 矩阵形式表示为：$z_c\begin{bmatrix} x_p\\\\y_p\end{bmatrix}=\begin{bmatrix}f&0\\\\0&f\end{bmatrix}\begin{bmatrix}x_c\\\\y_c\end{bmatrix}$
+$$
+\begin{cases}x_p=f\frac{x_c}{z_c}\\\\y_p=f\frac{y_c}{z_c}\end{cases}
+$$
+
+矩阵形式表示为：
+
+$$
+z_c\begin{bmatrix} x_p\\\\y_p\end{bmatrix}=\begin{bmatrix}f&0\\\\0&f\end{bmatrix}\begin{bmatrix}x_c\\\\y_c\end{bmatrix}
+$$
 
 ## 四、图像坐标系$\{ picture \}$到像素坐标系$\{ pixel \}$的转换
 
@@ -47,13 +59,23 @@ $s_x$表示$X_{pix}$方向上单位mm的像素数,单位是pix/mm
 $x_y$表示$Y_{pix}$方向上单位mm的像素数,单位是pix/mm
 $x_0$ , $y_0$表示投影平面中心在像素坐标系{pixel}中的坐标,则有
 
-$\begin{cases} x_{pix}=x_0+x_ps_x \\\\  y_{pix}=y_0+y_ps_y\end{cases}$ 矩阵形式：$\begin{bmatrix}x_{pix}\\\\y_{pix}\\\\1\end{bmatrix}=\begin{bmatrix}s_x&0&x_0\\\\0&s_y&y_0\\\\0&0&1\end{bmatrix}\begin{bmatrix}x_p\\\\y_p\\\\1\end{bmatrix}$
+$$
+\begin{cases} x_{pix}=x_0+x_ps_x \\\\  y_{pix}=y_0+y_ps_y\end{cases}
+$$
+
+矩阵形式：
+
+$$
+\begin{bmatrix}x_{pix}\\\\y_{pix}\\\\1\end{bmatrix}=\begin{bmatrix}s_x&0&x_0\\\\0&s_y&y_0\\\\0&0&1\end{bmatrix}\begin{bmatrix}x_p\\\\y_p\\\\1\end{bmatrix}
+$$
 
 ## 五、世界坐标系$\{ World  \}$到像素坐标系$\{ Pixel \}$的转换
 
 记$\begin{cases} f_x=fs_x \\\\ f_y=fs_y\end{cases}$分别表示焦距$f$在$X_{pix}$和$Y_{pix}$方向的等效焦距，单位是$pix$，结合各式得
 
-$z_c \begin{bmatrix} x_{pix}\\\\y_{pix}\\\\1\end{bmatrix}=\begin{bmatrix} f_x&0&x_0&0\\\\0&f_y&y_0&0\\\\0&0&1&0\end{bmatrix}\begin{bmatrix}R&T\\\\0&1\end{bmatrix}\begin{bmatrix}x_w\\\\y_w\\\\z_w\\\\1\end{bmatrix}$
+$$
+z_c \begin{bmatrix} x_{pix}\\\\y_{pix}\\\\1\end{bmatrix}=\begin{bmatrix} f_x&0&x_0&0\\\\0&f_y&y_0&0\\\\0&0&1&0\end{bmatrix}\begin{bmatrix}R&T\\\\0&1\end{bmatrix}\begin{bmatrix}x_w\\\\y_w\\\\z_w\\\\1\end{bmatrix}
+$$
 
 ## 六、摄像机透镜畸变
 
@@ -61,12 +83,17 @@ $z_c \begin{bmatrix} x_{pix}\\\\y_{pix}\\\\1\end{bmatrix}=\begin{bmatrix} f_x&0&
 
 径向畸变会产生“鱼眼”现象。成像中心处径向畸变为0,径向畸变随着与成像中心距离增大而增大,在图像边缘处达到最大径向畸变。常常用偶次幂的泰勒公式描述径向畸变：
 
-$\begin{cases}x_{corrected}=x(1+k_1r^2+k_2r^4+k_3r^6)\\\\x_{corrected}=y(1+k_1r^2+k_2r^4+k_3r^6)\end{cases}$
+$$
+\begin{cases}x_{corrected}=x(1+k_1r^2+k_2r^4+k_3r^6)\\\\x_{corrected}=y(1+k_1r^2+k_2r^4+k_3r^6)\end{cases}
+$$
 
 #### 2、切向畸变
 
 切向畸变由透镜和成像平面不平行引起。常用如下公式描述
-$\begin{cases}x_{corrected}=x+[2p_1y+p_2(r^2+2x^2)]\\\\x_{corrected}=y+[p_1(r^2+2y^2)+2p_2x]\end{cases}$​
+
+$$
+\begin{cases}x_{corrected}=x+[2p_1y+p_2(r^2+2x^2)]\\\\x_{corrected}=y+[p_1(r^2+2y^2)+2p_2x]\end{cases}
+$$
 
 #### 3、畸变校正
 
@@ -76,13 +103,23 @@ $\begin{cases}x_{corrected}=x+[2p_1y+p_2(r^2+2x^2)]\\\\x_{corrected}=y+[p_1(r^2+
 
 假设空间中有一点P，其在世界坐标系$\{World\}$下的坐标为$P_W$，其在左右摄像机坐标系$\{Camera\}$下的坐标可表示为：
 
-$\begin{cases}P_l=R_lP_W+T_l\\\\P_r=R_rP_W+T_r\end{cases}$矩阵形式表示为：$\begin{bmatrix} P_l\\\\P_r\\\\1\end{bmatrix}=\begin{bmatrix}P_W&0&T_l\\\\0&P_W&T_r\\\\0&0&1\end{bmatrix}\begin{bmatrix}R_l\\\\R_r\\\\1\end{bmatrix}$ 
+$$
+\begin{cases}P_l=R_lP_W+T_l\\\\P_r=R_rP_W+T_r\end{cases}
+$$
+
+矩阵形式表示为：
+
+$$
+\begin{bmatrix} P_l\\\\P_r\\\\1\end{bmatrix}=\begin{bmatrix}P_W&0&T_l\\\\0&P_W&T_r\\\\0&0&1\end{bmatrix}\begin{bmatrix}R_l\\\\R_r\\\\1\end{bmatrix}
+$$
 
 设旋转矩阵为$R$，平移矩阵为$T$，$P_l$和$P_r$有关系：
 
 $P_r=RP_l+T$（$R$和$T$均为从左向右转换），联立解得：
 
-$\begin{cases}R=R_rR_l^T\\\\T=T_r-RT_l\end{cases}$
+$$
+\begin{cases}R=R_rR_l^T\\\\T=T_r-RT_l\end{cases}
+$$
 
 通过单目标定相机外参数$R_l，T_l，R_r$和$T_r$，代入求解。
 
@@ -98,7 +135,9 @@ $(P_l-T_r)^T(P_l\times T_r)=0$将$P_l\times T_r$写成矩阵相乘的形式：$P
 
 其中S为：
 
-$S=\begin{bmatrix}0&-T_x&T_y\\\\T_z&0&-T_x\\\\-T_y&T_x&0\end{bmatrix} $
+$$
+S=\begin{bmatrix}0&-T_x&T_y\\\\T_z&0&-T_x\\\\-T_y&T_x&0\end{bmatrix} 
+$$
 
 联立得：$P_r^TRSP_l=0$
 
@@ -108,7 +147,9 @@ $S=\begin{bmatrix}0&-T_x&T_y\\\\T_z&0&-T_x\\\\-T_y&T_x&0\end{bmatrix} $
 
 设相机内参数矩阵为$M$，由$P_{pix}=MP_p$ 得：
 
-$P_{pix}^T(M_r^{-1})EM_l^{-1}P_{pix}=0$
+$$
+P_{pix}^T(M_r^{-1})EM_l^{-1}P_{pix}=0
+$$
 
 定义基础矩阵$F=(M_r^{-1})EM_l^{-1}$
 

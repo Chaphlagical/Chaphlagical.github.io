@@ -2,8 +2,8 @@
 layout: post
 title: Vision System for Air Hockey Robot
 subtitle: USTC Electronic Design II Course Project
-thumbnail-img: /assets/images/thumbnail-img/airHockey.png
-cover-img: /assets/images/cover-img/airHockey.png
+thumbnail-img: /assets/images/thumbnail-img/airHockey.jpg
+cover-img: /assets/images/cover-img/vision.jpg
 tags: [Computer Vision, Image Process, Robotics]
 readtime: true
 comments: true
