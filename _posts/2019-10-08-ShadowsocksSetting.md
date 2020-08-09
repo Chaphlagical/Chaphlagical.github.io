@@ -1,8 +1,8 @@
 ---
 layout: post
 title: Set up ShadowSocks
-thumbnail-img: /assets/images/thumbnail-img/ss.png
-cover-img: /assets/images/cover-img/network.png
+thumbnail-img: /assets/images/thumbnail-img/ss.jpg
+cover-img: /assets/images/cover-img/network.jpg
 tags: [Computer Network, Note]
 readtime: true
 comments: false
