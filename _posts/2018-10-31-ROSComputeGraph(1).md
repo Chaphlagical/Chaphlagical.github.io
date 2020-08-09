@@ -1,0 +1,220 @@
+---
+layout: post
+title: ROS Computation Graph(1)
+subtitle: ROS Learning (2)
+thumbnail-img: /assets/images/thumbnail-img/ROS.jpg
+cover-img: /assets/images/cover-img/ROS.jpg
+tags: [Robotics, ROS]
+readtime: true
+comments: true
+---
+
+ 关于ROS如何创建新的消息messages、服务文件srv
+
+## 一、创建消息
+
+#### 1、新建功能包
+
+在工作空间catkin_ws中新建一个功能包my_msgs：
+
+```shell
+$ source ~/catkin_ws/devel/setup.bash
+$ cd ~/catkin_ws/src
+$ catkin_create_pkg my_msgs std_msgs rospy roscpp
+```
+
+#### 2、创建msg文件
+
+在~/catkin_ws/src/my_msgs下新建msg文件夹并在文件夹内创建Num.msg文件，该文件内容为：
+
+```
+int64 num
+```
+
+使用命令：
+
+```shell
+$ cd ~/catkin_ws/src/my_msgs
+$ mkdir msg
+$ echo "int64 num" > msg/Num.msg
+```
+
+当然，Num.msg内容也可为多个变量，例如：
+
+```
+string first_name
+string last_name
+uint8 age
+uint32 score
+```
+
+#### 3、更新package.xml文件
+
+打开my_msgs功能包的package.xml文件，确保该文件中以下两行命令没有被注释掉：
+
+```
+<build_depend>message_generation</build_depend>
+<exec_depend>message_runtime</exec_depend>
+```
+
+#### 4、更新CMakeList.txt文件
+
+打开my_msgs功能包的CMakeLists.txt文件，在find_package(...)中添加message_generation，这样在编译后就可以生成消息。
+
+```
+find_package(catkin REQUIRED COMPONENTS
+	roscpp
+	rospy
+	std_msgs
+	message_generation
+)
+```
+
+在CMakeLists.txt中找到catkin_package(...)并添加CATKIN_DEPENDS roscpp rospy std_msgs message_runtime
+
+在CMakeLists.txt中找到以下代码：
+
+```
+#add_message_files(
+#	FILES
+#	Message1.msg
+#	Message2.msg
+#)
+```
+
+去掉代码前面的注释符号"#"，并添加新建的.msg文件，如下：
+
+```
+add_message_files(
+	FILES
+#	Message1.msg
+#	Message2.msg
+	Num.msg
+)
+```
+
+在CMakeList.txt中找到如下代码：
+
+```
+#	generate_messages(
+#		DEPENDENCIES
+#		std_msgs
+#	)
+```
+
+去掉代码前面的注释号"#"
+
+#### 5、重新编译功能包
+
+```shell
+$ cd ~/catkin_ws
+$ catkin_make
+```
+
+#### 6、检查
+
+执行命令
+
+```shell
+$ rosmsg show my_msgs/Num.msg
+```
+
+若输出结果为int64 num则说明成功定义了消息
+
+## 二、创建服务文件
+
+#### 1、添加.srv文件
+
+前面已经在catkin_ws工作空间中创建一个my_msgs功能包。在功能包中新建一个文件夹srv并在文件夹内创建my_srv.srv文件：
+
+```shell
+$ source ~/catkin_ws/devel/setup.bash
+$ cd ~/catkin_ws/src/my_msgs
+$ mkdir srv
+$ touch srv/my_srv.srv
+```
+
+my_srv.srv文件内容如下：
+
+```shell
+int64 req
+...
+int64 res
+```
+
+#### 2、更新package.xml文件
+
+与前面创建msg的修改方法一致
+
+#### 3、更新CMakeList.txt文件
+
+打开my_msgs功能包的CMakeLists.txt文件，在find_package(...)中添加message_generation，这样在编译后就可以生成消息。
+
+```
+find_package(catkin REQUIRED COMPONENTS
+	roscpp
+	rospy
+	std_msgs
+	message_generation
+)
+```
+
+在CMakeLists.txt中找到以下代码：
+
+```
+#add_service_files(
+#	FILES
+#	Service1.srv
+#	Service2.srv
+#)
+```
+
+去掉代码前面的注释符号"#"，并添加新建的.srv文件，如下：
+
+```
+add_service_files(
+	FILES
+#	Service1.srv
+#	Service2.srv
+	my_srv.srv
+)
+```
+
+在CMakeList.txt中找到如下代码：
+
+```
+#	generate_messages(
+#		DEPENDENCIES
+#		std_msgs
+#	)
+```
+
+去掉代码前面的注释号"#"
+
+#### 4、重新编译功能包
+
+```shell
+$ cd ~/catkin_ws
+$ catkin_make
+```
+
+#### 5、检查
+
+执行命令
+
+```shell
+$ rossrv show my_msgs/my_srv
+```
+
+若输出结果为
+
+```shell
+int64 req
+...
+int64 res
+```
+
+则说明成功定义了服务文件
+
+
+
