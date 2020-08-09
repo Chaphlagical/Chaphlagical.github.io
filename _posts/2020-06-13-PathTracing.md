@@ -144,7 +144,7 @@ $$
 
 The integral domain $A$ is all the area in the scene, but only at the light source $L_e(\pmb{y}\to\pmb{x})\neq 0$
 
-Set the number of light sources $N_e$, the light source set in the scene is $ [L_{e_i}]_{i=1}^{N_e} $ , and the corresponding area set is $ [A(L_{e_i})]_{i=1}^{N_e} $, it can be written as
+Set the number of light sources $N_e$, the light source set in the scene is $$[L_{e_i}]_{i=1}^{N_e}$$ , and the corresponding area set is $$ [A(L_{e_i})]_{i=1}^{N_e} $$, it can be written as
 
 $$
 L_{\text{dir}}(\pmb{x}\to\pmb{z})=\sum_{i=1}^{N_e}\int_{A(L_{e_i})} f_r(\pmb{y}\to\pmb{x}\to\pmb{z})L_e(\pmb{y}\to\pmb{x})G(\pmb{x}\to\pmb{y})\mathbb{d}A(\pmb{y})
