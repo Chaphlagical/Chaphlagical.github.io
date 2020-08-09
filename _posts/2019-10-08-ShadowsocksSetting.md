@@ -1,10 +1,11 @@
 ---
-title: Shadowsocks的配置
-tags: 计算机网络
-article_header:
-  type: cover
-  image:
-    src: /assets/images/computer_network.jpg
+layout: post
+title: Set up ShadowSocks
+thumbnail-img: /assets/images/thumbnail-img/ss.png
+cover-img: /assets/images/cover-img/network.png
+tags: [Computer Network, Note]
+readtime: true
+comments: false
 ---
 
 之前入手一个vultr的vps，顺便搭了ss梯子，整理一下。

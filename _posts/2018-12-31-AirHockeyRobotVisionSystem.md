@@ -1,13 +1,15 @@
 ---
-title: 空气曲棍球机器人的视觉算法设计
-tags: 应用实例
-article_header:
-  type: cover
-  image:
-    src: /assets/images/project.jpg
+layout: post
+title: Vision System for Air Hockey Robot
+subtitle: USTC Electronic Design II Course Project
+thumbnail-img: /assets/images/thumbnail-img/airHockey.png
+cover-img: /assets/images/cover-img/airHockey.png
+tags: [Computer Vision, Image Process, Robotics]
+readtime: true
+comments: true
 ---
 
-<!--more-->
+Vision System Design for Air Hockey Robot
 
 ## 一、背景
 
@@ -50,23 +52,23 @@ cap.set(cv.CAP_PROP_FPS, 60)#设置帧速
 img=cap.read()
 ```
 
-![原始图像](/assets/images/air-hockey-robot/1.png)
+![原始图像](https://chaphlagical.github.io/assets/images/assets-img/air-hockey-robot/1.png){: .mx-auto.d-block :}
 
 #### 3、颜色空间转换
 
 因为RGB通道并不能很好地反映出物体具体的颜色信息 ， 而相对于RGB空间，HSV空间能够非常直观的表达色彩的明暗，色调，以及鲜艳程度，方便进行颜色之间的对比。故我们采用在HSV空间中进行颜色分割。
 
-![HSV颜色空间](/assets/images/air-hockey-robot/1.jpg)
+![HSV颜色空间](https://chaphlagical.github.io/assets/images/assets-img/air-hockey-robot/1.jpg){: .mx-auto.d-block :}
 
 ```python
 hsv = cv.cvtColor(img, cv.COLOR_BGR2HSV)
 ```
 
-![HSV图像](/assets/images/air-hockey-robot/hsv.png)
+![HSV图像](/assets/images/air-hockey-robot/hsv.png){: .mx-auto.d-block :}
 
 #### 4、颜色阈值分割
 
-![HSV颜色范围](/assets/images/air-hockey-robot/2.jpg)
+![HSV颜色范围](https://chaphlagical.github.io/assets/images/assets-img/air-hockey-robot/2.jpg){: .mx-auto.d-block :}
 
 通过查表和调参，可以将目标颜色很容易地分离出来
 
@@ -75,9 +77,9 @@ frame_thresh = cv.inRange(hsv, lower, upper)#获得分割后的二值化图像
 frame_segmentation = cv.bitwise_and(img, img, mask=frame_thresh)#通过位运算获得分割后图像
 ```
 
-![HSV图像](/assets/images/air-hockey-robot/2.png)
+![HSV图像](https://chaphlagical.github.io/assets/images/assets-img/air-hockey-robot/2.png){: .mx-auto.d-block :}
 
-![HSV图像](/assets/images/air-hockey-robot/3.png)
+![HSV图像](https://chaphlagical.github.io/assets/images/assets-img/air-hockey-robot/3.png){: .mx-auto.d-block :}
 
 #### 5、降噪
 
@@ -106,7 +108,7 @@ for i in contours:  # 筛选最大面积轮廓
 (x,y),radius = cv.minEnclosingCircle(contour)  # 用圆拟合轮廓同时得到圆心坐标和半径等信息
 ```
 
-![HSV图像](/assets/images/air-hockey-robot/4.png)
+![HSV图像](https://chaphlagical.github.io/assets/images/assets-img/air-hockey-robot/4.png){: .mx-auto.d-block :}
 
 ###  （二）球运动分析
 
@@ -131,7 +133,7 @@ pre_vy = vy
 
 其中用rx和ry表示是由于进行了坐标标定（后面讲到），通过vx和vy就可以知道球运动速度的方向和大小
 
-![运动分析](/assets/images/air-hockey-robot/5.png)
+![运动分析](https://chaphlagical.github.io/assets/images/assets-img/air-hockey-robot/5.png){: .mx-auto.d-block :}
 
 ## 三、手柄的定位
 
@@ -141,14 +143,17 @@ pre_vy = vy
 
 在实验中还遇到一个问题就是从摄像头坐标系到单片机控制坐标系的一个映射，这里我们使用透视变换解决，假设从摄像头坐标系**cam**到单片机坐标系**mcu**只有线性拉伸和平移的变换，即满足：
 
-$\begin{cases}
+$$
+\begin{cases}
 mcu_x = a\times cam_x+b\times cam_y+c \\\\  
 mcu_y=d\times cam_x+e\times cam_y+f
-\end{cases}$
+\end{cases}
+$$
 
 写成矩阵形式有：
 
-$\begin{equation}
+$$
+\begin{equation}
 \begin{bmatrix} 
 mcu_x & mcu_y & 1 
 \end{bmatrix}=
@@ -158,11 +163,22 @@ cam_x & cam_y & 1
 \begin{bmatrix}
 a & d & 0 \\\\ b & e & 0 \\\\ c & f & 1
 \end{bmatrix}
-\end{equation}$
+\end{equation}
+$$
 
 做如下假设：
 
-$mcu= \begin{bmatrix}mcu_x & mcu_y & 1 \end{bmatrix}$  ， $cam= \begin{bmatrix}cam_x & cam_y & 1 \end{bmatrix}$  和 $T=\begin{bmatrix}a & d & 0 \\\\ b & e & 0 \\\\ c & f & 1\end{bmatrix}$
+$$
+mcu= \begin{bmatrix}mcu_x & mcu_y & 1 \end{bmatrix}
+$$
+
+$$
+cam= \begin{bmatrix}cam_x & cam_y & 1 \end{bmatrix}
+$$
+
+$$
+T=\begin{bmatrix}a & d & 0 \\ b & e & 0 \\ c & f & 1\end{bmatrix}
+$$
 
 则有$mcu=cam \times T$ 
 

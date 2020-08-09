@@ -61,12 +61,12 @@ analysis friends
 
 生成以下文件（夹）
 
-- ./data/user/avatar保存好友头像，
-- markdown文件./data/user/user_friends_data.md保存好友的备注、昵称、地区、头像、性别等信息，
-- html文件./data/user/Graph/China.html记录好友在中国的分布
-- html文件./data/user/Graph/Gender.html可视化好友的性别比例
-- html文件./data/user/Graph/Signature.html可视化好友个性签名词云
-- html文件./data/user/Graph/province.html记录好友所在人数最多省份的具体分布
+- `./data/user/avatar`保存好友头像，
+- markdown文件`./data/user/user_friends_data.md`保存好友的备注、昵称、地区、头像、性别等信息，
+- html文件`./data/user/Graph/China.html`记录好友在中国的分布
+- html文件`./data/user/Graph/Gender.html`可视化好友的性别比例
+- html文件`./data/user/Graph/Signature.html`可视化好友个性签名词云
+- html文件`./data/user/Graph/province.html`记录好友所在人数最多省份的具体分布
 
 输入：
 
@@ -90,9 +90,9 @@ analysis all group
 
 生成以下文件（夹）：
 
-- ./data/group/[group_name]/group_members_data.md 保存群组成员的信息
-- ./data/group/[group_name]/avatar保存群组成员头像
-- ./data/group/[group_name]/Graph/Relationship.html群组成员关系可视化
+- `./data/group/[group_name]/group_members_data.md `保存群组成员的信息
+- `./data/group/[group_name]/avatar`保存群组成员头像
+- `./data/group/[group_name]/Graph/Relationship.html`群组成员关系可视化
 
 输入：
 
@@ -106,11 +106,11 @@ check group [-群组名]
 
 html文件已保存为图片
 
-![](https://chaphlagical.github.io/assets/images/assets-img/WechatRobot/3.jpg)
-![](https://chaphlagical.github.io/assets/images/assets-img/WechatRobot/China.png)
-![](https://chaphlagical.github.io/assets/images/assets-img/WechatRobot/gender.png)
-![](https://chaphlagical.github.io/assets/images/assets-img/WechatRobot/guangdong.png) 
-![](https://chaphlagical.github.io/assets/images/assets-img/WechatRobot/wordcloud.png)
+![](https://chaphlagical.github.io/assets/images/assets-img/WechatRobot/3.jpg){: .mx-auto.d-block :}
+![](https://chaphlagical.github.io/assets/images/assets-img/WechatRobot/China.png){: .mx-auto.d-block :}
+![](https://chaphlagical.github.io/assets/images/assets-img/WechatRobot/gender.png){: .mx-auto.d-block :}
+![](https://chaphlagical.github.io/assets/images/assets-img/WechatRobot/guangdong.png){: .mx-auto.d-block :}
+![](https://chaphlagical.github.io/assets/images/assets-img/WechatRobot/wordcloud.png){: .mx-auto.d-block :}
 
 
 ### （二）将手机变成电脑终端  
@@ -123,7 +123,7 @@ html文件已保存为图片
 
 #### 2、文件结构    
 
-./scripts/function/cmd.py
+`./scripts/function/cmd.py`
 
 基本操作函数
 
@@ -151,7 +151,7 @@ cmd kill
 
 #### 效果：  
 
-![](https://chaphlagical.github.io/assets/images/assets-img/WechatRobot/1.jpg)
+![](https://chaphlagical.github.io/assets/images/assets-img/WechatRobot/1.jpg){: .mx-auto.d-block :}
 
 ### （三）聊天机器人   
 
@@ -161,7 +161,7 @@ cmd kill
 
 #### 2、文件结构  
 
-./scripts/function/turing.py 实现相关功能函数
+`./scripts/function/turing.py` 实现相关功能函数
 
 #### 3、基本使用方法
 
@@ -187,9 +187,7 @@ turing kill
 
 #### 效果：  
 
-![](https://chaphlagical.github.io/assets/images/assets-img/WechatRobot/2.jpg)
-
-
+![](https://chaphlagical.github.io/assets/images/assets-img/WechatRobot/2.jpg){: .mx-auto.d-block :}
 
 
 ### （四）目标识别  
@@ -236,10 +234,8 @@ yolo kill
 
 #### 效果：
 
-![](https://chaphlagical.github.io/assets/images/assets-img/WechatRobot/4.jpg)
-![](https://chaphlagical.github.io/assets/images/assets-img/WechatRobot/5.jpg)
-
-
+![](https://chaphlagical.github.io/assets/images/assets-img/WechatRobot/4.jpg){: .mx-auto.d-block :}
+![](https://chaphlagical.github.io/assets/images/assets-img/WechatRobot/5.jpg){: .mx-auto.d-block :}
 
 ### （五）电影链接获取  
 
@@ -261,7 +257,7 @@ yolo kill
 
 #### 2、文件结构  
 
-./scripts/function/movie.py
+`./scripts/function/movie.py`
 
 包含抓取电影资源的函数
 
@@ -277,7 +273,7 @@ movie [-电影名]
 
 #### 效果：
 
-![](https://chaphlagical.github.io/assets/images/assets-img/WechatRobot/7.jpg)
+![](https://chaphlagical.github.io/assets/images/assets-img/WechatRobot/7.jpg){: .mx-auto.d-block :}
 
 ### （五）Shazam！  
 
@@ -343,7 +339,7 @@ GUI构建函数
 
 #### 效果：
 
-![](https://chaphlagical.github.io/assets/images/assets-img/WechatRobot/GUI.png)
+![](https://chaphlagical.github.io/assets/images/assets-img/WechatRobot/GUI.png){: .mx-auto.d-block :}
 
 ## 三、程序结构详解：  
 
