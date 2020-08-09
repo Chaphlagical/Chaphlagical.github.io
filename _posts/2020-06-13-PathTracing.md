@@ -96,6 +96,7 @@ Define
 * Indirect Light: $L_{\text{indir}}(\pmb{p},\pmb{\omega}_o)=\int_{\pmb{p},\pmb{\omega}_o,\pmb{\omega}_i}L_r(\pmb{p}^\prime,-\pmb{\omega}_i)$
 
 ### Direct Light
+
 $$
 L_{\text{dir}}(\pmb{p},\pmb{\omega}_o)=\int_{\pmb{p},\pmb{\omega}_o,\pmb{\omega}_i}L_e(\pmb{p}^\prime,-\pmb{\omega}_i)
 $$
@@ -104,7 +105,7 @@ $$
 
 $\pmb{p}$,  $\pmb{\omega}_o$ and $\pmb{\omega}_i$ can be determined bt there points.
 
-![xyz](https://chaphlagical.github.io/assets/images/assets-img/PathTracing/xyz.jpg)
+![xyz](https://chaphlagical.github.io/assets/images/assets-img/PathTracing/xyz.jpg){: .mx-auto.d-block :}
 
 $\pmb{x}$ is $\pmb{p}$，$\pmb{y}$ is $\pmb{p}^\prime$ 
 
@@ -210,7 +211,7 @@ The number of samples is all 1 ($N_i=1\quad(i=1,\dots,N_e)$, $N=1$)
 
 ### Environment Map Importance Sampling
 
-![is_em](https://chaphlagical.github.io/assets/images/assets-img/PathTracing/is_em.jpg)
+![is_em](https://chaphlagical.github.io/assets/images/assets-img/PathTracing/is_em.jpg){: .mx-auto.d-block :}
 
 **Alias Method**
 
@@ -263,7 +264,7 @@ $$
 \end{aligned}
 $$
 
-![dwi_dA](https://chaphlagical.github.io/assets/images/assets-img/PathTracing/dwi_dA.jpg)
+![dwi_dA](https://chaphlagical.github.io/assets/images/assets-img/PathTracing/dwi_dA.jpg){: .mx-auto.d-block :}
 
 $$
 \begin{aligned}
@@ -287,45 +288,45 @@ $$
 
 ### Area Direction Light
 
-![](https://chaphlagical.github.io/assets/images/assets-img/PathTracing/area_dir.png)
+![](https://chaphlagical.github.io/assets/images/assets-img/PathTracing/area_dir.png){: .mx-auto.d-block :}
 
 ### Area Indirection Light
 
-![](https://chaphlagical.github.io/assets/images/assets-img/PathTracing/area_indir.png)
+![](https://chaphlagical.github.io/assets/images/assets-img/PathTracing/area_indir.png){: .mx-auto.d-block :}
 
 ### Environment Direction Light
 
-![](https://chaphlagical.github.io/assets/images/assets-img/PathTracing/env_dir.png)
+![](https://chaphlagical.github.io/assets/images/assets-img/PathTracing/env_dir.png){: .mx-auto.d-block :}
 
 ### Environment Indirection Light
 
-![](https://chaphlagical.github.io/assets/images/assets-img/PathTracing/env_indir.png)
+![](https://chaphlagical.github.io/assets/images/assets-img/PathTracing/env_indir.png){: .mx-auto.d-block :}
 
 ### Final Rendering
 
 #### 128 spp
 
-![](https://chaphlagical.github.io/assets/images/assets-img/PathTracing/128spp.png)
+![](https://chaphlagical.github.io/assets/images/assets-img/PathTracing/128spp.png){: .mx-auto.d-block :}
 
 #### 1024 spp
 
-![](https://chaphlagical.github.io/assets/images/assets-img/PathTracing/1024spp.png)
+![](https://chaphlagical.github.io/assets/images/assets-img/PathTracing/1024spp.png){: .mx-auto.d-block :}
 
 ### Other Rendering Result
 
-![](https://chaphlagical.github.io/assets/images/assets-img/PathTracing/ball.png)
+![](https://chaphlagical.github.io/assets/images/assets-img/PathTracing/ball.png){: .mx-auto.d-block :}
 
-![](https://chaphlagical.github.io/assets/images/assets-img/PathTracing/bunny.png)
+![](https://chaphlagical.github.io/assets/images/assets-img/PathTracing/bunny.png){: .mx-auto.d-block :}
 
-![](https://chaphlagical.github.io/assets/images/assets-img/PathTracing/bunny_dragon.png)
+![](https://chaphlagical.github.io/assets/images/assets-img/PathTracing/bunny_dragon.png){: .mx-auto.d-block :}
 
-![](https://chaphlagical.github.io/assets/images/assets-img/PathTracing/sea.png)
+![](https://chaphlagical.github.io/assets/images/assets-img/PathTracing/sea.png){: .mx-auto.d-block :}
 
-![](https://chaphlagical.github.io/assets/images/assets-img/PathTracing/ryg.png)
+![](https://chaphlagical.github.io/assets/images/assets-img/PathTracing/ryg.png){: .mx-auto.d-block :}
 
-![](https://chaphlagical.github.io/assets/images/assets-img/PathTracing/snow.png)
+![](https://chaphlagical.github.io/assets/images/assets-img/PathTracing/snow.png){: .mx-auto.d-block :}
 
-![](https://chaphlagical.github.io/assets/images/assets-img/PathTracing/objects.png)
+![](https://chaphlagical.github.io/assets/images/assets-img/PathTracing/objects.png){: .mx-auto.d-block :}
 
 ## Resource
 
