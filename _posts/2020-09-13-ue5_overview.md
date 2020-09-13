@@ -2,8 +2,8 @@
 layout: post
 title: UE5 Prediction I
 subtitle: Overview
-thumbnail-img: /assets/images/thumbnail-img/resource.jpg
-cover-img: /assets/images/cover-img/resource.jpg
+thumbnail-img: /assets/images/thumbnail-img/ue5-overview.jpg
+cover-img: /assets/images/cover-img/ue5-overview.jpg
 comments: true
 tags: [CG] [Game Engine]
 readtime: true
