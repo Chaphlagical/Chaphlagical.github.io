@@ -9,6 +9,8 @@ tags: [CG, Game Engine]
 readtime: true
 ---
 
+Let's talk about UE5.
+
 <iframe src="//player.bilibili.com/player.html?aid=498190004&bvid=BV1BK411W75W&cid=190794216&page=1" scrolling="no" border="no" frameborder="no" framespacing="0" width="640" height="430" allowfullscreen="true"> </iframe>
 
 Demo中展示了很多东西，涵盖游戏引擎的方方面面：声音系统、物理系统、光照系统……但其中最让人惊艳的还是开头Brian和Jerome所说的两大难题解决方案：Lumen和Nanite，后续我也将具体调研这两个方向。
