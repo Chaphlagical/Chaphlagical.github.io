@@ -5,7 +5,7 @@ particlesJS('particles-js',
   {
     "particles": {
       "number": {
-        "value": 200,
+        "value": 300,
         "density": {
           "enable": true,
           "value_area": 1600
@@ -15,7 +15,7 @@ particlesJS('particles-js',
         "value": "#000000"
       },
       "shape": {
-        "type": "circle",
+        "type": ["circle", "triangle", "image","polygon","star" ],
         "stroke": {
           "width": 0,
           "color": "#000000"
@@ -24,7 +24,7 @@ particlesJS('particles-js',
           "nb_sides": 5
         },
         "image": {
-          "src": "img/github.svg",
+          "src": "./favicon.png",
           "width": 100,
           "height": 100
         }
