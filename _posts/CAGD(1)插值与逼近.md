@@ -1,4 +1,17 @@
-# CAGD(1) | 插值与逼近
+---
+layout: post
+title: CAGD(1) | 插值与逼近
+subtitle: 计算机辅助几何设计学习笔记 第一章
+thumbnail-img: ""
+cover-img: "/assets/images/cover-img/resource.jpg"
+comments: true
+tags: [CAGD]
+readtime: true
+---
+
+计算机辅助几何设计学习笔记第一章，内容包括插值（多项式插值&拉格朗日插值）与逼近（多项式逼近&最小二乘逼近）的基本内容
+
+学习资源来自中国科学技术大学陈仁杰教授2019-2020秋冬学期课程[http://staff.ustc.edu.cn/~renjiec/](http://staff.ustc.edu.cn/~renjiec/)
 
 ## 1. 插值
 
