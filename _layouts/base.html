@@ -26,24 +26,24 @@ common-js:
 
   <body>
 
-    {% include gtm_body.html %}
-  
-    {% include nav.html %}
-
-    {{ content }}
-    <!-- particles.js container -->
+  	    <!-- particles.js container -->
 <div id="particles-js"></div>
 
 <!-- scripts -->
 <script src="/assets/js/particles/particles.min.js"></script>
 <script src="/assets/js/particles/app.js"></script>  
 
+    {% include gtm_body.html %}
+  
+    {% include nav.html %}
+
+    {{ content }}
+
+
     {% include footer.html %}
   
     {% include footer-scripts.html %}
 
-   
-      <!-- count particles -->
 
 
   </body>
