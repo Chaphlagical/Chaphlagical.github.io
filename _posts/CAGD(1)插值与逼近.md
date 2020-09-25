@@ -3,7 +3,7 @@ layout: post
 title: CAGD(1) | 插值与逼近
 subtitle: 计算机辅助几何设计学习笔记 第一章
 thumbnail-img: ""
-cover-img: "/assets/images/cover-img/resource.jpg"
+cover-img: "/assets/images/cover-img/CAGD.png"
 comments: true
 tags: [CAGD]
 readtime: true
