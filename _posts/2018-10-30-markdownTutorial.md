@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Markdown Tutorial
-cover-img: "assets\images\cover-img\markdown.jpg"
+cover-img: "/assets/images/cover-img/markdown.jpg"
 tags: [Markdown]
 readtime: true
 comments: false
