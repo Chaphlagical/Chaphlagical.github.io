@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Markdown Tutorial
+thumbnail-img: ""
 cover-img: "/assets/images/cover-img/markdown.jpg"
 tags: [Markdown]
 readtime: true
