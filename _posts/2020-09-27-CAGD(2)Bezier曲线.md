@@ -9,6 +9,10 @@ tags: [CAGD]
 readtime: true
 ---
 
+计算机辅助几何设计学习笔记第二章，内容包括Bezier曲线建模的基本内容
+
+学习资源来自中国科学技术大学陈仁杰教授2019-2020秋冬学期课程[http://staff.ustc.edu.cn/~renjiec/](
+
 ## 1. 曲线的表示
 
 ### 1.1. 隐式表示
@@ -58,13 +62,17 @@ $$
 $$
 
 以之前的例子
+
 $$
 \pmb f(t)=\begin{pmatrix}1\\1\end{pmatrix}t^2+\begin{pmatrix}-2\\0\end{pmatrix}t+\begin{pmatrix}1\\0\end{pmatrix}
 $$
+
 转为上述形式：
+
 $$
 \pmb f(t)=\begin{pmatrix}1\\0\end{pmatrix}(1-t)^2+\begin{pmatrix}0\\0\end{pmatrix}2t(1-t)+\begin{pmatrix}0\\1\end{pmatrix}t^2
 $$
+
 在图上表示为
 
 ![image-20200926075801784](https://chaphlagical.github.io/assets/images/assets-img/CAGD(2)Bezier曲线.assets/image-20200926075801784.png){: .mx-auto.d-block :}
@@ -73,12 +81,15 @@ $$
 * 更多直觉上的曲线操作
 
 对于四个控制点，同样有：
+
 $$
 \begin{matrix}
 \pmb p_0^0(t)=\pmb p_0,&\pmb p_1^0(t)=\pmb p_1,&\pmb p_2^0(t)=\pmb p_2,&\pmb p_3^0(t)=\pmb p_3
 \end{matrix}
 $$
+
 第一次迭代：
+
 $$
 \begin{align}
 \pmb p_0^1&=(1-t)\pmb p_0+t\pmb p_1\\
@@ -86,14 +97,18 @@ $$
 \pmb p_2^1&=(1-t)\pmb p_2+t\pmb p_3
 \end{align}
 $$
+
 第二次迭代：
+
 $$
 \begin{align}
 \pmb p_0^2=(1-t)^2\pmb p_0+2t(1-t)\pmb p_1+t^2\pmb p_2\\
 \pmb p_1^2=(1-t)^2\pmb p_1+2t(1-t)\pmb p_2+t^2\pmb p_3\\
 \end{align}
 $$
+
 最终得到的曲线方程：
+
 $$
 \pmb c(t)=(1-t)^3\pmb p_0+3t(1-t)^2\pmb p_1+3t^2(1-t)\pmb p_2+t^3\pmb p_3
 $$
@@ -131,6 +146,7 @@ $$
 ![image-20200926082655174](https://chaphlagical.github.io/assets/images/assets-img/CAGD(2)Bezier曲线.assets/image-20200926082655174.png){: .mx-auto.d-block :}
 
 所有系数可写为下三角矩阵：
+
 $$
 \begin{matrix}
 \pmb b_0=\pmb b_0^0\\
@@ -142,6 +158,7 @@ $$
 \pmb b_n=\pmb b_n^0&\pmb b_{n-1}^1&\cdots&\cdots&\cdots&\pmb b_1^{n-1}&\pmb b_0^n=\pmb x(t)
 \end{matrix}
 $$
+
 伪代码：
 
 ![image-20200926083251461](https://chaphlagical.github.io/assets/images/assets-img/CAGD(2)Bezier曲线.assets/image-20200926083251461.png){: .mx-auto.d-block :}
@@ -209,6 +226,7 @@ $$
 ## 4. Bazier曲线
 
 Bazier曲线表示为基函数组合：
+
 $$
 \pmb x(t)=\sum\limits_{i=0}^n\pmb B_i^n(t)\cdot b_i
 $$
@@ -238,12 +256,15 @@ $$
 #### 4.2.1. 线性不变性
 
 Bazier曲线的线性不变性是显然的，Bazier曲线表示为基函数的线性组合：
+
 $$
 \pmb f(t)=\sum\limits_{i=1}^nb_i(t)\pmb p_i=\sum\limits_{i=1}^nb_i(t)\begin{pmatrix}
 p_i^{(x)}\\p_i^{(y)}\\p_i^{(z)}
 \end{pmatrix}
 $$
+
 因此
+
 $$
 A(\pmb f(t))=A\Big(\sum\limits_{i=1}^nb_i(t)\pmb p_i \Big)=\sum\limits_{i=1}^nb_i(t)(A\pmb p_i)
 $$
@@ -382,6 +403,7 @@ B_i^n(t)=B_{n-i}^n(1-t)
 $$
 
 **非负性**
+
 $$
 B_i^{(n)}(t)\geq 0\ \mathrm{for}\ t\in[0,\cdots,1]
 $$
@@ -429,6 +451,7 @@ $$
 \Rightarrow \pmb f(0)=\pmb p_0\ \ \ \ 
 \pmb f(1)=\pmb p_1
 $$
+
 一阶导数
 
 $$
@@ -461,7 +484,7 @@ $$
 
 * 给定：$\pmb b_0,\cdots,\pmb b_n\rightarrow \pmb x(t)$
 
-* 目标：$\overline{\pmb b}_0,\cdots,\overline{\pmb b_n},\overline{\pmb b}_{n+1}\rightarrow \overline{\pmb x}(t)\ \mathrm{with}\ \pmb x=\overline{\pmb x}$
+* 目标：$\overline{\pmb b}_0,\cdots,\overline{\pmb b_n},\overline{\pmb b}_{n+1}\rightarrow \overline{\pmb x}(t)\quad\mathrm{with}\quad\pmb x=\overline{\pmb x}$
 
 * 解决方法：
 
