@@ -562,16 +562,16 @@ $$
 	
 * 解决方法
 
-	![image-20200927090406281](2020-09-27-CAGD(2)Bezier曲线.assets/image-20200927090406281.png)
+	![image-20200927090406281](https://chaphlagical.github.io/assets/images/assets-img/2020-09-27-CAGD(2)Bezier曲线.assets/image-20200927090406281.png){: .mx-auto.d-block :}
 	$$
 	\pmb b_i^{(1)}=\pmb b_0^i,\pmb b_i^{(2)}=\pmb b_0^{n-i}\ \mathrm{for}\ i=0,\cdots,n
 	$$
 
 ### 4.8. 曲线范围
 
-![image-20200927095337922](2020-09-27-CAGD(2)Bezier曲线.assets/image-20200927095337922.png)
+![image-20200927095337922](https://chaphlagical.github.io/assets/images/assets-img/2020-09-27-CAGD(2)Bezier曲线.assets/image-20200927095337922.png){: .mx-auto.d-block :}
 
-![image-20200927100143043](2020-09-27-CAGD(2)Bezier曲线.assets/image-20200927100143043.png)
+![image-20200927100143043](https://chaphlagical.github.io/assets/images/assets-img/2020-09-27-CAGD(2)Bezier曲线.assets/image-20200927100143043.png){: .mx-auto.d-block :}
 
 ### 4.9. 矩阵实现
 
@@ -613,3 +613,4 @@ $$
 V_{i-1}\\V_i\\V_{i+1}\\V_{i+2}
 \end{bmatrix}
 $$
+
