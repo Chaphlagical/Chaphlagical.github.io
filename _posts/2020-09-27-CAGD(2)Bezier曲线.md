@@ -432,9 +432,9 @@ n\\i\end{pmatrix}(it^{i-1}(1-t)^{n-i}-(n-i)t^i(1-t)^{n-i-1})\\
 \end{align}
 $$
 
-#### 4.4.3. Bezier曲线的性质
+### 4.5. Bezier曲线的性质
 
-**前面提到过的性质：**
+#### 4.5.1. 前面提到过的性质：
 
 * 仿射不变性
 
@@ -442,7 +442,7 @@ $$
 
 * 控制点影响性
 
-**导数性质**
+#### 4.5.2. 导数性质
 
 对于$t\in[0,1]$，有
 
@@ -480,7 +480,7 @@ $$
 \end{align}
 $$
 
-**Bezier曲线升阶（Degree Evaluation）**
+### 4.6. Bezier曲线升阶（Degree Evaluation）
 
 * 给定：$\pmb b_0,\cdots,\pmb b_n\rightarrow \pmb x(t)$
 
@@ -543,15 +543,73 @@ $$
 	$$
 	
 
-## 小结
+### 4.7. 细分
 
-* Bezier曲线和曲线设计
-	* 曲线大致形状由控制点的位置决定
-	* 结果：光滑曲线逼近控制点
-	* 计算/表达
-		* De Casteljau算法
-		* Bernstein形式
-	* 问题：
-		* 多项式高阶
-		* 移动控制点会改变整条曲线
-		* 点的插值
+* 给定
+
+	$$
+	\pmb b_0,\cdots,\pmb b_n\rightarrow \pmb x(t),t\in[0,1]
+	$$
+	
+* 目标
+
+	$$
+	\pmb b_0^{(1)},\cdots,\pmb b_n^{(1)}\rightarrow \pmb x^{(1)}(t)\\
+	\pmb b_0^{(2)},\cdots,\pmb b_n^{(2)}\rightarrow \pmb x^{(2)}(t)\\
+	\\
+	\mathrm{with}\quad \pmb x=\pmb x^{(1)}\cup\pmb x^{(2)}
+	$$
+	
+* 解决方法
+
+	![image-20200927090406281](2020-09-27-CAGD(2)Bezier曲线.assets/image-20200927090406281.png)
+	$$
+	\pmb b_i^{(1)}=\pmb b_0^i,\pmb b_i^{(2)}=\pmb b_0^{n-i}\ \mathrm{for}\ i=0,\cdots,n
+	$$
+
+### 4.8. 曲线范围
+
+![image-20200927095337922](2020-09-27-CAGD(2)Bezier曲线.assets/image-20200927095337922.png)
+
+![image-20200927100143043](2020-09-27-CAGD(2)Bezier曲线.assets/image-20200927100143043.png)
+
+### 4.9. 矩阵实现
+
+**三次Bazier曲线**
+
+$$
+\pmb P(t)=\pmb V_0B_{0,3}+\pmb V_1B_{1,3}+\pmb V_2B_{2,3}+\pmb V_3B_{3,3}
+$$
+
+$$
+\begin{align}
+B_{0,3}&=\dfrac{3!}{0!3!}t^0(1-t)^3=(1-t)^3\\
+B_{1,3}&=\dfrac{3!}{1!2!}t^1(1-t)^2=3t(1-t)^2\\
+B_{2,3}&=\dfrac{3!}{2!1!}t^2(1-t)^1=3t^2(1-t)\\
+B_{3,3}&=\dfrac{3!}{3!0!}t^3(1-t)^0=t^3
+\end{align}
+$$
+
+矩阵形式表示：
+
+$$
+\pmb P(t)=\begin{bmatrix}t^3&t^2&t&1\end{bmatrix}
+\begin{pmatrix}
+-1&3&-3&1\\3&-6&3&0\\-3&0&3&0\\1&4&1&0
+\end{pmatrix}
+\begin{bmatrix}
+V_{i-1}\\V_i\\V_{i+1}\\V_{i+2}
+\end{bmatrix}
+$$
+
+导数的矩阵表示：
+
+$$
+\pmb P'(t)=\begin{bmatrix}3t^2&2t&1&0\end{bmatrix}
+\begin{pmatrix}
+-1&3&-3&1\\3&-6&3&0\\-3&0&3&0\\1&4&1&0
+\end{pmatrix}
+\begin{bmatrix}
+V_{i-1}\\V_i\\V_{i+1}\\V_{i+2}
+\end{bmatrix}
+$$
