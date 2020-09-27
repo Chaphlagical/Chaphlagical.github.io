@@ -11,7 +11,7 @@ readtime: true
 
 计算机辅助几何设计学习笔记第二章，内容包括Bezier曲线建模的基本内容
 
-学习资源来自中国科学技术大学陈仁杰教授2019-2020秋冬学期课程[http://staff.ustc.edu.cn/~renjiec/](
+学习资源来自中国科学技术大学陈仁杰教授2019-2020秋冬学期课程[http://staff.ustc.edu.cn/~renjiec/](http://staff.ustc.edu.cn/~renjiec/)
 
 ## 1. 曲线的表示
 
@@ -484,7 +484,11 @@ $$
 
 * 给定：$\pmb b_0,\cdots,\pmb b_n\rightarrow \pmb x(t)$
 
-* 目标：$\overline{\pmb b}_0,\cdots,\overline{\pmb b_n},\overline{\pmb b}_{n+1}\rightarrow \overline{\pmb x}(t)\quad\mathrm{with}\quad\pmb x=\overline{\pmb x}$
+* 目标：
+	
+	$$
+	\overline{\pmb b}_0,\cdots,\overline{\pmb b_n},\overline{\pmb b}_{n+1}\rightarrow \overline{\pmb x}(t)\quad\mathrm{with}\quad\pmb x=\overline{\pmb x}
+	$$
 
 * 解决方法：
 
