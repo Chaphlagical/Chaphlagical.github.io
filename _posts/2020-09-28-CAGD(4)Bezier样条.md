@@ -293,6 +293,7 @@ $$
 	$$
 	\ddot{\pmb x}_2(t_i)-\ddot{\pmb x}_1(t_i)\parallel \dot{\pmb x}(t_i)
 	$$
+	
 	![image-20200928111731372](https://chaphlagical.github.io/assets/images/assets-img/CAGD(4)Bezier样条.assets/image-20200928111731372.png){: .mx-auto.d-block :}
 
 ### 6.3. 某点的$G^2$连续性
@@ -308,6 +309,7 @@ $$
 	$$
 	\dfrac{\mathrm{area}(\pmb b_{n-2}^-,\pmb b_{n-1}^-,\pmb k_j)}{\mathrm {area}(\pmb k_j,\pmb b_1^+,\pmb b_2^+)}=\dfrac{a^3}{b^3}
 	$$
+	
 	![image-20200928145817528](https://chaphlagical.github.io/assets/images/assets-img/CAGD(4)Bezier样条.assets/image-20200928145817528.png){: .mx-auto.d-block :}
 
 ## 7. $C^2$三次Bezier样条曲线
