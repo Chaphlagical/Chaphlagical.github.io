@@ -289,6 +289,7 @@ $$
 	* $\dot{\pmb x}_1(t_i)=\dot{\pmb x}_2(t_i)=\dot{\pmb x}(t_i)$
 
 * 满足在$t=t_i$处$G^2$连续的条件是：
+	
 	$$
 	\ddot{\pmb x}_2(t_i)-\ddot{\pmb x}_1(t_i)\parallel \dot{\pmb x}(t_i)
 	$$
@@ -303,6 +304,7 @@ $$
 * $\pmb b_{n-2}^-,\pmb b_{n-1}^-,\pmb k_j,\pmb b_1^+,\pmb b_2^+$五个向量共面
 
 * 且面积
+	
 	$$
 	\dfrac{\mathrm{area}(\pmb b_{n-2}^-,\pmb b_{n-1}^-,\pmb k_j)}{\mathrm {area}(\pmb k_j,\pmb b_1^+,\pmb b_2^+)}=\dfrac{a^3}{b^3}
 	$$
