@@ -17,11 +17,11 @@ readtime: true
 >
 >作者：[Scott Meyers](http://scottmeyers.blogspot.com/)
 >
->电子书下载地址：[Link]()
+>电子书下载地址：[Link](https://chaphlagical.github.io/resource/book/Effective_C++/Efffectie_C++.pdf)
 
 **学习笔记**
 
-1. [让自己习惯C++（Accustoming Yourself to C++）]()
+1. [让自己习惯C++（Accustoming Yourself to C++）](https://chaphlagical.github.io/resource/book/Effective_C++/ch1.html)
 	* Item 1：视C++为一个语言联邦（View C++ as a federation of languages）
 	* Item 2：尽量以`const`，`enum`，`inline`替换`#define` （Prefer consts, enums, and inlines to #define）
 	* Item 3：尽可能使用`const` （Use const whenever possible）
