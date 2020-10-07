@@ -17,7 +17,7 @@ readtime: true
 >
 >作者：[Scott Meyers](http://scottmeyers.blogspot.com/)
 >
->电子书下载地址：[Link](https://chaphlagical.github.io/resource/book/Effective_C++/Efffectie_C++.pdf)
+>电子书下载地址：[Link](https://chaphlagical.github.io/resource/book/Effective_C++/Efffective_C++.pdf)
 
 **学习笔记**
 
