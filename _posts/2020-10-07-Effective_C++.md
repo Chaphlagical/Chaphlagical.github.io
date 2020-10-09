@@ -35,7 +35,12 @@ readtime: true
 	* **Item 10**：令`operator=`返回一个`*this`的引用（Have assignment operators return a reference to `*this`）
 	* **Item 11**：在`operator=`中处理“自我赋值”（Handle assignment to self in `operator=`）
 	* **Item 12**：复制对象时勿忘其每一个成分（Copy all parts of an object）
-3. 资源管理（Resource Management）
+3. [资源管理（Resource Management）](https://chaphlagical.github.io/resource/book/Effective_C++/ch3.html)
+	* **Item 13**：以对象管理资源（Use objects to manage resources）
+	* **Item 14**：在资源管理类中小心`copy`行为（Think carefully about copying behavior in resource-managing classes）
+	* **Item 15**：在资源管理类中提供对原始资源的访问（Provide access to raw resources in resource-managing classes）
+	* **Item 16**：成对使用`new`和`delete`时要采取相同形式（Use the same form in corresponding uses of new and delete）
+	* **Item 17**：以独立语句将`newed`对象置入智能指针（Stored newed objects in smart pointers in standalone statements）
 4. 设计与声明（Designs and Declarations）
 5. 实现（Implementations）
 6. 继承与面向对象设计（Inheritance and Object-Oriented Design）
