@@ -109,3 +109,174 @@
 	* 应尽可能考虑能否在既有classes基础上新增函数或模板
 
 ### Item 20：Prefer pass-by-reference-to-const to pass-by-value
+
+* 缺省情况下C++以pass-by-value方式传递对象至函数。函数参数都是以实际实参的复件为初值，而调用端所获得的亦是函数返回值的一个复件，这些复件由对象的copy构造函数产生，这可能使得pass-by-value成为昂贵的操作
+
+	举例：有两个类定义如下
+
+	```c++
+	class Person{
+	public:
+	    Person();
+	    virtual ~Person();
+	    ...
+	private:
+	    std::string name;
+	    std::string address;
+	};
+	class Student: public Person{
+	public:
+	    Student();
+	    ~Student();
+	    ...
+	private:
+	    std::string schoolName;
+	    std::string schoolAddress;
+	};
+	```
+
+	考虑调用
+
+	```c++
+	bool validateStudent(Student s);
+	Student plato;
+	bool platoIsOK = validateStudent(plato);
+	```
+
+	* 以by value方式传递一个Student对象会导致调用一次Student copy构造函数、一次Person copy构造函数、四次string copy构造函数
+	* 当函数内哪个Student复件被销毁，每一个构造函数调用动作都需要一个对应的析构函数调用动作
+	* 以by value方式传递的总成本为六次构造函数和六次析构函数
+
+* pass by reference-to-const
+
+	```c++
+	bool validateStudent(const Student& s);
+	```
+
+	* 没有任何构造函数和析构函数被调用，因为没有任何新对象被创建
+	* `const`的必要性：防止函数对引用进行修改
+	* 避免对象切割问题：当一个derived class对象以by value方式传递并被视为一个base class对象，base class的copy构造函数将被调用，而造成derived class的特化性质被切割掉，仅仅留下一个base class对象
+
+* 不适合使用pass by reference-to-const的应用场景
+
+	* 内置类型、STL迭代器和函数对象
+	* references往往以指针实现出来，因此pass-by-reference通常意味真正传递的指针
+	* 如果对象属于内置类型（或STL迭代器、函数对象），pass by value往往比pass by reference的效率高些
+
+### Item 21：Prefer pass-by-reference-to -const to pass-by-value
+
+* 考虑代码段
+
+	```c++
+	class Rational
+	{
+	public:
+	    Rational(int numerator = 0, int denominator = 1);
+	    ...
+	private:
+	    int n,d;
+	friend
+	    const Rational& operator*(const Rational& lhs, const Rational& rhs);
+	}
+	```
+
+	`opertaor*`的实现，需要返回一个reference指向的Rational对象，方法以下：
+
+	1. 在stack空间上创建local变量
+
+		```c++
+		const Rational& operator*(const Rational& lhs, const Rational& rhs)
+		{
+		    Rational result(lhs.n * rhs.n, lhs.d * rhs.d);
+		    return result;
+		}
+		```
+
+		* 返回的是local变量，而local变量将在函数结束时被销毁，将带来意外风险
+
+	2. 在heap空间上创建对象，并返回reference指向它
+
+		```c++
+		const Rational& operator*(const Rational& lhs, const Rational& rhs)
+		{
+		    Rational* result = new Rational(lhs.n * rhs.n, lhs.d * rhs.d);
+		    return *result;
+		}
+		```
+
+		* `new`之后的对象没能进行`delete`，将带来内存泄漏
+
+	3. 返回reference指向一个被定义于函数内部的`static Rational`对象
+
+		```
+		const Rational& operator*(const Rational& lhs, const Rational& rhs)
+		{
+		    static Rational result;
+		    result = ...;
+		    return *result;
+		}
+		```
+
+		* 多线程安全
+
+		* 其他错误：
+
+			```c++
+			bool operator==(const Rational& lhs, const Rational& rhs);
+			Rational a, b, c, d;
+			...
+			if((a * b) == (c * d))
+			{
+			    ...
+			}
+			else
+			{
+			    ...
+			}
+			```
+
+			* 这里由于`operator*`返回`static Rational`的reference，因此函数总是看到它们的现值，故`operator==`判断总是为`true`
+
+* 正确的写法应该是：
+
+	```c++
+	inline const Rational lhs, const Rational& rhs)
+	{
+	    return Rational(lhs.n * rhs.n, lhs.d * rhs.d);
+	}
+	```
+
+	而不应返回reference
+
+### Item 22：Declare data members private
+
+* 语法一致性
+
+	* 如果成员变量不是`public`，客户唯一能够访问对象的办法就是通过成员函数
+
+* 对成员变量的处理有更加精确的控制，例如：
+
+	```c++
+	class AccessLevels{
+	public:
+	    ...
+	    int getReadOnly() const { return readOnly; }
+	    void SetReadWrite(int value) { readWrite = value; }
+	    int getReadWrite() const { return readWrite; }
+	    void setWriteOnly(int value) { writeOnly = value; }
+	private:
+	    int noAccess;	// 不操作
+	    int readOnly;	// 只读
+	    int readWrite;	// 读写
+	    int writeOnly;	// 只写
+	};
+	```
+
+* 封装
+	* 对客户隐藏成员变量（封装），可以确保class的约束条件总是会获得维护，因为只有成员函数可以影响它们
+	* `public`意味着不封装
+	* `protected`成员变量同样缺乏封装性
+	* 从封装角度看，只有两种访问权限：`private`和其他
+
+### Item 23：Prefer non-member non-friend functions to member functions
+
