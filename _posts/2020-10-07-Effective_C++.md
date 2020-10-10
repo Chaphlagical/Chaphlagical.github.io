@@ -41,7 +41,15 @@ readtime: true
 	* **Item 15**：在资源管理类中提供对原始资源的访问（Provide access to raw resources in resource-managing classes）
 	* **Item 16**：成对使用`new`和`delete`时要采取相同形式（Use the same form in corresponding uses of new and delete）
 	* **Item 17**：以独立语句将`newed`对象置入智能指针（Stored newed objects in smart pointers in standalone statements）
-4. 设计与声明（Designs and Declarations）
+4. [设计与声明（Designs and Declarations）](https://chaphlagical.github.io/resource/book/Effective_C++/ch4.html)
+	* **Item 18**：让接口容易被正确使用，不易被误用（Make interfaces easy to use correctly and hard to use incorrectly）
+	* **Item 19**：设计class犹如设计type（Treat class design as type design）
+	* **Item 20**：宁以pass-by-reference-to-const替换pass-by-value（Prefer pass-by-reference-to-const to pass-by-value）
+	* **Item 21**：必须返回对象时，别妄想返回其reference（Don't try to return a reference when you must return an object）
+	* **Item 22**：将成员变量声明为`private`（Declare data members private）
+	* **Item 23**：宁以non-member、non-friend替换member函数（Prefer non-member non-friend functions to member functions）
+	* **Item 24**：若所有参数皆需类型转换，请为此采用non-member函数（Declare non-member functions when type conversions should apply to all parameters）
+	* **Item 25**：考虑写一个不抛出异常的`swap`函数（Consider support for a non-throwing swap）
 5. 实现（Implementations）
 6. 继承与面向对象设计（Inheritance and Object-Oriented Design）
 7. 模板与泛型编程（Templates and Generic Programming）
