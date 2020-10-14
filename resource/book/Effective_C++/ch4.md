@@ -280,3 +280,203 @@
 
 ### Item 23：Prefer non-member non-friend functions to member functions
 
+* 代码段示例：
+
+	```c++
+	class WebBrowser
+	{
+	public:
+	    ...
+	    void clearCache();
+	    void clearHistory();
+	    void removeCookies();
+	    ...
+	};
+	```
+
+	现在需要实现`WebBrowser`的清除功能，可以有两种方法：
+
+	```c++
+	class WebBrowser
+	{
+	public:
+	    ...
+	    void ClearEverything();	// 清除函数作为类成员函数
+	    ...
+	};
+	
+	void clearBrower(WebBrower& wb)
+	{
+	    wb.clearCache();
+	    wb.clearHistory();
+	    wb.removeCookies();
+	}
+	```
+
+	* 事实上，member函数`ClearEverything`的封装性比non-member函数`clearBrower`低
+	* 提供non-member函数可允许对`WebBrower`相关机能有较大的包裹弹性，而那最终导致较低的编译依赖度，增加`WebBrower`的可延伸性
+
+* 较大封装性的是non-member non-friend函数，因为它并不增加“能够访问class内的private成分”的函数数量
+
+* class定义式对客户而言是不能扩展的。客户派生的新的classes无法访问base classes中被封装的成员
+
+### Item 24：Declare non-member functions when type conversions should apply to all parameters
+
+* 对有理数类：
+
+	```c++
+	class Rational
+	{
+	public:
+	    Rational(int numerator = 0, int denominator = 1); // 允许int-to-Rational隐式转换
+	    int numerator() const;
+	    int denominator() const;
+	private:
+	    ...
+	};
+	```
+
+* 倘若在类内实现`operator*`运算符的重载，即
+
+	```c++
+	class Rational
+	{
+	public:
+	    ...
+	    const Rational operator*(const Rational& rhs) const;
+	};
+	```
+
+	此时
+
+	```c++
+	Rational oneEnglish(1, 8);
+	Rational oneHalf(1, 2);
+	Rational result = oneHalf * oneEnglish;	// very good!
+	result = result * oneEnglish;			// very good!
+	result = oneHalf * 2;					// very good!
+	result = 2 * oneHalf;					// wrong!
+	```
+
+	要实现最后一句的效果，必须通过：
+
+	```c++
+	const Rational temp(2);
+	result = oneHalf * temp;
+	```
+
+	而对于`explicit`构造函数的`Rational`类，则下面两句均不能通过编译：
+
+	```c++
+	result = oneHalf * 2;
+	result = 2 * oneHalf;
+	```
+
+* 要使得两句均可通过编译，应使用`non-member`函数，允许编译器在每一个实参上执行隐式类型转换
+
+	```c++
+	class Rational{
+	    ...
+	};
+	
+	const Rational operator*(const Rational& lhs, const Rational& rhs)
+	{
+	    return Rational(lhs.numerator()*rhs.numerator(),
+	                    lhs.denominator()*rhs.denominator());
+	}
+	Rational oneFourth(1, 4);
+	Rational result;
+	result = oneFourth * 2;	//
+	result = 2 * oneFourth;	// 均可正确编译运行
+	```
+
+### Item 25：Consider support for a non-throwing swap
+
+* 标准库实现法
+
+	```c++
+	namespace std{
+	    template<typename T>
+	    void swap(T& a, T& b)
+	    {
+	        T temp(a);
+	        a = b;
+	        b = temp;
+	    }
+	}
+	```
+
+* pimpl手法（pointer to implementation）
+
+	```c++
+	class WidgetImpl{
+	public:
+	    ...
+	private:
+	    int a, b, c;
+	    std::vector<double> v;
+	    ...
+	};
+	
+	class Widget{
+	public:
+	    Widget(const Widget& rhs);
+	    Widget& operator=(const Widget& rhs)
+	    {
+	        ...
+	        *pImpl = *(rhs.pImpl);	// 详见Item 10, 11, 12
+	        ...
+	    }
+	    ...
+	private:
+	    WidgetImpl* pImpl;
+	};
+	```
+
+	* 复制三个Widgets，复制三个WidgetImpl对象，非常缺乏效率
+
+* 模板偏特化
+
+	```c++
+	class Widget{
+	public:
+	    ...
+	    void swap(Widget& other)
+	    {
+	    	using std::swap;
+	        swap(pImpl, other.pImpl);
+	    }
+	    ...
+	};
+	namespace std{
+	    template<>
+	    void swap<Widget>(Widget& a, Widget& b)
+	    {
+	       	a.swap(b);
+	    }
+	}
+	```
+
+* 加入类模板
+
+	```c++
+	namespace WidgetStuff{
+	    ... ...
+	    template<typename T>
+	    class WidgetImpl{...};
+	
+	    template<typename T>
+	    class Widget{...};
+	    ... ...
+	    
+	    template<typename T>
+	    void swap(Widget<T>& a, Widget<T>& b){ a.swap(b); }
+	}
+	```
+
+* 总结
+	* 当`std::swap`对你的类型效率不高时，提供一个`swap`成员函数，并确定这个函数不抛出异常
+	* 如果提供一个`member swap`，也该提供一个`non-member swap`来调用前者。对于`class`也请特化`std::swap`
+	* 调用`swap`时应针对`std::swap`使用using声明式，然后调用`swap`且不带任何“命名空间资格修饰”
+	* 为“用户定义类型”进行`std template`全特化是好的，但不要在`std`名称空间中加入新东西
+
