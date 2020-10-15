@@ -50,7 +50,13 @@ readtime: true
 	* **Item 23**：宁以non-member、non-friend替换member函数（Prefer non-member non-friend functions to member functions）
 	* **Item 24**：若所有参数皆需类型转换，请为此采用non-member函数（Declare non-member functions when type conversions should apply to all parameters）
 	* **Item 25**：考虑写一个不抛出异常的`swap`函数（Consider support for a non-throwing swap）
-5. 实现（Implementations）
+5. [实现（Implementations）](https://chaphlagical.github.io/resource/book/Effective_C++/ch5.html)
+	* **Item 26**：尽可能延后变量定义式的出现时间（Postpone variable definitions as long as possible）
+	* **Item 27**：尽量少做转型动作（Minimize casting）
+	* **Item 28**：避免返回handles指向对象内部成分（Avoid returning “handles” to object internals）
+	* **Item 29**：为“异常安全”而努力是值得的（Strive for exception-safe code）
+	* **Item 30**：透彻了解inlining的里里外外（Understand the ins and outs of inlining）
+	* **Item 31**：将文件的编译依存关系降至最低（Minimize compilation dependencies between files）
 6. 继承与面向对象设计（Inheritance and Object-Oriented Design）
 7. 模板与泛型编程（Templates and Generic Programming）
 8. 定制new和delete（Customizing new and delete）
