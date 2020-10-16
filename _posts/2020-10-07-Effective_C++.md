@@ -58,6 +58,15 @@ readtime: true
 	* **Item 30**：透彻了解inlining的里里外外（Understand the ins and outs of inlining）
 	* **Item 31**：将文件的编译依存关系降至最低（Minimize compilation dependencies between files）
 6. 继承与面向对象设计（Inheritance and Object-Oriented Design）
+	* **Item 32**：确定你的public继承塑模出is-a关系（Make sure public inheritance models “is-a”）
+	* **Item 33**：避免遮掩继承而来的名称（Avoid hiding inherited names）
+	* **Item 34**：区分接口继承和实现继承（Differentiate between inheritance of interface and inheritance of implementation）
+	* **Item 35**：考虑virtual函数以外的选择（Consider alternatives to virtual functions）
+	* **Item 36**：绝不重新定义继承而来的non-virtual函数（Never redefine an inherited non-virtual function）
+	* **Item 37**：绝不重新定义继承而来的缺省参数值（Never redefine a function's inherited default parameter value）
+	* **Item 38**：通过复合塑模出has-a或“根据某物实现出”（Model “has-a” or “is-implemented-in-terms-of” through composition）
+	* **Item 39**：明智而审慎地使用private继承（Use private inheritance judiciously）
+	* **Item 40**：明智而审慎地使用多重继承（Use multiple inheritance judiciously）
 7. 模板与泛型编程（Templates and Generic Programming）
 8. 定制new和delete（Customizing new and delete）
 9. 杂项讨论（Miscellany）
