@@ -57,7 +57,7 @@ readtime: true
 	* **Item 29**：为“异常安全”而努力是值得的（Strive for exception-safe code）
 	* **Item 30**：透彻了解inlining的里里外外（Understand the ins and outs of inlining）
 	* **Item 31**：将文件的编译依存关系降至最低（Minimize compilation dependencies between files）
-6. 继承与面向对象设计（Inheritance and Object-Oriented Design）
+6. [继承与面向对象设计（Inheritance and Object-Oriented Design）](https://chaphlagical.github.io/resource/book/Effective_C++/ch6.html)
 	* **Item 32**：确定你的public继承塑模出is-a关系（Make sure public inheritance models “is-a”）
 	* **Item 33**：避免遮掩继承而来的名称（Avoid hiding inherited names）
 	* **Item 34**：区分接口继承和实现继承（Differentiate between inheritance of interface and inheritance of implementation）
