@@ -1,8 +1,61 @@
 ---
 layout: page
 title: Wenbo Chen
+subtitle: something about me
 ---
 
-<div id='write'  class=''><h2><a name="education" class="md-header-anchor"></a><span>Education</span></h2><ul><li><p><span>2005</span><span>~</span><span>2011: </span><a href='https://baike.baidu.com/item/%E6%B1%95%E5%A4%B4%E5%B8%82%E6%BE%84%E6%B5%B7%E5%87%A4%E7%BF%94%E4%B8%AD%E5%BF%83%E5%B0%8F%E5%AD%A6/12599762?fr=aladdin'><span>Shantou Fengxiang City Center Primary School</span></a></p></li><li><p><span>2011</span><span>~</span><span>2014: </span><a href='https://baike.baidu.com/item/%E6%BE%84%E6%B5%B7%E5%AE%9E%E9%AA%8C%E5%AD%A6%E6%A0%A1/3199503?fr=aladdin'><span>Chenghai Shiyan School</span></a></p></li><li><p><span>2014</span><span>~</span><span>2017: </span><a href='http://www.stjszx.net/'><span>Shantou Jinshan Middle School</span></a></p></li><li><p><span>2017</span><span>~</span><span>present: </span><a href='https://www.ustc.edu.cn/'><span>University of Science and Technology of China</span></a></p><ul><li><span>2017: </span><a href='https://ses.ustc.edu.cn/'><span>School of Engineering Science</span></a></li><li><span>2017</span><span>~</span><span>present: </span><a href='https://sist.ustc.edu.cn/'><span>School of Information Science and Technology</span></a></li><li><span>next stop: </span><a href='http://sds.ustc.edu.cn/'><span>School of Data Science</span></a></li></ul></li></ul><h2><a name="academic-interest" class="md-header-anchor"></a><span>Academic Interest</span></h2><ul><li><p><strong><span>Computer Graphics</span></strong></p><ul><li><span>Geometric Modeling and Representation</span></li><li><span>Photorealistic rendering</span></li><li><span>Finite Element Analysis Simulation</span></li></ul></li><li><p><strong><span>Computer Vision</span></strong></p><ul><li><span>3D Reconstruction</span></li><li><span>vSLAM</span></li></ul></li></ul><h2><a name="research-experience" class="md-header-anchor"></a><span>Research Experience</span></h2><h3><a name="ustc-robotics-labhttpaiustceducn" class="md-header-anchor"></a><a href='http://ai.ustc.edu.cn/'><span>USTC Robotics Lab</span></a></h3><ul><li><p><strong><span>Advisers</span></strong><span>: </span><strong><span>Professor Xiaoping Chen</span></strong><span>, School of Computer Science and Technology, USTC</span></p></li><li><p><strong><span>Time</span></strong><span>: Sept. 2018 - Nov. 2019</span></p></li><li><p><strong><span>Research Focus:</span></strong><span> Robot Grasp, Object Detection, Robot Decision</span></p></li><li><p><strong><span>Main Work:</span></strong></p><ul><li><span>Using visual servo algorithm to adjust the arm before grasping to improve the fault tolerance.</span></li><li><span>Predicting grasping order in clutter environment based on RGBD-camera.</span></li><li><span>Two publications in 2019 WRC Symposium on Advanced Robotics and Automation (WRC SARA).</span></li></ul></li></ul><h3><a name="ustc-graphicsgeometric-computing-laboratoryhttpgclustceducn" class="md-header-anchor"></a><a href='http://gcl.ustc.edu.cn/'><span>USTC Graphics&amp;Geometric Computing Laboratory</span></a></h3><ul><li><strong><span>Advisers</span></strong><span>: </span><strong><span>Professor Ligang Liu</span></strong><span>, School of Math Science, USTC</span></li><li><strong><span>Time</span></strong><span>: Apr. 2020 - present</span></li><li><strong><span>Research Focus:</span></strong><span> Digital Geometric Process </span></li></ul><h2><a name="publication" class="md-header-anchor"></a><span>Publication</span></h2><ul><li><span>Y. Duan, T. Lei, P. Wu, N. Lin, </span><strong><span>W. Chen</span></strong><span> and X. Chen, “Vision-based Adjustment with Toleration of Error before Grasping,” 2019 WRC Symposium on Advanced Robotics and Automation (WRC SARA), Beijing, China, 2019, pp. 272-277. [</span><a href='http://home.ustc.edu.cn/~chaf/paper/08931800.pdf'><span>PDF</span></a><span>]</span></li><li><span>P. Wu, </span><strong><span>W. Chen</span></strong><span>, H. Liu, Y. Duan, N. Lin and X. Chen, “Predicting Grasping Order in Clutter Environment by Using Both Color Image and Points Cloud,” 2019 WRC Symposium on Advanced Robotics and Automation (WRC SARA), Beijing, China, 2019, pp. 197-202. [</span><a href='http://home.ustc.edu.cn/~chaf/paper/08931929.pdf'><span>PDF</span></a><span>]</span></li></ul><h2><a name="official-account" class="md-header-anchor"></a><span>Official Account</span></h2><p>&nbsp;</p><h2><a name="contact" class="md-header-anchor"></a><span>contact</span></h2><ul><li><span>E-mail: </span><a href='mailto:chaf@mail.ustc.edu.cn' target='_blank' class='url'>chaf@mail.ustc.edu.cn</a></li><li><span>Resume: </span><a href='http://home.ustc.edu.cn/~chaf' target='_blank' class='url'>http://home.ustc.edu.cn/~chaf</a></li><li><span>Address: Hefei 230027, Anhui, China</span></li></ul><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4149.060847624678!2d117.25489800007709!3d31.835678840180986!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x35cb614f144990bf%3A0x1e10d2090ab9131c!2sUniversity%20of%20Science%20and%20Technology%20of%20China%20West%20Campus!5e0!3m2!1sen!2sas!4v1603680079823!5m2!1sen!2sas" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe><p>&nbsp;</p></div>
+## Education
 
+* 2005\~2011: [Shantou Fengxiang City Center Primary School](https://baike.baidu.com/item/%E6%B1%95%E5%A4%B4%E5%B8%82%E6%BE%84%E6%B5%B7%E5%87%A4%E7%BF%94%E4%B8%AD%E5%BF%83%E5%B0%8F%E5%AD%A6/12599762?fr=aladdin)
+* 2011\~2014: [Chenghai Shiyan School](https://baike.baidu.com/item/%E6%BE%84%E6%B5%B7%E5%AE%9E%E9%AA%8C%E5%AD%A6%E6%A0%A1/3199503?fr=aladdin)
+* 2014\~2017: [Shantou Jinshan Middle School](http://www.stjszx.net/)
+* 2017\~present: [University of Science and Technology of China](https://www.ustc.edu.cn/)
+	* 2017: [School of Engineering Science](https://ses.ustc.edu.cn/)
+	* 2017\~present: [School of Information Science and Technology](https://sist.ustc.edu.cn/)
+	* next stop: [School of Data Science](http://sds.ustc.edu.cn/)
+
+## Academic Interest
+
+* **Computer Graphics**
+	* Geometric Modeling and Representation
+	* Photorealistic rendering
+	* Finite Element Analysis Simulation
+* **Computer Vision**
+	* 3D Reconstruction
+	* vSLAM
+
+## Research Experience
+
+### [USTC Robotics Lab](http://ai.ustc.edu.cn/)
+
+* **Advisers**: **Professor Xiaoping Chen**, School of Computer Science and Technology, USTC
+* **Time**: Sept. 2018 - Nov. 2019
+* **Research Focus:** Robot Grasp, Object Detection, Robot Decision
+* **Main Work:**
+	- Using visual servo algorithm to adjust the arm before grasping to improve the fault tolerance.
+	- Predicting grasping order in clutter environment based on RGBD-camera.
+	- Two publications in 2019 WRC Symposium on Advanced Robotics and Automation (WRC SARA).
+
+### [USTC Graphics&Geometric Computing Laboratory](http://gcl.ustc.edu.cn/)
+
+* **Advisers**: **Professor Ligang Liu**, School of Math Science, USTC
+* **Time**: Apr. 2020 - present
+* **Research Focus:** Digital Geometric Process 
+
+## Open Source Project
+
+* To be continue...
+
+## Publication
+
+- Y. Duan, T. Lei, P. Wu, N. Lin, **W. Chen** and X. Chen, “Vision-based Adjustment with Toleration of Error before Grasping,” 2019 WRC Symposium on Advanced Robotics and Automation (WRC SARA), Beijing, China, 2019, pp. 272-277. [[PDF](http://home.ustc.edu.cn/~chaf/paper/08931800.pdf)]
+- P. Wu, **W. Chen**, H. Liu, Y. Duan, N. Lin and X. Chen, “Predicting Grasping Order in Clutter Environment by Using Both Color Image and Points Cloud,” 2019 WRC Symposium on Advanced Robotics and Automation (WRC SARA), Beijing, China, 2019, pp. 197-202. [[PDF](http://home.ustc.edu.cn/~chaf/paper/08931929.pdf)]
+## Official Account
+![](assets/img/qrcode_for_gh_cc9814b1f73e_258.jpg)
+## contact
+
+* E-mail: <chaf@mail.ustc.edu.cn>
+* Resume: <http://home.ustc.edu.cn/~chaf>
+* Address: Hefei 230027, Anhui, China
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4149.060847624678!2d117.25489800007709!3d31.835678840180986!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x35cb614f144990bf%3A0x1e10d2090ab9131c!2sUniversity%20of%20Science%20and%20Technology%20of%20China%20West%20Campus!5e0!3m2!1sen!2sas!4v1603680079823!5m2!1sen!2sas" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
 
