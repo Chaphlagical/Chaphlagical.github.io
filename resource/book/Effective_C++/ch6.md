@@ -166,4 +166,5 @@
 	d.mf1(x);	// × Base::mf1被遮掩了
 	```
 
-	
+### Item 34: Differentiate
+
