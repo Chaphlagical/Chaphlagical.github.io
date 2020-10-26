@@ -50,8 +50,11 @@ subtitle: something about me
 
 - Y. Duan, T. Lei, P. Wu, N. Lin, **W. Chen** and X. Chen, “Vision-based Adjustment with Toleration of Error before Grasping,” 2019 WRC Symposium on Advanced Robotics and Automation (WRC SARA), Beijing, China, 2019, pp. 272-277. [[PDF](http://home.ustc.edu.cn/~chaf/paper/08931800.pdf)]
 - P. Wu, **W. Chen**, H. Liu, Y. Duan, N. Lin and X. Chen, “Predicting Grasping Order in Clutter Environment by Using Both Color Image and Points Cloud,” 2019 WRC Symposium on Advanced Robotics and Automation (WRC SARA), Beijing, China, 2019, pp. 197-202. [[PDF](http://home.ustc.edu.cn/~chaf/paper/08931929.pdf)]
+
 ## Official Account
-![](assets/img/qrcode_for_gh_cc9814b1f73e_258.jpg)
+
+![](assets/img/qrcode_for_gh_cc9814b1f73e_258.jpg){: .mx-auto.d-block :}
+
 ## contact
 
 * E-mail: <chaf@mail.ustc.edu.cn>
