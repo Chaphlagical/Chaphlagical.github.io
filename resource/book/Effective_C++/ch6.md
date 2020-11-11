@@ -166,5 +166,77 @@
 	d.mf1(x);	// × Base::mf1被遮掩了
 	```
 
-### Item 34: Differentiate
+### Item 34: Differentiate between inheritance of interface and inheritance of implementation
+
+* public继承：函数接口继承、函数实现继承
+
+* pure virtual函数的目的是为了让derived class只继承函数接口
+
+* non-virtual函数是为了令derived class继承函数扽接口以及一份强制性实现
+
+* impure virtual函数的目的是让derived class继承函数的接口和缺省实现
+
+  * impure virtual函数会让derived class在未声明二点情况下自动继承缺省实现
+  * 切断virtual函数接口和缺省实现的一个方法：
+
+  ```C++
+  class Airplane{
+  public:
+      virtual void fly(const Airport& destination) = 0;
+  	...
+  protected:
+      void defaultFly(const Airport& destination);
+  };
+  void Airplane::defaultFly(const Airport& destination)
+  {
+      // implementation
+  }
+  ```
+
+  使用缺省实现时，只需要：
+
+  ```c++
+  class ModelA: public Airplane{
+  public:
+      virtual void fly(const Airport& destination)
+      {defaultFly(destination);}
+      ...
+  };
+  class ModelB: public Airplane{
+  public:
+      virtual void fly(const Airport& destination)
+      {defaultFly(destination);}
+      ...
+  };
+  ```
+
+  这种方法避免了意外继承的现象，下面是该方法的一种优化方式：
+
+  ```c++
+  class Airplane{
+  public:
+      virtual void fly(const Airport& destination) = 0;
+  	...
+  };
+  void Airplane::fly(const Airport& destination)
+  {
+      // implementation
+  }
+  
+  class ModelA: public Airplane{
+  public:
+      virtual void fly(const Airport& destination)
+      {Airplane::fly(destination);}
+      ...
+  };
+  
+  class ModelB: public Airplane{
+  public:
+      virtual void fly(const Airport& destination)
+      {Airplane::fly(destination);}
+      ...
+  };
+  ```
+
+  
 
