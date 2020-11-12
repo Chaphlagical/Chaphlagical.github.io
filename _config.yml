@@ -25,9 +25,6 @@ avatar: /assets/img/sample/avatar.png   # support internet resources
 github:
   username: chaphlagical             # change to your github username
 
-instagram:
-  username: chaphlagical            # change to your twitter username
-
 social:
   name: Wenbo Chen                  # it will shows as the copyright owner in Footer
   email: chaf@mail.ustc.edu.cn             # change to your email address
