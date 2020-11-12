@@ -3,7 +3,7 @@ layout: post
 title: C++ Templates Note
 subtitle: 《C++ Templates》2ed学习笔记（持续更新）
 thumbnail-img: ""
-cover-img: "/assets/images/cover-img/Effective_C++.jpg"
+cover-img: "/assets/images/cover-img/C++_Template.jpg"
 comments: true
 tags: [Note]
 readtime: true
