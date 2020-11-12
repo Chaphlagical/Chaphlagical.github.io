@@ -7,7 +7,7 @@
   xmlns:media="http://search.yahoo.com/mrss/">
   <channel>
     <title>Hugo Zzo Theme</title>
-    <link>Chaphlagical.github.io/en/</link>
+    <link>https://chaphlagical.github.io/en/</link>
     <description>Recent content on Hugo Zzo Theme</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
@@ -15,7 +15,7 @@
     <webMaster>zzossig@gmail.com (zzossig)</webMaster>
     <copyright>&amp;copy;{year}, All Rights Reserved</copyright>
     
-        <atom:link href="Chaphlagical.github.io/en/index.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="https://chaphlagical.github.io/en/index.xml" rel="self" type="application/rss+xml" />
     
     
     
@@ -44,11 +44,11 @@
       
       <item>
         <title>My First Post</title>
-        <link>Chaphlagical.github.io/en/test/</link>
+        <link>https://chaphlagical.github.io/en/test/</link>
         <pubDate>Tue, 26 Mar 2019 08:47:11 +0100</pubDate>
         <author>zzossig@gmail.com (zzossig)</author>
         <atom:modified>Tue, 26 Mar 2019 08:47:11 +0100</atom:modified>
-        <guid>Chaphlagical.github.io/en/test/</guid>
+        <guid>https://chaphlagical.github.io/en/test/</guid>
         <description>Your markdown here.</description>
         
         <dc:creator>zzossig</dc:creator>

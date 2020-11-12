@@ -3,58 +3,58 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>Chaphlagical.github.io/ko/categories/</loc>
+    <loc>https://chaphlagical.github.io/ko/categories/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="Chaphlagical.github.io/en/categories/"
+                href="https://chaphlagical.github.io/en/categories/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="ko"
-                href="Chaphlagical.github.io/ko/categories/"
+                href="https://chaphlagical.github.io/ko/categories/"
                 />
   </url>
   
   <url>
-    <loc>Chaphlagical.github.io/ko/</loc>
+    <loc>https://chaphlagical.github.io/ko/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="Chaphlagical.github.io/en/"
+                href="https://chaphlagical.github.io/en/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="ko"
-                href="Chaphlagical.github.io/ko/"
+                href="https://chaphlagical.github.io/ko/"
                 />
   </url>
   
   <url>
-    <loc>Chaphlagical.github.io/ko/series/</loc>
+    <loc>https://chaphlagical.github.io/ko/series/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="Chaphlagical.github.io/en/series/"
+                href="https://chaphlagical.github.io/en/series/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="ko"
-                href="Chaphlagical.github.io/ko/series/"
+                href="https://chaphlagical.github.io/ko/series/"
                 />
   </url>
   
   <url>
-    <loc>Chaphlagical.github.io/ko/tags/</loc>
+    <loc>https://chaphlagical.github.io/ko/tags/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="Chaphlagical.github.io/en/tags/"
+                href="https://chaphlagical.github.io/en/tags/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="ko"
-                href="Chaphlagical.github.io/ko/tags/"
+                href="https://chaphlagical.github.io/ko/tags/"
                 />
   </url>
   
