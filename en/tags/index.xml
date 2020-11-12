@@ -6,16 +6,16 @@
   xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" 
   xmlns:media="http://search.yahoo.com/mrss/">
   <channel>
-    <title>Tags on CHaf&#39;s Blog</title>
-    <link>https://chaphlagical.github.io/en/tags/</link>
-    <description>Recent content in Tags on CHaf&#39;s Blog</description>
+    <title>Tags on Hugo Zzo Theme</title>
+    <link>http://example.org/en/tags/</link>
+    <description>Recent content in Tags on Hugo Zzo Theme</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <managingEditor>zzossig@gmail.com (zzossig)</managingEditor>
     <webMaster>zzossig@gmail.com (zzossig)</webMaster>
     <copyright>&amp;copy;{year}, All Rights Reserved</copyright>
     
-        <atom:link href="https://chaphlagical.github.io/en/tags/index.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="http://example.org/en/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     

@@ -3,63 +3,63 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://chaphlagical.github.io/en/test/</loc>
+    <loc>http://example.org/en/test/</loc>
     <lastmod>2019-03-26T08:47:11+01:00</lastmod>
   </url>
   
   <url>
-    <loc>https://chaphlagical.github.io/en/categories/</loc>
+    <loc>http://example.org/en/categories/</loc>
     <xhtml:link
                 rel="alternate"
-                hreflang="zh"
-                href="https://chaphlagical.github.io/zh/categories/"
+                hreflang="ko"
+                href="http://example.org/ko/categories/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://chaphlagical.github.io/en/categories/"
+                href="http://example.org/en/categories/"
                 />
   </url>
   
   <url>
-    <loc>https://chaphlagical.github.io/en/</loc>
+    <loc>http://example.org/en/</loc>
     <xhtml:link
                 rel="alternate"
-                hreflang="zh"
-                href="https://chaphlagical.github.io/zh/"
+                hreflang="ko"
+                href="http://example.org/ko/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://chaphlagical.github.io/en/"
+                href="http://example.org/en/"
                 />
   </url>
   
   <url>
-    <loc>https://chaphlagical.github.io/en/series/</loc>
+    <loc>http://example.org/en/series/</loc>
     <xhtml:link
                 rel="alternate"
-                hreflang="zh"
-                href="https://chaphlagical.github.io/zh/series/"
+                hreflang="ko"
+                href="http://example.org/ko/series/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://chaphlagical.github.io/en/series/"
+                href="http://example.org/en/series/"
                 />
   </url>
   
   <url>
-    <loc>https://chaphlagical.github.io/en/tags/</loc>
+    <loc>http://example.org/en/tags/</loc>
     <xhtml:link
                 rel="alternate"
-                hreflang="zh"
-                href="https://chaphlagical.github.io/zh/tags/"
+                hreflang="ko"
+                href="http://example.org/ko/tags/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://chaphlagical.github.io/en/tags/"
+                href="http://example.org/en/tags/"
                 />
   </url>
   
