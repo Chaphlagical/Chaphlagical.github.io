@@ -6,13 +6,13 @@
   xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" 
   xmlns:media="http://search.yahoo.com/mrss/">
   <channel>
-    <title>Categories on Hugo Zzo Theme</title>
+    <title>Categories on Chaf&#39;s Blog</title>
     <link>https://chaphlagical.github.io/en/categories/</link>
-    <description>Recent content in Categories on Hugo Zzo Theme</description>
+    <description>Recent content in Categories on Chaf&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <managingEditor>zzossig@gmail.com (zzossig)</managingEditor>
-    <webMaster>zzossig@gmail.com (zzossig)</webMaster>
+    <managingEditor>chaf@mail.ustc.edu.cn (Wenbo Chen)</managingEditor>
+    <webMaster>chaf@mail.ustc.edu.cn (Wenbo Chen)</webMaster>
     <copyright>&amp;copy;{year}, All Rights Reserved</copyright>
     
         <atom:link href="https://chaphlagical.github.io/en/categories/index.xml" rel="self" type="application/rss+xml" />
