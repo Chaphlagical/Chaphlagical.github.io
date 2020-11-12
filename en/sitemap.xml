@@ -3,8 +3,38 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://chaphlagical.github.io/en/test/</loc>
+    <loc>https://chaphlagical.github.io/en/</loc>
+    <lastmod>2019-10-19T11:44:14+09:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://chaphlagical.github.io/zh/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://chaphlagical.github.io/en/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://chaphlagical.github.io/en/archive/</loc>
+    <lastmod>2019-10-19T11:44:14+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://chaphlagical.github.io/en/posts/test/</loc>
     <lastmod>2019-03-26T08:47:11+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://chaphlagical.github.io/en/posts/</loc>
+    <lastmod>2019-03-26T08:47:11+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://chaphlagical.github.io/en/about/</loc>
+    <lastmod>2019-02-28T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -22,17 +52,11 @@
   </url>
   
   <url>
-    <loc>https://chaphlagical.github.io/en/</loc>
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="https://chaphlagical.github.io/zh/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://chaphlagical.github.io/en/"
-                />
+    <loc>https://chaphlagical.github.io/en/tags/index/</loc>
+  </url>
+  
+  <url>
+    <loc>https://chaphlagical.github.io/en/presentation/</loc>
   </url>
   
   <url>
