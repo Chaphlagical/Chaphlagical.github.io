@@ -6,40 +6,35 @@
   xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" 
   xmlns:media="http://search.yahoo.com/mrss/">
   <channel>
-    <title>index on Chaf&#39;s Blog</title>
-    <link>https://chaphlagical.github.io/en/tags/index/</link>
-    <description>Recent content in index on Chaf&#39;s Blog</description>
+    <title>Publications on Chaf&#39;s Blog</title>
+    <link>https://chaphlagical.github.io/en/publication/</link>
+    <description>Recent content in Publications on Chaf&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <managingEditor>chaf@mail.ustc.edu.cn (Wenbo Chen)</managingEditor>
     <webMaster>chaf@mail.ustc.edu.cn (Wenbo Chen)</webMaster>
     <copyright>&amp;copy;{year}, All Rights Reserved</copyright>
+    <lastBuildDate>Fri, 13 Nov 2020 14:08:48 +0000</lastBuildDate>
     
-        <atom:link href="https://chaphlagical.github.io/en/tags/index/index.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="https://chaphlagical.github.io/en/publication/index.xml" rel="self" type="application/rss+xml" />
     
     
     
 
       
       <item>
-        <title>Posts</title>
-        <link>https://chaphlagical.github.io/en/posts/</link>
-        <pubDate>Fri, 13 Nov 2020 08:47:11 +0100</pubDate>
+        <title>paper</title>
+        <link>https://chaphlagical.github.io/en/publication/paper/</link>
+        <pubDate>Fri, 13 Nov 2020 14:08:48 +0000</pubDate>
         <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
-        
-        <guid>https://chaphlagical.github.io/en/posts/</guid>
+        <atom:modified>Fri, 13 Nov 2020 14:08:48 +0000</atom:modified>
+        <guid>https://chaphlagical.github.io/en/publication/paper/</guid>
         <description></description>
         
-        <dc:creator>Hugo Authors</dc:creator>
+        <dc:creator>Wenbo Chen</dc:creator>
         
         
         
-        
-          
-            
-              <category>index</category>
-            
-          
         
         
         
