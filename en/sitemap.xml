@@ -3,6 +3,16 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://chaphlagical.github.io/en/resume/</loc>
+    <lastmod>2020-11-13T20:13:59+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://chaphlagical.github.io/en/about/</loc>
+    <lastmod>2020-11-13T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://chaphlagical.github.io/en/</loc>
     <lastmod>2019-10-19T11:44:14+09:00</lastmod>
     <xhtml:link
@@ -30,11 +40,6 @@
   <url>
     <loc>https://chaphlagical.github.io/en/posts/</loc>
     <lastmod>2019-03-26T08:47:11+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://chaphlagical.github.io/en/about/</loc>
-    <lastmod>2019-02-28T00:00:00+00:00</lastmod>
   </url>
   
   <url>
