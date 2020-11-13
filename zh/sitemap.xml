@@ -3,7 +3,68 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://chaphlagical.github.io/zh/resume/</loc>
+    <lastmod>2020-11-13T20:13:59+09:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://chaphlagical.github.io/en/resume/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://chaphlagical.github.io/zh/resume/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://chaphlagical.github.io/zh/</loc>
+    <lastmod>2020-11-13T08:47:11+01:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://chaphlagical.github.io/en/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://chaphlagical.github.io/zh/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://chaphlagical.github.io/zh/tags/cagd/</loc>
+    <lastmod>2020-11-13T08:47:11+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://chaphlagical.github.io/zh/note/cagd/cagd1/</loc>
+    <lastmod>2020-11-13T08:47:11+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://chaphlagical.github.io/zh/note/cagd/cagd2/</loc>
+    <lastmod>2020-11-13T08:47:11+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://chaphlagical.github.io/zh/note/cagd/cagd3/</loc>
+    <lastmod>2020-11-13T08:47:11+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://chaphlagical.github.io/zh/note/cagd/cagd4/</loc>
+    <lastmod>2020-11-13T08:47:11+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://chaphlagical.github.io/zh/note/cagd/cagd5/</loc>
+    <lastmod>2020-11-13T08:47:11+01:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://chaphlagical.github.io/zh/categories/</loc>
+    <lastmod>2020-11-13T08:47:11+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -17,16 +78,126 @@
   </url>
   
   <url>
-    <loc>https://chaphlagical.github.io/zh/</loc>
+    <loc>https://chaphlagical.github.io/zh/categories/note/</loc>
+    <lastmod>2020-11-13T08:47:11+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://chaphlagical.github.io/zh/note/</loc>
+    <lastmod>2020-11-13T08:47:11+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://chaphlagical.github.io/en/"
+                href="https://chaphlagical.github.io/en/note/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="zh"
-                href="https://chaphlagical.github.io/zh/"
+                href="https://chaphlagical.github.io/zh/note/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://chaphlagical.github.io/zh/tags/</loc>
+    <lastmod>2020-11-13T08:47:11+01:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://chaphlagical.github.io/en/tags/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://chaphlagical.github.io/zh/tags/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://chaphlagical.github.io/zh/archive/</loc>
+    <lastmod>2020-11-13T11:44:14+09:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://chaphlagical.github.io/en/archive/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://chaphlagical.github.io/zh/archive/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://chaphlagical.github.io/zh/note/cagd/</loc>
+    <lastmod>2020-11-13T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://chaphlagical.github.io/en/note/cagd/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://chaphlagical.github.io/zh/note/cagd/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://chaphlagical.github.io/zh/about/</loc>
+    <lastmod>2020-11-13T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://chaphlagical.github.io/en/about/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://chaphlagical.github.io/zh/about/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://chaphlagical.github.io/zh/posts/test/</loc>
+    <lastmod>2019-03-26T08:47:11+01:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://chaphlagical.github.io/en/posts/test/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://chaphlagical.github.io/zh/posts/test/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://chaphlagical.github.io/zh/posts/</loc>
+    <lastmod>2019-03-26T08:47:11+01:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://chaphlagical.github.io/en/posts/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://chaphlagical.github.io/zh/posts/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://chaphlagical.github.io/zh/tags/index/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://chaphlagical.github.io/en/tags/index/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://chaphlagical.github.io/zh/tags/index/"
                 />
   </url>
   
@@ -45,16 +216,16 @@
   </url>
   
   <url>
-    <loc>https://chaphlagical.github.io/zh/tags/</loc>
+    <loc>https://chaphlagical.github.io/zh/presentation/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://chaphlagical.github.io/en/tags/"
+                href="https://chaphlagical.github.io/en/presentation/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="zh"
-                href="https://chaphlagical.github.io/zh/tags/"
+                href="https://chaphlagical.github.io/zh/presentation/"
                 />
   </url>
   
