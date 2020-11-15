@@ -14,13 +14,31 @@
     <managingEditor>chaf@mail.ustc.edu.cn (Wenbo Chen)</managingEditor>
     <webMaster>chaf@mail.ustc.edu.cn (Wenbo Chen)</webMaster>
     <copyright>&amp;copy;{year}, All Rights Reserved</copyright>
-    <lastBuildDate>Fri, 13 Nov 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 15 Nov 2020 00:00:00 +0000</lastBuildDate>
     
         <atom:link href="https://chaphlagical.github.io/zh/note/index.xml" rel="self" type="application/rss+xml" />
     
     
     
 
+      
+      <item>
+        <title>C&#43;&#43; Templates</title>
+        <link>https://chaphlagical.github.io/zh/note/cpptemplate/</link>
+        <pubDate>Sun, 15 Nov 2020 00:00:00 +0000</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        <atom:modified>Sun, 15 Nov 2020 00:00:00 +0000</atom:modified>
+        <guid>https://chaphlagical.github.io/zh/note/cpptemplate/</guid>
+        <description>《C++ Templates》阅读笔记 作者： David Vandevoorde/ Nicolai M.Josuttis/ Douglas Gregor 电子书下载地址：Link 示例代码下载地址：Link 学习模板时一个挺有用的网站：http</description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        
+        
+        
+        
+        
+        
+      </item>
       
       <item>
         <title>CAGD</title>

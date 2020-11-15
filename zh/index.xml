@@ -14,7 +14,7 @@
     <managingEditor>chaf@mail.ustc.edu.cn (Wenbo Chen)</managingEditor>
     <webMaster>chaf@mail.ustc.edu.cn (Wenbo Chen)</webMaster>
     <copyright>&amp;copy;{year}, All Rights Reserved</copyright>
-    <lastBuildDate>Fri, 13 Nov 2020 14:08:48 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 15 Nov 2020 00:00:00 +0000</lastBuildDate>
     
         <atom:link href="https://chaphlagical.github.io/zh/index.xml" rel="self" type="application/rss+xml" />
     
@@ -188,6 +188,40 @@
           
             
               <category>CAGD</category>
+            
+          
+        
+        
+          
+            
+              <category>Note</category>
+            
+          
+        
+        
+      </item>
+      
+      <item>
+        <title>Chapter 1: Function Templates</title>
+        <link>https://chaphlagical.github.io/zh/note/cpptemplate/ch1/</link>
+        <pubDate>Thu, 15 Oct 2020 15:56:11 +0100</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        <atom:modified>Thu, 15 Oct 2020 15:56:11 +0100</atom:modified>
+        <guid>https://chaphlagical.github.io/zh/note/cpptemplate/ch1/</guid>
+        <description>1.1 A First Look at Function Templates 1.1.1 Defining The Templates 模板声明为： 1 template&amp;lt;参数列表&amp;gt; 例如： 1 2 3 4 5 6 // max1.hpp template&amp;lt;typename T&amp;gt; T max(T a, T b) { return b &amp;lt; a ? a : b; } 也可以用</description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>C&#43;&#43; Templates</category>
+            
+          
+            
+              <category>C&#43;&#43;</category>
             
           
         
