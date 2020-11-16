@@ -215,6 +215,40 @@
       </item>
       
       <item>
+        <title>Chapter 2: Class Templates</title>
+        <link>https://chaphlagical.github.io/zh/note/cpptemplate/ch2/</link>
+        <pubDate>Thu, 15 Oct 2020 15:56:11 +0100</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        <atom:modified>Thu, 15 Oct 2020 15:56:11 +0100</atom:modified>
+        <guid>https://chaphlagical.github.io/zh/note/cpptemplate/ch2/</guid>
+        <description>2.1 Implementation of Class Template Stack</description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>C&#43;&#43; Templates</category>
+            
+          
+            
+              <category>C&#43;&#43;</category>
+            
+          
+        
+        
+          
+            
+              <category>Note</category>
+            
+          
+        
+        
+      </item>
+      
+      <item>
         <title>Chapter 4: Designs and Declarations</title>
         <link>https://chaphlagical.github.io/zh/note/effectivecpp/ch4/</link>
         <pubDate>Wed, 14 Oct 2020 08:47:11 +0100</pubDate>
