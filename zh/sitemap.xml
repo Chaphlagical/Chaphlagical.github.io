@@ -18,6 +18,11 @@
   </url>
   
   <url>
+    <loc>https://chaphlagical.github.io/zh/tags/c&#43;&#43;/</loc>
+    <lastmod>2020-11-16T08:47:11+01:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://chaphlagical.github.io/zh/posts/</loc>
     <lastmod>2020-11-16T08:47:11+01:00</lastmod>
     <xhtml:link
@@ -29,6 +34,21 @@
                 rel="alternate"
                 hreflang="zh"
                 href="https://chaphlagical.github.io/zh/posts/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://chaphlagical.github.io/zh/tags/</loc>
+    <lastmod>2020-11-16T08:47:11+01:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://chaphlagical.github.io/en/tags/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://chaphlagical.github.io/zh/tags/"
                 />
   </url>
   
@@ -133,11 +153,6 @@
   </url>
   
   <url>
-    <loc>https://chaphlagical.github.io/zh/tags/c&#43;&#43;/</loc>
-    <lastmod>2020-11-09T08:47:11+01:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://chaphlagical.github.io/zh/categories/</loc>
     <lastmod>2020-11-09T08:47:11+01:00</lastmod>
     <xhtml:link
@@ -165,21 +180,6 @@
   <url>
     <loc>https://chaphlagical.github.io/zh/categories/note/</loc>
     <lastmod>2020-11-09T08:47:11+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://chaphlagical.github.io/zh/tags/</loc>
-    <lastmod>2020-11-09T08:47:11+01:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://chaphlagical.github.io/en/tags/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="https://chaphlagical.github.io/zh/tags/"
-                />
   </url>
   
   <url>
