@@ -14,13 +14,47 @@
     <managingEditor>chaf@mail.ustc.edu.cn (Wenbo Chen)</managingEditor>
     <webMaster>chaf@mail.ustc.edu.cn (Wenbo Chen)</webMaster>
     <copyright>&amp;copy;{year}, All Rights Reserved</copyright>
-    <lastBuildDate>Sun, 15 Nov 2020 08:47:11 +0100</lastBuildDate>
+    <lastBuildDate>Wed, 18 Nov 2020 15:56:11 +0100</lastBuildDate>
     
         <atom:link href="https://chaphlagical.github.io/zh/tags/c++/index.xml" rel="self" type="application/rss+xml" />
     
     
     
 
+      
+      <item>
+        <title>Chapter 2: Class Templates</title>
+        <link>https://chaphlagical.github.io/zh/note/cpptemplate/ch2/</link>
+        <pubDate>Wed, 18 Nov 2020 15:56:11 +0100</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        <atom:modified>Wed, 18 Nov 2020 15:56:11 +0100</atom:modified>
+        <guid>https://chaphlagical.github.io/zh/note/cpptemplate/ch2/</guid>
+        <description>2.1 Implementation of Class Template Stack 2.1.1 Declaration of Class Templates 声明一个类模板： 1 2 3 4 template&amp;lt;typename T&amp;gt; class Stack{ ... }; 模板参数T可以在类中使用： 1 2 3 4 5 6 7 8 9 10 11 12 template&amp;lt;typename T&amp;gt; class Stack{ private: std::vector&amp;lt;T&amp;gt; elems; public: void push(T const&amp;amp; elem); void pop(); T const&amp;amp;</description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>C&#43;&#43; Templates</category>
+            
+          
+            
+              <category>C&#43;&#43;</category>
+            
+          
+        
+        
+          
+            
+              <category>Note</category>
+            
+          
+        
+        
+      </item>
       
       <item>
         <title>2020-11-15-C&#43;&#43;类的内存分布</title>
@@ -122,40 +156,6 @@
         <atom:modified>Thu, 15 Oct 2020 15:56:11 +0100</atom:modified>
         <guid>https://chaphlagical.github.io/zh/note/cpptemplate/ch1/</guid>
         <description>1.1 A First Look at Function Templates 1.1.1 Defining The Templates 模板声明为： 1 template&amp;lt;参数列表&amp;gt; 例如： 1 2 3 4 5 6 // max1.hpp template&amp;lt;typename T&amp;gt; T max(T a, T b) { return b &amp;lt; a ? a : b; } 也可以用</description>
-        
-        <dc:creator>Wenbo Chen</dc:creator>
-        
-        
-        
-        
-          
-            
-              <category>C&#43;&#43; Templates</category>
-            
-          
-            
-              <category>C&#43;&#43;</category>
-            
-          
-        
-        
-          
-            
-              <category>Note</category>
-            
-          
-        
-        
-      </item>
-      
-      <item>
-        <title>Chapter 2: Class Templates</title>
-        <link>https://chaphlagical.github.io/zh/note/cpptemplate/ch2/</link>
-        <pubDate>Thu, 15 Oct 2020 15:56:11 +0100</pubDate>
-        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
-        <atom:modified>Thu, 15 Oct 2020 15:56:11 +0100</atom:modified>
-        <guid>https://chaphlagical.github.io/zh/note/cpptemplate/ch2/</guid>
-        <description>2.1 Implementation of Class Template Stack</description>
         
         <dc:creator>Wenbo Chen</dc:creator>
         

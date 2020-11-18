@@ -4,7 +4,7 @@
   
   <url>
     <loc>https://chaphlagical.github.io/zh/</loc>
-    <lastmod>2020-11-15T08:47:11+01:00</lastmod>
+    <lastmod>2020-11-18T15:56:11+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -18,12 +18,62 @@
   </url>
   
   <url>
-    <loc>https://chaphlagical.github.io/zh/posts/2020-11-15-c&#43;&#43;%E7%B1%BB%E7%9A%84%E5%86%85%E5%AD%98%E5%88%86%E5%B8%83/</loc>
-    <lastmod>2020-11-15T08:47:11+01:00</lastmod>
+    <loc>https://chaphlagical.github.io/zh/tags/c&#43;&#43;/</loc>
+    <lastmod>2020-11-18T15:56:11+01:00</lastmod>
   </url>
   
   <url>
-    <loc>https://chaphlagical.github.io/zh/tags/c&#43;&#43;/</loc>
+    <loc>https://chaphlagical.github.io/zh/tags/c&#43;&#43;-templates/</loc>
+    <lastmod>2020-11-18T15:56:11+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://chaphlagical.github.io/zh/categories/</loc>
+    <lastmod>2020-11-18T15:56:11+01:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://chaphlagical.github.io/en/categories/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://chaphlagical.github.io/zh/categories/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://chaphlagical.github.io/zh/note/cpptemplate/ch2/</loc>
+    <lastmod>2020-11-18T15:56:11+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://chaphlagical.github.io/zh/categories/note/</loc>
+    <lastmod>2020-11-18T15:56:11+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://chaphlagical.github.io/zh/note/</loc>
+    <lastmod>2020-11-18T15:56:11+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://chaphlagical.github.io/zh/tags/</loc>
+    <lastmod>2020-11-18T15:56:11+01:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://chaphlagical.github.io/en/tags/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://chaphlagical.github.io/zh/tags/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://chaphlagical.github.io/zh/posts/2020-11-15-c&#43;&#43;%E7%B1%BB%E7%9A%84%E5%86%85%E5%AD%98%E5%88%86%E5%B8%83/</loc>
     <lastmod>2020-11-15T08:47:11+01:00</lastmod>
   </url>
   
@@ -43,27 +93,7 @@
   </url>
   
   <url>
-    <loc>https://chaphlagical.github.io/zh/tags/</loc>
-    <lastmod>2020-11-15T08:47:11+01:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://chaphlagical.github.io/en/tags/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="https://chaphlagical.github.io/zh/tags/"
-                />
-  </url>
-  
-  <url>
     <loc>https://chaphlagical.github.io/zh/note/cpptemplate/</loc>
-    <lastmod>2020-11-15T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://chaphlagical.github.io/zh/note/</loc>
     <lastmod>2020-11-15T00:00:00+00:00</lastmod>
   </url>
   
@@ -153,32 +183,12 @@
   </url>
   
   <url>
-    <loc>https://chaphlagical.github.io/zh/categories/</loc>
-    <lastmod>2020-11-09T08:47:11+01:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://chaphlagical.github.io/en/categories/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="https://chaphlagical.github.io/zh/categories/"
-                />
-  </url>
-  
-  <url>
     <loc>https://chaphlagical.github.io/zh/note/effectivecpp/ch6/</loc>
     <lastmod>2020-11-09T08:47:11+01:00</lastmod>
   </url>
   
   <url>
     <loc>https://chaphlagical.github.io/zh/tags/effective-c&#43;&#43;/</loc>
-    <lastmod>2020-11-09T08:47:11+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://chaphlagical.github.io/zh/categories/note/</loc>
     <lastmod>2020-11-09T08:47:11+01:00</lastmod>
   </url>
   
@@ -208,17 +218,7 @@
   </url>
   
   <url>
-    <loc>https://chaphlagical.github.io/zh/tags/c&#43;&#43;-templates/</loc>
-    <lastmod>2020-10-15T15:56:11+01:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://chaphlagical.github.io/zh/note/cpptemplate/ch1/</loc>
-    <lastmod>2020-10-15T15:56:11+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://chaphlagical.github.io/zh/note/cpptemplate/ch2/</loc>
     <lastmod>2020-10-15T15:56:11+01:00</lastmod>
   </url>
   
@@ -260,6 +260,10 @@
   <url>
     <loc>https://chaphlagical.github.io/zh/posts/2020-09-25-resource/</loc>
     <lastmod>2020-09-25T08:47:11+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://chaphlagical.github.io/zh/note/cpptemplate/concepts/</loc>
   </url>
   
   <url>

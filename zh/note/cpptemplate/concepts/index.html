@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Chapter 1: Function Templates – Chaf&#39;s Blog</title>
+    <title> – Chaf&#39;s Blog</title>
     
 
 
@@ -653,7 +653,7 @@
     
     var baseurl = JSON.parse("\"https://chaphlagical.github.io\"");
     
-    var permalink = JSON.parse("\"https://chaphlagical.github.io/zh/note/cpptemplate/ch1/\"");
+    var permalink = JSON.parse("\"https://chaphlagical.github.io/zh/note/cpptemplate/concepts/\"");
     
     var langprefix = JSON.parse("\"/zh\"");
     var searchResults = null;
@@ -1323,23 +1323,21 @@
 
 
     
-<meta name="description" content="《C&#43;&#43; Templates学习笔记第一章》" />
+<meta name="description" content="Create the World with codes." />
 
 
-<meta name="keywords" content="C&#43;&#43; Templates,C&#43;&#43;">
-
-<meta name="created" content="2020-10-15T15:56:11&#43;0100">
-<meta name="modified" content="2020-10-15T15:56:11&#43;0100">
-<meta property="article:published_time" content="2020-10-15T15:56:11&#43;0100">
+<meta name="created" content="0001-01-01T00:00:00&#43;0000">
+<meta name="modified" content="0001-01-01T00:00:00&#43;0000">
+<meta property="article:published_time" content="0001-01-01T00:00:00&#43;0000">
 
 <meta name="author" content="Wenbo Chen">
 
 
 <meta property="og:site_name" content="Chaf&#39;s Blog">
-<meta property="og:title" content="Chapter 1: Function Templates">
-<meta property="og:url" content="https://chaphlagical.github.io/zh/note/cpptemplate/ch1/">
+<meta property="og:title" content="">
+<meta property="og:url" content="https://chaphlagical.github.io/zh/note/cpptemplate/concepts/">
 <meta property="og:type" content="article">
-<meta property="og:description" content="《C&#43;&#43; Templates学习笔记第一章》">
+<meta property="og:description" content="Create the World with codes.">
 
 <meta name="generator" content="Hugo 0.78.1" />
 <meta name="msapplication-TileColor" content="#fff">
@@ -1350,7 +1348,7 @@
 
 <meta name="apple-mobile-web-app-status-bar-style" content="#fff">
 
-<link rel="canonical" href="https://chaphlagical.github.io/zh/note/cpptemplate/ch1/">
+<link rel="canonical" href="https://chaphlagical.github.io/zh/note/cpptemplate/concepts/">
 
 <link rel="manifest" href="/manifest.json">
 
@@ -1376,12 +1374,11 @@
   {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    "headline": "Chapter 1: Function Templates",
-    "datePublished": "2020-10-15T15:56:11+01:00",
-    "dateModified": "2020-10-15T15:56:11+01:00",
-    "url" : "https://chaphlagical.github.io/zh/note/cpptemplate/ch1/",
-    "description": "《C++ Templates学习笔记第一章》",
-    "keywords": ["C++ Templates","C++"],
+    "headline": "",
+    "datePublished": "0001-01-01T00:00:00Z",
+    "dateModified": "0001-01-01T00:00:00Z",
+    "url" : "https://chaphlagical.github.io/zh/note/cpptemplate/concepts/",
+    "description": "",
     "mainEntityOfPage": {
       "@type": "WebPage",
       "@id": "https://chaphlagical.github.io"
@@ -1764,7 +1761,7 @@ if (!doNotTrack) {
   
   <li  class="is-active" >
     
-      <span>Chapter 1: Function Templates</span>
+      <a href="https://chaphlagical.github.io/zh/note/cpptemplate/concepts/" class="capitalize">Chaf&#39;s Blog</a>
     
   </li>
   
@@ -1776,14 +1773,14 @@ if (!doNotTrack) {
   <div class="single ">
     <div class="single__nojs">Please enable Javascript to view the contents</div>
     <script>document.querySelector('.single').classList.remove('hide'); document.querySelector('.single__nojs').classList.add('hide');</script>
-    <h2 class="single__title" data-ani="true">Chapter 1: Function Templates</h2>
+    <h2 class="single__title" data-ani="true"></h2>
     <h3 class="single__subtitle"></h3>
     <div class="single__meta">
       
 <div class="single__infos">
-  <time class="single__info" title="创建日期">📅&nbsp;2020年10月15日 </time>
+  <time class="single__info" title="创建日期">📅&nbsp;0001年01月01日 </time>
   
-  &nbsp;&middot;&nbsp; <span class="single__info" title="阅读时长"> ☕&nbsp;4&nbsp;分钟 </span>
+  &nbsp;&middot;&nbsp; <span class="single__info" title="阅读时长"> ☕&nbsp;0&nbsp;分钟 </span>
   
   <span class="single__info">
     
@@ -1792,483 +1789,12 @@ if (!doNotTrack) {
       
 <ul class="single__tags caption">
   
-  🏷️
-  
-
-  <li><a href="https://chaphlagical.github.io/zh/tags/c&#43;&#43;-templates/" class="single__tag" title="C&#43;&#43; Templates">#C&#43;&#43; Templates</a></li>
-
-  <li><a href="https://chaphlagical.github.io/zh/tags/c&#43;&#43;/" class="single__tag" title="C&#43;&#43;">#C&#43;&#43;</a></li>
 
 </ul>
     </div>
     <article class="single__contents" data-dir="ltr" data-ani="true">
       
-      <h2 id="11-a-first-look-at-function-templates">1.1 A First Look at Function Templates</h2>
-<h3 id="111-defining-the-templates">1.1.1 Defining The Templates</h3>
-<p>模板声明为：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">template</span><span class="o">&lt;</span><span class="err">参数列表</span><span class="o">&gt;</span>
-</code></pre></td></tr></table>
-</div>
-</div><p>例如：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="c1">// max1.hpp
-</span><span class="c1"></span><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
-<span class="n">T</span> <span class="n">max</span><span class="p">(</span><span class="n">T</span> <span class="n">a</span><span class="p">,</span> <span class="n">T</span> <span class="n">b</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="k">return</span> <span class="n">b</span> <span class="o">&lt;</span> <span class="n">a</span> <span class="o">?</span> <span class="nl">a</span> <span class="p">:</span> <span class="n">b</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
-</div>
-</div><p>也可以用关键字代替<code>typename</code>，如：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
-<span class="n">T</span> <span class="n">max</span><span class="p">(</span><span class="n">T</span> <span class="n">a</span><span class="p">,</span> <span class="n">T</span> <span class="n">b</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="k">return</span> <span class="n">b</span> <span class="o">&lt;</span> <span class="n">a</span> <span class="o">?</span> <span class="nl">a</span> <span class="p">:</span> <span class="n">b</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
-</div>
-</div><h3 id="112-using-the-templates">1.1.2 Using the Templates</h3>
-<p>例：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
-</span><span class="cp">#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp">
-</span><span class="cp">#include</span> <span class="cpf">&#34;max1.hpp&#34;</span><span class="cp">
-</span><span class="cp"></span>
-<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
-<span class="p">{</span>
-    <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">42</span><span class="p">;</span>
-    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="o">::</span><span class="n">max</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">42</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
-
-    <span class="kt">double</span> <span class="n">f1</span> <span class="o">=</span> <span class="mf">3.4</span><span class="p">;</span>
-    <span class="kt">double</span> <span class="n">f2</span> <span class="o">=</span> <span class="o">-</span><span class="mf">6.7</span><span class="p">;</span>
-    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="o">::</span><span class="n">max</span><span class="p">(</span><span class="n">f1</span><span class="p">,</span> <span class="n">f2</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
-
-    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">s1</span> <span class="o">=</span> <span class="s">&#34;mathematics&#34;</span><span class="p">;</span>
-    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">s2</span> <span class="o">=</span> <span class="s">&#34;math&#34;</span><span class="p">;</span>
-    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="o">::</span><span class="n">max</span><span class="p">(</span><span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
-</div>
-</div><p>使用模板时编译器将针对每一套使用的模板参数创建一个实例，见<a href="https://cppinsights.io/lnk?code=I2luY2x1ZGUgPGlvc3RyZWFtPgojaW5jbHVkZSA8c3RyaW5nPgoKdGVtcGxhdGU8dHlwZW5hbWUgVD4KVCBtYXgoVCBhLCBUIGIpCnsKICAgIHJldHVybiBiIDwgYSA/IGEgOiBiOwp9CgppbnQgbWFpbigpCnsKICAgIGludCBpID0gNDI7CiAgICBzdGQ6OmNvdXQgPDwgOjptYXgoNywgNDIpIDw8IHN0ZDo6ZW5kbDsKCiAgICBkb3VibGUgZjEgPSAzLjQ7CiAgICBkb3VibGUgZjIgPSAtNi43OwogICAgc3RkOjpjb3V0IDw8IDo6bWF4KGYxLCBmMikgPDwgc3RkOjplbmRsOwoKICAgIHN0ZDo6c3RyaW5nIHMxID0gIm1hdGhlbWF0aWNzIjsKICAgIHN0ZDo6c3RyaW5nIHMyID0gIm1hdGgiOwogICAgc3RkOjpjb3V0IDw8IDo6bWF4KHMxLCBzMikgPDwgc3RkOjplbmRsOwp9&amp;insightsOptions=cpp14&amp;std=cpp14&amp;rev=1.0">示例</a></p>
-<p><strong>注意：</strong> <code>void</code>也是一个有效的模板参数，例如：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
-<span class="n">T</span> <span class="n">foo</span><span class="p">(</span><span class="n">T</span><span class="o">*</span><span class="p">)</span>
-<span class="p">{}</span>
-
-<span class="kt">void</span><span class="o">*</span> <span class="n">vp</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">;</span>
-<span class="n">foo</span><span class="p">(</span><span class="n">vp</span><span class="p">);</span>
-</code></pre></td></tr></table>
-</div>
-</div><h3 id="113-two-phase-translation">1.1.3 Two-Phase Translation</h3>
-<p>模板的编译包含两个阶段：</p>
-<ol>
-<li>第一阶段为不包含实例的definition time，忽略模板参数地检查模板代码本身，包括
-<ul>
-<li>Syntax errors are discovered, such as missing semicolons</li>
-<li>Using unknown names(type names, function names, &hellip;) that don&rsquo;t depend on template parameters are discovered</li>
-<li>Static assertions that don&rsquo;t depend on template parameters are checked</li>
-</ul>
-</li>
-<li>第二阶段为实例阶段，模板代码被再次确认有效，依赖于模板参数的部分将被确认</li>
-</ol>
-<p>一个例子帮助理解：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
-<span class="kt">void</span> <span class="n">foo</span><span class="p">(</span><span class="n">T</span> <span class="n">t</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="n">undeclared</span><span class="p">();</span>	<span class="c1">// 编译期第一阶段检查
-</span><span class="c1"></span>    <span class="n">undeclared</span><span class="p">(</span><span class="n">t</span><span class="p">);</span>	<span class="c1">// 编译期第二阶段检查
-</span><span class="c1"></span>    <span class="k">static_assert</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="p">,</span> <span class="s">&#34;int too small&#34;</span><span class="p">);</span>	<span class="c1">// always fails if sizeof(int)&lt;=10
-</span><span class="c1"></span>    <span class="k">static_assert</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">T</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mf">10.</span> <span class="s">&#34;T too small&#34;</span><span class="p">);</span>	<span class="c1">// fails if instantiated for T with size&lt;=10
-</span><span class="c1"></span><span class="p">}</span>
-</code></pre></td></tr></table>
-</div>
-</div><h2 id="12-template-argument-deduction">1.2 Template Argument Deduction</h2>
-<h3 id="121-type-conversions-during-type-deduction">1.2.1 Type Conversions During Type Deduction</h3>
-<p>类型推断时自动类型转换的限制：</p>
-<ul>
-<li>当声明为按引用传参时，即使是trivial的转换都不能用于类型推断。两个参数必须完全匹配模板参数，例如下述代码编译将报错：</li>
-</ul>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
-<span class="n">T</span> <span class="n">max</span><span class="p">(</span><span class="n">T</span><span class="o">&amp;</span> <span class="n">a</span><span class="p">,</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">b</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="k">return</span> <span class="n">a</span> <span class="o">&gt;</span> <span class="n">b</span><span class="o">?</span> <span class="nl">a</span> <span class="p">:</span> <span class="n">b</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
-<span class="p">{</span>
-    <span class="k">const</span> <span class="kt">int</span> <span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">b</span><span class="o">=</span><span class="mi">2</span><span class="p">;</span>
-    <span class="o">::</span><span class="n">max</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">);</span>	<span class="c1">// const int 和 int在按引用传参下无法转换
-</span><span class="c1"></span>    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
-</div>
-</div><ul>
-<li>
-<p>当声明为按值传参时，则支持退化(decay)的trivial转换：</p>
-<ul>
-<li>Qualifications with <code>const</code> or <code>volatile</code> are ignored</li>
-<li>References convert to the referenced type</li>
-<li>Raw arrays or functions convert to the corresponding pointer type</li>
-</ul>
-<p>例如：</p>
-</li>
-</ul>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="cp">#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp">
-</span><span class="cp"></span>
-<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
-<span class="n">T</span> <span class="n">max</span><span class="p">(</span><span class="n">T</span> <span class="n">a</span><span class="p">,</span> <span class="n">T</span> <span class="n">b</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="k">return</span> <span class="n">a</span> <span class="o">&gt;</span> <span class="n">b</span><span class="o">?</span> <span class="nl">a</span> <span class="p">:</span> <span class="n">b</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
-<span class="p">{</span>
-    <span class="k">const</span> <span class="kt">int</span> <span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">b</span><span class="o">=</span><span class="mi">2</span><span class="p">;</span>
-    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">s</span><span class="p">;</span>
-    <span class="o">::</span><span class="n">max</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">);</span>	<span class="c1">// 正确，发生退化转换
-</span><span class="c1"></span>    <span class="o">::</span><span class="n">max</span><span class="p">(</span><span class="s">&#34;hello&#34;</span><span class="p">,</span> <span class="n">s</span><span class="p">);</span> <span class="c1">// 错误，char const[6]无法与std::string发生退化转换
-</span><span class="c1"></span>    <span class="o">::</span><span class="n">max</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mf">4.5</span><span class="p">);</span> <span class="c1">// 错误，int与double无法发生退化转换
-</span><span class="c1"></span>    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
-</div>
-</div><h3 id="122-type-deduction-for-default-arguments">1.2.2 Type Deduction for Default Arguments</h3>
-<p>类型推断无法用于默认参数，必须同时指定默认模板参数类型：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span>
-<span class="kt">void</span> <span class="n">f</span><span class="p">(</span><span class="n">T</span> <span class="o">=</span> <span class="s">&#34;&#34;</span><span class="p">);</span>
-<span class="p">...</span>
-<span class="n">f</span><span class="p">();</span>
-</code></pre></td></tr></table>
-</div>
-</div><h2 id="13-multiple-template-parameters">1.3 Multiple Template Parameters</h2>
-<p>模板定义支持多参数，如：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T1</span><span class="p">,</span> <span class="k">typename</span> <span class="n">T2</span><span class="o">&gt;</span>
-<span class="n">T1</span> <span class="n">max</span><span class="p">(</span><span class="n">T1</span> <span class="n">a</span><span class="p">,</span> <span class="n">T2</span> <span class="n">b</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="k">return</span> <span class="n">b</span><span class="o">&lt;</span><span class="n">a</span> <span class="o">?</span> <span class="nl">a</span> <span class="p">:</span> <span class="n">b</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="p">...</span>
-<span class="k">auto</span> <span class="n">m</span> <span class="o">=</span> <span class="o">::</span><span class="n">max</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mf">7.2</span><span class="p">);</span>
-</code></pre></td></tr></table>
-</div>
-</div><p>此时返回类型为<code>T1</code>，要使得返回类型更加科学，有以下方法</p>
-<h3 id="131-template-parameters-for-return-type">1.3.1 Template Parameters for Return Type</h3>
-<p>显式定义和声明返回类型：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T1</span><span class="p">,</span> <span class="k">typename</span> <span class="n">T2</span><span class="p">,</span> <span class="k">typename</span> <span class="n">RT</span><span class="o">&gt;</span>
-<span class="n">RT</span> <span class="n">max</span><span class="p">(</span><span class="n">T1</span> <span class="n">a</span><span class="p">,</span><span class="n">T2</span> <span class="n">b</span><span class="p">);</span>
-<span class="p">...</span>
-<span class="o">::</span><span class="n">max</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">double</span><span class="p">,</span> <span class="kt">double</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mf">7.2</span><span class="p">);</span>
-</code></pre></td></tr></table>
-</div>
-</div><p>可将<code>RT</code>移前而<code>T1</code>和<code>T2</code>交给编译器推断：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">RT</span><span class="p">,</span> <span class="k">typename</span> <span class="n">T1</span><span class="p">,</span> <span class="k">typename</span> <span class="n">T2</span><span class="o">&gt;</span>
-<span class="n">RT</span> <span class="n">max</span><span class="p">(</span><span class="n">T1</span> <span class="n">a</span><span class="p">,</span><span class="n">T2</span> <span class="n">b</span><span class="p">);</span>
-<span class="p">...</span>
-<span class="o">::</span><span class="n">max</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mf">7.2</span><span class="p">);</span>
-</code></pre></td></tr></table>
-</div>
-</div><h3 id="132-deducing-the-return-type">1.3.2 Deducing the Return Type</h3>
-<p>使用<code>decltype</code>关键字进行类型推断</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T1</span><span class="p">,</span> <span class="k">typename</span> <span class="n">T2</span><span class="o">&gt;</span>
-<span class="k">auto</span> <span class="n">max</span><span class="p">(</span><span class="n">T1</span> <span class="n">a</span><span class="p">,</span> <span class="n">T2</span> <span class="n">b</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">decltype</span><span class="p">(</span><span class="n">b</span><span class="o">&lt;</span><span class="n">a</span><span class="o">?</span><span class="nl">a</span><span class="p">:</span><span class="n">b</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="k">return</span> <span class="n">b</span> <span class="o">&lt;</span> <span class="n">a</span> <span class="o">?</span> <span class="nl">a</span> <span class="p">:</span> <span class="n">b</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
-</div>
-</div><p><strong>注意：</strong> <code>b&lt;a?a:b</code>的最终类型与<code>b&lt;a</code>无关而与<code>a</code>和<code>b</code>是相关的，故这里可以直接使用<code>true</code>来代替<code>b&lt;a</code></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T1</span><span class="p">,</span> <span class="k">typename</span> <span class="n">T2</span><span class="o">&gt;</span>
-<span class="k">auto</span> <span class="n">max</span><span class="p">(</span><span class="n">T1</span> <span class="n">a</span><span class="p">,</span> <span class="n">T2</span> <span class="n">b</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">decltype</span><span class="p">(</span><span class="nb">true</span><span class="o">?</span><span class="nl">a</span><span class="p">:</span><span class="n">b</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="k">return</span> <span class="n">b</span> <span class="o">&lt;</span> <span class="n">a</span> <span class="o">?</span> <span class="nl">a</span> <span class="p">:</span> <span class="n">b</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
-</div>
-</div><p>有时候可能会返回引用类型，可以使用<code>&lt;type_traits&gt;</code>库中的<code>std::decay&lt;&gt;::type</code>/<code>std::decay_t&lt;&gt;</code>方法进行退化转换：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="cp">#include</span> <span class="cpf">&lt;type_traits&gt;</span><span class="cp">
-</span><span class="cp"></span>
-<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T1</span><span class="p">,</span> <span class="k">typename</span> <span class="n">T2</span><span class="o">&gt;</span>
-<span class="k">auto</span> <span class="n">max</span><span class="p">(</span><span class="n">T1</span> <span class="n">a</span><span class="p">,</span> <span class="n">T2</span> <span class="n">b</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">typename</span> <span class="n">std</span><span class="o">::</span><span class="n">decay_t</span><span class="o">&lt;</span><span class="k">decltype</span><span class="p">(</span><span class="nb">true</span><span class="o">?</span><span class="nl">a</span><span class="p">:</span><span class="n">b</span><span class="p">)</span><span class="o">&gt;</span>
-<span class="p">{</span>
-    <span class="k">return</span> <span class="n">b</span> <span class="o">&lt;</span> <span class="n">a</span> <span class="o">?</span> <span class="nl">a</span> <span class="p">:</span> <span class="n">b</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
-</div>
-</div><h3 id="133-return-type-as-common-type">1.3.3 Return Type as Common Type</h3>
-<p>使用<code>&lt;type_traits&gt;</code>库中的<code>std::common_type_t&lt;&gt;</code>/<code>std::common_type&lt;&gt;::type</code>方法，可以代替前述的<code>decltype</code>方法：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="cp">#include</span> <span class="cpf">&lt;type_traits&gt;</span><span class="cp">
-</span><span class="cp"></span>
-<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T1</span><span class="p">,</span> <span class="k">typename</span> <span class="n">T2</span><span class="o">&gt;</span>
-<span class="n">std</span><span class="o">::</span><span class="n">common_type_t</span><span class="o">&lt;</span><span class="n">T1</span><span class="p">,</span> <span class="n">T2</span><span class="o">&gt;</span> <span class="n">max</span><span class="p">(</span><span class="n">T1</span> <span class="n">a</span><span class="p">,</span> <span class="n">T2</span> <span class="n">b</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="k">return</span> <span class="n">b</span> <span class="o">&lt;</span> <span class="n">a</span> <span class="o">?</span> <span class="nl">a</span> <span class="p">:</span> <span class="n">b</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
-</div>
-</div><p>注意：</p>
-<ul>
-<li>C++11规范中使用<code>std::common_type&lt;&gt;::type</code></li>
-<li>C++14规范中可以使用<code>std::common_type_t&lt;&gt;</code></li>
-</ul>
-<h2 id="14-default-template-arguments">1.4 Default Template Arguments</h2>
-<p>很简单，模板参数可以设置默认值，例如返回值类型可以沿用<code>typename RT</code>但用<code>decltype</code>或<code>common_type</code>设置默认参数</p>
-<h3 id="15-overloading-function-templates">1.5 Overloading Function Templates</h3>
-<p>函数模板能够进行重载</p>
-<p>当函数模板实例与重载函数接口一模一样时，将优先使用非模板函数，例如：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="kt">int</span> <span class="nf">max</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="k">return</span> <span class="n">b</span> <span class="o">&lt;</span> <span class="n">a</span><span class="o">?</span> <span class="nl">a</span> <span class="p">:</span> <span class="n">b</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
-<span class="n">T</span> <span class="n">max</span><span class="p">(</span><span class="n">T</span> <span class="n">a</span><span class="p">,</span> <span class="n">T</span> <span class="n">b</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="k">return</span> <span class="n">b</span> <span class="o">&lt;</span> <span class="n">a</span> <span class="o">?</span> <span class="nl">a</span> <span class="p">:</span> <span class="n">b</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="p">...</span>
-<span class="o">::</span><span class="n">max</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">42</span><span class="p">);</span>	<span class="c1">// 调用非模板函数
-</span></code></pre></td></tr></table>
-</div>
-</div><h2 id="16-but-shouldnt-we-">1.6 But, Shouldn&rsquo;t We &hellip;?</h2>
-<h3 id="161-pass-by-value-or-by-reference">1.6.1 Pass by Value or by Reference?</h3>
-<p>在以下情况下，直接传值比传递引用效果更好：</p>
-<ul>
-<li>The syntax is simple</li>
-<li>Compilers optimize better</li>
-<li>Move semantics often makes copies cheap</li>
-<li>And sometimes there is no copy or move at all</li>
-</ul>
-<h3 id="162-why-not-inline">1.6.2 Why not <code>inline</code>？</h3>
-<p>没必要加上<code>inline</code>关键字，但也应定义在头文件中</p>
-<h3 id="163-why-not-constexpr">1.6.3 Why not <code>constexpr</code>？</h3>
-<p>在编译期计算的关键字</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T1</span><span class="p">,</span> <span class="k">typename</span> <span class="n">T2</span><span class="o">&gt;</span>
-<span class="k">constexpr</span> <span class="k">auto</span> <span class="n">max</span><span class="p">(</span><span class="n">T1</span> <span class="n">a</span><span class="p">,</span> <span class="n">T2</span> <span class="n">b</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="k">return</span> <span class="n">b</span> <span class="o">&lt;</span> <span class="n">a</span><span class="o">?</span> <span class="nl">a</span> <span class="p">:</span> <span class="n">b</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
-</div>
-</div><h2 id="17-summary">1.7 Summary</h2>
-<ul>
-<li>Function templates define a family of functions for different template arguments</li>
-<li>When you pass arguments to function parameters depending on template parameters, function templates deduce the template parameters to be instantiated for the corresponding parameter types</li>
-<li>You can explicitly qualify the leading template parameters</li>
-<li>You can define default arguments for template parameters. These may refer to previous template parameters and be followed by parameters not having default arguments</li>
-<li>You can overload function templates</li>
-<li>When overloading function templates with other function templates, you should ensure that only one of them matches for any call</li>
-<li>When you overload function templates, limit your changes to specifying template parameters explicitly</li>
-<li>Ensure the compiler sees all overloaded versions of function templates before you call them.</li>
-</ul>
-
+      
     </article>
     
     
@@ -2467,7 +1993,7 @@ if (!doNotTrack) {
     
     
       
-        <a href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fchaphlagical.github.io%2fzh%2fnote%2fcpptemplate%2fch1%2f" title="Facebook" aria-label="Facebook Share Button" class="donation__item" target="_blank" rel="noreferrer" data-type="share">
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fchaphlagical.github.io%2fzh%2fnote%2fcpptemplate%2fconcepts%2f" title="Facebook" aria-label="Facebook Share Button" class="donation__item" target="_blank" rel="noreferrer" data-type="share">
           <svg data-name="facebook" enable-background="new 0 0 24 24" viewBox="0 0 24 24" width="35" height="35" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="m15.997 3.985h2.191v-3.816c-.378-.052-1.678-.169-3.192-.169-3.159 0-5.323 1.987-5.323 5.639v3.361h-3.486v4.266h3.486v10.734h4.274v-10.733h3.345l.531-4.266h-3.877v-2.939c.001-1.233.333-2.077 2.051-2.077z"/></svg>
         </a>
       
@@ -2639,49 +2165,15 @@ if (!doNotTrack) {
     <section class="related">
     
     
-    <h1 class="related__title">
-      <hr class="hr-dots"/>
-      <div>
-        相关内容
-      </div>
-      <hr class="hr-dots"/>
-    </h1>
-    <ul class="related-ul">
-        
-        <li>
-          <a href="/zh/note/effectivecpp/ch4/" class="related__link">Chapter 4: Designs and Declarations</a>
-        </li>
-        
-        <li>
-          <a href="/zh/note/effectivecpp/ch3/" class="related__link">Chapter 3: Resource Management</a>
-        </li>
-        
-        <li>
-          <a href="/zh/note/effectivecpp/ch2/" class="related__link">Chapter 2: Constructors, Destructors, and Assignment Operators</a>
-        </li>
-        
-        <li>
-          <a href="/zh/note/effectivecpp/ch1/" class="related__link">Chapter 1: Accustoming Yourself to C&#43;&#43;</a>
-        </li>
-        
-    </ul>
-    
   </section>
     <div class="grow"></div>
 <nav class="pagination-single">
   
     
-      <a href="https://chaphlagical.github.io/zh/note/cpptemplate/concepts/" class="pagination-single__left">
-        <div class="pagination-single__icon">
-          <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path fill="currentColor" d="M19 11H7.83l4.88-4.88c.39-.39.39-1.03 0-1.42-.39-.39-1.02-.39-1.41 0l-6.59 6.59c-.39.39-.39 1.02 0 1.41l6.59 6.59c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41L7.83 13H19c.55 0 1-.45 1-1s-.45-1-1-1z"/></svg>
-        </div>
-        <div class="pagination-single__left-title"></div>      
-      </a>
-    
     <div class="grow"></div>
     
-      <a href="https://chaphlagical.github.io/zh/note/cpptemplate/ch2/" class="pagination-single__right">      
-        <div class="pagination-single__right-title">Chapter 2: Class Templates</div>
+      <a href="https://chaphlagical.github.io/zh/note/cpptemplate/ch1/" class="pagination-single__right">      
+        <div class="pagination-single__right-title">Chapter 1: Function Templates</div>
         <div class="pagination-single__icon">
           <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path fill="currentColor" d="M5 13h11.17l-4.88 4.88c-.39.39-.39 1.03 0 1.42.39.39 1.02.39 1.41 0l6.59-6.59c.39-.39.39-1.02 0-1.41l-6.58-6.6c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41L16.17 11H5c-.55 0-1 .45-1 1s.45 1 1 1z"/></svg>
         </div>
@@ -3127,24 +2619,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-<script>
-  window.MathJax = {
-    tex: {
-      inlineMath: [['$', '$'], ['\\(', '\\)']],
-      displayMath: [['$$', '$$'], ['\\[', '\\]']],
-      processEscapes: true,
-      processEnvironments: true,
-    },
-    options: {
-      skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-      ignoreHtmlClass: 'tex2jax_ignore',
-      processHtmlClass: 'tex2jax_process'
-    }
-  };
-  </script>
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script"></script>
-
 
 
 
@@ -3387,7 +2861,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     
     
-    var lib = JSON.parse("[\"mathjax\"]");
+    var lib = JSON.parse("null");
 
     if (lib && lib.includes('mermaid')) {
       
@@ -3607,7 +3081,7 @@ document.addEventListener('DOMContentLoaded', function () {
         
           
             
-              <a href="https://chaphlagical.github.io/zh/note/cpptemplate/ch1/" data-lang="zh" class="dropdown-item is-active">简体中文</a>
+              <a href="https://chaphlagical.github.io/zh/note/cpptemplate/concepts/" data-lang="zh" class="dropdown-item is-active">简体中文</a>
             
           
         
@@ -3809,43 +3283,7 @@ document.addEventListener('DOMContentLoaded', function () {
           
         </div>
         <div class="toc toc__outer " data-dir="ltr" data-folding="true" data-ani="true">
-          <nav id="TableOfContents">
-  <ul>
-    <li><a href="#11-a-first-look-at-function-templates">1.1 A First Look at Function Templates</a>
-      <ul>
-        <li><a href="#111-defining-the-templates">1.1.1 Defining The Templates</a></li>
-        <li><a href="#112-using-the-templates">1.1.2 Using the Templates</a></li>
-        <li><a href="#113-two-phase-translation">1.1.3 Two-Phase Translation</a></li>
-      </ul>
-    </li>
-    <li><a href="#12-template-argument-deduction">1.2 Template Argument Deduction</a>
-      <ul>
-        <li><a href="#121-type-conversions-during-type-deduction">1.2.1 Type Conversions During Type Deduction</a></li>
-        <li><a href="#122-type-deduction-for-default-arguments">1.2.2 Type Deduction for Default Arguments</a></li>
-      </ul>
-    </li>
-    <li><a href="#13-multiple-template-parameters">1.3 Multiple Template Parameters</a>
-      <ul>
-        <li><a href="#131-template-parameters-for-return-type">1.3.1 Template Parameters for Return Type</a></li>
-        <li><a href="#132-deducing-the-return-type">1.3.2 Deducing the Return Type</a></li>
-        <li><a href="#133-return-type-as-common-type">1.3.3 Return Type as Common Type</a></li>
-      </ul>
-    </li>
-    <li><a href="#14-default-template-arguments">1.4 Default Template Arguments</a>
-      <ul>
-        <li><a href="#15-overloading-function-templates">1.5 Overloading Function Templates</a></li>
-      </ul>
-    </li>
-    <li><a href="#16-but-shouldnt-we-">1.6 But, Shouldn&rsquo;t We &hellip;?</a>
-      <ul>
-        <li><a href="#161-pass-by-value-or-by-reference">1.6.1 Pass by Value or by Reference?</a></li>
-        <li><a href="#162-why-not-inline">1.6.2 Why not <code>inline</code>？</a></li>
-        <li><a href="#163-why-not-constexpr">1.6.3 Why not <code>constexpr</code>？</a></li>
-      </ul>
-    </li>
-    <li><a href="#17-summary">1.7 Summary</a></li>
-  </ul>
-</nav>
+          <nav id="TableOfContents"></nav>
         </div>
       
     

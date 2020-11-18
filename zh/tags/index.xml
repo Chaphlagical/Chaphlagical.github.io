@@ -14,7 +14,7 @@
     <managingEditor>chaf@mail.ustc.edu.cn (Wenbo Chen)</managingEditor>
     <webMaster>chaf@mail.ustc.edu.cn (Wenbo Chen)</webMaster>
     <copyright>&amp;copy;{year}, All Rights Reserved</copyright>
-    <lastBuildDate>Sun, 15 Nov 2020 08:47:11 +0100</lastBuildDate>
+    <lastBuildDate>Wed, 18 Nov 2020 15:56:11 +0100</lastBuildDate>
     
         <atom:link href="https://chaphlagical.github.io/zh/tags/index.xml" rel="self" type="application/rss+xml" />
     
@@ -25,10 +25,28 @@
       <item>
         <title>C&#43;&#43;</title>
         <link>https://chaphlagical.github.io/zh/tags/c&#43;&#43;/</link>
-        <pubDate>Sun, 15 Nov 2020 08:47:11 +0100</pubDate>
+        <pubDate>Wed, 18 Nov 2020 15:56:11 +0100</pubDate>
         <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
         
         <guid>https://chaphlagical.github.io/zh/tags/c&#43;&#43;/</guid>
+        <description></description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        
+        
+        
+        
+        
+        
+      </item>
+      
+      <item>
+        <title>C&#43;&#43; Templates</title>
+        <link>https://chaphlagical.github.io/zh/tags/c&#43;&#43;-templates/</link>
+        <pubDate>Wed, 18 Nov 2020 15:56:11 +0100</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        
+        <guid>https://chaphlagical.github.io/zh/tags/c&#43;&#43;-templates/</guid>
         <description></description>
         
         <dc:creator>Wenbo Chen</dc:creator>
@@ -65,24 +83,6 @@
         <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
         
         <guid>https://chaphlagical.github.io/zh/tags/cagd/</guid>
-        <description></description>
-        
-        <dc:creator>Wenbo Chen</dc:creator>
-        
-        
-        
-        
-        
-        
-      </item>
-      
-      <item>
-        <title>C&#43;&#43; Templates</title>
-        <link>https://chaphlagical.github.io/zh/tags/c&#43;&#43;-templates/</link>
-        <pubDate>Thu, 15 Oct 2020 15:56:11 +0100</pubDate>
-        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
-        
-        <guid>https://chaphlagical.github.io/zh/tags/c&#43;&#43;-templates/</guid>
         <description></description>
         
         <dc:creator>Wenbo Chen</dc:creator>
