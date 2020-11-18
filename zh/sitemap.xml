@@ -73,23 +73,18 @@
   </url>
   
   <url>
-    <loc>https://chaphlagical.github.io/zh/posts/2020-11-15-c&#43;&#43;%E7%B1%BB%E7%9A%84%E5%86%85%E5%AD%98%E5%88%86%E5%B8%83/</loc>
-    <lastmod>2020-11-15T08:47:11+01:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://chaphlagical.github.io/zh/posts/2020-11-16-latex%E5%85%AC%E5%BC%8F%E9%80%9F%E6%9F%A5/</loc>
-    <lastmod>2020-11-15T08:47:11+01:00</lastmod>
+    <lastmod>2020-11-16T08:47:11+01:00</lastmod>
   </url>
   
   <url>
     <loc>https://chaphlagical.github.io/zh/tags/latex/</loc>
-    <lastmod>2020-11-15T08:47:11+01:00</lastmod>
+    <lastmod>2020-11-16T08:47:11+01:00</lastmod>
   </url>
   
   <url>
     <loc>https://chaphlagical.github.io/zh/posts/</loc>
-    <lastmod>2020-11-15T08:47:11+01:00</lastmod>
+    <lastmod>2020-11-16T08:47:11+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -100,6 +95,11 @@
                 hreflang="zh"
                 href="https://chaphlagical.github.io/zh/posts/"
                 />
+  </url>
+  
+  <url>
+    <loc>https://chaphlagical.github.io/zh/posts/2020-11-15-c&#43;&#43;%E7%B1%BB%E7%9A%84%E5%86%85%E5%AD%98%E5%88%86%E5%B8%83/</loc>
+    <lastmod>2020-11-15T08:47:11+01:00</lastmod>
   </url>
   
   <url>
