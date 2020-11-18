@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" 
+  xmlns:content="http://purl.org/rss/1.0/modules/content/" 
+  xmlns:dc="http://purl.org/dc/elements/1.1/" 
+  xmlns:atom="http://www.w3.org/2005/Atom" 
+  xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" 
+  xmlns:media="http://search.yahoo.com/mrss/">
+  <channel>
+    <title>Effective C&#43;&#43; on Chaf&#39;s Blog</title>
+    <link>https://chaphlagical.github.io/zh/note/effectivecpp/</link>
+    <description>Recent content in Effective C&#43;&#43; on Chaf&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <managingEditor>chaf@mail.ustc.edu.cn (Wenbo Chen)</managingEditor>
+    <webMaster>chaf@mail.ustc.edu.cn (Wenbo Chen)</webMaster>
+    <copyright>&amp;copy;{year}, All Rights Reserved</copyright>
+    <lastBuildDate>Fri, 13 Nov 2020 00:00:00 +0000</lastBuildDate>
+    
+        <atom:link href="https://chaphlagical.github.io/zh/note/effectivecpp/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    
+
+      
+      <item>
+        <title>Chapter 6: Inheritance and Object-Oriented Design</title>
+        <link>https://chaphlagical.github.io/zh/note/effectivecpp/ch6/</link>
+        <pubDate>Mon, 09 Nov 2020 08:47:11 +0100</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        <atom:modified>Mon, 09 Nov 2020 08:47:11 +0100</atom:modified>
+        <guid>https://chaphlagical.github.io/zh/note/effectivecpp/ch6/</guid>
+        <description>Item 32: Make Sure public inheritance models &amp;ldquo;is-a&amp;rdquo; public inheritance（公开继承）意味着“is-a”（是一种）的关系 如果令class D以public形式继承class B，</description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>Effective C&#43;&#43;</category>
+            
+          
+            
+              <category>C&#43;&#43;</category>
+            
+          
+        
+        
+          
+            
+              <category>Note</category>
+            
+          
+        
+        
+      </item>
+      
+      <item>
+        <title>Chapter 5: Implementations</title>
+        <link>https://chaphlagical.github.io/zh/note/effectivecpp/ch5/</link>
+        <pubDate>Tue, 20 Oct 2020 08:47:11 +0100</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        <atom:modified>Tue, 20 Oct 2020 08:47:11 +0100</atom:modified>
+        <guid>https://chaphlagical.github.io/zh/note/effectivecpp/ch5/</guid>
+        <description>Item 26：Postpone variable definitions as long as possible 只要定义了一个变量而其类型带有一个构造函数或析构函数，那么当程序的控制流到达这个变量定义式时，就得承受构</description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>Effective C&#43;&#43;</category>
+            
+          
+            
+              <category>C&#43;&#43;</category>
+            
+          
+        
+        
+          
+            
+              <category>Note</category>
+            
+          
+        
+        
+      </item>
+      
+      <item>
+        <title>Chapter 4: Designs and Declarations</title>
+        <link>https://chaphlagical.github.io/zh/note/effectivecpp/ch4/</link>
+        <pubDate>Wed, 14 Oct 2020 08:47:11 +0100</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        <atom:modified>Wed, 14 Oct 2020 08:47:11 +0100</atom:modified>
+        <guid>https://chaphlagical.github.io/zh/note/effectivecpp/ch4/</guid>
+        <description>Item 18：Make interfaces easy to use correctly and hard to use incorrectly 考虑一个表现日期的class设计构造函数： 1 2 3 4 5 class Date{ public: Date(int month, int day, int year); ... }; 这个接口很容易发生误用： 1 2 Date</description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>Effective C&#43;&#43;</category>
+            
+          
+            
+              <category>C&#43;&#43;</category>
+            
+          
+        
+        
+          
+            
+              <category>Note</category>
+            
+          
+        
+        
+      </item>
+      
+      <item>
+        <title>Chapter 3: Resource Management</title>
+        <link>https://chaphlagical.github.io/zh/note/effectivecpp/ch3/</link>
+        <pubDate>Sat, 10 Oct 2020 08:47:11 +0100</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        <atom:modified>Sat, 10 Oct 2020 08:47:11 +0100</atom:modified>
+        <guid>https://chaphlagical.github.io/zh/note/effectivecpp/ch3/</guid>
+        <description>Item 13：Use objects to manage resources 以对象管理资源的两个关键想法 获得资源后立即放入管理对象 资源取得时机便是初始化时机（Resource Acquisition Is Initiali</description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>Effective C&#43;&#43;</category>
+            
+          
+            
+              <category>C&#43;&#43;</category>
+            
+          
+        
+        
+          
+            
+              <category>Note</category>
+            
+          
+        
+        
+      </item>
+      
+      <item>
+        <title>Chapter 2: Constructors, Destructors, and Assignment Operators</title>
+        <link>https://chaphlagical.github.io/zh/note/effectivecpp/ch2/</link>
+        <pubDate>Thu, 08 Oct 2020 08:47:11 +0100</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        <atom:modified>Thu, 08 Oct 2020 08:47:11 +0100</atom:modified>
+        <guid>https://chaphlagical.github.io/zh/note/effectivecpp/ch2/</guid>
+        <description>Item 5: Know what functions C++ silently writes and calls C++对类会提供默认的函数，所有这些函数都是public且inline的 默认函数包括default构造函数，copy构造</description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>Effective C&#43;&#43;</category>
+            
+          
+            
+              <category>C&#43;&#43;</category>
+            
+          
+        
+        
+          
+            
+              <category>Note</category>
+            
+          
+        
+        
+      </item>
+      
+      <item>
+        <title>Chapter 1: Accustoming Yourself to C&#43;&#43;</title>
+        <link>https://chaphlagical.github.io/zh/note/effectivecpp/ch1/</link>
+        <pubDate>Wed, 07 Oct 2020 08:47:11 +0100</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        <atom:modified>Wed, 07 Oct 2020 08:47:11 +0100</atom:modified>
+        <guid>https://chaphlagical.github.io/zh/note/effectivecpp/ch1/</guid>
+        <description>Item 1: View C++ as a federation of languages C++的多重范型性：支持过程形式、面向对象形式、函数形式、泛型形式、元编程形式 将C++视为次语言的集合： C：区块block</description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>Effective C&#43;&#43;</category>
+            
+          
+            
+              <category>C&#43;&#43;</category>
+            
+          
+        
+        
+          
+            
+              <category>Note</category>
+            
+          
+        
+        
+      </item>
+      
+
+    
+  </channel>
+</rss>

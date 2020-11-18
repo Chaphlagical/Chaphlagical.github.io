@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" 
+  xmlns:content="http://purl.org/rss/1.0/modules/content/" 
+  xmlns:dc="http://purl.org/dc/elements/1.1/" 
+  xmlns:atom="http://www.w3.org/2005/Atom" 
+  xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" 
+  xmlns:media="http://search.yahoo.com/mrss/">
+  <channel>
+    <title>CAGD on Chaf&#39;s Blog</title>
+    <link>https://chaphlagical.github.io/zh/note/cagd/</link>
+    <description>Recent content in CAGD on Chaf&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <managingEditor>chaf@mail.ustc.edu.cn (Wenbo Chen)</managingEditor>
+    <webMaster>chaf@mail.ustc.edu.cn (Wenbo Chen)</webMaster>
+    <copyright>&amp;copy;{year}, All Rights Reserved</copyright>
+    <lastBuildDate>Fri, 13 Nov 2020 00:00:00 +0000</lastBuildDate>
+    
+        <atom:link href="https://chaphlagical.github.io/zh/note/cagd/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    
+
+      
+      <item>
+        <title>CAGD(5) | B样条</title>
+        <link>https://chaphlagical.github.io/zh/note/cagd/cagd5/</link>
+        <pubDate>Tue, 27 Oct 2020 08:47:11 +0100</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        <atom:modified>Tue, 27 Oct 2020 08:47:11 +0100</atom:modified>
+        <guid>https://chaphlagical.github.io/zh/note/cagd/cagd5/</guid>
+        <description>1. B样条基函数 1.1. De Boor递推 1.1.1. 单位情况 $k$阶（$k-1$度）单位B样条基函数表示为： $$ N_i^1(t)=\begin{cases} 1,&amp;amp;i\leq t&amp;lt;i+1\\0,&amp;amp;\mathrm{otherwise} \end{cases} $$ $$ \begin{align} N_i^k(t)&amp;amp;=\dfrac{t-i}{(i+k-1)-i}N_i^{k-1}(t)+\dfrac{(i+k)-t}{(i+k)-(i+1)}N_{i+1}^{k-1}(t)\\ &amp;amp;=\dfrac{t-i}{k-1}N_i^{k-1}(t)+\dfrac{i+k-t}{k-1}N_{i+1}^{k-1}(t) \end{align} $$ 1.1.2. 一般情况 给定：结序列$t_</description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>CAGD</category>
+            
+          
+        
+        
+          
+            
+              <category>Note</category>
+            
+          
+        
+        
+      </item>
+      
+      <item>
+        <title>CAGD(4) | Bezier样条</title>
+        <link>https://chaphlagical.github.io/zh/note/cagd/cagd4/</link>
+        <pubDate>Thu, 22 Oct 2020 08:47:11 +0100</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        <atom:modified>Thu, 22 Oct 2020 08:47:11 +0100</atom:modified>
+        <guid>https://chaphlagical.github.io/zh/note/cagd/cagd4/</guid>
+        <description>1. 参数与几何连续性 1.1. 参数连续性 连接曲线——连续性 给定两条曲线 $$ \begin{align} &amp;amp;\pmb x_1(t)\ \mathrm{over}\ [t_0,t_1]\ &amp;amp;\pmb x_2(t)\ \mathrm{over}\ [t_1,t_2] \end{align} $$ 若$\pmb x_1$和$\pmb x_2$在$t_1$处的</description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>CAGD</category>
+            
+          
+        
+        
+          
+            
+              <category>Note</category>
+            
+          
+        
+        
+      </item>
+      
+      <item>
+        <title>CAGD(3) |  曲线微分几何</title>
+        <link>https://chaphlagical.github.io/zh/note/cagd/cagd3/</link>
+        <pubDate>Sat, 17 Oct 2020 08:47:11 +0100</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        <atom:modified>Sat, 17 Oct 2020 08:47:11 +0100</atom:modified>
+        <guid>https://chaphlagical.github.io/zh/note/cagd/cagd3/</guid>
+        <description>1. 参数曲线 1.1. 直观简介 参数曲线$c$可以视为移动粒子的运动轨迹 参数$t$可视为时间参数 1.2. 数学描述 1.2.1. 定义 $\mathbb R^n$中的曲线类$C^k(k\geq</description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>CAGD</category>
+            
+          
+        
+        
+          
+            
+              <category>Note</category>
+            
+          
+        
+        
+      </item>
+      
+      <item>
+        <title>CAGD(2) | Bezier曲线</title>
+        <link>https://chaphlagical.github.io/zh/note/cagd/cagd2/</link>
+        <pubDate>Mon, 12 Oct 2020 08:47:11 +0100</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        <atom:modified>Mon, 12 Oct 2020 08:47:11 +0100</atom:modified>
+        <guid>https://chaphlagical.github.io/zh/note/cagd/cagd2/</guid>
+        <description>1. 曲线的表示 1.1. 隐式表示 曲线隐式表示为$f(x,y)=0$，该方法有诸多局限性： 对于同一个$x$横坐标值对应多个纵坐标值 存在一些位置，导数$\</description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>CAGD</category>
+            
+          
+        
+        
+          
+            
+              <category>Note</category>
+            
+          
+        
+        
+      </item>
+      
+      <item>
+        <title>CAGD(1) | 插值与逼近</title>
+        <link>https://chaphlagical.github.io/zh/note/cagd/cagd1/</link>
+        <pubDate>Mon, 05 Oct 2020 08:47:11 +0100</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        <atom:modified>Mon, 05 Oct 2020 08:47:11 +0100</atom:modified>
+        <guid>https://chaphlagical.github.io/zh/note/cagd/cagd1/</guid>
+        <description>1. 插值 1.1. 插值问题的描述 1.1.1. 问题的一般形式 寻找定义域$\Omega\subseteq \mathbb R^d $，值域$\mathbb R$上的函数$f:\Omega\</description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>CAGD</category>
+            
+          
+        
+        
+          
+            
+              <category>Note</category>
+            
+          
+        
+        
+      </item>
+      
+
+    
+  </channel>
+</rss>

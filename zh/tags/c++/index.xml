@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" 
+  xmlns:content="http://purl.org/rss/1.0/modules/content/" 
+  xmlns:dc="http://purl.org/dc/elements/1.1/" 
+  xmlns:atom="http://www.w3.org/2005/Atom" 
+  xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" 
+  xmlns:media="http://search.yahoo.com/mrss/">
+  <channel>
+    <title>C&#43;&#43; on Chaf&#39;s Blog</title>
+    <link>https://chaphlagical.github.io/zh/tags/c&#43;&#43;/</link>
+    <description>Recent content in C&#43;&#43; on Chaf&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <managingEditor>chaf@mail.ustc.edu.cn (Wenbo Chen)</managingEditor>
+    <webMaster>chaf@mail.ustc.edu.cn (Wenbo Chen)</webMaster>
+    <copyright>&amp;copy;{year}, All Rights Reserved</copyright>
+    <lastBuildDate>Wed, 18 Nov 2020 08:47:11 +0100</lastBuildDate>
+    
+        <atom:link href="https://chaphlagical.github.io/zh/tags/c++/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    
+
+      
+      <item>
+        <title>C&#43;&#43;测试</title>
+        <link>https://chaphlagical.github.io/zh/posts/2020-11-18-c&#43;&#43;%E6%B5%8B%E8%AF%95/</link>
+        <pubDate>Wed, 18 Nov 2020 08:47:11 +0100</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        <atom:modified>Wed, 18 Nov 2020 08:47:11 +0100</atom:modified>
+        <guid>https://chaphlagical.github.io/zh/posts/2020-11-18-c&#43;&#43;%E6%B5%8B%E8%AF%95/</guid>
+        <description></description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>C&#43;&#43;</category>
+            
+          
+        
+        
+        
+      </item>
+      
+      <item>
+        <title>2020-11-15-C&#43;&#43;类的内存分布</title>
+        <link>https://chaphlagical.github.io/zh/posts/2020-11-15-c&#43;&#43;%E7%B1%BB%E7%9A%84%E5%86%85%E5%AD%98%E5%88%86%E5%B8%83/</link>
+        <pubDate>Sun, 15 Nov 2020 08:47:11 +0100</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        <atom:modified>Sun, 15 Nov 2020 08:47:11 +0100</atom:modified>
+        <guid>https://chaphlagical.github.io/zh/posts/2020-11-15-c&#43;&#43;%E7%B1%BB%E7%9A%84%E5%86%85%E5%AD%98%E5%88%86%E5%B8%83/</guid>
+        <description>近日编写简易数学库时发现，自己写的向量类无法使用指针进行连续内存访问，而我的类存储数据底层为std::array，属于顺序存储容器，可以通过</description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>C&#43;&#43;</category>
+            
+          
+        
+        
+        
+      </item>
+      
+      <item>
+        <title>关于C&#43;&#43;类的内存分布问题</title>
+        <link>https://chaphlagical.github.io/zh/posts/2020-11-15-%E5%85%B3%E4%BA%8Ec&#43;&#43;%E7%B1%BB%E7%9A%84%E5%86%85%E5%AD%98%E5%88%86%E5%B8%83%E9%97%AE%E9%A2%98/</link>
+        <pubDate>Sun, 15 Nov 2020 08:47:11 +0100</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        <atom:modified>Sun, 15 Nov 2020 08:47:11 +0100</atom:modified>
+        <guid>https://chaphlagical.github.io/zh/posts/2020-11-15-%E5%85%B3%E4%BA%8Ec&#43;&#43;%E7%B1%BB%E7%9A%84%E5%86%85%E5%AD%98%E5%88%86%E5%B8%83%E9%97%AE%E9%A2%98/</guid>
+        <description>近日编写简易数学库时发现，自己写的向量类无法使用指针进行连续内存访问，而我的类存储数据底层为std::array，属于顺序存储容器，可以通过</description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>C&#43;&#43;</category>
+            
+          
+        
+        
+        
+      </item>
+      
+      <item>
+        <title>Chapter 6: Inheritance and Object-Oriented Design</title>
+        <link>https://chaphlagical.github.io/zh/note/effectivecpp/ch6/</link>
+        <pubDate>Mon, 09 Nov 2020 08:47:11 +0100</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        <atom:modified>Mon, 09 Nov 2020 08:47:11 +0100</atom:modified>
+        <guid>https://chaphlagical.github.io/zh/note/effectivecpp/ch6/</guid>
+        <description>Item 32: Make Sure public inheritance models &amp;ldquo;is-a&amp;rdquo; public inheritance（公开继承）意味着“is-a”（是一种）的关系 如果令class D以public形式继承class B，</description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>Effective C&#43;&#43;</category>
+            
+          
+            
+              <category>C&#43;&#43;</category>
+            
+          
+        
+        
+          
+            
+              <category>Note</category>
+            
+          
+        
+        
+      </item>
+      
+      <item>
+        <title>Chapter 5: Implementations</title>
+        <link>https://chaphlagical.github.io/zh/note/effectivecpp/ch5/</link>
+        <pubDate>Tue, 20 Oct 2020 08:47:11 +0100</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        <atom:modified>Tue, 20 Oct 2020 08:47:11 +0100</atom:modified>
+        <guid>https://chaphlagical.github.io/zh/note/effectivecpp/ch5/</guid>
+        <description>Item 26：Postpone variable definitions as long as possible 只要定义了一个变量而其类型带有一个构造函数或析构函数，那么当程序的控制流到达这个变量定义式时，就得承受构</description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>Effective C&#43;&#43;</category>
+            
+          
+            
+              <category>C&#43;&#43;</category>
+            
+          
+        
+        
+          
+            
+              <category>Note</category>
+            
+          
+        
+        
+      </item>
+      
+      <item>
+        <title>Chapter 1: Function Templates</title>
+        <link>https://chaphlagical.github.io/zh/note/cpptemplate/ch1/</link>
+        <pubDate>Thu, 15 Oct 2020 15:56:11 +0100</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        <atom:modified>Thu, 15 Oct 2020 15:56:11 +0100</atom:modified>
+        <guid>https://chaphlagical.github.io/zh/note/cpptemplate/ch1/</guid>
+        <description>1.1 A First Look at Function Templates 1.1.1 Defining The Templates 模板声明为： 1 template&amp;lt;参数列表&amp;gt; 例如： 1 2 3 4 5 6 // max1.hpp template&amp;lt;typename T&amp;gt; T max(T a, T b) { return b &amp;lt; a ? a : b; } 也可以用</description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>C&#43;&#43; Templates</category>
+            
+          
+            
+              <category>C&#43;&#43;</category>
+            
+          
+        
+        
+          
+            
+              <category>Note</category>
+            
+          
+        
+        
+      </item>
+      
+      <item>
+        <title>Chapter 2: Class Templates</title>
+        <link>https://chaphlagical.github.io/zh/note/cpptemplate/ch2/</link>
+        <pubDate>Thu, 15 Oct 2020 15:56:11 +0100</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        <atom:modified>Thu, 15 Oct 2020 15:56:11 +0100</atom:modified>
+        <guid>https://chaphlagical.github.io/zh/note/cpptemplate/ch2/</guid>
+        <description>2.1 Implementation of Class Template Stack</description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>C&#43;&#43; Templates</category>
+            
+          
+            
+              <category>C&#43;&#43;</category>
+            
+          
+        
+        
+          
+            
+              <category>Note</category>
+            
+          
+        
+        
+      </item>
+      
+      <item>
+        <title>Chapter 4: Designs and Declarations</title>
+        <link>https://chaphlagical.github.io/zh/note/effectivecpp/ch4/</link>
+        <pubDate>Wed, 14 Oct 2020 08:47:11 +0100</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        <atom:modified>Wed, 14 Oct 2020 08:47:11 +0100</atom:modified>
+        <guid>https://chaphlagical.github.io/zh/note/effectivecpp/ch4/</guid>
+        <description>Item 18：Make interfaces easy to use correctly and hard to use incorrectly 考虑一个表现日期的class设计构造函数： 1 2 3 4 5 class Date{ public: Date(int month, int day, int year); ... }; 这个接口很容易发生误用： 1 2 Date</description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>Effective C&#43;&#43;</category>
+            
+          
+            
+              <category>C&#43;&#43;</category>
+            
+          
+        
+        
+          
+            
+              <category>Note</category>
+            
+          
+        
+        
+      </item>
+      
+      <item>
+        <title>Chapter 3: Resource Management</title>
+        <link>https://chaphlagical.github.io/zh/note/effectivecpp/ch3/</link>
+        <pubDate>Sat, 10 Oct 2020 08:47:11 +0100</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        <atom:modified>Sat, 10 Oct 2020 08:47:11 +0100</atom:modified>
+        <guid>https://chaphlagical.github.io/zh/note/effectivecpp/ch3/</guid>
+        <description>Item 13：Use objects to manage resources 以对象管理资源的两个关键想法 获得资源后立即放入管理对象 资源取得时机便是初始化时机（Resource Acquisition Is Initiali</description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>Effective C&#43;&#43;</category>
+            
+          
+            
+              <category>C&#43;&#43;</category>
+            
+          
+        
+        
+          
+            
+              <category>Note</category>
+            
+          
+        
+        
+      </item>
+      
+      <item>
+        <title>Chapter 2: Constructors, Destructors, and Assignment Operators</title>
+        <link>https://chaphlagical.github.io/zh/note/effectivecpp/ch2/</link>
+        <pubDate>Thu, 08 Oct 2020 08:47:11 +0100</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        <atom:modified>Thu, 08 Oct 2020 08:47:11 +0100</atom:modified>
+        <guid>https://chaphlagical.github.io/zh/note/effectivecpp/ch2/</guid>
+        <description>Item 5: Know what functions C++ silently writes and calls C++对类会提供默认的函数，所有这些函数都是public且inline的 默认函数包括default构造函数，copy构造</description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>Effective C&#43;&#43;</category>
+            
+          
+            
+              <category>C&#43;&#43;</category>
+            
+          
+        
+        
+          
+            
+              <category>Note</category>
+            
+          
+        
+        
+      </item>
+      
+      <item>
+        <title>Chapter 1: Accustoming Yourself to C&#43;&#43;</title>
+        <link>https://chaphlagical.github.io/zh/note/effectivecpp/ch1/</link>
+        <pubDate>Wed, 07 Oct 2020 08:47:11 +0100</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        <atom:modified>Wed, 07 Oct 2020 08:47:11 +0100</atom:modified>
+        <guid>https://chaphlagical.github.io/zh/note/effectivecpp/ch1/</guid>
+        <description>Item 1: View C++ as a federation of languages C++的多重范型性：支持过程形式、面向对象形式、函数形式、泛型形式、元编程形式 将C++视为次语言的集合： C：区块block</description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>Effective C&#43;&#43;</category>
+            
+          
+            
+              <category>C&#43;&#43;</category>
+            
+          
+        
+        
+          
+            
+              <category>Note</category>
+            
+          
+        
+        
+      </item>
+      
+
+    
+  </channel>
+</rss>
