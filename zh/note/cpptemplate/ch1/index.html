@@ -1811,7 +1811,7 @@ if (!doNotTrack) {
 <pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">template</span><span class="o">&lt;</span><span class="err">参数列表</span><span class="o">&gt;</span>
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">template</span><span class="o">&lt;</span><span class="err">形参列表</span><span class="o">&gt;</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>例如：</p>
@@ -1951,7 +1951,7 @@ if (!doNotTrack) {
 <h3 id="121-type-conversions-during-type-deduction">1.2.1 Type Conversions During Type Deduction</h3>
 <p>类型推断时自动类型转换的限制：</p>
 <ul>
-<li>当声明为按引用传参时，即使是trivial的转换都不能用于类型推断。两个参数必须完全匹配模板参数，例如下述代码编译将报错：</li>
+<li>当声明为按引用传参时，即使是trivial的转换都不能用于类型推断。两个实参必须完全匹配模板形参，例如下述代码编译将报错：</li>
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -2039,7 +2039,7 @@ if (!doNotTrack) {
 </code></pre></td></tr></table>
 </div>
 </div><h3 id="122-type-deduction-for-default-arguments">1.2.2 Type Deduction for Default Arguments</h3>
-<p>类型推断无法用于默认参数，必须同时指定默认模板参数类型：</p>
+<p>类型推断无法用于默认参数，必须同时指定默认模板形参类型：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -2055,7 +2055,7 @@ if (!doNotTrack) {
 </code></pre></td></tr></table>
 </div>
 </div><h2 id="13-multiple-template-parameters">1.3 Multiple Template Parameters</h2>
-<p>模板定义支持多参数，如：</p>
+<p>形参</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -2194,7 +2194,7 @@ if (!doNotTrack) {
 <li>C++14规范中可以使用<code>std::common_type_t&lt;&gt;</code></li>
 </ul>
 <h2 id="14-default-template-arguments">1.4 Default Template Arguments</h2>
-<p>很简单，模板参数可以设置默认值，例如返回值类型可以沿用<code>typename RT</code>但用<code>decltype</code>或<code>common_type</code>设置默认参数</p>
+<p>很简单，模板形参可以设置默认值，例如返回值类型可以沿用<code>typename RT</code>但用<code>decltype</code>或<code>common_type</code>设置默认形参</p>
 <h3 id="15-overloading-function-templates">1.5 Overloading Function Templates</h3>
 <p>函数模板能够进行重载</p>
 <p>当函数模板实例与重载函数接口一模一样时，将优先使用非模板函数，例如：</p>
