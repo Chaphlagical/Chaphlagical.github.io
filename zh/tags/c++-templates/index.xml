@@ -14,7 +14,7 @@
     <managingEditor>chaf@mail.ustc.edu.cn (Wenbo Chen)</managingEditor>
     <webMaster>chaf@mail.ustc.edu.cn (Wenbo Chen)</webMaster>
     <copyright>&amp;copy;{year}, All Rights Reserved</copyright>
-    <lastBuildDate>Wed, 18 Nov 2020 15:56:11 +0100</lastBuildDate>
+    <lastBuildDate>Thu, 19 Nov 2020 15:56:11 +0100</lastBuildDate>
     
         <atom:link href="https://chaphlagical.github.io/zh/tags/c++-templates/index.xml" rel="self" type="application/rss+xml" />
     
@@ -25,11 +25,45 @@
       <item>
         <title>Appendix E: Concepts</title>
         <link>https://chaphlagical.github.io/zh/note/cpptemplate/concepts/</link>
-        <pubDate>Wed, 18 Nov 2020 15:56:11 +0100</pubDate>
+        <pubDate>Thu, 19 Nov 2020 15:56:11 +0100</pubDate>
         <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
-        <atom:modified>Wed, 18 Nov 2020 15:56:11 +0100</atom:modified>
+        <atom:modified>Thu, 19 Nov 2020 15:56:11 +0100</atom:modified>
         <guid>https://chaphlagical.github.io/zh/note/cpptemplate/concepts/</guid>
         <description>E.1 Using Concepts E.1.1 Dealing with Requirements 为模板函数添加约束： 1 2 3 4 5 template&amp;lt;typename T&amp;gt; requires LessThanComparable&amp;lt;T&amp;gt; T max(T a, T b) { return b &amp;lt; a? a: b; } concept是一个常量表达式的布尔断言，在编译期运行 模板只有</description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>C&#43;&#43; Templates</category>
+            
+          
+            
+              <category>C&#43;&#43;</category>
+            
+          
+        
+        
+          
+            
+              <category>Note</category>
+            
+          
+        
+        
+      </item>
+      
+      <item>
+        <title>Chapter 3: Nontype Template Parameters</title>
+        <link>https://chaphlagical.github.io/zh/note/cpptemplate/ch3/</link>
+        <pubDate>Thu, 19 Nov 2020 15:56:11 +0100</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        <atom:modified>Thu, 19 Nov 2020 15:56:11 +0100</atom:modified>
+        <guid>https://chaphlagical.github.io/zh/note/cpptemplate/ch3/</guid>
+        <description>3.1 Nontype Class Template Parameters 设计一个指定存储大小的栈： 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 #include &amp;lt;array&amp;gt;#include &amp;lt;cassert&amp;gt; template&amp;lt;typename T, std::size_t Maxsize&amp;gt; class Stack{ private: std::array&amp;lt;T, maxSize&amp;gt; elems; std::size_t numElems; public: Stack(); void push(T const&amp;amp; elem); void pop(); T const&amp;amp; top() const; bool empty() const{</description>
         
         <dc:creator>Wenbo Chen</dc:creator>
         
