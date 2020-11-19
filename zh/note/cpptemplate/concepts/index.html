@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title> – Chaf&#39;s Blog</title>
+    <title>Appendix E: Concepts – Chaf&#39;s Blog</title>
     
 
 
@@ -1323,21 +1323,23 @@
 
 
     
-<meta name="description" content="Create the World with codes." />
+<meta name="description" content="《C&#43;&#43; Templates学习笔记附录E》" />
 
 
-<meta name="created" content="0001-01-01T00:00:00&#43;0000">
-<meta name="modified" content="0001-01-01T00:00:00&#43;0000">
-<meta property="article:published_time" content="0001-01-01T00:00:00&#43;0000">
+<meta name="keywords" content="C&#43;&#43; Templates,C&#43;&#43;">
+
+<meta name="created" content="2020-11-18T15:56:11&#43;0100">
+<meta name="modified" content="2020-11-18T15:56:11&#43;0100">
+<meta property="article:published_time" content="2020-11-18T15:56:11&#43;0100">
 
 <meta name="author" content="Wenbo Chen">
 
 
 <meta property="og:site_name" content="Chaf&#39;s Blog">
-<meta property="og:title" content="">
+<meta property="og:title" content="Appendix E: Concepts">
 <meta property="og:url" content="https://chaphlagical.github.io/zh/note/cpptemplate/concepts/">
 <meta property="og:type" content="article">
-<meta property="og:description" content="Create the World with codes.">
+<meta property="og:description" content="《C&#43;&#43; Templates学习笔记附录E》">
 
 <meta name="generator" content="Hugo 0.78.1" />
 <meta name="msapplication-TileColor" content="#fff">
@@ -1374,11 +1376,12 @@
   {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    "headline": "",
-    "datePublished": "0001-01-01T00:00:00Z",
-    "dateModified": "0001-01-01T00:00:00Z",
+    "headline": "Appendix E: Concepts",
+    "datePublished": "2020-11-18T15:56:11+01:00",
+    "dateModified": "2020-11-18T15:56:11+01:00",
     "url" : "https://chaphlagical.github.io/zh/note/cpptemplate/concepts/",
-    "description": "",
+    "description": "《C++ Templates学习笔记附录E》",
+    "keywords": ["C++ Templates","C++"],
     "mainEntityOfPage": {
       "@type": "WebPage",
       "@id": "https://chaphlagical.github.io"
@@ -1761,7 +1764,7 @@ if (!doNotTrack) {
   
   <li  class="is-active" >
     
-      <a href="https://chaphlagical.github.io/zh/note/cpptemplate/concepts/" class="capitalize">Chaf&#39;s Blog</a>
+      <span>Appendix E: Concepts</span>
     
   </li>
   
@@ -1773,14 +1776,14 @@ if (!doNotTrack) {
   <div class="single ">
     <div class="single__nojs">Please enable Javascript to view the contents</div>
     <script>document.querySelector('.single').classList.remove('hide'); document.querySelector('.single__nojs').classList.add('hide');</script>
-    <h2 class="single__title" data-ani="true"></h2>
+    <h2 class="single__title" data-ani="true">Appendix E: Concepts</h2>
     <h3 class="single__subtitle"></h3>
     <div class="single__meta">
       
 <div class="single__infos">
-  <time class="single__info" title="创建日期">📅&nbsp;0001年01月01日 </time>
+  <time class="single__info" title="创建日期">📅&nbsp;2020年11月18日 </time>
   
-  &nbsp;&middot;&nbsp; <span class="single__info" title="阅读时长"> ☕&nbsp;0&nbsp;分钟 </span>
+  &nbsp;&middot;&nbsp; <span class="single__info" title="阅读时长"> ☕&nbsp;3&nbsp;分钟 </span>
   
   <span class="single__info">
     
@@ -1789,12 +1792,410 @@ if (!doNotTrack) {
       
 <ul class="single__tags caption">
   
+  🏷️
+  
+
+  <li><a href="https://chaphlagical.github.io/zh/tags/c&#43;&#43;-templates/" class="single__tag" title="C&#43;&#43; Templates">#C&#43;&#43; Templates</a></li>
+
+  <li><a href="https://chaphlagical.github.io/zh/tags/c&#43;&#43;/" class="single__tag" title="C&#43;&#43;">#C&#43;&#43;</a></li>
 
 </ul>
     </div>
     <article class="single__contents" data-dir="ltr" data-ani="true">
       
-      
+      <h2 id="e1-using-concepts">E.1 Using Concepts</h2>
+<h3 id="e11-dealing-with-requirements">E.1.1 Dealing with Requirements</h3>
+<p>为模板函数添加约束：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span> <span class="k">requires</span> <span class="n">LessThanComparable</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span>
+<span class="n">T</span> <span class="n">max</span><span class="p">(</span><span class="n">T</span> <span class="n">a</span><span class="p">,</span> <span class="n">T</span> <span class="n">b</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="n">b</span> <span class="o">&lt;</span> <span class="n">a</span><span class="o">?</span> <span class="nl">a</span><span class="p">:</span> <span class="n">b</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>concept是一个常量表达式的布尔断言，在编译期运行</li>
+<li>模板只有在满足要求的时候才会被实例化</li>
+</ul>
+<h3 id="e12-dealing-with-multiple-requirements">E.1.2 Dealing with Multiple Requirements</h3>
+<p>多概念要求：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">Seq</span><span class="o">&gt;</span>
+<span class="k">requires</span> <span class="n">Sequence</span><span class="o">&lt;</span><span class="n">Seq</span><span class="o">&gt;&amp;&amp;</span><span class="n">EqualityComparable</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">Seq</span><span class="o">::</span><span class="n">value_type</span><span class="o">&gt;</span>
+<span class="k">typename</span> <span class="n">Seq</span><span class="o">::</span><span class="n">iterator</span> <span class="n">find</span><span class="p">(</span><span class="n">Seq</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">seq</span><span class="p">,</span> <span class="k">typename</span> <span class="n">Seq</span><span class="o">::</span><span class="n">value_type</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">val</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">find</span><span class="p">(</span><span class="n">seq</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="n">seq</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span><span class="n">val</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>除了<code>&amp;&amp;</code>还支持<code>||</code>，例如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+<span class="k">requires</span> <span class="n">Integral</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">||</span> <span class="n">FloatingPoint</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span>
+<span class="n">T</span> <span class="n">power</span><span class="p">(</span><span class="n">T</span> <span class="n">b</span><span class="p">,</span><span class="n">T</span> <span class="n">p</span><span class="p">);</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>同时单要求也支持多模板参数，例如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="k">typename</span> <span class="n">U</span><span class="o">&gt;</span>
+<span class="k">requires</span> <span class="n">SomeConcept</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">U</span><span class="o">&gt;</span>
+<span class="k">auto</span> <span class="n">f</span><span class="p">(</span><span class="n">T</span> <span class="n">x</span><span class="p">,</span> <span class="n">U</span> <span class="n">y</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">decltype</span><span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="n">y</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="e13-shorthand-notation-for-single-requirements">E.1.3 Shorthand Notation for Single Requirements</h3>
+<p>单要求时可以把概念塞在模板参数声明中进行简写</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">template</span><span class="o">&lt;</span><span class="n">LessThanComparable</span> <span class="n">T</span><span class="o">&gt;</span>
+<span class="n">T</span> <span class="n">max</span><span class="p">(</span><span class="n">T</span> <span class="n">a</span><span class="p">,</span> <span class="n">T</span> <span class="n">b</span><span class="p">){</span>
+    <span class="k">return</span> <span class="n">b</span> <span class="o">&lt;</span> <span class="n">a</span> <span class="o">?</span> <span class="nl">a</span> <span class="p">:</span> <span class="n">b</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>多于多要求，也是可以的：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">template</span><span class="o">&lt;</span><span class="n">Sequence</span> <span class="n">Seq</span><span class="o">&gt;</span>
+<span class="k">requires</span> <span class="n">EqualityComparable</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">Seq</span><span class="o">::</span><span class="n">value_type</span><span class="o">&gt;</span>
+<span class="k">typename</span> <span class="n">Seq</span><span class="o">::</span><span class="n">iterator</span> <span class="n">find</span><span class="p">(</span><span class="n">Seq</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">seq</span><span class="p">,</span> <span class="k">typename</span> <span class="n">Seq</span><span class="o">::</span><span class="n">value_type</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">val</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">find</span><span class="p">(</span><span class="n">seq</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="n">seq</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span><span class="n">val</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="e2-defining-concepts">E.2 Defining Concepts</h2>
+<p>前面提到的<code>LessThanComparable</code>可以有如下实现：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+<span class="k">concept</span> <span class="n">LessThanComparable</span> <span class="o">=</span> <span class="k">requires</span><span class="p">(</span><span class="n">T</span> <span class="n">x</span><span class="p">,</span> <span class="n">T</span> <span class="n">y</span><span class="p">){</span>
+    <span class="p">{</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">y</span> <span class="p">}</span> <span class="o">-&gt;</span> <span class="kt">bool</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这里，<code>x&lt;y</code>：</p>
+<ul>
+<li>必须是SFINAE意义下是有效</li>
+<li>且结果可以转化为bool型</li>
+</ul>
+<p>这种表达下可以在<code>-&gt;</code>前插入关键字<code>noexcept</code>表示花括号内的表达式不应抛出异常，且表达式应为<code>true</code></p>
+<p>如果没有这种限制，只检查表达式的有效性，可以去掉大括号，简化为一个表达式，如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+<span class="k">concept</span> <span class="n">Swappable</span> <span class="o">=</span> <span class="k">requires</span><span class="p">(</span><span class="n">T</span> <span class="n">x</span><span class="p">,</span> <span class="n">T</span> <span class="n">y</span><span class="p">){</span>
+    <span class="n">swap</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">);</span>
+<span class="p">};</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>Requires表达式还可以表达关联类型的需求，例如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">Seq</span><span class="o">&gt;</span>
+<span class="k">concept</span> <span class="n">Sequence</span> <span class="o">=</span> <span class="k">requires</span><span class="p">(</span><span class="n">Seq</span> <span class="n">seq</span><span class="p">){</span>
+    <span class="k">typename</span> <span class="n">Seq</span><span class="o">::</span><span class="n">iterator</span><span class="p">;</span>
+    <span class="k">requires</span> <span class="n">Iterator</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">Seq</span><span class="o">::</span><span class="n">iterator</span><span class="o">&gt;</span><span class="p">;</span>
+    <span class="p">{</span><span class="n">seq</span><span class="p">.</span><span class="n">begin</span><span class="p">()}</span> <span class="o">-&gt;</span> <span class="n">Seq</span><span class="o">::</span><span class="n">iterator</span><span class="p">;</span>
+    <span class="p">...</span>
+<span class="p">};</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这里，方法<code>seq.begin()</code>的存在还需要<code>Seq::iterator</code>的存在，这种方法称为<strong>nested requirement</strong></p>
+<h2 id="e3-overloading-on-constraints">E.3 Overloading on Constraints</h2>
+<p>利用约束进行重载，例如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">template</span><span class="o">&lt;</span><span class="n">IntegerLike</span> <span class="n">T</span><span class="o">&gt;</span> <span class="kt">void</span> <span class="n">print</span><span class="p">(</span><span class="n">T</span> <span class="n">val</span><span class="p">);</span>
+<span class="k">template</span><span class="o">&lt;</span><span class="n">StringLike</span> <span class="n">T</span><span class="o">&gt;</span> <span class="kt">void</span> <span class="n">print</span><span class="p">(</span><span class="n">T</span> <span class="n">val</span><span class="p">);</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>如果没有约束<code>IntegerLike</code>和<code>StringLike</code>，上述声明将表达同一个模板函数</p>
+<h3 id="e31-constraint-subsumption">E.3.1 Constraint Subsumption</h3>
+<p>有的时候限制是不是互斥的而是相互包含的，比如C++标准库中的迭代器分类：input iterator，forward iterator，bidirectional iterator，random access iterator，在C++17中还有contiguous iterator</p>
+<p>假设我们已经定义了一个<code>ForwardIterator</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+<span class="k">concept</span> <span class="n">ForwardIterator</span> <span class="o">=</span> <span class="p">...;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>现在有<code>BidirectionalIterator</code>定义为：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+<span class="k">concept</span> <span class="n">BidirectionalIterator</span> <span class="o">=</span>
+	<span class="n">ForwardIterator</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">&amp;&amp;</span>
+	<span class="k">requires</span><span class="p">(</span><span class="n">T</span> <span class="n">it</span><span class="p">){</span>
+    <span class="p">{</span><span class="o">--</span><span class="n">it</span><span class="p">}</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="o">&amp;</span>
+<span class="p">};</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这样我们在<code>ForwardIterator</code>基础上添加了前缀操作符<code>--</code>的限制</p>
+<p>现在考虑一个用<code>ForwardIterator</code>和<code>BidirectionalIterator</code>重载的<code>advanceIter</code>方法：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">template</span><span class="o">&lt;</span><span class="n">ForwardIterator</span> <span class="n">T</span><span class="p">,</span> <span class="k">typename</span> <span class="n">D</span><span class="o">&gt;</span>
+<span class="kt">void</span> <span class="n">advanceIter</span><span class="p">(</span><span class="n">T</span><span class="o">&amp;</span> <span class="n">it</span><span class="p">,</span> <span class="n">D</span> <span class="n">n</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">assert</span><span class="p">(</span><span class="n">n</span><span class="o">&gt;=</span><span class="mi">0</span><span class="p">);</span>
+    <span class="k">for</span><span class="p">(;</span> <span class="n">n</span><span class="o">!=</span><span class="mi">0</span><span class="p">;</span> <span class="o">--</span><span class="n">n</span><span class="p">){</span> <span class="o">++</span><span class="n">it</span><span class="p">;</span> <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="n">BidirectionalIterator</span> <span class="n">T</span><span class="p">,</span> <span class="k">typename</span> <span class="n">D</span><span class="o">&gt;</span>
+<span class="kt">void</span> <span class="n">advanceIter</span><span class="p">(</span><span class="n">T</span><span class="o">&amp;</span> <span class="n">it</span><span class="p">,</span> <span class="n">D</span> <span class="n">n</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">n</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">){</span>
+        <span class="k">for</span><span class="p">(;</span> <span class="n">n</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">;</span> <span class="o">--</span><span class="n">n</span><span class="p">){</span> <span class="o">++</span><span class="n">it</span><span class="p">;</span> <span class="p">}</span>
+    <span class="p">}</span><span class="k">else</span> <span class="nf">if</span><span class="p">(</span><span class="n">n</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">){</span>
+        <span class="k">for</span><span class="p">(;</span> <span class="n">n</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">;</span> <span class="o">++</span><span class="n">n</span><span class="p">){</span> <span class="o">--</span><span class="n">it</span><span class="p">;</span> <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>当使用一个普通的forward iterator调用<code>advanceIter</code>时，直接选择第一个模板</li>
+<li>而当使用一个bidirectional iterator进行调用时，将同时满足两个模板，此时更倾向于选择那个有包含关系的模板，因此首选第二个模板</li>
+</ul>
+<h2 id="e32-constraints-and-tag-dispatching">E.3.2 Constraints and Tag Dispatching</h2>
+<p>示例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+<span class="k">concept</span> <span class="n">ForwardIterator</span> <span class="o">=</span> <span class="n">InputIterator</span><span class="p">{</span>
+    <span class="k">typename</span> <span class="n">std</span><span class="o">::</span><span class="n">iterator_traits</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">iterator_category</span><span class="p">;</span>
+    <span class="n">is_convertible_v</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">iterator_traits</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">iterator_category</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">forward_iterator_tag</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="e4-concept-tips">E.4 Concept Tips</h2>
+<h3 id="e41-testing-concepts">E.4.1 Testing Concepts</h3>
+<p>对于给定的概念<code>C</code>和一些类型<code>T1</code>，<code>T2</code>等，可以使用静态断言进行测试</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">static_assert</span><span class="p">(</span><span class="n">C</span><span class="o">&lt;</span><span class="n">T1</span><span class="p">,</span> <span class="n">T2</span><span class="p">,</span> <span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="s">&#34;Model Failure&#34;</span><span class="p">);</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>测试概念时需要注意的问题：</p>
+<ol>
+<li>Do interfaces and/or algorithms need to copy and/or move objects of the types being modeled?</li>
+<li>What conversions are acceptable? Which ones are needed?</li>
+<li>Is the basic set of operations assumed by the template unique? For example, can it operate using either <code>*=</code> or <code>*</code> and <code>=</code>?</li>
+</ol>
+<h3 id="e42-concept-granularity">E.4.2 Concept Granularity</h3>
+<p>示例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="k">typename</span> <span class="n">U</span><span class="o">&gt;</span>
+<span class="k">concept</span> <span class="n">Addable</span> <span class="o">=</span> <span class="k">requires</span><span class="p">(</span><span class="n">T</span> <span class="n">x</span><span class="p">,</span> <span class="n">U</span> <span class="n">y</span><span class="p">){</span>
+    <span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="e43-binary-compatibility">E.4.3 Binary Compatibility</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span><span class="cp"></span>
+<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+<span class="k">concept</span> <span class="n">HasPlus</span>  <span class="o">=</span> <span class="k">requires</span><span class="p">(</span><span class="n">T</span> <span class="n">x</span><span class="p">,</span> <span class="n">T</span> <span class="n">y</span><span class="p">){</span>
+  <span class="n">x</span><span class="o">+</span><span class="n">y</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+<span class="kt">int</span> <span class="n">f</span><span class="p">(</span><span class="n">T</span> <span class="n">p</span><span class="p">)</span> <span class="k">requires</span> <span class="n">HasPlus</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">{</span>
+	<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">&#34;TU1</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">g</span><span class="p">();</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="n">f</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+  <span class="n">g</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>和</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span><span class="cp"></span>
+<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+<span class="k">concept</span> <span class="n">HasMult</span> <span class="o">=</span> <span class="k">requires</span><span class="p">(</span><span class="n">T</span> <span class="n">x</span><span class="p">,</span> <span class="n">T</span> <span class="n">y</span><span class="p">){</span>
+  <span class="n">x</span><span class="o">*</span><span class="n">y</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+<span class="kt">int</span> <span class="n">f</span><span class="p">(</span><span class="n">T</span> <span class="n">p</span><span class="p">)</span> <span class="k">requires</span> <span class="n">HasMult</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">{</span>
+	<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">&#34;TU2</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">template</span> <span class="kt">int</span> <span class="nf">f</span><span class="p">(</span><span class="kt">int</span><span class="p">);</span>
+
+<span class="kt">void</span> <span class="nf">g</span><span class="p">(){</span>
+  <span class="n">f</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>输出结果：</p>
+<pre><code>TU1
+Tu2
+</code></pre>
     </article>
     
     
@@ -2165,19 +2566,50 @@ if (!doNotTrack) {
     <section class="related">
     
     
+    <h1 class="related__title">
+      <hr class="hr-dots"/>
+      <div>
+        相关内容
+      </div>
+      <hr class="hr-dots"/>
+    </h1>
+    <ul class="related-ul">
+        
+        <li>
+          <a href="/zh/note/cpptemplate/ch2/" class="related__link">Chapter 2: Class Templates</a>
+        </li>
+        
+        <li>
+          <a href="/zh/note/cpptemplate/ch1/" class="related__link">Chapter 1: Function Templates</a>
+        </li>
+        
+        <li>
+          <a href="/zh/posts/2020-11-15-c&#43;&#43;%E7%B1%BB%E7%9A%84%E5%86%85%E5%AD%98%E5%88%86%E5%B8%83/" class="related__link">2020-11-15-C&#43;&#43;类的内存分布</a>
+        </li>
+        
+        <li>
+          <a href="/zh/note/effectivecpp/ch6/" class="related__link">Chapter 6: Inheritance and Object-Oriented Design</a>
+        </li>
+        
+        <li>
+          <a href="/zh/note/effectivecpp/ch5/" class="related__link">Chapter 5: Implementations</a>
+        </li>
+        
+    </ul>
+    
   </section>
     <div class="grow"></div>
 <nav class="pagination-single">
   
     
-    <div class="grow"></div>
-    
-      <a href="https://chaphlagical.github.io/zh/note/cpptemplate/ch1/" class="pagination-single__right">      
-        <div class="pagination-single__right-title">Chapter 1: Function Templates</div>
+      <a href="https://chaphlagical.github.io/zh/note/cpptemplate/ch2/" class="pagination-single__left">
         <div class="pagination-single__icon">
-          <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path fill="currentColor" d="M5 13h11.17l-4.88 4.88c-.39.39-.39 1.03 0 1.42.39.39 1.02.39 1.41 0l6.59-6.59c.39-.39.39-1.02 0-1.41l-6.58-6.6c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41L16.17 11H5c-.55 0-1 .45-1 1s.45 1 1 1z"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path fill="currentColor" d="M19 11H7.83l4.88-4.88c.39-.39.39-1.03 0-1.42-.39-.39-1.02-.39-1.41 0l-6.59 6.59c-.39.39-.39 1.02 0 1.41l6.59 6.59c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41L7.83 13H19c.55 0 1-.45 1-1s-.45-1-1-1z"/></svg>
         </div>
+        <div class="pagination-single__left-title">Chapter 2: Class Templates</div>      
       </a>
+    
+    <div class="grow"></div>
     
   
 </nav>
@@ -2619,6 +3051,24 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+    },
+    options: {
+      skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      ignoreHtmlClass: 'tex2jax_ignore',
+      processHtmlClass: 'tex2jax_process'
+    }
+  };
+  </script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script"></script>
+
 
 
 
@@ -2861,7 +3311,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     
     
-    var lib = JSON.parse("null");
+    var lib = JSON.parse("[\"mathjax\"]");
 
     if (lib && lib.includes('mermaid')) {
       
@@ -3283,7 +3733,31 @@ document.addEventListener('DOMContentLoaded', function () {
           
         </div>
         <div class="toc toc__outer " data-dir="ltr" data-folding="true" data-ani="true">
-          <nav id="TableOfContents"></nav>
+          <nav id="TableOfContents">
+  <ul>
+    <li><a href="#e1-using-concepts">E.1 Using Concepts</a>
+      <ul>
+        <li><a href="#e11-dealing-with-requirements">E.1.1 Dealing with Requirements</a></li>
+        <li><a href="#e12-dealing-with-multiple-requirements">E.1.2 Dealing with Multiple Requirements</a></li>
+        <li><a href="#e13-shorthand-notation-for-single-requirements">E.1.3 Shorthand Notation for Single Requirements</a></li>
+      </ul>
+    </li>
+    <li><a href="#e2-defining-concepts">E.2 Defining Concepts</a></li>
+    <li><a href="#e3-overloading-on-constraints">E.3 Overloading on Constraints</a>
+      <ul>
+        <li><a href="#e31-constraint-subsumption">E.3.1 Constraint Subsumption</a></li>
+      </ul>
+    </li>
+    <li><a href="#e32-constraints-and-tag-dispatching">E.3.2 Constraints and Tag Dispatching</a></li>
+    <li><a href="#e4-concept-tips">E.4 Concept Tips</a>
+      <ul>
+        <li><a href="#e41-testing-concepts">E.4.1 Testing Concepts</a></li>
+        <li><a href="#e42-concept-granularity">E.4.2 Concept Granularity</a></li>
+        <li><a href="#e43-binary-compatibility">E.4.3 Binary Compatibility</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
         </div>
       
     
