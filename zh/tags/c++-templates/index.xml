@@ -14,13 +14,47 @@
     <managingEditor>chaf@mail.ustc.edu.cn (Wenbo Chen)</managingEditor>
     <webMaster>chaf@mail.ustc.edu.cn (Wenbo Chen)</webMaster>
     <copyright>&amp;copy;{year}, All Rights Reserved</copyright>
-    <lastBuildDate>Thu, 19 Nov 2020 15:56:11 +0100</lastBuildDate>
+    <lastBuildDate>Fri, 20 Nov 2020 15:56:11 +0100</lastBuildDate>
     
         <atom:link href="https://chaphlagical.github.io/zh/tags/c++-templates/index.xml" rel="self" type="application/rss+xml" />
     
     
     
 
+      
+      <item>
+        <title>Chapter 5: Tricky Basics</title>
+        <link>https://chaphlagical.github.io/zh/note/cpptemplate/ch5/</link>
+        <pubDate>Fri, 20 Nov 2020 15:56:11 +0100</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        <atom:modified>Fri, 20 Nov 2020 15:56:11 +0100</atom:modified>
+        <guid>https://chaphlagical.github.io/zh/note/cpptemplate/ch5/</guid>
+        <description>5.1 Keyword typename 关键词typename用于指明模板中的一个标识符是一个类型。例如： 1 2 3 4 5 6 7 8 template&amp;lt;typename T&amp;gt; class MyClass{ public: ... void foo(){ typename T::SubType* ptr; } } 这里SubType是类T中</description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>C&#43;&#43; Templates</category>
+            
+          
+            
+              <category>C&#43;&#43;</category>
+            
+          
+        
+        
+          
+            
+              <category>Note</category>
+            
+          
+        
+        
+      </item>
       
       <item>
         <title>Appendix E: Concepts</title>

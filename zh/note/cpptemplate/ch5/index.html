@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Chapter 4: Variadic Templates – Chaf&#39;s Blog</title>
+    <title>Chapter 5: Tricky Basics – Chaf&#39;s Blog</title>
     
 
 
@@ -653,7 +653,7 @@
     
     var baseurl = JSON.parse("\"https://chaphlagical.github.io\"");
     
-    var permalink = JSON.parse("\"https://chaphlagical.github.io/zh/note/cpptemplate/ch4/\"");
+    var permalink = JSON.parse("\"https://chaphlagical.github.io/zh/note/cpptemplate/ch5/\"");
     
     var langprefix = JSON.parse("\"/zh\"");
     var searchResults = null;
@@ -1323,23 +1323,23 @@
 
 
     
-<meta name="description" content="《C&#43;&#43; Templates学习笔记第四章》" />
+<meta name="description" content="《C&#43;&#43; Templates学习笔记第五章》" />
 
 
 <meta name="keywords" content="C&#43;&#43; Templates,C&#43;&#43;">
 
-<meta name="created" content="2020-11-19T15:56:11&#43;0100">
-<meta name="modified" content="2020-11-19T15:56:11&#43;0100">
-<meta property="article:published_time" content="2020-11-19T15:56:11&#43;0100">
+<meta name="created" content="2020-11-20T15:56:11&#43;0100">
+<meta name="modified" content="2020-11-20T15:56:11&#43;0100">
+<meta property="article:published_time" content="2020-11-20T15:56:11&#43;0100">
 
 <meta name="author" content="Wenbo Chen">
 
 
 <meta property="og:site_name" content="Chaf&#39;s Blog">
-<meta property="og:title" content="Chapter 4: Variadic Templates">
-<meta property="og:url" content="https://chaphlagical.github.io/zh/note/cpptemplate/ch4/">
+<meta property="og:title" content="Chapter 5: Tricky Basics">
+<meta property="og:url" content="https://chaphlagical.github.io/zh/note/cpptemplate/ch5/">
 <meta property="og:type" content="article">
-<meta property="og:description" content="《C&#43;&#43; Templates学习笔记第四章》">
+<meta property="og:description" content="《C&#43;&#43; Templates学习笔记第五章》">
 
 <meta name="generator" content="Hugo 0.78.1" />
 <meta name="msapplication-TileColor" content="#fff">
@@ -1350,7 +1350,7 @@
 
 <meta name="apple-mobile-web-app-status-bar-style" content="#fff">
 
-<link rel="canonical" href="https://chaphlagical.github.io/zh/note/cpptemplate/ch4/">
+<link rel="canonical" href="https://chaphlagical.github.io/zh/note/cpptemplate/ch5/">
 
 <link rel="manifest" href="/manifest.json">
 
@@ -1376,11 +1376,11 @@
   {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    "headline": "Chapter 4: Variadic Templates",
-    "datePublished": "2020-11-19T15:56:11+01:00",
-    "dateModified": "2020-11-19T15:56:11+01:00",
-    "url" : "https://chaphlagical.github.io/zh/note/cpptemplate/ch4/",
-    "description": "《C++ Templates学习笔记第四章》",
+    "headline": "Chapter 5: Tricky Basics",
+    "datePublished": "2020-11-20T15:56:11+01:00",
+    "dateModified": "2020-11-20T15:56:11+01:00",
+    "url" : "https://chaphlagical.github.io/zh/note/cpptemplate/ch5/",
+    "description": "《C++ Templates学习笔记第五章》",
     "keywords": ["C++ Templates","C++"],
     "mainEntityOfPage": {
       "@type": "WebPage",
@@ -1764,7 +1764,7 @@ if (!doNotTrack) {
   
   <li  class="is-active" >
     
-      <span>Chapter 4: Variadic Templates</span>
+      <span>Chapter 5: Tricky Basics</span>
     
   </li>
   
@@ -1776,14 +1776,14 @@ if (!doNotTrack) {
   <div class="single ">
     <div class="single__nojs">Please enable Javascript to view the contents</div>
     <script>document.querySelector('.single').classList.remove('hide'); document.querySelector('.single__nojs').classList.add('hide');</script>
-    <h2 class="single__title" data-ani="true">Chapter 4: Variadic Templates</h2>
+    <h2 class="single__title" data-ani="true">Chapter 5: Tricky Basics</h2>
     <h3 class="single__subtitle"></h3>
     <div class="single__meta">
       
 <div class="single__infos">
-  <time class="single__info" title="创建日期">📅&nbsp;2020年11月19日 </time>
+  <time class="single__info" title="创建日期">📅&nbsp;2020年11月20日 </time>
   
-  &nbsp;&middot;&nbsp; <span class="single__info" title="阅读时长"> ☕&nbsp;4&nbsp;分钟 </span>
+  &nbsp;&middot;&nbsp; <span class="single__info" title="阅读时长"> ☕&nbsp;5&nbsp;分钟 </span>
   
   <span class="single__info">
     
@@ -1803,61 +1803,78 @@ if (!doNotTrack) {
     </div>
     <article class="single__contents" data-dir="ltr" data-ani="true">
       
-      <h2 id="41-variadic-templates">4.1 Variadic Templates</h2>
-<p>类模板形参能够被定义为可以接受一串模板实参，称为可变参数模板</p>
-<h3 id="411-variadic-templates-by-example">4.1.1 Variadic Templates by Example</h3>
-<p>举例：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="kt">void</span> <span class="nf">print</span><span class="p">()</span>
-<span class="p">{</span>
-    
-<span class="p">}</span>
-
-<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="k">typename</span><span class="p">...</span> <span class="n">Types</span><span class="o">&gt;</span>
-<span class="kt">void</span> <span class="n">print</span><span class="p">(</span><span class="n">T</span> <span class="n">firstArg</span><span class="p">,</span> <span class="n">Types</span><span class="p">...</span> <span class="n">args</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">firstArg</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
-    <span class="n">print</span><span class="p">(</span><span class="n">args</span><span class="p">...);</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
-</div>
-</div><p>该函数将递归地打印所有输入的参数，调用时，</p>
+      <h2 id="51-keyword-typename">5.1 Keyword <code>typename</code></h2>
+<p>关键词<code>typename</code>用于指明模板中的一个标识符是一个类型。例如：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-C++" data-lang="C++"><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">s</span><span class="p">(</span><span class="s">&#34;Hello&#34;</span><span class="p">);</span>
-<span class="n">print</span><span class="p">(</span><span class="mf">7.5</span><span class="p">,</span> <span class="s">&#34;Hello&#34;</span><span class="p">,</span> <span class="n">s</span><span class="p">);</span>
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+<span class="k">class</span> <span class="nc">MyClass</span><span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="p">...</span>
+    <span class="kt">void</span> <span class="n">foo</span><span class="p">(){</span>
+        <span class="k">typename</span> <span class="n">T</span><span class="o">::</span><span class="n">SubType</span><span class="o">*</span> <span class="n">ptr</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
-</div><p>将被展开为：</p>
+</div><p>这里<code>SubType</code>是类<code>T</code>中定义的一个类型，<code>ptr</code>是指向<code>T::SubType</code>类型的一个指针。如果没有关键词<code>typename</code>，则<code>SubType</code>会被假定为一个非类型成员变量</p>
+<p>应用：STL迭代器</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="n">print</span><span class="o">&lt;</span><span class="kt">double</span><span class="p">,</span> <span class="kt">char</span> <span class="k">const</span><span class="o">*</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span><span class="p">(</span><span class="mf">7.5</span><span class="p">,</span> <span class="s">&#34;Hello&#34;</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+<span class="kt">void</span> <span class="n">printcoll</span><span class="p">(</span><span class="n">T</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">coll</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">typename</span> <span class="n">T</span><span class="o">::</span><span class="n">const_iterator</span> <span class="n">pos</span><span class="p">;</span>
+    <span class="k">typename</span> <span class="n">T</span><span class="o">::</span><span class="n">const_iterator</span> <span class="n">end</span><span class="p">(</span><span class="n">coll</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+    <span class="k">for</span><span class="p">(</span><span class="n">pos</span> <span class="o">=</span> <span class="n">coll</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span> <span class="n">pos</span><span class="o">!=</span><span class="n">end</span><span class="p">;</span> <span class="o">++</span><span class="n">pos</span><span class="p">)</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="o">*</span><span class="n">pos</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39; &#39;</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+<span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
-</div><p>见<a href="https://cppinsights.io/lnk?code=I2luY2x1ZGUgPGlvc3RyZWFtPgp2b2lkIHByaW50KCkKewogICAgCn0KCnRlbXBsYXRlPHR5cGVuYW1lIFQsIHR5cGVuYW1lLi4uIFR5cGVzPgp2b2lkIHByaW50KFQgZmlyc3RBcmcsIFR5cGVzLi4uIGFyZ3MpCnsKICAgIHN0ZDo6Y291dCA8PCBmaXJzdEFyZyA8PCAnXG4nOwogICAgcHJpbnQoYXJncy4uLik7Cn0KCmludCBtYWluKCkKewogCXN0ZDo6c3RyaW5nIHMoIkhlbGxvIik7CglwcmludCg3LjUsICJIZWxsbyIsIHMpOwoJcmV0dXJuIDA7Cn0=&amp;insightsOptions=cpp17&amp;std=cpp17&amp;rev=1.0">示例</a></p>
-<h3 id="412-overloading-variadic-and-nonvariadic-templates">4.1.2 Overloading Variadic and Nonvariadic Templates</h3>
-<p>示例：</p>
+</div><p>在STL容器内部有如下声明：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">stlcontainer</span><span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="k">using</span> <span class="n">iterator</span> <span class="o">=</span> <span class="p">...;</span>
+    <span class="k">using</span> <span class="n">const_iterator</span> <span class="o">=</span> <span class="p">...;</span>
+    <span class="p">...</span>
+<span class="p">};</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="52-zero-initialization">5.2 Zero Initialization</h2>
+<p>对于内置类型如<code>int</code>、<code>float</code>、指针等，由于没有默认构造函数进行初始化，非初始化的局部变量都是未定的</p>
+<p>在C++11以前，用<code>()</code>进行零初始化：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt"> 1
@@ -1872,118 +1889,39 @@ if (!doNotTrack) {
 </span><span class="lnt">10
 </span><span class="lnt">11
 </span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
-<span class="kt">void</span> <span class="n">print</span><span class="p">(</span><span class="n">T</span> <span class="n">arg</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">arg</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+<span class="k">class</span> <span class="nc">MyClass</span><span class="p">{</span>
+<span class="k">private</span><span class="o">:</span>
+    <span class="n">T</span> <span class="n">x</span><span class="p">;</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="n">MyClass</span><span class="p">()</span><span class="o">:</span> <span class="n">x</span><span class="p">(){}</span>
+    <span class="p">...</span>
 <span class="p">}</span>
 
-<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="k">typename</span><span class="p">...</span> <span class="n">Types</span><span class="o">&gt;</span>
-<span class="kt">void</span> <span class="n">print</span><span class="p">(</span><span class="n">T</span> <span class="n">firstArg</span><span class="p">,</span> <span class="n">Types</span><span class="p">...</span> <span class="n">args</span><span class="p">)</span>
+<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+<span class="kt">void</span> <span class="n">foo</span><span class="p">()</span>
 <span class="p">{</span>
-    <span class="n">print</span><span class="p">(</span><span class="n">firstArg</span><span class="p">);</span>
-    <span class="n">print</span><span class="p">(</span><span class="n">args</span><span class="p">...);</span>
+    <span class="n">T</span> <span class="n">x</span> <span class="o">=</span> <span class="n">T</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+<span class="kt">void</span> <span class="n">foo</span><span class="p">(</span><span class="n">T</span> <span class="n">p</span> <span class="o">=</span> <span class="n">T</span><span class="p">())</span>
+<span class="p">{</span>
+	<span class="p">...</span>
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
-</div><h3 id="413-operator-sizeof">4.1.3 Operator <code>sizeof...</code></h3>
-<p>C++11之后提出针对可变参数模板的<code>sizeof</code>，表示了参数块中的元素个数，例如：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="k">typename</span><span class="p">...</span> <span class="n">Types</span><span class="o">&gt;</span>
-<span class="kt">void</span> <span class="n">print</span><span class="p">(</span><span class="n">T</span> <span class="n">firstArg</span><span class="p">,</span> <span class="n">Types</span><span class="p">...</span> <span class="n">args</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="k">sizeof</span><span class="p">...(</span><span class="n">Types</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>	<span class="c1">// print number of remaining types
-</span><span class="c1"></span>    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="k">sizeof</span><span class="p">...(</span><span class="n">args</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>	<span class="c1">// print number of remaining args
-</span><span class="c1"></span>    <span class="p">...</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
-</div>
-</div><p>或许你会想利用这个方法作为递归调用的结束条件，例如：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span><span class="lnt">9
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="k">typename</span><span class="p">...</span> <span class="n">Types</span><span class="o">&gt;</span>
-<span class="kt">void</span> <span class="n">print</span><span class="p">(</span><span class="n">T</span> <span class="n">firstArg</span><span class="p">,</span> <span class="n">Types</span><span class="p">...</span> <span class="n">args</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">firstArg</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
-    <span class="k">if</span><span class="p">(</span><span class="k">sizeof</span><span class="p">...(</span><span class="n">args</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="n">print</span><span class="p">(</span><span class="n">args</span><span class="p">...);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
-</div>
-</div><p>遗憾的是上述代码并无法正确通过编译，这是由于编译期计算所导致的</p>
-<h2 id="42-fold-expressions">4.2 Fold Expressions</h2>
-<p>C++17之后，支持折叠表达式</p>
-<p>示例：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="p">...</span> <span class="n">T</span><span class="o">&gt;</span>
-<span class="k">auto</span> <span class="n">foldSum</span><span class="p">(</span><span class="n">T</span><span class="p">...</span> <span class="n">s</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="k">return</span> <span class="p">(...</span> <span class="o">+</span> <span class="n">s</span><span class="p">);</span>	<span class="c1">// ((s1+s2)+s3)+...
-</span><span class="c1"></span><span class="p">}</span>
-</code></pre></td></tr></table>
-</div>
-</div><p>上述代码计算所有输入参数之和</p>
-<p>折叠表达式的展开方式：</p>
-<table>
-<thead>
-<tr>
-<th>Fold Expression</th>
-<th>Evaluation</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>(... op pack)</code></td>
-<td>( &hellip; ((pack1 op pack2) op pack3) &hellip; op packN)</td>
-</tr>
-<tr>
-<td><code>(pack op ...)</code></td>
-<td>(pack1 op ( &hellip; (packN-1 op packN) &hellip; ))</td>
-</tr>
-<tr>
-<td><code>(init op ... op pack)</code></td>
-<td>( &hellip; (((init op pack1) op pack2) op pack3) &hellip; op packN)</td>
-</tr>
-<tr>
-<td><code>(pack op ... op init)</code></td>
-<td>(pack1 op ( &hellip; (packN-1 op (packN op init)) &hellip; ))</td>
-</tr>
-</tbody>
-</table>
-<p>示例：二叉树的遍历</p>
+</div><p>在C++11之后，用<code>{}</code>进行零初始化：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt"> 1
@@ -2012,92 +1950,104 @@ if (!doNotTrack) {
 </span><span class="lnt">24
 </span><span class="lnt">25
 </span><span class="lnt">26
+</span><span class="lnt">27
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">struct</span> <span class="nc">Node</span><span class="p">{</span>
-    <span class="kt">int</span> <span class="n">value</span><span class="p">;</span>
-    <span class="n">Node</span><span class="o">*</span> <span class="n">left</span><span class="p">;</span>
-    <span class="n">Node</span><span class="o">*</span> <span class="n">right</span><span class="p">;</span>
-    <span class="n">Node</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">:</span> <span class="n">value</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="n">left</span><span class="p">(</span><span class="k">nullptr</span><span class="p">),</span> <span class="n">right</span><span class="p">(</span><span class="k">nullptr</span><span class="p">){}</span>
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+<span class="k">class</span> <span class="nc">MyClass</span><span class="p">{</span>
+<span class="k">private</span><span class="o">:</span>
+    <span class="n">T</span> <span class="n">x</span><span class="p">;</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="n">MyClass</span><span class="p">()</span><span class="o">:</span> <span class="n">x</span><span class="p">{}{}</span>
     <span class="p">...</span>
+<span class="p">}</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+<span class="k">class</span> <span class="nc">MyClass</span><span class="p">{</span>
+<span class="k">private</span><span class="o">:</span>
+    <span class="n">T</span> <span class="n">x</span><span class="p">{};</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+<span class="kt">void</span> <span class="n">foo</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">T</span> <span class="n">x</span><span class="p">{};</span>
+<span class="p">}</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+<span class="kt">void</span> <span class="n">foo</span><span class="p">(</span><span class="n">T</span> <span class="n">p</span> <span class="o">=</span> <span class="n">T</span><span class="p">{})</span>
+<span class="p">{</span>
+	<span class="p">...</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="53-using-this-">5.3 Using <code>this-&gt;</code></h2>
+<p>对于带有依赖模板参数基类的类模板，使用自己的<code>x</code>往往与<code>this-&gt;x</code>不同，即使成员<code>x</code>被继承，例如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+<span class="k">class</span> <span class="nc">Base</span><span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="kt">void</span> <span class="n">bar</span><span class="p">();</span>
 <span class="p">};</span>
 
-<span class="k">auto</span> <span class="n">left</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">Node</span><span class="o">::</span><span class="n">left</span><span class="p">;</span>
-<span class="k">auto</span> <span class="n">right</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">Node</span><span class="o">::</span><span class="n">right</span><span class="p">;</span>
-
-<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="k">typename</span><span class="p">...</span> <span class="n">TP</span><span class="o">&gt;</span>
-<span class="n">Node</span><span class="o">*</span> <span class="n">traverse</span><span class="p">(</span><span class="n">T</span> <span class="n">np</span><span class="p">,</span> <span class="n">TP</span><span class="p">...</span> <span class="n">paths</span><span class="p">){</span>
-    <span class="k">return</span> <span class="p">(</span><span class="n">np</span> <span class="o">-&gt;*</span> <span class="p">...</span> <span class="o">-&gt;*</span> <span class="n">paths</span><span class="p">);</span>	<span class="c1">// np -&gt;* paths1 -&gt;* paths2 ...
-</span><span class="c1"></span><span class="p">}</span>
-
-<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+<span class="k">class</span> <span class="nc">Derived</span><span class="o">:</span> <span class="n">Base</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="kt">void</span> <span class="n">foo</span><span class="p">(){</span>
+        <span class="n">bar</span><span class="p">();</span>	<span class="c1">// calls external bar() or error
+</span><span class="c1"></span>    <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这里子类调用<code>bar</code>只会调用外部的或直接出错，正确的做法是使用<code>this-&gt;</code>或<code>Base&lt;T&gt;::</code></p>
+<h2 id="54-templates-for-raw-arrays-and-string-literals">5.4 Templates for Raw Arrays and String Literals</h2>
+<p>当传递原始数组或字符串给模板时，需要注意，当传入参数为引用时，实参不发生退化，也就是说<code>&quot;Hello&quot;</code>的类型即为<code>char const[6]</code>。只有当按值传递时，类型可退化，字符串可以转换为<code>char const*</code>sh</p>
+<p>示例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="kt">int</span> <span class="n">N</span><span class="p">,</span> <span class="kt">int</span> <span class="n">M</span><span class="o">&gt;</span>
+<span class="kt">bool</span> <span class="n">less</span><span class="p">(</span><span class="n">T</span><span class="p">(</span><span class="o">&amp;</span><span class="n">a</span><span class="p">)[</span><span class="n">N</span><span class="p">],</span> <span class="n">T</span><span class="p">(</span><span class="o">&amp;</span><span class="n">b</span><span class="p">)[</span><span class="n">M</span><span class="p">])</span>
 <span class="p">{</span>
-    <span class="n">Node</span><span class="o">*</span> <span class="n">root</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Node</span><span class="p">{</span><span class="mi">0</span><span class="p">};</span>
-    <span class="n">root</span><span class="o">-&gt;</span><span class="n">left</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Node</span><span class="p">{</span><span class="mi">1</span><span class="p">};</span>
-    <span class="n">root</span><span class="o">-&gt;</span><span class="n">left</span><span class="o">-&gt;</span><span class="n">right</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Node</span><span class="p">{</span><span class="mi">2</span><span class="p">};</span>
-    <span class="p">...</span>
-    <span class="c1">// traverse
-</span><span class="c1"></span>    <span class="n">Node</span><span class="o">*</span> <span class="n">node</span> <span class="o">=</span> <span class="n">traverse</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">);</span>
-    <span class="p">...</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">N</span> <span class="o">&amp;&amp;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">M</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">&lt;</span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">&lt;</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">N</span> <span class="o">&lt;</span> <span class="n">M</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
-</div><p>利用折叠表达式进行打印：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="p">..</span> <span class="n">Types</span><span class="o">&gt;</span>
-<span class="kt">void</span> <span class="n">print</span><span class="p">(</span><span class="n">Types</span> <span class="k">const</span><span class="o">&amp;</span><span class="p">...</span> <span class="n">args</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="p">...</span> <span class="o">&lt;&lt;&lt;</span> <span class="n">args</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
-</div>
-</div><h2 id="43-application-of-variadic-templates">4.3 Application of Variadic Templates</h2>
-<ul>
-<li>Passing arguments to the constructor of a new heap object owned by a shared pointer:</li>
-</ul>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">auto</span> <span class="n">sp</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">complex</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;&gt;</span><span class="p">(</span><span class="mf">4.2</span><span class="p">,</span> <span class="mf">7.7</span><span class="p">);</span>
-</code></pre></td></tr></table>
-</div>
-</div><ul>
-<li>Passing arguments to a thread, which is started by the library:</li>
-</ul>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="n">std</span><span class="o">::</span><span class="kr">thread</span> <span class="n">t</span> <span class="p">(</span><span class="n">foo</span><span class="p">,</span> <span class="mi">42</span><span class="p">,</span> <span class="s">&#34;hello&#34;</span><span class="p">);</span>	<span class="c1">// call foo(42, &#34;hello&#34;) in a separate thread
-</span></code></pre></td></tr></table>
-</div>
-</div><ul>
-<li>Passing arguments to the constructor of a new element pushed into a vector:</li>
-</ul>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Customer</span><span class="o">&gt;</span> <span class="n">v</span><span class="p">;</span>
-<span class="p">...</span>
-<span class="n">v</span><span class="p">.</span><span class="n">emplace_back</span><span class="p">(</span><span class="s">&#34;Tim&#34;</span><span class="p">,</span> <span class="s">&#34;Jovi&#34;</span><span class="p">,</span> <span class="mi">1962</span><span class="p">);</span>
-</code></pre></td></tr></table>
-</div>
-</div><p>通常情况下，实参为完美转发的移动语义（perfect forwarded with move semantics），相应的声明如下：</p>
+</div><h2 id="55-member-templates">5.5 Member Templates</h2>
+<p>类成员也可以是模板，主要是对于成员函数和嵌套类，例如：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt"> 1
@@ -2117,30 +2067,103 @@ if (!doNotTrack) {
 </span><span class="lnt">15
 </span><span class="lnt">16
 </span><span class="lnt">17
-</span><span class="lnt">18
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">namespace</span> <span class="n">std</span>
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+<span class="k">class</span> <span class="nc">Stack</span><span class="p">{</span>
+<span class="k">private</span><span class="o">:</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">deque</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">elems</span><span class="p">;</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="kt">void</span> <span class="n">push</span><span class="p">(</span><span class="n">T</span> <span class="k">const</span><span class="o">&amp;</span><span class="p">);</span>
+    <span class="kt">void</span> <span class="nf">pop</span><span class="p">();</span>
+    <span class="n">T</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">top</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
+    <span class="kt">bool</span> <span class="nf">empty</span><span class="p">()</span> <span class="k">const</span><span class="p">{</span>
+        <span class="k">return</span> <span class="n">elems</span><span class="p">.</span><span class="n">empty</span><span class="p">();</span>
+    <span class="p">}</span>
+    
+    <span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T2</span><span class="o">&gt;</span>
+    <span class="n">Stack</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">Stack</span><span class="o">&lt;</span><span class="n">T2</span><span class="o">&gt;</span> <span class="k">const</span><span class="o">&amp;</span><span class="p">);</span>
+    
+    <span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="o">&gt;</span> <span class="k">friend</span> <span class="k">class</span> <span class="nc">Stack</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>上述代码允许我们对不同类型的<code>Stack</code>进行赋值，例如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="n">Stack</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">intStack</span><span class="p">;</span>
+<span class="n">Stack</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span> <span class="n">floatStack</span><span class="p">;</span>
+<span class="n">floatStack</span> <span class="o">=</span> <span class="n">intStack</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>类成员模板的定义与多参数模板的定义有所不同：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+ <span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T2</span><span class="o">&gt;</span>
+<span class="n">Stack</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&amp;</span> <span class="n">Stack</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="k">operator</span><span class="o">=</span> <span class="p">(</span><span class="n">Stack</span><span class="o">&lt;</span><span class="n">T2</span><span class="o">&gt;</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">op2</span><span class="p">)</span>
 <span class="p">{</span>
-    <span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="k">typename</span><span class="p">...</span> <span class="n">Args</span><span class="o">&gt;</span> <span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">make_shared</span><span class="p">(</span><span class="n">Args</span><span class="o">&amp;&amp;</span><span class="p">...</span> <span class="n">args</span><span class="p">);</span>
+    <span class="n">Stack</span><span class="o">&lt;</span><span class="n">T2</span><span class="o">&gt;</span> <span class="n">tmp</span><span class="p">(</span><span class="n">op2</span><span class="p">);</span>
     
-    <span class="k">class</span> <span class="nc">thread</span><span class="p">{</span>
-    <span class="k">public</span><span class="o">:</span>
-        <span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">F</span><span class="p">,</span> <span class="k">typename</span><span class="p">...</span> <span class="n">Args</span><span class="o">&gt;</span>
-        <span class="k">explicit</span> <span class="kr">thread</span><span class="p">(</span><span class="n">F</span><span class="o">&amp;&amp;</span> <span class="n">f</span><span class="p">,</span> <span class="n">Args</span><span class="o">&amp;&amp;</span><span class="p">...</span> <span class="n">args</span><span class="p">);</span>
-        <span class="p">...</span>
-    <span class="p">};</span>
-    
-    <span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="k">typename</span> <span class="n">Allocator</span> <span class="o">=</span> <span class="n">allocator</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;</span>
-    <span class="k">class</span> <span class="nc">vector</span><span class="p">{</span>
-    <span class="k">public</span><span class="o">:</span>
-        <span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="p">...</span> <span class="n">Args</span><span class="o">&gt;</span> <span class="n">reference</span> <span class="n">emplace_back</span><span class="p">(</span><span class="n">Args</span><span class="o">&amp;&amp;</span><span class="p">...</span> <span class="n">args</span><span class="p">);</span>
-        <span class="p">...</span>
-    <span class="p">};</span>
+    <span class="n">elems</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span>
+    <span class="n">elems</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">elems</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span>
+                <span class="n">op2</span><span class="p">.</span><span class="n">elems</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span>
+                <span class="n">op2</span><span class="p">.</span><span class="n">elems</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+    <span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
-</div><p>注意：可变参数模板的传参规则与普通模板的传参规则类似，如果是按值传参，则实参为复制和退化的；若按引用传参，则为原参数的引用且非退化</p>
+</div><p>当然上述实验有一定的局限性，比如不能支持<code>std::string</code>型和<code>int</code>型这种不可转换类型的类的赋值</p>
+<p><strong>Specialization of Member Function Templates</strong></p>
+<p>成员函数模板可被偏特化或全特化，例如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">BoolString</span><span class="p">{</span>
+<span class="k">private</span><span class="o">:</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">value</span><span class="p">;</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="n">BoolString</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">s</span><span class="p">)</span>
+        <span class="o">:</span><span class="n">value</span><span class="p">(</span><span class="n">s</span><span class="p">){}</span>
+    <span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span>
+    <span class="n">T</span> <span class="n">get</span><span class="p">()</span> <span class="k">const</span><span class="p">{</span>
+        <span class="k">return</span> <span class="n">value</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>全特化：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -2149,15 +2172,18 @@ if (!doNotTrack) {
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="c1">// args are copies with decayed types:
-</span><span class="c1"></span><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="p">...</span> <span class="n">Args</span><span class="o">&gt;</span> <span class="kt">void</span> <span class="n">foo</span><span class="p">(</span><span class="n">Args</span><span class="p">...</span> <span class="n">args</span><span class="p">);</span>
-<span class="c1">// args are nondecayed references to passed aobjects:
-</span><span class="c1"></span><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="p">...</span> <span class="n">Args</span><span class="o">&gt;</span> <span class="kt">void</span> <span class="n">bar</span><span class="p">(</span><span class="n">Args</span> <span class="k">const</span><span class="o">&amp;</span><span class="p">...</span> <span class="n">args</span><span class="p">);</span>
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">template</span><span class="o">&lt;&gt;</span>
+<span class="kr">inline</span> <span class="kt">bool</span> <span class="n">BoolString</span><span class="o">::</span><span class="n">get</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span><span class="p">()</span> <span class="k">const</span><span class="p">{</span>
+    <span class="k">return</span> <span class="n">value</span> <span class="o">==</span> <span class="s">&#34;true&#34;</span> <span class="o">||</span> <span class="n">value</span> <span class="o">==</span> <span class="s">&#34;1&#34;</span> <span class="o">||</span> <span class="n">value</span> <span class="o">==</span> <span class="s">&#34;on&#34;</span><span class="p">;</span>
+<span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
-</div><h2 id="44-variadic-class-templates-and-variadic-expressions">4.4 Variadic Class Templates and Variadic Expressions</h2>
-<h3 id="441-variadic-expression">4.4.1 Variadic Expression</h3>
-<p>可变模板参数不禁可以转发全部，还可进行计算，例如：</p>
+</div><p><strong>Special Member Function Templates</strong></p>
+<p>只要特殊函数允许，就可以使用模板成员函数进行对象的复制或移动。同样的，构造函数也可为模板函数。但是注意模板构造函数和模板赋值函数不能替换预定义的构造函数或赋值运算符</p>
+<p>优点：模板构造函数或赋值函数可能比预定义的复制、移动构造函数或赋值运算符更匹配</p>
+<p>缺点：不容易模板化复制/移动构造函数</p>
+<h3 id="551-the-template-construct">5.5.1 The <code>.template</code> Construct</h3>
+<p>有时候在调用成员模板时可能需要显式调用模板参数，这时需要用<code>template</code>关键字来确保<code>&lt;</code>符号为模板参数列表的开始，例如：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -2167,33 +2193,317 @@ if (!doNotTrack) {
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="p">...</span> <span class="n">T</span><span class="o">&gt;</span>
-<span class="kt">void</span> <span class="n">printDoubled</span><span class="p">(</span><span class="n">T</span> <span class="k">const</span><span class="o">&amp;</span><span class="p">...</span> <span class="n">args</span><span class="p">)</span>
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">template</span><span class="o">&lt;</span><span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">N</span><span class="o">&gt;</span>
+<span class="kt">void</span> <span class="n">printBitset</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">bitset</span><span class="o">&lt;</span><span class="n">N</span><span class="o">&gt;</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">bs</span><span class="p">)</span>
 <span class="p">{</span>
-    <span class="n">print</span><span class="p">(</span><span class="n">args</span> <span class="o">+</span> <span class="n">args</span><span class="p">...);</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">bs</span><span class="p">.</span><span class="k">template</span> <span class="n">to_string</span><span class="o">&lt;</span><span class="kt">char</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">char_traits</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">allocator</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;&gt;</span><span class="p">();</span>
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
-</div><p>上述代码将输出每个参数的翻倍</p>
-<p>例如调用：</p>
+</div><h3 id="552-generic-lambdas-and-member-templates">5.5.2 Generic Lambdas and Member Templates</h3>
+<p>C++14之后推出Generic Lambda的概念，它是相应成员模板的简写，例如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="p">[](</span><span class="k">auto</span> <span class="n">x</span><span class="p">,</span> <span class="k">auto</span> <span class="n">y</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>与下述代码作用等同：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">struct</span> <span class="nc">unnamed_lambda</span>
+<span class="p">{</span>
+  <span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="k">typename</span> <span class="n">U</span><span class="o">&gt;</span>
+    <span class="k">auto</span> <span class="k">operator</span><span class="p">()(</span><span class="n">T</span> <span class="n">x</span><span class="p">,</span> <span class="n">U</span> <span class="n">y</span><span class="p">)</span> <span class="k">const</span> <span class="p">{</span><span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">;}</span>
+<span class="p">};</span>
+<span class="k">auto</span> <span class="n">lambda</span> <span class="o">=</span> <span class="n">unnamed_lambda</span><span class="p">();</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="56-variable-templates">5.6 Variable Templates</h2>
+<p>自C++14起，变量也可被模板化，称为变量模板，例如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+<span class="k">constexpr</span> <span class="n">T</span> <span class="n">pi</span><span class="p">{</span><span class="mf">3.1415926535</span><span class="p">};</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>用法：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">pi</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">pi</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>也可以有默认模板参数：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span> <span class="o">=</span> <span class="kt">long</span> <span class="kt">double</span><span class="o">&gt;</span>
+<span class="k">constexpr</span> <span class="n">T</span> <span class="n">pi</span><span class="p">{</span><span class="mf">3.1415926535</span><span class="p">};</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>但是调用时必须带有尖括号：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">pi</span><span class="o">&lt;&gt;</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>		<span class="c1">// OK
+</span><span class="c1"></span><span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">pi</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>	<span class="c1">// OK
+</span><span class="c1"></span><span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">pi</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>		<span class="c1">// ERROR
+</span></code></pre></td></tr></table>
+</div>
+</div><p>变量模板参数也可以为非类型参数，例如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">template</span><span class="o">&lt;</span><span class="n">size_t</span> <span class="n">N</span><span class="o">&gt;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="n">N</span><span class="o">&gt;</span> <span class="n">arr</span><span class="p">{};</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">auto</span> <span class="n">N</span><span class="o">&gt;</span>
+<span class="k">constexpr</span> <span class="k">decltype</span><span class="p">(</span><span class="n">N</span><span class="p">)</span> <span class="n">dval</span> <span class="o">=</span> <span class="n">N</span><span class="p">;</span>	<span class="c1">//dval的类型取决于传入的参数
+</span></code></pre></td></tr></table>
+</div>
+</div><p><strong>Variable Templates for Data Members</strong></p>
+<p>变量模板可以用于表示模板类成员变量，例如有模板类：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+<span class="k">class</span> <span class="nc">MyClass</span><span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="k">static</span> <span class="k">constexpr</span> <span class="kt">int</span> <span class="n">max</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>使用<code>using</code>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+<span class="kt">int</span> <span class="n">myMax</span> <span class="o">=</span> <span class="n">MyClass</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">max</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>使用时，则可以用：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="n">printDoubled</span><span class="p">(</span><span class="mf">7.5</span><span class="p">,</span><span class="n">std</span><span class="o">::</span><span class="n">complex</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="s">&#34;hello&#34;</span><span class="p">));</span>
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">auto</span> <span class="n">i</span> <span class="o">=</span> <span class="n">myMax</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span><span class="p">;</span>
 </code></pre></td></tr></table>
 </div>
-</div><p>将等同于调用：</p>
+</div><p>效果等同于：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="n">print</span><span class="p">(</span><span class="mf">7.5</span> <span class="o">+</span> <span class="mf">7.5</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">complex</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">std</span><span class="o">::</span><span class="n">complex</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="s">&#34;hello&#34;</span><span class="p">)</span> <span class="o">+</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="s">&#34;hello&#34;</span><span class="p">));</span>
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">auto</span> <span class="n">i</span> <span class="o">=</span> <span class="n">MyClass</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;::</span><span class="n">max</span><span class="p">;</span>
 </code></pre></td></tr></table>
 </div>
-</div><p>对每个参数加1：</p>
+</div><p><strong>Type Traits Suffix_v</strong></p>
+<p>自C++17起，可以使用<code>_v</code>后缀的简写</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="n">std</span><span class="o">::</span><span class="n">is_const_v</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">;</span>	<span class="c1">// C++17
+</span><span class="c1"></span><span class="n">std</span><span class="o">::</span><span class="n">is_const</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">;</span><span class="c1">// C++11
+</span></code></pre></td></tr></table>
+</div>
+</div><p>标准库中定义了：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">namespace</span> <span class="n">std</span><span class="p">{</span>
+    <span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span> <span class="k">constexpr</span> <span class="kt">bool</span> <span class="n">is_const_v</span> <span class="o">=</span> <span class="n">is_const</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="57-template-template-parameters">5.7 Template Template Parameters</h2>
+<p>此前讨论的<code>Stack</code>类如要指明存储的容器类型，可以使用</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="n">StacK</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">vStack</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>若使用模板的模板参数，允许如下定义：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="n">StacK</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&gt;</span> <span class="n">vStack</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>模板的模板参数声明：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">Elem</span><span class="o">&gt;</span> <span class="k">class</span> <span class="nc">Cont</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">deque</span><span class="o">&gt;</span>
+<span class="k">class</span> <span class="nc">Stack</span><span class="p">{</span>
+<span class="k">private</span><span class="o">:</span>
+    <span class="n">Cont</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">elems</span><span class="p">;</span>
+    
+<span class="k">public</span><span class="o">:</span>
+    <span class="kt">void</span> <span class="n">push</span><span class="p">(</span><span class="n">T</span> <span class="k">const</span><span class="o">&amp;</span><span class="p">);</span>
+    <span class="kt">void</span> <span class="nf">pop</span><span class="p">();</span>
+    <span class="n">T</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">top</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
+    <span class="kt">bool</span> <span class="nf">empty</span><span class="p">()</span> <span class="k">const</span><span class="p">{</span>
+        <span class="k">return</span> <span class="n">elems</span><span class="p">.</span><span class="n">empty</span><span class="p">();</span>
+    <span class="p">}</span>
+    <span class="p">...</span>
+<span class="p">};</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>C++11之前，声明只能使用<code>class</code>关键字：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">Elem</span><span class="o">&gt;</span> <span class="k">class</span> <span class="nc">Cont</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">deque</span><span class="o">&gt;</span>
+<span class="k">class</span> <span class="nc">Stack</span><span class="p">{</span>
+    <span class="p">...</span>
+<span class="p">};</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>到C++17之后才支持<code>typename</code>关键字</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">Elem</span><span class="o">&gt;</span> <span class="k">class</span> <span class="nc">Cont</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">deque</span><span class="o">&gt;</span>
+<span class="k">class</span> <span class="nc">Stack</span><span class="p">{</span>
+    <span class="p">...</span>
+<span class="p">};</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>同时也可以省略地写为：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="o">&gt;</span> <span class="k">class</span> <span class="nc">Cont</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">deque</span><span class="o">&gt;</span>
+<span class="k">class</span> <span class="nc">Stack</span><span class="p">{</span>
+    <span class="p">...</span>
+<span class="p">};</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>同样地，在实现上也应标明是模板的模板参数：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="o">&gt;</span> <span class="k">class</span> <span class="nc">Cont</span><span class="o">&gt;</span>
+<span class="kt">void</span> <span class="n">Stack</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Cont</span><span class="o">&gt;::</span><span class="n">push</span><span class="p">(</span><span class="n">T</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">elem</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">elems</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">elem</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>Template Template Argument Matching</strong></p>
+<p>但是事实上，上述的代码会报一个模板列表不匹配的错误，这是由于在声明模板的模板参数时，模板参数列表必须与默认的模板函数的参数列表一模一样，标准库中<code>deque</code>的声明应为：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">_Ty</span><span class="p">,</span> <span class="k">class</span> <span class="nc">_Alloc</span> <span class="o">=</span> <span class="n">allocator</span><span class="o">&lt;</span><span class="n">_Ty</span><span class="o">&gt;&gt;</span>
+<span class="k">class</span> <span class="nc">deque</span> <span class="p">{</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>因此原类模板应改写为：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -2203,172 +2513,20 @@ if (!doNotTrack) {
 </span><span class="lnt">5
 </span><span class="lnt">6
 </span><span class="lnt">7
+</span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="p">...</span> <span class="n">T</span><span class="o">&gt;</span>
-<span class="kt">void</span> <span class="n">addOne</span><span class="p">(</span><span class="n">T</span> <span class="k">const</span><span class="o">&amp;</span><span class="p">...</span> <span class="n">args</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="n">print</span><span class="p">(</span><span class="n">arg</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">...);</span>
-    <span class="c1">// or
-</span><span class="c1"></span>    <span class="n">print</span><span class="p">((</span><span class="n">arg</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)...);</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
-</div>
-</div><p>编译期检查所有类型是否一致：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T1</span><span class="p">,</span> <span class="k">typename</span><span class="p">...</span> <span class="n">TN</span><span class="o">&gt;</span>
-<span class="k">constexpr</span> <span class="kt">bool</span> <span class="n">isHomogenous</span><span class="p">(</span><span class="n">T1</span><span class="p">,</span> <span class="n">TN</span><span class="p">...)</span>
-<span class="p">{</span>
-    <span class="k">return</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_same</span><span class="o">&lt;</span><span class="n">T1</span><span class="p">,</span><span class="n">TN</span><span class="o">&gt;::</span><span class="n">value</span> <span class="o">&amp;&amp;</span> <span class="p">...);</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
-</div>
-</div><h3 id="442-variadic-indices">4.4.2 Variadic Indices</h3>
-<p>可以利用可变索引列表来访问相应的元素，例如：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">C</span><span class="p">,</span> <span class="k">typename</span><span class="p">...</span> <span class="n">Idx</span><span class="o">&gt;</span>
-<span class="kt">void</span> <span class="n">printElems</span><span class="p">(</span><span class="n">C</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">coll</span><span class="p">,</span> <span class="n">Idx</span><span class="p">...</span> <span class="n">idx</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="n">print</span><span class="p">(</span><span class="n">coll</span><span class="p">[</span><span class="n">idx</span><span class="p">]...);</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
-</div>
-</div><p>当调用</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">coll</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#34;good&#34;</span><span class="p">,</span> <span class="s">&#34;times&#34;</span><span class="p">,</span> <span class="s">&#34;say&#34;</span><span class="p">,</span> <span class="s">&#34;bye&#34;</span><span class="p">};</span>
-<span class="n">printElems</span><span class="p">(</span><span class="n">coll</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
-</code></pre></td></tr></table>
-</div>
-</div><p>其效果等同于：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="n">print</span><span class="p">(</span><span class="n">coll</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">coll</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">coll</span><span class="p">[</span><span class="mi">3</span><span class="p">]);</span>
-</code></pre></td></tr></table>
-</div>
-</div><h3 id="443-variadic-class-templates">4.4.3 Variadic Class Templates</h3>
-<p>可变模板也可以为类模板</p>
-<p>类中任意数量的模板参数指定了相应成员的类型，例如：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="p">...</span> <span class="n">Elements</span><span class="o">&gt;</span>
-<span class="k">class</span> <span class="nc">Tuple</span><span class="p">;</span>
-
-<span class="n">Tuple</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">,</span> <span class="kt">char</span><span class="o">&gt;</span> <span class="n">t</span><span class="p">;</span>	<span class="c1">// t can hold integer, string and character
-</span></code></pre></td></tr></table>
-</div>
-</div><p>指定可能的成员类型，如：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="p">...</span> <span class="n">Types</span><span class="o">&gt;</span>
-<span class="k">class</span> <span class="nc">Variant</span><span class="p">;</span>
-
-<span class="n">Variant</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">,</span> <span class="kt">char</span><span class="o">&gt;</span> <span class="n">v</span><span class="p">;</span>	<span class="c1">// v can hold integer, string or character
-</span></code></pre></td></tr></table>
-</div>
-</div><p>同时也可以定义可变非类型模板参数，例如</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">template</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span><span class="p">...</span><span class="o">&gt;</span>
-<span class="k">struct</span> <span class="nc">Indices</span><span class="p">{</span>
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> 
+    <span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">Elem</span><span class="p">,</span> <span class="k">typename</span> <span class="n">Alloc</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">allocator</span><span class="o">&lt;</span><span class="n">Elem</span><span class="o">&gt;</span>
+    <span class="k">class</span> <span class="nc">Cont</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">deque</span><span class="o">&gt;</span>
+<span class="k">class</span> <span class="nc">Stack</span><span class="p">{</span>
+<span class="k">private</span><span class="o">:</span>
+    <span class="n">Cont</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">elems</span><span class="p">;</span>
+    <span class="p">...</span>
 <span class="p">};</span>
 </code></pre></td></tr></table>
 </div>
-</div><p>这种方法可用于打印数组给定索引的元素：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span><span class="p">...</span> <span class="n">Idx</span><span class="o">&gt;</span>
-<span class="kt">void</span> <span class="n">printByIdx</span><span class="p">(</span><span class="n">T</span> <span class="n">t</span><span class="p">,</span> <span class="n">Indices</span><span class="o">&lt;</span><span class="n">Idx</span><span class="p">...</span><span class="o">&gt;</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="n">print</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">get</span><span class="o">&lt;</span><span class="n">Idx</span><span class="o">&gt;</span><span class="p">(</span><span class="n">t</span><span class="p">)...);</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
-</div>
-</div><p>使用方法：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">,</span> <span class="mi">5</span><span class="o">&gt;</span> <span class="n">arr</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#34;Hello&#34;</span><span class="p">,</span> <span class="s">&#34;my&#34;</span><span class="p">,</span> <span class="s">&#34;new&#34;</span><span class="p">,</span> <span class="s">&#34;!&#34;</span><span class="p">,</span> <span class="s">&#34;World&#34;</span><span class="p">};</span>
-<span class="n">printByIdx</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">Indices</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="o">&gt;</span><span class="p">());</span>
-</code></pre></td></tr></table>
-</div>
-</div><h3 id="444-variadic-deduction-guide">4.4.4 Variadic Deduction Guide</h3>
-<p>推导引导也可为可变模板，例如C++标准库中的<code>std::array</code>初始化：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">namespace</span> <span class="n">std</span><span class="p">{</span>
-    <span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="k">typename</span><span class="p">...</span> <span class="n">U</span><span class="o">&gt;</span>
-    <span class="n">array</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">U</span><span class="p">...)</span> <span class="o">-&gt;</span> <span class="n">array</span><span class="o">&lt;</span><span class="n">enable_if_t</span><span class="o">&lt;</span><span class="p">(</span><span class="n">is_same_v</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">U</span><span class="o">&gt;</span> <span class="o">&amp;&amp;</span> <span class="p">...),</span> <span class="n">T</span><span class="o">&gt;</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="k">sizeof</span><span class="p">...(</span><span class="n">U</span><span class="p">))</span><span class="o">&gt;</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
-</div>
-</div><p>初始化：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="n">std</span><span class="o">::</span><span class="n">array</span> <span class="n">a</span><span class="p">{</span><span class="mi">42</span><span class="p">,</span> <span class="mi">45</span><span class="p">,</span> <span class="mi">77</span><span class="p">};</span>
-</code></pre></td></tr></table>
-</div>
-</div><h3 id="445-variadic-base-classes-and-using">4.4.5 Variadic Base Classes and <code>using</code></h3>
-<p>一段例程：</p>
+</div><p>完整的模板类<code>Stack</code>声明与定义如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt"> 1
@@ -2409,55 +2567,88 @@ if (!doNotTrack) {
 </span><span class="lnt">36
 </span><span class="lnt">37
 </span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="cp">#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp">
-</span><span class="cp">#include</span> <span class="cpf">&lt;unordered_set&gt;</span><span class="cp">
-</span><span class="cp"></span>
-<span class="k">class</span> <span class="nc">Customer</span>
-<span class="p">{</span>
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> 
+    <span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">Elem</span><span class="p">,</span> <span class="k">typename</span> <span class="n">Alloc</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">allocator</span><span class="o">&lt;</span><span class="n">Elem</span><span class="o">&gt;</span>
+    <span class="k">class</span> <span class="nc">Cont</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">deque</span><span class="o">&gt;</span>
+<span class="k">class</span> <span class="nc">Stack</span><span class="p">{</span>
 <span class="k">private</span><span class="o">:</span>
-    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">name</span><span class="p">;</span>
-<span class="k">public</span><span class="o">:</span>
-    <span class="n">Customer</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">n</span><span class="p">)</span><span class="o">:</span> <span class="n">name</span><span class="p">(</span><span class="n">n</span><span class="p">){</span> <span class="p">}</span>
-    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">getName</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="n">name</span><span class="p">;</span> <span class="p">}</span>
-<span class="p">};</span>
-
-<span class="k">struct</span> <span class="nc">CustomerEq</span><span class="p">{</span>
-    <span class="kt">bool</span> <span class="nf">operator</span><span class="p">()</span> <span class="p">(</span><span class="n">Customer</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">c1</span><span class="p">,</span> <span class="n">Customer</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">c2</span><span class="p">)</span> <span class="k">const</span><span class="p">{</span>
-        <span class="k">return</span> <span class="n">c1</span><span class="p">.</span><span class="n">getName</span><span class="p">()</span> <span class="o">==</span> <span class="n">c2</span><span class="p">.</span><span class="n">getName</span><span class="p">();</span>
-    <span class="p">}</span>
-<span class="p">};</span>
-
-<span class="k">struct</span> <span class="nc">CustomerHash</span><span class="p">{</span>
-    <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="k">operator</span><span class="p">()</span> <span class="p">(</span><span class="n">Customer</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">c</span><span class="p">)</span> <span class="k">const</span><span class="p">{</span>
-        <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">hash</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span><span class="p">()(</span><span class="n">c</span><span class="p">.</span><span class="n">getName</span><span class="p">());</span>
-    <span class="p">}</span>
-<span class="p">};</span>
-
-<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="p">...</span> <span class="n">Bases</span><span class="o">&gt;</span>
-<span class="k">struct</span> <span class="nc">Overloader</span><span class="o">:</span> <span class="n">Bases</span><span class="p">...</span>
-<span class="p">{</span>
-    <span class="k">using</span> <span class="n">Bases</span><span class="o">::</span><span class="k">operator</span><span class="p">()...;</span>
-<span class="p">};</span>
-
-<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
-<span class="p">{</span>
-    <span class="k">using</span> <span class="n">CustomerOP</span> <span class="o">=</span> <span class="n">Overloader</span><span class="o">&lt;</span><span class="n">CustomerEq</span><span class="p">,</span> <span class="n">CustomerHash</span><span class="o">&gt;</span><span class="p">;</span>
+    <span class="n">Cont</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">elems</span><span class="p">;</span>
     
-    <span class="n">std</span><span class="o">::</span><span class="n">unordered_set</span><span class="o">&lt;</span><span class="n">Customer</span><span class="p">,</span> <span class="n">CustomerHash</span><span class="p">,</span> <span class="n">CustomerEq</span><span class="o">&gt;</span> <span class="n">coll1</span><span class="p">;</span>
-    <span class="n">std</span><span class="o">::</span><span class="n">unordered_set</span><span class="o">&lt;</span><span class="n">Customer</span><span class="p">,</span> <span class="n">CustomerOP</span><span class="p">,</span> <span class="n">CustomerOP</span><span class="o">&gt;</span> <span class="n">coll2</span><span class="p">;</span>
-    <span class="p">...</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="kt">void</span> <span class="n">push</span><span class="p">(</span><span class="n">T</span> <span class="k">const</span><span class="o">&amp;</span><span class="p">);</span>
+    <span class="kt">void</span> <span class="nf">pop</span><span class="p">();</span>
+    <span class="n">T</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">top</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
+    <span class="kt">bool</span> <span class="nf">empty</span><span class="p">()</span> <span class="k">const</span><span class="p">{</span>
+        <span class="k">return</span> <span class="n">elems</span><span class="p">.</span><span class="n">empty</span><span class="p">();</span>
+    <span class="p">}</span>
+
+
+    <span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T2</span><span class="p">,</span> <span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">Elem2</span><span class="p">,</span> <span class="k">typename</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">allocator</span><span class="o">&lt;</span><span class="n">Elem2</span><span class="o">&gt;</span> <span class="k">class</span> <span class="nc">Cont2</span><span class="o">&gt;</span>
+    <span class="n">Stack</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Cont</span><span class="o">&gt;&amp;</span> <span class="k">operator</span><span class="o">=</span> <span class="p">(</span><span class="n">Stack</span><span class="o">&lt;</span><span class="n">T2</span><span class="p">,</span> <span class="n">Cont2</span><span class="o">&gt;</span> <span class="k">const</span><span class="o">&amp;</span><span class="p">);</span>
+    <span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="p">,</span><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="p">,</span> <span class="k">typename</span><span class="o">&gt;</span><span class="k">class</span><span class="o">&gt;</span>
+    <span class="k">friend</span> <span class="k">class</span> <span class="nc">Stack</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="p">,</span> <span class="k">typename</span><span class="o">&gt;</span> <span class="k">class</span> <span class="nc">Cont</span><span class="o">&gt;</span>
+<span class="kt">void</span> <span class="n">Stack</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Cont</span><span class="o">&gt;::</span><span class="n">push</span><span class="p">(</span><span class="n">T</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">elem</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">elems</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">elem</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="p">,</span> <span class="k">typename</span><span class="o">&gt;</span> <span class="k">class</span> <span class="nc">Cont</span><span class="o">&gt;</span>
+<span class="kt">void</span> <span class="n">Stack</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Cont</span><span class="o">&gt;::</span><span class="n">pop</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">assert</span><span class="p">(</span><span class="o">!</span><span class="n">elems</span><span class="p">.</span><span class="n">empty</span><span class="p">());</span>
+    <span class="n">elems</span><span class="p">.</span><span class="n">pop_back</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="p">,</span> <span class="k">typename</span><span class="o">&gt;</span> <span class="k">class</span> <span class="nc">Cont</span><span class="o">&gt;</span>
+<span class="n">T</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">Stack</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Cont</span><span class="o">&gt;::</span><span class="n">top</span><span class="p">()</span> <span class="k">const</span>
+<span class="p">{</span>
+    <span class="n">assert</span><span class="p">(</span><span class="o">!</span><span class="n">elems</span><span class="p">.</span><span class="n">empty</span><span class="p">());</span>
+    <span class="k">return</span> <span class="n">elems</span><span class="p">.</span><span class="n">back</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="p">,</span> <span class="k">typename</span><span class="o">&gt;</span> <span class="k">class</span> <span class="nc">Cont</span><span class="o">&gt;</span>
+    <span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T2</span><span class="p">,</span> <span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="p">,</span> <span class="k">typename</span><span class="o">&gt;</span> <span class="k">class</span> <span class="nc">Cont2</span><span class="o">&gt;</span>
+<span class="n">Stack</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Cont</span><span class="o">&gt;&amp;</span> <span class="n">Stack</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Cont</span><span class="o">&gt;::</span><span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">Stack</span><span class="o">&lt;</span><span class="n">T2</span><span class="p">,</span><span class="n">Cont2</span><span class="o">&gt;</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">op2</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">elems</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span>
+    <span class="n">elems</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">elems</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span>
+                <span class="n">op2</span><span class="p">.</span><span class="n">elems</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span>
+                <span class="n">op2</span><span class="p">.</span><span class="n">elems</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+    <span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
-</div><p>在派生类<code>CustomerOP</code>中，拥有两种运算符<code>()</code>的重载方式</p>
-<h2 id="45-summary">4.5 Summary</h2>
+</div><h2 id="58-summary">5.8 Summary</h2>
 <ul>
-<li>By using parameter packs, templates can be defined for an arbitrary number of template parameters of arbitrary type</li>
-<li>To process the parameters, you need recursion and/or a matching nonvariadic function</li>
-<li>Operator sizeof… yields the number of arguments provided for a parameter pack. • A typical application of variadic templates is forwarding an arbitrary number of arguments of arbitrary type</li>
-<li>By using fold expressions, you can apply operators to all arguments of a parameter pack</li>
+<li>To access a type name that depends on a template parameter, you have to qualify the name with a leading <code>typename</code></li>
+<li>To access members of bases classes that depend on template parameters, you have to qualify the access by <code>this-&gt;</code> or their class name</li>
+<li>Nested classes and member functions can also be templates. One application is the ability to implement generic operations with internal type conversions</li>
+<li>Template versions of constructors or assignment operators don’t replace predefined constructors or assignment operators</li>
+<li>By using braced initialization or explicitly calling a default constructor, you can ensure that variables and members of templates are initialized with a default value even if they are instantiated with a built-in type</li>
+<li>You can provide specific templates for raw arrays, which can also be applicable to string literals</li>
+<li>When passing raw arrays or string literals, arguments decay (perform an array-to-pointer conversion) during argument deduction if and only if the parameter is not a reference</li>
+<li>You can define variable templates (since C++14)</li>
+<li>You can also use class templates as template parameters, as template template parameters</li>
+<li>Template template arguments must usually match their parameters exactly.</li>
 </ul>
 
     </article>
@@ -2658,7 +2849,7 @@ if (!doNotTrack) {
     
     
       
-        <a href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fchaphlagical.github.io%2fzh%2fnote%2fcpptemplate%2fch4%2f" title="Facebook" aria-label="Facebook Share Button" class="donation__item" target="_blank" rel="noreferrer" data-type="share">
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fchaphlagical.github.io%2fzh%2fnote%2fcpptemplate%2fch5%2f" title="Facebook" aria-label="Facebook Share Button" class="donation__item" target="_blank" rel="noreferrer" data-type="share">
           <svg data-name="facebook" enable-background="new 0 0 24 24" viewBox="0 0 24 24" width="35" height="35" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="m15.997 3.985h2.191v-3.816c-.378-.052-1.678-.169-3.192-.169-3.159 0-5.323 1.987-5.323 5.639v3.361h-3.486v4.266h3.486v10.734h4.274v-10.733h3.345l.531-4.266h-3.877v-2.939c.001-1.233.333-2.077 2.051-2.077z"/></svg>
         </a>
       
@@ -2848,15 +3039,15 @@ if (!doNotTrack) {
         </li>
         
         <li>
+          <a href="/zh/note/cpptemplate/ch4/" class="related__link">Chapter 4: Variadic Templates</a>
+        </li>
+        
+        <li>
           <a href="/zh/note/cpptemplate/ch2/" class="related__link">Chapter 2: Class Templates</a>
         </li>
         
         <li>
           <a href="/zh/note/cpptemplate/ch1/" class="related__link">Chapter 1: Function Templates</a>
-        </li>
-        
-        <li>
-          <a href="/zh/posts/2020-11-15-c&#43;&#43;%E7%B1%BB%E7%9A%84%E5%86%85%E5%AD%98%E5%88%86%E5%B8%83/" class="related__link">2020-11-15-C&#43;&#43;类的内存分布</a>
         </li>
         
     </ul>
@@ -2866,21 +3057,14 @@ if (!doNotTrack) {
 <nav class="pagination-single">
   
     
-      <a href="https://chaphlagical.github.io/zh/note/cpptemplate/ch2/" class="pagination-single__left">
+      <a href="https://chaphlagical.github.io/zh/note/cpptemplate/concepts/" class="pagination-single__left">
         <div class="pagination-single__icon">
           <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path fill="currentColor" d="M19 11H7.83l4.88-4.88c.39-.39.39-1.03 0-1.42-.39-.39-1.02-.39-1.41 0l-6.59 6.59c-.39.39-.39 1.02 0 1.41l6.59 6.59c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41L7.83 13H19c.55 0 1-.45 1-1s-.45-1-1-1z"/></svg>
         </div>
-        <div class="pagination-single__left-title">Chapter 2: Class Templates</div>      
+        <div class="pagination-single__left-title">Appendix E: Concepts</div>      
       </a>
     
     <div class="grow"></div>
-    
-      <a href="https://chaphlagical.github.io/zh/note/cpptemplate/ch3/" class="pagination-single__right">      
-        <div class="pagination-single__right-title">Chapter 3: Nontype Template Parameters</div>
-        <div class="pagination-single__icon">
-          <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path fill="currentColor" d="M5 13h11.17l-4.88 4.88c-.39.39-.39 1.03 0 1.42.39.39 1.02.39 1.41 0l6.59-6.59c.39-.39.39-1.02 0-1.41l-6.58-6.6c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41L16.17 11H5c-.55 0-1 .45-1 1s.45 1 1 1z"/></svg>
-        </div>
-      </a>
     
   
 </nav>
@@ -3802,7 +3986,7 @@ document.addEventListener('DOMContentLoaded', function () {
         
           
             
-              <a href="https://chaphlagical.github.io/zh/note/cpptemplate/ch4/" data-lang="zh" class="dropdown-item is-active">简体中文</a>
+              <a href="https://chaphlagical.github.io/zh/note/cpptemplate/ch5/" data-lang="zh" class="dropdown-item is-active">简体中文</a>
             
           
         
@@ -4006,25 +4190,19 @@ document.addEventListener('DOMContentLoaded', function () {
         <div class="toc toc__outer " data-dir="ltr" data-folding="true" data-ani="true">
           <nav id="TableOfContents">
   <ul>
-    <li><a href="#41-variadic-templates">4.1 Variadic Templates</a>
+    <li><a href="#51-keyword-typename">5.1 Keyword <code>typename</code></a></li>
+    <li><a href="#52-zero-initialization">5.2 Zero Initialization</a></li>
+    <li><a href="#53-using-this-">5.3 Using <code>this-&gt;</code></a></li>
+    <li><a href="#54-templates-for-raw-arrays-and-string-literals">5.4 Templates for Raw Arrays and String Literals</a></li>
+    <li><a href="#55-member-templates">5.5 Member Templates</a>
       <ul>
-        <li><a href="#411-variadic-templates-by-example">4.1.1 Variadic Templates by Example</a></li>
-        <li><a href="#412-overloading-variadic-and-nonvariadic-templates">4.1.2 Overloading Variadic and Nonvariadic Templates</a></li>
-        <li><a href="#413-operator-sizeof">4.1.3 Operator <code>sizeof...</code></a></li>
+        <li><a href="#551-the-template-construct">5.5.1 The <code>.template</code> Construct</a></li>
+        <li><a href="#552-generic-lambdas-and-member-templates">5.5.2 Generic Lambdas and Member Templates</a></li>
       </ul>
     </li>
-    <li><a href="#42-fold-expressions">4.2 Fold Expressions</a></li>
-    <li><a href="#43-application-of-variadic-templates">4.3 Application of Variadic Templates</a></li>
-    <li><a href="#44-variadic-class-templates-and-variadic-expressions">4.4 Variadic Class Templates and Variadic Expressions</a>
-      <ul>
-        <li><a href="#441-variadic-expression">4.4.1 Variadic Expression</a></li>
-        <li><a href="#442-variadic-indices">4.4.2 Variadic Indices</a></li>
-        <li><a href="#443-variadic-class-templates">4.4.3 Variadic Class Templates</a></li>
-        <li><a href="#444-variadic-deduction-guide">4.4.4 Variadic Deduction Guide</a></li>
-        <li><a href="#445-variadic-base-classes-and-using">4.4.5 Variadic Base Classes and <code>using</code></a></li>
-      </ul>
-    </li>
-    <li><a href="#45-summary">4.5 Summary</a></li>
+    <li><a href="#56-variable-templates">5.6 Variable Templates</a></li>
+    <li><a href="#57-template-template-parameters">5.7 Template Template Parameters</a></li>
+    <li><a href="#58-summary">5.8 Summary</a></li>
   </ul>
 </nav>
         </div>
