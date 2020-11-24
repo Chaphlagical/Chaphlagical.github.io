@@ -23,6 +23,74 @@
 
       
       <item>
+        <title>Appendix B: Value Categories</title>
+        <link>https://chaphlagical.github.io/zh/note/cpptemplate/appendixb/</link>
+        <pubDate>Tue, 24 Nov 2020 15:56:11 +0100</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        <atom:modified>Tue, 24 Nov 2020 15:56:11 +0100</atom:modified>
+        <guid>https://chaphlagical.github.io/zh/note/cpptemplate/appendixb/</guid>
+        <description>B.1 Traditional Lvalues and Rvalues 传统意义上值分为两种：左值和右值 左值是指代存储于内存或寄存器的实际的值的表达式，比如左值x的x是一个变量的名字 左值是可修改的，允许</description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>C&#43;&#43; Templates</category>
+            
+          
+            
+              <category>C&#43;&#43;</category>
+            
+          
+        
+        
+          
+            
+              <category>Note</category>
+            
+          
+        
+        
+      </item>
+      
+      <item>
+        <title>Chapter 6: Move Semantics and enable_if&lt;&gt;</title>
+        <link>https://chaphlagical.github.io/zh/note/cpptemplate/ch6/</link>
+        <pubDate>Mon, 23 Nov 2020 15:56:11 +0100</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        <atom:modified>Mon, 23 Nov 2020 15:56:11 +0100</atom:modified>
+        <guid>https://chaphlagical.github.io/zh/note/cpptemplate/ch6/</guid>
+        <description>移动语义是C++11标准中的一个重要特性，通过移动语义能够优化复制和构造操作，使内容从原对象移动到目标对象，而不是直接复制 6.1 Perfect Forwarding 假设现在需要</description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>C&#43;&#43; Templates</category>
+            
+          
+            
+              <category>C&#43;&#43;</category>
+            
+          
+        
+        
+          
+            
+              <category>Note</category>
+            
+          
+        
+        
+      </item>
+      
+      <item>
         <title>Chapter 5: Tricky Basics</title>
         <link>https://chaphlagical.github.io/zh/note/cpptemplate/ch5/</link>
         <pubDate>Fri, 20 Nov 2020 15:56:11 +0100</pubDate>
@@ -58,11 +126,11 @@
       
       <item>
         <title>Appendix E: Concepts</title>
-        <link>https://chaphlagical.github.io/zh/note/cpptemplate/concepts/</link>
+        <link>https://chaphlagical.github.io/zh/note/cpptemplate/appendixe/</link>
         <pubDate>Thu, 19 Nov 2020 15:56:11 +0100</pubDate>
         <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
         <atom:modified>Thu, 19 Nov 2020 15:56:11 +0100</atom:modified>
-        <guid>https://chaphlagical.github.io/zh/note/cpptemplate/concepts/</guid>
+        <guid>https://chaphlagical.github.io/zh/note/cpptemplate/appendixe/</guid>
         <description>E.1 Using Concepts E.1.1 Dealing with Requirements 为模板函数添加约束： 1 2 3 4 5 template&amp;lt;typename T&amp;gt; requires LessThanComparable&amp;lt;T&amp;gt; T max(T a, T b) { return b &amp;lt; a? a: b; } concept是一个常量表达式的布尔断言，在编译期运行 模板只有</description>
         
         <dc:creator>Wenbo Chen</dc:creator>
@@ -195,9 +263,9 @@
       <item>
         <title>Chapter 1: Function Templates</title>
         <link>https://chaphlagical.github.io/zh/note/cpptemplate/ch1/</link>
-        <pubDate>Thu, 15 Oct 2020 15:56:11 +0100</pubDate>
+        <pubDate>Sun, 15 Nov 2020 15:56:11 +0100</pubDate>
         <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
-        <atom:modified>Thu, 15 Oct 2020 15:56:11 +0100</atom:modified>
+        <atom:modified>Sun, 15 Nov 2020 15:56:11 +0100</atom:modified>
         <guid>https://chaphlagical.github.io/zh/note/cpptemplate/ch1/</guid>
         <description>1.1 A First Look at Function Templates 1.1.1 Defining The Templates 模板声明为： 1 template&amp;lt;形参列表&amp;gt; 例如： 1 2 3 4 5 6 // max1.hpp template&amp;lt;typename T&amp;gt; T max(T a, T b) { return b &amp;lt; a ? a : b; } 也可以用</description>
         
