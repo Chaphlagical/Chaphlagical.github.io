@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" 
+  xmlns:content="http://purl.org/rss/1.0/modules/content/" 
+  xmlns:dc="http://purl.org/dc/elements/1.1/" 
+  xmlns:atom="http://www.w3.org/2005/Atom" 
+  xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" 
+  xmlns:media="http://search.yahoo.com/mrss/">
+  <channel>
+    <title>Thoth on Chaf&#39;s Blog</title>
+    <link>https://chaphlagical.github.io/zh/tags/thoth/</link>
+    <description>Recent content in Thoth on Chaf&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <managingEditor>chaf@mail.ustc.edu.cn (Wenbo Chen)</managingEditor>
+    <webMaster>chaf@mail.ustc.edu.cn (Wenbo Chen)</webMaster>
+    <copyright>&amp;copy;{year}, All Rights Reserved</copyright>
+    <lastBuildDate>Wed, 25 Nov 2020 08:47:11 +0100</lastBuildDate>
+    
+        <atom:link href="https://chaphlagical.github.io/zh/tags/thoth/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    
+
+      
+      <item>
+        <title>Thoth引擎开发(1) | 规划</title>
+        <link>https://chaphlagical.github.io/zh/posts/2020-11-25-thoth1/</link>
+        <pubDate>Wed, 25 Nov 2020 08:47:11 +0100</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        <atom:modified>Wed, 25 Nov 2020 08:47:11 +0100</atom:modified>
+        <guid>https://chaphlagical.github.io/zh/posts/2020-11-25-thoth1/</guid>
+        <description>前言 作为一个未来走图形学方向的大四保研生，已掌握基础的计算机图形学原理和方法，怎么能不手写一个引擎呢?🐶 那么，这个引擎，它能做什么？说到图形</description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>CG</category>
+            
+          
+            
+              <category>Thoth</category>
+            
+          
+        
+        
+        
+      </item>
+      
+
+    
+  </channel>
+</rss>

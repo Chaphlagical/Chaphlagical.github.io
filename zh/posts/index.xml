@@ -14,13 +14,41 @@
     <managingEditor>chaf@mail.ustc.edu.cn (Wenbo Chen)</managingEditor>
     <webMaster>chaf@mail.ustc.edu.cn (Wenbo Chen)</webMaster>
     <copyright>&amp;copy;{year}, All Rights Reserved</copyright>
-    <lastBuildDate>Mon, 16 Nov 2020 08:47:11 +0100</lastBuildDate>
+    <lastBuildDate>Wed, 25 Nov 2020 08:47:11 +0100</lastBuildDate>
     
         <atom:link href="https://chaphlagical.github.io/zh/posts/index.xml" rel="self" type="application/rss+xml" />
     
     
     
 
+      
+      <item>
+        <title>Thoth引擎开发(1) | 规划</title>
+        <link>https://chaphlagical.github.io/zh/posts/2020-11-25-thoth1/</link>
+        <pubDate>Wed, 25 Nov 2020 08:47:11 +0100</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        <atom:modified>Wed, 25 Nov 2020 08:47:11 +0100</atom:modified>
+        <guid>https://chaphlagical.github.io/zh/posts/2020-11-25-thoth1/</guid>
+        <description>前言 作为一个未来走图形学方向的大四保研生，已掌握基础的计算机图形学原理和方法，怎么能不手写一个引擎呢?🐶 那么，这个引擎，它能做什么？说到图形</description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>CG</category>
+            
+          
+            
+              <category>Thoth</category>
+            
+          
+        
+        
+        
+      </item>
       
       <item>
         <title>2020-11-16-latex公式速查</title>
