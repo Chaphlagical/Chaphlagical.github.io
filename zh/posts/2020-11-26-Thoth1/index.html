@@ -1799,7 +1799,7 @@ if (!doNotTrack) {
 <h2 id="文件结构">文件结构</h2>
 <p>首先确定好项目的文件结构，所谓的文件结构就是哪个地方想放什么类型的文件，便于项目管理。</p>
 <p>下图是当前第一阶段规划的一个文件结构：</p>
-<p><img src="2020-11-26-Thoth1/image-20201126084638503.png" alt="image-20201126084638503" /></p>
+<p><img src="image-20201126084638503.png" alt="image-20201126084638503" /></p>
 <p>根目录下分为七个文件夹：</p>
 <ul>
 <li><code>extern</code>：外部库，第三方软件包放这里</li>
@@ -1835,7 +1835,7 @@ intern --&gt; extern
 <h3 id="package">Package</h3>
 <p>这部分是依赖相关的，Ubpa本人偏爱在线构建（本地只保留核心部分，相关依赖从github上拉取），这样的好处是更新方便，不过每次构建也花了不少时间在模块下载上，对于已下载的模块判断机制还不够好。本项目我们主要还是使用git本身的submodule功能来添加相关依赖，所以这部分用的会相对比较少</p>
 <p>设置好就可以启动我们的空项目了：</p>
-<p><img src="2020-11-26-Thoth1/image-20201126083229793.png" alt="image-20201126083229793" /></p>
+<p><img src="image-20201126083229793.png" alt="image-20201126083229793" /></p>
 <h2 id="hello-world">Hello World！</h2>
 <p>百里之行，始于足下</p>
 <p>我们来定义我们的函数入口，即整个项目的main函数</p>
@@ -1907,9 +1907,9 @@ intern --&gt; extern
 </span></code></pre></td></tr></table>
 </div>
 </div><p>将<code>Thoth_app</code>设为启动项目，运行后可以看到：</p>
-<p><img src="2020-11-26-Thoth1/image-20201126095255588.png" alt="image-20201126095255588" /></p>
+<p><img src="image-20201126095255588.png" alt="image-20201126095255588" /></p>
 <p>输出的<code>Thoth_app.exe</code>文件也保存在<code>./bin</code>文件夹下：</p>
-<p><img src="2020-11-26-Thoth1/image-20201126095337754.png" alt="image-20201126095337754" /></p>
+<p><img src="image-20201126095337754.png" alt="image-20201126095337754" /></p>
 <p>至此我们的项目构建成功，下一部我们将正式定义我们的入口函数，引擎开发之旅就此启程</p>
 
     </article>
