@@ -2711,31 +2711,11 @@ document.addEventListener('DOMContentLoaded', function () {
 <script defer src="/js/helper/fadeinout.min.js"></script>
 
 
-  <script defer src="https://cdn.jsdelivr.net/npm/mermaid@8.4.6/dist/mermaid.min.js" integrity="sha256-wV/0jM5E/0V&#43;KqyxUio2Ve5OAC/gweTTqdbnRX1fgAE=" crossorigin="anonymous"></script>
 
 
 
 
 
-
-
-<script>
-  window.MathJax = {
-    tex: {
-      inlineMath: [['$', '$'], ['\\(', '\\)']],
-      displayMath: [['$$', '$$'], ['\\[', '\\]']],
-      processEscapes: true,
-      processEnvironments: true,
-    },
-    options: {
-      skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-      ignoreHtmlClass: 'tex2jax_ignore',
-      processHtmlClass: 'tex2jax_process'
-    }
-  };
-  </script>
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script"></script>
 
 
 
@@ -2979,7 +2959,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     
     
-    var lib = JSON.parse("[\"mathjax\",\"mermaid\"]");
+    var lib = JSON.parse("null");
 
     if (lib && lib.includes('mermaid')) {
       
