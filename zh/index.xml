@@ -14,7 +14,7 @@
     <managingEditor>chaf@mail.ustc.edu.cn (Wenbo Chen)</managingEditor>
     <webMaster>chaf@mail.ustc.edu.cn (Wenbo Chen)</webMaster>
     <copyright>&amp;copy;{year}, All Rights Reserved</copyright>
-    <lastBuildDate>Thu, 26 Nov 2020 09:58:11 +0100</lastBuildDate>
+    <lastBuildDate>Sun, 29 Nov 2020 07:14:11 +0100</lastBuildDate>
     
         <atom:link href="https://chaphlagical.github.io/zh/index.xml" rel="self" type="application/rss+xml" />
     
@@ -42,6 +42,62 @@
         
       
 
+      
+      <item>
+        <title>Thoth引擎开发(3) | Utility之日志系统</title>
+        <link>https://chaphlagical.github.io/zh/posts/2020-11-27-thoth3/</link>
+        <pubDate>Sun, 29 Nov 2020 07:14:11 +0100</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        <atom:modified>Sun, 29 Nov 2020 07:14:11 +0100</atom:modified>
+        <guid>https://chaphlagical.github.io/zh/posts/2020-11-27-thoth3/</guid>
+        <description>本文开始进入引擎通用模块Utility的开发了。通用模块将包括“日志系统、时钟系统、事件系统、性能分析系统以及一些杂项。首先我们将完成我们的</description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>CG</category>
+            
+          
+            
+              <category>Thoth</category>
+            
+          
+        
+        
+        
+      </item>
+      
+      <item>
+        <title>Thoth引擎开发(2) | 程序入口</title>
+        <link>https://chaphlagical.github.io/zh/posts/2020-11-26-thoth2/</link>
+        <pubDate>Thu, 26 Nov 2020 16:43:11 +0100</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        <atom:modified>Thu, 26 Nov 2020 16:43:11 +0100</atom:modified>
+        <guid>https://chaphlagical.github.io/zh/posts/2020-11-26-thoth2/</guid>
+        <description>上一节我们已经初步构思好了项目的文件结构和使用CMake搭建好了环境，并成功Hello World。现在需要构思下一步该怎么走 Main Function 每个完整的C</description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>CG</category>
+            
+          
+            
+              <category>Thoth</category>
+            
+          
+        
+        
+        
+      </item>
       
       <item>
         <title>Thoth引擎开发(1) | 项目构建</title>

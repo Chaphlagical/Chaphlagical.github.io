@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Appendix B: Value Categories – Chaf&#39;s Blog</title>
+    <title>Thoth引擎开发(3) | Utility之日志系统 – Chaf&#39;s Blog</title>
     
 
 
@@ -653,7 +653,7 @@
     
     var baseurl = JSON.parse("\"https://chaphlagical.github.io\"");
     
-    var permalink = JSON.parse("\"https://chaphlagical.github.io/zh/note/cpptemplate/appendixb/\"");
+    var permalink = JSON.parse("\"https://chaphlagical.github.io/zh/posts/2020-11-27-thoth3/\"");
     
     var langprefix = JSON.parse("\"/zh\"");
     var searchResults = null;
@@ -667,7 +667,7 @@
     
     var searchResultPosition = JSON.parse("\"main\"");
     
-    var sectionType = JSON.parse("\"note\"");
+    var sectionType = JSON.parse("\"posts\"");
     
     var kind = JSON.parse("\"page\"");
     
@@ -1323,23 +1323,23 @@
 
 
     
-<meta name="description" content="《C&#43;&#43; Templates学习笔记附录B》" />
+<meta name="description" content="Thoth logging system" />
 
 
-<meta name="keywords" content="C&#43;&#43; Templates,C&#43;&#43;">
+<meta name="keywords" content="CG,Thoth">
 
-<meta name="created" content="2020-11-24T15:56:11&#43;0100">
-<meta name="modified" content="2020-11-24T15:56:11&#43;0100">
-<meta property="article:published_time" content="2020-11-24T15:56:11&#43;0100">
+<meta name="created" content="2020-11-29T07:14:11&#43;0100">
+<meta name="modified" content="2020-11-29T07:14:11&#43;0100">
+<meta property="article:published_time" content="2020-11-29T07:14:11&#43;0100">
 
 <meta name="author" content="Wenbo Chen">
 
 
 <meta property="og:site_name" content="Chaf&#39;s Blog">
-<meta property="og:title" content="Appendix B: Value Categories">
-<meta property="og:url" content="https://chaphlagical.github.io/zh/note/cpptemplate/appendixb/">
+<meta property="og:title" content="Thoth引擎开发(3) | Utility之日志系统">
+<meta property="og:url" content="https://chaphlagical.github.io/zh/posts/2020-11-27-thoth3/">
 <meta property="og:type" content="article">
-<meta property="og:description" content="《C&#43;&#43; Templates学习笔记附录B》">
+<meta property="og:description" content="Thoth logging system">
 
 <meta name="generator" content="Hugo 0.78.1" />
 <meta name="msapplication-TileColor" content="#fff">
@@ -1350,7 +1350,7 @@
 
 <meta name="apple-mobile-web-app-status-bar-style" content="#fff">
 
-<link rel="canonical" href="https://chaphlagical.github.io/zh/note/cpptemplate/appendixb/">
+<link rel="canonical" href="https://chaphlagical.github.io/zh/posts/2020-11-27-thoth3/">
 
 <link rel="manifest" href="/manifest.json">
 
@@ -1376,12 +1376,12 @@
   {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    "headline": "Appendix B: Value Categories",
-    "datePublished": "2020-11-24T15:56:11+01:00",
-    "dateModified": "2020-11-24T15:56:11+01:00",
-    "url" : "https://chaphlagical.github.io/zh/note/cpptemplate/appendixb/",
-    "description": "《C++ Templates学习笔记附录B》",
-    "keywords": ["C++ Templates","C++"],
+    "headline": "Thoth引擎开发(3) | Utility之日志系统",
+    "datePublished": "2020-11-29T07:14:11+01:00",
+    "dateModified": "2020-11-29T07:14:11+01:00",
+    "url" : "https://chaphlagical.github.io/zh/posts/2020-11-27-thoth3/",
+    "description": "Thoth logging system",
+    "keywords": ["CG","Thoth"],
     "mainEntityOfPage": {
       "@type": "WebPage",
       "@id": "https://chaphlagical.github.io"
@@ -1445,7 +1445,7 @@ if (!doNotTrack) {
 
 
 
-        <div class="wrapper" data-type="note" data-kind="page">
+        <div class="wrapper" data-type="posts" data-kind="page">
             <nav class="navbar scrolling" role="navigation" aria-label="main navigation" data-dir="ltr">
   <div class="navbar__brand">
     
@@ -1552,7 +1552,7 @@ if (!doNotTrack) {
       
 
       
-        <li class="navbarm__menu--item ">
+        <li class="navbarm__menu--item active">
           <a href="/zh/posts">博文</a>
         </li>
       
@@ -1600,7 +1600,7 @@ if (!doNotTrack) {
       
 
       
-        <li class="navbarm__menu--item active">
+        <li class="navbarm__menu--item ">
           <a href="/zh/note">笔记</a>
         </li>
       
@@ -1688,7 +1688,7 @@ if (!doNotTrack) {
   
   
   
-  <a href="/zh/posts" class="navbar__menu-item navbar__slide-down " dir="ltr" data-ani="true">博文</a>
+  <a href="/zh/posts" class="navbar__menu-item navbar__slide-down active" dir="ltr" data-ani="true">博文</a>
   
   
   
@@ -1720,7 +1720,7 @@ if (!doNotTrack) {
   
   
   
-  <a href="/zh/note" class="navbar__menu-item navbar__slide-down active" dir="ltr" data-ani="true">笔记</a>
+  <a href="/zh/note" class="navbar__menu-item navbar__slide-down " dir="ltr" data-ani="true">笔记</a>
   
   
 </div>
@@ -1739,8 +1739,6 @@ if (!doNotTrack) {
   
   
   
-  
-  
   <li >
     
       <a href="https://chaphlagical.github.io/zh/" class="capitalize">Chaf&#39;s Blog</a>
@@ -1750,21 +1748,14 @@ if (!doNotTrack) {
   
   <li >
     
-      <a href="https://chaphlagical.github.io/zh/note/" class="capitalize">Notes</a>
-    
-  </li>
-  
-  
-  <li >
-    
-      <a href="https://chaphlagical.github.io/zh/note/cpptemplate/" class="capitalize">C&#43;&#43; Templates</a>
+      <a href="https://chaphlagical.github.io/zh/posts/" class="capitalize">Posts</a>
     
   </li>
   
   
   <li  class="is-active" >
     
-      <span>Appendix B: Value Categories</span>
+      <span>Thoth引擎开发(3) | Utility之日志系统</span>
     
   </li>
   
@@ -1776,14 +1767,14 @@ if (!doNotTrack) {
   <div class="single ">
     <div class="single__nojs">Please enable Javascript to view the contents</div>
     <script>document.querySelector('.single').classList.remove('hide'); document.querySelector('.single__nojs').classList.add('hide');</script>
-    <h2 class="single__title" data-ani="true">Appendix B: Value Categories</h2>
+    <h2 class="single__title" data-ani="true">Thoth引擎开发(3) | Utility之日志系统</h2>
     <h3 class="single__subtitle"></h3>
     <div class="single__meta">
       
 <div class="single__infos">
-  <time class="single__info" title="创建日期">📅&nbsp;2020年11月24日 </time>
+  <time class="single__info" title="创建日期">📅&nbsp;2020年11月29日 </time>
   
-  &nbsp;&middot;&nbsp; <span class="single__info" title="阅读时长"> ☕&nbsp;1&nbsp;分钟 </span>
+  &nbsp;&middot;&nbsp; <span class="single__info" title="阅读时长"> ☕&nbsp;7&nbsp;分钟 </span>
   
   <span class="single__info">
     
@@ -1795,24 +1786,817 @@ if (!doNotTrack) {
   🏷️
   
 
-  <li><a href="https://chaphlagical.github.io/zh/tags/c&#43;&#43;-templates/" class="single__tag" title="C&#43;&#43; Templates">#C&#43;&#43; Templates</a></li>
+  <li><a href="https://chaphlagical.github.io/zh/tags/cg/" class="single__tag" title="CG">#CG</a></li>
 
-  <li><a href="https://chaphlagical.github.io/zh/tags/c&#43;&#43;/" class="single__tag" title="C&#43;&#43;">#C&#43;&#43;</a></li>
+  <li><a href="https://chaphlagical.github.io/zh/tags/thoth/" class="single__tag" title="Thoth">#Thoth</a></li>
 
 </ul>
     </div>
     <article class="single__contents" data-dir="ltr" data-ani="true">
       
-      <h2 id="b1-traditional-lvalues-and-rvalues">B.1 Traditional Lvalues and Rvalues</h2>
-<p>传统意义上值分为两种：左值和右值</p>
-<ul>
-<li>左值是指代存储于内存或寄存器的实际的值的表达式，比如左值<code>x</code>的<code>x</code>是一个变量的名字
-<ul>
-<li>左值是可修改的，允许更新其存储的值，例如<code>x=7</code>将<code>x</code>的值修改成7</li>
+      <p>本文开始进入引擎通用模块Utility的开发了。通用模块将包括“日志系统、时钟系统、事件系统、性能分析系统以及一些杂项。首先我们将完成我们的日志系统</p>
+<h2 id="导言">导言</h2>
+<p>软件日志是记录软件问题的信息，同时还可以监视系统中发生的事件。用户可以用它来查看和回溯软件的活动，开发者可以用日志来检查错误发生的位置及原因。</p>
+<p>本项目中使用了纯头文件的轻量级C++日志库<a href="https://github.com/gabime/spdlog">spdlog</a></p>
+<p>spdlog使用方便，扩展性强，成为我们用于构建日志系统的不二选择</p>
+<h2 id="基础知识">基础知识</h2>
+<h3 id="智能指针">智能指针</h3>
+<p>C++11之后C++标准库支持三种智能指针<code>unique_ptr</code>，<code>shared_ptr</code>和 <code>weak_ptr</code></p>
+<p>为什么要使用智能指针呢？我们都知道指针指代的是一个地址，但单有地址是不够的，我们还需要分配内存，于是就有了<code>new</code>的操作：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="kt">int</span> <span class="o">*</span><span class="n">a</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">;</span>
+<span class="kt">int</span> <span class="o">*</span><span class="n">arr</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">[</span><span class="mi">10</span><span class="p">];</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>手动分配的内存必须手动释放，释放内存用<code>delete</code>操作：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">delete</span> <span class="n">a</span><span class="p">;</span>
+<span class="k">delete</span><span class="p">[]</span> <span class="n">arr</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>如果不进行delete操作，分配的内存将无法被释放，即使是变量生命周期结束（比如局部变量），该内存也无法进行使用，造成<strong>内存泄漏</strong>。MSVC中检测内存泄漏可以使用函数``</p>
+<p>智能指针借助于类的析构函数实现在指针生命周期结束时的内存自动释放，参考《Effective C++》<a href="https://chaphlagical.icu/zh/note/effectivecpp/ch3/">第三章</a></p>
+<h4 id="unique_ptr">unique_ptr</h4>
+<p><code>unique_ptr</code>所指内存仅为自己独有，故称为<code>unique</code>，某个时刻只能有一个<code>unique_ptr</code>指向一个给定对象，不支持拷贝和赋值</p>
+<p><code>unique_ptr</code>的创建：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">up1</span><span class="p">(</span><span class="k">new</span> <span class="kt">int</span><span class="p">);</span>
+<span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">up2</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">up1</span><span class="p">);</span>	<span class="c1">// 所有权移交，up1变为空指针
+</span><span class="c1"></span><span class="k">auto</span> <span class="n">up3</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">make_unique</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">);</span>	<span class="c1">// make_unique将实参转移到类的构造函数实参
+</span></code></pre></td></tr></table>
+</div>
+</div><p>显式释放内存：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">up1</span><span class="p">(</span><span class="k">new</span> <span class="kt">int</span><span class="p">);</span>
+<span class="n">up1</span><span class="p">.</span><span class="n">reset</span><span class="p">();</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>释放所有权：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">up1</span><span class="p">(</span><span class="k">new</span> <span class="kt">int</span><span class="p">);</span>
+<span class="kt">int</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="n">up1</span><span class="p">.</span><span class="n">release</span><span class="p">();</span>	<span class="c1">// 释放所有权，不释放内存
+</span><span class="c1"></span><span class="k">delete</span> <span class="n">p</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="shared_ptr">shared_ptr</h4>
+<p><code>shared_ptr</code>允许多个该智能指针共享拥有同一堆分配对象的内存，通过引用计数进行实现，引用计数将记录有多少个<code>shared_ptr</code>共同指向一个对象，一旦最后一个共享指针被销毁，即引用计数变为0，该对象将被自动销毁。<code>shared_ptr</code>支持复制和赋值操作。</p>
+<p><code>shared_ptr</code>的操作与<code>unique_ptr</code>类似，不同的是可以进行赋值：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">sp1</span><span class="p">(</span><span class="k">new</span> <span class="kt">int</span><span class="p">);</span>
+<span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">sp2</span> <span class="o">=</span> <span class="n">sp1</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>和拷贝：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">auto</span> <span class="n">p</span> <span class="o">=</span> <span class="n">make_shared</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">42</span><span class="p">);</span>
+<span class="k">auto</span> <span class="nf">q</span><span class="p">(</span><span class="n">p</span><span class="p">);</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="weak_ptr">weak_ptr</h4>
+<p><code>weak_ptr</code>是为了配合<code>shared_ptr</code>而引入的协助智能指针，能够从一个<code>shared_ptr</code>或另一个<code>weak_ptr</code>对象构造，它的构造和析构不会导致引用计数的增加或减少。没有重载<code>*</code>和<code>-&gt;</code>运算符，<code>weak_ptr</code>并不直接拥有资源的所有权，无法直接使用资源，但可以通过<code>lock</code>获得一个可用的<code>shared_ptr</code>对象，但其指向的对象无效时，<code>lock</code>返回空指针<code>nullptr</code>，例如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="kt">void</span> <span class="nf">check</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">weak_ptr</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">wp</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">sp</span> <span class="o">=</span> <span class="n">wp</span><span class="p">.</span><span class="n">lock</span><span class="p">();</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">sp</span> <span class="o">!=</span> <span class="k">nullptr</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;still: &#34;</span> <span class="o">&lt;&lt;</span> <span class="o">*</span><span class="n">sp</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;still: &#34;</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;pointer is invalid&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><code>weak_ptr</code>的作用：解决<code>shared_ptr</code>的循环引用问题</p>
+<p>当两个类中包含一个指向对方类型的智能指针作为成员变量时，如下图所示</p>
+<p><img src="aHR0cDovL2ltZy5raW5nd2F5LmZ1bi9JTUdNYXRyaXgvYmxvZy9jcHAvYzExMDAxLnBuZw" alt="img" /></p>
+<p>当<code>ptr_a</code>和<code>ptr_b</code>被销毁时，<code>m_ptr_b</code>和<code>m_ptr_a</code>由于引用计数不为零无法进行正常析构，将造成内存泄漏，解决方法就是将成员变量改为<code>weak_ptr</code>，避免引用成环：</p>
+<p><img src="aHR0cDovL2ltZy5raW5nd2F5LmZ1bi9JTUdNYXRyaXgvYmxvZy9jcHAvYzExMDAyLnBuZw" alt="img" /></p>
+<p>三个智能指针的声明均在头文件<code>&lt;memory&gt;</code>，本项目对其作别名处理：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++:pointer.hpp" data-lang="c++:pointer.hpp"><span class="cp">#pragma once
+</span><span class="cp">#include</span> <span class="cpf">&lt;memory&gt;</span><span class="cp">
+</span><span class="cp"></span>
+<span class="k">namespace</span> <span class="n">Chaf</span><span class="p">{</span>
+    <span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+    <span class="k">using</span> <span class="n">scope</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">;</span>
+    <span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+    <span class="k">using</span> <span class="n">ref</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">;</span>
+    <span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+    <span class="k">using</span> <span class="n">weak</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">weak_ptr</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">;</span>
+
+    <span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="k">typename</span> <span class="p">...</span> <span class="n">Args</span><span class="o">&gt;</span>
+    <span class="k">constexpr</span> <span class="n">scope</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">createScope</span><span class="p">(</span><span class="n">Args</span><span class="o">&amp;&amp;</span> <span class="p">...</span> <span class="n">args</span><span class="p">){</span> <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">make_unique</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">forward</span><span class="o">&lt;</span><span class="n">Args</span><span class="o">&gt;</span><span class="p">(</span><span class="n">args</span><span class="p">)...);</span> <span class="p">}</span>
+    <span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="k">typename</span> <span class="p">...</span> <span class="n">Args</span><span class="o">&gt;</span>
+    <span class="k">constexpr</span> <span class="n">ref</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">createRef</span><span class="p">(</span><span class="n">Args</span><span class="o">&amp;&amp;</span> <span class="p">...</span> <span class="n">args</span><span class="p">){</span> <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">forward</span><span class="o">&lt;</span><span class="n">Args</span><span class="o">&gt;</span><span class="p">(</span><span class="n">args</span><span class="p">)...);</span> <span class="p">}</span>
+    <span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="k">typename</span> <span class="p">...</span> <span class="n">Args</span><span class="o">&gt;</span>
+    <span class="k">constexpr</span> <span class="n">ref</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">castRef</span><span class="p">(</span><span class="n">Args</span><span class="o">&amp;&amp;</span> <span class="p">...</span> <span class="n">args</span><span class="p">){</span> <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">dynamic_pointer_cast</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">forward</span><span class="o">&lt;</span><span class="n">Args</span><span class="o">&gt;</span><span class="p">(</span><span class="n">args</span><span class="p">)...);</span> <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="线程安全和锁">线程安全和锁</h2>
+<p>由于spdlog的实现上使用了多线程，所以不可避免的需要考虑线程安全的问题，这里主要将C++标准库<code>thread</code>和<code>mutex</code>的使用</p>
+<h3 id="开启一个线程">开启一个线程</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="cp">#include</span> <span class="cpf">&lt;thread&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span><span class="cp"></span>
+<span class="kt">void</span> <span class="nf">threadfunc</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;sub thread&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="kr">thread</span> <span class="n">th</span><span class="p">(</span><span class="n">threadfunc</span><span class="p">);</span>
+    <span class="c1">//th.join();
+</span><span class="c1"></span>    <span class="n">th</span><span class="p">.</span><span class="n">detach</span><span class="p">();</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>上述代码将开辟一个线程运行<code>threadfunc</code>函数，线程开启后，必须使用<code>join()</code>或<code>detach()</code>。否则会出现<code>th</code>变量生命周期结束被析构，出现异常</p>
+<p><code>join()</code>：主线程必须等到这个子线程执行结束，才能继续。子线程结束前，主线程会滞留在<code>th.join()</code>处</p>
+<p><code>detach()</code>：此线程与<code>th</code>脱离关系，即使此时<code>th</code>被析构，也不影响子线程的执行。并且<code>detach()</code>之后，主线程和子线程交替执行，没有先后关系</p>
+<p>当需要给线程传递参数时，可在构造<code>thread</code>对象时传入：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="kt">void</span> <span class="nf">threadfunc</span><span class="p">(</span><span class="kt">int</span><span class="o">&amp;</span> <span class="n">a</span><span class="p">,</span><span class="kt">bool</span> <span class="n">b</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="mi">55</span><span class="p">;</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;sub thread %d %d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">test</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="kt">bool</span> <span class="n">bb</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="kr">thread</span> <span class="n">th</span><span class="p">(</span><span class="n">threadfunc</span><span class="p">,</span><span class="n">std</span><span class="o">::</span><span class="n">ref</span><span class="p">(</span><span class="n">test</span><span class="p">),</span><span class="n">bb</span><span class="p">);</span>
+    <span class="n">th</span><span class="p">.</span><span class="n">detach</span><span class="p">();</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>注意：引用参数必须使用<code>std::ref</code></li>
 </ul>
-</li>
-<li></li>
-</ul>
+<h3 id="互斥锁">互斥锁</h3>
+<p>互斥锁用于防止不同线程间代码在不同线程间做不安全切换</p>
+<p>例如主线程和子线程均操作同一个数组<code>arr</code>，一个往里塞元素，一个删元素，为了防止线程不同步，可以使用互斥锁：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;thread&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;mutex&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp">
+</span><span class="cp"></span>
+<span class="n">std</span><span class="o">::</span><span class="n">mutex</span> <span class="n">mtx</span><span class="p">;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">arr</span><span class="p">;</span>
+
+<span class="kt">void</span> <span class="nf">threadfunc</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">while</span><span class="p">(</span><span class="nb">true</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">mtx</span><span class="p">.</span><span class="n">lock</span><span class="p">();</span>
+        <span class="n">arr</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+        <span class="n">mtx</span><span class="p">.</span><span class="n">unlock</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="kr">thread</span> <span class="n">th</span><span class="p">(</span><span class="n">threadfunc</span><span class="p">);</span>
+    <span class="n">th</span><span class="p">.</span><span class="n">detach</span><span class="p">();</span>
+    
+    
+    <span class="k">while</span><span class="p">(</span><span class="nb">true</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">mtx</span><span class="p">.</span><span class="n">lock</span><span class="p">();</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">arr</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">arr</span><span class="p">.</span><span class="n">erase</span><span class="p">(</span><span class="n">arr</span><span class="p">.</span><span class="n">begin</span><span class="p">());</span>
+        <span class="p">}</span>
+        <span class="n">mtx</span><span class="p">.</span><span class="n">unlock</span><span class="p">();</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><code>lock()</code>函数会阻塞线程。在调用<code>lock()</code>时，如果该mutex已在别处调用了<code>lock()</code>，则线程将卡死，直到其他线程调用了<code>unlock()</code>释放mutex，该线程才能继续执行。如果不想让线程直接卡死，可以使用<code>try_lock()</code></p>
+<p>除了直接使用<code>lock()</code>和<code>unlock()</code>进行互斥锁，C++11推出了<code>std::lock_guard</code>自动释放锁。其原理和智能指针类似，在构造函数中加锁，在析构函数中解锁，使用方法：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;thread&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;mutex&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp">
+</span><span class="cp"></span>
+<span class="n">std</span><span class="o">::</span><span class="n">mutex</span> <span class="n">mtx</span><span class="p">;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">arr</span><span class="p">;</span>
+
+<span class="kt">void</span> <span class="nf">threadfunc</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">while</span><span class="p">(</span><span class="nb">true</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">lock_guard</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">mutex</span><span class="o">&gt;</span> <span class="n">lg</span><span class="p">(</span><span class="n">mtx</span><span class="p">);</span>
+        <span class="n">arr</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="kr">thread</span> <span class="n">th</span><span class="p">(</span><span class="n">threadfunc</span><span class="p">);</span>
+    <span class="n">th</span><span class="p">.</span><span class="n">detach</span><span class="p">();</span>
+    
+    
+    <span class="k">while</span><span class="p">(</span><span class="nb">true</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">lock_guard</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">mutex</span><span class="o">&gt;</span> <span class="n">lg</span><span class="p">(</span><span class="n">mtx</span><span class="p">);</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">arr</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">arr</span><span class="p">.</span><span class="n">erase</span><span class="p">(</span><span class="n">arr</span><span class="p">.</span><span class="n">begin</span><span class="p">());</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="logging-system">Logging System</h2>
+<p>现在正式开始我们的日志系统</p>
+<p>spdlog中用sink指向实际的输出目标，文档中给出详尽的解释，我们需要用其提供的基函数来定制我们需要的sink：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++:sink.hpp" data-lang="c++:sink.hpp"><span class="cp">#pragma once
+</span><span class="cp">#include</span> <span class="cpf">&lt;spdlog/sinks/base_sink.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;mutex&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;deque&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span><span class="cp"></span>
+<span class="k">namespace</span> <span class="n">Chaf</span><span class="p">{</span>
+    <span class="k">class</span> <span class="nc">Sink</span> <span class="o">:</span><span class="k">public</span> <span class="n">spdlog</span><span class="o">::</span><span class="n">sinks</span><span class="o">::</span><span class="n">base_sink</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">mutex</span><span class="o">&gt;</span><span class="p">{</span>
+        <span class="k">public</span><span class="o">:</span>
+            <span class="c1">// not thread safe
+</span><span class="c1"></span>            <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">deque</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;&amp;</span> <span class="n">GetLogs</span><span class="p">()</span> <span class="k">const</span> <span class="k">noexcept</span> <span class="p">{</span> <span class="k">return</span> <span class="n">_logs</span><span class="p">;</span> <span class="p">}</span>
+
+            <span class="c1">// thread safe
+</span><span class="c1"></span>            <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span>  <span class="n">CopyLogs</span><span class="p">()</span> <span class="k">const</span> <span class="k">noexcept</span><span class="p">;</span>
+
+            <span class="c1">// clear all logs, thread safe
+</span><span class="c1"></span>            <span class="kt">void</span> <span class="nf">Clear</span><span class="p">();</span>
+        <span class="k">protected</span><span class="o">:</span>
+            <span class="k">virtual</span> <span class="kt">void</span> <span class="n">sink_it_</span><span class="p">(</span><span class="k">const</span> <span class="n">spdlog</span><span class="o">::</span><span class="n">details</span><span class="o">::</span><span class="n">log_msg</span><span class="o">&amp;</span> <span class="n">msg</span><span class="p">)</span> <span class="k">override</span><span class="p">;</span>	
+            <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">flush_</span><span class="p">()</span> <span class="k">override</span> <span class="p">{</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">flush</span><span class="p">;</span> <span class="p">}</span>
+        <span class="k">private</span><span class="o">:</span>
+            <span class="n">std</span><span class="o">::</span><span class="n">deque</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">_logs</span><span class="p">;</span>
+    <span class="p">};</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>每次输出的日志都将以字符串的形式存在<code>_logs</code>中，其中<code>protected</code>的函数是从基函数继承而来的，提供三个类方法：清空<code>Clear</code>、简单获取日志（线程不安全）<code>GetLogs()</code>、把日志复制成<code>vector</code>（线程安全）<code>CopyLogs()</code></p>
+<p>相关实现：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++:sink.cpp" data-lang="c++:sink.cpp"><span class="cp">#include</span> <span class="cpf">&lt;spdlog/details/log_msg_buffer.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&#34;sink.hpp&#34;</span><span class="cp">
+</span><span class="cp"></span>
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span>  <span class="n">Chaf</span><span class="o">::</span><span class="n">Sink</span><span class="o">::</span><span class="n">CopyLogs</span><span class="p">()</span> <span class="k">const</span> <span class="k">noexcept</span>
+<span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">lock_guard</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">mutex</span><span class="o">&gt;</span> <span class="n">lock</span><span class="p">(</span><span class="k">const_cast</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">mutex</span><span class="o">&amp;&gt;</span><span class="p">(</span><span class="n">base_sink</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">mutex</span><span class="o">&gt;::</span><span class="n">mutex_</span><span class="p">));</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">res</span><span class="p">(</span><span class="n">_logs</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">_logs</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+    <span class="k">return</span> <span class="n">res</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="n">Chaf</span><span class="o">::</span><span class="n">Sink</span><span class="o">::</span><span class="n">Clear</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">lock_guard</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">mutex</span><span class="o">&gt;</span> <span class="n">lock</span><span class="p">(</span><span class="n">base_sink</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">mutex</span><span class="o">&gt;::</span><span class="n">mutex_</span><span class="p">);</span>
+    <span class="n">_logs</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="n">Chaf</span><span class="o">::</span><span class="n">Sink</span><span class="o">::</span><span class="n">sink_it_</span><span class="p">(</span><span class="k">const</span> <span class="n">spdlog</span><span class="o">::</span><span class="n">details</span><span class="o">::</span><span class="n">log_msg</span><span class="o">&amp;</span> <span class="n">msg</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">spdlog</span><span class="o">::</span><span class="n">details</span><span class="o">::</span><span class="n">log_msg_buffer</span> <span class="n">buffer</span><span class="p">{</span> <span class="n">msg</span> <span class="p">};</span>
+    <span class="n">spdlog</span><span class="o">::</span><span class="n">memory_buf_t</span> <span class="n">formatted</span><span class="p">;</span>
+    <span class="n">base_sink</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">mutex</span><span class="o">&gt;::</span><span class="n">formatter_</span><span class="o">-&gt;</span><span class="n">format</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span> <span class="n">formatted</span><span class="p">);</span>
+    <span class="n">_logs</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">fmt</span><span class="o">::</span><span class="n">to_string</span><span class="p">(</span><span class="n">formatted</span><span class="p">));</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">fmt</span><span class="o">::</span><span class="n">to_string</span><span class="p">(</span><span class="n">formatted</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>接下来是实现日志系统的主体部分：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++:logger.hpp" data-lang="c++:logger.hpp"><span class="cp">#pragma once
+</span><span class="cp">#define SPDLOG_WCHAR_FILENAMES
+</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;spdlog/spdlog.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&#34;../util/pointer.hpp&#34;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&#34;sink.hpp&#34;</span><span class="cp">
+</span><span class="cp"></span>
+<span class="k">namespace</span> <span class="n">Chaf</span>
+<span class="p">{</span>
+    <span class="k">class</span> <span class="nc">Logger</span>
+    <span class="p">{</span>
+    <span class="k">public</span><span class="o">:</span>
+        <span class="k">static</span> <span class="kt">void</span> <span class="n">Init</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">name</span> <span class="o">=</span> <span class="s">&#34;logger&#34;</span><span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+
+        <span class="c1">// not thread safe
+</span><span class="c1"></span>        <span class="k">static</span> <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">deque</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">GetLogs</span><span class="p">()</span> <span class="k">noexcept</span><span class="p">;</span>
+
+        <span class="c1">// thread safe
+</span><span class="c1"></span>        <span class="k">static</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span>  <span class="n">CopyLogs</span><span class="p">()</span> <span class="k">noexcept</span><span class="p">;</span>
+
+        <span class="c1">// clear all logs
+</span><span class="c1"></span>        <span class="k">static</span> <span class="kt">void</span> <span class="nf">Clear</span><span class="p">();</span>
+
+        <span class="c1">// save logs
+</span><span class="c1"></span>        <span class="k">static</span> <span class="kt">void</span> <span class="nf">SaveAsFile</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">filename</span> <span class="o">=</span> <span class="s">&#34;log.data&#34;</span><span class="p">);</span>
+
+        <span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+        <span class="k">static</span> <span class="kt">void</span> <span class="n">info</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">msg</span><span class="p">){</span> <span class="n">spdlog</span><span class="o">::</span><span class="n">info</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">msg</span><span class="p">);</span> <span class="p">}</span>
+        <span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+        <span class="k">static</span> <span class="kt">void</span> <span class="n">error</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">msg</span><span class="p">)</span> <span class="p">{</span> <span class="n">spdlog</span><span class="o">::</span><span class="n">error</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">msg</span><span class="p">);</span> <span class="p">}</span>
+        <span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+        <span class="k">static</span> <span class="kt">void</span> <span class="n">warn</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">msg</span><span class="p">)</span> <span class="p">{</span> <span class="n">spdlog</span><span class="o">::</span><span class="n">warn</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">msg</span><span class="p">);</span> <span class="p">}</span>
+        <span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+        <span class="k">static</span> <span class="kt">void</span> <span class="n">trace</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">msg</span><span class="p">)</span> <span class="p">{</span> <span class="n">spdlog</span><span class="o">::</span><span class="n">trace</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">msg</span><span class="p">);</span> <span class="p">}</span>
+        <span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+        <span class="k">static</span> <span class="kt">void</span> <span class="n">critical</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">msg</span><span class="p">)</span> <span class="p">{</span> <span class="n">spdlog</span><span class="o">::</span><span class="n">critical</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">msg</span><span class="p">);</span> <span class="p">}</span>
+
+<span class="cp">#ifdef _DEBUG
+</span><span class="cp"></span>        <span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+        <span class="k">static</span> <span class="kt">void</span> <span class="n">debug</span><span class="p">(</span><span class="kt">bool</span> <span class="n">x</span><span class="p">,</span> <span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">msg</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">x</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="n">error</span><span class="p">(</span><span class="n">msg</span><span class="p">);</span>
+                <span class="n">__debugbreak</span><span class="p">();</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+<span class="cp">#else
+</span><span class="cp"></span>        <span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+        <span class="k">static</span> <span class="kt">void</span> <span class="n">debug</span><span class="p">(</span><span class="kt">bool</span> <span class="n">x</span><span class="p">,</span> <span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">msg</span><span class="p">)</span> <span class="p">{}</span>
+<span class="cp">#endif
+</span><span class="cp"></span>    <span class="k">private</span><span class="o">:</span>
+        <span class="k">static</span> <span class="kt">bool</span> <span class="n">valid</span><span class="p">();</span>
+    <span class="p">};</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这里使用纯静态的形式，<code>logger</code>使用spdlog的defaultlogger，<code>debug</code>模式下提供中断功能，相应的实现：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++:logger.cpp" data-lang="c++:logger.cpp"><span class="cp">#include</span> <span class="cpf">&lt;spdlog/sinks/basic_file_sink.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&#34;../util/pointer.hpp&#34;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&#34;logger.hpp&#34;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;fstream&gt;</span><span class="cp">
+</span><span class="cp"></span>
+<span class="kt">void</span> <span class="n">Chaf</span><span class="o">::</span><span class="n">Logger</span><span class="o">::</span><span class="n">Init</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">name</span><span class="p">)</span> <span class="k">noexcept</span>
+<span class="p">{</span>
+    <span class="k">auto</span> <span class="n">logger</span> <span class="o">=</span> <span class="n">spdlog</span><span class="o">::</span><span class="n">synchronous_factory</span><span class="o">::</span><span class="n">create</span><span class="o">&lt;</span><span class="n">Sink</span><span class="o">&gt;</span><span class="p">(</span><span class="n">name</span><span class="p">);</span>
+    <span class="n">spdlog</span><span class="o">::</span><span class="n">details</span><span class="o">::</span><span class="n">registry</span><span class="o">::</span><span class="n">instance</span><span class="p">().</span><span class="n">set_default_logger</span><span class="p">(</span><span class="n">logger</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">deque</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">Chaf</span><span class="o">::</span><span class="n">Logger</span><span class="o">::</span><span class="n">GetLogs</span><span class="p">()</span> <span class="k">noexcept</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">valid</span><span class="p">())</span><span class="k">return</span><span class="p">{};</span>
+    <span class="k">auto</span> <span class="n">logger</span> <span class="o">=</span> <span class="n">spdlog</span><span class="o">::</span><span class="n">default_logger</span><span class="p">();</span>
+    <span class="k">auto</span> <span class="n">sink</span> <span class="o">=</span> <span class="n">castRef</span><span class="o">&lt;</span><span class="n">Sink</span><span class="o">&gt;</span><span class="p">(</span><span class="n">logger</span><span class="o">-&gt;</span><span class="n">sinks</span><span class="p">().</span><span class="n">front</span><span class="p">());</span>
+    <span class="k">return</span> <span class="n">sink</span><span class="o">-&gt;</span><span class="n">GetLogs</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span>  <span class="n">Chaf</span><span class="o">::</span><span class="n">Logger</span><span class="o">::</span><span class="n">CopyLogs</span><span class="p">()</span> <span class="k">noexcept</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">valid</span><span class="p">())</span><span class="k">return</span><span class="p">{};</span>
+    <span class="k">auto</span> <span class="n">logger</span> <span class="o">=</span> <span class="n">spdlog</span><span class="o">::</span><span class="n">default_logger</span><span class="p">();</span>
+    <span class="k">auto</span> <span class="n">sink</span> <span class="o">=</span> <span class="n">castRef</span><span class="o">&lt;</span><span class="n">Sink</span><span class="o">&gt;</span><span class="p">(</span><span class="n">logger</span><span class="o">-&gt;</span><span class="n">sinks</span><span class="p">().</span><span class="n">front</span><span class="p">());</span>
+    <span class="k">return</span> <span class="n">sink</span><span class="o">-&gt;</span><span class="n">CopyLogs</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="n">Chaf</span><span class="o">::</span><span class="n">Logger</span><span class="o">::</span><span class="n">Clear</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">valid</span><span class="p">())</span><span class="k">return</span><span class="p">;</span>
+    <span class="k">auto</span> <span class="n">logger</span> <span class="o">=</span> <span class="n">spdlog</span><span class="o">::</span><span class="n">default_logger</span><span class="p">();</span>
+    <span class="k">auto</span> <span class="n">sink</span> <span class="o">=</span> <span class="n">castRef</span><span class="o">&lt;</span><span class="n">Sink</span><span class="o">&gt;</span><span class="p">(</span><span class="n">logger</span><span class="o">-&gt;</span><span class="n">sinks</span><span class="p">().</span><span class="n">front</span><span class="p">());</span>
+    <span class="n">sink</span><span class="o">-&gt;</span><span class="n">Clear</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="n">Chaf</span><span class="o">::</span><span class="n">Logger</span><span class="o">::</span><span class="n">SaveAsFile</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">filename</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">valid</span><span class="p">())</span><span class="k">return</span><span class="p">;</span>
+    <span class="k">auto</span> <span class="n">logger</span> <span class="o">=</span> <span class="n">spdlog</span><span class="o">::</span><span class="n">default_logger</span><span class="p">();</span>
+    <span class="k">auto</span> <span class="n">sink</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">dynamic_pointer_cast</span><span class="o">&lt;</span><span class="n">Sink</span><span class="o">&gt;</span><span class="p">(</span><span class="n">logger</span><span class="o">-&gt;</span><span class="n">sinks</span><span class="p">().</span><span class="n">front</span><span class="p">());</span>
+    <span class="k">const</span> <span class="k">auto</span><span class="o">&amp;</span> <span class="n">logs</span> <span class="o">=</span> <span class="n">sink</span><span class="o">-&gt;</span><span class="n">GetLogs</span><span class="p">();</span>
+
+    <span class="n">std</span><span class="o">::</span><span class="n">ofstream</span> <span class="n">oft</span><span class="p">(</span><span class="n">filename</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">oft</span><span class="p">.</span><span class="n">fail</span><span class="p">())</span>
+    <span class="p">{</span>
+        <span class="n">error</span><span class="p">(</span><span class="s">&#34;Log saving failed!&#34;</span><span class="p">);</span>
+        <span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="k">auto</span><span class="o">&amp;</span> <span class="nl">log</span> <span class="p">:</span> <span class="n">logs</span><span class="p">)</span>
+        <span class="n">oft</span> <span class="o">&lt;&lt;</span> <span class="n">log</span><span class="p">.</span><span class="n">c_str</span><span class="p">();</span>
+    <span class="n">oft</span><span class="p">.</span><span class="n">close</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="kt">bool</span> <span class="n">Chaf</span><span class="o">::</span><span class="n">Logger</span><span class="o">::</span><span class="n">valid</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">auto</span> <span class="n">logger</span> <span class="o">=</span> <span class="n">spdlog</span><span class="o">::</span><span class="n">default_logger</span><span class="p">();</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">logger</span> <span class="o">||</span> <span class="n">logger</span><span class="o">-&gt;</span><span class="n">sinks</span><span class="p">().</span><span class="n">size</span><span class="p">()</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">)</span><span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+    <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这些函数为后续在GUI上做显示和日志的保存做铺垫，相应的，我也对该日志系统进行了测试：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="cp">#include</span> <span class="cpf">&lt;util/logger/logger.hpp&gt;</span><span class="cp">
+</span><span class="cp"></span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">Chaf</span><span class="p">;</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">Logger</span><span class="o">::</span><span class="n">Init</span><span class="p">();</span>
+
+    <span class="n">Logger</span><span class="o">::</span><span class="n">info</span><span class="p">(</span><span class="s">&#34;test info&#34;</span><span class="p">);</span>
+    <span class="n">Logger</span><span class="o">::</span><span class="n">error</span><span class="p">(</span><span class="s">&#34;test error&#34;</span><span class="p">);</span>
+    <span class="n">Logger</span><span class="o">::</span><span class="n">critical</span><span class="p">(</span><span class="s">&#34;test critical&#34;</span><span class="p">);</span>
+    <span class="n">Logger</span><span class="o">::</span><span class="n">trace</span><span class="p">(</span><span class="s">&#34;test trace&#34;</span><span class="p">);</span>
+    <span class="c1">//Logger::debug(false, &#34;test debug&#34;);
+</span><span class="c1"></span>
+    <span class="n">Logger</span><span class="o">::</span><span class="n">SaveAsFile</span><span class="p">();</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>测试结果：</p>
+<pre><code class="language->" data-lang=">">[2020-11-28 23:10:36.500] [logger] [info] test info
+[2020-11-28 23:10:36.503] [logger] [error] test error
+[2020-11-28 23:10:36.503] [logger] [critical] test critical
+</code></pre><p>同时保存到文件<code>log.data</code>中：</p>
+<p><img src="image-20201128231135837.png" alt="image-20201128231135837" /></p>
+<p>我们的日志系统就初步完成啦！</p>
 
     </article>
     
@@ -2012,7 +2796,7 @@ if (!doNotTrack) {
     
     
       
-        <a href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fchaphlagical.github.io%2fzh%2fnote%2fcpptemplate%2fappendixb%2f" title="Facebook" aria-label="Facebook Share Button" class="donation__item" target="_blank" rel="noreferrer" data-type="share">
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fchaphlagical.github.io%2fzh%2fposts%2f2020-11-27-thoth3%2f" title="Facebook" aria-label="Facebook Share Button" class="donation__item" target="_blank" rel="noreferrer" data-type="share">
           <svg data-name="facebook" enable-background="new 0 0 24 24" viewBox="0 0 24 24" width="35" height="35" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="m15.997 3.985h2.191v-3.816c-.378-.052-1.678-.169-3.192-.169-3.159 0-5.323 1.987-5.323 5.639v3.361h-3.486v4.266h3.486v10.734h4.274v-10.733h3.345l.531-4.266h-3.877v-2.939c.001-1.233.333-2.077 2.051-2.077z"/></svg>
         </a>
       
@@ -2194,23 +2978,15 @@ if (!doNotTrack) {
     <ul class="related-ul">
         
         <li>
-          <a href="/zh/note/cpptemplate/ch6/" class="related__link">Chapter 6: Move Semantics and enable_if&lt;&gt;</a>
+          <a href="/zh/posts/2020-11-26-thoth2/" class="related__link">Thoth引擎开发(2) | 程序入口</a>
         </li>
         
         <li>
-          <a href="/zh/note/cpptemplate/ch5/" class="related__link">Chapter 5: Tricky Basics</a>
+          <a href="/zh/posts/2020-11-26-thoth1/" class="related__link">Thoth引擎开发(1) | 项目构建</a>
         </li>
         
         <li>
-          <a href="/zh/note/cpptemplate/ch4/" class="related__link">Chapter 4: Variadic Templates</a>
-        </li>
-        
-        <li>
-          <a href="/zh/note/cpptemplate/ch3/" class="related__link">Chapter 3: Nontype Template Parameters</a>
-        </li>
-        
-        <li>
-          <a href="/zh/note/cpptemplate/appendixe/" class="related__link">Appendix E: Concepts</a>
+          <a href="/zh/posts/2020-11-25-thoth0/" class="related__link">Thoth引擎开发(0) | 规划</a>
         </li>
         
     </ul>
@@ -2220,11 +2996,11 @@ if (!doNotTrack) {
 <nav class="pagination-single">
   
     
-      <a href="https://chaphlagical.github.io/zh/note/cpptemplate/ch6/" class="pagination-single__left">
+      <a href="https://chaphlagical.github.io/zh/posts/2020-11-26-thoth2/" class="pagination-single__left">
         <div class="pagination-single__icon">
           <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path fill="currentColor" d="M19 11H7.83l4.88-4.88c.39-.39.39-1.03 0-1.42-.39-.39-1.02-.39-1.41 0l-6.59 6.59c-.39.39-.39 1.02 0 1.41l6.59 6.59c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41L7.83 13H19c.55 0 1-.45 1-1s-.45-1-1-1z"/></svg>
         </div>
-        <div class="pagination-single__left-title">Chapter 6: Move Semantics and enable_if&lt;&gt;</div>      
+        <div class="pagination-single__left-title">Thoth引擎开发(2) | 程序入口</div>      
       </a>
     
     <div class="grow"></div>
@@ -2663,6 +3439,8 @@ document.addEventListener('DOMContentLoaded', function () {
 <script defer src="/js/helper/fadeinout.min.js"></script>
 
 
+  <script defer src="https://cdn.jsdelivr.net/npm/mermaid@8.4.6/dist/mermaid.min.js" integrity="sha256-wV/0jM5E/0V&#43;KqyxUio2Ve5OAC/gweTTqdbnRX1fgAE=" crossorigin="anonymous"></script>
+
 
 
 
@@ -2929,7 +3707,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     
     
-    var lib = JSON.parse("[\"mathjax\"]");
+    var lib = JSON.parse("[\"mathjax\",\"mermaid\"]");
 
     if (lib && lib.includes('mermaid')) {
       
@@ -3149,7 +3927,7 @@ document.addEventListener('DOMContentLoaded', function () {
         
           
             
-              <a href="https://chaphlagical.github.io/zh/note/cpptemplate/appendixb/" data-lang="zh" class="dropdown-item is-active">简体中文</a>
+              <a href="https://chaphlagical.github.io/zh/posts/2020-11-27-thoth3/" data-lang="zh" class="dropdown-item is-active">简体中文</a>
             
           
         
@@ -3286,7 +4064,7 @@ document.addEventListener('DOMContentLoaded', function () {
   
   
     
-      <a href="https://chaphlagical.github.io/zh/note/index.xml" type="application/rss+xml" title="RSS" aria-label="RSS Feed Link">
+      <a href="https://chaphlagical.github.io/zh/posts/index.xml" type="application/rss+xml" title="RSS" aria-label="RSS Feed Link">
         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><circle fill="currentColor" cx="6.18" cy="17.82" r="2.18"/><path fill="currentColor" d="M5.59 10.23c-.84-.14-1.59.55-1.59 1.4 0 .71.53 1.28 1.23 1.4 2.92.51 5.22 2.82 5.74 5.74.12.7.69 1.23 1.4 1.23.85 0 1.54-.75 1.41-1.59-.68-4.2-3.99-7.51-8.19-8.18zm-.03-5.71C4.73 4.43 4 5.1 4 5.93c0 .73.55 1.33 1.27 1.4 6.01.6 10.79 5.38 11.39 11.39.07.73.67 1.28 1.4 1.28.84 0 1.5-.73 1.42-1.56-.73-7.34-6.57-13.19-13.92-13.92z"/></svg>
       </a>
     
@@ -3353,7 +4131,25 @@ document.addEventListener('DOMContentLoaded', function () {
         <div class="toc toc__outer " data-dir="ltr" data-folding="true" data-ani="true">
           <nav id="TableOfContents">
   <ul>
-    <li><a href="#b1-traditional-lvalues-and-rvalues">B.1 Traditional Lvalues and Rvalues</a></li>
+    <li><a href="#导言">导言</a></li>
+    <li><a href="#基础知识">基础知识</a>
+      <ul>
+        <li><a href="#智能指针">智能指针</a>
+          <ul>
+            <li><a href="#unique_ptr">unique_ptr</a></li>
+            <li><a href="#shared_ptr">shared_ptr</a></li>
+            <li><a href="#weak_ptr">weak_ptr</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#线程安全和锁">线程安全和锁</a>
+      <ul>
+        <li><a href="#开启一个线程">开启一个线程</a></li>
+        <li><a href="#互斥锁">互斥锁</a></li>
+      </ul>
+    </li>
+    <li><a href="#logging-system">Logging System</a></li>
   </ul>
 </nav>
         </div>
