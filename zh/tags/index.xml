@@ -14,7 +14,7 @@
     <managingEditor>chaf@mail.ustc.edu.cn (Wenbo Chen)</managingEditor>
     <webMaster>chaf@mail.ustc.edu.cn (Wenbo Chen)</webMaster>
     <copyright>&amp;copy;{year}, All Rights Reserved</copyright>
-    <lastBuildDate>Sun, 29 Nov 2020 07:14:11 +0100</lastBuildDate>
+    <lastBuildDate>Mon, 30 Nov 2020 19:43:11 +0100</lastBuildDate>
     
         <atom:link href="https://chaphlagical.github.io/zh/tags/index.xml" rel="self" type="application/rss+xml" />
     
@@ -25,10 +25,28 @@
       <item>
         <title>CG</title>
         <link>https://chaphlagical.github.io/zh/tags/cg/</link>
-        <pubDate>Sun, 29 Nov 2020 07:14:11 +0100</pubDate>
+        <pubDate>Mon, 30 Nov 2020 19:43:11 +0100</pubDate>
         <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
         
         <guid>https://chaphlagical.github.io/zh/tags/cg/</guid>
+        <description></description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        
+        
+        
+        
+        
+        
+      </item>
+      
+      <item>
+        <title>paper</title>
+        <link>https://chaphlagical.github.io/zh/tags/paper/</link>
+        <pubDate>Mon, 30 Nov 2020 19:43:11 +0100</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        
+        <guid>https://chaphlagical.github.io/zh/tags/paper/</guid>
         <description></description>
         
         <dc:creator>Wenbo Chen</dc:creator>

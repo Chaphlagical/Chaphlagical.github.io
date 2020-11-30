@@ -14,7 +14,7 @@
     <managingEditor>chaf@mail.ustc.edu.cn (Wenbo Chen)</managingEditor>
     <webMaster>chaf@mail.ustc.edu.cn (Wenbo Chen)</webMaster>
     <copyright>&amp;copy;{year}, All Rights Reserved</copyright>
-    <lastBuildDate>Sun, 29 Nov 2020 07:14:11 +0100</lastBuildDate>
+    <lastBuildDate>Mon, 30 Nov 2020 19:43:11 +0100</lastBuildDate>
     
         <atom:link href="https://chaphlagical.github.io/zh/index.xml" rel="self" type="application/rss+xml" />
     
@@ -42,6 +42,34 @@
         
       
 
+      
+      <item>
+        <title>论文阅读《Gaussian Product Subdivision Surface》</title>
+        <link>https://chaphlagical.github.io/zh/posts/gaussian-product-subdivision-surfaces/</link>
+        <pubDate>Mon, 30 Nov 2020 19:43:11 +0100</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        <atom:modified>Mon, 30 Nov 2020 19:43:11 +0100</atom:modified>
+        <guid>https://chaphlagical.github.io/zh/posts/gaussian-product-subdivision-surfaces/</guid>
+        <description>核心思想 用概率表征粗糙网格，用联合密度来实现细分 Overview 曲面表示定义流形网格$\Pi=(\mathcal V,\mathcal \varepsilon,\mathcal F)$，并对顶点$\mathcal V=</description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>CG</category>
+            
+          
+            
+              <category>paper</category>
+            
+          
+        
+        
+        
+      </item>
       
       <item>
         <title>Thoth引擎开发(3) | Utility之日志系统</title>
@@ -848,6 +876,24 @@
               <category>Resource</category>
             
           
+        
+        
+        
+      </item>
+      
+      <item>
+        <title></title>
+        <link>https://chaphlagical.github.io/zh/posts/neural-subdivision/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        
+        <guid>https://chaphlagical.github.io/zh/posts/neural-subdivision/</guid>
+        <description>Neural Subdivision 核心 神经网络细分 Neural Subdivision ![image-20201130191809541](Neural Subdivision/image-20201130191809541.png) 输入粗糙网格，出来不同程度的细分网格 Training and loss loss：$\mathcal L^2$损失函数（最小平方误差） 测量每个细</description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        
+        
+        
         
         
         

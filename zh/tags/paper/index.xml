@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" 
+  xmlns:content="http://purl.org/rss/1.0/modules/content/" 
+  xmlns:dc="http://purl.org/dc/elements/1.1/" 
+  xmlns:atom="http://www.w3.org/2005/Atom" 
+  xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" 
+  xmlns:media="http://search.yahoo.com/mrss/">
+  <channel>
+    <title>paper on Chaf&#39;s Blog</title>
+    <link>https://chaphlagical.github.io/zh/tags/paper/</link>
+    <description>Recent content in paper on Chaf&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <managingEditor>chaf@mail.ustc.edu.cn (Wenbo Chen)</managingEditor>
+    <webMaster>chaf@mail.ustc.edu.cn (Wenbo Chen)</webMaster>
+    <copyright>&amp;copy;{year}, All Rights Reserved</copyright>
+    <lastBuildDate>Mon, 30 Nov 2020 19:43:11 +0100</lastBuildDate>
+    
+        <atom:link href="https://chaphlagical.github.io/zh/tags/paper/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    
+
+      
+      <item>
+        <title>论文阅读《Gaussian Product Subdivision Surface》</title>
+        <link>https://chaphlagical.github.io/zh/posts/gaussian-product-subdivision-surfaces/</link>
+        <pubDate>Mon, 30 Nov 2020 19:43:11 +0100</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        <atom:modified>Mon, 30 Nov 2020 19:43:11 +0100</atom:modified>
+        <guid>https://chaphlagical.github.io/zh/posts/gaussian-product-subdivision-surfaces/</guid>
+        <description>核心思想 用概率表征粗糙网格，用联合密度来实现细分 Overview 曲面表示定义流形网格$\Pi=(\mathcal V,\mathcal \varepsilon,\mathcal F)$，并对顶点$\mathcal V=</description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>CG</category>
+            
+          
+            
+              <category>paper</category>
+            
+          
+        
+        
+        
+      </item>
+      
+
+    
+  </channel>
+</rss>
