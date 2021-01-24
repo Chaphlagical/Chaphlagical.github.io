@@ -14,13 +14,31 @@
     <managingEditor>chaf@mail.ustc.edu.cn (Wenbo Chen)</managingEditor>
     <webMaster>chaf@mail.ustc.edu.cn (Wenbo Chen)</webMaster>
     <copyright>&amp;copy;{year}, All Rights Reserved</copyright>
-    <lastBuildDate>Tue, 24 Nov 2020 15:56:11 +0100</lastBuildDate>
+    <lastBuildDate>Sat, 23 Jan 2021 15:56:11 +0100</lastBuildDate>
     
         <atom:link href="https://chaphlagical.github.io/zh/note/index.xml" rel="self" type="application/rss+xml" />
     
     
     
 
+      
+      <item>
+        <title>OpenSceneGraph</title>
+        <link>https://chaphlagical.github.io/zh/note/openscenegraph/</link>
+        <pubDate>Fri, 22 Jan 2021 00:00:00 +0000</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        <atom:modified>Fri, 22 Jan 2021 00:00:00 +0000</atom:modified>
+        <guid>https://chaphlagical.github.io/zh/note/openscenegraph/</guid>
+        <description>由于毕设，我将学习OpenSceneGraph的部分相关内容，主要是场景调度和渲染管线一块，下列为本人学习过程中的笔记，主要有以下几个板块的</description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        
+        
+        
+        
+        
+        
+      </item>
       
       <item>
         <title>C&#43;&#43; Templates</title>

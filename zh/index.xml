@@ -14,7 +14,7 @@
     <managingEditor>chaf@mail.ustc.edu.cn (Wenbo Chen)</managingEditor>
     <webMaster>chaf@mail.ustc.edu.cn (Wenbo Chen)</webMaster>
     <copyright>&amp;copy;{year}, All Rights Reserved</copyright>
-    <lastBuildDate>Mon, 30 Nov 2020 19:43:11 +0100</lastBuildDate>
+    <lastBuildDate>Sat, 23 Jan 2021 15:56:11 +0100</lastBuildDate>
     
         <atom:link href="https://chaphlagical.github.io/zh/index.xml" rel="self" type="application/rss+xml" />
     
@@ -42,6 +42,40 @@
         
       
 
+      
+      <item>
+        <title>初识osg</title>
+        <link>https://chaphlagical.github.io/zh/note/openscenegraph/%E5%88%9D%E8%AF%86osg/</link>
+        <pubDate>Sat, 23 Jan 2021 15:56:11 +0100</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        <atom:modified>Sat, 23 Jan 2021 15:56:11 +0100</atom:modified>
+        <guid>https://chaphlagical.github.io/zh/note/openscenegraph/%E5%88%9D%E8%AF%86osg/</guid>
+        <description>1. OpenSceneGraph的组成结构 OSG引擎的组成部分包括一系列动态链接库(.dll/.so)、插件(.dll/.so)、供开发者使用</description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>OpenSceneGraph</category>
+            
+          
+            
+              <category>C&#43;&#43;</category>
+            
+          
+        
+        
+          
+            
+              <category>Note</category>
+            
+          
+        
+        
+      </item>
       
       <item>
         <title>论文阅读《Gaussian Product Subdivision Surface》</title>
@@ -764,6 +798,24 @@
               <category>Resource</category>
             
           
+        
+        
+        
+      </item>
+      
+      <item>
+        <title></title>
+        <link>https://chaphlagical.github.io/zh/note/openscenegraph/osg%E5%9C%BA%E6%99%AF%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        
+        <guid>https://chaphlagical.github.io/zh/note/openscenegraph/osg%E5%9C%BA%E6%99%AF%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F/</guid>
+        <description></description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        
+        
+        
         
         
         
