@@ -14,7 +14,7 @@
     <managingEditor>chaf@mail.ustc.edu.cn (Wenbo Chen)</managingEditor>
     <webMaster>chaf@mail.ustc.edu.cn (Wenbo Chen)</webMaster>
     <copyright>&amp;copy;{year}, All Rights Reserved</copyright>
-    <lastBuildDate>Sat, 23 Jan 2021 15:56:11 +0100</lastBuildDate>
+    <lastBuildDate>Wed, 10 Feb 2021 15:57:11 +0100</lastBuildDate>
     
         <atom:link href="https://chaphlagical.github.io/zh/categories/index.xml" rel="self" type="application/rss+xml" />
     
@@ -23,12 +23,12 @@
 
       
       <item>
-        <title>Note</title>
-        <link>https://chaphlagical.github.io/zh/categories/note/</link>
-        <pubDate>Sat, 23 Jan 2021 15:56:11 +0100</pubDate>
+        <title>project</title>
+        <link>https://chaphlagical.github.io/zh/categories/project/</link>
+        <pubDate>Wed, 10 Feb 2021 15:57:11 +0100</pubDate>
         <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
         
-        <guid>https://chaphlagical.github.io/zh/categories/note/</guid>
+        <guid>https://chaphlagical.github.io/zh/categories/project/</guid>
         <description></description>
         
         <dc:creator>Wenbo Chen</dc:creator>

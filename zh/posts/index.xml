@@ -14,7 +14,7 @@
     <managingEditor>chaf@mail.ustc.edu.cn (Wenbo Chen)</managingEditor>
     <webMaster>chaf@mail.ustc.edu.cn (Wenbo Chen)</webMaster>
     <copyright>&amp;copy;{year}, All Rights Reserved</copyright>
-    <lastBuildDate>Mon, 30 Nov 2020 19:43:11 +0100</lastBuildDate>
+    <lastBuildDate>Wed, 10 Feb 2021 15:57:11 +0100</lastBuildDate>
     
         <atom:link href="https://chaphlagical.github.io/zh/posts/index.xml" rel="self" type="application/rss+xml" />
     
@@ -23,100 +23,18 @@
 
       
       <item>
-        <title>论文阅读《Gaussian Product Subdivision Surface》</title>
-        <link>https://chaphlagical.github.io/zh/posts/gaussian-product-subdivision-surfaces/</link>
-        <pubDate>Mon, 30 Nov 2020 19:43:11 +0100</pubDate>
+        <title>Software Renderer</title>
+        <link>https://chaphlagical.github.io/zh/posts/softwarerenderer/</link>
+        <pubDate>Wed, 10 Feb 2021 00:00:00 +0000</pubDate>
         <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
-        <atom:modified>Mon, 30 Nov 2020 19:43:11 +0100</atom:modified>
-        <guid>https://chaphlagical.github.io/zh/posts/gaussian-product-subdivision-surfaces/</guid>
-        <description>核心思想 用概率表征粗糙网格，用联合密度来实现细分 Overview 曲面表示定义流形网格$\Pi=(\mathcal V,\mathcal \varepsilon,\mathcal F)$，并对顶点$\mathcal V=</description>
+        <atom:modified>Wed, 10 Feb 2021 00:00:00 +0000</atom:modified>
+        <guid>https://chaphlagical.github.io/zh/posts/softwarerenderer/</guid>
+        <description>aaaa</description>
         
         <dc:creator>Wenbo Chen</dc:creator>
         
         
         
-        
-          
-            
-              <category>CG</category>
-            
-          
-            
-              <category>paper</category>
-            
-          
-        
-        
-        
-      </item>
-      
-      <item>
-        <title>latex公式速查</title>
-        <link>https://chaphlagical.github.io/zh/posts/2020-11-16-latex%E5%85%AC%E5%BC%8F%E9%80%9F%E6%9F%A5/</link>
-        <pubDate>Mon, 16 Nov 2020 08:47:11 +0100</pubDate>
-        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
-        <atom:modified>Mon, 16 Nov 2020 08:47:11 +0100</atom:modified>
-        <guid>https://chaphlagical.github.io/zh/posts/2020-11-16-latex%E5%85%AC%E5%BC%8F%E9%80%9F%E6%9F%A5/</guid>
-        <description></description>
-        
-        <dc:creator>Wenbo Chen</dc:creator>
-        
-        
-        
-        
-          
-            
-              <category>latex</category>
-            
-          
-        
-        
-        
-      </item>
-      
-      <item>
-        <title>C&#43;&#43;类的内存分布</title>
-        <link>https://chaphlagical.github.io/zh/posts/2020-11-15-c&#43;&#43;%E7%B1%BB%E7%9A%84%E5%86%85%E5%AD%98%E5%88%86%E5%B8%83/</link>
-        <pubDate>Sun, 15 Nov 2020 08:47:11 +0100</pubDate>
-        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
-        <atom:modified>Sun, 15 Nov 2020 08:47:11 +0100</atom:modified>
-        <guid>https://chaphlagical.github.io/zh/posts/2020-11-15-c&#43;&#43;%E7%B1%BB%E7%9A%84%E5%86%85%E5%AD%98%E5%88%86%E5%B8%83/</guid>
-        <description>近日编写简易数学库时发现，自己写的向量类无法使用指针进行连续内存访问，而我的类存储数据底层为std::array，属于顺序存储容器，可以通过</description>
-        
-        <dc:creator>Wenbo Chen</dc:creator>
-        
-        
-        
-        
-          
-            
-              <category>C&#43;&#43;</category>
-            
-          
-        
-        
-        
-      </item>
-      
-      <item>
-        <title>资源资料</title>
-        <link>https://chaphlagical.github.io/zh/posts/2020-09-25-resource/</link>
-        <pubDate>Fri, 25 Sep 2020 08:47:11 +0100</pubDate>
-        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
-        <atom:modified>Fri, 25 Sep 2020 08:47:11 +0100</atom:modified>
-        <guid>https://chaphlagical.github.io/zh/posts/2020-09-25-resource/</guid>
-        <description>课内资料 电子设计实践：课程资料 人工智能导论：课程资料 线性电子线路：课程资料 数字逻辑电路：课程资料 模式识别导论：课程资料 自动控制原理：课程资料</description>
-        
-        <dc:creator>Wenbo Chen</dc:creator>
-        
-        
-        
-        
-          
-            
-              <category>Resource</category>
-            
-          
         
         
         

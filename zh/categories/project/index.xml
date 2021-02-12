@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" 
+  xmlns:content="http://purl.org/rss/1.0/modules/content/" 
+  xmlns:dc="http://purl.org/dc/elements/1.1/" 
+  xmlns:atom="http://www.w3.org/2005/Atom" 
+  xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" 
+  xmlns:media="http://search.yahoo.com/mrss/">
+  <channel>
+    <title>project on Chaf&#39;s Blog</title>
+    <link>https://chaphlagical.github.io/zh/categories/project/</link>
+    <description>Recent content in project on Chaf&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <managingEditor>chaf@mail.ustc.edu.cn (Wenbo Chen)</managingEditor>
+    <webMaster>chaf@mail.ustc.edu.cn (Wenbo Chen)</webMaster>
+    <copyright>&amp;copy;{year}, All Rights Reserved</copyright>
+    <lastBuildDate>Wed, 10 Feb 2021 15:57:11 +0100</lastBuildDate>
+    
+        <atom:link href="https://chaphlagical.github.io/zh/categories/project/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    
+
+      
+      <item>
+        <title>3D数学基础</title>
+        <link>https://chaphlagical.github.io/zh/posts/softwarerenderer/mathematics/</link>
+        <pubDate>Wed, 10 Feb 2021 15:57:11 +0100</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        <atom:modified>Wed, 10 Feb 2021 15:57:11 +0100</atom:modified>
+        <guid>https://chaphlagical.github.io/zh/posts/softwarerenderer/mathematics/</guid>
+        <description>本节主要介绍计算机图形学中常用的3D数学方法，主要内容包括： 向量与矩阵 仿射变换 投影变换 四元数与旋转 相关内容已在数学库CML中实现：https</description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>Software Renderer</category>
+            
+          
+        
+        
+          
+            
+              <category>project</category>
+            
+          
+        
+        
+      </item>
+      
+
+    
+  </channel>
+</rss>
