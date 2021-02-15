@@ -73,6 +73,36 @@
         
       </item>
       
+      <item>
+        <title>光栅画线算法</title>
+        <link>https://chaphlagical.github.io/zh/posts/softwarerenderer/line/</link>
+        <pubDate>Wed, 10 Feb 2021 15:57:11 +0100</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        <atom:modified>Wed, 10 Feb 2021 15:57:11 +0100</atom:modified>
+        <guid>https://chaphlagical.github.io/zh/posts/softwarerenderer/line/</guid>
+        <description>本节介绍光栅化中的画线算法，画线算法是光栅化中最简单的算法，如何充分发挥画线的效率是本节的重点 1. 增量画线算法 想要在$(x_0,y_0)$到$</description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>Software Renderer</category>
+            
+          
+        
+        
+          
+            
+              <category>project</category>
+            
+          
+        
+        
+      </item>
+      
 
     
   </channel>
