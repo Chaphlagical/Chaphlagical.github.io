@@ -4,7 +4,7 @@
   
   <url>
     <loc>https://chaphlagical.github.io/zh/</loc>
-    <lastmod>2021-02-10T15:57:11+01:00</lastmod>
+    <lastmod>2021-02-17T20:57:11+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -18,13 +18,8 @@
   </url>
   
   <url>
-    <loc>https://chaphlagical.github.io/zh/posts/softwarerenderer/mathematics/</loc>
-    <lastmod>2021-02-10T15:57:11+01:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://chaphlagical.github.io/zh/categories/</loc>
-    <lastmod>2021-02-10T15:57:11+01:00</lastmod>
+    <lastmod>2021-02-17T20:57:11+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -39,7 +34,7 @@
   
   <url>
     <loc>https://chaphlagical.github.io/zh/posts/</loc>
-    <lastmod>2021-02-10T15:57:11+01:00</lastmod>
+    <lastmod>2021-02-17T20:57:11+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -54,17 +49,17 @@
   
   <url>
     <loc>https://chaphlagical.github.io/zh/categories/project/</loc>
-    <lastmod>2021-02-10T15:57:11+01:00</lastmod>
+    <lastmod>2021-02-17T20:57:11+01:00</lastmod>
   </url>
   
   <url>
     <loc>https://chaphlagical.github.io/zh/tags/software-renderer/</loc>
-    <lastmod>2021-02-10T15:57:11+01:00</lastmod>
+    <lastmod>2021-02-17T20:57:11+01:00</lastmod>
   </url>
   
   <url>
     <loc>https://chaphlagical.github.io/zh/tags/</loc>
-    <lastmod>2021-02-10T15:57:11+01:00</lastmod>
+    <lastmod>2021-02-17T20:57:11+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -75,6 +70,21 @@
                 hreflang="zh"
                 href="https://chaphlagical.github.io/zh/tags/"
                 />
+  </url>
+  
+  <url>
+    <loc>https://chaphlagical.github.io/zh/posts/softwarerenderer/zbuffer/</loc>
+    <lastmod>2021-02-17T20:57:11+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://chaphlagical.github.io/zh/posts/softwarerenderer/triangle/</loc>
+    <lastmod>2021-02-17T20:57:11+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://chaphlagical.github.io/zh/posts/softwarerenderer/mathematics/</loc>
+    <lastmod>2021-02-10T15:57:11+01:00</lastmod>
   </url>
   
   <url>

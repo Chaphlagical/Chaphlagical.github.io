@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>3D数学基础 – Chaf&#39;s Blog</title>
+    <title>三角形填充算法 – Chaf&#39;s Blog</title>
     
 
 
@@ -653,7 +653,7 @@
     
     var baseurl = JSON.parse("\"https://chaphlagical.github.io\"");
     
-    var permalink = JSON.parse("\"https://chaphlagical.github.io/zh/posts/softwarerenderer/mathematics/\"");
+    var permalink = JSON.parse("\"https://chaphlagical.github.io/zh/posts/softwarerenderer/triangle/\"");
     
     var langprefix = JSON.parse("\"/zh\"");
     var searchResults = null;
@@ -1323,23 +1323,23 @@
 
 
     
-<meta name="description" content="软光栅渲染器之数学库" />
+<meta name="description" content="软光栅渲染器之三角形填充算法" />
 
 
 <meta name="keywords" content="Software Renderer">
 
-<meta name="created" content="2021-02-10T15:57:11&#43;0100">
-<meta name="modified" content="2021-02-10T15:57:11&#43;0100">
-<meta property="article:published_time" content="2021-02-10T15:57:11&#43;0100">
+<meta name="created" content="2021-02-17T20:57:11&#43;0100">
+<meta name="modified" content="2021-02-17T20:57:11&#43;0100">
+<meta property="article:published_time" content="2021-02-17T20:57:11&#43;0100">
 
 <meta name="author" content="Wenbo Chen">
 
 
 <meta property="og:site_name" content="Chaf&#39;s Blog">
-<meta property="og:title" content="3D数学基础">
-<meta property="og:url" content="https://chaphlagical.github.io/zh/posts/softwarerenderer/mathematics/">
+<meta property="og:title" content="三角形填充算法">
+<meta property="og:url" content="https://chaphlagical.github.io/zh/posts/softwarerenderer/triangle/">
 <meta property="og:type" content="article">
-<meta property="og:description" content="软光栅渲染器之数学库">
+<meta property="og:description" content="软光栅渲染器之三角形填充算法">
 
 <meta name="generator" content="Hugo 0.78.1" />
 <meta name="msapplication-TileColor" content="#fff">
@@ -1350,7 +1350,7 @@
 
 <meta name="apple-mobile-web-app-status-bar-style" content="#fff">
 
-<link rel="canonical" href="https://chaphlagical.github.io/zh/posts/softwarerenderer/mathematics/">
+<link rel="canonical" href="https://chaphlagical.github.io/zh/posts/softwarerenderer/triangle/">
 
 <link rel="manifest" href="/manifest.json">
 
@@ -1376,11 +1376,11 @@
   {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    "headline": "3D数学基础",
-    "datePublished": "2021-02-10T15:57:11+01:00",
-    "dateModified": "2021-02-10T15:57:11+01:00",
-    "url" : "https://chaphlagical.github.io/zh/posts/softwarerenderer/mathematics/",
-    "description": "软光栅渲染器之数学库",
+    "headline": "三角形填充算法",
+    "datePublished": "2021-02-17T20:57:11+01:00",
+    "dateModified": "2021-02-17T20:57:11+01:00",
+    "url" : "https://chaphlagical.github.io/zh/posts/softwarerenderer/triangle/",
+    "description": "软光栅渲染器之三角形填充算法",
     "keywords": ["Software Renderer"],
     "mainEntityOfPage": {
       "@type": "WebPage",
@@ -1744,7 +1744,7 @@ if (!doNotTrack) {
   
   <li  class="is-active" >
     
-      <span>3D数学基础</span>
+      <span>三角形填充算法</span>
     
   </li>
   
@@ -1756,14 +1756,14 @@ if (!doNotTrack) {
   <div class="single ">
     <div class="single__nojs">Please enable Javascript to view the contents</div>
     <script>document.querySelector('.single').classList.remove('hide'); document.querySelector('.single__nojs').classList.add('hide');</script>
-    <h2 class="single__title" data-ani="true">3D数学基础</h2>
+    <h2 class="single__title" data-ani="true">三角形填充算法</h2>
     <h3 class="single__subtitle"></h3>
     <div class="single__meta">
       
 <div class="single__infos">
-  <time class="single__info" title="创建日期">📅&nbsp;2021年02月10日 </time>
+  <time class="single__info" title="创建日期">📅&nbsp;2021年02月17日 </time>
   
-  &nbsp;&middot;&nbsp; <span class="single__info" title="阅读时长"> ☕&nbsp;7&nbsp;分钟 </span>
+  &nbsp;&middot;&nbsp; <span class="single__info" title="阅读时长"> ☕&nbsp;3&nbsp;分钟 </span>
   
   <span class="single__info">
     
@@ -1781,578 +1781,218 @@ if (!doNotTrack) {
     </div>
     <article class="single__contents" data-dir="ltr" data-ani="true">
       
-      <p>本节主要介绍计算机图形学中常用的3D数学方法，主要内容包括：</p>
-<ul>
-<li>向量与矩阵</li>
-<li>仿射变换</li>
-<li>投影变换</li>
-<li>四元数与旋转</li>
-</ul>
-<p>相关内容已在数学库CML中实现：<a href="https://github.com/Chaf-Libraries/CML">https://github.com/Chaf-Libraries/CML</a></p>
-<h2 id="1-向量与矩阵">1. 向量与矩阵</h2>
-<p>图形学中大部分情况使用2-4维的向量与矩阵，相关内容在线性代数中已有详细介绍，这里不多阐述，可参照<a href="https://learnopengl-cn.github.io/01%20Getting%20started/07%20Transformations/">LearnOpenGL</a>网站查看相关内容。</p>
-<h2 id="2-仿射变换">2. 仿射变换</h2>
-<p>仿射变换包括刚体变换（平移、旋转）、缩放和错切，能够保持共线性。为解决仿射变换中出现的非线性变换问题，例如平移：$\pmb v'=\pmb v+\Delta \pmb v$，引入齐次坐标的概念，用$n+1$维的向量来表示投影系统空间中的$n$维坐标，用线性变换来表示各种仿射变换，基本格式为：$\pmb v'=\pmb {Mv}$，不同变换的合成通过矩阵乘法来实现：$\pmb v'=\pmb M_1\pmb M_2\cdots\pmb M_n \pmb v$</p>
-<h3 id="21-平移变换">2.1. 平移变换</h3>
-<p>$$<br />
-\pmb T(x,y,z)=\begin{pmatrix}<br />
-1&amp;0&amp;0&amp;t_x\\<br />
-0&amp;1&amp;0&amp;t_y\\<br />
-0&amp;0&amp;1&amp;t_z\\<br />
-0&amp;0&amp;0&amp;1\\<br />
-\end{pmatrix}<br />
-$$</p>
-<h3 id="22-缩放变换">2.2. 缩放变换</h3>
-<p>$$<br />
-\pmb S(x,y,z)=\begin{pmatrix}<br />
-s_x&amp;0&amp;0&amp;0\\<br />
-0&amp;s_y&amp;0&amp;0\\<br />
-0&amp;0&amp;s_z&amp;0\\<br />
-0&amp;0&amp;0&amp;1<br />
-\end{pmatrix}<br />
-$$</p>
-<h3 id="23-绕坐标轴的旋转">2.3. 绕坐标轴的旋转</h3>
-<p>$$<br />
-\pmb R_x(\theta)=\begin{pmatrix}<br />
-1&amp;0&amp;0&amp;0\\<br />
-0&amp;\cos\theta&amp;-\sin\theta&amp;0\\<br />
-0&amp;\sin\theta&amp;\cos\theta&amp;0\\<br />
-0&amp;0&amp;0&amp;1<br />
-\end{pmatrix}<br />
+      <p>三角形填充算法是光栅化流程中重要的一步，是我们片元着色的基础</p>
+<h2 id="1-行扫描算法">1. 行扫描算法</h2>
+<p><img src="image-20210217214328734.png" alt="image-20210217214328734" /></p>
+<p>在进行三角形填充之前，先对三角形三个顶点的纵坐标进行-排序，由小到大依次排列为$t_0$，$t_1$和$t_2$，以$t_1$为分界分为上下两个三角形，从$t_0$开始扫描，行$y$的左右顶点$A$和$B$满足：<br />
+$$<br />
+\dfrac{y_0-y}{x_0-A_x}=\dfrac{y_0-y_2}{x_0-x_2}<br />
 $$</p>
 <p>$$<br />
-\pmb R_y(\theta)=\begin{pmatrix}<br />
-\cos\theta&amp;0&amp;\sin\theta&amp;0\\<br />
-0&amp;1&amp;0&amp;0\\<br />
--\sin\theta&amp;0&amp;\cos\theta&amp;0\\<br />
-0&amp;0&amp;0&amp;1<br />
-\end{pmatrix}<br />
+\dfrac{y_0-y}{x_0-B_x}=\dfrac{y_0-y_1}{x_0-x_1}<br />
 $$</p>
-<p>$$<br />
-\pmb R_z(\theta)=\begin{pmatrix}<br />
-\cos\theta&amp;-\sin\theta&amp;0&amp;0\\<br />
-\sin\theta&amp;\cos\theta&amp;0&amp;0\\<br />
-0&amp;0&amp;1&amp;0\\<br />
-0&amp;0&amp;0&amp;1<br />
-\end{pmatrix}<br />
-$$</p>
-<h3 id="24-绕任意轴的旋转">2.4. 绕任意轴的旋转</h3>
-<h4 id="241-euler旋转">2.4.1. Euler旋转</h4>
-<p><img src="camera_pitch_yaw_roll.png" alt="" /></p>
-<p>绕原点任一轴旋转$\theta$角可以分解为绕$x$，$y$和$z$轴旋转的合成：<br />
+<p>每一行填充$[A_x,B_x]$之间的像素，上下同理，代码如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="kt">void</span> <span class="n">DrawPrimitive</span><span class="o">::</span><span class="n">DrawTriangle</span><span class="p">(</span><span class="k">const</span> <span class="n">CML</span><span class="o">::</span><span class="n">Point2i</span><span class="o">&amp;</span> <span class="n">p1</span><span class="p">,</span> <span class="k">const</span> <span class="n">CML</span><span class="o">::</span><span class="n">Point2i</span><span class="o">&amp;</span> <span class="n">p2</span><span class="p">,</span> <span class="k">const</span> <span class="n">CML</span><span class="o">::</span><span class="n">Point2i</span><span class="o">&amp;</span> <span class="n">p3</span><span class="p">,</span> <span class="k">const</span> <span class="n">CML</span><span class="o">::</span><span class="n">Rgbi</span><span class="o">&amp;</span> <span class="n">color</span><span class="p">,</span> <span class="n">FrameBuffer</span><span class="o">&amp;</span> <span class="n">fbo</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">CML</span><span class="o">::</span><span class="n">Point2i</span> <span class="n">v1</span> <span class="o">=</span> <span class="n">p1</span><span class="p">,</span> <span class="n">v2</span> <span class="o">=</span> <span class="n">p2</span><span class="p">,</span> <span class="n">v3</span> <span class="o">=</span> <span class="n">p3</span><span class="p">;</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">v1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">v2</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="n">std</span><span class="o">::</span><span class="n">swap</span><span class="p">(</span><span class="n">v1</span><span class="p">,</span> <span class="n">v2</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">v1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">v3</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="n">std</span><span class="o">::</span><span class="n">swap</span><span class="p">(</span><span class="n">v1</span><span class="p">,</span> <span class="n">v3</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">v2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">v3</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="n">std</span><span class="o">::</span><span class="n">swap</span><span class="p">(</span><span class="n">v2</span><span class="p">,</span> <span class="n">v3</span><span class="p">);</span>
+
+    <span class="kt">float</span> <span class="n">total_height</span> <span class="o">=</span> <span class="n">v3</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">v1</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="n">v1</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span> <span class="n">y</span> <span class="o">&lt;=</span> <span class="n">v2</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span> <span class="n">y</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="kt">float</span> <span class="n">segment_height</span> <span class="o">=</span> <span class="n">v2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">v1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="kt">float</span> <span class="n">alpha</span> <span class="o">=</span> <span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="n">v1</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="n">total_height</span><span class="p">;</span>
+        <span class="kt">float</span> <span class="n">beta</span> <span class="o">=</span> <span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="n">v1</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="n">segment_height</span><span class="p">;</span>
+        <span class="n">CML</span><span class="o">::</span><span class="n">Point2i</span> <span class="n">A</span> <span class="o">=</span> <span class="n">v1</span> <span class="o">+</span> <span class="p">(</span><span class="n">v3</span> <span class="o">-</span> <span class="n">v1</span><span class="p">)</span> <span class="o">*</span> <span class="n">alpha</span><span class="p">;</span>
+        <span class="n">CML</span><span class="o">::</span><span class="n">Point2i</span> <span class="n">B</span> <span class="o">=</span> <span class="n">v1</span> <span class="o">+</span> <span class="p">(</span><span class="n">v2</span> <span class="o">-</span> <span class="n">v1</span><span class="p">)</span> <span class="o">*</span> <span class="n">beta</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">A</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">B</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="n">std</span><span class="o">::</span><span class="n">swap</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">);</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">A</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span> <span class="n">j</span> <span class="o">&lt;=</span> <span class="n">B</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span>
+            <span class="n">fbo</span><span class="p">.</span><span class="n">SetPixel</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">color</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">color</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
+    <span class="p">}</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="n">v2</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span> <span class="n">y</span> <span class="o">&lt;=</span> <span class="n">v3</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span> <span class="n">y</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="kt">float</span> <span class="n">segment_height</span> <span class="o">=</span> <span class="n">v3</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">v2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="kt">float</span> <span class="n">alpha</span> <span class="o">=</span> <span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="n">v1</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="n">total_height</span><span class="p">;</span>
+        <span class="kt">float</span> <span class="n">beta</span> <span class="o">=</span> <span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="n">v2</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="n">segment_height</span><span class="p">;</span>
+        <span class="n">CML</span><span class="o">::</span><span class="n">Point2i</span> <span class="n">A</span> <span class="o">=</span> <span class="n">v1</span> <span class="o">+</span> <span class="p">(</span><span class="n">v3</span> <span class="o">-</span> <span class="n">v1</span><span class="p">)</span> <span class="o">*</span> <span class="n">alpha</span><span class="p">;</span>
+        <span class="n">CML</span><span class="o">::</span><span class="n">Point2i</span> <span class="n">B</span> <span class="o">=</span> <span class="n">v2</span> <span class="o">+</span> <span class="p">(</span><span class="n">v3</span> <span class="o">-</span> <span class="n">v2</span><span class="p">)</span> <span class="o">*</span> <span class="n">beta</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">A</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">B</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="n">std</span><span class="o">::</span><span class="n">swap</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">);</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">A</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span> <span class="n">j</span> <span class="o">&lt;=</span> <span class="n">B</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span>
+            <span class="n">fbo</span><span class="p">.</span><span class="n">SetPixel</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">color</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">color</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>绘制结果示例：</p>
+<p><img src="image-20210217214920639.png" alt="image-20210217214920639" /></p>
+<h2 id="2-三角形重心方法">2. 三角形重心方法</h2>
+<p>扫描线算法虽然直观上容易理解，编码简单，但因为涉及较多浮点数计算，效率一般，下面介绍一种利用三角形重心的方法进行三角形的填充</p>
+<p><img src="image-20210217221046069.png" alt="image-20210217221046069" /></p>
+<p>对一个$\triangle ABC$，任一点$P$与三个顶点有关系：<br />
 $$<br />
-\pmb R(\theta)=\pmb R_z(\theta)\pmb R_y(\theta)\pmb R_z(\theta)<br />
+\vec{AP}=u\vec{AB}+v\vec{AC}<br />
 $$<br />
-注意旋转顺序不可交换</p>
-<h4 id="242-一般情况">2.4.2. 一般情况</h4>
-<p>对于绕任意轴$\pmb n=(n_x, n_y,n_z)$（其中$\pmb n$为单位向量）旋转$\theta$角的旋转矩阵$\pmb R(\pmb n, \theta)$，设有向量$\pmb v$参与变换，有$\pmb v'=\pmb R(\pmb n, \theta)\pmb v$，将$\pmb v$进行分解为垂直和平行于$\pmb n$的分量：$\pmb v=\pmb v_\perp+\pmb v_\parallel$，又设向量$\pmb w=\pmb n\times\pmb v_\perp$垂直于$\pmb n$和$\pmb v$构成的平面，则有：<br />
+用顶点表示为：<br />
 $$<br />
-\begin{align}<br />
-\pmb v_\parallel&amp;=(\pmb v\cdot\pmb n)\pmb n\\<br />
-\pmb v_\perp&amp;=\pmb v-(\pmb v\cdot\pmb n)\pmb n\\<br />
-\pmb w&amp;=\pmb n\times\pmb v_\perp=\pmb n\times(\pmb v-(\pmb v\cdot\pmb n)\pmb n)=\pmb n\times\pmb v<br />
-\end{align}<br />
+P-A=u(B-A)+v(C-A)<br />
 $$<br />
-参与旋转部分仅有$\pmb v_\perp$，有：<br />
+整理得到：<br />
 $$<br />
-\begin{align}<br />
-\pmb v'_\perp&amp;=\pmb v_\perp\cos\theta+\pmb w\sin\theta\\<br />
-&amp;=(\pmb v-(\pmb v\cdot\pmb n)\pmb n)\cos\theta+\pmb n\times\pmb v\sin\theta<br />
-\end{align}<br />
+P=(1-u-v)A+uB+vC=A+u\vec{AB}+v\vec{AC}<br />
 $$<br />
-结合平行分量：<br />
-$$<br />
-\begin{align}<br />
-\pmb v'&amp;=\pmb v_\perp'+\pmb v_\parallel\\<br />
-&amp;=\pmb v\cos\theta+(1-\cos\theta)(\pmb v\cdot\pmb n)\pmb n+\pmb n\times\pmb v\sin\theta<br />
-\end{align}<br />
-$$<br />
-整理得到$\pmb R(\pmb n, \theta)$：<br />
-$$<br />
-\pmb R(\pmb n,\theta)=\begin{pmatrix}<br />
-n_x^2(1-\cos\theta)+\cos\theta&amp;n_xn_y(1-\cos\theta)-n_z\sin\theta&amp;n_xn_z(1-\cos\theta)+n_y\sin\theta\\<br />
-n_xn_y(1-\cos\theta)+n_z\sin\theta&amp;n_y^2(1-\cos\theta)+\cos\theta&amp;n_yn_z(1-\cos\theta)-n_x\sin\theta\\<br />
-n_xn_z(1-\cos\theta)-n_y\sin\theta&amp;n_yn_z(1-\cos\theta)-n_y\sin\theta&amp;n_z^2(1-\cos\theta)+\cos\theta<br />
-\end{pmatrix}<br />
-$$</p>
-<h2 id="3-投影变换">3. 投影变换</h2>
-<p>软光栅渲染中很重要的一步便是将三维空间中的物体投影到二维屏幕上，这一步便是由投影变换完成，投影变换矩阵将视图空间中的顶点数据变换到裁剪空间中，裁剪空间中的顶点最后通过透视除法变换到标准化设备坐标。最常用的投影方式有：透视投影和正交投影</p>
-<h3 id="31-透视投影">3.1. 透视投影</h3>
-<p><img src="perspective_frustum.png" alt=" perspective_frustum" /></p>
-<p>经过透视投影，视锥体中的坐标点将被映射到NDC标准化设备坐标</p>
-<p><img src="gl_projectionmatrix01.png" alt="OpenGL Perspective Frustum and NDC" /></p>
-<p>下面推导透视投影矩阵的计算，假设视锥体中坐标点$(x_e,y_e,z_e)$投影到近平面上的点$(x_p.y_p.z_p)$，设视点到近平面距离为$n$到远平面距离为$f$</p>
-<p><img src="gl_projectionmatrix03.png" alt="Top View of Frustum" /></p>
-<p><img src="gl_projectionmatrix04.png" alt="Side View of Frustum" /></p>
-<p>从两个角度观察各个量的关系，由三角形近似比例：<br />
-$$<br />
-\begin{align}<br />
-\dfrac{x_p}{x_e}&amp;=\dfrac{-n}{z_e}\Rightarrow x_p=\dfrac{-n\cdot x_e}{z_e}=\dfrac{n\cdot x_e}{-z_e}\\<br />
-\dfrac{y_p}{y_e}&amp;=\dfrac{-n}{z_e}\Rightarrow y_p=\dfrac{-n\cdot y_e}{z_e}=\dfrac{n\cdot y_e}{-z_e}<br />
-\end{align}<br />
-$$<br />
-注意到$x_p$和$y_p$的计算均需要除以一个$-z_e$，这与裁剪空间到NDC正则化的透视除法相对应：<br />
-$$<br />
-\begin{align}<br />
-\begin{pmatrix}<br />
-x_{clip}\\y_{clip}\\z_{clip}\\w_{clip}<br />
-\end{pmatrix}<br />
-&amp;=\pmb M_{projection}\cdot<br />
-\begin{pmatrix}<br />
-x_{eye}\\y_{eye}\\z_{eye}\\w_{eye}<br />
-\end{pmatrix}\\<br />
-\begin{pmatrix}<br />
-x_{ndc}\\y_{ndc}\\z_{ndc}<br />
-\end{pmatrix}<br />
-&amp;=<br />
-\begin{pmatrix}<br />
-x_{clip}/w_{clip}\\<br />
-y_{clip}/w_{clip}\\<br />
-z_{clip}/w_{clip}<br />
-\end{pmatrix}<br />
-\end{align}<br />
-$$<br />
-这里的$w_{clip}$便是$-z_e$了，因此透视投影矩阵有如下形式：<br />
-$$<br />
-\begin{align}<br />
-\begin{pmatrix}<br />
-x_c\\<br />
-y_c\\<br />
-z_c\\<br />
-w_c<br />
-\end{pmatrix}=<br />
-\begin{pmatrix}<br />
-\cdot &amp; \cdot &amp; \cdot &amp; \cdot\\<br />
-\cdot &amp; \cdot &amp; \cdot &amp; \cdot\\<br />
-\cdot &amp; \cdot &amp; \cdot &amp; \cdot\\<br />
-0&amp;0&amp;-1&amp;0<br />
-\end{pmatrix}<br />
-\begin{pmatrix}<br />
-x_e\\<br />
-y_e\\<br />
-z_e\\<br />
-w_e<br />
-\end{pmatrix}<br />
-\end{align}<br />
-$$<br />
-下面我们需要把近平面坐标点$x_p$和$y_p$线性映射到NDC坐标$x_n$和$y_n$：$[l,r]\Rightarrow [-1,1]$以及$[b,t]\Rightarrow [-1,1]$<br />
-$$<br />
-\begin{align}<br />
-\dfrac{x_n-(-1)}{1-(-1)}&amp;=\dfrac{x_p-l}{r-l}\Rightarrow x_n=\dfrac{2x_p}{r-l}-\dfrac{r+l}{r-l}\\<br />
-\dfrac{y_n-(-1)}{1-(-1)}&amp;=\dfrac{y_p-b}{t-b}\Rightarrow y_n=\dfrac{2y_p}{t-b}-\dfrac{t+b}{t-b}<br />
-\end{align}<br />
-$$<br />
-将$x_p$和$y_p$代入得<br />
-$$<br />
-\begin{align}<br />
-x_n=\Big(\dfrac{2n}{r-l}\cdot x_e+\dfrac{r+l}{r-l}\cdot z_e \Big)\Big/-z_e\\<br />
-y_n=\Big(\dfrac{2n}{t-b}\cdot y_e+\dfrac{t+b}{t-b}\cdot z_e \Big)\Big/-z_e<br />
-\end{align}<br />
-$$<br />
-可填入透视投影矩阵：<br />
-$$<br />
-\begin{align}<br />
-\begin{pmatrix}<br />
-x_c\\<br />
-y_c\\<br />
-z_c\\<br />
-w_c<br />
-\end{pmatrix}=<br />
-\begin{pmatrix}<br />
-\frac{2n}{r-l}&amp;0&amp;\frac{r+l}{r-l}&amp;0\\<br />
-0&amp;\frac{2n}{t-b}&amp;\frac{t+b}{t-b}&amp;0\\<br />
-\cdot &amp; \cdot &amp; \cdot &amp; \cdot\\<br />
-0&amp;0&amp;-1&amp;0<br />
-\end{pmatrix}<br />
-\begin{pmatrix}<br />
-x_e\\<br />
-y_e\\<br />
-z_e\\<br />
-w_e<br />
-\end{pmatrix}<br />
-\end{align}<br />
-$$<br />
-由于$z_c$不依赖于$x_e$与$y_e$且与$z_e$和$w_e$成线性关系，设<br />
-$$<br />
-\begin{align}<br />
-\begin{pmatrix}<br />
-x_c\\<br />
-y_c\\<br />
-z_c\\<br />
-w_c<br />
-\end{pmatrix}=<br />
-\begin{pmatrix}<br />
-\frac{2n}{r-l}&amp;0&amp;\frac{r+l}{r-l}&amp;0\\<br />
-0&amp;\frac{2n}{t-b}&amp;\frac{t+b}{t-b}&amp;0\\<br />
-0&amp;0&amp;A&amp;B\\<br />
-0&amp;0&amp;-1&amp;0<br />
-\end{pmatrix}<br />
-\begin{pmatrix}<br />
-x_e\\<br />
-y_e\\<br />
-z_e\\<br />
-w_e<br />
-\end{pmatrix}<br />
-\end{align}<br />
-$$<br />
-即<br />
-$$<br />
-z_n=z_c/w_c=\dfrac{Az_e+Bw_e}{-z_e}<br />
-$$<br />
-在视角空间中，$w_e=1$，因此$z_n=\frac{Az_e+B}{-z_e}$，利用边界关系：<br />
+写成分量形式则有：<br />
 $$<br />
 \begin{cases}<br />
-\dfrac{-An+B}{n}=-1\\<br />
-\dfrac{-Af+B}{f}=1<br />
-\end{cases}<br />
-\Rightarrow<br />
-\begin{cases}<br />
-A=-\dfrac{f+n}{f-n}\\<br />
-B=-\dfrac{2fn}{f-n}<br />
+u\vec{AB}_x+v\vec{AC}_x+\vec{PA}_x=0\\<br />
+u\vec{AB}_y+v\vec{AC}_y+\vec{PA}_y=0<br />
 \end{cases}<br />
 $$<br />
-因此完整的透视投影矩阵表示为：<br />
+写成矩阵形式：<br />
 $$<br />
-\begin{pmatrix}<br />
-\frac{2n}{r-l}&amp;0&amp;\frac{r+l}{r-l}&amp;0\\<br />
-0&amp;\frac{2n}{t-b}&amp;\frac{t+b}{t-b}&amp;0\\<br />
-0&amp;0&amp;\frac{-(f+n)}{f-n}&amp;\frac{-2fn}{f-n}\\<br />
-0&amp;0&amp;-1&amp;0<br />
-\end{pmatrix}<br />
+\begin{align}<br />
+\begin{pmatrix}u&amp;v&amp;1\end{pmatrix}<br />
+\begin{pmatrix}\vec{AB}_x\\\vec{AC}_x\\\vec{PA}_x\end{pmatrix}=0\\<br />
+\begin{pmatrix}u&amp;v&amp;1\end{pmatrix}<br />
+\begin{pmatrix}\vec{AB}_y\\\vec{AC}_y\\\vec{PA}_y\end{pmatrix}=0<br />
+\end{align}<br />
 $$<br />
-如果视锥体对称，即$t=-b$和$l=-r$，则可简化为：<br />
-$$<br />
-\begin{pmatrix}<br />
-\frac{n}{r}&amp;0&amp;0&amp;0\\<br />
-0&amp;\frac{n}{t}&amp;0&amp;0\\<br />
-0&amp;0&amp;\frac{-(f+n)}{f-n}&amp;\frac{-2fn}{f-n}\\<br />
-0&amp;0&amp;-1&amp;0<br />
-\end{pmatrix}<br />
-$$<br />
-通常情况下我们会用参数$fovy$（$y$轴方向的视域角）、$aspect$（屏幕宽高比）、$near$（近平面）以及$far$（远平面）来构造透视投影矩阵，相关关系如下：<br />
-$$<br />
-r-l=width=2*near*aspect*tan(fovy/2)<br />
-$$</p>
-<p>$$<br />
-t-b=height=2<em>near</em>tan(fovy/2)<br />
-$$</p>
-<h3 id="32-正交投影">3.2. 正交投影</h3>
-<p><img src="orthographic_frustum.png" alt="orthographic projection frustum" /></p>
-<p>正交投影定义了一个立方体的裁剪空间，由宽、高、近平面和远平面所指定，平截头箱以外的坐标点将被裁剪掉，最后同样映射到NDC坐标空间中</p>
-<p><img src="gl_projectionmatrix02.png" alt="OpenGL Orthographic Volume and NDC" /></p>
-<p>正交投影矩阵的推导较为简单，只需对各个方向作正则化即可：<br />
+即向量$(u,v,1)$同时与向量$(\vec{AB}_x,\vec{AC}_x,\vec{PA}_x)$和$(\vec{AB}_y,\vec{AC}_y,\vec{PA}_y)$垂直，因此$(u,v,1)$的一组取值可以为两个分量向量的叉乘</p>
+<p>若点$P$位于$\triangle ABC$，则有约束：<br />
 $$<br />
 \begin{cases}<br />
-\dfrac{x_n-(-1)}{1-(-1)}=\dfrac{x_e-l}{r-l}\\<br />
-\dfrac{y_n-(-1)}{1-(-1)}=\dfrac{y_e-b}{t-b}\\<br />
-\dfrac{z_n-(-1)}{1-(-1)}=\dfrac{z_e-n}{f-n}<br />
+0\leq u\leq 1\\<br />
+0\leq v\leq 1\\<br />
+0\leq 1-u-v\leq 1<br />
 \end{cases}<br />
 $$<br />
-得到正交投影矩阵：<br />
+此时我们只需要在待填充的三角形的Bounding Box中遍历所有在三角形内部的像素并进行填充即可，C++代码如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="kt">void</span> <span class="n">DrawPrimitive</span><span class="o">::</span><span class="n">DrawTriangle</span><span class="p">(</span><span class="k">const</span> <span class="n">CML</span><span class="o">::</span><span class="n">Point2i</span><span class="o">&amp;</span> <span class="n">p1</span><span class="p">,</span> <span class="k">const</span> <span class="n">CML</span><span class="o">::</span><span class="n">Point2i</span><span class="o">&amp;</span> <span class="n">p2</span><span class="p">,</span> <span class="k">const</span> <span class="n">CML</span><span class="o">::</span><span class="n">Point2i</span><span class="o">&amp;</span> <span class="n">p3</span><span class="p">,</span> <span class="k">const</span> <span class="n">CML</span><span class="o">::</span><span class="n">Rgbi</span><span class="o">&amp;</span> <span class="n">color</span><span class="p">,</span> <span class="n">FrameBuffer</span><span class="o">&amp;</span> <span class="n">fbo</span><span class="p">,</span> <span class="n">PrimitiveType</span> <span class="n">primitive</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">primitive</span> <span class="o">==</span> <span class="n">PrimitiveType</span><span class="o">::</span><span class="n">LINE</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">DrawLine</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">fbo</span><span class="p">);</span>
+        <span class="n">DrawLine</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">p3</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">fbo</span><span class="p">);</span>
+        <span class="n">DrawLine</span><span class="p">(</span><span class="n">p2</span><span class="p">,</span> <span class="n">p3</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">fbo</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">else</span>
+    <span class="p">{</span>
+        <span class="n">CML</span><span class="o">::</span><span class="n">BBox2i</span> <span class="n">bbox</span><span class="p">{</span> <span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">,</span> <span class="n">p3</span> <span class="p">};</span>
+
+        <span class="k">auto</span> <span class="n">Min</span> <span class="o">=</span> <span class="n">bbox</span><span class="p">.</span><span class="n">GetMin</span><span class="p">();</span>
+        <span class="k">auto</span> <span class="n">Max</span> <span class="o">=</span> <span class="n">bbox</span><span class="p">.</span><span class="n">GetMax</span><span class="p">();</span>
+
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">Min</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">Max</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">Min</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span> <span class="n">j</span> <span class="o">&lt;=</span> <span class="n">Max</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="n">CML</span><span class="o">::</span><span class="n">Vec3f</span> <span class="n">u</span> <span class="o">=</span> <span class="n">Barycentric</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">,</span> <span class="n">p3</span><span class="p">,</span> <span class="p">{</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span> <span class="p">});</span>
+                <span class="k">if</span><span class="p">(</span><span class="n">u</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">&gt;=</span><span class="mi">0</span><span class="o">&amp;&amp;</span><span class="n">u</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">&gt;=</span><span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">u</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="n">u</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">1</span> <span class="o">&amp;&amp;</span><span class="n">u</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">&gt;=</span><span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">u</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">)</span>
+                    <span class="n">fbo</span><span class="p">.</span><span class="n">SetPixel</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">color</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">color</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">CML</span><span class="o">::</span><span class="n">Vec3f</span> <span class="n">DrawPrimitive</span><span class="o">::</span><span class="n">Barycentric</span><span class="p">(</span><span class="k">const</span> <span class="n">CML</span><span class="o">::</span><span class="n">Point2i</span><span class="o">&amp;</span> <span class="n">p1</span><span class="p">,</span> <span class="k">const</span> <span class="n">CML</span><span class="o">::</span><span class="n">Point2i</span><span class="o">&amp;</span> <span class="n">p2</span><span class="p">,</span> <span class="k">const</span> <span class="n">CML</span><span class="o">::</span><span class="n">Point2i</span><span class="o">&amp;</span> <span class="n">p3</span><span class="p">,</span> <span class="k">const</span> <span class="n">CML</span><span class="o">::</span><span class="n">Point2i</span><span class="o">&amp;</span> <span class="n">p</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">CML</span><span class="o">::</span><span class="n">Vec3f</span> <span class="n">v1</span> <span class="o">=</span> <span class="p">{</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="p">(</span><span class="n">p2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">p1</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="p">(</span><span class="n">p3</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">p1</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="p">(</span><span class="n">p1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="p">};</span>
+    <span class="n">CML</span><span class="o">::</span><span class="n">Vec3f</span> <span class="n">v2</span> <span class="o">=</span> <span class="p">{</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="p">(</span><span class="n">p2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">p1</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="p">(</span><span class="n">p3</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">p1</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="p">(</span><span class="n">p1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="p">};</span>
+    <span class="n">CML</span><span class="o">::</span><span class="n">Vec3f</span> <span class="n">res</span> <span class="o">=</span> <span class="n">v1</span><span class="p">.</span><span class="n">Cross</span><span class="p">(</span><span class="n">v2</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">abs</span><span class="p">(</span><span class="n">res</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">)</span><span class="k">return</span> <span class="p">{</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span> <span class="p">};</span>
+    <span class="k">return</span> <span class="p">{</span> <span class="mf">1.f</span> <span class="o">-</span> <span class="p">(</span><span class="n">res</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">res</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="n">res</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">res</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">res</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="p">,</span><span class="n">res</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">res</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="p">};</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="3-背面剔除">3. 背面剔除</h2>
+<p>渲染三角形的开销比渲染直线的开销大得多，为了在渲染模型时提高效率，我们不希望渲染视野中模型背面的三角形，这里涉及一个三角形法向的问题，一般情况下，逆时针顶点顺序的三角形会被处理成正向三角形</p>
+<p><img src="faceculling_frontback.png" alt="img" /></p>
+<p>因此，要知道从摄像机视角方向$\pmb v$看到的三角形$\pmb p=(\pmb p_1,\pmb p_2,\pmb p_3)$是否在背面，只需判断是否满足：<br />
 $$<br />
-\begin{pmatrix}<br />
-\frac{2}{r-l}&amp;0&amp;0&amp;-\frac{r+l}{r-l}\\<br />
-0&amp;\frac{2}{t-b}&amp;0&amp;-\frac{t+b}{t-b}\\<br />
-0&amp;0&amp;\frac{-2}{f-n}&amp;-\frac{f+n}{f-n}\\<br />
-0&amp;0&amp;0&amp;1<br />
-\end{pmatrix}<br />
+\pmb v\cdot[(\pmb p_2-\pmb p_1)\times(\pmb p_3-\pmb p_1)]&gt;0<br />
 $$<br />
-同样地，如果平截头箱对称，则可简化为<br />
-$$<br />
-\begin{pmatrix}<br />
-\frac{1}{r}&amp;0&amp;0&amp;0\\<br />
-0&amp;\frac{1}{t}&amp;0&amp;0\\<br />
-0&amp;0&amp;\frac{-2}{f-n}&amp;-\frac{f+n}{f-n}\\<br />
-0&amp;0&amp;0&amp;1<br />
-\end{pmatrix}<br />
-$$<br />
-至此渲染出一幅软光栅画面所需的数学应该没有太大问题了</p>
-<h2 id="4-四元数与旋转">4. 四元数与旋转</h2>
-<p>前面提到绕固定轴旋转的计算合成方法，但仅依靠欧拉角旋转容易导致万向节死锁的现象，万向节死锁的具体阐述见<a href="https://www.youtube.com/watch?v=zc8b2Jo7mno">视频</a>。我们需要一个更加强大的表述旋转的工具，四元数就是其中一种</p>
-<h3 id="41-四元数的定义">4.1. 四元数的定义</h3>
-<p>四元数是复数的推广，拥有三个虚部，表示为：<br />
-$$<br />
-q=a+bi+cj+dk=(a,\pmb v),\ \ \ \ (a,b,c,d\in\mathbb R)<br />
-$$<br />
-其中，$i^2=j^2=k^2=ijk=-1$</p>
-<h3 id="42-四元数的性质">4.2. 四元数的性质</h3>
-<ol>
-<li>
-<p>模长（范数）<br />
-$$<br />
-\begin{align}<br />
-\Arrowvert q\Arrowvert&amp;=\sqrt{a^2+b^2+c^2+d^2}\\<br />
-&amp;=\sqrt{s^2+\Arrowvert\pmb v\Arrowvert^2}\\<br />
-&amp;=\sqrt{s^2+\pmb v\cdot \pmb v}<br />
-\end{align}<br />
-$$</p>
-</li>
-<li>
-<p>加减法运算<br />
-$$<br />
-\begin{align}<br />
-q_1\pm q_2&amp;=a_1+b_1i+c_1j+d_1k\pm(a_2+b_2i+c_2j+d_2k)\\<br />
-&amp;=(a_1\pm a_2)+(b_1\pm b_2)i+(c_1\pm c_2)j+(d_1\pm d_2)k\\<br />
-&amp;=(a_1\pm a_2,\pmb v_1\pm \pmb v_2)<br />
-\end{align}<br />
-$$</p>
-</li>
-<li>
-<p>标量乘法<br />
-$$<br />
-\begin{align}<br />
-sq&amp;=s(a+bi+cj+dk)\\<br />
-&amp;=sa+sbi+scj+sdk<br />
-\end{align}<br />
-$$</p>
-</li>
-<li>
-<p>四元数乘法（ Graßmann积）<br />
-$$<br />
-\begin{align}<br />
-q_1q_2=&amp;(a_1+b_1i+c_1j+d_1k)(a_2+b_2i+c_2j+d_2k)\\<br />
-=&amp;(a_1+\pmb v_1)(a_2+\pmb v_2)\\<br />
-=&amp;a_1a_2+a_1\pmb v_2+a_2\pmb v_1+\pmb v_1\pmb v_2<br />
-\end{align}<br />
-$$<br />
-这里$\pmb v_1=b_1i+c_1j+d_1k$，$\pmb v_2=b_2i+c_2j+d_2k$，有<br />
-$$<br />
-\begin{align}<br />
-\pmb v_1\pmb v_2=&amp;-b_1b_2+b_1c_2ij+b_1d_2ik\\<br />
-&amp;+c_1b_2ji-c_1c_2+c_1d_2jk\\<br />
-&amp;+d_1b_2ki+d_1c_2kj-d_1d_2<br />
-\end{align}<br />
-$$<br />
-又$i^2=j^2=k^2=ijk=-1$，故有：<br />
-$$<br />
-\begin{align}<br />
-ij&amp;=k,ji=-k\<br />
-ik&amp;=j,ki=-j\<br />
-jk&amp;=i,kj=-i<br />
-\end{align}<br />
-$$<br />
-代入得<br />
-$$<br />
-\pmb v_1\pmb v_2=-(b_1b_2+c_1c_2+d_1d_2)+\left|\begin{matrix}i&amp;j&amp;k\\b_1&amp;c_1&amp;d_1\\b_2&amp;c_2&amp;d_2\end{matrix}\right|=\pmb v_1\times\pmb v_2-\pmb v_1\cdot\pmb v_2<br />
-$$<br />
-综上，<br />
-$$<br />
-\begin{align}<br />
-q_1q_2&amp;=(a_1a_2-\pmb v_1\cdot\pmb v_2, a_1\pmb v_2+a_2\pmb v_1+\pmb v_1\times\pmb v_2)\\<br />
-&amp;=\begin{pmatrix}<br />
-a_1&amp;-b_1&amp;-c_1&amp;-d_1\\<br />
-b_1&amp;a_1&amp;-d_1&amp;c_1\\<br />
-c_1&amp;d_1&amp;a_1&amp;-b_1\\<br />
-d_1&amp;-c_1&amp;b_1&amp;a_1<br />
-\end{pmatrix}<br />
-\begin{pmatrix}<br />
-a_2\\b_2\\c_2\\d_2<br />
-\end{pmatrix}<br />
-\end{align}<br />
-$$<br />
-四元数乘积不符合交换律，这里给出右乘结果：<br />
-$$<br />
-\begin{align}<br />
-q_2q_1&amp;=\begin{pmatrix}<br />
-a_1&amp;-b_1&amp;-c_1&amp;-d_1\\<br />
-b_1&amp;a_1&amp;d_1&amp;-c_1\\<br />
-c_1&amp;-d_1&amp;a_1&amp;b_1\\<br />
-d_1&amp;c_1&amp;-b_1&amp;a_1<br />
-\end{pmatrix}<br />
-\begin{pmatrix}<br />
-a_2\\b_2\\c_2\\d_2<br />
-\end{pmatrix}<br />
-\end{align}<br />
-$$</p>
-</li>
-<li>
-<p>纯四元数<br />
-$$<br />
-q=(0,\pmb v)<br />
-$$<br />
-两个纯四元数的乘积：<br />
-$$<br />
-\begin{align}<br />
-q_1q_2&amp;=(0-\pmb v_1\cdot \pmb v_2,0+\pmb v_1\times\pmb v_2)\\<br />
-&amp;=(-\pmb v_1\cdot\pmb v_2, \pmb v_2\times\pmb v_2)<br />
-\end{align}<br />
-$$</p>
-</li>
-<li>
-<p>四元数的逆<br />
-$$<br />
-qq^{-1}=q^{-1}q=1<br />
-$$<br />
-$q$与$q^{-1}$互逆</p>
-</li>
-<li>
-<p>四元数的共轭<br />
-$$<br />
-\begin{align}<br />
-q&amp;=a_1+b_1i+c_1j+d_1k\\<br />
-q^*&amp;=a_1-b_1i-c_1j-d_1k<br />
-\end{align}<br />
-$$</p>
-<p>$$<br />
-qq^*=(a^2+\pmb v\cdot\pmb v)=\Arrowvert q\Arrowvert^2<br />
-$$</p>
-<p>因此求逆四元数的方法：<br />
-$$<br />
-q^{-1}=\dfrac{q^*}{\Arrowvert q\Arrowvert^2}<br />
-$$</p>
-<p>单位四元数：$\Arrowvert q\Arrowvert^2=1$</p>
-</li>
-</ol>
-<h3 id="43-四元数与3d旋转">4.3. 四元数与3D旋转</h3>
-<p>同样地讨论一个向量$\pmb v$绕旋转轴$\pmb u$旋转$\theta$个角度，同样考虑$\pmb v_\perp$和$\pmb v_\parallel$，定义为纯四元数：<br />
-$$<br />
-\begin{matrix}<br />
-v=(0,\pmb v)&amp;v'=(0,\pmb v')\\<br />
-v_\perp=(0,\pmb v_\perp)&amp;v'_\perp=(0,\pmb v'_\perp)\\<br />
-v_\parallel=(0,\pmb v_\parallel)&amp;v'_\parallel=(0,\pmb v'_\parallel)\\<br />
-u=(0,\pmb u)<br />
-\end{matrix}<br />
-$$</p>
-<p>$$<br />
-\begin{matrix}<br />
-v=v_\parallel+v_\perp&amp;<br />
-v'=v'_\parallel+v'_\perp<br />
-\end{matrix}<br />
-$$</p>
-<p>此前已推导过：<br />
-$$<br />
-\pmb v_\perp'=\cos\theta \pmb v_\perp+\sin\theta(\pmb u\times\pmb v_\perp)<br />
-$$<br />
-令四元数$v_\perp=(0,\pmb v_\perp)$，$q=(\cos\theta,\sin\theta \pmb u)$，可将上式用四元数表示：<br />
-$$<br />
-v'_\perp=qv_\perp<br />
-$$<br />
-同时平行分量不变：$v_\parallel=v_\parallel'$</p>
-<p>因此<br />
-$$<br />
-v'=v_\parallel+qv_\perp<br />
-$$<br />
-注意到，当$\pmb u$为单位向量时，<br />
-$$<br />
-\begin{align}<br />
-q^2&amp;=(\cos\theta,\sin\theta\pmb u)\cdot(\cos\theta,\sin\theta\pmb u)\\<br />
-&amp;=(\cos^2\theta-\sin^2\theta, 2\sin\theta\cos\theta\pmb u)\\<br />
-&amp;=(\cos2\theta,\sin2\theta\pmb u)<br />
-\end{align}<br />
-$$<br />
-因此，旋转后的四元数可表示为：<br />
-$$<br />
-\begin{align}<br />
-v'&amp;=v_\parallel+qv_\perp\\<br />
-&amp;=1\cdot v_\parallel+qv_\perp\\<br />
-&amp;=pp^{-1}v_\parallel+ppv_\perp<br />
-\end{align}<br />
-$$<br />
-令$q=p^2$，则$p=(\cos\frac{\theta}{2},\sin\frac{\theta}{2}\pmb u)$，注意到$\Arrowvert p\Arrowvert =1$，因此<br />
-$$<br />
-p^{-1}=p^*<br />
-$$<br />
-因此，$v'=pp^*v_\parallel+ppv_\perp$</p>
-<p>为进一步简化，我们有结论$p^*v_\parallel=v_\parallel p^*$和$pv_\perp=v_\perp p^*$，证明从略，得到：<br />
-$$<br />
-\begin{align}<br />
-v'&amp;=pp^*v_\parallel+ppv_\perp\\<br />
-&amp;=pv_{\parallel}p^*+pv_{\perp}p^*\\<br />
-&amp;=p(v_\parallel+v_{\perp})p^*\\<br />
-&amp;=pvp^*<br />
-\end{align}<br />
-$$<br />
-综上所述，任意向量$\pmb v$绕以单位向量定义的旋转轴$\pmb u$旋转$\theta$角度之后的$\pmb v'$用四元数表示为：<br />
-$$<br />
-v'=qvq^*=qvq^{-1}<br />
-$$<br />
-其中，$v=(0,\pmb v)$，$q=(\cos\frac{\theta}{2},\sin\frac{\theta}{2}\pmb u)$</p>
-<p>对于一个单位四元数$q=(a,\pmb b)$，其旋转角度与旋转轴可通过如下方式计算：<br />
-$$<br />
-\theta=2\cos^{-1}a<br />
-$$</p>
-<p>$$<br />
-\pmb u=\dfrac{\pmb b}{\sin(\cos^{-1}a)}<br />
-$$</p>
-<h3 id="44-3d旋转的矩阵形式">4.4. 3D旋转的矩阵形式</h3>
-<p>前述提到左乘矩阵和右乘矩阵如下：<br />
-$$<br />
-L(q)=\begin{pmatrix}<br />
-a&amp;-b&amp;-c&amp;-d\\<br />
-b&amp;a&amp;-d&amp;c\\<br />
-c&amp;d&amp;a&amp;-b\\<br />
-d&amp;-c&amp;b&amp;a<br />
-\end{pmatrix}<br />
-$$</p>
-<p>$$<br />
-R(q)=\begin{pmatrix}<br />
-a&amp;-b&amp;-c&amp;-d\\<br />
-b&amp;a&amp;d&amp;-c\\<br />
-c&amp;-d&amp;a&amp;b\\<br />
-d&amp;c&amp;-b&amp;a<br />
-\end{pmatrix}<br />
-$$</p>
-<p>令$a=\cos\frac{\theta}{2}$，$b=\sin\frac{\theta}{2}u_x$，$c=\sin\frac{\theta}{2}u_y$，$d=\sin\frac{\theta}{2}u_z$，$q=a+bi+cj+dk$，可得</p>
-<p>$$<br />
-\begin{align}<br />
-qvq^\ast&amp;=L(q)R(q^\ast)v\\<br />
-&amp;=\begin{pmatrix}<br />
-a&amp;-b&amp;-c&amp;-d\\<br />
-b&amp;a&amp;-d&amp;c\\<br />
-c&amp;d&amp;a&amp;-b\\<br />
-d&amp;-c&amp;b&amp;a<br />
-\end{pmatrix}<br />
-\begin{pmatrix}<br />
-a&amp;-b&amp;-c&amp;-d\\<br />
-b&amp;a&amp;d&amp;-c\\<br />
-c&amp;-d&amp;a&amp;b\\<br />
-d&amp;c&amp;-b&amp;a<br />
-\end{pmatrix}v<br />
-\end{align}<br />
-$$<br />
-又$a^2+b^2+c^2+d^2=1$，有</p>
-<p>$$<br />
-qvq^*=\begin{pmatrix}<br />
-1&amp;0&amp;0&amp;0\\<br />
-0&amp;1-2c^2-2d^2&amp;2bc-2ad&amp;2ac+2bd\\<br />
-0&amp;2bc+2ad&amp;1-2b^2-2d^2&amp;2cd-2ab\\<br />
-0&amp;2bd-2ac&amp;2ab+2cd&amp;1-2b^2-2c^2<br />
-\end{pmatrix}v<br />
-$$</p>
-<p>仅考虑虚部可简化为三阶矩阵：<br />
-$$<br />
-\pmb v'=\begin{pmatrix}<br />
-1-2c^2-2d^2&amp;2bc-2ad&amp;2ac+2bd\\<br />
-2bc+2ad&amp;1-2b^2-2d^2&amp;2cd-2ab\\<br />
-2bd-2ac&amp;2ab+2cd&amp;1-2b^2-2c^2<br />
-\end{pmatrix}\pmb v<br />
-$$<br />
-同时，四元数旋转也是可以合成的，需要用到引理：$\prod_{i=1}^nq_i^\ast=(\prod_{i=n}^1q_i)^\ast$</p>
-<p>复合结果：<br />
-$$<br />
-\begin{align}<br />
-v'&amp;=(q_nq_{n-1}\cdots q_2q_1)v(q_1^\ast q_2^\ast\cdots q_{n-1}^\ast q_n^\ast)\\<br />
-&amp;=(q_nq_{n-1}\cdots q_2q_1)v(q_nq_{n-1}\cdots q_2q_1)^\ast<br />
-\end{align}<br />
-$$</p>
-<h3 id="45-四元数插值">4.5. 四元数插值</h3>
-<h4 id="451-线性插值lerp">4.5.1. 线性插值Lerp</h4>
-<p>$$<br />
-q_t=Lerp(q_0,q_1,t)=(1-t)q_0+tq_1<br />
-$$</p>
-<h4 id="452-正规化线性插值nlerp">4.5.2. 正规化线性插值Nlerp</h4>
-<p>$$<br />
-q_t=Nlerp(q_0,q_1,t)=\dfrac{(1-t)q_0+tq_1}{\Arrowvert(1-t)q_0+tq_1\Arrowvert}<br />
-$$</p>
-<h4 id="453-球面线性插值slerp">4.5.3. 球面线性插值Slerp</h4>
-<p>$$<br />
-q_t=Slerp(q_0,q_1,t)=\dfrac{\sin((1-t)\theta)}{\sin\theta}q_0+\dfrac{\sin(t\theta)}{\sin\theta}q_1<br />
-$$</p>
-<p>到这里，做软光栅所需要的三维数学基本足够了</p>
-<p><strong>参考资料</strong></p>
-<p>[1] <a href="https://krasjet.github.io/quaternion/">https://krasjet.github.io/quaternion/</a></p>
-<p>[2] <a href="http://www.songho.ca/opengl/gl_projectionmatrix.html">http://www.songho.ca/opengl/gl_projectionmatrix.html</a></p>
-<p>[3] <a href="https://learnopengl-cn.github.io/01%20Getting%20started/08%20Coordinate%20Systems/">https://learnopengl-cn.github.io/01%20Getting%20started/08%20Coordinate%20Systems/</a></p>
+对小于0的面不予以绘制</p>
+<p><img src="image-20210218172823698.png" alt="image-20210218172823698" /></p>
+<p>可以看到效果其实还不正确，但这是因为没有做遮挡面剔除的缘故，具体方法后面再谈</p>
 
     </article>
     
@@ -2552,7 +2192,7 @@ $$</p>
     
     
       
-        <a href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fchaphlagical.github.io%2fzh%2fposts%2fsoftwarerenderer%2fmathematics%2f" title="Facebook" aria-label="Facebook Share Button" class="donation__item" target="_blank" rel="noreferrer" data-type="share">
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fchaphlagical.github.io%2fzh%2fposts%2fsoftwarerenderer%2ftriangle%2f" title="Facebook" aria-label="Facebook Share Button" class="donation__item" target="_blank" rel="noreferrer" data-type="share">
           <svg data-name="facebook" enable-background="new 0 0 24 24" viewBox="0 0 24 24" width="35" height="35" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="m15.997 3.985h2.191v-3.816c-.378-.052-1.678-.169-3.192-.169-3.159 0-5.323 1.987-5.323 5.639v3.361h-3.486v4.266h3.486v10.734h4.274v-10.733h3.345l.531-4.266h-3.877v-2.939c.001-1.233.333-2.077 2.051-2.077z"/></svg>
         </a>
       
@@ -2734,6 +2374,14 @@ $$</p>
     <ul class="related-ul">
         
         <li>
+          <a href="/zh/posts/softwarerenderer/zbuffer/" class="related__link">Z-Buffer与遮挡剔除</a>
+        </li>
+        
+        <li>
+          <a href="/zh/posts/softwarerenderer/mathematics/" class="related__link">3D数学基础</a>
+        </li>
+        
+        <li>
           <a href="/zh/posts/softwarerenderer/line/" class="related__link">光栅画线算法</a>
         </li>
         
@@ -2744,17 +2392,17 @@ $$</p>
 <nav class="pagination-single">
   
     
-      <a href="https://chaphlagical.github.io/zh/posts/softwarerenderer/line/" class="pagination-single__left">
+      <a href="https://chaphlagical.github.io/zh/posts/softwarerenderer/mathematics/" class="pagination-single__left">
         <div class="pagination-single__icon">
           <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path fill="currentColor" d="M19 11H7.83l4.88-4.88c.39-.39.39-1.03 0-1.42-.39-.39-1.02-.39-1.41 0l-6.59 6.59c-.39.39-.39 1.02 0 1.41l6.59 6.59c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41L7.83 13H19c.55 0 1-.45 1-1s-.45-1-1-1z"/></svg>
         </div>
-        <div class="pagination-single__left-title">光栅画线算法</div>      
+        <div class="pagination-single__left-title">3D数学基础</div>      
       </a>
     
     <div class="grow"></div>
     
-      <a href="https://chaphlagical.github.io/zh/posts/softwarerenderer/triangle/" class="pagination-single__right">      
-        <div class="pagination-single__right-title">三角形填充算法</div>
+      <a href="https://chaphlagical.github.io/zh/posts/softwarerenderer/zbuffer/" class="pagination-single__right">      
+        <div class="pagination-single__right-title">Z-Buffer与遮挡剔除</div>
         <div class="pagination-single__icon">
           <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path fill="currentColor" d="M5 13h11.17l-4.88 4.88c-.39.39-.39 1.03 0 1.42.39.39 1.02.39 1.41 0l6.59-6.59c.39-.39.39-1.02 0-1.41l-6.58-6.6c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41L16.17 11H5c-.55 0-1 .45-1 1s.45 1 1 1z"/></svg>
         </div>
@@ -3680,7 +3328,7 @@ document.addEventListener('DOMContentLoaded', function () {
         
           
             
-              <a href="https://chaphlagical.github.io/zh/posts/softwarerenderer/mathematics/" data-lang="zh" class="dropdown-item is-active">简体中文</a>
+              <a href="https://chaphlagical.github.io/zh/posts/softwarerenderer/triangle/" data-lang="zh" class="dropdown-item is-active">简体中文</a>
             
           
         
@@ -3884,41 +3532,9 @@ document.addEventListener('DOMContentLoaded', function () {
         <div class="toc toc__outer " data-dir="ltr" data-folding="true" data-ani="true">
           <nav id="TableOfContents">
   <ul>
-    <li><a href="#1-向量与矩阵">1. 向量与矩阵</a></li>
-    <li><a href="#2-仿射变换">2. 仿射变换</a>
-      <ul>
-        <li><a href="#21-平移变换">2.1. 平移变换</a></li>
-        <li><a href="#22-缩放变换">2.2. 缩放变换</a></li>
-        <li><a href="#23-绕坐标轴的旋转">2.3. 绕坐标轴的旋转</a></li>
-        <li><a href="#24-绕任意轴的旋转">2.4. 绕任意轴的旋转</a>
-          <ul>
-            <li><a href="#241-euler旋转">2.4.1. Euler旋转</a></li>
-            <li><a href="#242-一般情况">2.4.2. 一般情况</a></li>
-          </ul>
-        </li>
-      </ul>
-    </li>
-    <li><a href="#3-投影变换">3. 投影变换</a>
-      <ul>
-        <li><a href="#31-透视投影">3.1. 透视投影</a></li>
-        <li><a href="#32-正交投影">3.2. 正交投影</a></li>
-      </ul>
-    </li>
-    <li><a href="#4-四元数与旋转">4. 四元数与旋转</a>
-      <ul>
-        <li><a href="#41-四元数的定义">4.1. 四元数的定义</a></li>
-        <li><a href="#42-四元数的性质">4.2. 四元数的性质</a></li>
-        <li><a href="#43-四元数与3d旋转">4.3. 四元数与3D旋转</a></li>
-        <li><a href="#44-3d旋转的矩阵形式">4.4. 3D旋转的矩阵形式</a></li>
-        <li><a href="#45-四元数插值">4.5. 四元数插值</a>
-          <ul>
-            <li><a href="#451-线性插值lerp">4.5.1. 线性插值Lerp</a></li>
-            <li><a href="#452-正规化线性插值nlerp">4.5.2. 正规化线性插值Nlerp</a></li>
-            <li><a href="#453-球面线性插值slerp">4.5.3. 球面线性插值Slerp</a></li>
-          </ul>
-        </li>
-      </ul>
-    </li>
+    <li><a href="#1-行扫描算法">1. 行扫描算法</a></li>
+    <li><a href="#2-三角形重心方法">2. 三角形重心方法</a></li>
+    <li><a href="#3-背面剔除">3. 背面剔除</a></li>
   </ul>
 </nav>
         </div>

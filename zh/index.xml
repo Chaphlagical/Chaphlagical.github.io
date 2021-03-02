@@ -14,7 +14,7 @@
     <managingEditor>chaf@mail.ustc.edu.cn (Wenbo Chen)</managingEditor>
     <webMaster>chaf@mail.ustc.edu.cn (Wenbo Chen)</webMaster>
     <copyright>&amp;copy;{year}, All Rights Reserved</copyright>
-    <lastBuildDate>Wed, 10 Feb 2021 15:57:11 +0100</lastBuildDate>
+    <lastBuildDate>Wed, 17 Feb 2021 20:57:11 +0100</lastBuildDate>
     
         <atom:link href="https://chaphlagical.github.io/zh/index.xml" rel="self" type="application/rss+xml" />
     
@@ -42,6 +42,66 @@
         
       
 
+      
+      <item>
+        <title>Z-Buffer与遮挡剔除</title>
+        <link>https://chaphlagical.github.io/zh/posts/softwarerenderer/zbuffer/</link>
+        <pubDate>Wed, 17 Feb 2021 20:57:11 +0100</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        <atom:modified>Wed, 17 Feb 2021 20:57:11 +0100</atom:modified>
+        <guid>https://chaphlagical.github.io/zh/posts/softwarerenderer/zbuffer/</guid>
+        <description>上一次我们成功用三角形填充算法初步渲染出一个模型： 但其渲染结果与我们用成熟的渲染器渲染出来的结果相比： 可以看出结果并不正确，原因是我们虽然对</description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>Software Renderer</category>
+            
+          
+        
+        
+          
+            
+              <category>project</category>
+            
+          
+        
+        
+      </item>
+      
+      <item>
+        <title>三角形填充算法</title>
+        <link>https://chaphlagical.github.io/zh/posts/softwarerenderer/triangle/</link>
+        <pubDate>Wed, 17 Feb 2021 20:57:11 +0100</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        <atom:modified>Wed, 17 Feb 2021 20:57:11 +0100</atom:modified>
+        <guid>https://chaphlagical.github.io/zh/posts/softwarerenderer/triangle/</guid>
+        <description>三角形填充算法是光栅化流程中重要的一步，是我们片元着色的基础 1. 行扫描算法 在进行三角形填充之前，先对三角形三个顶点的纵坐标进行-排序，由小到大</description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>Software Renderer</category>
+            
+          
+        
+        
+          
+            
+              <category>project</category>
+            
+          
+        
+        
+      </item>
       
       <item>
         <title>3D数学基础</title>
