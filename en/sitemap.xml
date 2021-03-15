@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  
   <url>
     <loc>https://chaphlagical.github.io/en/</loc>
     <lastmod>2020-11-13T14:08:48+00:00</lastmod>
@@ -15,9 +14,7 @@
                 hreflang="en"
                 href="https://chaphlagical.github.io/en/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://chaphlagical.github.io/en/publication/paper/</loc>
     <lastmod>2020-11-13T14:08:48+00:00</lastmod>
     <xhtml:link
@@ -30,9 +27,7 @@
                 hreflang="en"
                 href="https://chaphlagical.github.io/en/publication/paper/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://chaphlagical.github.io/en/publication/</loc>
     <lastmod>2020-11-13T14:08:48+00:00</lastmod>
     <xhtml:link
@@ -45,9 +40,7 @@
                 hreflang="en"
                 href="https://chaphlagical.github.io/en/publication/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://chaphlagical.github.io/en/resume/</loc>
     <lastmod>2020-11-13T20:13:59+09:00</lastmod>
     <xhtml:link
@@ -60,9 +53,7 @@
                 hreflang="en"
                 href="https://chaphlagical.github.io/en/resume/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://chaphlagical.github.io/en/posts/</loc>
     <lastmod>2020-11-13T08:47:11+01:00</lastmod>
     <xhtml:link
@@ -75,14 +66,10 @@
                 hreflang="en"
                 href="https://chaphlagical.github.io/en/posts/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://chaphlagical.github.io/en/posts/update/</loc>
     <lastmod>2020-11-13T08:47:11+01:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://chaphlagical.github.io/en/archive/</loc>
     <lastmod>2020-11-13T11:44:14+09:00</lastmod>
     <xhtml:link
@@ -95,9 +82,7 @@
                 hreflang="en"
                 href="https://chaphlagical.github.io/en/archive/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://chaphlagical.github.io/en/about/</loc>
     <lastmod>2020-11-13T00:00:00+00:00</lastmod>
     <xhtml:link
@@ -110,9 +95,7 @@
                 hreflang="en"
                 href="https://chaphlagical.github.io/en/about/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://chaphlagical.github.io/en/categories/</loc>
     <xhtml:link
                 rel="alternate"
@@ -124,13 +107,9 @@
                 hreflang="en"
                 href="https://chaphlagical.github.io/en/categories/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://chaphlagical.github.io/en/tags/index/</loc>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://chaphlagical.github.io/en/publication/paper/paper1/</loc>
     <xhtml:link
                 rel="alternate"
@@ -142,9 +121,7 @@
                 hreflang="en"
                 href="https://chaphlagical.github.io/en/publication/paper/paper1/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://chaphlagical.github.io/en/presentation/</loc>
     <xhtml:link
                 rel="alternate"
@@ -156,9 +133,7 @@
                 hreflang="en"
                 href="https://chaphlagical.github.io/en/presentation/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://chaphlagical.github.io/en/series/</loc>
     <xhtml:link
                 rel="alternate"
@@ -170,9 +145,7 @@
                 hreflang="en"
                 href="https://chaphlagical.github.io/en/series/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://chaphlagical.github.io/en/tags/</loc>
     <xhtml:link
                 rel="alternate"
@@ -185,5 +158,4 @@
                 href="https://chaphlagical.github.io/en/tags/"
                 />
   </url>
-  
 </urlset>

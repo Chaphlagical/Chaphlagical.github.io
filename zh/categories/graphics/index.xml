@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" 
+  xmlns:content="http://purl.org/rss/1.0/modules/content/" 
+  xmlns:dc="http://purl.org/dc/elements/1.1/" 
+  xmlns:atom="http://www.w3.org/2005/Atom" 
+  xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" 
+  xmlns:media="http://search.yahoo.com/mrss/">
+  <channel>
+    <title>Graphics on Chaf&#39;s Blog</title>
+    <link>https://chaphlagical.github.io/zh/categories/graphics/</link>
+    <description>Recent content in Graphics on Chaf&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <managingEditor>chaf@mail.ustc.edu.cn (Wenbo Chen)</managingEditor>
+    <webMaster>chaf@mail.ustc.edu.cn (Wenbo Chen)</webMaster>
+    <copyright>&amp;copy;{year}, All Rights Reserved</copyright>
+    <lastBuildDate>Mon, 15 Mar 2021 18:36:11 +0100</lastBuildDate>
+    
+        <atom:link href="https://chaphlagical.github.io/zh/categories/graphics/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    
+
+      
+      <item>
+        <title>Vulkan概述</title>
+        <link>https://chaphlagical.github.io/zh/posts/vulkan/1/</link>
+        <pubDate>Mon, 15 Mar 2021 18:36:11 +0100</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        <atom:modified>Mon, 15 Mar 2021 18:36:11 +0100</atom:modified>
+        <guid>https://chaphlagical.github.io/zh/posts/vulkan/1/</guid>
+        <description>为了能够从驱动层面提高渲染效率，方便构建GPU Driven Rendering框架，我将学习开发的重点从OpenGL转移到Vulkan上，与陈旧的Ope</description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>Vulkan</category>
+            
+          
+        
+        
+          
+            
+              <category>Graphics</category>
+            
+          
+        
+        
+      </item>
+      
+
+    
+  </channel>
+</rss>

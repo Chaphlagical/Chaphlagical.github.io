@@ -14,7 +14,7 @@
     <managingEditor>chaf@mail.ustc.edu.cn (Wenbo Chen)</managingEditor>
     <webMaster>chaf@mail.ustc.edu.cn (Wenbo Chen)</webMaster>
     <copyright>&amp;copy;{year}, All Rights Reserved</copyright>
-    <lastBuildDate>Wed, 17 Feb 2021 20:57:11 +0100</lastBuildDate>
+    <lastBuildDate>Mon, 15 Mar 2021 18:36:11 +0100</lastBuildDate>
     
         <atom:link href="https://chaphlagical.github.io/zh/index.xml" rel="self" type="application/rss+xml" />
     
@@ -42,6 +42,36 @@
         
       
 
+      
+      <item>
+        <title>Vulkan概述</title>
+        <link>https://chaphlagical.github.io/zh/posts/vulkan/1/</link>
+        <pubDate>Mon, 15 Mar 2021 18:36:11 +0100</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        <atom:modified>Mon, 15 Mar 2021 18:36:11 +0100</atom:modified>
+        <guid>https://chaphlagical.github.io/zh/posts/vulkan/1/</guid>
+        <description>为了能够从驱动层面提高渲染效率，方便构建GPU Driven Rendering框架，我将学习开发的重点从OpenGL转移到Vulkan上，与陈旧的Ope</description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>Vulkan</category>
+            
+          
+        
+        
+          
+            
+              <category>Graphics</category>
+            
+          
+        
+        
+      </item>
       
       <item>
         <title>Z-Buffer与遮挡剔除</title>
