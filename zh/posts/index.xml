@@ -14,7 +14,7 @@
     <managingEditor>chaf@mail.ustc.edu.cn (Wenbo Chen)</managingEditor>
     <webMaster>chaf@mail.ustc.edu.cn (Wenbo Chen)</webMaster>
     <copyright>&amp;copy;{year}, All Rights Reserved</copyright>
-    <lastBuildDate>Mon, 15 Mar 2021 18:36:11 +0100</lastBuildDate>
+    <lastBuildDate>Sat, 01 May 2021 21:34:11 +0100</lastBuildDate>
     
         <atom:link href="https://chaphlagical.github.io/zh/posts/index.xml" rel="self" type="application/rss+xml" />
     
@@ -23,13 +23,13 @@
 
       
       <item>
-        <title>Vulkan</title>
-        <link>https://chaphlagical.github.io/zh/posts/vulkan/</link>
-        <pubDate>Mon, 15 Mar 2021 00:00:00 +0000</pubDate>
+        <title>Differential Geometry</title>
+        <link>https://chaphlagical.github.io/zh/posts/differential_geometry/</link>
+        <pubDate>Fri, 30 Apr 2021 00:00:00 +0000</pubDate>
         <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
-        <atom:modified>Mon, 15 Mar 2021 00:00:00 +0000</atom:modified>
-        <guid>https://chaphlagical.github.io/zh/posts/vulkan/</guid>
-        <description>个人对Vulkan API架构的学习与理解笔记：</description>
+        <atom:modified>Fri, 30 Apr 2021 00:00:00 +0000</atom:modified>
+        <guid>https://chaphlagical.github.io/zh/posts/differential_geometry/</guid>
+        <description>古典微分几何学习笔记，参考资料： 微分几何（陈维桓） 曲线与曲面的微分几何（Manfredo Do Carmo）</description>
         
         <dc:creator>Wenbo Chen</dc:creator>
         
@@ -47,7 +47,7 @@
         <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
         <atom:modified>Wed, 10 Feb 2021 00:00:00 +0000</atom:modified>
         <guid>https://chaphlagical.github.io/zh/posts/softwarerenderer/</guid>
-        <description>本专栏主要记录本人在软光栅渲染器的开发优化方面的学习与心得</description>
+        <description>软件光栅器开发Blog 基础功能 数学库 画线算法 三角形光栅化算法 多线程加速 隐藏面剔除 摄像机系统 着色器系统 纹理映射 进阶功能 实时阴影 多重采样抗锯齿 环</description>
         
         <dc:creator>Wenbo Chen</dc:creator>
         

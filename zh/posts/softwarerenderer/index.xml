@@ -45,7 +45,7 @@
         
           
             
-              <category>project</category>
+              <category>dev log</category>
             
           
         
@@ -75,7 +75,7 @@
         
           
             
-              <category>project</category>
+              <category>dev log</category>
             
           
         
@@ -89,7 +89,7 @@
         <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
         <atom:modified>Wed, 10 Feb 2021 15:57:11 +0100</atom:modified>
         <guid>https://chaphlagical.github.io/zh/posts/softwarerenderer/mathematics/</guid>
-        <description>本节主要介绍计算机图形学中常用的3D数学方法，主要内容包括： 向量与矩阵 仿射变换 投影变换 四元数与旋转 相关内容已在数学库CML中实现：https</description>
+        <description>本节主要介绍计算机图形学中常用的3D数学方法，主要内容包括： 向量与矩阵 仿射变换 投影变换 四元数与旋转 1. 向量与矩阵 图形学中大部分情况使用2-4维</description>
         
         <dc:creator>Wenbo Chen</dc:creator>
         
@@ -105,7 +105,7 @@
         
           
             
-              <category>project</category>
+              <category>dev log</category>
             
           
         
@@ -135,7 +135,7 @@
         
           
             
-              <category>project</category>
+              <category>dev log</category>
             
           
         

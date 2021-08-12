@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" 
+  xmlns:content="http://purl.org/rss/1.0/modules/content/" 
+  xmlns:dc="http://purl.org/dc/elements/1.1/" 
+  xmlns:atom="http://www.w3.org/2005/Atom" 
+  xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" 
+  xmlns:media="http://search.yahoo.com/mrss/">
+  <channel>
+    <title>Paper Reading on Chaf&#39;s Blog</title>
+    <link>https://chaphlagical.github.io/en/posts/paperreading/</link>
+    <description>Recent content in Paper Reading on Chaf&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <managingEditor>chaf@mail.ustc.edu.cn (Wenbo Chen)</managingEditor>
+    <webMaster>chaf@mail.ustc.edu.cn (Wenbo Chen)</webMaster>
+    <copyright>&amp;copy;{year}, All Rights Reserved</copyright>
+    <lastBuildDate>Tue, 10 Aug 2021 00:00:00 +0000</lastBuildDate>
+    
+        <atom:link href="https://chaphlagical.github.io/en/posts/paperreading/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    
+
+      
+      <item>
+        <title>ExtraNet: Real-time Extrapolated Rendering for Low-latency Temporal Supersampling</title>
+        <link>https://chaphlagical.github.io/en/posts/paperreading/extranet/</link>
+        <pubDate>Tue, 10 Aug 2021 22:13:11 +0100</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        <atom:modified>Tue, 10 Aug 2021 22:13:11 +0100</atom:modified>
+        <guid>https://chaphlagical.github.io/en/posts/paperreading/extranet/</guid>
+        <description>Abstract Real-time Rendering
+ Frame rate Latency  Spatial Super Sampling: DLSS
+ Decreasing the rendering time of each frame by rendering at a lower resolution  Temporal Super Sampling
+ Producing more frames on the fly Problems:  It&amp;rsquo;s own computational cost The latency introduced by interpolating frames from the future    ExtraNet
+  An efficient neural network that predicts accurate shading results on an extrapolated frame, to minimize both the performance overhead and the latency</description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>Rendering</category>
+            
+          
+        
+        
+          
+            
+              <category>paper reading</category>
+            
+          
+        
+        
+      </item>
+      
+
+    
+  </channel>
+</rss>

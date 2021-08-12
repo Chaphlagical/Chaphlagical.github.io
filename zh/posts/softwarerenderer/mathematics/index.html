@@ -1341,7 +1341,7 @@
 <meta property="og:type" content="article">
 <meta property="og:description" content="软光栅渲染器之数学库">
 
-<meta name="generator" content="Hugo 0.81.0" />
+<meta name="generator" content="Hugo 0.82.0" />
 <meta name="msapplication-TileColor" content="#fff">
 
 <meta name="theme-color" content="#fff">
@@ -1408,7 +1408,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
   
 <script type="application/javascript">
 var doNotTrack = false;
@@ -1788,7 +1787,6 @@ if (!doNotTrack) {
 <li>投影变换</li>
 <li>四元数与旋转</li>
 </ul>
-<p>相关内容已在数学库CML中实现：<a href="https://github.com/Chaf-Libraries/CML">https://github.com/Chaf-Libraries/CML</a></p>
 <h2 id="1-向量与矩阵">1. 向量与矩阵</h2>
 <p>图形学中大部分情况使用2-4维的向量与矩阵，相关内容在线性代数中已有详细介绍，这里不多阐述，可参照<a href="https://learnopengl-cn.github.io/01%20Getting%20started/07%20Transformations/">LearnOpenGL</a>网站查看相关内容。</p>
 <h2 id="2-仿射变换">2. 仿射变换</h2>
@@ -2031,10 +2029,10 @@ $$<br />
 $$<br />
 通常情况下我们会用参数$fovy$（$y$轴方向的视域角）、$aspect$（屏幕宽高比）、$near$（近平面）以及$far$（远平面）来构造透视投影矩阵，相关关系如下：<br />
 $$<br />
-r-l=width=2*near*aspect*tan(fovy/2)<br />
-$$</p>
-<p>$$<br />
-t-b=height=2<em>near</em>tan(fovy/2)<br />
+\begin{align}<br />
+r-l&amp;=width=2*near*aspect*tan(fovy/2)\\<br />
+t-b&amp;=height=2*near*tan(fovy/2)<br />
+\end{align}<br />
 $$</p>
 <h3 id="32-正交投影">3.2. 正交投影</h3>
 <p><img src="orthographic_frustum.png" alt="orthographic projection frustum" /></p>
@@ -2348,7 +2346,6 @@ $$</p>
 <p>$$<br />
 q_t=Slerp(q_0,q_1,t)=\dfrac{\sin((1-t)\theta)}{\sin\theta}q_0+\dfrac{\sin(t\theta)}{\sin\theta}q_1<br />
 $$</p>
-<p>到这里，做软光栅所需要的三维数学基本足够了</p>
 <p><strong>参考资料</strong></p>
 <p>[1] <a href="https://krasjet.github.io/quaternion/">https://krasjet.github.io/quaternion/</a></p>
 <p>[2] <a href="http://www.songho.ca/opengl/gl_projectionmatrix.html">http://www.songho.ca/opengl/gl_projectionmatrix.html</a></p>

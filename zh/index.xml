@@ -14,7 +14,7 @@
     <managingEditor>chaf@mail.ustc.edu.cn (Wenbo Chen)</managingEditor>
     <webMaster>chaf@mail.ustc.edu.cn (Wenbo Chen)</webMaster>
     <copyright>&amp;copy;{year}, All Rights Reserved</copyright>
-    <lastBuildDate>Mon, 15 Mar 2021 18:36:11 +0100</lastBuildDate>
+    <lastBuildDate>Sat, 01 May 2021 21:34:11 +0100</lastBuildDate>
     
         <atom:link href="https://chaphlagical.github.io/zh/index.xml" rel="self" type="application/rss+xml" />
     
@@ -44,13 +44,13 @@
 
       
       <item>
-        <title>Vulkan概述</title>
-        <link>https://chaphlagical.github.io/zh/posts/vulkan/1/</link>
-        <pubDate>Mon, 15 Mar 2021 18:36:11 +0100</pubDate>
+        <title>曲线论</title>
+        <link>https://chaphlagical.github.io/zh/posts/differential_geometry/base/</link>
+        <pubDate>Sat, 01 May 2021 21:34:11 +0100</pubDate>
         <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
-        <atom:modified>Mon, 15 Mar 2021 18:36:11 +0100</atom:modified>
-        <guid>https://chaphlagical.github.io/zh/posts/vulkan/1/</guid>
-        <description>为了能够从驱动层面提高渲染效率，方便构建GPU Driven Rendering框架，我将学习开发的重点从OpenGL转移到Vulkan上，与陈旧的Ope</description>
+        <atom:modified>Sat, 01 May 2021 21:34:11 +0100</atom:modified>
+        <guid>https://chaphlagical.github.io/zh/posts/differential_geometry/base/</guid>
+        <description>1. 参数曲线 $E^3$中的一条曲线$C$是从区间$[a,b]$到$E^3$中的一个连续映射，记为： $$ p:[a,b]\rightarrow E^3 $$ 称为参数曲线 在$E^3$中选取一个正</description>
         
         <dc:creator>Wenbo Chen</dc:creator>
         
@@ -59,14 +59,14 @@
         
           
             
-              <category>Vulkan</category>
+              <category>Differential Geometry</category>
             
           
         
         
           
             
-              <category>Graphics</category>
+              <category>note</category>
             
           
         
@@ -96,7 +96,7 @@
         
           
             
-              <category>project</category>
+              <category>dev log</category>
             
           
         
@@ -126,7 +126,7 @@
         
           
             
-              <category>project</category>
+              <category>dev log</category>
             
           
         
@@ -140,7 +140,7 @@
         <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
         <atom:modified>Wed, 10 Feb 2021 15:57:11 +0100</atom:modified>
         <guid>https://chaphlagical.github.io/zh/posts/softwarerenderer/mathematics/</guid>
-        <description>本节主要介绍计算机图形学中常用的3D数学方法，主要内容包括： 向量与矩阵 仿射变换 投影变换 四元数与旋转 相关内容已在数学库CML中实现：https</description>
+        <description>本节主要介绍计算机图形学中常用的3D数学方法，主要内容包括： 向量与矩阵 仿射变换 投影变换 四元数与旋转 1. 向量与矩阵 图形学中大部分情况使用2-4维</description>
         
         <dc:creator>Wenbo Chen</dc:creator>
         
@@ -156,7 +156,7 @@
         
           
             
-              <category>project</category>
+              <category>dev log</category>
             
           
         
@@ -186,7 +186,7 @@
         
           
             
-              <category>project</category>
+              <category>dev log</category>
             
           
         
