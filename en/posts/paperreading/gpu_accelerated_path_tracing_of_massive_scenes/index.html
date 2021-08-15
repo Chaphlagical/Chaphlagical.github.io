@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="zh" dir="ltr">
+<html lang="en" dir="ltr">
 
 <head prefix="og: http://ogp.me/ns#">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>三角形填充算法 – Chaf&#39;s Blog</title>
+    <title>GPU Accelerated Path Tracing of Massive Scenes – Chaf&#39;s Blog</title>
     
 
 
@@ -653,9 +653,9 @@
     
     var baseurl = JSON.parse("\"https://chaphlagical.github.io\"");
     
-    var permalink = JSON.parse("\"https://chaphlagical.github.io/zh/posts/softwarerenderer/triangle/\"");
+    var permalink = JSON.parse("\"https://chaphlagical.github.io/en/posts/paperreading/gpu_accelerated_path_tracing_of_massive_scenes/\"");
     
-    var langprefix = JSON.parse("\"/zh\"");
+    var langprefix = JSON.parse("\"/en\"");
     var searchResults = null;
     var searchMenu = null;
     var searchText = null;
@@ -1323,23 +1323,23 @@
 
 
     
-<meta name="description" content="软光栅渲染器之三角形填充算法" />
+<meta name="description" content="Siggraph 2021 Paper Reading" />
 
 
-<meta name="keywords" content="Software Renderer">
+<meta name="keywords" content="Rendering">
 
-<meta name="created" content="2021-02-17T20:57:11&#43;0100">
-<meta name="modified" content="2021-02-17T20:57:11&#43;0100">
-<meta property="article:published_time" content="2021-02-17T20:57:11&#43;0100">
+<meta name="created" content="2021-08-15T21:34:00&#43;0100">
+<meta name="modified" content="2021-08-15T21:34:00&#43;0100">
+<meta property="article:published_time" content="2021-08-15T21:34:00&#43;0100">
 
 <meta name="author" content="Wenbo Chen">
 
 
 <meta property="og:site_name" content="Chaf&#39;s Blog">
-<meta property="og:title" content="三角形填充算法">
-<meta property="og:url" content="https://chaphlagical.github.io/zh/posts/softwarerenderer/triangle/">
+<meta property="og:title" content="GPU Accelerated Path Tracing of Massive Scenes">
+<meta property="og:url" content="https://chaphlagical.github.io/en/posts/paperreading/gpu_accelerated_path_tracing_of_massive_scenes/">
 <meta property="og:type" content="article">
-<meta property="og:description" content="软光栅渲染器之三角形填充算法">
+<meta property="og:description" content="Siggraph 2021 Paper Reading">
 
 <meta name="generator" content="Hugo 0.82.0" />
 <meta name="msapplication-TileColor" content="#fff">
@@ -1350,7 +1350,7 @@
 
 <meta name="apple-mobile-web-app-status-bar-style" content="#fff">
 
-<link rel="canonical" href="https://chaphlagical.github.io/zh/posts/softwarerenderer/triangle/">
+<link rel="canonical" href="https://chaphlagical.github.io/en/posts/paperreading/gpu_accelerated_path_tracing_of_massive_scenes/">
 
 <link rel="manifest" href="/manifest.json">
 
@@ -1376,12 +1376,12 @@
   {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    "headline": "三角形填充算法",
-    "datePublished": "2021-02-17T20:57:11+01:00",
-    "dateModified": "2021-02-17T20:57:11+01:00",
-    "url" : "https://chaphlagical.github.io/zh/posts/softwarerenderer/triangle/",
-    "description": "软光栅渲染器之三角形填充算法",
-    "keywords": ["Software Renderer"],
+    "headline": "GPU Accelerated Path Tracing of Massive Scenes",
+    "datePublished": "2021-08-15T21:34:00+01:00",
+    "dateModified": "2021-08-15T21:34:00+01:00",
+    "url" : "https://chaphlagical.github.io/en/posts/paperreading/gpu_accelerated_path_tracing_of_massive_scenes/",
+    "description": "Siggraph 2021 Paper Reading",
+    "keywords": ["Rendering"],
     "mainEntityOfPage": {
       "@type": "WebPage",
       "@id": "https://chaphlagical.github.io"
@@ -1448,12 +1448,12 @@ if (!doNotTrack) {
             <nav class="navbar scrolling" role="navigation" aria-label="main navigation" data-dir="ltr">
   <div class="navbar__brand">
     
-    <a href="/zh/" title="主页" rel="home" class="navbar__logo-link">
+    <a href="/en/" title="Home" rel="home" class="navbar__logo-link">
       <img src="/logo.png" alt="Home" class="navbar__logo">
     </a>
     
     
-      <a href="/zh/" title="主页" rel="home" class="navbar__title-link">
+      <a href="/en/" title="Home" rel="home" class="navbar__title-link">
         <h6 class="navbar__title">Chaf</h6>
       </a>
     
@@ -1500,7 +1500,7 @@ if (!doNotTrack) {
 
 <div id="search-mobile-container" class="mobile-search hide" data-dir="ltr">
   <div class="mobile-search__top">
-    <input id="search-mobile" type="text" aria-label="Mobile Search" placeholder="搜索" class="mobile-search__top--input"/>
+    <input id="search-mobile" type="text" aria-label="Mobile Search" placeholder="Search" class="mobile-search__top--input"/>
     <div id="search-mobile-close" class="mobile-search__top--icon">
       <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"><path opacity=".87" fill="none" d="M0 0h24v24H0V0z"/><path fill="currentColor" d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm3.59-13L12 10.59 8.41 7 7 8.41 10.59 12 7 15.59 8.41 17 12 13.41 15.59 17 17 15.59 13.41 12 17 8.41z"/></svg>
     </div>
@@ -1528,7 +1528,7 @@ if (!doNotTrack) {
 
       
         <li class="navbarm__menu--item ">
-          <a href="/zh/about">关于</a>
+          <a href="/en/about">About</a>
         </li>
       
       
@@ -1540,7 +1540,7 @@ if (!doNotTrack) {
 
       
         <li class="navbarm__menu--item ">
-          <a href="/zh/resume">简历</a>
+          <a href="/en/resume">Resume</a>
         </li>
       
       
@@ -1552,7 +1552,7 @@ if (!doNotTrack) {
 
       
         <li class="navbarm__menu--item active">
-          <a href="/zh/posts">博文</a>
+          <a href="/en/posts">Posts</a>
         </li>
       
       
@@ -1564,7 +1564,7 @@ if (!doNotTrack) {
 
       
         <li class="navbarm__menu--item ">
-          <a href="/zh/archive">归档</a>
+          <a href="/en/archive">Archive</a>
         </li>
       
       
@@ -1576,7 +1576,7 @@ if (!doNotTrack) {
 
       
         <li class="navbarm__menu--item ">
-          <a href="/zh/presentation">讲座</a>
+          <a href="/en/presentation">Pre</a>
         </li>
       
       
@@ -1588,7 +1588,19 @@ if (!doNotTrack) {
 
       
         <li class="navbarm__menu--item ">
-          <a href="/zh/publication">发表</a>
+          <a href="/en/publication">Pub</a>
+        </li>
+      
+      
+    
+      
+      
+      
+      
+
+      
+        <li class="navbarm__menu--item ">
+          <a href="/en/note">Note</a>
         </li>
       
       
@@ -1596,20 +1608,20 @@ if (!doNotTrack) {
 
     
       <li class="navbarm__menu--item ">
-        <a href="/zh/tags" class="navbarm__menu--term" data-index="0">
-          标签
+        <a href="/en/tags" class="navbarm__menu--term" data-index="0">
+          Tags
         </a>
       </li>
     
       <li class="navbarm__menu--item ">
-        <a href="/zh/categories" class="navbarm__menu--term" data-index="1">
-          分类
+        <a href="/en/categories" class="navbarm__menu--term" data-index="1">
+          Categories
         </a>
       </li>
     
       <li class="navbarm__menu--item ">
-        <a href="/zh/series" class="navbarm__menu--term" data-index="2">
-          系列
+        <a href="/en/series" class="navbarm__menu--term" data-index="2">
+          Series
         </a>
       </li>
     
@@ -1659,7 +1671,7 @@ if (!doNotTrack) {
   
   
   
-  <a href="/zh/about" class="navbar__menu-item navbar__slide-down " dir="ltr" data-ani="true">关于</a>
+  <a href="/en/about" class="navbar__menu-item navbar__slide-down " dir="ltr" data-ani="true">About</a>
   
   
   
@@ -1667,7 +1679,7 @@ if (!doNotTrack) {
   
   
   
-  <a href="/zh/resume" class="navbar__menu-item navbar__slide-down " dir="ltr" data-ani="true">简历</a>
+  <a href="/en/resume" class="navbar__menu-item navbar__slide-down " dir="ltr" data-ani="true">Resume</a>
   
   
   
@@ -1675,7 +1687,7 @@ if (!doNotTrack) {
   
   
   
-  <a href="/zh/posts" class="navbar__menu-item navbar__slide-down active" dir="ltr" data-ani="true">博文</a>
+  <a href="/en/posts" class="navbar__menu-item navbar__slide-down active" dir="ltr" data-ani="true">Posts</a>
   
   
   
@@ -1683,7 +1695,7 @@ if (!doNotTrack) {
   
   
   
-  <a href="/zh/archive" class="navbar__menu-item navbar__slide-down " dir="ltr" data-ani="true">归档</a>
+  <a href="/en/archive" class="navbar__menu-item navbar__slide-down " dir="ltr" data-ani="true">Archive</a>
   
   
   
@@ -1691,7 +1703,7 @@ if (!doNotTrack) {
   
   
   
-  <a href="/zh/presentation" class="navbar__menu-item navbar__slide-down " dir="ltr" data-ani="true">讲座</a>
+  <a href="/en/presentation" class="navbar__menu-item navbar__slide-down " dir="ltr" data-ani="true">Pre</a>
   
   
   
@@ -1699,7 +1711,15 @@ if (!doNotTrack) {
   
   
   
-  <a href="/zh/publication" class="navbar__menu-item navbar__slide-down " dir="ltr" data-ani="true">发表</a>
+  <a href="/en/publication" class="navbar__menu-item navbar__slide-down " dir="ltr" data-ani="true">Pub</a>
+  
+  
+  
+  
+  
+  
+  
+  <a href="/en/note" class="navbar__menu-item navbar__slide-down " dir="ltr" data-ani="true">Note</a>
   
   
 </div>
@@ -1722,28 +1742,28 @@ if (!doNotTrack) {
   
   <li >
     
-      <a href="https://chaphlagical.github.io/zh/" class="capitalize">Chaf&#39;s Blog</a>
+      <a href="https://chaphlagical.github.io/en/" class="capitalize">Chaf&#39;s Blog</a>
     
   </li>
   
   
   <li >
     
-      <a href="https://chaphlagical.github.io/zh/posts/" class="capitalize">Posts</a>
+      <a href="https://chaphlagical.github.io/en/posts/" class="capitalize">Posts</a>
     
   </li>
   
   
   <li >
     
-      <a href="https://chaphlagical.github.io/zh/posts/softwarerenderer/" class="capitalize">Software Renderer</a>
+      <a href="https://chaphlagical.github.io/en/posts/paperreading/" class="capitalize">Paper Reading</a>
     
   </li>
   
   
   <li  class="is-active" >
     
-      <span>三角形填充算法</span>
+      <span>GPU Accelerated Path Tracing of Massive Scenes</span>
     
   </li>
   
@@ -1753,16 +1773,16 @@ if (!doNotTrack) {
   
   
   <div class="single ">
-    <div class="single__nojs">Please enable Javascript to view the contents</div>
+    <div class="single__nojs">This page looks best with JavaScript enabled</div>
     <script>document.querySelector('.single').classList.remove('hide'); document.querySelector('.single__nojs').classList.add('hide');</script>
-    <h2 class="single__title" data-ani="true">三角形填充算法</h2>
+    <h2 class="single__title" data-ani="true">GPU Accelerated Path Tracing of Massive Scenes</h2>
     <h3 class="single__subtitle"></h3>
     <div class="single__meta">
       
 <div class="single__infos">
-  <time class="single__info" title="创建日期">📅&nbsp;2021年02月17日 </time>
+  <time class="single__info" title="Written At">📅&nbsp;Aug 15, 2021 </time>
   
-  &nbsp;&middot;&nbsp; <span class="single__info" title="阅读时长"> ☕&nbsp;3&nbsp;分钟 </span>
+  &nbsp;&middot;&nbsp; <span class="single__info" title="Reading Time"> ☕&nbsp;12&nbsp;min read </span>
   
   <span class="single__info">
     
@@ -1774,224 +1794,326 @@ if (!doNotTrack) {
   🏷️
   
 
-  <li><a href="https://chaphlagical.github.io/zh/tags/software-renderer/" class="single__tag" title="Software Renderer">#Software Renderer</a></li>
+  <li><a href="https://chaphlagical.github.io/en/tags/rendering/" class="single__tag" title="Rendering">#Rendering</a></li>
 
 </ul>
     </div>
     <article class="single__contents" data-dir="ltr" data-ani="true">
       
-      <p>三角形填充算法是光栅化流程中重要的一步，是我们片元着色的基础</p>
-<h2 id="1-行扫描算法">1. 行扫描算法</h2>
-<p><img src="image-20210217214328734.png" alt="image-20210217214328734" /></p>
-<p>在进行三角形填充之前，先对三角形三个顶点的纵坐标进行-排序，由小到大依次排列为$t_0$，$t_1$和$t_2$，以$t_1$为分界分为上下两个三角形，从$t_0$开始扫描，行$y$的左右顶点$A$和$B$满足：<br />
+      <p>Author: <em>MILAN JAROŠ</em>, <em>LUBOMÍR ŘÍHA</em>, <em>PETR STRAKOŠ</em>, and <em>MATĚJ ŠPEŤKO</em></p>
+<p>Institution: <strong>IT4Innovations</strong>, <strong>VSB–Technical University of Ostrava</strong>, Czech Republic</p>
+<h2 id="1-introduction">1. Introduction</h2>
+<p><strong>GPUs Rendering vs CPUs Rendering</strong></p>
+<ul>
+<li>Limited memory size</li>
+<li>Example: Pixar&rsquo;s Coco movie were using up to 120GB, do not fit into the memory of a single GPU</li>
+</ul>
+<p><strong>Main contribution</strong></p>
+<ul>
+<li>
+<p>A solution to GPUs rendering memory size limitation</p>
+<ul>
+<li>Based on replication of a small amount of scene data, between 1% ~ 5%, and well-chosen distribution of the rest of the data into the memory of several GPUs</li>
+<li>Both replication and distribution of data is based on a memory access pattern analysis of a path tracer during a 1spp prepass</li>
+<li>The data with the highest number of memory accesses are replicated and the rest is stored only in the memory of the GPU that had the highest number of accesses to it</li>
+<li>Minimizes the penalty associated with reading data from the remote memory and is effective at providing near-linear scalability</li>
+</ul>
+</li>
+<li>
+<p>Demonstration that our proposed approach works on a memory management level</p>
+<ul>
+<li>Any path tracing code that supports GPU acceleration using CUDA can adopt our approach without redesigning its internal data structures</li>
+</ul>
+</li>
+</ul>
+<p><strong>Two key technologies</strong></p>
+<ul>
+<li>NVLink GPU Interconnect
+<ul>
+<li>Enables multiple GPUs to efficiently share the content of their memories due to its high bandwidth and low latency</li>
+</ul>
+</li>
+<li>CUDA Unified Memory(UM)
+<ul>
+<li>Provides programmers with control over data placement across the memories of interconnected GPUs</li>
+</ul>
+</li>
+</ul>
+<h2 id="2-related-work">2. Related Work</h2>
+<h3 id="21-out-of-core-rendering">2.1. Out-of-core Rendering</h3>
+<ul>
+<li>Out of core rendering is the capability to render (with GPUs) scenes requiring more memory than the one directly connected to the device</li>
+<li>It will use the system&rsquo;s memory instead</li>
+</ul>
+<h3 id="22-distributed-rendering">2.2. Distributed Rendering</h3>
+<ul>
+<li>sort first: Image based partitioning</li>
+<li>sort middle: Related to rasterization only</li>
+<li>sort last: Use scene data distribution</li>
+</ul>
+<h4 id="221-image-parallel-rendering">2.2.1. Image-Parallel Rendering</h4>
+<ul>
+<li>Distribute among processors or machines per blocks of pixels of a rendered image</li>
+<li>Most common and efficient way the scene data is fully replicated in all local memories and ray tracing is embarrassingly parallel</li>
+<li>In the case of ray tracing complex scenes that do not fit into local memory, this approach results in on-demand scene data movement while rays remains fixed (Moving scene data instead of ray data)</li>
+<li>Our proposed solution is based on scene data communication while rays never leave the GPU they are created on</li>
+</ul>
+<h4 id="222-data-parallel-rendering">2.2.2. Data-Parallel Rendering</h4>
+<ul>
+<li>Distribute the workload by subdividing the scene data</li>
+<li>In the case of distributed ray tracing, these approaches transfer ray data among processors or machines, while scene data do not move after the initial distribution (Moving ray data instead of scene data)</li>
+</ul>
+<h3 id="23-distributed-shared-memory-systems">2.3. Distributed Shared Memory Systems</h3>
+<ul>
+<li>Shared Memory Processors (SMP) &amp; Distributed Shared Memory (DSM)
+<ul>
+<li>Local memory with caches</li>
+<li>Hardware or software layer transparently creates an illusion of global shared memory for applications</li>
+</ul>
+</li>
+<li>The latency to access remote data is considerably larger than the latency to access local data
+<ul>
+<li>good data locality is therefore critical for high performance</li>
+</ul>
+</li>
+</ul>
+<h3 id="24-cuda-unified-memory-for-multi-gpu-systems">2.4. CUDA Unified Memory For Multi-GPU Systems</h3>
+<ul>
+<li>UM Manages communication between multiple GPUs and CPUs transparently by adopting DSM techniques</li>
+<li>UM simplifies both out-of-core processing between GPUs and CPUs as well as multi-GPU processing and combinations of both</li>
+<li>NVLink interconnect is the key enabler of DSM multi-GPU system</li>
+</ul>
+<h2 id="3-blender-cycles-path-tracer">3. Blender Cycles Path Tracer</h2>
+<ul>
+<li>An unbiased renderer based on unidirectional path tracing that supports CPU and GPU rendering</li>
+<li>For acceleration it uses a Bounding Volume Hierarchy (BVH)</li>
+<li>Supports CUDA, Optix, and OpenCL</li>
+</ul>
+<h3 id="31-extensions-for-multi-gpu-support">3.1. Extensions for Multi-GPU Support</h3>
+<p>Workflow:</p>
+<ol>
+<li>distribute the data structures evenly among all GPUs</li>
+<li>run the kernel with memory access counters and get the memory access statistics</li>
+<li>redistribute the data structures among GPUs based on memory access statistics</li>
+<li>run the original path-tracing kernel with redistributed data</li>
+</ol>
+<h3 id="32-multi-gpu-benchmark-systems">3.2. Multi-GPU Benchmark Systems</h3>
+<ol>
+<li>
+<p>BullSequana X410-E5 NVLink-V blade server</p>
+<ul>
+<li>with 4 Tesla V100 GPUs, each with 16 GB of memory and direct NVLink interconnect</li>
+</ul>
+<p><img src="image-20210815200655447.png" alt="image-20210815200655447" style="zoom: 80%;" /></p>
+</li>
+<li>
+<p>NVidia DGX-2</p>
+<ul>
+<li>able to process massive scenes of sizes up to 512 GB in the shared memory of its 16 Tesla V100 GPUs, each with 32 GB of memory</li>
+<li>The uniqueness of this platform is the enhancement of the NVLink interconnect by using NVSwitches, which enable the connection of all 16 GPUs and higher bandwidth</li>
+</ul>
+</li>
+</ol>
+<p><img src="image-20210815200711051.png" alt="image-20210815200711051" style="zoom: 80%;" /></p>
+<p><img src="image-20210815094513710.png" alt="image-20210815094513710" style="zoom:80%;" /></p>
+<h3 id="33-benchmark-scenes">3.3. Benchmark Scenes</h3>
+<p><img src="image-20210815094628983.png" alt="image-20210815094628983" /></p>
+<h2 id="4-data-distributed-multi-gpu-path-tracing">4. Data Distributed Multi-GPU Path Tracing</h2>
+<h3 id="41-basic-distribution-of-entire-data-structures">4.1. Basic Distribution of Entire Data Structures</h3>
+<h4 id="411-memory-access-analysis">4.1.1. Memory Access Analysis</h4>
+<ul>
+<li>Define the order in which data structures are replicated as a ratio of the total memory accesses to a particular data structure over its size</li>
+<li>The analysis was done on the first sample when rendering the scenes with a resolution of 5,120x2,560 pixels</li>
+</ul>
+<p><img src="image-20210815101537608.png" alt="image-20210815101537608" style="zoom:80%;" /></p>
+<ul>
+<li><em>small_structures</em>: a set of data structures smaller than 16MB (the most important one is svm_nodes, which stores Shader Virtual Machine (SVM) data and codes)</li>
+<li><em>bvh_node</em>: stores the BVH tree without its leaves (leaves are stored in a separate structure)</li>
+<li><em>prim_tri_verts</em>: holds coordinates of all vertices in the scene</li>
+<li><em>prim_tri_index</em>: a set of all triangles in the scene and it contains indices to the prim_tri_verts</li>
+</ul>
+<p>We can see that:</p>
+<ul>
+<li>The most important data structure is <em>bvh_nodes</em>, because it is responsible for 79.6% of all memory accesses
+<ul>
+<li>If it is replicated in the memory of all GPUs, the 79.6% of all memory accesses will be to the local memory</li>
+<li>The size of this structure is 7.2 GB, which represents 26.5% of the entire scene size</li>
+</ul>
+</li>
+<li>If in addition to <em>small_structures</em> and <em>bvh_nodes</em>, <em>prim_tri_index</em> and <em>prim_tri_verts</em> are also replicated, then the relative rendering time is only 109% while 40.7% of the scene is replicated and the rest is distributed</li>
+</ul>
+<h4 id="412-performance-and-scalability-evaluation">4.1.2. Performance and Scalability Evaluation</h4>
+<p>The scalability of the proposed approach is evaluated for four different cases:</p>
+<ol>
+<li>all data structures are replicated—this case serves as a baseline as it achieves the best performance and scalability</li>
+<li>all data structures are evenly distributed
+<ul>
+<li>continuous distribution: the structures are divided into large chunks of a size equal to the structure size over a number of GPUs, and each GPU owns one chunk</li>
+<li>round robin distribution: the distributed structure is divided into chunks of 2 MB, which are distributed in a round robin fashion</li>
+</ul>
+</li>
+<li><em>small structures</em> and <em>bvh_nodes</em> are replicated while all other data structures are distributed</li>
+<li><em>small structures</em>, <em>bvh_nodes</em>, <em>prim_tri_index</em>, and <em>prim_tri_verts</em> are replicated while all other data structures are distributed</li>
+</ol>
+<p><img src="image-20210815105113549.png" alt="image-20210815105113549" style="zoom:80%;" /></p>
+<p>Result:</p>
+<ol>
+<li>round robin distribution of small chunks performs better than continuous distribution of large chunks, therefore it is always used to distribute non-replicated data structures</li>
+<li>path tracing with fully distributed data structures does not scale on both platforms (there is reasonable scalability for two GPUs on DGX-2, but not beyond that)</li>
+<li>if <em>small structures</em> and <em>bvh_nodes</em> are replicated, the scalability is significantly improved</li>
+<li>if <em>small structures</em>, <em>bvh_nodes</em>, <em>prim_tri_index</em>, and <em>prim_tri_verts</em> are replicated, the scalability is further improved</li>
+</ol>
+<h3 id="42-advanced-distribution-based-on-memory-access-pattern-and-statistics">4.2. Advanced Distribution Based on Memory Access Pattern and Statistics</h3>
+<ul>
+<li>
+<p>The data placement is done with chunks, and hints are set for each chunk individually</p>
+</li>
+<li>
+<p>The optimal chunk size was identified experimentally by benchmarking the path tracer performance for chunks of sizes from 64 kB to 128 MB:</p>
+<ul>
+<li>for scenes smaller than 30 GB the optimal chunk size is 2 MB (smaller chunks are not recommended)</li>
+<li>for scenes of sizes around 40 GB the optimal chunk size is 16 MB</li>
+<li>for scenes of sizes above 120 GB the optimal chunk size is 64 MB</li>
+</ul>
+</li>
+<li>
+<p>The workflow of this data placement strategy:</p>
+<ol>
+<li>copy/distribute every data structure across all GPUs in a round robin fashion using chunks of an optimal size</li>
+<li>run the path tracing kernel with memory access counters for 1spp to measure the statistics</li>
+<li>gather the statistics on the CPU and run the proposed algorithm to get the optimal data chunks distribution</li>
+<li>use <em>cudaMemAdvise</em> to migrate or replicate all chunks</li>
+<li>run the original unmodified path tracing kernel</li>
+</ol>
+</li>
+</ul>
+<h4 id="421-memory-access-pattern-analysis">4.2.1. Memory Access Pattern Analysis</h4>
+<ul>
+<li>
+<p>To identify the memory access pattern, per chunk access counters have been implemented in the GPU path tracing kernel of Cycles</p>
+<ul>
+<li>Independent counters for all data structures and all their chunks</li>
+<li>A total number of memory accesses per chunk can be recorded for each GPU</li>
+</ul>
+</li>
+<li>
+<p>The memory analysis starts with all data structures being evenly distributed using a round robin distribution</p>
+<ul>
+<li>The modified path tracing kernel with memory access counters is executed on all GPUs for one sample</li>
+</ul>
+</li>
+<li>
+<p>When the kernel finishes, then for every chunk of every structure, a number of accesses from all GPUs is recorded</p>
+<ul>
+<li>The workload is distributed among GPUs by horizontal stripes so that each GPU works on one stripe</li>
+</ul>
+</li>
+</ul>
+<p><img src="image-20210815151251218.png" alt="image-20210815151251218" style="zoom:80%;" /></p>
+<ul>
+<li>1% of scene data covers between 56.7% and 74.4% of memory accesses, depending on the scene size</li>
+<li>This analysis shows that there are clear candidates among the chunks that should be replicated on all GPUs, while a major portion of the data is accessed infrequently and can be distributed with an acceptable impact on performance.</li>
+</ul>
+<h4 id="422-data-placement-algorithm-based-on-memory-access-pattern">4.2.2. Data Placement Algorithm Based on Memory Access Pattern</h4>
+<p><img src="image-20210815200844083.png" alt="image-20210815200844083" /></p>
+<p><img src="image-20210815151701943.png" alt="image-20210815151701943" /></p>
+<ol>
+<li>
+<p>The per GPU counters are summed to get the total number of accesses $a_{sum}$ for each chunk $c\in C$ of each data structure $s\in S$ and $a(a_{sum},s,c)$ tuple is created</p>
+</li>
+<li>
+<p>All tuples are put into a single 1D array $H_{comb}$. The array is sorted by $a_{sum}$ from largest value to the smallest one and stored in $H_{&lt;}$ array</p>
+</li>
+<li>
+<p>The last input of the algorithm is the number of chunks that can be replicated $N_{dup}$. This value can either be set manually or automatically using formula:<br />
 $$<br />
-\dfrac{y_0-y}{x_0-A_x}=\dfrac{y_0-y_2}{x_0-x_2}<br />
+N_{dup}=\dfrac{1}{C_s}\Big(G_f-\frac{S_s}{N_g}\Big)<br />
 $$</p>
-<p>$$<br />
-\dfrac{y_0-y}{x_0-B_x}=\dfrac{y_0-y_1}{x_0-x_1}<br />
+<ul>
+<li>$G_f$: the amount of free memory per GPU in MB available to store scene data</li>
+<li>$S_s$: scene size in MB</li>
+<li>$N_g$: total number of GPUs</li>
+<li>$C_s$: the chunk size in MB</li>
+</ul>
+</li>
+<li>
+<p>Define a threshold $t$ as the $N_{dup}$-th element in the sorted array $H_&lt;$ and evaluate all tuples in the array $H_&lt;$. If the counter value $a_{sum}$ is larger than $t$, then the corresponding chunk will be set as *SetReadMostly*, and therefore replicated</p>
+<ul>
+<li>In the opposite case, the chunk is set as <em>SetPreferredLocation</em> and is assigned to the GPU with the highest number of accesses to this chunk
+<ul>
+<li>If the memory of this GPU is full, then the GPU with second, third, fourth, and so on, highest number of accesses is selected until a GPU with free memory is found.</li>
+</ul>
+</li>
+<li>It the counter value is equal to zero (without any accesses), then the corresponding chunk will be distributed in a round robin fashion across GPUs with free memory</li>
+</ul>
+</li>
+</ol>
+<h4 id="423-performance-evaluation">4.2.3. Performance Evaluation</h4>
+<ul>
+<li>The performance of the proposed algorithm was evaluated for different ratios between replicated and distributed data at a 2 MB chunk level of granularity for the Moana 12 and 27 GB scenes</li>
+</ul>
+<p><img src="image-20210815170302733.png" alt="image-20210815170302733" style="zoom:80%;" /></p>
+<ul>
+<li>Figure shows the path tracing performance for one sample per pixel and 5,120x2,560 pixel resolution for both scenes and platforms, and for all available GPUs</li>
+<li>Once at least 1% of chunks are replicated, the performance is almost identical</li>
+</ul>
+<h4 id="424-maximum-scene-size-analysis">4.2.4. Maximum Scene Size Analysis</h4>
+<p>The following equation describes the maximum ratio of replicated data that fits into the memory of GPU memory for a scene of a given size:<br />
+$$<br />
+N_{max_dup}=\frac{\Big(G_f-\frac{S_s}{N_g}\Big)}{\Big(S_s-\frac{S_s}{N_g}\Big)}<br />
 $$</p>
-<p>每一行填充$[A_x,B_x]$之间的像素，上下同理，代码如下：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="kt">void</span> <span class="n">DrawPrimitive</span><span class="o">::</span><span class="n">DrawTriangle</span><span class="p">(</span><span class="k">const</span> <span class="n">CML</span><span class="o">::</span><span class="n">Point2i</span><span class="o">&amp;</span> <span class="n">p1</span><span class="p">,</span> <span class="k">const</span> <span class="n">CML</span><span class="o">::</span><span class="n">Point2i</span><span class="o">&amp;</span> <span class="n">p2</span><span class="p">,</span> <span class="k">const</span> <span class="n">CML</span><span class="o">::</span><span class="n">Point2i</span><span class="o">&amp;</span> <span class="n">p3</span><span class="p">,</span> <span class="k">const</span> <span class="n">CML</span><span class="o">::</span><span class="n">Rgbi</span><span class="o">&amp;</span> <span class="n">color</span><span class="p">,</span> <span class="n">FrameBuffer</span><span class="o">&amp;</span> <span class="n">fbo</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="n">CML</span><span class="o">::</span><span class="n">Point2i</span> <span class="n">v1</span> <span class="o">=</span> <span class="n">p1</span><span class="p">,</span> <span class="n">v2</span> <span class="o">=</span> <span class="n">p2</span><span class="p">,</span> <span class="n">v3</span> <span class="o">=</span> <span class="n">p3</span><span class="p">;</span>
-
-    <span class="k">if</span> <span class="p">(</span><span class="n">v1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">v2</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="n">std</span><span class="o">::</span><span class="n">swap</span><span class="p">(</span><span class="n">v1</span><span class="p">,</span> <span class="n">v2</span><span class="p">);</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">v1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">v3</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="n">std</span><span class="o">::</span><span class="n">swap</span><span class="p">(</span><span class="n">v1</span><span class="p">,</span> <span class="n">v3</span><span class="p">);</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">v2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">v3</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="n">std</span><span class="o">::</span><span class="n">swap</span><span class="p">(</span><span class="n">v2</span><span class="p">,</span> <span class="n">v3</span><span class="p">);</span>
-
-    <span class="kt">float</span> <span class="n">total_height</span> <span class="o">=</span> <span class="n">v3</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">v1</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
-    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="n">v1</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span> <span class="n">y</span> <span class="o">&lt;=</span> <span class="n">v2</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span> <span class="n">y</span><span class="o">++</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="kt">float</span> <span class="n">segment_height</span> <span class="o">=</span> <span class="n">v2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">v1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
-        <span class="kt">float</span> <span class="n">alpha</span> <span class="o">=</span> <span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="n">v1</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="n">total_height</span><span class="p">;</span>
-        <span class="kt">float</span> <span class="n">beta</span> <span class="o">=</span> <span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="n">v1</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="n">segment_height</span><span class="p">;</span>
-        <span class="n">CML</span><span class="o">::</span><span class="n">Point2i</span> <span class="n">A</span> <span class="o">=</span> <span class="n">v1</span> <span class="o">+</span> <span class="p">(</span><span class="n">v3</span> <span class="o">-</span> <span class="n">v1</span><span class="p">)</span> <span class="o">*</span> <span class="n">alpha</span><span class="p">;</span>
-        <span class="n">CML</span><span class="o">::</span><span class="n">Point2i</span> <span class="n">B</span> <span class="o">=</span> <span class="n">v1</span> <span class="o">+</span> <span class="p">(</span><span class="n">v2</span> <span class="o">-</span> <span class="n">v1</span><span class="p">)</span> <span class="o">*</span> <span class="n">beta</span><span class="p">;</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">A</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">B</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="n">std</span><span class="o">::</span><span class="n">swap</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">);</span>
-        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">A</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span> <span class="n">j</span> <span class="o">&lt;=</span> <span class="n">B</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span>
-            <span class="n">fbo</span><span class="p">.</span><span class="n">SetPixel</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">color</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">color</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
-    <span class="p">}</span>
-    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="n">v2</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span> <span class="n">y</span> <span class="o">&lt;=</span> <span class="n">v3</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span> <span class="n">y</span><span class="o">++</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="kt">float</span> <span class="n">segment_height</span> <span class="o">=</span> <span class="n">v3</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">v2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
-        <span class="kt">float</span> <span class="n">alpha</span> <span class="o">=</span> <span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="n">v1</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="n">total_height</span><span class="p">;</span>
-        <span class="kt">float</span> <span class="n">beta</span> <span class="o">=</span> <span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="n">v2</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="n">segment_height</span><span class="p">;</span>
-        <span class="n">CML</span><span class="o">::</span><span class="n">Point2i</span> <span class="n">A</span> <span class="o">=</span> <span class="n">v1</span> <span class="o">+</span> <span class="p">(</span><span class="n">v3</span> <span class="o">-</span> <span class="n">v1</span><span class="p">)</span> <span class="o">*</span> <span class="n">alpha</span><span class="p">;</span>
-        <span class="n">CML</span><span class="o">::</span><span class="n">Point2i</span> <span class="n">B</span> <span class="o">=</span> <span class="n">v2</span> <span class="o">+</span> <span class="p">(</span><span class="n">v3</span> <span class="o">-</span> <span class="n">v2</span><span class="p">)</span> <span class="o">*</span> <span class="n">beta</span><span class="p">;</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">A</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">B</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="n">std</span><span class="o">::</span><span class="n">swap</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">);</span>
-        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">A</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span> <span class="n">j</span> <span class="o">&lt;=</span> <span class="n">B</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span>
-            <span class="n">fbo</span><span class="p">.</span><span class="n">SetPixel</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">color</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">color</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
-</div>
-</div><p>绘制结果示例：</p>
-<p><img src="image-20210217214920639.png" alt="image-20210217214920639" /></p>
-<h2 id="2-三角形重心方法">2. 三角形重心方法</h2>
-<p>扫描线算法虽然直观上容易理解，编码简单，但因为涉及较多浮点数计算，效率一般，下面介绍一种利用三角形重心的方法进行三角形的填充</p>
-<p><img src="image-20210217221046069.png" alt="image-20210217221046069" /></p>
-<p>对一个$\triangle ABC$，任一点$P$与三个顶点有关系：<br />
-$$<br />
-\vec{AP}=u\vec{AB}+v\vec{AC}<br />
-$$<br />
-用顶点表示为：<br />
-$$<br />
-P-A=u(B-A)+v(C-A)<br />
-$$<br />
-整理得到：<br />
-$$<br />
-P=(1-u-v)A+uB+vC=A+u\vec{AB}+v\vec{AC}<br />
-$$<br />
-写成分量形式则有：<br />
-$$<br />
-\begin{cases}<br />
-u\vec{AB}_x+v\vec{AC}_x+\vec{PA}_x=0\\<br />
-u\vec{AB}_y+v\vec{AC}_y+\vec{PA}_y=0<br />
-\end{cases}<br />
-$$<br />
-写成矩阵形式：<br />
-$$<br />
-\begin{align}<br />
-\begin{pmatrix}u&amp;v&amp;1\end{pmatrix}<br />
-\begin{pmatrix}\vec{AB}_x\\\vec{AC}_x\\\vec{PA}_x\end{pmatrix}=0\\<br />
-\begin{pmatrix}u&amp;v&amp;1\end{pmatrix}<br />
-\begin{pmatrix}\vec{AB}_y\\\vec{AC}_y\\\vec{PA}_y\end{pmatrix}=0<br />
-\end{align}<br />
-$$<br />
-即向量$(u,v,1)$同时与向量$(\vec{AB}_x,\vec{AC}_x,\vec{PA}_x)$和$(\vec{AB}_y,\vec{AC}_y,\vec{PA}_y)$垂直，因此$(u,v,1)$的一组取值可以为两个分量向量的叉乘</p>
-<p>若点$P$位于$\triangle ABC$，则有约束：<br />
-$$<br />
-\begin{cases}<br />
-0\leq u\leq 1\\<br />
-0\leq v\leq 1\\<br />
-0\leq 1-u-v\leq 1<br />
-\end{cases}<br />
-$$<br />
-此时我们只需要在待填充的三角形的Bounding Box中遍历所有在三角形内部的像素并进行填充即可，C++代码如下：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="kt">void</span> <span class="n">DrawPrimitive</span><span class="o">::</span><span class="n">DrawTriangle</span><span class="p">(</span><span class="k">const</span> <span class="n">CML</span><span class="o">::</span><span class="n">Point2i</span><span class="o">&amp;</span> <span class="n">p1</span><span class="p">,</span> <span class="k">const</span> <span class="n">CML</span><span class="o">::</span><span class="n">Point2i</span><span class="o">&amp;</span> <span class="n">p2</span><span class="p">,</span> <span class="k">const</span> <span class="n">CML</span><span class="o">::</span><span class="n">Point2i</span><span class="o">&amp;</span> <span class="n">p3</span><span class="p">,</span> <span class="k">const</span> <span class="n">CML</span><span class="o">::</span><span class="n">Rgbi</span><span class="o">&amp;</span> <span class="n">color</span><span class="p">,</span> <span class="n">FrameBuffer</span><span class="o">&amp;</span> <span class="n">fbo</span><span class="p">,</span> <span class="n">PrimitiveType</span> <span class="n">primitive</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">primitive</span> <span class="o">==</span> <span class="n">PrimitiveType</span><span class="o">::</span><span class="n">LINE</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="n">DrawLine</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">fbo</span><span class="p">);</span>
-        <span class="n">DrawLine</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">p3</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">fbo</span><span class="p">);</span>
-        <span class="n">DrawLine</span><span class="p">(</span><span class="n">p2</span><span class="p">,</span> <span class="n">p3</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">fbo</span><span class="p">);</span>
-    <span class="p">}</span>
-
-    <span class="k">else</span>
-    <span class="p">{</span>
-        <span class="n">CML</span><span class="o">::</span><span class="n">BBox2i</span> <span class="n">bbox</span><span class="p">{</span> <span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">,</span> <span class="n">p3</span> <span class="p">};</span>
-
-        <span class="k">auto</span> <span class="n">Min</span> <span class="o">=</span> <span class="n">bbox</span><span class="p">.</span><span class="n">GetMin</span><span class="p">();</span>
-        <span class="k">auto</span> <span class="n">Max</span> <span class="o">=</span> <span class="n">bbox</span><span class="p">.</span><span class="n">GetMax</span><span class="p">();</span>
-
-        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">Min</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">Max</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
-        <span class="p">{</span>
-            <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">Min</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span> <span class="n">j</span> <span class="o">&lt;=</span> <span class="n">Max</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span>
-            <span class="p">{</span>
-                <span class="n">CML</span><span class="o">::</span><span class="n">Vec3f</span> <span class="n">u</span> <span class="o">=</span> <span class="n">Barycentric</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">,</span> <span class="n">p3</span><span class="p">,</span> <span class="p">{</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span> <span class="p">});</span>
-                <span class="k">if</span><span class="p">(</span><span class="n">u</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">&gt;=</span><span class="mi">0</span><span class="o">&amp;&amp;</span><span class="n">u</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">&gt;=</span><span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">u</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="n">u</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">1</span> <span class="o">&amp;&amp;</span><span class="n">u</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">&gt;=</span><span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">u</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">)</span>
-                    <span class="n">fbo</span><span class="p">.</span><span class="n">SetPixel</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">color</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">color</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="n">CML</span><span class="o">::</span><span class="n">Vec3f</span> <span class="n">DrawPrimitive</span><span class="o">::</span><span class="n">Barycentric</span><span class="p">(</span><span class="k">const</span> <span class="n">CML</span><span class="o">::</span><span class="n">Point2i</span><span class="o">&amp;</span> <span class="n">p1</span><span class="p">,</span> <span class="k">const</span> <span class="n">CML</span><span class="o">::</span><span class="n">Point2i</span><span class="o">&amp;</span> <span class="n">p2</span><span class="p">,</span> <span class="k">const</span> <span class="n">CML</span><span class="o">::</span><span class="n">Point2i</span><span class="o">&amp;</span> <span class="n">p3</span><span class="p">,</span> <span class="k">const</span> <span class="n">CML</span><span class="o">::</span><span class="n">Point2i</span><span class="o">&amp;</span> <span class="n">p</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="n">CML</span><span class="o">::</span><span class="n">Vec3f</span> <span class="n">v1</span> <span class="o">=</span> <span class="p">{</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="p">(</span><span class="n">p2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">p1</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="p">(</span><span class="n">p3</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">p1</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="p">(</span><span class="n">p1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="p">};</span>
-    <span class="n">CML</span><span class="o">::</span><span class="n">Vec3f</span> <span class="n">v2</span> <span class="o">=</span> <span class="p">{</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="p">(</span><span class="n">p2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">p1</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="p">(</span><span class="n">p3</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">p1</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="p">(</span><span class="n">p1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="p">};</span>
-    <span class="n">CML</span><span class="o">::</span><span class="n">Vec3f</span> <span class="n">res</span> <span class="o">=</span> <span class="n">v1</span><span class="p">.</span><span class="n">Cross</span><span class="p">(</span><span class="n">v2</span><span class="p">);</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">abs</span><span class="p">(</span><span class="n">res</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">)</span><span class="k">return</span> <span class="p">{</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span> <span class="p">};</span>
-    <span class="k">return</span> <span class="p">{</span> <span class="mf">1.f</span> <span class="o">-</span> <span class="p">(</span><span class="n">res</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">res</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="n">res</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">res</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">res</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="p">,</span><span class="n">res</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">res</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="p">};</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
-</div>
-</div><h2 id="3-背面剔除">3. 背面剔除</h2>
-<p>渲染三角形的开销比渲染直线的开销大得多，为了在渲染模型时提高效率，我们不希望渲染视野中模型背面的三角形，这里涉及一个三角形法向的问题，一般情况下，逆时针顶点顺序的三角形会被处理成正向三角形</p>
-<p><img src="faceculling_frontback.png" alt="img" /></p>
-<p>因此，要知道从摄像机视角方向$\pmb v$看到的三角形$\pmb p=(\pmb p_1,\pmb p_2,\pmb p_3)$是否在背面，只需判断是否满足：<br />
-$$<br />
-\pmb v\cdot[(\pmb p_2-\pmb p_1)\times(\pmb p_3-\pmb p_1)]&gt;0<br />
-$$<br />
-对小于0的面不予以绘制</p>
-<p><img src="image-20210218172823698.png" alt="image-20210218172823698" /></p>
-<p>可以看到效果其实还不正确，但这是因为没有做遮挡面剔除的缘故，具体方法后面再谈</p>
+<ul>
+<li>$G_f$: the amount of free memory per GPU in MB available to store the scene data</li>
+<li>$S_s$: the scene size in MB</li>
+<li>$N_g$: total number of GPUs</li>
+</ul>
+<h2 id="5-performance-for-massive-scenes">5. Performance for massive scenes</h2>
+<p><strong>Group 1</strong>: <em>Moana</em> 38 GB, <em>Museum</em> 41 GB, <em>Agent</em> 37 GB, and <em>Spring</em> 41 GB are designed to stress the <em>Barbora</em> GPU server with 64 GB of total GPU memory</p>
+<p><img src="image-20210815171434217.png" alt="image-20210815171434217" style="zoom:80%;" /></p>
+<ul>
+<li>the performance of the <em>Barbora</em> server is almost identical to the performance of DGX-2 for the same amount of scene replication (up to 10%)</li>
+<li>DGX-2 is able to further replicate scene data up to 60%, which improves performance by 2.8% only in the case of the Moana 38 GB scene (for the other scenes the performance is higher by only less than 1%)</li>
+<li>This means that for scenes of sizes approximately up to 45 GB distributed over 4 GPUs, the significantly less complex and cheaper GPU interconnect in the <em>Barbora</em> server is sufficient</li>
+<li>For the Museum, Agent, and Spring scenes 2% of scene replication attains optimal performance. This holds for 4, 8, and 16 GPUs</li>
+<li>Only the Moana scene needs higher amounts of replicated data, up to 25% for 16 GPUs</li>
+<li>Scalability can be evaluated on DGX-2 for 4, 8, and 16 GPUs only. For the Moana, Museum, Agent, and Spring scenes, for 5% scene replication, the parallel efficiencies, going from 4 to 16 GPUs, are 82.7%, 97.1%, 97.9%, and 98.1%, respectively. In the case of the Moana scene, a higher replication ratio is needed to improve scalability, e.g., for 25% data replication ratio the parallel efficiency is 94.4%</li>
+</ul>
+<p><strong>Group 2</strong>: Moana 169 GB, Museum 124 GB, Agent 167 GB, and Spring 137 GB are designed to stress the DGX-2 server with 512 GB of total GPU memory</p>
+<p><img src="image-20210815172628673.png" alt="image-20210815172628673" style="zoom:80%;" /></p>
+<p><img src="image-20210815195203217.png" alt="image-20210815195203217" style="zoom: 50%;" /></p>
+<ul>
+<li>The performance is affected by selecting the right chunk size, particularly for the Moana scene</li>
+<li>For 8 GPUs and the Moana, Agent, and Spring scenes, if the replication ratio is 10% the scene does not fit into GPU shared memory anymore and chunks are swapped between GPU and CPU memory (the default behavior of the CUDA Unified Memory), which makes the rendering several times slower depending on the number of chunks being moved back and forth. This is the point at which our approach stops working, and therefore it is crucial to correctly select the replication ratio to avoid this situation</li>
+<li>For the Agent scene 1% of scene replication gives optimal performance for both 8 and 16 GPUs. The Spring scenes needs only 0.1% for 8 GPUs and 0.25% for 16 GPUs. The Museum scene needs 1% for 8 GPUs and 2% for 16 GPUs. Finally, the Moana scene requires 2% for 8 GPUs and 5% for 16 GPUs</li>
+<li>Scalability between 8 and 16 GPUs is good for all scenes. The parallel efficiencies are 93.8%, 98.8%, 98.6%, and 99.0% for the Moana, Museum, Agent, and Spring scenes, respectively</li>
+</ul>
+<p><img src="image-20210815194342922.png" alt="image-20210815194342922" style="zoom: 50%;" /></p>
+<ul>
+<li>Analyze memory access pattern only for one sample per pixel</li>
+<li>Rendering times grows linearly with the number of samples</li>
+</ul>
+<p><img src="image-20210815195412094.png" alt="image-20210815195412094" style="zoom: 50%;" /></p>
+<p><img src="image-20210815195506893.png" alt="image-20210815195506893" style="zoom:50%;" /></p>
+<ul>
+<li>Number of bounces influence</li>
+</ul>
+<h2 id="6-conclusions">6. Conclusions</h2>
+<p><strong>Contribution</strong></p>
+<ul>
+<li>Presented a solution for path tracing of massive scenes on multiple GPUs</li>
+<li>Analyzes the memory access pattern of a path tracer and defines how the scene data should be distributed across GPUs with a minimal loss of performance</li>
+<li>Those parts of the scene data that have the highest memory access rate are replicated on all GPUs, because their distribution would have a major negative impact on performance</li>
+</ul>
+<p><strong>Methods</strong></p>
+<ul>
+<li>Uses the same memory management rules for the entire data structure</li>
+<li>Splits the data structures into chunks and we control the placement and/or replication of each chunk separately</li>
+</ul>
+<p><strong>Feature</strong></p>
+<ul>
+<li>Only control the memory allocations, the path tracer data structures do not have to be redesigned</li>
+<li>Take full advantage of NVLink 2.0 interconnect and its high bandwidth and low latency</li>
+</ul>
 
     </article>
     
@@ -2184,14 +2306,14 @@ $$<br />
     
 <div class="donation">
   <div class="donation__message">
-    分享
+    Share on
   </div>
   <div class="donation__icons">
     
     
     
       
-        <a href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fchaphlagical.github.io%2fzh%2fposts%2fsoftwarerenderer%2ftriangle%2f" title="Facebook" aria-label="Facebook Share Button" class="donation__item" target="_blank" rel="noreferrer" data-type="share">
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fchaphlagical.github.io%2fen%2fposts%2fpaperreading%2fgpu_accelerated_path_tracing_of_massive_scenes%2f" title="Facebook" aria-label="Facebook Share Button" class="donation__item" target="_blank" rel="noreferrer" data-type="share">
           <svg data-name="facebook" enable-background="new 0 0 24 24" viewBox="0 0 24 24" width="35" height="35" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="m15.997 3.985h2.191v-3.816c-.378-.052-1.678-.169-3.192-.169-3.159 0-5.323 1.987-5.323 5.639v3.361h-3.486v4.266h3.486v10.734h4.274v-10.733h3.345l.531-4.266h-3.877v-2.939c.001-1.233.333-2.077 2.051-2.077z"/></svg>
         </a>
       
@@ -2220,7 +2342,7 @@ $$<br />
   </div>
   <div class="whoami__contents">
     <div class="whoami__written-by">
-      作者
+      WRITTEN BY
     </div>
     <div class="whoami__title">
       
@@ -2366,22 +2488,14 @@ $$<br />
     <h1 class="related__title">
       <hr class="hr-dots"/>
       <div>
-        相关内容
+        See Also
       </div>
       <hr class="hr-dots"/>
     </h1>
     <ul class="related-ul">
         
         <li>
-          <a href="/zh/posts/softwarerenderer/zbuffer/" class="related__link">Z-Buffer与遮挡剔除</a>
-        </li>
-        
-        <li>
-          <a href="/zh/posts/softwarerenderer/mathematics/" class="related__link">3D数学基础</a>
-        </li>
-        
-        <li>
-          <a href="/zh/posts/softwarerenderer/line/" class="related__link">光栅画线算法</a>
+          <a href="/en/posts/paperreading/extranet/" class="related__link">ExtraNet: Real-time Extrapolated Rendering for Low-latency Temporal Supersampling</a>
         </li>
         
     </ul>
@@ -2391,21 +2505,14 @@ $$<br />
 <nav class="pagination-single">
   
     
-      <a href="https://chaphlagical.github.io/zh/posts/softwarerenderer/mathematics/" class="pagination-single__left">
+      <a href="https://chaphlagical.github.io/en/posts/paperreading/extranet/" class="pagination-single__left">
         <div class="pagination-single__icon">
           <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path fill="currentColor" d="M19 11H7.83l4.88-4.88c.39-.39.39-1.03 0-1.42-.39-.39-1.02-.39-1.41 0l-6.59 6.59c-.39.39-.39 1.02 0 1.41l6.59 6.59c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41L7.83 13H19c.55 0 1-.45 1-1s-.45-1-1-1z"/></svg>
         </div>
-        <div class="pagination-single__left-title">3D数学基础</div>      
+        <div class="pagination-single__left-title">ExtraNet: Real-time Extrapolated Rendering for Low-latency Temporal Supersampling</div>      
       </a>
     
     <div class="grow"></div>
-    
-      <a href="https://chaphlagical.github.io/zh/posts/softwarerenderer/zbuffer/" class="pagination-single__right">      
-        <div class="pagination-single__right-title">Z-Buffer与遮挡剔除</div>
-        <div class="pagination-single__icon">
-          <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path fill="currentColor" d="M5 13h11.17l-4.88 4.88c-.39.39-.39 1.03 0 1.42.39.39 1.02.39 1.41 0l6.59-6.59c.39-.39.39-1.02 0-1.41l-6.58-6.6c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41L16.17 11H5c-.55 0-1 .45-1 1s.45 1 1 1z"/></svg>
-        </div>
-      </a>
     
   
 </nav>
@@ -2751,7 +2858,7 @@ document.addEventListener('DOMContentLoaded', function () {
   <span class="icon">
     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M15.5 14h-.79l-.28-.27c1.2-1.4 1.82-3.31 1.48-5.34-.47-2.78-2.79-5-5.59-5.34-4.23-.52-7.79 3.04-7.27 7.27.34 2.8 2.56 5.12 5.34 5.59 2.03.34 3.94-.28 5.34-1.48l.27.28v.79l4.25 4.25c.41.41 1.08.41 1.49 0 .41-.41.41-1.08 0-1.49L15.5 14zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
   </span>
-  <input id="search" aria-label="Site Search" class="input" type="text" placeholder="搜索" autocomplete="off">
+  <input id="search" aria-label="Site Search" class="input" type="text" placeholder="Search" autocomplete="off">
   <div id="search-results" class="dropdown">
     <div id="search-menu" class="dropdown-menu" role="menu">
     </div>
@@ -3322,14 +3429,14 @@ document.addEventListener('DOMContentLoaded', function () {
       
       
         
+        
+          
+            
+              <a href="https://chaphlagical.github.io/en/posts/paperreading/gpu_accelerated_path_tracing_of_massive_scenes/" data-lang="en" class="dropdown-item is-active">English</a>
+            
+          
+        
       
-        
-        
-          
-            
-              <a href="https://chaphlagical.github.io/zh/posts/softwarerenderer/triangle/" data-lang="zh" class="dropdown-item is-active">简体中文</a>
-            
-          
         
       
     
@@ -3464,7 +3571,7 @@ document.addEventListener('DOMContentLoaded', function () {
   
   
     
-      <a href="https://chaphlagical.github.io/zh/posts/index.xml" type="application/rss+xml" title="RSS" aria-label="RSS Feed Link">
+      <a href="https://chaphlagical.github.io/en/posts/index.xml" type="application/rss+xml" title="RSS" aria-label="RSS Feed Link">
         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><circle fill="currentColor" cx="6.18" cy="17.82" r="2.18"/><path fill="currentColor" d="M5.59 10.23c-.84-.14-1.59.55-1.59 1.4 0 .71.53 1.28 1.23 1.4 2.92.51 5.22 2.82 5.74 5.74.12.7.69 1.23 1.4 1.23.85 0 1.54-.75 1.41-1.59-.68-4.2-3.99-7.51-8.19-8.18zm-.03-5.71C4.73 4.43 4 5.1 4 5.93c0 .73.55 1.33 1.27 1.4 6.01.6 10.79 5.38 11.39 11.39.07.73.67 1.28 1.4 1.28.84 0 1.5-.73 1.42-1.56-.73-7.34-6.57-13.19-13.92-13.92z"/></svg>
       </a>
     
@@ -3520,7 +3627,7 @@ document.addEventListener('DOMContentLoaded', function () {
     
       
         <div class="toc__flexbox--outer" data-position="fixed" data-dir="ltr" data-ani="true">
-          <h6 class="toc__title toc__title--outer" data-ani="true">目录</h6>
+          <h6 class="toc__title toc__title--outer" data-ani="true">What&#39;s on this Page</h6>
           
           <label class="switch" data-ani="true">
             <input id="visible-toc" aria-label="Visible TOC" type="checkbox" checked>
@@ -3531,9 +3638,47 @@ document.addEventListener('DOMContentLoaded', function () {
         <div class="toc toc__outer " data-dir="ltr" data-folding="true" data-ani="true">
           <nav id="TableOfContents">
   <ul>
-    <li><a href="#1-行扫描算法">1. 行扫描算法</a></li>
-    <li><a href="#2-三角形重心方法">2. 三角形重心方法</a></li>
-    <li><a href="#3-背面剔除">3. 背面剔除</a></li>
+    <li><a href="#1-introduction">1. Introduction</a></li>
+    <li><a href="#2-related-work">2. Related Work</a>
+      <ul>
+        <li><a href="#21-out-of-core-rendering">2.1. Out-of-core Rendering</a></li>
+        <li><a href="#22-distributed-rendering">2.2. Distributed Rendering</a>
+          <ul>
+            <li><a href="#221-image-parallel-rendering">2.2.1. Image-Parallel Rendering</a></li>
+            <li><a href="#222-data-parallel-rendering">2.2.2. Data-Parallel Rendering</a></li>
+          </ul>
+        </li>
+        <li><a href="#23-distributed-shared-memory-systems">2.3. Distributed Shared Memory Systems</a></li>
+        <li><a href="#24-cuda-unified-memory-for-multi-gpu-systems">2.4. CUDA Unified Memory For Multi-GPU Systems</a></li>
+      </ul>
+    </li>
+    <li><a href="#3-blender-cycles-path-tracer">3. Blender Cycles Path Tracer</a>
+      <ul>
+        <li><a href="#31-extensions-for-multi-gpu-support">3.1. Extensions for Multi-GPU Support</a></li>
+        <li><a href="#32-multi-gpu-benchmark-systems">3.2. Multi-GPU Benchmark Systems</a></li>
+        <li><a href="#33-benchmark-scenes">3.3. Benchmark Scenes</a></li>
+      </ul>
+    </li>
+    <li><a href="#4-data-distributed-multi-gpu-path-tracing">4. Data Distributed Multi-GPU Path Tracing</a>
+      <ul>
+        <li><a href="#41-basic-distribution-of-entire-data-structures">4.1. Basic Distribution of Entire Data Structures</a>
+          <ul>
+            <li><a href="#411-memory-access-analysis">4.1.1. Memory Access Analysis</a></li>
+            <li><a href="#412-performance-and-scalability-evaluation">4.1.2. Performance and Scalability Evaluation</a></li>
+          </ul>
+        </li>
+        <li><a href="#42-advanced-distribution-based-on-memory-access-pattern-and-statistics">4.2. Advanced Distribution Based on Memory Access Pattern and Statistics</a>
+          <ul>
+            <li><a href="#421-memory-access-pattern-analysis">4.2.1. Memory Access Pattern Analysis</a></li>
+            <li><a href="#422-data-placement-algorithm-based-on-memory-access-pattern">4.2.2. Data Placement Algorithm Based on Memory Access Pattern</a></li>
+            <li><a href="#423-performance-evaluation">4.2.3. Performance Evaluation</a></li>
+            <li><a href="#424-maximum-scene-size-analysis">4.2.4. Maximum Scene Size Analysis</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#5-performance-for-massive-scenes">5. Performance for massive scenes</a></li>
+    <li><a href="#6-conclusions">6. Conclusions</a></li>
   </ul>
 </nav>
         </div>

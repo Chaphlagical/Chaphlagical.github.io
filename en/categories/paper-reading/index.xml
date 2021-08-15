@@ -14,13 +14,48 @@
     <managingEditor>chaf@mail.ustc.edu.cn (Wenbo Chen)</managingEditor>
     <webMaster>chaf@mail.ustc.edu.cn (Wenbo Chen)</webMaster>
     <copyright>&amp;copy;{year}, All Rights Reserved</copyright>
-    <lastBuildDate>Tue, 10 Aug 2021 22:13:11 +0100</lastBuildDate>
+    <lastBuildDate>Sun, 15 Aug 2021 21:34:00 +0100</lastBuildDate>
     
         <atom:link href="https://chaphlagical.github.io/en/categories/paper-reading/index.xml" rel="self" type="application/rss+xml" />
     
     
     
 
+      
+      <item>
+        <title>GPU Accelerated Path Tracing of Massive Scenes</title>
+        <link>https://chaphlagical.github.io/en/posts/paperreading/gpu_accelerated_path_tracing_of_massive_scenes/</link>
+        <pubDate>Sun, 15 Aug 2021 21:34:00 +0100</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        <atom:modified>Sun, 15 Aug 2021 21:34:00 +0100</atom:modified>
+        <guid>https://chaphlagical.github.io/en/posts/paperreading/gpu_accelerated_path_tracing_of_massive_scenes/</guid>
+        <description>Author: MILAN JAROŠ, LUBOMÍR ŘÍHA, PETR STRAKOŠ, and MATĚJ ŠPEŤKO
+Institution: IT4Innovations, VSB–Technical University of Ostrava, Czech Republic
+1. Introduction GPUs Rendering vs CPUs Rendering
+ Limited memory size Example: Pixar&amp;rsquo;s Coco movie were using up to 120GB, do not fit into the memory of a single GPU  Main contribution
+  A solution to GPUs rendering memory size limitation
+ Based on replication of a small amount of scene data, between 1% ~ 5%, and well-chosen distribution of the rest of the data into the memory of several GPUs Both replication and distribution of data is based on a memory access pattern analysis of a path tracer during a 1spp prepass The data with the highest number of memory accesses are replicated and the rest is stored only in the memory of the GPU that had the highest number of accesses to it Minimizes the penalty associated with reading data from the remote memory and is effective at providing near-linear scalability    Demonstration that our proposed approach works on a memory management level</description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>Rendering</category>
+            
+          
+        
+        
+          
+            
+              <category>paper reading</category>
+            
+          
+        
+        
+      </item>
       
       <item>
         <title>ExtraNet: Real-time Extrapolated Rendering for Low-latency Temporal Supersampling</title>
