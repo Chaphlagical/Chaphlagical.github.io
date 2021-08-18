@@ -3,7 +3,7 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://chaphlagical.github.io/en/</loc>
-    <lastmod>2021-08-15T21:34:00+01:00</lastmod>
+    <lastmod>2021-08-18T15:44:00+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh"
@@ -16,7 +16,7 @@
                 />
   </url><url>
     <loc>https://chaphlagical.github.io/en/categories/</loc>
-    <lastmod>2021-08-15T21:34:00+01:00</lastmod>
+    <lastmod>2021-08-18T15:44:00+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh"
@@ -28,14 +28,11 @@
                 href="https://chaphlagical.github.io/en/categories/"
                 />
   </url><url>
-    <loc>https://chaphlagical.github.io/en/posts/paperreading/gpu_accelerated_path_tracing_of_massive_scenes/</loc>
-    <lastmod>2021-08-15T21:34:00+01:00</lastmod>
-  </url><url>
     <loc>https://chaphlagical.github.io/en/categories/paper-reading/</loc>
-    <lastmod>2021-08-15T21:34:00+01:00</lastmod>
+    <lastmod>2021-08-18T15:44:00+01:00</lastmod>
   </url><url>
     <loc>https://chaphlagical.github.io/en/posts/</loc>
-    <lastmod>2021-08-15T21:34:00+01:00</lastmod>
+    <lastmod>2021-08-18T15:44:00+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh"
@@ -48,10 +45,10 @@
                 />
   </url><url>
     <loc>https://chaphlagical.github.io/en/tags/rendering/</loc>
-    <lastmod>2021-08-15T21:34:00+01:00</lastmod>
+    <lastmod>2021-08-18T15:44:00+01:00</lastmod>
   </url><url>
     <loc>https://chaphlagical.github.io/en/tags/</loc>
-    <lastmod>2021-08-15T21:34:00+01:00</lastmod>
+    <lastmod>2021-08-18T15:44:00+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh"
@@ -62,6 +59,12 @@
                 hreflang="en"
                 href="https://chaphlagical.github.io/en/tags/"
                 />
+  </url><url>
+    <loc>https://chaphlagical.github.io/en/posts/paperreading/temporally_adaptive_shading_reuse_for_real_time_rendering_and_virtual_reality/</loc>
+    <lastmod>2021-08-18T15:44:00+01:00</lastmod>
+  </url><url>
+    <loc>https://chaphlagical.github.io/en/posts/paperreading/gpu_accelerated_path_tracing_of_massive_scenes/</loc>
+    <lastmod>2021-08-15T21:34:00+01:00</lastmod>
   </url><url>
     <loc>https://chaphlagical.github.io/en/posts/paperreading/extranet/</loc>
     <lastmod>2021-08-10T22:13:11+01:00</lastmod>

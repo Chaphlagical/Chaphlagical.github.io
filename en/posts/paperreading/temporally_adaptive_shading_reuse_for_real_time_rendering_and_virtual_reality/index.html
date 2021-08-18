@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>GPU Accelerated Path Tracing of Massive Scenes – Chaf&#39;s Blog</title>
+    <title>Temporally Adaptive Shading Reuse for Real-time Rendering and Virtual Reality – Chaf&#39;s Blog</title>
     
 
 
@@ -653,7 +653,7 @@
     
     var baseurl = JSON.parse("\"https://chaphlagical.github.io\"");
     
-    var permalink = JSON.parse("\"https://chaphlagical.github.io/en/posts/paperreading/gpu_accelerated_path_tracing_of_massive_scenes/\"");
+    var permalink = JSON.parse("\"https://chaphlagical.github.io/en/posts/paperreading/temporally_adaptive_shading_reuse_for_real_time_rendering_and_virtual_reality/\"");
     
     var langprefix = JSON.parse("\"/en\"");
     var searchResults = null;
@@ -1328,16 +1328,16 @@
 
 <meta name="keywords" content="Rendering">
 
-<meta name="created" content="2021-08-15T21:34:00&#43;0100">
-<meta name="modified" content="2021-08-15T21:34:00&#43;0100">
-<meta property="article:published_time" content="2021-08-15T21:34:00&#43;0100">
+<meta name="created" content="2021-08-18T15:44:00&#43;0100">
+<meta name="modified" content="2021-08-18T15:44:00&#43;0100">
+<meta property="article:published_time" content="2021-08-18T15:44:00&#43;0100">
 
 <meta name="author" content="Wenbo Chen">
 
 
 <meta property="og:site_name" content="Chaf&#39;s Blog">
-<meta property="og:title" content="GPU Accelerated Path Tracing of Massive Scenes">
-<meta property="og:url" content="https://chaphlagical.github.io/en/posts/paperreading/gpu_accelerated_path_tracing_of_massive_scenes/">
+<meta property="og:title" content="Temporally Adaptive Shading Reuse for Real-time Rendering and Virtual Reality">
+<meta property="og:url" content="https://chaphlagical.github.io/en/posts/paperreading/temporally_adaptive_shading_reuse_for_real_time_rendering_and_virtual_reality/">
 <meta property="og:type" content="article">
 <meta property="og:description" content="Siggraph 2021 Paper Reading">
 
@@ -1350,7 +1350,7 @@
 
 <meta name="apple-mobile-web-app-status-bar-style" content="#fff">
 
-<link rel="canonical" href="https://chaphlagical.github.io/en/posts/paperreading/gpu_accelerated_path_tracing_of_massive_scenes/">
+<link rel="canonical" href="https://chaphlagical.github.io/en/posts/paperreading/temporally_adaptive_shading_reuse_for_real_time_rendering_and_virtual_reality/">
 
 <link rel="manifest" href="/manifest.json">
 
@@ -1376,10 +1376,10 @@
   {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    "headline": "GPU Accelerated Path Tracing of Massive Scenes",
-    "datePublished": "2021-08-15T21:34:00+01:00",
-    "dateModified": "2021-08-15T21:34:00+01:00",
-    "url" : "https://chaphlagical.github.io/en/posts/paperreading/gpu_accelerated_path_tracing_of_massive_scenes/",
+    "headline": "Temporally Adaptive Shading Reuse for Real-time Rendering and Virtual Reality",
+    "datePublished": "2021-08-18T15:44:00+01:00",
+    "dateModified": "2021-08-18T15:44:00+01:00",
+    "url" : "https://chaphlagical.github.io/en/posts/paperreading/temporally_adaptive_shading_reuse_for_real_time_rendering_and_virtual_reality/",
     "description": "Siggraph 2021 Paper Reading",
     "keywords": ["Rendering"],
     "mainEntityOfPage": {
@@ -1763,7 +1763,7 @@ if (!doNotTrack) {
   
   <li  class="is-active" >
     
-      <span>GPU Accelerated Path Tracing of Massive Scenes</span>
+      <span>Temporally Adaptive Shading Reuse for Real-time Rendering and Virtual Reality</span>
     
   </li>
   
@@ -1775,14 +1775,14 @@ if (!doNotTrack) {
   <div class="single ">
     <div class="single__nojs">This page looks best with JavaScript enabled</div>
     <script>document.querySelector('.single').classList.remove('hide'); document.querySelector('.single__nojs').classList.add('hide');</script>
-    <h2 class="single__title" data-ani="true">GPU Accelerated Path Tracing of Massive Scenes</h2>
+    <h2 class="single__title" data-ani="true">Temporally Adaptive Shading Reuse for Real-time Rendering and Virtual Reality</h2>
     <h3 class="single__subtitle"></h3>
     <div class="single__meta">
       
 <div class="single__infos">
-  <time class="single__info" title="Written At">📅&nbsp;Aug 15, 2021 </time>
+  <time class="single__info" title="Written At">📅&nbsp;Aug 18, 2021 </time>
   
-  &nbsp;&middot;&nbsp; <span class="single__info" title="Reading Time"> ☕&nbsp;12&nbsp;min read </span>
+  &nbsp;&middot;&nbsp; <span class="single__info" title="Reading Time"> ☕&nbsp;23&nbsp;min read </span>
   
   <span class="single__info">
     
@@ -1800,320 +1800,804 @@ if (!doNotTrack) {
     </div>
     <article class="single__contents" data-dir="ltr" data-ani="true">
       
-      <p><strong>Author</strong>: <em>MILAN JAROŠ</em>, <em>LUBOMÍR ŘÍHA</em>, <em>PETR STRAKOŠ</em>, and <em>MATĚJ ŠPEŤKO</em></p>
-<p><strong>Institution</strong>: IT4Innovations, VSB–Technical University of Ostrava, Czech Republic</p>
-<p><strong>Link</strong>: <a href="https://dl.acm.org/doi/10.1145/3447807">https://dl.acm.org/doi/10.1145/3447807</a></p>
+      <p><strong>Author</strong>: JOERG H. MUELLER, THOMAS NEFF, PHILIP VOGLREITER, MARKUS STEINBERGER, DIETER SCHMALSTIEG</p>
+<p><strong>Institution</strong>: Graz University of Technology, Austria</p>
+<p><strong>Link</strong>: <a href="https://dl.acm.org/doi/10.1145/3446790">https://dl.acm.org/doi/10.1145/3446790</a></p>
+<h2 id="abstract">Abstract</h2>
+<p><strong>Motivation</strong></p>
+<ul>
+<li>Temporal coherence has the potential to enable a huge reduction of shading costs in rendering</li>
+</ul>
+<p><strong>Current Work</strong></p>
+<ul>
+<li>Existing techniques focus either only on spatial shading reuse or cannot adaptively choose temporal shading frequencies</li>
+</ul>
+<p><strong>Idea</strong></p>
+<ul>
+<li>Temporal shading reuse is possible for extended periods of time for a majority of samples</li>
+<li>Approximate shading gradients to efficiently determine when and how long shading can be reused</li>
+</ul>
 <h2 id="1-introduction">1. Introduction</h2>
-<p><strong>GPUs Rendering vs CPUs Rendering</strong></p>
-<ul>
-<li>Limited memory size</li>
-<li>Example: Pixar&rsquo;s Coco movie were using up to 120GB, do not fit into the memory of a single GPU</li>
-</ul>
-<p><strong>Main contribution</strong></p>
 <ul>
 <li>
-<p>A solution to GPUs rendering memory size limitation</p>
+<p>An important strategy to reduce shading load is to exploit spatial and temporal coherence</p>
 <ul>
-<li>Based on replication of a small amount of scene data, between 1% ~ 5%, and well-chosen distribution of the rest of the data into the memory of several GPUs</li>
-<li>Both replication and distribution of data is based on a memory access pattern analysis of a path tracer during a 1spp prepass</li>
-<li>The data with the highest number of memory accesses are replicated and the rest is stored only in the memory of the GPU that had the highest number of accesses to it</li>
-<li>Minimizes the penalty associated with reading data from the remote memory and is effective at providing near-linear scalability</li>
+<li>Spatial coherence
+<ul>
+<li>Checkerboard rendering,</li>
+<li>Foveated rendering</li>
+<li>Variable rate shading</li>
+<li>Motion-adaptive shading</li>
+<li>&hellip;</li>
+</ul>
+</li>
+<li>Temporal coherence
+<ul>
+<li>Temporal anti-aliasing</li>
+</ul>
+</li>
 </ul>
 </li>
 <li>
-<p>Demonstration that our proposed approach works on a memory management level</p>
+<p>Four unresolved research questions for shading reuse over longer periods of time poses:</p>
+<ol>
+<li>How do temporal artifacts affect the perceived image quality when reusing shading samples over time?
 <ul>
-<li>Any path tracing code that supports GPU acceleration using CUDA can adopt our approach without redesigning its internal data structures</li>
+<li>Perception of shading differences</li>
+<li>Conducting a controlled user study to determine the perceived effect of shading artifacts due to temporal shading reuse for scenes with advanced shading and animations</li>
 </ul>
 </li>
-</ul>
-<p><strong>Two key technologies</strong></p>
+<li>What are the limits of shading reuse in scenes with advanced shading and animation?
 <ul>
-<li>NVLink GPU Interconnect
-<ul>
-<li>Enables multiple GPUs to efficiently share the content of their memories due to its high bandwidth and low latency</li>
+<li>Temporal coherence</li>
+<li>Analyzing the potential amount of coherence in shading and visibility over time</li>
 </ul>
 </li>
-<li>CUDA Unified Memory(UM)
+<li>How can we determine ahead of time when shading samples become invalid without actually reshading the samples?
 <ul>
-<li>Provides programmers with control over data placement across the memories of interconnected GPUs</li>
+<li>Gradients</li>
+<li>Analyzing analytical and numerical first-order approximations of temporal shading gradients and their ability to predict the magnitude of future shading changes</li>
+<li>Analyzing the spatial variation of the temporal shading gradient and show how to incorporate spatial information to better predict future shading changes</li>
 </ul>
+</li>
+<li>Given sufficient temporally coherent shading samples, how can they efficiently be reused in practice?
+<ul>
+<li>Framework</li>
+<li>A general-purpose framework for predicting shading changes and temporally reusing shading over time</li>
+</ul>
+</li>
+</ol>
 </li>
 </ul>
 <h2 id="2-related-work">2. Related Work</h2>
-<h3 id="21-out-of-core-rendering">2.1. Out-of-core Rendering</h3>
 <ul>
-<li>Out of core rendering is the capability to render (with GPUs) scenes requiring more memory than the one directly connected to the device</li>
-<li>It will use the system&rsquo;s memory instead</li>
-</ul>
-<h3 id="22-distributed-rendering">2.2. Distributed Rendering</h3>
+<li>
+<p>Reduce shader invocations by exploiting shading coherence</p>
 <ul>
-<li>sort first: Image based partitioning</li>
-<li>sort middle: Related to rasterization only</li>
-<li>sort last: Use scene data distribution</li>
-</ul>
-<h4 id="221-image-parallel-rendering">2.2.1. Image-Parallel Rendering</h4>
-<ul>
-<li>Distribute among processors or machines per blocks of pixels of a rendered image</li>
-<li>Most common and efficient way the scene data is fully replicated in all local memories and ray tracing is embarrassingly parallel</li>
-<li>In the case of ray tracing complex scenes that do not fit into local memory, this approach results in on-demand scene data movement while rays remains fixed (Moving scene data instead of ray data)</li>
-<li>Our proposed solution is based on scene data communication while rays never leave the GPU they are created on</li>
-</ul>
-<h4 id="222-data-parallel-rendering">2.2.2. Data-Parallel Rendering</h4>
-<ul>
-<li>Distribute the workload by subdividing the scene data</li>
-<li>In the case of distributed ray tracing, these approaches transfer ray data among processors or machines, while scene data do not move after the initial distribution (Moving ray data instead of scene data)</li>
-</ul>
-<h3 id="23-distributed-shared-memory-systems">2.3. Distributed Shared Memory Systems</h3>
-<ul>
-<li>Shared Memory Processors (SMP) &amp; Distributed Shared Memory (DSM)
-<ul>
-<li>Local memory with caches</li>
-<li>Hardware or software layer transparently creates an illusion of global shared memory for applications</li>
+<li>Foveated rendering</li>
+<li>Variable rate shading</li>
 </ul>
 </li>
-<li>The latency to access remote data is considerably larger than the latency to access local data
+<li>
+<p>Temporal coherence is commonly exploited by using information from previous frames for spatio-temporal filtering</p>
 <ul>
-<li>good data locality is therefore critical for high performance</li>
+<li>Temporal anti-aliasing
+<ul>
+<li>Use exponential-decay history buffers for filtering</li>
+<li>Use the temporal variation of sampling position to achieve spatial anti-aliasing</li>
 </ul>
 </li>
 </ul>
-<h3 id="24-cuda-unified-memory-for-multi-gpu-systems">2.4. CUDA Unified Memory For Multi-GPU Systems</h3>
+</li>
+<li>
+<p>Shading gradients can be used to estimate the variation of shading and are thus often used in spatio-temporal filtering</p>
 <ul>
-<li>UM Manages communication between multiple GPUs and CPUs transparently by adopting DSM techniques</li>
-<li>UM simplifies both out-of-core processing between GPUs and CPUs as well as multi-GPU processing and combinations of both</li>
-<li>NVLink interconnect is the key enabler of DSM multi-GPU system</li>
+<li>Guiding spatio-temporal upsampling filters</li>
+<li>Denoising filters</li>
+<li>Reconstruction in adaptive frameless rendering</li>
+<li>Spatial sampling</li>
 </ul>
-<h2 id="3-blender-cycles-path-tracer">3. Blender Cycles Path Tracer</h2>
+</li>
+<li>
+<p>Temporal upsampling methods reuse previous shading result without filtering or accumulation</p>
 <ul>
-<li>An unbiased renderer based on unidirectional path tracing that supports CPU and GPU rendering</li>
-<li>For acceleration it uses a Bounding Volume Hierarchy (BVH)</li>
-<li>Supports CUDA, Optix, and OpenCL</li>
+<li>Warps the image plane of the previous, fully rendered keyframe based on the latest headtracking update</li>
+<li>Advanced warping and reprojection techniques
+<ul>
+<li>Render cache</li>
+<li>Reverse reprojection caching
+<ul>
+<li>Use scene depth or motion vectors for dense 3D warping while reusing the shading from the last keyframe</li>
 </ul>
-<h3 id="31-extensions-for-multi-gpu-support">3.1. Extensions for Multi-GPU Support</h3>
+</li>
+</ul>
+</li>
+<li>Temporal methods are based on the assumption that the temporal variation in shading is slow and as spatial reprojection errors accumulate over time, a frequent refresh of the cache is required</li>
+<li>A fraction of samples typically violate this assumption and thus lead to perceivable artifacts, when not shaded more often</li>
+</ul>
+</li>
+<li>
+<p>To avoid spatial reprojection errors while reusing shading samples multiple times, shading can be generated in alternative spaces and resampled for display</p>
+<ul>
+<li>Example: Generation of depth of field and motion blur
+<ul>
+<li>For efficiency reason, shading in alternative spaces requires GPU extensions</li>
+</ul>
+</li>
+<li>Similarly, the shading cache has been designed to allow for spatio-temporal shading reuse in path tracing</li>
+<li>Texture-space shading methods have been popularized and have even been used for temporal upsampling on a VR client</li>
+<li>Cons: All these methods only allow for fixed temporal upsampling rate</li>
+</ul>
+</li>
+<li>
+<p>Numerous image quality metrics try to model the human perception of images</p>
+<ul>
+<li>peak signal-to-noise ratio (PSNR)
+<ul>
+<li>Provides an objective and easy to compute metric</li>
+<li>Failed to capture human perception</li>
+</ul>
+</li>
+<li>structural similarity index measure(SSIM)
+<ul>
+<li>Designed to more closely resemble perception</li>
+</ul>
+</li>
+<li>IW-SSIM
+<ul>
+<li>Made to SSIM to enhance the predictions of the metric</li>
+</ul>
+</li>
+<li>HDR-VDP-2
+<ul>
+<li>Try to model the visual system to some extent</li>
+<li>Adapt the metric for the evaluation of foveated rendering</li>
+</ul>
+</li>
+<li>VMAF
+<ul>
+<li>Combination of different metrics</li>
+<li>Especially useful for video game content</li>
+</ul>
+</li>
+<li>FILP
+<ul>
+<li>Derived from the manual method of comparing images by alternating between them and provides an error map showing where differences would be perceived between the two images in comparison</li>
+</ul>
+</li>
+</ul>
+<p>Major disadvantage above all: only compare images, disregarding any temporal artifacts, such as flickering</p>
+</li>
+</ul>
+<h2 id="3-perception-of-shading-differences">3. Perception of Shading Differences</h2>
+<ul>
+<li>
+<p>Conducted a controlled user experiment</p>
+<ul>
+<li>
+<p>To determine the limits of keeping shading over multiple frames in scenes with advanced shading and animation</p>
+</li>
+<li>
+<p>34 participants were shown two video clips, one generated with forward rendering as ground truth reference, and the other by reusing shading from previous frames and the participants were asked to rate the relative quality of the two video clips, following a pairwise comparison design</p>
+<ul>
+<li>As the order of clips was randomized, they did not know which clip was the reference.</li>
+</ul>
+</li>
+<li>
+<p>From the rating, we compute an average relative quality score ($Q$​​), ranging from -2 to +2, where +2 means the reference is significantly better and +1 slightly better. 0 indicates that they have been rated equal</p>
+</li>
+<li>
+<p>Compute the probability $p_{ref}$​ of choosing the reference over the reuse approach</p>
+<ul>
+<li>A $p_{ref}$ of 50% indicates that there is no difference between the approaches</li>
+<li>$p_{ref}$ of 75% is referred to as 1 just-noticeable-difference (JND) unit</li>
+<li>Staying under 1 JND is considered high quality</li>
+</ul>
+</li>
+<li>
+<p>For statistical analysis, use repeated-measures ANOVA and Bonferroni adjustment for post hoc tests</p>
+</li>
+<li>
+<p>Test scenes:</p>
+<p><img src="image-20210817150114663.png" alt="image-20210817150114663" /></p>
+<ul>
+<li>Physically-based materials</li>
+<li>Animated models</li>
+<li>Animated light sources</li>
+<li>Dynamic shadows</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Temporal forward rendering (TFR)</p>
+<ul>
+<li>To determine the perceived quality reduction caused by reusing shading samples</li>
+<li>TFR decouples the temporal changes in shading from other major effects that influence the shading reuse ability
+<ul>
+<li>Temporal changes in visibility and spatial sampling</li>
+</ul>
+</li>
+<li>Use a modified fragment shader to  compute shading as if a fragment was shaded at a specific time in the past</li>
+<li>Recreate all input parameters to the shader, including view, light and model matrices, textures and shadow maps for up to 120 frames (2 s) in the past and compare the shading results to the new shading
+<ul>
+<li>If the difference of a shading sample$(r,g,b)$ is above a certain threshold $T$, i.e., $T&lt;\max(|\Delta r|,|\Delta g|,|\Delta b|)$​, we consider the shading to be changed</li>
+<li>Shading, including gamma-correction and possibly tone-mapping, is computed and compared in floating point</li>
+<li>This threshold is an approximation of Weber’s law, which states that the just noticeable luminance difference is constant in relation to the base luminance</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Result</p>
+<p><img src="image-20210817160143501.png" alt="image-20210817160143501" style="zoom:80%;" /></p>
+<ul>
+<li>Reusing shading samples that are slightly different does not reduce perceived quality</li>
+<li>For $T=2$ and $T=4$, $Q$ cannot be separated from 0.0 with confidence, and $p_{ref}$ is nearly 50%</li>
+<li>At a threshold of $T=8$, the mean quality is above 0.0, indicating that some participants see a minor quality deterioration. The distribution is still nearly balanced, with $p_{ref}$=55%</li>
+<li>At $T=16$, the distribution is just shy of 1 JND($p_{ref}$=75%). $Q$ is closed to 0.5​</li>
+</ul>
+</li>
+</ul>
+<h2 id="4-temporal-coherence-for-shading-reuse">4. Temporal Coherence for Shading Reuse</h2>
+<h3 id="41-temporal-coherence-of-visibility">4.1. Temporal coherence of visibility</h3>
+<ul>
+<li>Project every sample of a current frame back to the previous frame and determine whether the sample was visible before</li>
+<li>Over 90% of samples stay visible between frames</li>
+<li>The most significant visibility disruption is caused by large camera movement or fast moving objects</li>
+</ul>
+<h3 id="42-temporal-coherence-of-shading">4.2. Temporal coherence of shading</h3>
+<p><img src="image-20210817163844360.png" alt="image-20210817163844360" style="zoom:80%;" /></p>
+<ul>
+<li>Use temporal forward rendering to determine how shading behaves independently of changes in visibility and spatial sampling</li>
+<li>More than 75% of all samples change less than the color difference $T=8$ for 120 frames in the test scenes</li>
+</ul>
+<h3 id="43-limits-of-applying-temporal-coherence">4.3. Limits of applying temporal coherence</h3>
+<ul>
+<li>Both the temporal coherence of visibility and the temporal coherence of shading demonstrate a very high potential for reusing shading over many frames</li>
+<li>Practical implementations need to also consider the spatial sampling of shading
+<ul>
+<li>The drift of shading samples, their reprojection error and the required filtering</li>
+</ul>
+</li>
+</ul>
+<p>Evaluate two practical rendering approaches for shading reuse:</p>
+<ol>
+<li>reverse reprojection caching (RRC)
+<ul>
+<li>RRC reprojects samples from the previous frame to the current frame, potentially accumulating spatial sampling errors</li>
+<li>The implementation runs in two passes: a depth pre-pass and a forward rendering pass that either uses the cache or reshades</li>
+<li>In order to avoid the accumulation of these errors, shading samples can be gathered in a temporally invariant space such as object space or texture space</li>
+</ul>
+</li>
+<li>shading atlas (SA)
+<ul>
+<li>Combine the shading atlas with the rendering pipeline of texel shading</li>
+<li>This method shades pairs of triangles in rectangular blocks that are dynamically allocated in a single texture, the shading atlas</li>
+<li>The location of the shading samples remains unchanged in the atlas, until the visibility of the triangles changes, or their resolution changes due to a level of detail change, in which case shading is recomputed</li>
+</ul>
+</li>
+</ol>
+<p>Evaluate result:</p>
+<p><img src="image-20210817171745231.png" alt="image-20210817171745231" style="zoom:80%;" /></p>
+<ul>
+<li>Reverse reprojection caching accumulates spatial sampling errors over time, especially when the camera is moving</li>
+<li>The shading atlas reuse is independent of spatial sampling, and thus the reuse correlates better with the dynamics of the shading
+<ul>
+<li>The shading atlas considers samples reusable only when an entire block is reusable, leading to a slightly worse overall reuse</li>
+</ul>
+</li>
+</ul>
+<h2 id="5-predicting-shading-changes">5. Predicting Shading Changes</h2>
+<ul>
+<li>Existing methods enable us to map shading samples from one frame to the next either through image space reprojection or shading in a temporally unaffected space, such as object space or texture space</li>
+<li>We require efficient prediction of the point in the future when shading samples will become invalid in order to know how long shading can be reused</li>
+</ul>
+<h3 id="51-prediction-with-fixed-upsampling-rates">5.1. Prediction with fixed upsampling rates</h3>
+<p><img src="image-20210817201101878.png" alt="image-20210817201101878" style="zoom:80%;" /></p>
+<ul>
+<li>Previous strategies rely on uniform temporal upsampling
+<ul>
+<li>i.e., shading samples every $N^{\mathrm{th}}$ frame</li>
+</ul>
+</li>
+<li>RRC
+<ul>
+<li>Updates 16 × 16 pixel tiles with a constant refresh rate</li>
+<li>A constant fraction of all tiles is updated in each frame, leading to a fixed livespan for each tile</li>
+</ul>
+</li>
+<li>SAU
+<ul>
+<li>The livespan of cache entries is also constant, but every cache entry has an individual remaining time to live depending on when it became visible</li>
+</ul>
+</li>
+<li>Evaluate RRC and SAU with the same user study design as described in Section 3</li>
+<li>Result
+<ul>
+<li>Uniform upsampling is not able to leverage the potential for shading reuse well, even when reusing shading only once (2× upsampling)</li>
+<li>RRC at 2x temporal upsampling leads to noticeable differences in 82% of the cases</li>
+<li>For higher upsampling rates (4 and 8), all participants always noticed differences and reported image quality to be close to “significantly worse”</li>
+<li>A uniform upsampling frequency is not sufficient for longer shading reuse</li>
+</ul>
+</li>
+</ul>
+<h3 id="52-prediction-with-shading-gradients">5.2. Prediction with shading gradients</h3>
+<ul>
+<li>
+<p>A first-order gradient analysis is often sufficient in the spatial domain</p>
+</li>
+<li>
+<p>Consider a Taylor approximation of a shading function $s$​​ as an obvious choice for prediction</p>
+<ul>
+<li>A simple linear predictor can be formulated as a first-order Taylor expansion from time $t_0$ to $t$:</li>
+</ul>
+<p>$$<br />
+s(t)=s(t_0)+s'(t_0)\cdot(t-t_0)+e(t)<br />
+$$</p>
+<p>with a residual error $e(t)$.</p>
+<ul>
+<li>Based on a color threshold $T$, we can predict a reshading deadlien</li>
+</ul>
+<p>$$<br />
+d=t-t_0=\dfrac{T}{s'(t_0)}<br />
+$$</p>
+</li>
+</ul>
+<p><strong>Analytic derivatives</strong></p>
+<ul>
+<li>Handle scalar, vector-valued parameters, texture lookup, Poisson-sampled shadow maps</li>
+<li>Shader inputs such as camera, object or light transformations, are extended with their temporal derivatives</li>
+<li>All time-varying parameters where a future state can be calculated deterministically (such as prerecorded animations or physical simulations): Obtain their derivatives directly by augmenting the animation code</li>
+<li>User-driven inputs (Camera movement): compute gradient based on an extrapolation of the input</li>
+<li>Even though the derivatives can be computed alongside the shading, the overhead is non-negligible</li>
+</ul>
+<p><strong>Finite differences</strong></p>
+<ul>
+<li>
+<p>An alternative to costly analytic derivatives</p>
+</li>
+<li>
+<p>The simplest case: take the backward difference between two shading results</p>
+<ul>
+<li>It better approximates the limit of finite differences</li>
+<li>But always requires shading twice in a row</li>
+</ul>
+</li>
+<li>
+<p>Computed between shading in consecutive frames or between frames that are further apart in time</p>
+<ul>
+<li>
+<p>More economical and has a potentially beneficial low-pass filtering effect on spurious shading changes</p>
+</li>
+<li>
+<p>When a shading sample is first considered, shading must always be done twice</p>
+</li>
+<li>
+<p>A first deadline for reshading is extrapolated from the initial gradient</p>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>Comparison of gradient methods</strong></p>
+<ul>
+<li>
+<p>Evaluate these options for temporal forward rendering (TFR), using the previously found threshold $T = 8$​ from the first user experiment</p>
+</li>
+<li>
+<p>Render multiple frames of increasing shading age, resulting in frames with the same sample position, but increasingly outdated shading</p>
+<ul>
+<li>Use this data to retrospectively obtain the ideal deadline</li>
+<li>Starting from the current frame containing the correct shading result</li>
+<li>Determine the exact frame in the past where the shading difference exceeds the threshold $T$
+<ul>
+<li>Analytical derivatives &amp; finite differences: used to directly predict a future deadline</li>
+<li>Long-range differences: repeat the process to find the next frame in the past that exceeds the threshold
+<ul>
+<li>Limit the search process to 119 frames into the past, effectively clamping the deadline in the range of 1 to 118 frames</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Result</p>
+<p><img src="image-20210817205934016.png" alt="image-20210817205934016" style="zoom:80%;" /></p>
+<ul>
+<li>Late shading: cause artifacts in the final image output and thus should be avoided</li>
+<li>Early shading: harm performance, but does not lower quality</li>
+<li>Ideally technique:
+<ul>
+<li>avoid late shading completely</li>
+<li>keeping early shadings as low as possible</li>
+</ul>
+</li>
+<li>Simple long-range differences (between two shading points) show the least amount of late shadings, while having only slightly increased early shading</li>
+</ul>
+</li>
+</ul>
+<h3 id="53-spatial-filtering-of-temporal-gradients">5.3. Spatial filtering of temporal gradients</h3>
+<ul>
+<li>
+<p>Propose a simple maximum filter in image space, inspired by the render cache and shading cache</p>
+<ul>
+<li>Make shading decision based on the estimated temporal gradients of neighboring samples</li>
+</ul>
+</li>
+<li>
+<p>Evaluation</p>
+<ul>
+<li>Using TFR to isolate the effect of the spatial filtering, while avoiding other sources of misprediction, such as reprojection errors</li>
+<li>Using a downsampling factor of 8 x 8, followed by a convolution with a rectangular kernel size 9 × 9</li>
+</ul>
+</li>
+<li>
+<p>Result</p>
+<p><img src="image-20210817213317191.png" alt="image-20210817213317191" style="zoom:80%;" /></p>
+<ul>
+<li>The gradient filtering distributes the highly localized gradients of the shadow boundaries to the surroundings</li>
+</ul>
+<p><img src="image-20210817214223500.png" alt="image-20210817214223500" /></p>
+<ul>
+<li>Applying an image-space filter on top of the gradients strongly reduces late shading but increases early shading, leading to less reuse and less performance improvement</li>
+<li>Long-range differences are most attractive</li>
+</ul>
+</li>
+</ul>
+<h2 id="6-temporal-adaptive-shading-framework">6. Temporal adaptive shading framework</h2>
+<ul>
+<li>
+<p>Temporally adaptive shading (TAS) framework</p>
+<ul>
+<li>Reliably avoids repeating redundant shading computations, while responding instantly to areas where rapid changes of shading occur.</li>
+</ul>
+</li>
+<li>
+<p>Reuse unit (RU)</p>
+<ul>
+<li>To make the framework largely independent of the rendering algorithm to which it is applied</li>
+<li>RU is a group of samples for which a uniform decision is made on whether the samples will be shaded anew or shading will be reused</li>
+<li>The samples of these units are shaded together, and, consequently, must be stored together in the cache data structure</li>
+<li>The renderer determines visibility independently for each unit</li>
+<li>An RU can be a single pixel as in the case of reverse reprojection caching  or a whole block within the shading atlas</li>
+</ul>
+</li>
+<li>
 <p>Workflow:</p>
 <ol>
-<li>distribute the data structures evenly among all GPUs</li>
-<li>run the kernel with memory access counters and get the memory access statistics</li>
-<li>redistribute the data structures among GPUs based on memory access statistics</li>
-<li>run the original path-tracing kernel with redistributed data</li>
+<li>
+<p>Spatially-filtered shading gradients from the last frame are multiplied with the time elapsed since the last shading of each RU and compared to the threshold ($T$​​​) to decide whether reshading is necessary. Newly visible units are always shaded for two consecutive frames to determine a gradient from finite differences</p>
+<p><img src="image-20210818103217499.png" alt="image-20210818103217499" style="zoom: 50%;" /></p>
+</li>
+<li>
+<p>The shading is either reused, or the unit is reshaded. In the latter case, a new shading difference to the previous shading result is computed for each sample</p>
+<p><img src="image-20210818103545061.png" alt="image-20210818103545061" style="zoom:50%;" /></p>
+</li>
+<li>
+<p>The shading gradient is estimated based on the shading difference, scaled by the time difference between them, and a spatial filter is applied to distribute the shading gradient information</p>
+<p><img src="image-20210818102918065.png" alt="image-20210818102918065" style="zoom: 50%;" /></p>
+</li>
 </ol>
-<h3 id="32-multi-gpu-benchmark-systems">3.2. Multi-GPU Benchmark Systems</h3>
+</li>
+</ul>
+<h3 id="61-temporally-adaptive-reprojection-caching-tarc">6.1. Temporally adaptive reprojection caching (TARC)</h3>
+<ul>
+<li>Image-space pixels serve as reuse units</li>
+<li>Replace the periodic refresh of the reverse reprojection caching shader with the first two steps of the framework</li>
+<li>Store per-unit and per-sample variables in a double-buffered G-buffer</li>
+<li>The input buffers are reprojected, and the potentially altered values are stored in the output buffers</li>
+<li>Store the estimated shading gradient in the G-buffer during the depth pre-pass</li>
+<li>Implement spatial maximum filtering by downsampling the gradient buffer using a maximum filter with overlapping square kernels</li>
+<li>In comparison to standard reverse reprojection caching, TARC needs additional memory for screen size buffers to store the shading difference and the time since the last shading</li>
+</ul>
+<h3 id="62-temporally-adaptive-shading-atlas--tasa">6.2. Temporally adaptive shading atlas  (TASA)</h3>
+<ul>
+<li>
+<p>Using a texture-space representation for storing shading samples avoids the accumulation of reprojection errors faced by TARC</p>
+</li>
+<li>
+<p>Convenient to define reuse units by proximity of shading samples on object surfaces</p>
+</li>
+<li>
+<p>The reuse units in TASA correspond to two triangles packed into a rectangle of $2^N × 2^M$​ texels, where each unit’s size in the atlas is determined based on its image-space projection</p>
+<ul>
+<li>Other granularities (e.g., 8x8 texels, per-object texture charts, micro-polygons) could be chosen</li>
+</ul>
+</li>
+<li>
+<p>By retaining the maximum of all shading gradients across an entire reuse unit, a conservative object-space filter is applied to the unit at almost no additional cost</p>
+<ul>
+<li>The samples of a reuse unit are processed together</li>
+</ul>
+</li>
+<li>
+<p>The resulting object-space filtering is particularly relevant when some of the shading samples are currently occluded in image space</p>
+</li>
+<li>
+<p>Limiting the filter to the boundaries of a reuse unit fails to capture spatial gradients that cross the boundaries of adjacent reuse units</p>
+<ul>
+<li>Example: a shadow boundary may be creeping slowly across an entire surface consisting of multiple neighboring reuse units</li>
+<li>A solution: extend the object-space filter to support a convolution-style kernel larger than a single reuse unit
+<ul>
+<li>But it&rsquo;s a costly operation</li>
+</ul>
+</li>
+<li>Another solution: concatenate the per-reuse-unit filter to an image-space filter that determines the maximum over direct image-space neighbors
+<ul>
+<li>Very inexpensive</li>
+<li>Captures spatial coherence of perspectively close shading samples, which may not be apparent in object space</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Resulting Pipeline:</p>
 <ol>
-<li>
-<p>BullSequana X410-E5 NVLink-V blade server</p>
-<ul>
-<li>with 4 Tesla V100 GPUs, each with 16 GB of memory and direct NVLink interconnect</li>
-</ul>
-<p><img src="image-20210815200655447.png" alt="image-20210815200655447" style="zoom: 80%;" /></p>
-</li>
-<li>
-<p>NVidia DGX-2</p>
-<ul>
-<li>able to process massive scenes of sizes up to 512 GB in the shared memory of its 16 Tesla V100 GPUs, each with 32 GB of memory</li>
-<li>The uniqueness of this platform is the enhancement of the NVLink interconnect by using NVSwitches, which enable the connection of all 16 GPUs and higher bandwidth</li>
-</ul>
-</li>
-</ol>
-<p><img src="image-20210815200711051.png" alt="image-20210815200711051" style="zoom: 80%;" /></p>
-<p><img src="image-20210815094513710.png" alt="image-20210815094513710" style="zoom:80%;" /></p>
-<h3 id="33-benchmark-scenes">3.3. Benchmark Scenes</h3>
-<p><img src="image-20210815094628983.png" alt="image-20210815094628983" /></p>
-<h2 id="4-data-distributed-multi-gpu-path-tracing">4. Data Distributed Multi-GPU Path Tracing</h2>
-<h3 id="41-basic-distribution-of-entire-data-structures">4.1. Basic Distribution of Entire Data Structures</h3>
-<h4 id="411-memory-access-analysis">4.1.1. Memory Access Analysis</h4>
-<ul>
-<li>Define the order in which data structures are replicated as a ratio of the total memory accesses to a particular data structure over its size</li>
-<li>The analysis was done on the first sample when rendering the scenes with a resolution of 5,120x2,560 pixels</li>
-</ul>
-<p><img src="image-20210815101537608.png" alt="image-20210815101537608" style="zoom:80%;" /></p>
-<ul>
-<li><em>small_structures</em>: a set of data structures smaller than 16MB (the most important one is svm_nodes, which stores Shader Virtual Machine (SVM) data and codes)</li>
-<li><em>bvh_node</em>: stores the BVH tree without its leaves (leaves are stored in a separate structure)</li>
-<li><em>prim_tri_verts</em>: holds coordinates of all vertices in the scene</li>
-<li><em>prim_tri_index</em>: a set of all triangles in the scene and it contains indices to the prim_tri_verts</li>
-</ul>
-<p>We can see that:</p>
-<ul>
-<li>The most important data structure is <em>bvh_nodes</em>, because it is responsible for 79.6% of all memory accesses
-<ul>
-<li>If it is replicated in the memory of all GPUs, the 79.6% of all memory accesses will be to the local memory</li>
-<li>The size of this structure is 7.2 GB, which represents 26.5% of the entire scene size</li>
-</ul>
-</li>
-<li>If in addition to <em>small_structures</em> and <em>bvh_nodes</em>, <em>prim_tri_index</em> and <em>prim_tri_verts</em> are also replicated, then the relative rendering time is only 109% while 40.7% of the scene is replicated and the rest is distributed</li>
-</ul>
-<h4 id="412-performance-and-scalability-evaluation">4.1.2. Performance and Scalability Evaluation</h4>
-<p>The scalability of the proposed approach is evaluated for four different cases:</p>
-<ol>
-<li>all data structures are replicated—this case serves as a baseline as it achieves the best performance and scalability</li>
-<li>all data structures are evenly distributed
-<ul>
-<li>continuous distribution: the structures are divided into large chunks of a size equal to the structure size over a number of GPUs, and each GPU owns one chunk</li>
-<li>round robin distribution: the distributed structure is divided into chunks of 2 MB, which are distributed in a round robin fashion</li>
-</ul>
-</li>
-<li><em>small structures</em> and <em>bvh_nodes</em> are replicated while all other data structures are distributed</li>
-<li><em>small structures</em>, <em>bvh_nodes</em>, <em>prim_tri_index</em>, and <em>prim_tri_verts</em> are replicated while all other data structures are distributed</li>
-</ol>
-<p><img src="image-20210815105113549.png" alt="image-20210815105113549" style="zoom:80%;" /></p>
-<p>Result:</p>
-<ol>
-<li>round robin distribution of small chunks performs better than continuous distribution of large chunks, therefore it is always used to distribute non-replicated data structures</li>
-<li>path tracing with fully distributed data structures does not scale on both platforms (there is reasonable scalability for two GPUs on DGX-2, but not beyond that)</li>
-<li>if <em>small structures</em> and <em>bvh_nodes</em> are replicated, the scalability is significantly improved</li>
-<li>if <em>small structures</em>, <em>bvh_nodes</em>, <em>prim_tri_index</em>, and <em>prim_tri_verts</em> are replicated, the scalability is further improved</li>
-</ol>
-<h3 id="42-advanced-distribution-based-on-memory-access-pattern-and-statistics">4.2. Advanced Distribution Based on Memory Access Pattern and Statistics</h3>
-<ul>
-<li>
-<p>The data placement is done with chunks, and hints are set for each chunk individually</p>
-</li>
-<li>
-<p>The optimal chunk size was identified experimentally by benchmarking the path tracer performance for chunks of sizes from 64 kB to 128 MB:</p>
-<ul>
-<li>for scenes smaller than 30 GB the optimal chunk size is 2 MB (smaller chunks are not recommended)</li>
-<li>for scenes of sizes around 40 GB the optimal chunk size is 16 MB</li>
-<li>for scenes of sizes above 120 GB the optimal chunk size is 64 MB</li>
-</ul>
-</li>
-<li>
-<p>The workflow of this data placement strategy:</p>
-<ol>
-<li>copy/distribute every data structure across all GPUs in a round robin fashion using chunks of an optimal size</li>
-<li>run the path tracing kernel with memory access counters for 1spp to measure the statistics</li>
-<li>gather the statistics on the CPU and run the proposed algorithm to get the optimal data chunks distribution</li>
-<li>use <em>cudaMemAdvise</em> to migrate or replicate all chunks</li>
-<li>run the original unmodified path tracing kernel</li>
+<li>Exact visibility is computed per frame in a geometry pre-pass and stored in a G-buffer as primitive ID with corresponding shading gradients</li>
+<li>Reading the primitive ID, the atlas is updated such that it has room for the visible reuse units. The shading gradients are maximum filtered using a 2 × 2 window in image-space for each reuse unit to propagate the maximum gradient in an image-space neighborhood</li>
+<li>Shading decisions are made on all reuse units. Reuse units for which samples are newly allocated and reallocated in the atlas are always shaded, i.e., they are considered newly visible</li>
+<li>The shading workload is executed including the computation of the shading differences and shading gradients are directly maximum filtered per reuse unit</li>
+<li>The G-buffer is revisited for the final deferred rendering pass</li>
 </ol>
 </li>
+<li>
+<p>The additional memory requirements include a copy of shading atlas to compute the shading differences, per-patch shading differences and times, and a screen space buffer for the spatial filter</p>
+</li>
 </ul>
-<h4 id="421-memory-access-pattern-analysis">4.2.1. Memory Access Pattern Analysis</h4>
+<h2 id="7-evaluation-and-results">7. Evaluation and Results</h2>
+<ul>
+<li>Test TASA with a 16 MPx atlas (TASA16) and with an 8 MPx atlas (TASA8) to evaluate actual use
+<ul>
+<li>To avoid sampling artifacts from the atlas when displaying the final image</li>
+</ul>
+</li>
+<li>Use a threshold of $T=8$ in all experiments
+<ul>
+<li>Aiming to stay below 1 JND</li>
+</ul>
+</li>
+<li>Present detailed timing results in comparison to Forward+ rendering</li>
+<li>Experimental setup
+<ul>
+<li>Three test scenes</li>
+<li>An image resolution of 1920 x 1080</li>
+<li>Extended the tested sequences to 15 seconds</li>
+</ul>
+</li>
+<li>Run on Intel Core i7-4820K GPU and NVIDIA GTX 1080Ti using a custom rendering framework based on Vulkan</li>
+</ul>
+<h3 id="71-reuse">7.1. Reuse</h3>
 <ul>
 <li>
-<p>To identify the memory access pattern, per chunk access counters have been implemented in the GPU path tracing kernel of Cycles</p>
+<p>In Section 4.3, the theoretically possible reuse with a perfect prediction of when to shade, resulting in a reuse of 80–90% for both TARC and TASA. About 1–5% of shading is due to changes in visibility</p>
+</li>
+<li>
+<p>Actual reuse for the TAS implementations with a color difference threshold $T=8$:</p>
+<p><img src="image-20210818095654798.png" alt="image-20210818095654798" style="zoom:80%;" /></p>
 <ul>
-<li>Independent counters for all data structures and all their chunks</li>
-<li>A total number of memory accesses per chunk can be recorded for each GPU</li>
+<li>TARC shows low reuse for dynamic camera movements
+<ul>
+<li>The reprojection error for camera movements also effects shading gradient predictions, which are slightly too high and, in combination with the spatial filter, invalidate shading often</li>
+<li>While a smaller filter size would increase the reuse potential, it leads to clearly visible artifacts due to missing shading in some scenes</li>
+<li>A better reprojection filter for gradients and an adaptively sized image-space filter may increase reuse potential for TARC
+<ul>
+<li>More advanced filtering and filter size adjustments would also increase overheads</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>TASA is able to retain a high amount of reuse in comparison to its ideal version
+<ul>
+<li>The reuse reduction is similar for both stationary and moving cameras, underlining that shading in texture space enables consistent addressing of shading samples</li>
+<li>View-dependent shading effects do not heavily influence shading reuse</li>
+<li>Only in Space with its many highly metallic materials, a moving camera significantly reduces shading reuse</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="72-quality">7.2. Quality</h3>
+<p><img src="image-20210818102309968.png" alt="image-20210818102309968" style="zoom:80%;" /></p>
+<ul>
+<li>For $T=4$， $p_{ref}$ is close to 50%, and $Q$ is at about 0.1</li>
+<li>For $T=8$, $p_{ref}$ is about 60%, still significantly below 1 JND, and $Q$ is 0.2, indicating a very high quality</li>
+<li>A setting of $T = 16$​ is about twice as bad in $Q$​ and very close to 1 JND, thus, we would suggest to use $T = 8$</li>
+<li>For $T = 32$​, TARC is already above 1 JND, and $Q$​ is close to “slightly worse”</li>
+<li>Unknown reason for the slight drop in $Q$ for TASA16 from $T = 2$ to $T = 4$
+<ul>
+<li>as the confidence intervals overlap, this may just be a statistical outlier</li>
+</ul>
+</li>
+</ul>
+<h3 id="73-runtime">7.3. Runtime</h3>
+<ul>
+<li>
+<p>The overheads of TAS include computing shading differences, spatial filtering, and dynamically deciding whether to shade or not</p>
+<ul>
+<li>May lead to thread divergence during shading and thus reduce the efficiency</li>
 </ul>
 </li>
 <li>
-<p>The memory analysis starts with all data structures being evenly distributed using a round robin distribution</p>
+<p>Measure the overhead of TARC and TASA in addition to the full shading</p>
 <ul>
-<li>The modified path tracing kernel with memory access counters is executed on all GPUs for one sample</li>
+<li>TARC: between 14.5% to 16.9%</li>
+<li>TASA: between 2.3% to 5%</li>
 </ul>
 </li>
 <li>
-<p>When the kernel finishes, then for every chunk of every structure, a number of accesses from all GPUs is recorded</p>
+<p>The actual speedups:</p>
+<p><img src="image-20210818110802081.png" alt="image-20210818110802081" style="zoom: 50%;" /></p>
 <ul>
-<li>The workload is distributed among GPUs by horizontal stripes so that each GPU works on one stripe</li>
+<li>Among the tested scenes, <em>Space</em> is especially difficult to speed up using temporal coherence, since most of the scene’s surface points are either very dynamic or belong to the sky box</li>
+<li>TARC does not improve over Forward+ for moving cameras, but it does have some considerable speedups between 1.38× and 2.4× when the camera is stationary</li>
+<li>The main focus is on the performance gains of TASA
+<ul>
+<li>Able to reuse shading across the left and right eye buffers in VR stereo rendering</li>
+<li>TASA outperforms the other methods for all scenes, both in mono and stereo rendering</li>
+<li>The speedup in stereo mode over Forward+ is in the range 2 - 5× (1.1 - 3× in mono mode)
+<ul>
+<li>TASA must compensate the overhead of its SA foundation</li>
+<li>SA alone is only around half the speed of Forward+ for monoscopic rendering, most likely due to its 8 MPx atlas size that is 4× the resolution of the final output image</li>
 </ul>
 </li>
 </ul>
-<p><img src="image-20210815151251218.png" alt="image-20210815151251218" style="zoom:80%;" /></p>
-<ul>
-<li>1% of scene data covers between 56.7% and 74.4% of memory accesses, depending on the scene size</li>
-<li>This analysis shows that there are clear candidates among the chunks that should be replicated on all GPUs, while a major portion of the data is accessed infrequently and can be distributed with an acceptable impact on performance.</li>
+</li>
 </ul>
-<h4 id="422-data-placement-algorithm-based-on-memory-access-pattern">4.2.2. Data Placement Algorithm Based on Memory Access Pattern</h4>
-<p><img src="image-20210815200844083.png" alt="image-20210815200844083" /></p>
-<p><img src="image-20210815151701943.png" alt="image-20210815151701943" /></p>
-<ol>
+</li>
+</ul>
+<p><strong>Overall</strong></p>
+<ul>
+<li>Adaptivity is key for temporal shading reuse
+<ul>
+<li>Uniform temporal reuse strategies reduce shader invocations, quality drops quickly</li>
+<li>Using simple shading differences with spatial filtering for gradient estimates works well and is efficient</li>
+<li>Especially placing shading samples in texture space appears to be an efficient strategy for reusing them over longer periods of time</li>
+</ul>
+</li>
+<li>Using an atlas that matches the screen resolution introduces spatial sampling artifacts and reduces sharpness
+<ul>
+<li>TAS can easily compensate for these additional shading samples, leading to overall performance gains</li>
+</ul>
+</li>
+</ul>
+<h3 id="74-free-moving-virtual-reality-experiment">7.4. Free-moving virtual reality experiment</h3>
+<ul>
 <li>
-<p>The per GPU counters are summed to get the total number of accesses $a_{sum}$ for each chunk $c\in C$ of each data structure $s\in S$ and $a(a_{sum},s,c)$ tuple is created</p>
-</li>
-<li>
-<p>All tuples are put into a single 1D array $H_{comb}$. The array is sorted by $a_{sum}$ from largest value to the smallest one and stored in $H_{&lt;}$ array</p>
-</li>
-<li>
-<p>The last input of the algorithm is the number of chunks that can be replicated $N_{dup}$. This value can either be set manually or automatically using formula:<br />
-$$<br />
-N_{dup}=\dfrac{1}{C_s}\Big(G_f-\frac{S_s}{N_g}\Big)<br />
-$$</p>
+<p>Integrated TASA into Unreal Engine 4 and conducted a small user experiment in VR</p>
 <ul>
-<li>$G_f$: the amount of free memory per GPU in MB available to store scene data</li>
-<li>$S_s$: scene size in MB</li>
-<li>$N_g$: total number of GPUs</li>
-<li>$C_s$: the chunk size in MB</li>
+<li>Adapted the <em>Showdown VR Demo</em> scene , a slow motion fly-through of a combat scenario involving several soldiers fighting a giant animated robot</li>
+<li>The comparison to the threshold $T$​​​ is evaluated after tone mapping with the Academy Color Encoding System (ACES) Filmic Tonemapper used in Unreal Engine 4</li>
 </ul>
 </li>
 <li>
-<p>Define a threshold $t$ as the $N_{dup}$-th element in the sorted array $H_&lt;$ and evaluate all tuples in the array $H_&lt;$. If the counter value $a_{sum}$ is larger than $t$, then the corresponding chunk will be set as *SetReadMostly*, and therefore replicated</p>
+<p>For VR user experiment</p>
 <ul>
-<li>In the opposite case, the chunk is set as <em>SetPreferredLocation</em> and is assigned to the GPU with the highest number of accesses to this chunk
-<ul>
-<li>If the memory of this GPU is full, then the GPU with second, third, fourth, and so on, highest number of accesses is selected until a GPU with free memory is found.</li>
+<li>Slightly modified the scene by subdividing large primitives that exceed the maximum block size in the shading atlas</li>
+<li>Modified the scene to include fully dynamic directional lighting with cascaded shadow mapping, which was only approximated in the original scene</li>
+<li>Eight participants (6 male, 2 female, age 24 to 33, with VR experience) tried the SA baseline, followed by TASA configurations using the thresholds [4, 8, 16, 32, 64] and SAU with 4× and 8× upsampling in a randomized order</li>
+<li>Used an Intel Core i7-8700K with an NVIDIA RTX 2080Ti and displayed on an HTC Vive at a resolution of 1512 × 1680 per eye, using a fixed frame rate of 90 Hz</li>
 </ul>
 </li>
-<li>It the counter value is equal to zero (without any accesses), then the corresponding chunk will be distributed in a round robin fashion across GPUs with free memory</li>
+<li>
+<p>Result</p>
+<p><img src="image-20210818112410577.png" alt="image-20210818112410577" style="zoom:80%;" /></p>
+<ul>
+<li>For TASA with $T = 64$ and $T = 32$​, all participants detected artifacts
+<ul>
+<li>$T=64$ was “very bad”</li>
+<li>$T=32$​​​ was “adequate with some annoying artifacts”</li>
 </ul>
 </li>
-</ol>
-<h4 id="423-performance-evaluation">4.2.3. Performance Evaluation</h4>
-<ul>
-<li>The performance of the proposed algorithm was evaluated for different ratios between replicated and distributed data at a 2 MB chunk level of granularity for the Moana 12 and 27 GB scenes</li>
+<li>For $T=16$​​​​​​, four participants reported an identical experience compared to the baseline, while the remaining four detected minor artifacts on shadows, reflective surfaces and the soldiers in the scene</li>
+<li>For $T=8$​​​​, six participants reported an identical experience compared to the baseline, while two participants were still able to identify minor artifacts on the soldiers</li>
+<li>For $T=4$​​, no participant was able to detect any visual artifacts, and all participants reported an identical experience compared to the baseline</li>
 </ul>
-<p><img src="image-20210815170302733.png" alt="image-20210815170302733" style="zoom:80%;" /></p>
-<ul>
-<li>Figure shows the path tracing performance for one sample per pixel and 5,120x2,560 pixel resolution for both scenes and platforms, and for all available GPUs</li>
-<li>Once at least 1% of chunks are replicated, the performance is almost identical</li>
+</li>
 </ul>
-<h4 id="424-maximum-scene-size-analysis">4.2.4. Maximum Scene Size Analysis</h4>
-<p>The following equation describes the maximum ratio of replicated data that fits into the memory of GPU memory for a scene of a given size:<br />
-$$<br />
-N_{max_dup}=\frac{\Big(G_f-\frac{S_s}{N_g}\Big)}{\Big(S_s-\frac{S_s}{N_g}\Big)}<br />
-$$</p>
+<p><img src="image-20210818113338203.png" alt="image-20210818113338203" style="zoom:80%;" /></p>
 <ul>
-<li>$G_f$: the amount of free memory per GPU in MB available to store the scene data</li>
-<li>$S_s$: the scene size in MB</li>
-<li>$N_g$: total number of GPUs</li>
+<li>For SAU with 4× upsampling, four participants reported artifacts related to “jittery” and “flickery” motion, and they reported “low frame rate” for the reflections</li>
+<li>For SAU with 8× upsampling, all but one participant reported major artifacts of reflections and shadows, as well as major discomfort, particularly describing the experience as “very uncomfortable when moving around”
+<ul>
+<li>One participant even reported a mild case of motion sickness</li>
 </ul>
-<h2 id="5-performance-for-massive-scenes">5. Performance for massive scenes</h2>
-<p><strong>Group 1</strong>: <em>Moana</em> 38 GB, <em>Museum</em> 41 GB, <em>Agent</em> 37 GB, and <em>Spring</em> 41 GB are designed to stress the <em>Barbora</em> GPU server with 64 GB of total GPU memory</p>
-<p><img src="image-20210815171434217.png" alt="image-20210815171434217" style="zoom:80%;" /></p>
-<ul>
-<li>the performance of the <em>Barbora</em> server is almost identical to the performance of DGX-2 for the same amount of scene replication (up to 10%)</li>
-<li>DGX-2 is able to further replicate scene data up to 60%, which improves performance by 2.8% only in the case of the Moana 38 GB scene (for the other scenes the performance is higher by only less than 1%)</li>
-<li>This means that for scenes of sizes approximately up to 45 GB distributed over 4 GPUs, the significantly less complex and cheaper GPU interconnect in the <em>Barbora</em> server is sufficient</li>
-<li>For the Museum, Agent, and Spring scenes 2% of scene replication attains optimal performance. This holds for 4, 8, and 16 GPUs</li>
-<li>Only the Moana scene needs higher amounts of replicated data, up to 25% for 16 GPUs</li>
-<li>Scalability can be evaluated on DGX-2 for 4, 8, and 16 GPUs only. For the Moana, Museum, Agent, and Spring scenes, for 5% scene replication, the parallel efficiencies, going from 4 to 16 GPUs, are 82.7%, 97.1%, 97.9%, and 98.1%, respectively. In the case of the Moana scene, a higher replication ratio is needed to improve scalability, e.g., for 25% data replication ratio the parallel efficiency is 94.4%</li>
+</li>
+<li>Constant temporal upsampling is more likely to be perceived as jittery, which according to the participants is more discomforting and distracting than the artifacts of TASA, even for large thresholds</li>
+<li>TASA with $T = 8$​ resulted in a mostly identical experience to the baseline</li>
 </ul>
-<p><strong>Group 2</strong>: Moana 169 GB, Museum 124 GB, Agent 167 GB, and Spring 137 GB are designed to stress the DGX-2 server with 512 GB of total GPU memory</p>
-<p><img src="image-20210815172628673.png" alt="image-20210815172628673" style="zoom:80%;" /></p>
-<p><img src="image-20210815195203217.png" alt="image-20210815195203217" style="zoom: 50%;" /></p>
+<p><img src="image-20210818140915347.png" alt="image-20210818140915347" style="zoom:80%;" /></p>
 <ul>
-<li>The performance is affected by selecting the right chunk size, particularly for the Moana scene</li>
-<li>For 8 GPUs and the Moana, Agent, and Spring scenes, if the replication ratio is 10% the scene does not fit into GPU shared memory anymore and chunks are swapped between GPU and CPU memory (the default behavior of the CUDA Unified Memory), which makes the rendering several times slower depending on the number of chunks being moved back and forth. This is the point at which our approach stops working, and therefore it is crucial to correctly select the replication ratio to avoid this situation</li>
-<li>For the Agent scene 1% of scene replication gives optimal performance for both 8 and 16 GPUs. The Spring scenes needs only 0.1% for 8 GPUs and 0.25% for 16 GPUs. The Museum scene needs 1% for 8 GPUs and 2% for 16 GPUs. Finally, the Moana scene requires 2% for 8 GPUs and 5% for 16 GPUs</li>
-<li>Scalability between 8 and 16 GPUs is good for all scenes. The parallel efficiencies are 93.8%, 98.8%, 98.6%, and 99.0% for the Moana, Museum, Agent, and Spring scenes, respectively</li>
+<li>TASA provides a more optimal performance-quality tradeoff compared to SAU</li>
 </ul>
-<p><img src="image-20210815194342922.png" alt="image-20210815194342922" style="zoom: 50%;" /></p>
+<h2 id="8-discussion-and-conclusion">8. Discussion and Conclusion</h2>
 <ul>
-<li>Analyze memory access pattern only for one sample per pixel</li>
-<li>Rendering times grows linearly with the number of samples</li>
+<li>Investigate how shading reuse is perceived and could benefit rendering, considering visibility, spatial sampling and temporal behavior of shading, separated and combined</li>
+<li>Evaluated the perception of outdated shading using a rendering approach that separates shading from visibility and spatial sampling effects, finding that a shading difference of 3% ($T = 8$​​ after 8-bit quantization) is not noticed by study participants</li>
+<li>Even in highly dynamic scenes, many shading samples stay valid for extended periods of time, when considered independently of visibility and spatial sampling</li>
+<li>There is a potential of typically more than 80% shading reuse from frame to frame even in highly dynamic scenes at 60 Hz
+<ul>
+<li>The higher frame rates of VR increase this potential further</li>
 </ul>
-<p><img src="image-20210815195412094.png" alt="image-20210815195412094" style="zoom: 50%;" /></p>
-<p><img src="image-20210815195506893.png" alt="image-20210815195506893" style="zoom:50%;" /></p>
+</li>
+<li>Accumulating spatial resampling errors limits the temporal reuse
 <ul>
-<li>Number of bounces influence</li>
+<li>Using texture-space caching of shading samples instead</li>
 </ul>
-<h2 id="6-conclusions">6. Conclusions</h2>
-<p><strong>Contribution</strong></p>
+</li>
+<li>Fixed upsampling techniques lead to noticable artifacts even at low upsampling rates
 <ul>
-<li>Presented a solution for path tracing of massive scenes on multiple GPUs</li>
-<li>Analyzes the memory access pattern of a path tracer and defines how the scene data should be distributed across GPUs with a minimal loss of performance</li>
-<li>Those parts of the scene data that have the highest memory access rate are replicated on all GPUs, because their distribution would have a major negative impact on performance</li>
+<li>Extrapolating shading differences works very well when combined with a simple image-space filter for capturing spatio-temporal effects</li>
 </ul>
-<p><strong>Methods</strong></p>
-<ul>
-<li>Uses the same memory management rules for the entire data structure</li>
-<li>Splits the data structures into chunks and we control the placement and/or replication of each chunk separately</li>
+</li>
 </ul>
-<p><strong>Feature</strong></p>
+<h3 id="81-limitations">8.1. Limitations</h3>
 <ul>
-<li>Only control the memory allocations, the path tracer data structures do not have to be redesigned</li>
-<li>Take full advantage of NVLink 2.0 interconnect and its high bandwidth and low latency</li>
+<li>
+<p>The simple box filter with a rather big kernel size used in TARC leads to considerable amounts of unnecessary shading</p>
+<ul>
+<li>A more advanced spatial filter could consider spatial gradients such as optical flow to resolve these issues at the cost of increased runtime and complexity</li>
+</ul>
+</li>
+<li>
+<p>While the existing measures capture most changes, some less frequent ones can still cause artifacts</p>
+<ul>
+<li>Example: discontinuous rendering  or changes that propagate from outside the image or from an occluded area</li>
+<li>Depending on the use case, specialized cases such as discontinuous changes, e.g. to light sources, can be caught on the scene object level</li>
+<li>A more general solution to capture artifacts from discontinuous shading could speculatively update samples that are not due yet</li>
+</ul>
+</li>
+<li>
+<p>Evaluation is based on a single threshold applied to the per-channel maximum RGB color difference after tone mapping</p>
+<ul>
+<li>The threshold might be too conservative in certain areas of the HDR spectrum and overlook additional gains</li>
+<li>A more advanced method may be necessary</li>
+</ul>
+</li>
+<li>
+<p>A method for deriving the threshold for noticeable differences from the perception of the human visual system has the potential to lead to further temporal savings</p>
+<ul>
+<li>This can possibly be done in a different color space or in the high dynamic range space before tone mapping</li>
+<li>Example: a higher threshold could be used for dark pixels that are close to bright ones, or a lower threshold needs to be used in dark areas where the visual system is more sensitive</li>
+</ul>
+</li>
+<li>
+<p>The shading atlas shades pairs of triangles within rectangular blocks with power-of-two side lengths</p>
+<ul>
+<li>When the level of detail changes, a block of a different size is allocated and shading cannot be reused</li>
+</ul>
+</li>
+</ul>
+<h3 id="82-future-work">8.2. Future work</h3>
+<ul>
+<li>
+<p>Temporal reuse and TAS can be applied to other rendering techniques, including global illumination algorithms and ray-tracing</p>
+</li>
+<li>
+<p>For the overall speedup, it is important to not only consider the non-shading workload, such as the geometry stage, but also pre- and post-processing, which do not necessarily lend themselves to shading reuse</p>
+<ul>
+<li>Motion blur and depth of field benefit greatly from spatial shading reuse, especially in object or texture space as shown by stochastic rasterization literature</li>
+<li>Many of the currently used preand post-processing techniques approximate global shading effects, such as shadows and reflections
+<ul>
+<li>If, by virtue of shading reuse, more time can be spent on the samples that actually require shading, this benefits the trend for moving global effect computation from post-processing to ray-tracing</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>In the worst case (discontinuous view change), the whole scene has to be shaded, this can lead to a higher variability in frame rate: Only some frames can be accelerated; others remain at the baseline speed</p>
+<ul>
+<li>The absolute frame time variability was unchanged in comparison to the baseline, while the mean frame time was reduced</li>
+<li>The frame time variability depends mostly on the complexity of the current view</li>
+<li>Lower frame rate variability could be obtained by using TAS as an oracle for a scheduling technique, which uses the predicted shading differences as priority, instead of making decision based on a fixed threshold</li>
+</ul>
+</li>
+<li>
+<p>TAS can be easily combined with spatial reuse of sampling, such as variable rate shading, foveation and checkerboard rendering</p>
+<ul>
+<li>Bring more physically correct shading and fewer approximations that require pre-processing steps, like rendering shadow maps, or post-processing, like screen-space effects in deferred rendering</li>
+</ul>
+</li>
 </ul>
 
     </article>
@@ -2314,7 +2798,7 @@ $$</p>
     
     
       
-        <a href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fchaphlagical.github.io%2fen%2fposts%2fpaperreading%2fgpu_accelerated_path_tracing_of_massive_scenes%2f" title="Facebook" aria-label="Facebook Share Button" class="donation__item" target="_blank" rel="noreferrer" data-type="share">
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fchaphlagical.github.io%2fen%2fposts%2fpaperreading%2ftemporally_adaptive_shading_reuse_for_real_time_rendering_and_virtual_reality%2f" title="Facebook" aria-label="Facebook Share Button" class="donation__item" target="_blank" rel="noreferrer" data-type="share">
           <svg data-name="facebook" enable-background="new 0 0 24 24" viewBox="0 0 24 24" width="35" height="35" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="m15.997 3.985h2.191v-3.816c-.378-.052-1.678-.169-3.192-.169-3.159 0-5.323 1.987-5.323 5.639v3.361h-3.486v4.266h3.486v10.734h4.274v-10.733h3.345l.531-4.266h-3.877v-2.939c.001-1.233.333-2.077 2.051-2.077z"/></svg>
         </a>
       
@@ -2496,6 +2980,10 @@ $$</p>
     <ul class="related-ul">
         
         <li>
+          <a href="/en/posts/paperreading/gpu_accelerated_path_tracing_of_massive_scenes/" class="related__link">GPU Accelerated Path Tracing of Massive Scenes</a>
+        </li>
+        
+        <li>
           <a href="/en/posts/paperreading/extranet/" class="related__link">ExtraNet: Real-time Extrapolated Rendering for Low-latency Temporal Supersampling</a>
         </li>
         
@@ -2506,21 +2994,14 @@ $$</p>
 <nav class="pagination-single">
   
     
-      <a href="https://chaphlagical.github.io/en/posts/paperreading/extranet/" class="pagination-single__left">
+      <a href="https://chaphlagical.github.io/en/posts/paperreading/gpu_accelerated_path_tracing_of_massive_scenes/" class="pagination-single__left">
         <div class="pagination-single__icon">
           <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path fill="currentColor" d="M19 11H7.83l4.88-4.88c.39-.39.39-1.03 0-1.42-.39-.39-1.02-.39-1.41 0l-6.59 6.59c-.39.39-.39 1.02 0 1.41l6.59 6.59c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41L7.83 13H19c.55 0 1-.45 1-1s-.45-1-1-1z"/></svg>
         </div>
-        <div class="pagination-single__left-title">ExtraNet: Real-time Extrapolated Rendering for Low-latency Temporal Supersampling</div>      
+        <div class="pagination-single__left-title">GPU Accelerated Path Tracing of Massive Scenes</div>      
       </a>
     
     <div class="grow"></div>
-    
-      <a href="https://chaphlagical.github.io/en/posts/paperreading/temporally_adaptive_shading_reuse_for_real_time_rendering_and_virtual_reality/" class="pagination-single__right">      
-        <div class="pagination-single__right-title">Temporally Adaptive Shading Reuse for Real-time Rendering and Virtual Reality</div>
-        <div class="pagination-single__icon">
-          <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path fill="currentColor" d="M5 13h11.17l-4.88 4.88c-.39.39-.39 1.03 0 1.42.39.39 1.02.39 1.41 0l6.59-6.59c.39-.39.39-1.02 0-1.41l-6.58-6.6c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41L16.17 11H5c-.55 0-1 .45-1 1s.45 1 1 1z"/></svg>
-        </div>
-      </a>
     
   
 </nav>
@@ -3440,7 +3921,7 @@ document.addEventListener('DOMContentLoaded', function () {
         
           
             
-              <a href="https://chaphlagical.github.io/en/posts/paperreading/gpu_accelerated_path_tracing_of_massive_scenes/" data-lang="en" class="dropdown-item is-active">English</a>
+              <a href="https://chaphlagical.github.io/en/posts/paperreading/temporally_adaptive_shading_reuse_for_real_time_rendering_and_virtual_reality/" data-lang="en" class="dropdown-item is-active">English</a>
             
           
         
@@ -3646,47 +4127,44 @@ document.addEventListener('DOMContentLoaded', function () {
         <div class="toc toc__outer " data-dir="ltr" data-folding="true" data-ani="true">
           <nav id="TableOfContents">
   <ul>
+    <li><a href="#abstract">Abstract</a></li>
     <li><a href="#1-introduction">1. Introduction</a></li>
-    <li><a href="#2-related-work">2. Related Work</a>
+    <li><a href="#2-related-work">2. Related Work</a></li>
+    <li><a href="#3-perception-of-shading-differences">3. Perception of Shading Differences</a></li>
+    <li><a href="#4-temporal-coherence-for-shading-reuse">4. Temporal Coherence for Shading Reuse</a>
       <ul>
-        <li><a href="#21-out-of-core-rendering">2.1. Out-of-core Rendering</a></li>
-        <li><a href="#22-distributed-rendering">2.2. Distributed Rendering</a>
-          <ul>
-            <li><a href="#221-image-parallel-rendering">2.2.1. Image-Parallel Rendering</a></li>
-            <li><a href="#222-data-parallel-rendering">2.2.2. Data-Parallel Rendering</a></li>
-          </ul>
-        </li>
-        <li><a href="#23-distributed-shared-memory-systems">2.3. Distributed Shared Memory Systems</a></li>
-        <li><a href="#24-cuda-unified-memory-for-multi-gpu-systems">2.4. CUDA Unified Memory For Multi-GPU Systems</a></li>
+        <li><a href="#41-temporal-coherence-of-visibility">4.1. Temporal coherence of visibility</a></li>
+        <li><a href="#42-temporal-coherence-of-shading">4.2. Temporal coherence of shading</a></li>
+        <li><a href="#43-limits-of-applying-temporal-coherence">4.3. Limits of applying temporal coherence</a></li>
       </ul>
     </li>
-    <li><a href="#3-blender-cycles-path-tracer">3. Blender Cycles Path Tracer</a>
+    <li><a href="#5-predicting-shading-changes">5. Predicting Shading Changes</a>
       <ul>
-        <li><a href="#31-extensions-for-multi-gpu-support">3.1. Extensions for Multi-GPU Support</a></li>
-        <li><a href="#32-multi-gpu-benchmark-systems">3.2. Multi-GPU Benchmark Systems</a></li>
-        <li><a href="#33-benchmark-scenes">3.3. Benchmark Scenes</a></li>
+        <li><a href="#51-prediction-with-fixed-upsampling-rates">5.1. Prediction with fixed upsampling rates</a></li>
+        <li><a href="#52-prediction-with-shading-gradients">5.2. Prediction with shading gradients</a></li>
+        <li><a href="#53-spatial-filtering-of-temporal-gradients">5.3. Spatial filtering of temporal gradients</a></li>
       </ul>
     </li>
-    <li><a href="#4-data-distributed-multi-gpu-path-tracing">4. Data Distributed Multi-GPU Path Tracing</a>
+    <li><a href="#6-temporal-adaptive-shading-framework">6. Temporal adaptive shading framework</a>
       <ul>
-        <li><a href="#41-basic-distribution-of-entire-data-structures">4.1. Basic Distribution of Entire Data Structures</a>
-          <ul>
-            <li><a href="#411-memory-access-analysis">4.1.1. Memory Access Analysis</a></li>
-            <li><a href="#412-performance-and-scalability-evaluation">4.1.2. Performance and Scalability Evaluation</a></li>
-          </ul>
-        </li>
-        <li><a href="#42-advanced-distribution-based-on-memory-access-pattern-and-statistics">4.2. Advanced Distribution Based on Memory Access Pattern and Statistics</a>
-          <ul>
-            <li><a href="#421-memory-access-pattern-analysis">4.2.1. Memory Access Pattern Analysis</a></li>
-            <li><a href="#422-data-placement-algorithm-based-on-memory-access-pattern">4.2.2. Data Placement Algorithm Based on Memory Access Pattern</a></li>
-            <li><a href="#423-performance-evaluation">4.2.3. Performance Evaluation</a></li>
-            <li><a href="#424-maximum-scene-size-analysis">4.2.4. Maximum Scene Size Analysis</a></li>
-          </ul>
-        </li>
+        <li><a href="#61-temporally-adaptive-reprojection-caching-tarc">6.1. Temporally adaptive reprojection caching (TARC)</a></li>
+        <li><a href="#62-temporally-adaptive-shading-atlas--tasa">6.2. Temporally adaptive shading atlas  (TASA)</a></li>
       </ul>
     </li>
-    <li><a href="#5-performance-for-massive-scenes">5. Performance for massive scenes</a></li>
-    <li><a href="#6-conclusions">6. Conclusions</a></li>
+    <li><a href="#7-evaluation-and-results">7. Evaluation and Results</a>
+      <ul>
+        <li><a href="#71-reuse">7.1. Reuse</a></li>
+        <li><a href="#72-quality">7.2. Quality</a></li>
+        <li><a href="#73-runtime">7.3. Runtime</a></li>
+        <li><a href="#74-free-moving-virtual-reality-experiment">7.4. Free-moving virtual reality experiment</a></li>
+      </ul>
+    </li>
+    <li><a href="#8-discussion-and-conclusion">8. Discussion and Conclusion</a>
+      <ul>
+        <li><a href="#81-limitations">8.1. Limitations</a></li>
+        <li><a href="#82-future-work">8.2. Future work</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
         </div>

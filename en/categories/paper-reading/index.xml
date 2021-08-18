@@ -14,13 +14,49 @@
     <managingEditor>chaf@mail.ustc.edu.cn (Wenbo Chen)</managingEditor>
     <webMaster>chaf@mail.ustc.edu.cn (Wenbo Chen)</webMaster>
     <copyright>&amp;copy;{year}, All Rights Reserved</copyright>
-    <lastBuildDate>Sun, 15 Aug 2021 21:34:00 +0100</lastBuildDate>
+    <lastBuildDate>Wed, 18 Aug 2021 15:44:00 +0100</lastBuildDate>
     
         <atom:link href="https://chaphlagical.github.io/en/categories/paper-reading/index.xml" rel="self" type="application/rss+xml" />
     
     
     
 
+      
+      <item>
+        <title>Temporally Adaptive Shading Reuse for Real-time Rendering and Virtual Reality</title>
+        <link>https://chaphlagical.github.io/en/posts/paperreading/temporally_adaptive_shading_reuse_for_real_time_rendering_and_virtual_reality/</link>
+        <pubDate>Wed, 18 Aug 2021 15:44:00 +0100</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        <atom:modified>Wed, 18 Aug 2021 15:44:00 +0100</atom:modified>
+        <guid>https://chaphlagical.github.io/en/posts/paperreading/temporally_adaptive_shading_reuse_for_real_time_rendering_and_virtual_reality/</guid>
+        <description>Author: JOERG H. MUELLER, THOMAS NEFF, PHILIP VOGLREITER, MARKUS STEINBERGER, DIETER SCHMALSTIEG
+Institution: Graz University of Technology, Austria
+Link: https://dl.acm.org/doi/10.1145/3446790
+Abstract Motivation
+ Temporal coherence has the potential to enable a huge reduction of shading costs in rendering  Current Work
+ Existing techniques focus either only on spatial shading reuse or cannot adaptively choose temporal shading frequencies  Idea
+ Temporal shading reuse is possible for extended periods of time for a majority of samples Approximate shading gradients to efficiently determine when and how long shading can be reused  1.</description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>Rendering</category>
+            
+          
+        
+        
+          
+            
+              <category>paper reading</category>
+            
+          
+        
+        
+      </item>
       
       <item>
         <title>GPU Accelerated Path Tracing of Massive Scenes</title>
@@ -31,6 +67,7 @@
         <guid>https://chaphlagical.github.io/en/posts/paperreading/gpu_accelerated_path_tracing_of_massive_scenes/</guid>
         <description>Author: MILAN JAROŠ, LUBOMÍR ŘÍHA, PETR STRAKOŠ, and MATĚJ ŠPEŤKO
 Institution: IT4Innovations, VSB–Technical University of Ostrava, Czech Republic
+Link: https://dl.acm.org/doi/10.1145/3447807
 1. Introduction GPUs Rendering vs CPUs Rendering
  Limited memory size Example: Pixar&amp;rsquo;s Coco movie were using up to 120GB, do not fit into the memory of a single GPU  Main contribution
   A solution to GPUs rendering memory size limitation
