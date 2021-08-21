@@ -6,9 +6,9 @@
   xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" 
   xmlns:media="http://search.yahoo.com/mrss/">
   <channel>
-    <title>Categories on Chaf&#39;s Blog</title>
-    <link>https://chaphlagical.github.io/en/categories/</link>
-    <description>Recent content in Categories on Chaf&#39;s Blog</description>
+    <title>latex on Chaf&#39;s Blog</title>
+    <link>https://chaphlagical.github.io/en/categories/latex/</link>
+    <description>Recent content in latex on Chaf&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <managingEditor>chaf@mail.ustc.edu.cn (Wenbo Chen)</managingEditor>
@@ -16,19 +16,19 @@
     <copyright>&amp;copy;{year}, All Rights Reserved</copyright>
     <lastBuildDate>Sat, 21 Aug 2021 17:19:11 +0100</lastBuildDate>
     
-        <atom:link href="https://chaphlagical.github.io/en/categories/index.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="https://chaphlagical.github.io/en/categories/latex/index.xml" rel="self" type="application/rss+xml" />
     
     
     
 
       
       <item>
-        <title>latex</title>
-        <link>https://chaphlagical.github.io/en/categories/latex/</link>
+        <title>Latex Symbols</title>
+        <link>https://chaphlagical.github.io/en/posts/misc/latex/</link>
         <pubDate>Sat, 21 Aug 2021 17:19:11 +0100</pubDate>
         <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
-        
-        <guid>https://chaphlagical.github.io/en/categories/latex/</guid>
+        <atom:modified>Sat, 21 Aug 2021 17:19:11 +0100</atom:modified>
+        <guid>https://chaphlagical.github.io/en/posts/misc/latex/</guid>
         <description></description>
         
         <dc:creator>Wenbo Chen</dc:creator>
@@ -36,24 +36,18 @@
         
         
         
+          
+            
+              <category>misc</category>
+            
+          
         
         
-      </item>
-      
-      <item>
-        <title>paper reading</title>
-        <link>https://chaphlagical.github.io/en/categories/paper-reading/</link>
-        <pubDate>Wed, 18 Aug 2021 15:44:00 +0100</pubDate>
-        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
-        
-        <guid>https://chaphlagical.github.io/en/categories/paper-reading/</guid>
-        <description></description>
-        
-        <dc:creator>Wenbo Chen</dc:creator>
-        
-        
-        
-        
+          
+            
+              <category>latex</category>
+            
+          
         
         
       </item>

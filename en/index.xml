@@ -14,7 +14,7 @@
     <managingEditor>chaf@mail.ustc.edu.cn (Wenbo Chen)</managingEditor>
     <webMaster>chaf@mail.ustc.edu.cn (Wenbo Chen)</webMaster>
     <copyright>&amp;copy;{year}, All Rights Reserved</copyright>
-    <lastBuildDate>Wed, 18 Aug 2021 15:44:00 +0100</lastBuildDate>
+    <lastBuildDate>Sat, 21 Aug 2021 17:19:11 +0100</lastBuildDate>
     
         <atom:link href="https://chaphlagical.github.io/en/index.xml" rel="self" type="application/rss+xml" />
     
@@ -42,6 +42,36 @@
         
       
 
+      
+      <item>
+        <title>Latex Symbols</title>
+        <link>https://chaphlagical.github.io/en/posts/misc/latex/</link>
+        <pubDate>Sat, 21 Aug 2021 17:19:11 +0100</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        <atom:modified>Sat, 21 Aug 2021 17:19:11 +0100</atom:modified>
+        <guid>https://chaphlagical.github.io/en/posts/misc/latex/</guid>
+        <description></description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>misc</category>
+            
+          
+        
+        
+          
+            
+              <category>latex</category>
+            
+          
+        
+        
+      </item>
       
       <item>
         <title>Temporally Adaptive Shading Reuse for Real-time Rendering and Virtual Reality</title>

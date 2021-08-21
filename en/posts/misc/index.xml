@@ -6,41 +6,48 @@
   xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" 
   xmlns:media="http://search.yahoo.com/mrss/">
   <channel>
-    <title>index on Chaf&#39;s Blog</title>
-    <link>https://chaphlagical.github.io/en/tags/index/</link>
-    <description>Recent content in index on Chaf&#39;s Blog</description>
+    <title>MISC on Chaf&#39;s Blog</title>
+    <link>https://chaphlagical.github.io/en/posts/misc/</link>
+    <description>Recent content in MISC on Chaf&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <managingEditor>chaf@mail.ustc.edu.cn (Wenbo Chen)</managingEditor>
     <webMaster>chaf@mail.ustc.edu.cn (Wenbo Chen)</webMaster>
     <copyright>&amp;copy;{year}, All Rights Reserved</copyright>
+    <lastBuildDate>Sat, 21 Aug 2021 00:00:00 +0000</lastBuildDate>
     
-        <atom:link href="https://chaphlagical.github.io/en/tags/index/index.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="https://chaphlagical.github.io/en/posts/misc/index.xml" rel="self" type="application/rss+xml" />
     
     
     
 
       
       <item>
-        <title>Posts</title>
-        <link>https://chaphlagical.github.io/en/posts/</link>
+        <title>Latex Symbols</title>
+        <link>https://chaphlagical.github.io/en/posts/misc/latex/</link>
         <pubDate>Sat, 21 Aug 2021 17:19:11 +0100</pubDate>
         <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
-        
-        <guid>https://chaphlagical.github.io/en/posts/</guid>
+        <atom:modified>Sat, 21 Aug 2021 17:19:11 +0100</atom:modified>
+        <guid>https://chaphlagical.github.io/en/posts/misc/latex/</guid>
         <description></description>
         
-        <dc:creator>Hugo Authors</dc:creator>
+        <dc:creator>Wenbo Chen</dc:creator>
         
         
         
         
           
             
-              <category>index</category>
+              <category>misc</category>
             
           
         
+        
+          
+            
+              <category>latex</category>
+            
+          
         
         
       </item>
