@@ -23,6 +23,39 @@
 
       
       <item>
+        <title>Fast Diffraction Pathfinding for Dynamic Sound Propagation</title>
+        <link>https://chaphlagical.github.io/en/posts/paperreading/fast_diffraction_pathfinding_for_dynamic_sound_propagation/</link>
+        <pubDate>Mon, 23 Aug 2021 22:20:00 +0100</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        <atom:modified>Mon, 23 Aug 2021 22:20:00 +0100</atom:modified>
+        <guid>https://chaphlagical.github.io/en/posts/paperreading/fast_diffraction_pathfinding_for_dynamic_sound_propagation/</guid>
+        <description>Author: Carl Schissler, Gregor Mückl, Paul Calamia
+Institution: Facebook Reality Labs Research, USA
+Link: https://dl.acm.org/doi/10.1145/3450626.3459751
+Abstract  Diffraction is one the the most perceptually important yet difficult to simulate acoustic effects  A phenomenon that allows sound to propagate around obstructions and corners   A significant bottleneck in real-time simulation of diffraction:  The enumeration of high-order diffraction propagation paths in scenes with complex geometry   The paper present a dynamic geometric diffraction approach that consists of an extensive mesh preprocessing pipeline and complementary runtime algorithm  Preprocessing module identifies a small subset of edges that are important for diffraction using a novel silhouette edge detection heuristic  It also extends these edges with planar diffraction geometry and precomputes a graph data structure encoding the visibility between the edges   The runtime module uses bidirectional path tracing against the diffraction geometry to probabilistically explore potential paths between sources and listeners, then evaluates the intensities for these paths using the Uniform Theory of Diffraction  It uses the edge visibility graph and the A* pathfinding algorithm to robustly and efficiently find additional high-order diffraction paths     The paper demonstrate how this technique can simulate 10th-order diffraction up to 568 times faster than the previous state of the art, and can efficiently handle large scenes with both high geometric complexity and high numbers of sources  1.</description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>Rendering</category>
+            
+          
+        
+        
+          
+            
+              <category>paper reading</category>
+            
+          
+        
+        
+      </item>
+      
+      <item>
         <title>Temporally Adaptive Shading Reuse for Real-time Rendering and Virtual Reality</title>
         <link>https://chaphlagical.github.io/en/posts/paperreading/temporally_adaptive_shading_reuse_for_real_time_rendering_and_virtual_reality/</link>
         <pubDate>Wed, 18 Aug 2021 15:44:00 +0100</pubDate>
