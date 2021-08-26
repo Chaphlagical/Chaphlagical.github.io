@@ -14,7 +14,7 @@
     <managingEditor>chaf@mail.ustc.edu.cn (Wenbo Chen)</managingEditor>
     <webMaster>chaf@mail.ustc.edu.cn (Wenbo Chen)</webMaster>
     <copyright>&amp;copy;{year}, All Rights Reserved</copyright>
-    <lastBuildDate>Mon, 23 Aug 2021 22:20:00 +0100</lastBuildDate>
+    <lastBuildDate>Wed, 25 Aug 2021 16:30:00 +0100</lastBuildDate>
     
         <atom:link href="https://chaphlagical.github.io/en/index.xml" rel="self" type="application/rss+xml" />
     
@@ -42,6 +42,45 @@
         
       
 
+      
+      <item>
+        <title>Neural Light Transport for Relighting and View Synthesis</title>
+        <link>https://chaphlagical.github.io/en/posts/paperreading/neural_light_transport_for_relighting_and_view_synthesis/</link>
+        <pubDate>Wed, 25 Aug 2021 16:30:00 +0100</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        <atom:modified>Wed, 25 Aug 2021 16:30:00 +0100</atom:modified>
+        <guid>https://chaphlagical.github.io/en/posts/paperreading/neural_light_transport_for_relighting_and_view_synthesis/</guid>
+        <description>Author &amp;amp; Institution
+XIUMING ZHANG, Massachusetts Institute of Technology
+SEAN FANELLO and YUN-TA TSAI, Google
+TIANCHENG SUN, University of California, San Diego
+TIANFAN XUE, ROHIT PANDEY, SERGIO ORTS-ESCOLANO, PHILIP DAVIDSON, CHRISTOPH RHEMANN, PAUL DEBEVEC, and JONATHAN T. BARRON, Google
+RAVI RAMAMOORTHI, University of California, San Diego
+WILLIAM T. FREEMAN, Massachusetts Institute of Technology &amp;amp; Google
+Link: http://nlt.csail.mit.edu/
+Abstract   Light transport (LT)
+ The light transport (LT) of a scene describes how it appears under different lighting conditions from different viewing directions Complete knowledge of a scene’s LT enables the synthesis of novel views under arbitrary lighting    In this paper</description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>Rendering</category>
+            
+          
+        
+        
+          
+            
+              <category>paper reading</category>
+            
+          
+        
+        
+      </item>
       
       <item>
         <title>Fast Diffraction Pathfinding for Dynamic Sound Propagation</title>

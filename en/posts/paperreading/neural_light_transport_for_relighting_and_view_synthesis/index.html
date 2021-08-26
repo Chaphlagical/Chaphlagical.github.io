@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="zh" dir="ltr">
+<html lang="en" dir="ltr">
 
 <head prefix="og: http://ogp.me/ns#">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>三角形填充算法 – Chaf&#39;s Blog</title>
+    <title>Neural Light Transport for Relighting and View Synthesis – Chaf&#39;s Blog</title>
     
 
 
@@ -653,9 +653,9 @@
     
     var baseurl = JSON.parse("\"https://chaphlagical.github.io\"");
     
-    var permalink = JSON.parse("\"https://chaphlagical.github.io/zh/posts/softwarerenderer/triangle/\"");
+    var permalink = JSON.parse("\"https://chaphlagical.github.io/en/posts/paperreading/neural_light_transport_for_relighting_and_view_synthesis/\"");
     
-    var langprefix = JSON.parse("\"/zh\"");
+    var langprefix = JSON.parse("\"/en\"");
     var searchResults = null;
     var searchMenu = null;
     var searchText = null;
@@ -1323,23 +1323,23 @@
 
 
     
-<meta name="description" content="软光栅渲染器之三角形填充算法" />
+<meta name="description" content="Siggraph 2021 Paper Reading" />
 
 
-<meta name="keywords" content="Software Renderer">
+<meta name="keywords" content="Rendering">
 
-<meta name="created" content="2021-02-17T20:57:11&#43;0100">
-<meta name="modified" content="2021-02-17T20:57:11&#43;0100">
-<meta property="article:published_time" content="2021-02-17T20:57:11&#43;0100">
+<meta name="created" content="2021-08-25T16:30:00&#43;0100">
+<meta name="modified" content="2021-08-25T16:30:00&#43;0100">
+<meta property="article:published_time" content="2021-08-25T16:30:00&#43;0100">
 
 <meta name="author" content="Wenbo Chen">
 
 
 <meta property="og:site_name" content="Chaf&#39;s Blog">
-<meta property="og:title" content="三角形填充算法">
-<meta property="og:url" content="https://chaphlagical.github.io/zh/posts/softwarerenderer/triangle/">
+<meta property="og:title" content="Neural Light Transport for Relighting and View Synthesis">
+<meta property="og:url" content="https://chaphlagical.github.io/en/posts/paperreading/neural_light_transport_for_relighting_and_view_synthesis/">
 <meta property="og:type" content="article">
-<meta property="og:description" content="软光栅渲染器之三角形填充算法">
+<meta property="og:description" content="Siggraph 2021 Paper Reading">
 
 <meta name="generator" content="Hugo 0.82.0" />
 <meta name="msapplication-TileColor" content="#fff">
@@ -1350,7 +1350,7 @@
 
 <meta name="apple-mobile-web-app-status-bar-style" content="#fff">
 
-<link rel="canonical" href="https://chaphlagical.github.io/zh/posts/softwarerenderer/triangle/">
+<link rel="canonical" href="https://chaphlagical.github.io/en/posts/paperreading/neural_light_transport_for_relighting_and_view_synthesis/">
 
 <link rel="manifest" href="/manifest.json">
 
@@ -1376,12 +1376,12 @@
   {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    "headline": "三角形填充算法",
-    "datePublished": "2021-02-17T20:57:11+01:00",
-    "dateModified": "2021-02-17T20:57:11+01:00",
-    "url" : "https://chaphlagical.github.io/zh/posts/softwarerenderer/triangle/",
-    "description": "软光栅渲染器之三角形填充算法",
-    "keywords": ["Software Renderer"],
+    "headline": "Neural Light Transport for Relighting and View Synthesis",
+    "datePublished": "2021-08-25T16:30:00+01:00",
+    "dateModified": "2021-08-25T16:30:00+01:00",
+    "url" : "https://chaphlagical.github.io/en/posts/paperreading/neural_light_transport_for_relighting_and_view_synthesis/",
+    "description": "Siggraph 2021 Paper Reading",
+    "keywords": ["Rendering"],
     "mainEntityOfPage": {
       "@type": "WebPage",
       "@id": "https://chaphlagical.github.io"
@@ -1448,12 +1448,12 @@ if (!doNotTrack) {
             <nav class="navbar scrolling" role="navigation" aria-label="main navigation" data-dir="ltr">
   <div class="navbar__brand">
     
-    <a href="/zh/" title="主页" rel="home" class="navbar__logo-link">
+    <a href="/en/" title="Home" rel="home" class="navbar__logo-link">
       <img src="/logo.png" alt="Home" class="navbar__logo">
     </a>
     
     
-      <a href="/zh/" title="主页" rel="home" class="navbar__title-link">
+      <a href="/en/" title="Home" rel="home" class="navbar__title-link">
         <h6 class="navbar__title">Chaf</h6>
       </a>
     
@@ -1500,7 +1500,7 @@ if (!doNotTrack) {
 
 <div id="search-mobile-container" class="mobile-search hide" data-dir="ltr">
   <div class="mobile-search__top">
-    <input id="search-mobile" type="text" aria-label="Mobile Search" placeholder="搜索" class="mobile-search__top--input"/>
+    <input id="search-mobile" type="text" aria-label="Mobile Search" placeholder="Search" class="mobile-search__top--input"/>
     <div id="search-mobile-close" class="mobile-search__top--icon">
       <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"><path opacity=".87" fill="none" d="M0 0h24v24H0V0z"/><path fill="currentColor" d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm3.59-13L12 10.59 8.41 7 7 8.41 10.59 12 7 15.59 8.41 17 12 13.41 15.59 17 17 15.59 13.41 12 17 8.41z"/></svg>
     </div>
@@ -1528,7 +1528,7 @@ if (!doNotTrack) {
 
       
         <li class="navbarm__menu--item ">
-          <a href="/zh/about">关于</a>
+          <a href="/en/about">About</a>
         </li>
       
       
@@ -1540,7 +1540,7 @@ if (!doNotTrack) {
 
       
         <li class="navbarm__menu--item ">
-          <a href="/zh/resume">简历</a>
+          <a href="/en/resume">Resume</a>
         </li>
       
       
@@ -1552,7 +1552,7 @@ if (!doNotTrack) {
 
       
         <li class="navbarm__menu--item active">
-          <a href="/zh/posts">博文</a>
+          <a href="/en/posts">Posts</a>
         </li>
       
       
@@ -1564,7 +1564,7 @@ if (!doNotTrack) {
 
       
         <li class="navbarm__menu--item ">
-          <a href="/zh/archive">归档</a>
+          <a href="/en/archive">Archive</a>
         </li>
       
       
@@ -1576,7 +1576,7 @@ if (!doNotTrack) {
 
       
         <li class="navbarm__menu--item ">
-          <a href="/zh/presentation">讲座</a>
+          <a href="/en/presentation">Pre</a>
         </li>
       
       
@@ -1588,7 +1588,19 @@ if (!doNotTrack) {
 
       
         <li class="navbarm__menu--item ">
-          <a href="/zh/publication">发表</a>
+          <a href="/en/publication">Pub</a>
+        </li>
+      
+      
+    
+      
+      
+      
+      
+
+      
+        <li class="navbarm__menu--item ">
+          <a href="/en/note">Note</a>
         </li>
       
       
@@ -1596,20 +1608,20 @@ if (!doNotTrack) {
 
     
       <li class="navbarm__menu--item ">
-        <a href="/zh/tags" class="navbarm__menu--term" data-index="0">
-          标签
+        <a href="/en/tags" class="navbarm__menu--term" data-index="0">
+          Tags
         </a>
       </li>
     
       <li class="navbarm__menu--item ">
-        <a href="/zh/categories" class="navbarm__menu--term" data-index="1">
-          分类
+        <a href="/en/categories" class="navbarm__menu--term" data-index="1">
+          Categories
         </a>
       </li>
     
       <li class="navbarm__menu--item ">
-        <a href="/zh/series" class="navbarm__menu--term" data-index="2">
-          系列
+        <a href="/en/series" class="navbarm__menu--term" data-index="2">
+          Series
         </a>
       </li>
     
@@ -1659,7 +1671,7 @@ if (!doNotTrack) {
   
   
   
-  <a href="/zh/about" class="navbar__menu-item navbar__slide-down " dir="ltr" data-ani="true">关于</a>
+  <a href="/en/about" class="navbar__menu-item navbar__slide-down " dir="ltr" data-ani="true">About</a>
   
   
   
@@ -1667,7 +1679,7 @@ if (!doNotTrack) {
   
   
   
-  <a href="/zh/resume" class="navbar__menu-item navbar__slide-down " dir="ltr" data-ani="true">简历</a>
+  <a href="/en/resume" class="navbar__menu-item navbar__slide-down " dir="ltr" data-ani="true">Resume</a>
   
   
   
@@ -1675,7 +1687,7 @@ if (!doNotTrack) {
   
   
   
-  <a href="/zh/posts" class="navbar__menu-item navbar__slide-down active" dir="ltr" data-ani="true">博文</a>
+  <a href="/en/posts" class="navbar__menu-item navbar__slide-down active" dir="ltr" data-ani="true">Posts</a>
   
   
   
@@ -1683,7 +1695,7 @@ if (!doNotTrack) {
   
   
   
-  <a href="/zh/archive" class="navbar__menu-item navbar__slide-down " dir="ltr" data-ani="true">归档</a>
+  <a href="/en/archive" class="navbar__menu-item navbar__slide-down " dir="ltr" data-ani="true">Archive</a>
   
   
   
@@ -1691,7 +1703,7 @@ if (!doNotTrack) {
   
   
   
-  <a href="/zh/presentation" class="navbar__menu-item navbar__slide-down " dir="ltr" data-ani="true">讲座</a>
+  <a href="/en/presentation" class="navbar__menu-item navbar__slide-down " dir="ltr" data-ani="true">Pre</a>
   
   
   
@@ -1699,7 +1711,15 @@ if (!doNotTrack) {
   
   
   
-  <a href="/zh/publication" class="navbar__menu-item navbar__slide-down " dir="ltr" data-ani="true">发表</a>
+  <a href="/en/publication" class="navbar__menu-item navbar__slide-down " dir="ltr" data-ani="true">Pub</a>
+  
+  
+  
+  
+  
+  
+  
+  <a href="/en/note" class="navbar__menu-item navbar__slide-down " dir="ltr" data-ani="true">Note</a>
   
   
 </div>
@@ -1722,28 +1742,28 @@ if (!doNotTrack) {
   
   <li >
     
-      <a href="https://chaphlagical.github.io/zh/" class="capitalize">Chaf&#39;s Blog</a>
+      <a href="https://chaphlagical.github.io/en/" class="capitalize">Chaf&#39;s Blog</a>
     
   </li>
   
   
   <li >
     
-      <a href="https://chaphlagical.github.io/zh/posts/" class="capitalize">Posts</a>
+      <a href="https://chaphlagical.github.io/en/posts/" class="capitalize">Posts</a>
     
   </li>
   
   
   <li >
     
-      <a href="https://chaphlagical.github.io/zh/posts/softwarerenderer/" class="capitalize">Software Renderer</a>
+      <a href="https://chaphlagical.github.io/en/posts/paperreading/" class="capitalize">Paper Reading</a>
     
   </li>
   
   
   <li  class="is-active" >
     
-      <span>三角形填充算法</span>
+      <span>Neural Light Transport for Relighting and View Synthesis</span>
     
   </li>
   
@@ -1753,16 +1773,16 @@ if (!doNotTrack) {
   
   
   <div class="single ">
-    <div class="single__nojs">Please enable Javascript to view the contents</div>
+    <div class="single__nojs">This page looks best with JavaScript enabled</div>
     <script>document.querySelector('.single').classList.remove('hide'); document.querySelector('.single__nojs').classList.add('hide');</script>
-    <h2 class="single__title" data-ani="true">三角形填充算法</h2>
+    <h2 class="single__title" data-ani="true">Neural Light Transport for Relighting and View Synthesis</h2>
     <h3 class="single__subtitle"></h3>
     <div class="single__meta">
       
 <div class="single__infos">
-  <time class="single__info" title="创建日期">📅&nbsp;2021年02月17日 </time>
+  <time class="single__info" title="Written At">📅&nbsp;Aug 25, 2021 </time>
   
-  &nbsp;&middot;&nbsp; <span class="single__info" title="阅读时长"> ☕&nbsp;3&nbsp;分钟 </span>
+  &nbsp;&middot;&nbsp; <span class="single__info" title="Reading Time"> ☕&nbsp;10&nbsp;min read </span>
   
   <span class="single__info">
     
@@ -1774,224 +1794,331 @@ if (!doNotTrack) {
   🏷️
   
 
-  <li><a href="https://chaphlagical.github.io/zh/tags/software-renderer/" class="single__tag" title="Software Renderer">#Software Renderer</a></li>
+  <li><a href="https://chaphlagical.github.io/en/tags/rendering/" class="single__tag" title="Rendering">#Rendering</a></li>
 
 </ul>
     </div>
     <article class="single__contents" data-dir="ltr" data-ani="true">
       
-      <p>三角形填充算法是光栅化流程中重要的一步，是我们片元着色的基础</p>
-<h2 id="1-行扫描算法">1. 行扫描算法</h2>
-<p><img src="image-20210217214328734.png" alt="image-20210217214328734" /></p>
-<p>在进行三角形填充之前，先对三角形三个顶点的纵坐标进行-排序，由小到大依次排列为$t_0$，$t_1$和$t_2$，以$t_1$为分界分为上下两个三角形，从$t_0$开始扫描，行$y$的左右顶点$A$和$B$满足：<br />
+      <p><strong>Author &amp; Institution</strong></p>
+<p><em>XIUMING ZHANG</em>, Massachusetts Institute of Technology<br />
+<em>SEAN FANELLO</em> and <em>YUN-TA TSAI</em>, Google<br />
+<em>TIANCHENG SUN</em>, <em>University of California</em>, San Diego<br />
+<em>TIANFAN XUE</em>, <em>ROHIT PANDEY</em>, <em>SERGIO ORTS-ESCOLANO</em>, <em>PHILIP DAVIDSON</em>, <em>CHRISTOPH RHEMANN</em>, <em>PAUL DEBEVEC</em>, and <em>JONATHAN T. BARRON</em>, Google<br />
+<em>RAVI RAMAMOORTHI</em>, University of California, San Diego<br />
+<em>WILLIAM T. FREEMAN</em>, Massachusetts Institute of Technology &amp; Google</p>
+<p><strong>Link</strong>: <a href="http://nlt.csail.mit.edu/">http://nlt.csail.mit.edu/</a></p>
+<h2 id="abstract">Abstract</h2>
+<ul>
+<li>
+<p>Light transport (LT)</p>
+<ul>
+<li>The light transport (LT) of a scene describes how it appears under different lighting conditions from different viewing directions</li>
+<li>Complete knowledge of a scene’s LT enables the synthesis of novel views under arbitrary lighting</li>
+</ul>
+</li>
+<li>
+<p>In this paper</p>
+<ul>
+<li>Focus on image-based LT acquisition, primarily for human bodies within a light stage setup</li>
+<li>Propose a semi-parametric approach for learning a neural representation of the LT that is embedded in a texture atlas of known but possibly rough geometry</li>
+<li>Model all non-diffuse and global LT as residuals added to a physically-based diffuse base rendering
+<ul>
+<li>Show how to fuse previously seen observations of illuminants and views to synthesize a new image of the same scene under a desired lighting condition from a chosen viewpoint</li>
+<li>Allows the network to learn complex material effects (such as subsurface scattering) and global illumination (such as diffuse interreflection), while guaranteeing the physical correctness of the diffuse LT (such as hard shadows)</li>
+</ul>
+</li>
+<li>With this learned LT, one can relight the scene photorealistically with a directional light or an HDRI map, synthesize novel views with view-dependent effects, or do both simultaneously, all in a unified framework using a set of sparse observations</li>
+</ul>
+</li>
+</ul>
+<h2 id="1-introduction">1. Introduction</h2>
+<ul>
+<li>
+<p>Light Transport</p>
+<ul>
+<li>Models how light interacts with objects in the scene to produce an observed image</li>
+</ul>
+</li>
+<li>
+<p>Inferring light transport</p>
+<ul>
+<li>Acquiring the LT of a scene from images of that scene requires untangling the myriad interconnected effects of occlusion, shading, shadowing, interreflections, scattering, etc</li>
+</ul>
+</li>
+<li>
+<p>Application</p>
+<ul>
+<li>Phototourism</li>
+<li>Telepresence</li>
+<li>Storytelling</li>
+<li>Special effects</li>
+<li>Generating ground truth data for machine learning task
+<ul>
+<li>Many works rely on high-quality renderings of relit subjects under arbitrary lighting conditions and from multiple viewpoints
+<ul>
+<li>Relighting</li>
+<li>View synthesis</li>
+<li>Re-enacting</li>
+<li>Alpha-matting</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Previous work has shown that it is possible to construct a light stage , plenoptic camera , or gantry that directly captures a subset of the LT function and thereby enables the image-based rendering thereof</p>
+<ul>
+<li>Widely used in film productions and within the research community</li>
+<li>Can only provide sparse sampling of the LT limited to the number of LEDs(~ 300 on a spherical dome) and the number of cameras (~50-100 around the subject), resulting in the inability to produce photorealistic renderings outside the supported camera/light locations</li>
+<li>Traditional image-based rendering approaches are usually designed for fixed viewpoints and are unable to synthesize unseen (novel) views under a desired illumination</li>
+</ul>
+</li>
+<li>
+<p>In this paper</p>
+<ul>
+<li>Learn to interpolate the dense LT function of a given scene from sparse multi-view, One-Light-at-A-Time (OLAT) images acquired in a light stage,  through a semi-parametric technique that called Neural Light Transport (NLT)</li>
+<li>Many prior works have addressed similar tasks with classic works tending to rely on physics to recover analytical and interpretable models</li>
+<li>Recent works using neural networks to infer a more direct mapping from input images to an output image</li>
+</ul>
+</li>
+<li>
+<p>Rendering method</p>
+<ul>
+<li>Traditional rendering methods
+<ul>
+<li>Make simplifying assumptions when modeling geometry, BRDFs, or complex inter-object interactions</li>
+<li>Make the problem tractable</li>
+</ul>
+</li>
+<li>Deep learning approaches
+<ul>
+<li>Can tolerate geometric and reflectance imperfections</li>
+<li>Require many aspects of image formation (even those guaranteed by physics) be learned “from scratch,” which may necessitate a prohibitively large training set</li>
+</ul>
+</li>
+<li>NLT
+<ul>
+<li>Straddle this divide between traditional methods and deep learning approaches
+<ul>
+<li>Construct a classical model of the subject being imaged (a mesh and a diffuse texture atlas per Lambertian reflectance)</li>
+<li>Embed a neural network within the parameterization provided by that classical model</li>
+<li>Construct the inputs and outputs of the model in ways that leverage domain knowledge of classical graphics techniques</li>
+<li>Train that network to model all aspects of LT, including those not captured by a classical model</li>
+</ul>
+</li>
+<li>Able to learn an accurate model of the complicated LT function for a subject from a small training dataset of sparse observations</li>
+<li>A key novelty: the learned model is embedded within the texture atlas space of an existing geometric model of the subject, which provides a novel framework for simultaneous relighting and view interpolation</li>
+<li>Express the 6D LT function at each location on the surface of the geometric model as simply the output of a deep neural network
+<ul>
+<li>Works well (as neural networks are smooth and universal function approximators) and obviates the need for a complicated parameterization of spatially-varying reflectance</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="image-20210824205558319.png" alt="image-20210824205558319" /></p>
+<ul>
+<li>Main contribution
+<ul>
+<li>An end-to-end, semi-parametric method for learning to interpolate the 6D light transport function per-subject from real data using convolutional neural networks</li>
+<li>A unified framework for simultaneous relighting and view synthesis by embedding networks into a parameterized texture atlas and leveraging as input a set of One-Light-at-A-Time (OLAT) images</li>
+<li>A set of augmented texture-space inputs and a residual learning scheme on top of a physically accurate diffuse base, which together allow the network to easily learn non-diffuse, higher-order light transport effects including specular highlights, subsurface scattering, and global illumination</li>
+</ul>
+</li>
+</ul>
+<h2 id="2-related-work">2. Related Work</h2>
+<ul>
+<li>Problem
+<ul>
+<li>Recovering a model of light transport from a sparse set of images of some subject</li>
+<li>Predicting novel images of that subject from unseen views and/or under unobserved illuminations</li>
+</ul>
+</li>
+</ul>
+<p><strong>Single observation</strong></p>
+<ul>
+<li>The most sparse sampling is just a single image, from which one could attempt to infer a model (geometry, reflectance, and illumination) of the physical world that resulted in that image
+<ul>
+<li>Via hand-crafted or learned priors</li>
+</ul>
+</li>
+<li>Though practical, the quality gap between what can be accomplished by single-image techniques and what has been demonstrated by multi-image techniques is significant
+<ul>
+<li>Can&rsquo;t show complex light transport effects such as specular highlights or subsurface scattering</li>
+<li>Limited to a single task, such as relighting, and some support only a limited range of viewpoint change</li>
+</ul>
+</li>
+</ul>
+<p><strong>Multiple views</strong></p>
+<ul>
+<li>Multiview geometry techniques recover a textured 3D model that can be rendered using conventional graphics or photogrammetry techniques
+<ul>
+<li>Have material and shading variation baked in</li>
+<li>Do not enable relighting</li>
+</ul>
+</li>
+<li>Image-based rendering techniques such as light fields or lumigraphs
+<ul>
+<li>Can be used to directly sample and render the plenoptic function</li>
+<li>The accuracy of these techniques is limited by the density of sampled input images</li>
+<li>Do not enable relighting</li>
+</ul>
+</li>
+<li>Reprojection-based methods
+<ul>
+<li>For unstructured inputs</li>
+<li>Assume the availability of a geometry proxy (so does our work), reproject nearby views to the query view, and perform image blending in that view</li>
+<li>Rely heavily on the quality of the geometry proxy
+<ul>
+<li>A class-specific geometry prior (such as that of a human body) can be used to increase the accuracy of a geometry proxy</li>
+</ul>
+</li>
+<li>Cannot synthesize pixels that are not visible in the input views</li>
+<li>Do not enable relighting</li>
+</ul>
+</li>
+<li>Deep learning
+<ul>
+<li>Been used to synthesize new images from sparse sets of input images</li>
+<li>Usually by training neural networks to synthesize some intermediate geometric representation that is then projected into the desired image</li>
+<li>Some techniques even entirely replace the rendering process with a learned “neural” renderer</li>
+<li>Generally do not attempt to explicitly model light transport
+<ul>
+<li>Do not enable relighting</li>
+<li>Capable of preserving view-dependent effects for the fixed illumination condition under which the input images were acquired</li>
+</ul>
+</li>
+<li>Often breaks “backwards compatibility” with existing graphics systems</li>
+</ul>
+</li>
+</ul>
+<p><strong>Multiple illuminants</strong></p>
+<ul>
+<li>Repeatedly imaging a subject with a fixed camera but under different illuminations and then recovering the surface normals</li>
+<li>Most photometric stereo solutions assume Lambertian reflectance and do not support relighting with non-diffuse light transport</li>
+<li>Neural networks can be applied to relight a scene captured under multiple lighting conditions from a fixed viewpoint</li>
+</ul>
+<p><strong>Multiple views and illuminant</strong></p>
+<ul>
+<li>
+<p>Utilize the symmetry of illuminations and view directions to collect sparse samples of an 8D reflectance field, and reconstruct a complete field using a low-rank assumption</p>
+</li>
+<li>
+<p>Lack an explicit geometric model</p>
+<ul>
+<li>Rendering is limited to a fixed set of viewpoints</li>
+</ul>
+</li>
+<li>
+<p>Supports relighting and view synthesis</p>
+<ul>
+<li>But assume pre-defined BRDFs</li>
+<li>Cannot synthesize more complex light transport effects present in real images</li>
+</ul>
+</li>
+<li>
+<p>In this paper</p>
+<ul>
+<li>Follows the convention of the nascent field of “neural rendering”, in which a separate neural network is trained for each subject to be rendered, and all images of that subject are treated as “training data.”
+<ul>
+<li>These approaches have shown great promise in terms of their rendering fidelity</li>
+<li>But require per-subject training and are unable to generalize across subjects yet</li>
+</ul>
+</li>
+<li>Paper&rsquo;s approach
+<ul>
+<li>Unlike prior work that focuses on a specific task</li>
+<li>The texture-space formulation allows for simultaneous light and view interpolation</li>
+<li>The model is a valuable training data generator for many works that rely on high-quality renderings of subjects under arbitrary lighting conditions and from multiple viewpoints</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-method">3. Method</h2>
+<p><img src="image-20210825094924494.png" alt="image-20210825094924494" style="zoom:80%;" /></p>
+<ul>
+<li>
+<p>The framework is a semi-parametric model with a residual learning scheme that aims to close the gap between the diffuse rendering of the geometry proxy and the real input image</p>
+<ul>
+<li>The semi-parametric approach is used to fuse previously recorded observations to synthesize a novel, photorealistic image under any desired illumination and viewpoint</li>
+</ul>
+</li>
+<li>
+<p>The method relies on recent advances in computer vision that have enabled accurate 3D reconstructions of human subjects</p>
+<ul>
+<li>Such as technique that takes as input several images of a subject and produces as output a mesh of that subject and a UV texture map describing its albedo</li>
+<li>At first glance, this appears to address the entirety of the problem: given a textured mesh, we can perform simultaneous view synthesis and relighting by simply re-rendering that mesh from some arbitrary camera location and under some arbitrary illumination</li>
+<li>Simplistic model of reflectance and illumination only permits equally simplistic relighting and view synthesis</li>
+</ul>
+</li>
+<li>
+<p>Assuming Lambertian reflectance:<br />
 $$<br />
-\dfrac{y_0-y}{x_0-A_x}=\dfrac{y_0-y_2}{x_0-x_2}<br />
+\tilde L_o(\pmb x,\pmb \omega_o)=\rho(\pmb x)L_i(\pmb x,\pmb \omega_i)(\pmb \omega_i\cdot \pmb n(\pmb x))<br />
 $$</p>
+<ul>
+<li>
+<p>$\tilde L_0(\pmb x,\pmb\omega_0)$ is the diffuse rendering of a point $\pmb x$ with a surface normal $\pmb n(\pmb x)$ and albedo $\rho(\pmb x)$, lit by a directional light $\pmb \omega_i$ with an incoming intensity $L_i(\pmb x,\pmb \omega_i)$ and view from $\pmb \omega_0$</p>
+</li>
+<li>
+<p>This reflectance model is only sufficient for describing matte surfaces and direct illumination</p>
+</li>
+<li>
+<p>More recent methods also make strong assumptions about materials by modeling reflectance with a cosine lobe model</p>
+<ul>
+<li>The shortcomings of these methods are obvious when compared to a more expressive rendering approach, such as the rendering equation, which makes far fewer simplifying assumptions:</li>
+</ul>
 <p>$$<br />
-\dfrac{y_0-y}{x_0-B_x}=\dfrac{y_0-y_1}{x_0-x_1}<br />
+L_o(\pmb x,\pmb \omega_o)=L_e(\pmb x,\pmb \omega_o)+\int_\Omega f_s(\pmb x,\pmb \omega_i,\pmb \omega_o)L_i(\pmb x,\pmb \omega_i)(\pmb \omega_i\cdot \pmb n(\pmb x))\mathrm d\pmb \omega_i<br />
 $$</p>
-<p>每一行填充$[A_x,B_x]$之间的像素，上下同理，代码如下：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="kt">void</span> <span class="n">DrawPrimitive</span><span class="o">::</span><span class="n">DrawTriangle</span><span class="p">(</span><span class="k">const</span> <span class="n">CML</span><span class="o">::</span><span class="n">Point2i</span><span class="o">&amp;</span> <span class="n">p1</span><span class="p">,</span> <span class="k">const</span> <span class="n">CML</span><span class="o">::</span><span class="n">Point2i</span><span class="o">&amp;</span> <span class="n">p2</span><span class="p">,</span> <span class="k">const</span> <span class="n">CML</span><span class="o">::</span><span class="n">Point2i</span><span class="o">&amp;</span> <span class="n">p3</span><span class="p">,</span> <span class="k">const</span> <span class="n">CML</span><span class="o">::</span><span class="n">Rgbi</span><span class="o">&amp;</span> <span class="n">color</span><span class="p">,</span> <span class="n">FrameBuffer</span><span class="o">&amp;</span> <span class="n">fbo</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="n">CML</span><span class="o">::</span><span class="n">Point2i</span> <span class="n">v1</span> <span class="o">=</span> <span class="n">p1</span><span class="p">,</span> <span class="n">v2</span> <span class="o">=</span> <span class="n">p2</span><span class="p">,</span> <span class="n">v3</span> <span class="o">=</span> <span class="n">p3</span><span class="p">;</span>
-
-    <span class="k">if</span> <span class="p">(</span><span class="n">v1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">v2</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="n">std</span><span class="o">::</span><span class="n">swap</span><span class="p">(</span><span class="n">v1</span><span class="p">,</span> <span class="n">v2</span><span class="p">);</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">v1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">v3</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="n">std</span><span class="o">::</span><span class="n">swap</span><span class="p">(</span><span class="n">v1</span><span class="p">,</span> <span class="n">v3</span><span class="p">);</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">v2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">v3</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="n">std</span><span class="o">::</span><span class="n">swap</span><span class="p">(</span><span class="n">v2</span><span class="p">,</span> <span class="n">v3</span><span class="p">);</span>
-
-    <span class="kt">float</span> <span class="n">total_height</span> <span class="o">=</span> <span class="n">v3</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">v1</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
-    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="n">v1</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span> <span class="n">y</span> <span class="o">&lt;=</span> <span class="n">v2</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span> <span class="n">y</span><span class="o">++</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="kt">float</span> <span class="n">segment_height</span> <span class="o">=</span> <span class="n">v2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">v1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
-        <span class="kt">float</span> <span class="n">alpha</span> <span class="o">=</span> <span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="n">v1</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="n">total_height</span><span class="p">;</span>
-        <span class="kt">float</span> <span class="n">beta</span> <span class="o">=</span> <span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="n">v1</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="n">segment_height</span><span class="p">;</span>
-        <span class="n">CML</span><span class="o">::</span><span class="n">Point2i</span> <span class="n">A</span> <span class="o">=</span> <span class="n">v1</span> <span class="o">+</span> <span class="p">(</span><span class="n">v3</span> <span class="o">-</span> <span class="n">v1</span><span class="p">)</span> <span class="o">*</span> <span class="n">alpha</span><span class="p">;</span>
-        <span class="n">CML</span><span class="o">::</span><span class="n">Point2i</span> <span class="n">B</span> <span class="o">=</span> <span class="n">v1</span> <span class="o">+</span> <span class="p">(</span><span class="n">v2</span> <span class="o">-</span> <span class="n">v1</span><span class="p">)</span> <span class="o">*</span> <span class="n">beta</span><span class="p">;</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">A</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">B</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="n">std</span><span class="o">::</span><span class="n">swap</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">);</span>
-        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">A</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span> <span class="n">j</span> <span class="o">&lt;=</span> <span class="n">B</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span>
-            <span class="n">fbo</span><span class="p">.</span><span class="n">SetPixel</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">color</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">color</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
-    <span class="p">}</span>
-    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="n">v2</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span> <span class="n">y</span> <span class="o">&lt;=</span> <span class="n">v3</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span> <span class="n">y</span><span class="o">++</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="kt">float</span> <span class="n">segment_height</span> <span class="o">=</span> <span class="n">v3</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">v2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
-        <span class="kt">float</span> <span class="n">alpha</span> <span class="o">=</span> <span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="n">v1</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="n">total_height</span><span class="p">;</span>
-        <span class="kt">float</span> <span class="n">beta</span> <span class="o">=</span> <span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="n">v2</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="n">segment_height</span><span class="p">;</span>
-        <span class="n">CML</span><span class="o">::</span><span class="n">Point2i</span> <span class="n">A</span> <span class="o">=</span> <span class="n">v1</span> <span class="o">+</span> <span class="p">(</span><span class="n">v3</span> <span class="o">-</span> <span class="n">v1</span><span class="p">)</span> <span class="o">*</span> <span class="n">alpha</span><span class="p">;</span>
-        <span class="n">CML</span><span class="o">::</span><span class="n">Point2i</span> <span class="n">B</span> <span class="o">=</span> <span class="n">v2</span> <span class="o">+</span> <span class="p">(</span><span class="n">v3</span> <span class="o">-</span> <span class="n">v2</span><span class="p">)</span> <span class="o">*</span> <span class="n">beta</span><span class="p">;</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">A</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">B</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="n">std</span><span class="o">::</span><span class="n">swap</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">);</span>
-        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">A</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span> <span class="n">j</span> <span class="o">&lt;=</span> <span class="n">B</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span>
-            <span class="n">fbo</span><span class="p">.</span><span class="n">SetPixel</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">color</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">color</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
-</div>
-</div><p>绘制结果示例：</p>
-<p><img src="image-20210217214920639.png" alt="image-20210217214920639" /></p>
-<h2 id="2-三角形重心方法">2. 三角形重心方法</h2>
-<p>扫描线算法虽然直观上容易理解，编码简单，但因为涉及较多浮点数计算，效率一般，下面介绍一种利用三角形重心的方法进行三角形的填充</p>
-<p><img src="image-20210217221046069.png" alt="image-20210217221046069" /></p>
-<p>对一个$\triangle ABC$，任一点$P$与三个顶点有关系：<br />
-$$<br />
-\vec{AP}=u\vec{AB}+v\vec{AC}<br />
-$$<br />
-用顶点表示为：<br />
-$$<br />
-P-A=u(B-A)+v(C-A)<br />
-$$<br />
-整理得到：<br />
-$$<br />
-P=(1-u-v)A+uB+vC=A+u\vec{AB}+v\vec{AC}<br />
-$$<br />
-写成分量形式则有：<br />
-$$<br />
-\begin{cases}<br />
-u\vec{AB}_x+v\vec{AC}_x+\vec{PA}_x=0\\<br />
-u\vec{AB}_y+v\vec{AC}_y+\vec{PA}_y=0<br />
-\end{cases}<br />
-$$<br />
-写成矩阵形式：<br />
-$$<br />
-\begin{align}<br />
-\begin{pmatrix}u&amp;v&amp;1\end{pmatrix}<br />
-\begin{pmatrix}\vec{AB}_x\\\vec{AC}_x\\\vec{PA}_x\end{pmatrix}=0\\<br />
-\begin{pmatrix}u&amp;v&amp;1\end{pmatrix}<br />
-\begin{pmatrix}\vec{AB}_y\\\vec{AC}_y\\\vec{PA}_y\end{pmatrix}=0<br />
-\end{align}<br />
-$$<br />
-即向量$(u,v,1)$同时与向量$(\vec{AB}_x,\vec{AC}_x,\vec{PA}_x)$和$(\vec{AB}_y,\vec{AC}_y,\vec{PA}_y)$垂直，因此$(u,v,1)$的一组取值可以为两个分量向量的叉乘</p>
-<p>若点$P$位于$\triangle ABC$，则有约束：<br />
-$$<br />
-\begin{cases}<br />
-0\leq u\leq 1\\<br />
-0\leq v\leq 1\\<br />
-0\leq 1-u-v\leq 1<br />
-\end{cases}<br />
-$$<br />
-此时我们只需要在待填充的三角形的Bounding Box中遍历所有在三角形内部的像素并进行填充即可，C++代码如下：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="kt">void</span> <span class="n">DrawPrimitive</span><span class="o">::</span><span class="n">DrawTriangle</span><span class="p">(</span><span class="k">const</span> <span class="n">CML</span><span class="o">::</span><span class="n">Point2i</span><span class="o">&amp;</span> <span class="n">p1</span><span class="p">,</span> <span class="k">const</span> <span class="n">CML</span><span class="o">::</span><span class="n">Point2i</span><span class="o">&amp;</span> <span class="n">p2</span><span class="p">,</span> <span class="k">const</span> <span class="n">CML</span><span class="o">::</span><span class="n">Point2i</span><span class="o">&amp;</span> <span class="n">p3</span><span class="p">,</span> <span class="k">const</span> <span class="n">CML</span><span class="o">::</span><span class="n">Rgbi</span><span class="o">&amp;</span> <span class="n">color</span><span class="p">,</span> <span class="n">FrameBuffer</span><span class="o">&amp;</span> <span class="n">fbo</span><span class="p">,</span> <span class="n">PrimitiveType</span> <span class="n">primitive</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">primitive</span> <span class="o">==</span> <span class="n">PrimitiveType</span><span class="o">::</span><span class="n">LINE</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="n">DrawLine</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">fbo</span><span class="p">);</span>
-        <span class="n">DrawLine</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">p3</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">fbo</span><span class="p">);</span>
-        <span class="n">DrawLine</span><span class="p">(</span><span class="n">p2</span><span class="p">,</span> <span class="n">p3</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">fbo</span><span class="p">);</span>
-    <span class="p">}</span>
-
-    <span class="k">else</span>
-    <span class="p">{</span>
-        <span class="n">CML</span><span class="o">::</span><span class="n">BBox2i</span> <span class="n">bbox</span><span class="p">{</span> <span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">,</span> <span class="n">p3</span> <span class="p">};</span>
-
-        <span class="k">auto</span> <span class="n">Min</span> <span class="o">=</span> <span class="n">bbox</span><span class="p">.</span><span class="n">GetMin</span><span class="p">();</span>
-        <span class="k">auto</span> <span class="n">Max</span> <span class="o">=</span> <span class="n">bbox</span><span class="p">.</span><span class="n">GetMax</span><span class="p">();</span>
-
-        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">Min</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">Max</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
-        <span class="p">{</span>
-            <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">Min</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span> <span class="n">j</span> <span class="o">&lt;=</span> <span class="n">Max</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span>
-            <span class="p">{</span>
-                <span class="n">CML</span><span class="o">::</span><span class="n">Vec3f</span> <span class="n">u</span> <span class="o">=</span> <span class="n">Barycentric</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">,</span> <span class="n">p3</span><span class="p">,</span> <span class="p">{</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span> <span class="p">});</span>
-                <span class="k">if</span><span class="p">(</span><span class="n">u</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">&gt;=</span><span class="mi">0</span><span class="o">&amp;&amp;</span><span class="n">u</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">&gt;=</span><span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">u</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="n">u</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">1</span> <span class="o">&amp;&amp;</span><span class="n">u</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">&gt;=</span><span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">u</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">)</span>
-                    <span class="n">fbo</span><span class="p">.</span><span class="n">SetPixel</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">color</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">color</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="n">CML</span><span class="o">::</span><span class="n">Vec3f</span> <span class="n">DrawPrimitive</span><span class="o">::</span><span class="n">Barycentric</span><span class="p">(</span><span class="k">const</span> <span class="n">CML</span><span class="o">::</span><span class="n">Point2i</span><span class="o">&amp;</span> <span class="n">p1</span><span class="p">,</span> <span class="k">const</span> <span class="n">CML</span><span class="o">::</span><span class="n">Point2i</span><span class="o">&amp;</span> <span class="n">p2</span><span class="p">,</span> <span class="k">const</span> <span class="n">CML</span><span class="o">::</span><span class="n">Point2i</span><span class="o">&amp;</span> <span class="n">p3</span><span class="p">,</span> <span class="k">const</span> <span class="n">CML</span><span class="o">::</span><span class="n">Point2i</span><span class="o">&amp;</span> <span class="n">p</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="n">CML</span><span class="o">::</span><span class="n">Vec3f</span> <span class="n">v1</span> <span class="o">=</span> <span class="p">{</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="p">(</span><span class="n">p2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">p1</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="p">(</span><span class="n">p3</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">p1</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="p">(</span><span class="n">p1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="p">};</span>
-    <span class="n">CML</span><span class="o">::</span><span class="n">Vec3f</span> <span class="n">v2</span> <span class="o">=</span> <span class="p">{</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="p">(</span><span class="n">p2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">p1</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="p">(</span><span class="n">p3</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">p1</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="p">(</span><span class="n">p1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="p">};</span>
-    <span class="n">CML</span><span class="o">::</span><span class="n">Vec3f</span> <span class="n">res</span> <span class="o">=</span> <span class="n">v1</span><span class="p">.</span><span class="n">Cross</span><span class="p">(</span><span class="n">v2</span><span class="p">);</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">abs</span><span class="p">(</span><span class="n">res</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">)</span><span class="k">return</span> <span class="p">{</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span> <span class="p">};</span>
-    <span class="k">return</span> <span class="p">{</span> <span class="mf">1.f</span> <span class="o">-</span> <span class="p">(</span><span class="n">res</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">res</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="n">res</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">res</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">res</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="p">,</span><span class="n">res</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">res</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="p">};</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
-</div>
-</div><h2 id="3-背面剔除">3. 背面剔除</h2>
-<p>渲染三角形的开销比渲染直线的开销大得多，为了在渲染模型时提高效率，我们不希望渲染视野中模型背面的三角形，这里涉及一个三角形法向的问题，一般情况下，逆时针顶点顺序的三角形会被处理成正向三角形</p>
-<p><img src="faceculling_frontback.png" alt="img" /></p>
-<p>因此，要知道从摄像机视角方向$\pmb v$看到的三角形$\pmb p=(\pmb p_1,\pmb p_2,\pmb p_3)$是否在背面，只需判断是否满足：<br />
-$$<br />
-\pmb v\cdot[(\pmb p_2-\pmb p_1)\times(\pmb p_3-\pmb p_1)]&gt;0<br />
-$$<br />
-对小于0的面不予以绘制</p>
-<p><img src="image-20210218172823698.png" alt="image-20210218172823698" /></p>
-<p>可以看到效果其实还不正确，但这是因为没有做遮挡面剔除的缘故，具体方法后面再谈</p>
+</li>
+<li>
+<p>Limitations in computing $\tilde L_o(\pmb x,\pmb \omega_o)$</p>
+<ul>
+<li>It assumes a single directional light instead of integrating over the hemisphere of all incident directions $\Omega$</li>
+<li>It approximates an object’s BRDF $f_s(\cdot)$​ as a single scalar</li>
+<li>It ignores emitted radiance $L_e(\cdot)$​ (in addition to scattering and transmittance, which this rendering equation does not model either)</li>
+</ul>
+</li>
+<li>
+<p>The goal of the learning-based model is to close the gap between $L_o(\pmb x,\pmb \omega_o)$ and $\tilde L_o(\pmb x,\pmb \omega_o)$, and furthermore between $L_o(\pmb x,\pmb \omega_o)$ and the observed image</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Motivation</p>
+<ul>
+<li>the geometry and texture atlas offers us a mapping from each image of a subject onto a canonical texture atlas that is shared across all views of that subject</li>
+</ul>
+</li>
+<li>
+<p>Approach</p>
+<ul>
+<li>Use geometry and texture atlas to map the input images of the subject from “camera space” (XY pixel coordinates) to “texture space” (UV texture atlas coordinates)</li>
+<li>Use a semi-parametric neural network embedded in this texture space to fuse multiple observations and synthesize an RGB texture atlas for the desired relit and/or novel-view image</li>
+<li>Warped back into the camera space of the desired viewpoint, thereby giving us an output rendering of the subject under the desired illumination and viewpoint</li>
+</ul>
+</li>
+</ul>
+<p>The Demo can explain everything:</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/gWdKjxCmYMI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<h2 id="4-limitations">4. Limitations</h2>
+<ol>
+<li>The method must be trained individually per scene, and generalizing to unseen scenes is an important future step for the field</li>
+<li>The fixed 1024×1024 resolution of the texture-space model limits the model’s ability to synthesize higher-frequency contents
+<ul>
+<li>Especially when the camera zooms very close to the subject, or when an image patch is allocated too few texels</li>
+<li>This could be solved by training on higherresolution images, but this would increase memory requirements and likely require significant engineering effort</li>
+</ul>
+</li>
+<li>Has occasional failure modes, where complex light transport effects, such as the ones on the glittery chain, are hard to synthesize, and the final renderings lack high-frequency details</li>
+</ol>
+<p><img src="image-20210826171628552.png" alt="image-20210826171628552" /></p>
 
     </article>
     
@@ -2184,14 +2311,14 @@ $$<br />
     
 <div class="donation">
   <div class="donation__message">
-    分享
+    Share on
   </div>
   <div class="donation__icons">
     
     
     
       
-        <a href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fchaphlagical.github.io%2fzh%2fposts%2fsoftwarerenderer%2ftriangle%2f" title="Facebook" aria-label="Facebook Share Button" class="donation__item" target="_blank" rel="noreferrer" data-type="share">
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fchaphlagical.github.io%2fen%2fposts%2fpaperreading%2fneural_light_transport_for_relighting_and_view_synthesis%2f" title="Facebook" aria-label="Facebook Share Button" class="donation__item" target="_blank" rel="noreferrer" data-type="share">
           <svg data-name="facebook" enable-background="new 0 0 24 24" viewBox="0 0 24 24" width="35" height="35" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="m15.997 3.985h2.191v-3.816c-.378-.052-1.678-.169-3.192-.169-3.159 0-5.323 1.987-5.323 5.639v3.361h-3.486v4.266h3.486v10.734h4.274v-10.733h3.345l.531-4.266h-3.877v-2.939c.001-1.233.333-2.077 2.051-2.077z"/></svg>
         </a>
       
@@ -2220,7 +2347,7 @@ $$<br />
   </div>
   <div class="whoami__contents">
     <div class="whoami__written-by">
-      作者
+      WRITTEN BY
     </div>
     <div class="whoami__title">
       
@@ -2366,22 +2493,26 @@ $$<br />
     <h1 class="related__title">
       <hr class="hr-dots"/>
       <div>
-        相关内容
+        See Also
       </div>
       <hr class="hr-dots"/>
     </h1>
     <ul class="related-ul">
         
         <li>
-          <a href="/zh/posts/softwarerenderer/zbuffer/" class="related__link">Z-Buffer与遮挡剔除</a>
+          <a href="/en/posts/paperreading/fast_diffraction_pathfinding_for_dynamic_sound_propagation/" class="related__link">Fast Diffraction Pathfinding for Dynamic Sound Propagation</a>
         </li>
         
         <li>
-          <a href="/zh/posts/softwarerenderer/mathematics/" class="related__link">3D数学基础</a>
+          <a href="/en/posts/paperreading/temporally_adaptive_shading_reuse_for_real_time_rendering_and_virtual_reality/" class="related__link">Temporally Adaptive Shading Reuse for Real-time Rendering and Virtual Reality</a>
         </li>
         
         <li>
-          <a href="/zh/posts/softwarerenderer/line/" class="related__link">光栅画线算法</a>
+          <a href="/en/posts/paperreading/gpu_accelerated_path_tracing_of_massive_scenes/" class="related__link">GPU Accelerated Path Tracing of Massive Scenes</a>
+        </li>
+        
+        <li>
+          <a href="/en/posts/paperreading/extranet/" class="related__link">ExtraNet: Real-time Extrapolated Rendering for Low-latency Temporal Supersampling</a>
         </li>
         
     </ul>
@@ -2391,21 +2522,14 @@ $$<br />
 <nav class="pagination-single">
   
     
-      <a href="https://chaphlagical.github.io/zh/posts/softwarerenderer/mathematics/" class="pagination-single__left">
+      <a href="https://chaphlagical.github.io/en/posts/paperreading/fast_diffraction_pathfinding_for_dynamic_sound_propagation/" class="pagination-single__left">
         <div class="pagination-single__icon">
           <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path fill="currentColor" d="M19 11H7.83l4.88-4.88c.39-.39.39-1.03 0-1.42-.39-.39-1.02-.39-1.41 0l-6.59 6.59c-.39.39-.39 1.02 0 1.41l6.59 6.59c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41L7.83 13H19c.55 0 1-.45 1-1s-.45-1-1-1z"/></svg>
         </div>
-        <div class="pagination-single__left-title">3D数学基础</div>      
+        <div class="pagination-single__left-title">Fast Diffraction Pathfinding for Dynamic Sound Propagation</div>      
       </a>
     
     <div class="grow"></div>
-    
-      <a href="https://chaphlagical.github.io/zh/posts/softwarerenderer/zbuffer/" class="pagination-single__right">      
-        <div class="pagination-single__right-title">Z-Buffer与遮挡剔除</div>
-        <div class="pagination-single__icon">
-          <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path fill="currentColor" d="M5 13h11.17l-4.88 4.88c-.39.39-.39 1.03 0 1.42.39.39 1.02.39 1.41 0l6.59-6.59c.39-.39.39-1.02 0-1.41l-6.58-6.6c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41L16.17 11H5c-.55 0-1 .45-1 1s.45 1 1 1z"/></svg>
-        </div>
-      </a>
     
   
 </nav>
@@ -2751,7 +2875,7 @@ document.addEventListener('DOMContentLoaded', function () {
   <span class="icon">
     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M15.5 14h-.79l-.28-.27c1.2-1.4 1.82-3.31 1.48-5.34-.47-2.78-2.79-5-5.59-5.34-4.23-.52-7.79 3.04-7.27 7.27.34 2.8 2.56 5.12 5.34 5.59 2.03.34 3.94-.28 5.34-1.48l.27.28v.79l4.25 4.25c.41.41 1.08.41 1.49 0 .41-.41.41-1.08 0-1.49L15.5 14zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
   </span>
-  <input id="search" aria-label="Site Search" class="input" type="text" placeholder="搜索" autocomplete="off">
+  <input id="search" aria-label="Site Search" class="input" type="text" placeholder="Search" autocomplete="off">
   <div id="search-results" class="dropdown">
     <div id="search-menu" class="dropdown-menu" role="menu">
     </div>
@@ -3322,14 +3446,14 @@ document.addEventListener('DOMContentLoaded', function () {
       
       
         
+        
+          
+            
+              <a href="https://chaphlagical.github.io/en/posts/paperreading/neural_light_transport_for_relighting_and_view_synthesis/" data-lang="en" class="dropdown-item is-active">English</a>
+            
+          
+        
       
-        
-        
-          
-            
-              <a href="https://chaphlagical.github.io/zh/posts/softwarerenderer/triangle/" data-lang="zh" class="dropdown-item is-active">简体中文</a>
-            
-          
         
       
     
@@ -3464,7 +3588,7 @@ document.addEventListener('DOMContentLoaded', function () {
   
   
     
-      <a href="https://chaphlagical.github.io/zh/posts/index.xml" type="application/rss+xml" title="RSS" aria-label="RSS Feed Link">
+      <a href="https://chaphlagical.github.io/en/posts/index.xml" type="application/rss+xml" title="RSS" aria-label="RSS Feed Link">
         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><circle fill="currentColor" cx="6.18" cy="17.82" r="2.18"/><path fill="currentColor" d="M5.59 10.23c-.84-.14-1.59.55-1.59 1.4 0 .71.53 1.28 1.23 1.4 2.92.51 5.22 2.82 5.74 5.74.12.7.69 1.23 1.4 1.23.85 0 1.54-.75 1.41-1.59-.68-4.2-3.99-7.51-8.19-8.18zm-.03-5.71C4.73 4.43 4 5.1 4 5.93c0 .73.55 1.33 1.27 1.4 6.01.6 10.79 5.38 11.39 11.39.07.73.67 1.28 1.4 1.28.84 0 1.5-.73 1.42-1.56-.73-7.34-6.57-13.19-13.92-13.92z"/></svg>
       </a>
     
@@ -3520,7 +3644,7 @@ document.addEventListener('DOMContentLoaded', function () {
     
       
         <div class="toc__flexbox--outer" data-position="fixed" data-dir="ltr" data-ani="true">
-          <h6 class="toc__title toc__title--outer" data-ani="true">目录</h6>
+          <h6 class="toc__title toc__title--outer" data-ani="true">What&#39;s on this Page</h6>
           
           <label class="switch" data-ani="true">
             <input id="visible-toc" aria-label="Visible TOC" type="checkbox" checked>
@@ -3531,9 +3655,11 @@ document.addEventListener('DOMContentLoaded', function () {
         <div class="toc toc__outer " data-dir="ltr" data-folding="true" data-ani="true">
           <nav id="TableOfContents">
   <ul>
-    <li><a href="#1-行扫描算法">1. 行扫描算法</a></li>
-    <li><a href="#2-三角形重心方法">2. 三角形重心方法</a></li>
-    <li><a href="#3-背面剔除">3. 背面剔除</a></li>
+    <li><a href="#abstract">Abstract</a></li>
+    <li><a href="#1-introduction">1. Introduction</a></li>
+    <li><a href="#2-related-work">2. Related Work</a></li>
+    <li><a href="#3-method">3. Method</a></li>
+    <li><a href="#4-limitations">4. Limitations</a></li>
   </ul>
 </nav>
         </div>
