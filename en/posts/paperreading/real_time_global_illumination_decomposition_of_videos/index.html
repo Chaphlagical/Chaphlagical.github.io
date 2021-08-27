@@ -1916,9 +1916,9 @@ $$</p>
 <p>For every surface point in the scene, assume that a single indirect bounce of light may occur from every base reflectance color, in addition to the direct illumination</p>
 </li>
 <li>
-<p>The global illumination in the scene is modeled using a linear decomposition of the illumination layer $\pmb S$ into a direct illumination layer $T_0$ and the sum of the $K$​ indirect illumination layers ${T_k}<em>{0&lt;k\leq K}$<br />
-$$<br />
-\pmb I(\pmb x)=\pmb R(\pmb x)\odot \sum</em>{k=0}^K\pmb b_k T_k(\pmb x)<br />
+<p>The global illumination in the scene is modeled using a linear decomposition of the illumination layer $\pmb S$​​ into a direct illumination layer $T_0$​​ and the sum of the $K$​​​ indirect illumination layers $\{T_k\}_{0&lt;k\leq K}$​​</p>
+<p>$$<br />
+\pmb I(\pmb x)=\pmb R(\pmb x)\odot \sum_{k=0}^K\pmb b_k T_k(\pmb x)<br />
 $$</p>
 <ul>
 <li>$\pmb b_0$: represents the color of the illuminant: white in paper&rsquo;s case, i.e. $\pmb b_0=(1,1,1)$</li>
@@ -2050,7 +2050,7 @@ $$</p>
 corresponding to the base colors ${\pmb b_k}$</p>
 <ul>
 <li>The direct illumination layer $T_0$​​ represents the direct contribution to the scene by the external light sources</li>
-<li>The indirect illumination layers ${T_k}$​​​ capture the inter-reflections that occur within the scene</li>
+<li>The indirect illumination layers $\{T_k\}$​​​​ capture the inter-reflections that occur within the scene</li>
 </ul>
 </li>
 <li>
@@ -2059,7 +2059,7 @@ $$<br />
 E_{\mathrm{decomp}}(\pmb \chi)=E_{\mathrm{data}}(\pmb \chi)+E_{\mathrm{reflectance}}(\pmb \chi)+E_{\mathrm{illumination}}(\pmb \chi)<br />
 $$</p>
 <ul>
-<li>$\pmb \chi={\pmb R,T_0,{T_k}}$ is the set of variables to be optimized</li>
+<li>$\pmb \chi=\{\pmb R,T_0,\{T_k\}\}$​ is the set of variables to be optimized</li>
 <li>The base colors ${\pmb b_k}$ stay fixed</li>
 <li>Optimize this energy using a novel fast GPU solver to obtain real-time performance</li>
 </ul>
@@ -2068,11 +2068,11 @@ $$</p>
 <p><strong>Data Fidelity Term</strong></p>
 <p>This constraint enforces that the decomposition result reproduces the input image:<br />
 $$<br />
-E_{\mathrm{data}}(\pmb \chi)=\lambda_{\mathrm{data}}\cdot \sum_{\pmb x}\Bigg|\pmb I(\pmb x)-\pmb R(\pmb x)\odot \sum_{k=0}^K\pmb b_kT_k(\pmb x) \Bigg|_2^2<br />
+E_{\mathrm{data}}(\pmb \chi)=\lambda_{\mathrm{data}}\cdot \sum_{\pmb x}\left\Vert\pmb I(\pmb x)-\pmb R(\pmb x)\odot \sum_{k=0}^K\pmb b_kT_k(\pmb x) \right\Vert^2<br />
 $$</p>
 <ul>
 <li>$\lambda_{\mathrm {data}}$: the weight for this energy term</li>
-<li>$T_k$: the $(K+1)$​​ illumination layers of the decomposition(one direct layer $T_0$ and $K$ indirect layers ${T_k}$​)</li>
+<li>$T_k$: the $(K+1)$​​​ illumination layers of the decomposition(one direct layer $T_0$​ and $K$​ indirect layers $\{T_k\}$​​)</li>
 </ul>
 <h3 id="61-reflectance-priors">6.1. Reflectance Priors</h3>
 <ul>
@@ -2089,7 +2089,7 @@ $$</li>
 <li>
 <p>Constrain the reflectance map to remain close to the clustered image using the following energy term:<br />
 $$<br />
-E_{\mathrm{clustering}}(\pmb \chi)=\lambda_{\mathrm{clustering}}\cdot \sum_{\pmb x} |\pmb r(\pmb x)-\pmb r_{\mathrm{cluster}}(\pmb x) |_2^2<br />
+E_{\mathrm{clustering}}(\pmb \chi)=\lambda_{\mathrm{clustering}}\cdot \sum_{\pmb x} \parallel\pmb r(\pmb x)-\pmb r_{\mathrm{cluster}}(\pmb x) \parallel_2^2<br />
 $$</p>
 <ul>
 <li>$\pmb r$: represent the quantity $\pmb R$​ in the log-domain, i.e. $\pmb r=\ln\pmb R$</li>
@@ -2101,10 +2101,10 @@ $$</p>
 <ul>
 <li>Encourages a piecewise constant reflectance map using gradient sparsity</li>
 <li>Natural scenes generally consist of a small set of objects and materials, hence the reflectance layer is expected to have sparse gradients</li>
-<li>Such a spatially sparse solution for the reflectance image can be obtained by minimizing the $\mathcal ℓ_p-\mathrm{norm}$ ($p\in[0,1]$) of the gradient magnitude $|\nabla \pmb r|_2$</li>
+<li>Such a spatially sparse solution for the reflectance image can be obtained by minimizing the $\mathcal ℓ_p-\mathrm{norm}$ ($p\in[0,1]$) of the gradient magnitude $\parallel\nabla \pmb r\parallel_2$</li>
 </ul>
 <p>$$<br />
-E_{\mathrm{r-sparsity}}=\lambda_{\mathrm{r-sparsity}}\cdot\sum_{\pmb x}|\nabla \pmb r(\pmb x)|_2^p<br />
+E_{\mathrm{r-sparsity}}=\lambda_{\mathrm{r-sparsity}}\cdot\sum_{\pmb x}\parallel\nabla \pmb r(\pmb x)\parallel_2^p<br />
 $$</p>
 <p><strong>Spatiotemporal Reflectance Consistency Prior</strong></p>
 <ul>
@@ -2114,9 +2114,9 @@ $$</p>
 </ul>
 <p>$$<br />
 \begin{align}<br />
-E_{\mathrm{r-consistency}}(\pmb \chi)&amp;=\lambda_{\mathrm{r-consistency}}\cdot \sum_{i=1}^{N_s}g_i(\pmb x)\cdot |\pmb r(\pmb x)-\pmb r_{t_i}(\pmb y_i)|_2^2\\<br />
+E_{\mathrm{r-consistency}}(\pmb \chi)&amp;=\lambda_{\mathrm{r-consistency}}\cdot \sum_{i=1}^{N_s}g_i(\pmb x)\cdot \parallel\pmb r(\pmb x)-\pmb r_{t_i}(\pmb y_i)\parallel_2^2\\<br />
 g_i(\pmb x)&amp;=\begin{cases}<br />
-w_{iw}(\pmb x)&amp;\mathrm{if}\ |\pmb c(\pmb x)-\pmb c_{t_i}(\pmb y_i)|_2&lt;\tau_{cc}\\<br />
+w_{iw}(\pmb x)&amp;\mathrm{if}\ \parallel\pmb c(\pmb x)-\pmb c_{t_i}(\pmb y_i)\parallel_2&lt;\tau_{cc}\\<br />
 0&amp;\mathrm{otherwise}<br />
 \end{cases}<br />
 \end{align}<br />
@@ -2180,11 +2180,11 @@ $$</p>
 <li>
 <p>Apply the sparsity-inducing $\mathcal ℓ_1-\mathrm{norm}$ to the indirect illumination layers<br />
 $$<br />
-E_{\mathrm{i-sparsity}}(\pmb \chi)=\lambda_{\mathrm{i-sparsity}}\cdot\sum_{\pmb x}\Big| {T_k(\pmb x)}^K_{k=1} \Big|_1<br />
+E_{\mathrm{i-sparsity}}(\pmb \chi)=\lambda_{\mathrm{i-sparsity}}\cdot\sum_{\pmb x}\left\Vert\{T_k(\pmb x)\}^K_{k=1} \right\Vert_1<br />
 $$</p>
 </li>
 </ul>
-<p>**Spatial Smoothness  **</p>
+<p><strong>Spatial Smoothness</strong></p>
 <ul>
 <li>
 <p>Encourage the decomposition to be spatially piecewise smooth using an $ℓ1-\mathrm{sparsity}$​ prior in the gradient domain</p>
@@ -2192,7 +2192,7 @@ $$</p>
 <li>
 <p>Enforces piecewise constancy of each direct or indirect illumination layer<br />
 $$<br />
-E_{\mathrm{smoothness}}(\pmb \chi)=\lambda_{\mathrm{smoothness}}\cdot \sum_{\pmb x}\sum_{k=0}^K|\nabla T_k(\pmb x)|_1<br />
+E_{\mathrm{smoothness}}(\pmb \chi)=\lambda_{\mathrm{smoothness}}\cdot \sum_{\pmb x}\sum_{k=0}^K\parallel\nabla T_k(\pmb x)\parallel_1<br />
 $$</p>
 </li>
 <li>
@@ -2228,8 +2228,8 @@ $$</p>
 <p>The refinement of base colors is formulated as an incremental update $\Delta \pmb b_k$ of the base colors $\pmb b_k$​ in the original data fidelity term, along with intensity and chromaticity regularizers<br />
 $$<br />
 \begin{align}<br />
-E_{\mathrm{refine}}(\pmb \chi)&amp;=\lambda_{\mathrm{data}}\sum_{\pmb x}\Bigg| \pmb I(\pmb x)-\pmb R(\pmb x)\odot \sum_{k=0}^K(\pmb b_k+\Delta\pmb b_k)T_k(\pmb x) \Bigg|_2^2\\<br />
-&amp;+\lambda_{\mathrm{IR}}\sum_{k=1}^K|\Delta\pmb b_k|_2^2+\lambda_{\mathrm{CR}}\sum_{k=1}^K|(\pmb C(\pmb b_k)+\Delta\pmb b_k)-\pmb C(\pmb b_k)|_2^2<br />
+E_{\mathrm{refine}}(\pmb \chi)&amp;=\lambda_{\mathrm{data}}\sum_{\pmb x}\left\Vert \pmb I(\pmb x)-\pmb R(\pmb x)\odot \sum_{k=0}^K(\pmb b_k+\Delta\pmb b_k)T_k(\pmb x) \right\Vert^2\\<br />
+&amp;+\lambda_{\mathrm{IR}}\sum_{k=1}^K\parallel\Delta\pmb b_k\parallel_2^2+\lambda_{\mathrm{CR}}\sum_{k=1}^K\parallel(\pmb C(\pmb b_k)+\Delta\pmb b_k)-\pmb C(\pmb b_k)\parallel_2^2<br />
 \end{align}<br />
 $$</p>
 <ul>
@@ -2265,14 +2265,14 @@ $$</p>
 <p>Handle these objectives in a unified manner using Iteratively Re-weighted Least Squares</p>
 </li>
 <li>
-<p>Approximate the $ℓ𝑝-\mathrm{norms}$​ by a nonlinear least-squares objective based on re-weighting, i.e., replace the corresponding residuals $\pmb r$​ as follows:<br />
-$$<br />
+<p>Approximate the $ℓ𝑝-\mathrm{norms}$​ by a nonlinear least-squares objective based on re-weighting, i.e., replace the corresponding residuals $\pmb r$​ as follows:</p>
+<p>$$<br />
 \begin{align}<br />
-|\pmb r|_p&amp;=|\pmb r|_2^2\cdot |\pmb r|_2^{p-2}\<br />
-&amp;\approx |\pmb r|<em>2^2\cdot |\pmb r</em>{\mathrm {old}}|_2^{p-2}<br />
+\parallel\pmb r\parallel_p&amp;=\parallel\pmb r\parallel_2^2\cdot \parallel\pmb r\parallel_2^{p-2}\\<br />
+&amp;\approx \parallel\pmb r\parallel_2^2\cdot \parallel\pmb r_{\mathrm {old}}\parallel_2^{p-2}<br />
 \end{align}<br />
-$$<br />
-in each step of the applied iterative solver</p>
+$$</p>
+<p>in each step of the applied iterative solver</p>
 <ul>
 <li>$\pmb r_{\mathrm{old}}$: the corresponding residual after the previous iteration step</li>
 </ul>
@@ -2287,7 +2287,7 @@ in each step of the applied iterative solver</p>
 <p>Handle this objective by replacing the maximum with a re-weighted least-squares term, $\max(-T_k(\pmb x),0)=w_kT_k^2(\pmb x)$, using<br />
 $$<br />
 w_k=\begin{cases}<br />
-0&amp;\mathrm{if}\ T_k(\pmb x)&gt;0\<br />
+0&amp;\mathrm{if}\ T_k(\pmb x)&gt;0\\<br />
 (|T_k(\pmb x)+\epsilon|)^{-1}&amp;\mathrm{otherwise}<br />
 \end{cases}<br />
 $$</p>
@@ -2316,10 +2316,10 @@ $$</p>
 <li>
 <p>The optimal linear update $\pmb \delta_k^\ast$​​ is given by the solution of the associated normal equations:</p>
 <p>$$<br />
-\pmb\delta_k^\ast=\arg\min_{\pmb\delta_k}|\pmb F(\pmb \chi_{k-1})+\pmb\delta_k\pmb J(\pmb \chi_{k-1})|_2^2<br />
+\pmb\delta_k^\ast=\arg\min_{\pmb\delta_k}\parallel\pmb F(\pmb \chi_{k-1})+\pmb\delta_k\pmb J(\pmb \chi_{k-1})\parallel_2^2<br />
 $$</p>
 <ul>
-<li>$\pmb F$: a vector field that stacks all residuals, i.e., $E(\pmb\chi)=|\pmb F(\pmb\chi)|_2^2$</li>
+<li>$\pmb F$: a vector field that stacks all residuals, i.e., $E(\pmb\chi)=\parallel\pmb F(\pmb\chi)\parallel_2^2$</li>
 <li>$\pmb J$: its Jacobian matrix</li>
 </ul>
 </li>
