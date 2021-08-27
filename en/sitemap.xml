@@ -3,7 +3,7 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://chaphlagical.github.io/en/</loc>
-    <lastmod>2021-08-25T16:30:00+01:00</lastmod>
+    <lastmod>2021-08-27T21:02:00+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh"
@@ -16,7 +16,7 @@
                 />
   </url><url>
     <loc>https://chaphlagical.github.io/en/categories/</loc>
-    <lastmod>2021-08-25T16:30:00+01:00</lastmod>
+    <lastmod>2021-08-27T21:02:00+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh"
@@ -28,14 +28,11 @@
                 href="https://chaphlagical.github.io/en/categories/"
                 />
   </url><url>
-    <loc>https://chaphlagical.github.io/en/posts/paperreading/neural_light_transport_for_relighting_and_view_synthesis/</loc>
-    <lastmod>2021-08-25T16:30:00+01:00</lastmod>
-  </url><url>
     <loc>https://chaphlagical.github.io/en/categories/paper-reading/</loc>
-    <lastmod>2021-08-25T16:30:00+01:00</lastmod>
+    <lastmod>2021-08-27T21:02:00+01:00</lastmod>
   </url><url>
     <loc>https://chaphlagical.github.io/en/posts/</loc>
-    <lastmod>2021-08-25T16:30:00+01:00</lastmod>
+    <lastmod>2021-08-27T21:02:00+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh"
@@ -47,11 +44,14 @@
                 href="https://chaphlagical.github.io/en/posts/"
                 />
   </url><url>
+    <loc>https://chaphlagical.github.io/en/posts/paperreading/real_time_global_illumination_decomposition_of_videos/</loc>
+    <lastmod>2021-08-27T21:02:00+01:00</lastmod>
+  </url><url>
     <loc>https://chaphlagical.github.io/en/tags/rendering/</loc>
-    <lastmod>2021-08-25T16:30:00+01:00</lastmod>
+    <lastmod>2021-08-27T21:02:00+01:00</lastmod>
   </url><url>
     <loc>https://chaphlagical.github.io/en/tags/</loc>
-    <lastmod>2021-08-25T16:30:00+01:00</lastmod>
+    <lastmod>2021-08-27T21:02:00+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh"
@@ -62,6 +62,9 @@
                 hreflang="en"
                 href="https://chaphlagical.github.io/en/tags/"
                 />
+  </url><url>
+    <loc>https://chaphlagical.github.io/en/posts/paperreading/neural_light_transport_for_relighting_and_view_synthesis/</loc>
+    <lastmod>2021-08-25T16:30:00+01:00</lastmod>
   </url><url>
     <loc>https://chaphlagical.github.io/en/posts/paperreading/fast_diffraction_pathfinding_for_dynamic_sound_propagation/</loc>
     <lastmod>2021-08-23T22:20:00+01:00</lastmod>

@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Neural Light Transport for Relighting and View Synthesis – Chaf&#39;s Blog</title>
+    <title>Real-Time Global Illumination Decomposition of Videos – Chaf&#39;s Blog</title>
     
 
 
@@ -653,7 +653,7 @@
     
     var baseurl = JSON.parse("\"https://chaphlagical.github.io\"");
     
-    var permalink = JSON.parse("\"https://chaphlagical.github.io/en/posts/paperreading/neural_light_transport_for_relighting_and_view_synthesis/\"");
+    var permalink = JSON.parse("\"https://chaphlagical.github.io/en/posts/paperreading/real_time_global_illumination_decomposition_of_videos/\"");
     
     var langprefix = JSON.parse("\"/en\"");
     var searchResults = null;
@@ -1328,16 +1328,16 @@
 
 <meta name="keywords" content="Rendering">
 
-<meta name="created" content="2021-08-25T16:30:00&#43;0100">
-<meta name="modified" content="2021-08-25T16:30:00&#43;0100">
-<meta property="article:published_time" content="2021-08-25T16:30:00&#43;0100">
+<meta name="created" content="2021-08-27T21:02:00&#43;0100">
+<meta name="modified" content="2021-08-27T21:02:00&#43;0100">
+<meta property="article:published_time" content="2021-08-27T21:02:00&#43;0100">
 
 <meta name="author" content="Wenbo Chen">
 
 
 <meta property="og:site_name" content="Chaf&#39;s Blog">
-<meta property="og:title" content="Neural Light Transport for Relighting and View Synthesis">
-<meta property="og:url" content="https://chaphlagical.github.io/en/posts/paperreading/neural_light_transport_for_relighting_and_view_synthesis/">
+<meta property="og:title" content="Real-Time Global Illumination Decomposition of Videos">
+<meta property="og:url" content="https://chaphlagical.github.io/en/posts/paperreading/real_time_global_illumination_decomposition_of_videos/">
 <meta property="og:type" content="article">
 <meta property="og:description" content="Siggraph 2021 Paper Reading">
 
@@ -1350,7 +1350,7 @@
 
 <meta name="apple-mobile-web-app-status-bar-style" content="#fff">
 
-<link rel="canonical" href="https://chaphlagical.github.io/en/posts/paperreading/neural_light_transport_for_relighting_and_view_synthesis/">
+<link rel="canonical" href="https://chaphlagical.github.io/en/posts/paperreading/real_time_global_illumination_decomposition_of_videos/">
 
 <link rel="manifest" href="/manifest.json">
 
@@ -1376,10 +1376,10 @@
   {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    "headline": "Neural Light Transport for Relighting and View Synthesis",
-    "datePublished": "2021-08-25T16:30:00+01:00",
-    "dateModified": "2021-08-25T16:30:00+01:00",
-    "url" : "https://chaphlagical.github.io/en/posts/paperreading/neural_light_transport_for_relighting_and_view_synthesis/",
+    "headline": "Real-Time Global Illumination Decomposition of Videos",
+    "datePublished": "2021-08-27T21:02:00+01:00",
+    "dateModified": "2021-08-27T21:02:00+01:00",
+    "url" : "https://chaphlagical.github.io/en/posts/paperreading/real_time_global_illumination_decomposition_of_videos/",
     "description": "Siggraph 2021 Paper Reading",
     "keywords": ["Rendering"],
     "mainEntityOfPage": {
@@ -1763,7 +1763,7 @@ if (!doNotTrack) {
   
   <li  class="is-active" >
     
-      <span>Neural Light Transport for Relighting and View Synthesis</span>
+      <span>Real-Time Global Illumination Decomposition of Videos</span>
     
   </li>
   
@@ -1775,14 +1775,14 @@ if (!doNotTrack) {
   <div class="single ">
     <div class="single__nojs">This page looks best with JavaScript enabled</div>
     <script>document.querySelector('.single').classList.remove('hide'); document.querySelector('.single__nojs').classList.add('hide');</script>
-    <h2 class="single__title" data-ani="true">Neural Light Transport for Relighting and View Synthesis</h2>
+    <h2 class="single__title" data-ani="true">Real-Time Global Illumination Decomposition of Videos</h2>
     <h3 class="single__subtitle"></h3>
     <div class="single__meta">
       
 <div class="single__infos">
-  <time class="single__info" title="Written At">📅&nbsp;Aug 25, 2021 </time>
+  <time class="single__info" title="Written At">📅&nbsp;Aug 27, 2021 </time>
   
-  &nbsp;&middot;&nbsp; <span class="single__info" title="Reading Time"> ☕&nbsp;10&nbsp;min read </span>
+  &nbsp;&middot;&nbsp; <span class="single__info" title="Reading Time"> ☕&nbsp;18&nbsp;min read </span>
   
   <span class="single__info">
     
@@ -1801,324 +1801,627 @@ if (!doNotTrack) {
     <article class="single__contents" data-dir="ltr" data-ani="true">
       
       <p><strong>Author &amp; Institution</strong></p>
-<p><em>XIUMING ZHANG</em>, Massachusetts Institute of Technology<br />
-<em>SEAN FANELLO</em> and <em>YUN-TA TSAI</em>, Google<br />
-<em>TIANCHENG SUN</em>, <em>University of California</em>, San Diego<br />
-<em>TIANFAN XUE</em>, <em>ROHIT PANDEY</em>, <em>SERGIO ORTS-ESCOLANO</em>, <em>PHILIP DAVIDSON</em>, <em>CHRISTOPH RHEMANN</em>, <em>PAUL DEBEVEC</em>, and <em>JONATHAN T. BARRON</em>, Google<br />
-<em>RAVI RAMAMOORTHI</em>, University of California, San Diego<br />
-<em>WILLIAM T. FREEMAN</em>, Massachusetts Institute of Technology &amp; Google</p>
-<p><strong>Link</strong>: <a href="http://nlt.csail.mit.edu/">http://nlt.csail.mit.edu/</a></p>
+<p><em>ABHIMITRA MEKA*</em>, Max Planck Institute for Informatics, Saarland Informatics Campus and Google<br />
+<em>MOHAMMAD SHAFIEI*</em>, Max Planck Institute for Informatics, Saarland Informatics Campus<br />
+<em>MICHAEL ZOLLHÖFER</em>, Stanford University<br />
+<em>CHRISTIAN RICHARDT</em>, University of Bath<br />
+<em>CHRISTIAN THEOBALT</em>, <em>Max Planck</em> Institute for Informatics, Saarland Informatics Campus, Germany</p>
+<p><strong>Link</strong>: <a href="http://gvv.mpi-inf.mpg.de/projects/LiveIlluminationDecomposition/">http://gvv.mpi-inf.mpg.de/projects/LiveIlluminationDecomposition/</a></p>
 <h2 id="abstract">Abstract</h2>
 <ul>
-<li>
-<p>Light transport (LT)</p>
+<li>Propose the first approach for the decomposition of a monocular color video into direct and indirect illumination components in real time
 <ul>
-<li>The light transport (LT) of a scene describes how it appears under different lighting conditions from different viewing directions</li>
-<li>Complete knowledge of a scene’s LT enables the synthesis of novel views under arbitrary lighting</li>
+<li>In separate layers, the contribution made to the scene appearance by the scene reflectance, the light sources and the reflections from various coherent scene regions to one another</li>
+<li>Works for regular videos and produces temporally coherent decomposition layers at real-time frame rates</li>
+<li>Core: several sparsity priors that enable the estimation of the per-pixel direct and indirect illumination layers based on a small set of jointly estimated base reflectance colors</li>
+<li>The resulting variational decomposition problem uses a new formulation based on sparse and dense sets of non-linear equations that we solve efficiently using a novel alternating data-parallel optimization strategy</li>
 </ul>
 </li>
-<li>
-<p>In this paper</p>
-<ul>
-<li>Focus on image-based LT acquisition, primarily for human bodies within a light stage setup</li>
-<li>Propose a semi-parametric approach for learning a neural representation of the LT that is embedded in a texture atlas of known but possibly rough geometry</li>
-<li>Model all non-diffuse and global LT as residuals added to a physically-based diffuse base rendering
-<ul>
-<li>Show how to fuse previously seen observations of illuminants and views to synthesize a new image of the same scene under a desired lighting condition from a chosen viewpoint</li>
-<li>Allows the network to learn complex material effects (such as subsurface scattering) and global illumination (such as diffuse interreflection), while guaranteeing the physical correctness of the diffuse LT (such as hard shadows)</li>
-</ul>
-</li>
-<li>With this learned LT, one can relight the scene photorealistically with a directional light or an HDRI map, synthesize novel views with view-dependent effects, or do both simultaneously, all in a unified framework using a set of sparse observations</li>
-</ul>
-</li>
+<li>Existing techniques that invert global light transport require image capture under multiplexed controlled lighting, or only enable the decomposition of a single image at slow off-line frame rates</li>
 </ul>
 <h2 id="1-introduction">1. Introduction</h2>
+<p><img src="image-20210826201519197.png" alt="image-20210826201519197" /></p>
 <ul>
-<li>
-<p>Light Transport</p>
-<ul>
-<li>Models how light interacts with objects in the scene to produce an observed image</li>
-</ul>
-</li>
-<li>
-<p>Inferring light transport</p>
-<ul>
-<li>Acquiring the LT of a scene from images of that scene requires untangling the myriad interconnected effects of occlusion, shading, shadowing, interreflections, scattering, etc</li>
-</ul>
-</li>
-<li>
-<p>Application</p>
-<ul>
-<li>Phototourism</li>
-<li>Telepresence</li>
-<li>Storytelling</li>
-<li>Special effects</li>
-<li>Generating ground truth data for machine learning task
-<ul>
-<li>Many works rely on high-quality renderings of relit subjects under arbitrary lighting conditions and from multiple viewpoints
-<ul>
-<li>Relighting</li>
-<li>View synthesis</li>
-<li>Re-enacting</li>
-<li>Alpha-matting</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>
-<p>Previous work has shown that it is possible to construct a light stage , plenoptic camera , or gantry that directly captures a subset of the LT function and thereby enables the image-based rendering thereof</p>
-<ul>
-<li>Widely used in film productions and within the research community</li>
-<li>Can only provide sparse sampling of the LT limited to the number of LEDs(~ 300 on a spherical dome) and the number of cameras (~50-100 around the subject), resulting in the inability to produce photorealistic renderings outside the supported camera/light locations</li>
-<li>Traditional image-based rendering approaches are usually designed for fixed viewpoints and are unable to synthesize unseen (novel) views under a desired illumination</li>
-</ul>
-</li>
-<li>
-<p>In this paper</p>
-<ul>
-<li>Learn to interpolate the dense LT function of a given scene from sparse multi-view, One-Light-at-A-Time (OLAT) images acquired in a light stage,  through a semi-parametric technique that called Neural Light Transport (NLT)</li>
-<li>Many prior works have addressed similar tasks with classic works tending to rely on physics to recover analytical and interpretable models</li>
-<li>Recent works using neural networks to infer a more direct mapping from input images to an output image</li>
-</ul>
-</li>
-<li>
-<p>Rendering method</p>
-<ul>
-<li>Traditional rendering methods
-<ul>
-<li>Make simplifying assumptions when modeling geometry, BRDFs, or complex inter-object interactions</li>
-<li>Make the problem tractable</li>
-</ul>
-</li>
-<li>Deep learning approaches
-<ul>
-<li>Can tolerate geometric and reflectance imperfections</li>
-<li>Require many aspects of image formation (even those guaranteed by physics) be learned “from scratch,” which may necessitate a prohibitively large training set</li>
-</ul>
-</li>
-<li>NLT
-<ul>
-<li>Straddle this divide between traditional methods and deep learning approaches
-<ul>
-<li>Construct a classical model of the subject being imaged (a mesh and a diffuse texture atlas per Lambertian reflectance)</li>
-<li>Embed a neural network within the parameterization provided by that classical model</li>
-<li>Construct the inputs and outputs of the model in ways that leverage domain knowledge of classical graphics techniques</li>
-<li>Train that network to model all aspects of LT, including those not captured by a classical model</li>
-</ul>
-</li>
-<li>Able to learn an accurate model of the complicated LT function for a subject from a small training dataset of sparse observations</li>
-<li>A key novelty: the learned model is embedded within the texture atlas space of an existing geometric model of the subject, which provides a novel framework for simultaneous relighting and view interpolation</li>
-<li>Express the 6D LT function at each location on the surface of the geometric model as simply the output of a deep neural network
-<ul>
-<li>Works well (as neural networks are smooth and universal function approximators) and obviates the need for a complicated parameterization of spatially-varying reflectance</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p><img src="image-20210824205558319.png" alt="image-20210824205558319" /></p>
-<ul>
-<li>Main contribution
-<ul>
-<li>An end-to-end, semi-parametric method for learning to interpolate the 6D light transport function per-subject from real data using convolutional neural networks</li>
-<li>A unified framework for simultaneous relighting and view synthesis by embedding networks into a parameterized texture atlas and leveraging as input a set of One-Light-at-A-Time (OLAT) images</li>
-<li>A set of augmented texture-space inputs and a residual learning scheme on top of a physically accurate diffuse base, which together allow the network to easily learn non-diffuse, higher-order light transport effects including specular highlights, subsurface scattering, and global illumination</li>
-</ul>
+<li>Contributions
+<ol>
+<li>Joint illumination decomposition of direct and indirect illumination layers, and estimation and refinement of base colors that constitute the scene reflectance</li>
+<li>A sparsity-based automatic estimation of the underlying reflectance when a user identifies regions of strong interreflections</li>
+<li>A novel parallelized sparse–dense optimizer to solve a mixture of high-dimensional sparse problems jointly with lowdimensional dense problems at real-time frame rates</li>
+</ol>
 </li>
 </ul>
 <h2 id="2-related-work">2. Related Work</h2>
 <ul>
-<li>Problem
+<li>Inverse Rendering
 <ul>
-<li>Recovering a model of light transport from a sparse set of images of some subject</li>
-<li>Predicting novel images of that subject from unseen views and/or under unobserved illuminations</li>
+<li>The colors in an image depend on scene geometry, material appearance and illumination</li>
+<li>Reconstructing these components from a single image or video is a challenging and illposed problem called <em>inverse rendering</em></li>
+<li>Many complex image editing tasks can be achieved using a purely image-based decomposition without full inverse rendering</li>
+</ul>
+</li>
+<li>Global Illumination Decomposition
+<ul>
+<li>To decompose the captured radiance of a scene into direct and indirect components, some methods actively illuminate the scene to investigate the effect of light transport</li>
+</ul>
+</li>
+<li>Intrinsic Images
+<ul>
+<li>Many approaches have been introduced for the task of intrinsic image decomposition that explains a photograph using physically interpretable images such as reflectance and shading</li>
+</ul>
+</li>
+<li>Intrinsic Video</li>
+<li>Layer-based Image Editing
+<ul>
+<li>A physically accurate decomposition is not required to achieve complex image editing tasks such as recoloring of objects</li>
+<li>Instead, a decomposition into multiple semitransparent layers is often sufficient</li>
 </ul>
 </li>
 </ul>
-<p><strong>Single observation</strong></p>
+<h2 id="3-overview">3. Overview</h2>
+<p><img src="image-20210826203430702.png" alt="image-20210826203430702" /></p>
 <ul>
-<li>The most sparse sampling is just a single image, from which one could attempt to infer a model (geometry, reflectance, and illumination) of the physical world that resulted in that image
+<li>The first real-time method for temporally coherent illumination decomposition of a video into a reflectance layer, direct illumination layer and multiple indirect illumination layers
 <ul>
-<li>Via hand-crafted or learned priors</li>
+<li>Propose a novel sparsity-driven formulation for the estimation and refinement of a base color palette, which is used for decomposing the video frames</li>
+<li>Algorithm starts by automatically estimating a set of base colors that represent scene reflectances</li>
+<li>Automatic and only occasionally requires a minimal set of user clicks on the first video frame to identify regions of strong inter-reflections and refine the base colors
+<ul>
+<li>Propagate the user input automatically to the rest of the video by a spatiotemporal region-growing method</li>
 </ul>
 </li>
-<li>Though practical, the quality gap between what can be accomplished by single-image techniques and what has been demonstrated by multi-image techniques is significant
-<ul>
-<li>Can&rsquo;t show complex light transport effects such as specular highlights or subsurface scattering</li>
-<li>Limited to a single task, such as relighting, and some support only a limited range of viewpoint change</li>
+<li>Perform the illumination decomposition</li>
+<li>Formulation results in a mixture of dense and sparse non-convex high-dimensional optimization problems, which they solve efficiently using a custom-tailored parallel iterative non-linear solver that they implement on the GPU</li>
 </ul>
 </li>
+<li>Evaluate on a variety of synthetic and real-world scenes, and provide comparisons that show that our method outperforms state-of-the-art illumination decomposition, intrinsic decomposition and layer-based image editing techniques, both qualitatively and quantitatively</li>
+<li>Demonstrate that real-time illumination decomposition of videos enables a range of advanced, illumination-aware video editing applications that are suitable for photo-real augmented reality applications, such as inter-reflection-aware recoloring and retexturing</li>
 </ul>
-<p><strong>Multiple views</strong></p>
-<ul>
-<li>Multiview geometry techniques recover a textured 3D model that can be rendered using conventional graphics or photogrammetry techniques
-<ul>
-<li>Have material and shading variation baked in</li>
-<li>Do not enable relighting</li>
-</ul>
-</li>
-<li>Image-based rendering techniques such as light fields or lumigraphs
-<ul>
-<li>Can be used to directly sample and render the plenoptic function</li>
-<li>The accuracy of these techniques is limited by the density of sampled input images</li>
-<li>Do not enable relighting</li>
-</ul>
-</li>
-<li>Reprojection-based methods
-<ul>
-<li>For unstructured inputs</li>
-<li>Assume the availability of a geometry proxy (so does our work), reproject nearby views to the query view, and perform image blending in that view</li>
-<li>Rely heavily on the quality of the geometry proxy
-<ul>
-<li>A class-specific geometry prior (such as that of a human body) can be used to increase the accuracy of a geometry proxy</li>
-</ul>
-</li>
-<li>Cannot synthesize pixels that are not visible in the input views</li>
-<li>Do not enable relighting</li>
-</ul>
-</li>
-<li>Deep learning
-<ul>
-<li>Been used to synthesize new images from sparse sets of input images</li>
-<li>Usually by training neural networks to synthesize some intermediate geometric representation that is then projected into the desired image</li>
-<li>Some techniques even entirely replace the rendering process with a learned “neural” renderer</li>
-<li>Generally do not attempt to explicitly model light transport
-<ul>
-<li>Do not enable relighting</li>
-<li>Capable of preserving view-dependent effects for the fixed illumination condition under which the input images were acquired</li>
-</ul>
-</li>
-<li>Often breaks “backwards compatibility” with existing graphics systems</li>
-</ul>
-</li>
-</ul>
-<p><strong>Multiple illuminants</strong></p>
-<ul>
-<li>Repeatedly imaging a subject with a fixed camera but under different illuminations and then recovering the surface normals</li>
-<li>Most photometric stereo solutions assume Lambertian reflectance and do not support relighting with non-diffuse light transport</li>
-<li>Neural networks can be applied to relight a scene captured under multiple lighting conditions from a fixed viewpoint</li>
-</ul>
-<p><strong>Multiple views and illuminant</strong></p>
+<h2 id="4-problem-formulation">4. Problem Formulation</h2>
+<p>Algorithm: video frame -&gt; a reflectance layer + a direct illumination layer + multiple indirect illumination layers</p>
 <ul>
 <li>
-<p>Utilize the symmetry of illuminations and view directions to collect sparse samples of an 8D reflectance field, and reconstruct a complete field using a low-rank assumption</p>
-</li>
-<li>
-<p>Lack an explicit geometric model</p>
+<p>Simplifying assumption</p>
 <ul>
-<li>Rendering is limited to a fixed set of viewpoints</li>
+<li>Assume that the scene is Lambertian, i.e., surfaces exhibit no view-dependent effects and hence their reflectance can be parameterized as a diffuse albedo with RGB components</li>
+<li>Assume that all light sources in the scene produce only white colored light. Hence, the direct illumination in the scene can be expressed by a grayscale or single channel image</li>
+<li>Assume that the second reflection bounce (or the first inter-reflection) of light is the primary source of indirect illumination in the scene, while the contribution of subsequent bounces of light is negligible</li>
+<li>Assume that the motion of the camera in the video is smooth with significant overlap between adjacent frames</li>
+<li>Assume that no new objects or materials come into view after the first frame</li>
 </ul>
 </li>
 <li>
-<p>Supports relighting and view synthesis</p>
-<ul>
-<li>But assume pre-defined BRDFs</li>
-<li>Cannot synthesize more complex light transport effects present in real images</li>
-</ul>
-</li>
-<li>
-<p>In this paper</p>
-<ul>
-<li>Follows the convention of the nascent field of “neural rendering”, in which a separate neural network is trained for each subject to be rendered, and all images of that subject are treated as “training data.”
-<ul>
-<li>These approaches have shown great promise in terms of their rendering fidelity</li>
-<li>But require per-subject training and are unable to generalize across subjects yet</li>
-</ul>
-</li>
-<li>Paper&rsquo;s approach
-<ul>
-<li>Unlike prior work that focuses on a specific task</li>
-<li>The texture-space formulation allows for simultaneous light and view interpolation</li>
-<li>The model is a valuable training data generator for many works that rely on high-quality renderings of subjects under arbitrary lighting conditions and from multiple viewpoints</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="3-method">3. Method</h2>
-<p><img src="image-20210825094924494.png" alt="image-20210825094924494" style="zoom:80%;" /></p>
-<ul>
-<li>
-<p>The framework is a semi-parametric model with a residual learning scheme that aims to close the gap between the diffuse rendering of the geometry proxy and the real input image</p>
-<ul>
-<li>The semi-parametric approach is used to fuse previously recorded observations to synthesize a novel, photorealistic image under any desired illumination and viewpoint</li>
-</ul>
-</li>
-<li>
-<p>The method relies on recent advances in computer vision that have enabled accurate 3D reconstructions of human subjects</p>
-<ul>
-<li>Such as technique that takes as input several images of a subject and produces as output a mesh of that subject and a UV texture map describing its albedo</li>
-<li>At first glance, this appears to address the entirety of the problem: given a textured mesh, we can perform simultaneous view synthesis and relighting by simply re-rendering that mesh from some arbitrary camera location and under some arbitrary illumination</li>
-<li>Simplistic model of reflectance and illumination only permits equally simplistic relighting and view synthesis</li>
-</ul>
-</li>
-<li>
-<p>Assuming Lambertian reflectance:<br />
+<p>The algorithm factors each video frame $\pmb I$ into a per-pixel product of the reflectance $\pmb R$ and the illumination $\pmb S$<br />
 $$<br />
-\tilde L_o(\pmb x,\pmb \omega_o)=\rho(\pmb x)L_i(\pmb x,\pmb \omega_i)(\pmb \omega_i\cdot \pmb n(\pmb x))<br />
+\pmb I(\pmb x)=\pmb R(\pmb x)\odot \pmb S(\pmb x)<br />
 $$</p>
 <ul>
-<li>
-<p>$\tilde L_0(\pmb x,\pmb\omega_0)$ is the diffuse rendering of a point $\pmb x$ with a surface normal $\pmb n(\pmb x)$ and albedo $\rho(\pmb x)$, lit by a directional light $\pmb \omega_i$ with an incoming intensity $L_i(\pmb x,\pmb \omega_i)$ and view from $\pmb \omega_0$</p>
+<li>$\pmb x$: pixel location</li>
+<li>$\odot$: element-wise product</li>
+<li>For diffuse objects, the reflectance layer captures the surface albedo, and the illumination layer $\pmb S$​​ jointly captures the direct and indirect illumination effects</li>
+<li>Represent the illumination layer as a colored RGB image to allow indirect illumination effects to be expressed in the illumination layer</li>
+</ul>
 </li>
 <li>
-<p>This reflectance model is only sufficient for describing matte surfaces and direct illumination</p>
-</li>
-<li>
-<p>More recent methods also make strong assumptions about materials by modeling reflectance with a cosine lobe model</p>
+<p>Further decompose the illumination layer into a grayscale direct illumination layer resulting from the white illuminant, and multiple indirect colored illumination layers resulting from inter-reflections from colored objects in the scene</p>
 <ul>
-<li>The shortcomings of these methods are obvious when compared to a more expressive rendering approach, such as the rendering equation, which makes far fewer simplifying assumptions:</li>
+<li>
+<p>We start by estimating a set of base colors that consists of $K$ unique reflectance colors ${\pmb b_k}$​ that represent the scene</p>
+<ul>
+<li>$K$ is specified by the user, as superfluous clusters will be removed automatically</li>
+<li>This set of base colors serves as the basis for the illumination decomposition</li>
+<li>The base colors help constrain the values of pixels in the reflectance layer $\pmb R$</li>
+</ul>
+</li>
+<li>
+<p>For every surface point in the scene, assume that a single indirect bounce of light may occur from every base reflectance color, in addition to the direct illumination</p>
+</li>
+<li>
+<p>The global illumination in the scene is modeled using a linear decomposition of the illumination layer $\pmb S$ into a direct illumination layer $T_0$ and the sum of the $K$​ indirect illumination layers ${T_k}<em>{0&lt;k\leq K}$<br />
+$$<br />
+\pmb I(\pmb x)=\pmb R(\pmb x)\odot \sum</em>{k=0}^K\pmb b_k T_k(\pmb x)<br />
+$$</p>
+<ul>
+<li>$\pmb b_0$: represents the color of the illuminant: white in paper&rsquo;s case, i.e. $\pmb b_0=(1,1,1)$</li>
+<li>$T_0(\pmb x)$: indicates the light transport contribution from the direct illumination</li>
+<li>The contribution from each base color $\pmb b_k$ at a given pixel location $\pmb x$ is measured by the map $T_k(\pmb x)$​
+<ul>
+<li>Provides the net contribution by the base reflectance color to the global scene illumination</li>
+</ul>
+</li>
+<li>Obtain the set of base colors automatically using a real-time clustering technique
+<ul>
+<li>Once the base colors are obtained, the scene clustering can be further refined using a few simple user-clicks</li>
+<li>This refines only the regions of clustering but not the base colors themselves</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="5-base-color-estimation">5. Base Color Estimation</h2>
+<ul>
+<li>Initialize the set of base colors by clustering the dominant colors in the first video frame
+<ul>
+<li>This clustering step not only provides an initial base color estimate, but also a segmentation of the video into regions of approximately uniform reflectance</li>
+<li>If needed, the clustering in a video frame undergoes a user-guided correction</li>
+</ul>
+</li>
+<li>The base colors are used for the illumination decomposition
+<ul>
+<li>Further refined</li>
+<li>Used to compute the direct and indirect illumination layers</li>
+</ul>
+</li>
+</ul>
+<h3 id="51-chromaticity-clustering">5.1. Chromaticity Clustering</h3>
+<ul>
+<li>
+<p>Cluster the first video frame by color to approximate the regions of uniform reflectance that are observed in scenes with sparsely colored objects</p>
+<ul>
+<li>Based on a much faster histogram-based k-means clustering approach</li>
+<li>Perform the clustering of each RGB video frame in a discretized chromaticity space</li>
+</ul>
+</li>
+<li>
+<p>Workflow</p>
+<ul>
+<li>Obtain chromaticity image by dividing the input image by its intensity $\pmb C(\pmb x)=\pmb I(\pmb x)/|\pmb I(\pmb x)|$</li>
+<li>Compute a histogram of the chromaticity image with 10 partitions along each axis</li>
+<li>Perform weighted k-means clustering to obtain cluster center chromaticity values, using the population of the bins as the weight and the mid-point of the bin as sample values
+<ul>
+<li>The user provides an upper limit of the number of clusters visible in the scene $K$</li>
+</ul>
+</li>
+<li>Collapse adjacent similar clusters by measuring the pairwise chromaticity distance between estimated cluster centers
+<ul>
+<li>If this distance is below a threshold of 0.2, merge the smaller cluster into the larger cluster</li>
+<li>The average RGB colors of all pixels assigned to each cluster then yield the set of initial base colors</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>The histogram-based clustering approach significantly reduces the segmentation complexity, independent of the image size</p>
+<ul>
+<li>Produces a segmentation of the input frame, by assigning each pixel to its closest cluster</li>
+<li>Provides a coarse approximation of the reflectance layer $\pmb R_{\mathrm{cluster}}$
+<ul>
+<li>Use $\pmb R_{\mathrm{cluster}}$ as an initialization for the reflectance layer $\pmb R$ in the energy optimization</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="52-misclustering-correction">5.2. Misclustering Correction</h3>
+<p><img src="image-20210826212455864.png" alt="image-20210826212455864" style="zoom: 50%;" /></p>
+<ul>
+<li>Since the clustering directly depends on the color of a pixel, regions of strong inter-reflections may be erroneously assigned to the base color of an indirect illuminant instead of the base color representing the reflectance of the region
+<ul>
+<li>Such a misclustering is difficult to correct automatically because of the inherent ambiguity of the illumination decomposition problem</li>
+<li>Rely on minimal manual interaction to identify misclustered regions and then automatically correct the underlying reflectance base color in all subsequent frames</li>
+</ul>
+</li>
+</ul>
+<h4 id="521-region-identification-and-tracking">5.2.1. Region Identification and Tracking</h4>
+<ul>
+<li>
+<p>Identifying the true reflectance of a pixel in the presence of strong inter-reflections from other objects is an ambiguous task</p>
+<ul>
+<li>In case of direct illumination, the observed color value of a pixel is obtained by modulating the reflectance solely by the color of the illuminant</li>
+<li>In the case of inter-reflections, there is further modulation by light reflected from other objects, which then depends on their reflectance properties
+<ul>
+<li>Such regions are easy to identify by a user</li>
+<li>Ask the user to simply click on such a region only in the first frame it occurs</li>
+</ul>
+</li>
+<li>Automatically identify the full region by flood filling it using connected-components analysis based on the cluster identifier</li>
+</ul>
+</li>
+<li>
+<p>Real-time tracking of non-rigidly deforming, non-convex marked regions in subsequent frames</p>
+<ul>
+<li>Given the marked pixel region in the previous frame</li>
+<li>Probe the same pixel locations in the current frame to identify pixels with the same cluster ID as in the previous frame</li>
+<li>Flood fill starting from these valid pixels to obtain the tracked marked region in the new frame
+<ul>
+<li>Do not flood fill for pixels inside the regions to keep this operation efficient</li>
+<li>Observe that one or two valid pixels are sufficient to correctly identify the entire misclustered region</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="522-reflectance-correction">5.2.2. Reflectance Correction</h4>
+<ul>
+<li>Once all pixels in a misclustered region are identified in a video frame (either marked or tracked), exploit the sparsity constraint of the indirect illumination layers to solve for the correct reflectance base color
+<ol>
+<li>Perform multiple full illumination decompositions for each identified region, evaluating each base color’s suitability as the region’s reflectance</li>
+<li>For each base color, measure the sparsity obtained over the region using the illumination sparsity term</li>
+<li>The base color that provides the sparsest solution of the decomposition is then used as the corrected reflectance</li>
+</ol>
+</li>
+<li>The intuition behind such a sparsity prior is that using the correct underlying reflectance should lead to an illumination layer which is explained by the color spill from only a sparse number of nearby objects</li>
+</ul>
+<h2 id="6-illumination-decomposition">6. Illumination Decomposition</h2>
+<ul>
+<li>
+<p>Decomposition each input video frame $\pmb I$ into its reflectance layer $\pmb R$, its direct illumination layer $T_0$ and a set of indirect illumination layers ${T_k}$ <br />
+corresponding to the base colors ${\pmb b_k}$</p>
+<ul>
+<li>The direct illumination layer $T_0$​​ represents the direct contribution to the scene by the external light sources</li>
+<li>The indirect illumination layers ${T_k}$​​​ capture the inter-reflections that occur within the scene</li>
+</ul>
+</li>
+<li>
+<p>Formulate the illumination decomposition as an energy minimization problem with the following energy:<br />
+$$<br />
+E_{\mathrm{decomp}}(\pmb \chi)=E_{\mathrm{data}}(\pmb \chi)+E_{\mathrm{reflectance}}(\pmb \chi)+E_{\mathrm{illumination}}(\pmb \chi)<br />
+$$</p>
+<ul>
+<li>$\pmb \chi={\pmb R,T_0,{T_k}}$ is the set of variables to be optimized</li>
+<li>The base colors ${\pmb b_k}$ stay fixed</li>
+<li>Optimize this energy using a novel fast GPU solver to obtain real-time performance</li>
+</ul>
+</li>
+</ul>
+<p><strong>Data Fidelity Term</strong></p>
+<p>This constraint enforces that the decomposition result reproduces the input image:<br />
+$$<br />
+E_{\mathrm{data}}(\pmb \chi)=\lambda_{\mathrm{data}}\cdot \sum_{\pmb x}\Bigg|\pmb I(\pmb x)-\pmb R(\pmb x)\odot \sum_{k=0}^K\pmb b_kT_k(\pmb x) \Bigg|_2^2<br />
+$$</p>
+<ul>
+<li>$\lambda_{\mathrm {data}}$: the weight for this energy term</li>
+<li>$T_k$: the $(K+1)$​​ illumination layers of the decomposition(one direct layer $T_0$ and $K$ indirect layers ${T_k}$​)</li>
+</ul>
+<h3 id="61-reflectance-priors">6.1. Reflectance Priors</h3>
+<ul>
+<li>Constrain the estimated reflectance layer $\pmb R$ using three priors:<br />
+$$<br />
+E_{\mathrm{reflectance}}(\pmb \chi)=E_{\mathrm{clustering}}(\pmb \chi)+E_{\mathrm{r-sparsity}}(\pmb \chi)+E_{\mathrm{r-consistency}}(\pmb \chi)<br />
+$$</li>
+</ul>
+<p><strong>Reflectance Clustering Prior</strong></p>
+<ul>
+<li>
+<p>Use the cluster to guide the decomposition, as the chromaticity-clustered image $\pmb R_{\mathrm{cluster}}$ is an approximation of the reflectance layer $\pmb R$​</p>
+</li>
+<li>
+<p>Constrain the reflectance map to remain close to the clustered image using the following energy term:<br />
+$$<br />
+E_{\mathrm{clustering}}(\pmb \chi)=\lambda_{\mathrm{clustering}}\cdot \sum_{\pmb x} |\pmb r(\pmb x)-\pmb r_{\mathrm{cluster}}(\pmb x) |_2^2<br />
+$$</p>
+<ul>
+<li>$\pmb r$: represent the quantity $\pmb R$​ in the log-domain, i.e. $\pmb r=\ln\pmb R$</li>
+<li>$\pmb r_{\mathrm{cluster}}$: the clustered reflectance map</li>
+</ul>
+</li>
+</ul>
+<p><strong>Reflectance Sparsity Prior</strong></p>
+<ul>
+<li>Encourages a piecewise constant reflectance map using gradient sparsity</li>
+<li>Natural scenes generally consist of a small set of objects and materials, hence the reflectance layer is expected to have sparse gradients</li>
+<li>Such a spatially sparse solution for the reflectance image can be obtained by minimizing the $\mathcal ℓ_p-\mathrm{norm}$ ($p\in[0,1]$) of the gradient magnitude $|\nabla \pmb r|_2$</li>
 </ul>
 <p>$$<br />
-L_o(\pmb x,\pmb \omega_o)=L_e(\pmb x,\pmb \omega_o)+\int_\Omega f_s(\pmb x,\pmb \omega_i,\pmb \omega_o)L_i(\pmb x,\pmb \omega_i)(\pmb \omega_i\cdot \pmb n(\pmb x))\mathrm d\pmb \omega_i<br />
+E_{\mathrm{r-sparsity}}=\lambda_{\mathrm{r-sparsity}}\cdot\sum_{\pmb x}|\nabla \pmb r(\pmb x)|_2^p<br />
+$$</p>
+<p><strong>Spatiotemporal Reflectance Consistency Prior</strong></p>
+<ul>
+<li>Enforces that the reflectance stays temporally consistent by connecting every pixel with a set of randomly sampled pixels in a small spatiotemporal window by constraining the reflectance of the pixels to be close under a defined chromaticity-closeness condition</li>
+<li>For each pixel $\pmb x$​​ in the reflectance image, connect it to $N_s$ randomly sampled pixels $\pmb y_i$</li>
+<li>Samples are chosen from reflectance images of the current and previous frames $t_i$</li>
+</ul>
+<p>$$<br />
+\begin{align}<br />
+E_{\mathrm{r-consistency}}(\pmb \chi)&amp;=\lambda_{\mathrm{r-consistency}}\cdot \sum_{i=1}^{N_s}g_i(\pmb x)\cdot |\pmb r(\pmb x)-\pmb r_{t_i}(\pmb y_i)|_2^2\\<br />
+g_i(\pmb x)&amp;=\begin{cases}<br />
+w_{iw}(\pmb x)&amp;\mathrm{if}\ |\pmb c(\pmb x)-\pmb c_{t_i}(\pmb y_i)|_2&lt;\tau_{cc}\\<br />
+0&amp;\mathrm{otherwise}<br />
+\end{cases}<br />
+\end{align}<br />
+$$</p>
+<ul>
+<li>$\tau_{cc}$: a chromaticity consistency threshold</li>
+</ul>
+<h3 id="62-illumination-priors">6.2. Illumination Priors</h3>
+<ul>
+<li>Constrain the illumination $\pmb S$ to be close to monochrome and the indirect illumination layers ${T_k}$ to have a sparse decomposition, spatial smoothness and non-negativity</li>
+</ul>
+<p>$$<br />
+E_{\mathrm{illumination}}(\pmb \chi)=E_{\mathrm{monochrome}}(\pmb \chi)+E_{\mathrm{i-sparsity}}(\pmb \chi)+E_{\mathrm{smoothness}}(\pmb \chi)+E_{\mathrm{non-neg}}(\pmb \chi)<br />
+$$</p>
+<p><strong>Soft-Retinex Weighted Monochromaticity Prior</strong></p>
+<ul>
+<li>The illumination layer is a combination of direct and indirect illumination effects</li>
+<li>Indirect effects such as inter-reflections tend to be spatially local with smooth color gradients whereas under the white-illumination assumption, the direct bounce does not contribute any color to the illumination layer</li>
+<li>Expect the illumination $\pmb S$ to be mostly monochromatic except at small spatial pockets where smooth color gradients occur due to inter-reflections</li>
+</ul>
+<p>$$<br />
+E_{\mathrm{monochrome}}(\pmb \chi)=\lambda_{\mathrm{monochrome}}\cdot w_{\mathrm{SR}}\cdot \sum_{\pmb x}\sum_{\pmb c}(\pmb S_c(\pmb x)-|\pmb S(\pmb x)|)^2<br />
+$$</p>
+<ul>
+<li>
+<p>$c\in{R,G,B}$</p>
+</li>
+<li>
+<p>$|\pmb S|$: the intensity of the illumination layer $\pmb S$​</p>
+</li>
+<li>
+<p>This constraint pulls the color channels of each pixel close to the grayscale intensity of the pixel, hence encouraging monochromaticity</p>
+</li>
+<li>
+<p>$w_{\mathrm{SR}}$: the soft-color-Retinex weight<br />
+$$<br />
+w_{\mathrm{SR}}=1-\exp(-50\cdot\Delta\pmb C)<br />
+$$</p>
+<ul>
+<li>$\Delta\pmb C$: ​the maximum of the chromaticity gradient of the input image in any of the four spatial directions at the pixel location</li>
+</ul>
+</li>
+<li>
+<p>The soft-color-Retinex weight is high only for large chromaticity gradients, which represent reflectance edges</p>
+</li>
+<li>
+<p>Hence, monochromaticity of the illumination layer is enforced only close to the reflectance edges and not at locations of slowly varying chromaticity, which represent inter-reflections</p>
+</li>
+<li>
+<p>Relying on local chromaticity gradients may be problematic when there are regions of uniform colored reflectance, but in such regions the reflectance sparsity priors tend to be stronger and overrule the monochromaticity prior.</p>
+</li>
+</ul>
+<p><strong>Illumination Decomposition Sparsity</strong></p>
+<ul>
+<li>
+<p>Enforce that the illumination decomposition is sparse in terms of the layers that are activated per-pixel, i.e., those that influence the pixel with their corresponding base color</p>
+</li>
+<li>
+<p>Assume during image formation in the real world, a large part of the observed radiance for a scene point comes from a small subpart of the scene</p>
+</li>
+<li>
+<p>Apply the sparsity-inducing $\mathcal ℓ_1-\mathrm{norm}$ to the indirect illumination layers<br />
+$$<br />
+E_{\mathrm{i-sparsity}}(\pmb \chi)=\lambda_{\mathrm{i-sparsity}}\cdot\sum_{\pmb x}\Big| {T_k(\pmb x)}^K_{k=1} \Big|_1<br />
+$$</p>
+</li>
+</ul>
+<p>**Spatial Smoothness  **</p>
+<ul>
+<li>
+<p>Encourage the decomposition to be spatially piecewise smooth using an $ℓ1-\mathrm{sparsity}$​ prior in the gradient domain</p>
+</li>
+<li>
+<p>Enforces piecewise constancy of each direct or indirect illumination layer<br />
+$$<br />
+E_{\mathrm{smoothness}}(\pmb \chi)=\lambda_{\mathrm{smoothness}}\cdot \sum_{\pmb x}\sum_{k=0}^K|\nabla T_k(\pmb x)|_1<br />
 $$</p>
 </li>
 <li>
-<p>Limitations in computing $\tilde L_o(\pmb x,\pmb \omega_o)$</p>
+<p>This allows to have sharp edges in the decomposition layers</p>
+</li>
+</ul>
+<p><strong>Non-Negativity of Light Transport</strong></p>
 <ul>
-<li>It assumes a single directional light instead of integrating over the hemisphere of all incident directions $\Omega$</li>
-<li>It approximates an object’s BRDF $f_s(\cdot)$​ as a single scalar</li>
-<li>It ignores emitted radiance $L_e(\cdot)$​ (in addition to scattering and transmittance, which this rendering equation does not model either)</li>
+<li>
+<p>Light transport is an inherently additive process</p>
+<ul>
+<li>Light bouncing around in the scene adds radiance to scene points</li>
+<li>But never subtracts from them</li>
 </ul>
 </li>
 <li>
-<p>The goal of the learning-based model is to close the gap between $L_o(\pmb x,\pmb \omega_o)$ and $\tilde L_o(\pmb x,\pmb \omega_o)$, and furthermore between $L_o(\pmb x,\pmb \omega_o)$ and the observed image</p>
+<p>The quantity of transported light is always positive<br />
+$$<br />
+E_{\mathrm{non-neg}}(\pmb \chi)=\lambda_{\mathrm{non-neg}}\cdot \sum_{\pmb x}\sum_{k=0}^K\max(-T_k(\pmb x),0)<br />
+$$</p>
+<ul>
+<li>If the decomposition layer $T_k(\pmb x)$​ is non-negative, there is no penalty</li>
+<li>If $T_k(\pmb x)$​ becomes negative, a linear penalty is enforced</li>
+</ul>
+</li>
+</ul>
+<h3 id="63-base-color-refinement">6.3. Base Color Refinement</h3>
+<ul>
+<li>
+<p>Refine the base colors further on the first video frame to approach the ground-truth reflectance of the materials in the scene</p>
+</li>
+<li>
+<p>The refinement of base colors is formulated as an incremental update $\Delta \pmb b_k$ of the base colors $\pmb b_k$​ in the original data fidelity term, along with intensity and chromaticity regularizers<br />
+$$<br />
+\begin{align}<br />
+E_{\mathrm{refine}}(\pmb \chi)&amp;=\lambda_{\mathrm{data}}\sum_{\pmb x}\Bigg| \pmb I(\pmb x)-\pmb R(\pmb x)\odot \sum_{k=0}^K(\pmb b_k+\Delta\pmb b_k)T_k(\pmb x) \Bigg|_2^2\\<br />
+&amp;+\lambda_{\mathrm{IR}}\sum_{k=1}^K|\Delta\pmb b_k|_2^2+\lambda_{\mathrm{CR}}\sum_{k=1}^K|(\pmb C(\pmb b_k)+\Delta\pmb b_k)-\pmb C(\pmb b_k)|_2^2<br />
+\end{align}<br />
+$$</p>
+<ul>
+<li>$\pmb \chi={\Delta\pmb b_k}$: the vector of unknowns to be optimized</li>
+<li>$\lambda_{\mathrm{IR}}$: the weight for the intensity regularizer that ensures small base color updates</li>
+<li>$\lambda_{\mathrm{CR}}$: the weight of the chromaticity regularizer
+<ul>
+<li>Constrains base color updates $\Delta\pmb b_k$​ to remain close in chromaticity $\pmb C(\cdot)$​ to the initially estimated base color $\pmb b_k$</li>
+</ul>
 </li>
 </ul>
 </li>
 <li>
-<p>Motivation</p>
+<p>These regularizers ensure that base color updates do not lead to oscillations in the optimization process</p>
+</li>
+<li>
+<p>The refinement energy is solved in combination with the illumination decomposition energy</p>
 <ul>
-<li>the geometry and texture atlas offers us a mapping from each image of a subject onto a canonical texture atlas that is shared across all views of that subject</li>
+<li>Resulting in an estimation of the unknown variables that together promotes decomposition sparsity</li>
+</ul>
+<p><img src="image-20210827103559572.png" alt="image-20210827103559572" style="zoom:80%;" /></p>
+</li>
+<li>
+<p>This refinement of the base colors leads to a dense Jacobian matrix, because the unknown variables ${\Delta \pmb b_𝑘}$​ in the energy are influenced by all pixels in the image</p>
+</li>
+</ul>
+<h3 id="64-handling-the-sparsity-inducing-norms">6.4. Handling the Sparsity-Inducing Norms</h3>
+<ul>
+<li>
+<p>Some energy terms contain sparsity-inducing $ℓ𝑝-\mathrm{norms}$ ($p \in [0, 1]$​)</p>
+</li>
+<li>
+<p>Handle these objectives in a unified manner using Iteratively Re-weighted Least Squares</p>
+</li>
+<li>
+<p>Approximate the $ℓ𝑝-\mathrm{norms}$​ by a nonlinear least-squares objective based on re-weighting, i.e., replace the corresponding residuals $\pmb r$​ as follows:<br />
+$$<br />
+\begin{align}<br />
+|\pmb r|_p&amp;=|\pmb r|_2^2\cdot |\pmb r|_2^{p-2}\<br />
+&amp;\approx |\pmb r|<em>2^2\cdot |\pmb r</em>{\mathrm {old}}|_2^{p-2}<br />
+\end{align}<br />
+$$<br />
+in each step of the applied iterative solver</p>
+<ul>
+<li>$\pmb r_{\mathrm{old}}$: the corresponding residual after the previous iteration step</li>
+</ul>
+</li>
+</ul>
+<h4 id="641-handling-non-negativity-constraints">6.4.1. Handling Non-negativity Constraints</h4>
+<ul>
+<li>
+<p>The non-negativity objective $E_{\mathrm{non-neg}}(\pmb \chi)$​​ contains a maximum function that is non-differentiable at zero</p>
+</li>
+<li>
+<p>Handle this objective by replacing the maximum with a re-weighted least-squares term, $\max(-T_k(\pmb x),0)=w_kT_k^2(\pmb x)$, using<br />
+$$<br />
+w_k=\begin{cases}<br />
+0&amp;\mathrm{if}\ T_k(\pmb x)&gt;0\<br />
+(|T_k(\pmb x)+\epsilon|)^{-1}&amp;\mathrm{otherwise}<br />
+\end{cases}<br />
+$$</p>
+<ul>
+<li>$\epsilon = 0.002$: a small constant that prevents division by zero</li>
 </ul>
 </li>
 <li>
-<p>Approach</p>
+<p>Transforms the non-convex energy into a non-linear least-squares optimization problem</p>
+</li>
+</ul>
+<h2 id="7-data-parallel-gpu-optimization">7. Data-Parallel GPU Optimization</h2>
 <ul>
-<li>Use geometry and texture atlas to map the input images of the subject from “camera space” (XY pixel coordinates) to “texture space” (UV texture atlas coordinates)</li>
-<li>Use a semi-parametric neural network embedded in this texture space to fuse multiple observations and synthesize an RGB texture atlas for the desired relit and/or novel-view image</li>
-<li>Warped back into the camera space of the desired viewpoint, thereby giving us an output rendering of the subject under the desired illumination and viewpoint</li>
+<li>
+<p>The decomposition problems are all non-convex optimizations based on an objective $E$ with unknowns $\pmb \chi$</p>
+</li>
+<li>
+<p>The best decomposition $\pmb \chi^\ast$​ by solving the following minimization problem:<br />
+$$<br />
+\pmb \chi^\ast=\arg\min_\pmb \chi E(\pmb \chi)<br />
+$$</p>
+</li>
+<li>
+<p>The optimization problems are in general non-linear least-squares form and can be tackled by the iterative Gauss–Newton algorithm that approximates the optimum $\pmb \chi^\ast\approx \pmb \chi_k$ by a sequence of solutions $\pmb \chi_k=\pmb \chi_{k-1}+\pmb \delta_k^\ast$</p>
+<ul>
+<li>
+<p>The optimal linear update $\pmb \delta_k^\ast$​​ is given by the solution of the associated normal equations:</p>
+<p>$$<br />
+\pmb\delta_k^\ast=\arg\min_{\pmb\delta_k}|\pmb F(\pmb \chi_{k-1})+\pmb\delta_k\pmb J(\pmb \chi_{k-1})|_2^2<br />
+$$</p>
+<ul>
+<li>$\pmb F$: a vector field that stacks all residuals, i.e., $E(\pmb\chi)=|\pmb F(\pmb\chi)|_2^2$</li>
+<li>$\pmb J$: its Jacobian matrix</li>
 </ul>
 </li>
 </ul>
-<p>The Demo can explain everything:</p>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/gWdKjxCmYMI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-<h2 id="4-limitations">4. Limitations</h2>
+</li>
+<li>
+<p>Obtaining real-time performance is challenging even with recent state-of-the-art data-parallel iterative non-linear least-squares solution strategies</p>
+<ul>
+<li>To avoid cluttered notation, we will omit the parameters and simply write $\pmb J$ instead of $\pmb J(\pmb\chi)$​</li>
+<li>For our decomposition energies, the Jacobian $\pmb J$​ is a large matrix with usually more than 70 million rows and 4 million columns
+<ul>
+<li>Previous approaches assume $\pmb J$​​ to be a sparse matrix, meaning that only a few residuals are influenced by each variable</li>
+<li>While this holds for the columns of $\pmb J$​​​​ that corresponds to the variables that are associated with the decomposition layers, it does not hold for the columns that store the derivatives with respect to the base color updates ${\Delta \pmb b_k}$​​, since the base colors influence each residual of $E_{\mathrm{data}}$​</li>
+</ul>
+</li>
+<li>$\pmb J=\begin{bmatrix}\pmb S_{\pmb J}&amp;\pmb D_{\pmb J}\end{bmatrix}$ has two sub-blocks:
+<ul>
+<li>$\pmb S_{\pmb J}$: a large sparse matrix with only a few non-zero entries per row</li>
+<li>$\pmb D_{\pmb J}$: a dense matrix with the same number of rows, but only a few columns</li>
+</ul>
+</li>
+<li>The evaluation of the Jacobian $\pmb J$ requires a different specialized parallelization for the dense and sparse parts</li>
+</ul>
+</li>
+</ul>
+<h3 id="71-sparse-dense-splitting">7.1. Sparse-Dense Splitting</h3>
+<ul>
+<li>
+<p>Tackle the described problem using a sparse–dense splitting approach that splits the variables $\chi$​ into a sparse set $\mathcal T$​ (decomposition layers) and a dense set $\mathcal B$​ (base color updates)</p>
+<ul>
+<li>Afterwards, we optimize for $\mathcal B$ and $\mathcal T$​ independently in an iterative flip-flop manner</li>
+</ul>
+</li>
+<li>
+<p>Algorithm:</p>
 <ol>
-<li>The method must be trained individually per scene, and generalizing to unseen scenes is an important future step for the field</li>
-<li>The fixed 1024×1024 resolution of the texture-space model limits the model’s ability to synthesize higher-frequency contents
+<li>
+<p>Optimize for $\mathcal T$, while keeping $\mathcal B$​ fixed</p>
 <ul>
-<li>Especially when the camera zooms very close to the subject, or when an image patch is allocated too few texels</li>
-<li>This could be solved by training on higherresolution images, but this would increase memory requirements and likely require significant engineering effort</li>
+<li>The resulting optimization problem is a sparse non-linear least-squares problem</li>
+<li>Improve upon the previous solution by performing a nonlinear Gauss–Newton step</li>
+<li>The corresponding normal equations are solved using 16 steps of data-parallel preconditioned conjugate gradient</li>
+<li>Parallelize over the rows of the system matrix using one thread per row (variable)</li>
 </ul>
 </li>
-<li>Has occasional failure modes, where complex light transport effects, such as the ones on the glittery chain, are hard to synthesize, and the final renderings lack high-frequency details</li>
+<li>
+<p>After updating the ‘sparse’ variables $\mathcal T$​, keep them fixed and solve for the ‘dense’ variables $\mathcal B$​</p>
+<ul>
+<li>The resulting optimization problem is a dense least-squares problem with a small $3𝐾 \times 3𝐾$​ system matrix (normally $𝐾$​​ is between 4 and 7 due to merged clusters)</li>
+<li>Materialize the normal equations in device memory based on a sequence of outer products, using one thread per entry of $\pmb J^T\pmb J$</li>
+</ul>
+</li>
+<li>
+<p>The system is mapped to the CPU and robustly solved using singular value decomposition. After updating ‘dense’ variables $\mathcal B$,<br />
+we again solve for ‘sparse’ variables $\mathcal T$​ and iterate this process until convergence</p>
+</li>
 </ol>
-<p><img src="image-20210826171628552.png" alt="image-20210826171628552" /></p>
+</li>
+</ul>
+<h2 id="8-results-and-evaluation">8. Results and Evaluation</h2>
+<p><strong>Parameters</strong></p>
+<ul>
+<li>$\lambda_{\mathrm{clustering}}=200$</li>
+<li>$\lambda_{\mathrm{r-sparsity}}=20$</li>
+<li>$p=1$</li>
+<li>$\lambda_{\mathrm{i-sparsity}}=3$</li>
+<li>$\lambda_{\mathrm{smoothness}}=3$</li>
+<li>$\lambda_{\mathrm{non-neg}}=1000$</li>
+<li>$\lambda_{\mathrm{data}}=5000$</li>
+<li>$\lambda_{\mathrm{IR}}=10$</li>
+<li>$\lambda_{\mathrm{CR}}=10$</li>
+<li>$\lambda_{\mathrm{r-consistency}}=\lambda_{\mathrm{monochrome}}=10$</li>
+</ul>
+<p><strong>Runtime performance</strong></p>
+<ul>
+<li>Platform: Intel Core i7 with 2.7 GHz, 32 GB RAM and an NVIDIA GeForce GTX 980</li>
+<li>Resolution: 640x512 pixels</li>
+<li>Performance:
+<ul>
+<li>Illumination decomposition: 14ms</li>
+<li>Base color refinement: 2s</li>
+<li>Misclustering correction: 1s</li>
+</ul>
+</li>
+<li>Perform the last two steps, base color refinement and misclustering correction, only once at the beginning of the video
+<ul>
+<li>Runs at real-time frame rates (⩾30 Hz)</li>
+<li>Enables real-time video editing applications</li>
+</ul>
+</li>
+</ul>
+<p><strong>Demo</strong></p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/31yT_O1wQ8s" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<h2 id="9-limitations">9. Limitations</h2>
+<ul>
+<li>Breaking the assumptions can lead to inaccurate estimations</li>
+<li>The method can face challenges if objects enter or leave the scene during the course of the video</li>
+<li>The inter-reflections caused by out-of-view objects cannot be properly modeled, since the corresponding base color might not be available</li>
+<li>If an object with an unseen color enters the scene for the first time, and the base colors are already exceeded, its inter-reflections cannot be modeled</li>
+<li>Complex, textured scenes with many different colors are challenging to decompose, since this requires many base colors, leading to a large number of variables and an even more under-constrained optimization problem</li>
+<li>More general indoor and outdoor scenes are not the ideal use cases for the method</li>
+</ul>
 
     </article>
     
@@ -2318,7 +2621,7 @@ $$</p>
     
     
       
-        <a href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fchaphlagical.github.io%2fen%2fposts%2fpaperreading%2fneural_light_transport_for_relighting_and_view_synthesis%2f" title="Facebook" aria-label="Facebook Share Button" class="donation__item" target="_blank" rel="noreferrer" data-type="share">
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fchaphlagical.github.io%2fen%2fposts%2fpaperreading%2freal_time_global_illumination_decomposition_of_videos%2f" title="Facebook" aria-label="Facebook Share Button" class="donation__item" target="_blank" rel="noreferrer" data-type="share">
           <svg data-name="facebook" enable-background="new 0 0 24 24" viewBox="0 0 24 24" width="35" height="35" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="m15.997 3.985h2.191v-3.816c-.378-.052-1.678-.169-3.192-.169-3.159 0-5.323 1.987-5.323 5.639v3.361h-3.486v4.266h3.486v10.734h4.274v-10.733h3.345l.531-4.266h-3.877v-2.939c.001-1.233.333-2.077 2.051-2.077z"/></svg>
         </a>
       
@@ -2500,6 +2803,10 @@ $$</p>
     <ul class="related-ul">
         
         <li>
+          <a href="/en/posts/paperreading/neural_light_transport_for_relighting_and_view_synthesis/" class="related__link">Neural Light Transport for Relighting and View Synthesis</a>
+        </li>
+        
+        <li>
           <a href="/en/posts/paperreading/fast_diffraction_pathfinding_for_dynamic_sound_propagation/" class="related__link">Fast Diffraction Pathfinding for Dynamic Sound Propagation</a>
         </li>
         
@@ -2522,21 +2829,14 @@ $$</p>
 <nav class="pagination-single">
   
     
-      <a href="https://chaphlagical.github.io/en/posts/paperreading/fast_diffraction_pathfinding_for_dynamic_sound_propagation/" class="pagination-single__left">
+      <a href="https://chaphlagical.github.io/en/posts/paperreading/neural_light_transport_for_relighting_and_view_synthesis/" class="pagination-single__left">
         <div class="pagination-single__icon">
           <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path fill="currentColor" d="M19 11H7.83l4.88-4.88c.39-.39.39-1.03 0-1.42-.39-.39-1.02-.39-1.41 0l-6.59 6.59c-.39.39-.39 1.02 0 1.41l6.59 6.59c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41L7.83 13H19c.55 0 1-.45 1-1s-.45-1-1-1z"/></svg>
         </div>
-        <div class="pagination-single__left-title">Fast Diffraction Pathfinding for Dynamic Sound Propagation</div>      
+        <div class="pagination-single__left-title">Neural Light Transport for Relighting and View Synthesis</div>      
       </a>
     
     <div class="grow"></div>
-    
-      <a href="https://chaphlagical.github.io/en/posts/paperreading/real_time_global_illumination_decomposition_of_videos/" class="pagination-single__right">      
-        <div class="pagination-single__right-title">Real-Time Global Illumination Decomposition of Videos</div>
-        <div class="pagination-single__icon">
-          <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path fill="currentColor" d="M5 13h11.17l-4.88 4.88c-.39.39-.39 1.03 0 1.42.39.39 1.02.39 1.41 0l6.59-6.59c.39-.39.39-1.02 0-1.41l-6.58-6.6c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41L16.17 11H5c-.55 0-1 .45-1 1s.45 1 1 1z"/></svg>
-        </div>
-      </a>
     
   
 </nav>
@@ -3456,7 +3756,7 @@ document.addEventListener('DOMContentLoaded', function () {
         
           
             
-              <a href="https://chaphlagical.github.io/en/posts/paperreading/neural_light_transport_for_relighting_and_view_synthesis/" data-lang="en" class="dropdown-item is-active">English</a>
+              <a href="https://chaphlagical.github.io/en/posts/paperreading/real_time_global_illumination_decomposition_of_videos/" data-lang="en" class="dropdown-item is-active">English</a>
             
           
         
@@ -3665,8 +3965,38 @@ document.addEventListener('DOMContentLoaded', function () {
     <li><a href="#abstract">Abstract</a></li>
     <li><a href="#1-introduction">1. Introduction</a></li>
     <li><a href="#2-related-work">2. Related Work</a></li>
-    <li><a href="#3-method">3. Method</a></li>
-    <li><a href="#4-limitations">4. Limitations</a></li>
+    <li><a href="#3-overview">3. Overview</a></li>
+    <li><a href="#4-problem-formulation">4. Problem Formulation</a></li>
+    <li><a href="#5-base-color-estimation">5. Base Color Estimation</a>
+      <ul>
+        <li><a href="#51-chromaticity-clustering">5.1. Chromaticity Clustering</a></li>
+        <li><a href="#52-misclustering-correction">5.2. Misclustering Correction</a>
+          <ul>
+            <li><a href="#521-region-identification-and-tracking">5.2.1. Region Identification and Tracking</a></li>
+            <li><a href="#522-reflectance-correction">5.2.2. Reflectance Correction</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#6-illumination-decomposition">6. Illumination Decomposition</a>
+      <ul>
+        <li><a href="#61-reflectance-priors">6.1. Reflectance Priors</a></li>
+        <li><a href="#62-illumination-priors">6.2. Illumination Priors</a></li>
+        <li><a href="#63-base-color-refinement">6.3. Base Color Refinement</a></li>
+        <li><a href="#64-handling-the-sparsity-inducing-norms">6.4. Handling the Sparsity-Inducing Norms</a>
+          <ul>
+            <li><a href="#641-handling-non-negativity-constraints">6.4.1. Handling Non-negativity Constraints</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#7-data-parallel-gpu-optimization">7. Data-Parallel GPU Optimization</a>
+      <ul>
+        <li><a href="#71-sparse-dense-splitting">7.1. Sparse-Dense Splitting</a></li>
+      </ul>
+    </li>
+    <li><a href="#8-results-and-evaluation">8. Results and Evaluation</a></li>
+    <li><a href="#9-limitations">9. Limitations</a></li>
   </ul>
 </nav>
         </div>
