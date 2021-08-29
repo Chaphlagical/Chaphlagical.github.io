@@ -14,7 +14,7 @@
     <managingEditor>chaf@mail.ustc.edu.cn (Wenbo Chen)</managingEditor>
     <webMaster>chaf@mail.ustc.edu.cn (Wenbo Chen)</webMaster>
     <copyright>&amp;copy;{year}, All Rights Reserved</copyright>
-    <lastBuildDate>Sat, 01 May 2021 21:34:11 +0100</lastBuildDate>
+    <lastBuildDate>Sun, 29 Aug 2021 19:59:00 +0100</lastBuildDate>
     
         <atom:link href="https://chaphlagical.github.io/zh/index.xml" rel="self" type="application/rss+xml" />
     
@@ -42,6 +42,36 @@
         
       
 
+      
+      <item>
+        <title>现代图形API优化技巧</title>
+        <link>https://chaphlagical.github.io/zh/posts/engine/line/</link>
+        <pubDate>Sun, 29 Aug 2021 19:59:00 +0100</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        <atom:modified>Sun, 29 Aug 2021 19:59:00 +0100</atom:modified>
+        <guid>https://chaphlagical.github.io/zh/posts/engine/line/</guid>
+        <description>翻译自：https://gpuopen.com/performance/ Command Buffers command buffers是现代底层图形API的核心。DX12/Vulka</description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>Engine</category>
+            
+          
+        
+        
+          
+            
+              <category>dev log</category>
+            
+          
+        
+        
+      </item>
       
       <item>
         <title>曲线论</title>

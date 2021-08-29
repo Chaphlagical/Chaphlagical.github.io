@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" 
+  xmlns:content="http://purl.org/rss/1.0/modules/content/" 
+  xmlns:dc="http://purl.org/dc/elements/1.1/" 
+  xmlns:atom="http://www.w3.org/2005/Atom" 
+  xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" 
+  xmlns:media="http://search.yahoo.com/mrss/">
+  <channel>
+    <title>Engine Development on Chaf&#39;s Blog</title>
+    <link>https://chaphlagical.github.io/zh/posts/engine/</link>
+    <description>Recent content in Engine Development on Chaf&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <managingEditor>chaf@mail.ustc.edu.cn (Wenbo Chen)</managingEditor>
+    <webMaster>chaf@mail.ustc.edu.cn (Wenbo Chen)</webMaster>
+    <copyright>&amp;copy;{year}, All Rights Reserved</copyright>
+    <lastBuildDate>Sun, 29 Aug 2021 00:00:00 +0000</lastBuildDate>
+    
+        <atom:link href="https://chaphlagical.github.io/zh/posts/engine/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    
+
+      
+      <item>
+        <title>现代图形API优化技巧</title>
+        <link>https://chaphlagical.github.io/zh/posts/engine/line/</link>
+        <pubDate>Sun, 29 Aug 2021 19:59:00 +0100</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        <atom:modified>Sun, 29 Aug 2021 19:59:00 +0100</atom:modified>
+        <guid>https://chaphlagical.github.io/zh/posts/engine/line/</guid>
+        <description>翻译自：https://gpuopen.com/performance/ Command Buffers command buffers是现代底层图形API的核心。DX12/Vulka</description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>Engine</category>
+            
+          
+        
+        
+          
+            
+              <category>dev log</category>
+            
+          
+        
+        
+      </item>
+      
+
+    
+  </channel>
+</rss>
