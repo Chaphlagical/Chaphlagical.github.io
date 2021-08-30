@@ -23,6 +23,42 @@
 
       
       <item>
+        <title>Low-Cost SPAD Sensing for Non-Line-Of-Sight Tracking, Material Classification and Depth Imaging</title>
+        <link>https://chaphlagical.github.io/en/posts/paperreading/low_cost_spad_sensing_for_non_line_of_sight_tracking_material/</link>
+        <pubDate>Sun, 29 Aug 2021 22:00:00 +0100</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        <atom:modified>Sun, 29 Aug 2021 22:00:00 +0100</atom:modified>
+        <guid>https://chaphlagical.github.io/en/posts/paperreading/low_cost_spad_sensing_for_non_line_of_sight_tracking_material/</guid>
+        <description>Authors:
+CLARA CALLENBERG, University of Bonn, Germany
+ZHENG SHI, Princeton University, USA
+FELIX HEIDE, Princeton University, USA
+MATTHIAS B. HULLIN, University of Bonn, Germany
+Link: https://light.princeton.edu/publication/cheapspad/
+1. Background  Time-correlated imaging, or the recording of the optical response of a scene to transient illumination, allows to analyze the temporal dimension of light transport, a feature that is not accessible in pure intensity imaging Time-correlated optical measurements have established themselves as a valuable source of information The approaches available for recording time-correlated measurements are rich and varied, but most require bulky and expensive hardware and are too fragile to be used outside of lab settings A notable exception is the emerging technology of single-photon avalanche diodes (SPADs)  2.</description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>Rendering</category>
+            
+          
+        
+        
+          
+            
+              <category>paper reading</category>
+            
+          
+        
+        
+      </item>
+      
+      <item>
         <title>Real-Time Global Illumination Decomposition of Videos</title>
         <link>https://chaphlagical.github.io/en/posts/paperreading/real_time_global_illumination_decomposition_of_videos/</link>
         <pubDate>Fri, 27 Aug 2021 21:02:00 +0100</pubDate>
