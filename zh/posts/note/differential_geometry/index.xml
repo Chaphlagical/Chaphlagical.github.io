@@ -7,16 +7,16 @@
   xmlns:media="http://search.yahoo.com/mrss/">
   <channel>
     <title>Differential Geometry on Chaf&#39;s Blog</title>
-    <link>https://chaphlagical.github.io/zh/tags/differential-geometry/</link>
+    <link>https://chaphlagical.github.io/zh/posts/note/differential_geometry/</link>
     <description>Recent content in Differential Geometry on Chaf&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
     <managingEditor>chaf@mail.ustc.edu.cn (Wenbo Chen)</managingEditor>
     <webMaster>chaf@mail.ustc.edu.cn (Wenbo Chen)</webMaster>
     <copyright>&amp;copy;{year}, All Rights Reserved</copyright>
-    <lastBuildDate>Sat, 01 May 2021 21:34:11 +0100</lastBuildDate>
+    <lastBuildDate>Fri, 30 Apr 2021 00:00:00 +0000</lastBuildDate>
     
-        <atom:link href="https://chaphlagical.github.io/zh/tags/differential-geometry/index.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="https://chaphlagical.github.io/zh/posts/note/differential_geometry/index.xml" rel="self" type="application/rss+xml" />
     
     
     

@@ -6,9 +6,9 @@
   xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" 
   xmlns:media="http://search.yahoo.com/mrss/">
   <channel>
-    <title>note on Chaf&#39;s Blog</title>
-    <link>https://chaphlagical.github.io/zh/categories/note/</link>
-    <description>Recent content in note on Chaf&#39;s Blog</description>
+    <title>Reinforcement Learning on Chaf&#39;s Blog</title>
+    <link>https://chaphlagical.github.io/zh/tags/reinforcement-learning/</link>
+    <description>Recent content in Reinforcement Learning on Chaf&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
     <managingEditor>chaf@mail.ustc.edu.cn (Wenbo Chen)</managingEditor>
@@ -16,7 +16,7 @@
     <copyright>&amp;copy;{year}, All Rights Reserved</copyright>
     <lastBuildDate>Wed, 29 Sep 2021 17:19:11 +0100</lastBuildDate>
     
-        <atom:link href="https://chaphlagical.github.io/zh/categories/note/index.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="https://chaphlagical.github.io/zh/tags/reinforcement-learning/index.xml" rel="self" type="application/rss+xml" />
     
     
     
@@ -39,36 +39,6 @@
           
             
               <category>Reinforcement Learning</category>
-            
-          
-        
-        
-          
-            
-              <category>note</category>
-            
-          
-        
-        
-      </item>
-      
-      <item>
-        <title>曲线论</title>
-        <link>https://chaphlagical.github.io/zh/posts/note/differential_geometry/base/</link>
-        <pubDate>Sat, 01 May 2021 21:34:11 +0100</pubDate>
-        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
-        <atom:modified>Sat, 01 May 2021 21:34:11 +0100</atom:modified>
-        <guid>https://chaphlagical.github.io/zh/posts/note/differential_geometry/base/</guid>
-        <description>1. 参数曲线 $E^3$中的一条曲线$C$是从区间$[a,b]$到$E^3$中的一个连续映射，记为： $$ p:[a,b]\rightarrow E^3 $$ 称为参数曲线 在$E^3$中选取一个正</description>
-        
-        <dc:creator>Wenbo Chen</dc:creator>
-        
-        
-        
-        
-          
-            
-              <category>Differential Geometry</category>
             
           
         

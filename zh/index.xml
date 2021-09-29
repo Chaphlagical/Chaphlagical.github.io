@@ -14,7 +14,7 @@
     <managingEditor>chaf@mail.ustc.edu.cn (Wenbo Chen)</managingEditor>
     <webMaster>chaf@mail.ustc.edu.cn (Wenbo Chen)</webMaster>
     <copyright>&amp;copy;{year}, All Rights Reserved</copyright>
-    <lastBuildDate>Sun, 29 Aug 2021 19:59:00 +0100</lastBuildDate>
+    <lastBuildDate>Wed, 29 Sep 2021 17:19:11 +0100</lastBuildDate>
     
         <atom:link href="https://chaphlagical.github.io/zh/index.xml" rel="self" type="application/rss+xml" />
     
@@ -42,6 +42,36 @@
         
       
 
+      
+      <item>
+        <title>强化学习 | 简介</title>
+        <link>https://chaphlagical.github.io/zh/posts/note/reinforcement_learning/intro/</link>
+        <pubDate>Wed, 29 Sep 2021 17:19:11 +0100</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        <atom:modified>Wed, 29 Sep 2021 17:19:11 +0100</atom:modified>
+        <guid>https://chaphlagical.github.io/zh/posts/note/reinforcement_learning/intro/</guid>
+        <description>1. 机器学习的分类 机器学习主要分为监督学习、无监督学习、强化学习 监督学习：对于有标签的数据进行学习，目的是能够正确判断无标签的数据。主要任务分</description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>Reinforcement Learning</category>
+            
+          
+        
+        
+          
+            
+              <category>note</category>
+            
+          
+        
+        
+      </item>
       
       <item>
         <title>现代图形API优化技巧</title>
@@ -75,11 +105,11 @@
       
       <item>
         <title>曲线论</title>
-        <link>https://chaphlagical.github.io/zh/posts/differential_geometry/base/</link>
+        <link>https://chaphlagical.github.io/zh/posts/note/differential_geometry/base/</link>
         <pubDate>Sat, 01 May 2021 21:34:11 +0100</pubDate>
         <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
         <atom:modified>Sat, 01 May 2021 21:34:11 +0100</atom:modified>
-        <guid>https://chaphlagical.github.io/zh/posts/differential_geometry/base/</guid>
+        <guid>https://chaphlagical.github.io/zh/posts/note/differential_geometry/base/</guid>
         <description>1. 参数曲线 $E^3$中的一条曲线$C$是从区间$[a,b]$到$E^3$中的一个连续映射，记为： $$ p:[a,b]\rightarrow E^3 $$ 称为参数曲线 在$E^3$中选取一个正</description>
         
         <dc:creator>Wenbo Chen</dc:creator>
