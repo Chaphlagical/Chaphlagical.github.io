@@ -23,6 +23,36 @@
 
       
       <item>
+        <title>强化学习 | 马尔可夫决策过程</title>
+        <link>https://chaphlagical.github.io/zh/posts/note/reinforcement_learning/mdp/</link>
+        <pubDate>Thu, 30 Sep 2021 16:19:11 +0100</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        <atom:modified>Thu, 30 Sep 2021 16:19:11 +0100</atom:modified>
+        <guid>https://chaphlagical.github.io/zh/posts/note/reinforcement_learning/mdp/</guid>
+        <description>1. 马尔可夫过程 1.1. 马尔可夫性质Markov Property 马尔可夫性质的特点： 当一个随机过程在给定现在状态及所有过去状态情况下，其未来状态的条件概率分布仅依</description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        
+        
+        
+        
+          
+            
+              <category>Reinforcement Learning</category>
+            
+          
+        
+        
+          
+            
+              <category>note</category>
+            
+          
+        
+        
+      </item>
+      
+      <item>
         <title>强化学习 | 简介</title>
         <link>https://chaphlagical.github.io/zh/posts/note/reinforcement_learning/intro/</link>
         <pubDate>Wed, 29 Sep 2021 17:19:11 +0100</pubDate>

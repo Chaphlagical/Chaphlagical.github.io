@@ -3,7 +3,7 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://chaphlagical.github.io/zh/</loc>
-    <lastmod>2021-09-29T17:19:11+01:00</lastmod>
+    <lastmod>2021-09-30T16:19:11+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -16,7 +16,7 @@
                 />
   </url><url>
     <loc>https://chaphlagical.github.io/zh/categories/</loc>
-    <lastmod>2021-09-29T17:19:11+01:00</lastmod>
+    <lastmod>2021-09-30T16:19:11+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -29,10 +29,10 @@
                 />
   </url><url>
     <loc>https://chaphlagical.github.io/zh/categories/note/</loc>
-    <lastmod>2021-09-29T17:19:11+01:00</lastmod>
+    <lastmod>2021-09-30T16:19:11+01:00</lastmod>
   </url><url>
     <loc>https://chaphlagical.github.io/zh/posts/</loc>
-    <lastmod>2021-09-29T17:19:11+01:00</lastmod>
+    <lastmod>2021-09-30T16:19:11+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -45,10 +45,10 @@
                 />
   </url><url>
     <loc>https://chaphlagical.github.io/zh/tags/reinforcement-learning/</loc>
-    <lastmod>2021-09-29T17:19:11+01:00</lastmod>
+    <lastmod>2021-09-30T16:19:11+01:00</lastmod>
   </url><url>
     <loc>https://chaphlagical.github.io/zh/tags/</loc>
-    <lastmod>2021-09-29T17:19:11+01:00</lastmod>
+    <lastmod>2021-09-30T16:19:11+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -59,6 +59,9 @@
                 hreflang="zh"
                 href="https://chaphlagical.github.io/zh/tags/"
                 />
+  </url><url>
+    <loc>https://chaphlagical.github.io/zh/posts/note/reinforcement_learning/mdp/</loc>
+    <lastmod>2021-09-30T16:19:11+01:00</lastmod>
   </url><url>
     <loc>https://chaphlagical.github.io/zh/posts/note/reinforcement_learning/intro/</loc>
     <lastmod>2021-09-29T17:19:11+01:00</lastmod>
