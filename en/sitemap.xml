@@ -2,8 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://chaphlagical.github.io/en/project/graphics/chaf-engine/</loc>
+    <lastmod>2020-01-19T21:13:42+09:00</lastmod>
+  </url><url>
     <loc>https://chaphlagical.github.io/en/</loc>
-    <lastmod>2021-08-29T22:00:00+01:00</lastmod>
+    <lastmod>2021-11-20T10:08:38+09:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh"
@@ -14,6 +17,9 @@
                 hreflang="en"
                 href="https://chaphlagical.github.io/en/"
                 />
+  </url><url>
+    <loc>https://chaphlagical.github.io/en/project/</loc>
+    <lastmod>2021-11-20T10:08:38+09:00</lastmod>
   </url><url>
     <loc>https://chaphlagical.github.io/en/categories/</loc>
     <lastmod>2021-08-29T22:00:00+01:00</lastmod>
@@ -122,19 +128,6 @@
                 href="https://chaphlagical.github.io/en/publication/"
                 />
   </url><url>
-    <loc>https://chaphlagical.github.io/en/resume/</loc>
-    <lastmod>2020-11-13T20:13:59+09:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="https://chaphlagical.github.io/zh/resume/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://chaphlagical.github.io/en/resume/"
-                />
-  </url><url>
     <loc>https://chaphlagical.github.io/en/posts/update/</loc>
     <lastmod>2020-11-13T08:47:11+01:00</lastmod>
   </url><url>
@@ -164,6 +157,9 @@
                 href="https://chaphlagical.github.io/en/about/"
                 />
   </url><url>
+    <loc>https://chaphlagical.github.io/en/project/graphics/</loc>
+    <lastmod>2020-01-19T21:04:11+09:00</lastmod>
+  </url><url>
     <loc>https://chaphlagical.github.io/en/tags/index/</loc>
   </url><url>
     <loc>https://chaphlagical.github.io/en/publication/paper/paper1/</loc>
@@ -176,18 +172,6 @@
                 rel="alternate"
                 hreflang="en"
                 href="https://chaphlagical.github.io/en/publication/paper/paper1/"
-                />
-  </url><url>
-    <loc>https://chaphlagical.github.io/en/presentation/</loc>
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="https://chaphlagical.github.io/zh/presentation/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://chaphlagical.github.io/en/presentation/"
                 />
   </url><url>
     <loc>https://chaphlagical.github.io/en/series/</loc>

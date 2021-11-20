@@ -13,86 +13,11 @@
     <language>zh</language>
     <managingEditor>chaf@mail.ustc.edu.cn (Wenbo Chen)</managingEditor>
     <webMaster>chaf@mail.ustc.edu.cn (Wenbo Chen)</webMaster>
-    <copyright>&amp;copy;{year}, All Rights Reserved</copyright>
-    <lastBuildDate>Thu, 30 Sep 2021 16:19:11 +0100</lastBuildDate>
+    <copyright>©2021, All Rights Reserved</copyright>
     
         <atom:link href="https://chaphlagical.github.io/zh/tags/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    
 
-      
-      <item>
-        <title>Reinforcement Learning</title>
-        <link>https://chaphlagical.github.io/zh/tags/reinforcement-learning/</link>
-        <pubDate>Thu, 30 Sep 2021 16:19:11 +0100</pubDate>
-        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
-        
-        <guid>https://chaphlagical.github.io/zh/tags/reinforcement-learning/</guid>
-        <description></description>
-        
-        <dc:creator>Wenbo Chen</dc:creator>
-        
-        
-        
-        
-        
-        
-      </item>
-      
-      <item>
-        <title>Engine</title>
-        <link>https://chaphlagical.github.io/zh/tags/engine/</link>
-        <pubDate>Sun, 29 Aug 2021 19:59:00 +0100</pubDate>
-        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
-        
-        <guid>https://chaphlagical.github.io/zh/tags/engine/</guid>
-        <description></description>
-        
-        <dc:creator>Wenbo Chen</dc:creator>
-        
-        
-        
-        
-        
-        
-      </item>
-      
-      <item>
-        <title>Differential Geometry</title>
-        <link>https://chaphlagical.github.io/zh/tags/differential-geometry/</link>
-        <pubDate>Sat, 01 May 2021 21:34:11 +0100</pubDate>
-        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
-        
-        <guid>https://chaphlagical.github.io/zh/tags/differential-geometry/</guid>
-        <description></description>
-        
-        <dc:creator>Wenbo Chen</dc:creator>
-        
-        
-        
-        
-        
-        
-      </item>
-      
-      <item>
-        <title>Software Renderer</title>
-        <link>https://chaphlagical.github.io/zh/tags/software-renderer/</link>
-        <pubDate>Wed, 17 Feb 2021 20:57:11 +0100</pubDate>
-        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
-        
-        <guid>https://chaphlagical.github.io/zh/tags/software-renderer/</guid>
-        <description></description>
-        
-        <dc:creator>Wenbo Chen</dc:creator>
-        
-        
-        
-        
-        
-        
-      </item>
       
 
     

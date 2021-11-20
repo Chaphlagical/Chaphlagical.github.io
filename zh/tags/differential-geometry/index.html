@@ -663,6 +663,12 @@
     
     var enableSearch = JSON.parse("true");
     
+    var searchDistance = JSON.parse("null");
+    
+    var searchThreshold = JSON.parse("null");
+    
+    var searchContent = JSON.parse("null");
+    
     var enableSearchHighlight = JSON.parse("true");
     
     var searchResultPosition = JSON.parse("\"main\"");
@@ -686,12 +692,13 @@
         xhr.onload = function () {
           if (xhr.status === 200) {
             fuse = new Fuse(JSON.parse(xhr.response.toString('utf-8')), {
-              keys: sectionType.includes('publication') ? ['title', 'abstract'] : ['title', 'description', 'content'],
+              keys: sectionType.includes('publication') ? ['title', 'abstract'] : 
+                searchContent ? ['title', 'description', 'content'] : ['title', 'description'],
               includeMatches: enableSearchHighlight,
               shouldSort: true, 
-              threshold: 0.4, 
+              threshold: searchThreshold ? searchThreshold : 0.4, 
               location: 0, 
-              distance: 100, 
+              distance: searchDistance ? searchDistance : 100, 
               maxPatternLength: 32,
               minMatchCharLength: 1,
               isCaseSensitive: false, 
@@ -715,7 +722,7 @@
       var a = document.createElement('a');
       a.innerHTML = obj.item.title;
       a.setAttribute('class', 'search-result__item--title');
-      a.setAttribute('href', obj.item.permalink);
+      a.setAttribute('href', obj.item.uri);
 
       var descDiv = document.createElement('div');
       descDiv.setAttribute('class', 'search-result__item--desc');
@@ -1315,7 +1322,8 @@
     }
   
   });
-</script>    
+</script>
+    
     
 
 
@@ -1525,7 +1533,7 @@ if (!doNotTrack) {
 
       
         <li class="navbarm__menu--item ">
-          <a href="/zh/about">关于</a>
+          <a href="/zh/about">简介</a>
         </li>
       
       
@@ -1537,7 +1545,7 @@ if (!doNotTrack) {
 
       
         <li class="navbarm__menu--item ">
-          <a href="/zh/resume">简历</a>
+          <a href="/zh/posts">文章</a>
         </li>
       
       
@@ -1549,7 +1557,7 @@ if (!doNotTrack) {
 
       
         <li class="navbarm__menu--item ">
-          <a href="/zh/posts">博文</a>
+          <a href="/zh/showcase">项目</a>
         </li>
       
       
@@ -1562,18 +1570,6 @@ if (!doNotTrack) {
       
         <li class="navbarm__menu--item ">
           <a href="/zh/archive">归档</a>
-        </li>
-      
-      
-    
-      
-      
-      
-      
-
-      
-        <li class="navbarm__menu--item ">
-          <a href="/zh/presentation">讲座</a>
         </li>
       
       
@@ -1656,7 +1652,7 @@ if (!doNotTrack) {
   
   
   
-  <a href="/zh/about" class="navbar__menu-item navbar__slide-down " dir="ltr" data-ani="true">关于</a>
+  <a href="/zh/about" class="navbar__menu-item navbar__slide-down " dir="ltr" data-ani="true">简介</a>
   
   
   
@@ -1664,7 +1660,7 @@ if (!doNotTrack) {
   
   
   
-  <a href="/zh/resume" class="navbar__menu-item navbar__slide-down " dir="ltr" data-ani="true">简历</a>
+  <a href="/zh/posts" class="navbar__menu-item navbar__slide-down " dir="ltr" data-ani="true">文章</a>
   
   
   
@@ -1672,7 +1668,7 @@ if (!doNotTrack) {
   
   
   
-  <a href="/zh/posts" class="navbar__menu-item navbar__slide-down " dir="ltr" data-ani="true">博文</a>
+  <a href="/zh/showcase" class="navbar__menu-item navbar__slide-down " dir="ltr" data-ani="true">项目</a>
   
   
   
@@ -1681,14 +1677,6 @@ if (!doNotTrack) {
   
   
   <a href="/zh/archive" class="navbar__menu-item navbar__slide-down " dir="ltr" data-ani="true">归档</a>
-  
-  
-  
-  
-  
-  
-  
-  <a href="/zh/presentation" class="navbar__menu-item navbar__slide-down " dir="ltr" data-ani="true">讲座</a>
   
   
   
@@ -1756,7 +1744,7 @@ if (!doNotTrack) {
 
     <div class="summary-classic__content">
       <header>
-        <h5 class="title h5"><a href='https://chaphlagical.github.io/zh/posts/note/differential_geometry/base/'>曲线论</a> </h5>
+        <h5 class="title h5"><a href='https://chaphlagical.github.io/zh/posts/note/mathematics/base/'>曲线论</a> </h5>
         <h6 class="subtitle caption">
           <time title="创建日期" dir="ltr">📅&nbsp;2021年05月01日 </time>
           
@@ -1778,6 +1766,7 @@ if (!doNotTrack) {
   </div>
   <hr />
 </article>
+
 
       
       
@@ -1828,7 +1817,7 @@ if (!doNotTrack) {
     
         
         <li class="sidebar-recent">
-            <a href="/zh/posts/note/differential_geometry/base/" class="sidebar-recent__title p1">曲线论</a>
+            <a href="/zh/posts/note/mathematics/base/" class="sidebar-recent__title p1">曲线论</a>
         </li>
         
         <hr class="hr-fade sidebar-hr" />
@@ -1847,51 +1836,25 @@ if (!doNotTrack) {
         
         
             <span class="tag">
+                <a href="/zh/tags/computer-graphics/" class="is-tags taxo__link" data-dir="ltr">
+                    <span class="taxo__text">
+                        Computer Graphics
+                    </span>
+                    <span class="taxo__num" dir="auto">
+                        1
+                    </span>
+                </a>
+            </span>
+        
+        
+        
+            <span class="tag">
                 <a href="/zh/tags/differential-geometry/" class="is-tags taxo__link" data-dir="ltr">
                     <span class="taxo__text">
                         Differential Geometry
                     </span>
                     <span class="taxo__num" dir="auto">
                         1
-                    </span>
-                </a>
-            </span>
-        
-        
-        
-            <span class="tag">
-                <a href="/zh/tags/engine/" class="is-tags taxo__link" data-dir="ltr">
-                    <span class="taxo__text">
-                        Engine
-                    </span>
-                    <span class="taxo__num" dir="auto">
-                        1
-                    </span>
-                </a>
-            </span>
-        
-        
-        
-            <span class="tag">
-                <a href="/zh/tags/reinforcement-learning/" class="is-tags taxo__link" data-dir="ltr">
-                    <span class="taxo__text">
-                        Reinforcement Learning
-                    </span>
-                    <span class="taxo__num" dir="auto">
-                        2
-                    </span>
-                </a>
-            </span>
-        
-        
-        
-            <span class="tag">
-                <a href="/zh/tags/software-renderer/" class="is-tags taxo__link" data-dir="ltr">
-                    <span class="taxo__text">
-                        Software Renderer
-                    </span>
-                    <span class="taxo__num" dir="auto">
-                        4
                     </span>
                 </a>
             </span>
@@ -1912,25 +1875,12 @@ if (!doNotTrack) {
         
         
             <span class="tag">
-                <a href="/zh/categories/dev-log/" class="is-categories taxo__link" data-dir="ltr">
-                    <span class="taxo__text">
-                        dev log
-                    </span>
-                    <span class="taxo__num" dir="auto">
-                        5
-                    </span>
-                </a>
-            </span>
-        
-        
-        
-            <span class="tag">
                 <a href="/zh/categories/note/" class="is-categories taxo__link" data-dir="ltr">
                     <span class="taxo__text">
                         note
                     </span>
                     <span class="taxo__num" dir="auto">
-                        3
+                        2
                     </span>
                 </a>
             </span>

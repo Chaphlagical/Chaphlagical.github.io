@@ -663,6 +663,12 @@
     
     var enableSearch = JSON.parse("true");
     
+    var searchDistance = JSON.parse("null");
+    
+    var searchThreshold = JSON.parse("null");
+    
+    var searchContent = JSON.parse("null");
+    
     var enableSearchHighlight = JSON.parse("true");
     
     var searchResultPosition = JSON.parse("\"main\"");
@@ -686,12 +692,13 @@
         xhr.onload = function () {
           if (xhr.status === 200) {
             fuse = new Fuse(JSON.parse(xhr.response.toString('utf-8')), {
-              keys: sectionType.includes('publication') ? ['title', 'abstract'] : ['title', 'description', 'content'],
+              keys: sectionType.includes('publication') ? ['title', 'abstract'] : 
+                searchContent ? ['title', 'description', 'content'] : ['title', 'description'],
               includeMatches: enableSearchHighlight,
               shouldSort: true, 
-              threshold: 0.4, 
+              threshold: searchThreshold ? searchThreshold : 0.4, 
               location: 0, 
-              distance: 100, 
+              distance: searchDistance ? searchDistance : 100, 
               maxPatternLength: 32,
               minMatchCharLength: 1,
               isCaseSensitive: false, 
@@ -715,7 +722,7 @@
       var a = document.createElement('a');
       a.innerHTML = obj.item.title;
       a.setAttribute('class', 'search-result__item--title');
-      a.setAttribute('href', obj.item.permalink);
+      a.setAttribute('href', obj.item.uri);
 
       var descDiv = document.createElement('div');
       descDiv.setAttribute('class', 'search-result__item--desc');
@@ -1315,7 +1322,8 @@
     }
   
   });
-</script>    
+</script>
+    
     
 
 
@@ -1525,7 +1533,7 @@ if (!doNotTrack) {
 
       
         <li class="navbarm__menu--item ">
-          <a href="/zh/about">关于</a>
+          <a href="/zh/about">简介</a>
         </li>
       
       
@@ -1537,7 +1545,7 @@ if (!doNotTrack) {
 
       
         <li class="navbarm__menu--item ">
-          <a href="/zh/resume">简历</a>
+          <a href="/zh/posts">文章</a>
         </li>
       
       
@@ -1549,7 +1557,7 @@ if (!doNotTrack) {
 
       
         <li class="navbarm__menu--item ">
-          <a href="/zh/posts">博文</a>
+          <a href="/zh/showcase">项目</a>
         </li>
       
       
@@ -1562,18 +1570,6 @@ if (!doNotTrack) {
       
         <li class="navbarm__menu--item active">
           <a href="/zh/archive">归档</a>
-        </li>
-      
-      
-    
-      
-      
-      
-      
-
-      
-        <li class="navbarm__menu--item ">
-          <a href="/zh/presentation">讲座</a>
         </li>
       
       
@@ -1656,7 +1652,7 @@ if (!doNotTrack) {
   
   
   
-  <a href="/zh/about" class="navbar__menu-item navbar__slide-down " dir="ltr" data-ani="true">关于</a>
+  <a href="/zh/about" class="navbar__menu-item navbar__slide-down " dir="ltr" data-ani="true">简介</a>
   
   
   
@@ -1664,7 +1660,7 @@ if (!doNotTrack) {
   
   
   
-  <a href="/zh/resume" class="navbar__menu-item navbar__slide-down " dir="ltr" data-ani="true">简历</a>
+  <a href="/zh/posts" class="navbar__menu-item navbar__slide-down " dir="ltr" data-ani="true">文章</a>
   
   
   
@@ -1672,7 +1668,7 @@ if (!doNotTrack) {
   
   
   
-  <a href="/zh/posts" class="navbar__menu-item navbar__slide-down " dir="ltr" data-ani="true">博文</a>
+  <a href="/zh/showcase" class="navbar__menu-item navbar__slide-down " dir="ltr" data-ani="true">项目</a>
   
   
   
@@ -1681,14 +1677,6 @@ if (!doNotTrack) {
   
   
   <a href="/zh/archive" class="navbar__menu-item navbar__slide-down active" dir="ltr" data-ani="true">归档</a>
-  
-  
-  
-  
-  
-  
-  
-  <a href="/zh/presentation" class="navbar__menu-item navbar__slide-down " dir="ltr" data-ani="true">讲座</a>
   
   
   
@@ -1734,87 +1722,17 @@ if (!doNotTrack) {
   
     
     
-      <span class="archive__key" data-ani="true">2021</span>
+      <span class="archive__key" data-ani="true">0001</span>
       <ul class="archive__ul" data-dir="ltr">
         
         <li class="archive__li" data-dir="ltr">
           <span class="archive__meta" data-ani="true">
             
               <span class="archive__type">posts</span>
-              <span class="archive__date">09-30</span>
+              <span class="archive__date">01-01</span>
             
           </span>
-          <a href="https://chaphlagical.github.io/zh/posts/note/reinforcement_learning/mdp/" class="archive__title" data-title-wrap="wrap" data-dir="ltr">强化学习 | 马尔可夫决策过程</a>        
-        </li>
-        
-        <li class="archive__li" data-dir="ltr">
-          <span class="archive__meta" data-ani="true">
-            
-              <span class="archive__type">posts</span>
-              <span class="archive__date">09-29</span>
-            
-          </span>
-          <a href="https://chaphlagical.github.io/zh/posts/note/reinforcement_learning/intro/" class="archive__title" data-title-wrap="wrap" data-dir="ltr">强化学习 | 简介</a>        
-        </li>
-        
-        <li class="archive__li" data-dir="ltr">
-          <span class="archive__meta" data-ani="true">
-            
-              <span class="archive__type">posts</span>
-              <span class="archive__date">08-29</span>
-            
-          </span>
-          <a href="https://chaphlagical.github.io/zh/posts/engine/line/" class="archive__title" data-title-wrap="wrap" data-dir="ltr">现代图形API优化技巧</a>        
-        </li>
-        
-        <li class="archive__li" data-dir="ltr">
-          <span class="archive__meta" data-ani="true">
-            
-              <span class="archive__type">posts</span>
-              <span class="archive__date">05-01</span>
-            
-          </span>
-          <a href="https://chaphlagical.github.io/zh/posts/note/differential_geometry/base/" class="archive__title" data-title-wrap="wrap" data-dir="ltr">曲线论</a>        
-        </li>
-        
-        <li class="archive__li" data-dir="ltr">
-          <span class="archive__meta" data-ani="true">
-            
-              <span class="archive__type">posts</span>
-              <span class="archive__date">02-17</span>
-            
-          </span>
-          <a href="https://chaphlagical.github.io/zh/posts/softwarerenderer/triangle/" class="archive__title" data-title-wrap="wrap" data-dir="ltr">三角形填充算法</a>        
-        </li>
-        
-        <li class="archive__li" data-dir="ltr">
-          <span class="archive__meta" data-ani="true">
-            
-              <span class="archive__type">posts</span>
-              <span class="archive__date">02-17</span>
-            
-          </span>
-          <a href="https://chaphlagical.github.io/zh/posts/softwarerenderer/zbuffer/" class="archive__title" data-title-wrap="wrap" data-dir="ltr">Z-Buffer与遮挡剔除</a>        
-        </li>
-        
-        <li class="archive__li" data-dir="ltr">
-          <span class="archive__meta" data-ani="true">
-            
-              <span class="archive__type">posts</span>
-              <span class="archive__date">02-10</span>
-            
-          </span>
-          <a href="https://chaphlagical.github.io/zh/posts/softwarerenderer/line/" class="archive__title" data-title-wrap="wrap" data-dir="ltr">光栅画线算法</a>        
-        </li>
-        
-        <li class="archive__li" data-dir="ltr">
-          <span class="archive__meta" data-ani="true">
-            
-              <span class="archive__type">posts</span>
-              <span class="archive__date">02-10</span>
-            
-          </span>
-          <a href="https://chaphlagical.github.io/zh/posts/softwarerenderer/mathematics/" class="archive__title" data-title-wrap="wrap" data-dir="ltr">3D数学基础</a>        
+          <a href="https://chaphlagical.github.io/zh/posts/rendering/prt/" class="archive__title" data-title-wrap="wrap" data-dir="ltr"></a>        
         </li>
         
       </ul>

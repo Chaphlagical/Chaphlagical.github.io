@@ -13,12 +13,10 @@
     <language>en</language>
     <managingEditor>chaf@mail.ustc.edu.cn (Wenbo Chen)</managingEditor>
     <webMaster>chaf@mail.ustc.edu.cn (Wenbo Chen)</webMaster>
-    <copyright>&amp;copy;{year}, All Rights Reserved</copyright>
-    <lastBuildDate>Sun, 29 Aug 2021 22:00:00 +0100</lastBuildDate>
+    <copyright>©2021, All Rights Reserved</copyright>
+    <lastBuildDate>Sat, 20 Nov 2021 10:08:38 +0900</lastBuildDate>
     
         <atom:link href="https://chaphlagical.github.io/en/index.xml" rel="self" type="application/rss+xml" />
-    
-    
     
       
       
@@ -42,6 +40,24 @@
         
       
 
+      
+      <item>
+        <title>My Awesome Project</title>
+        <link>https://chaphlagical.github.io/en/project/graphics/chaf-engine/</link>
+        <pubDate>Sun, 19 Jan 2020 21:13:42 +0900</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        <atom:modified>Sun, 19 Jan 2020 21:13:42 +0900</atom:modified>
+        <guid>https://chaphlagical.github.io/en/project/graphics/chaf-engine/</guid>
+        <description></description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        
+        
+        
+        
+        
+        
+      </item>
       
       <item>
         <title>Low-Cost SPAD Sensing for Non-Line-Of-Sight Tracking, Material Classification and Depth Imaging</title>

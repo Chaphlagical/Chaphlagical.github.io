@@ -663,6 +663,12 @@
     
     var enableSearch = JSON.parse("true");
     
+    var searchDistance = JSON.parse("null");
+    
+    var searchThreshold = JSON.parse("null");
+    
+    var searchContent = JSON.parse("null");
+    
     var enableSearchHighlight = JSON.parse("true");
     
     var searchResultPosition = JSON.parse("\"main\"");
@@ -686,12 +692,13 @@
         xhr.onload = function () {
           if (xhr.status === 200) {
             fuse = new Fuse(JSON.parse(xhr.response.toString('utf-8')), {
-              keys: sectionType.includes('publication') ? ['title', 'abstract'] : ['title', 'description', 'content'],
+              keys: sectionType.includes('publication') ? ['title', 'abstract'] : 
+                searchContent ? ['title', 'description', 'content'] : ['title', 'description'],
               includeMatches: enableSearchHighlight,
               shouldSort: true, 
-              threshold: 0.4, 
+              threshold: searchThreshold ? searchThreshold : 0.4, 
               location: 0, 
-              distance: 100, 
+              distance: searchDistance ? searchDistance : 100, 
               maxPatternLength: 32,
               minMatchCharLength: 1,
               isCaseSensitive: false, 
@@ -715,7 +722,7 @@
       var a = document.createElement('a');
       a.innerHTML = obj.item.title;
       a.setAttribute('class', 'search-result__item--title');
-      a.setAttribute('href', obj.item.permalink);
+      a.setAttribute('href', obj.item.uri);
 
       var descDiv = document.createElement('div');
       descDiv.setAttribute('class', 'search-result__item--desc');
@@ -1315,7 +1322,8 @@
     }
   
   });
-</script>    
+</script>
+    
     
 
 
@@ -1527,7 +1535,7 @@ if (!doNotTrack) {
 
       
         <li class="navbarm__menu--item ">
-          <a href="/zh/about">关于</a>
+          <a href="/zh/about">简介</a>
         </li>
       
       
@@ -1539,7 +1547,7 @@ if (!doNotTrack) {
 
       
         <li class="navbarm__menu--item ">
-          <a href="/zh/resume">简历</a>
+          <a href="/zh/posts">文章</a>
         </li>
       
       
@@ -1551,7 +1559,7 @@ if (!doNotTrack) {
 
       
         <li class="navbarm__menu--item ">
-          <a href="/zh/posts">博文</a>
+          <a href="/zh/showcase">项目</a>
         </li>
       
       
@@ -1564,18 +1572,6 @@ if (!doNotTrack) {
       
         <li class="navbarm__menu--item ">
           <a href="/zh/archive">归档</a>
-        </li>
-      
-      
-    
-      
-      
-      
-      
-
-      
-        <li class="navbarm__menu--item ">
-          <a href="/zh/presentation">讲座</a>
         </li>
       
       
@@ -1658,7 +1654,7 @@ if (!doNotTrack) {
   
   
   
-  <a href="/zh/about" class="navbar__menu-item navbar__slide-down " dir="ltr" data-ani="true">关于</a>
+  <a href="/zh/about" class="navbar__menu-item navbar__slide-down " dir="ltr" data-ani="true">简介</a>
   
   
   
@@ -1666,7 +1662,7 @@ if (!doNotTrack) {
   
   
   
-  <a href="/zh/resume" class="navbar__menu-item navbar__slide-down " dir="ltr" data-ani="true">简历</a>
+  <a href="/zh/posts" class="navbar__menu-item navbar__slide-down " dir="ltr" data-ani="true">文章</a>
   
   
   
@@ -1674,7 +1670,7 @@ if (!doNotTrack) {
   
   
   
-  <a href="/zh/posts" class="navbar__menu-item navbar__slide-down " dir="ltr" data-ani="true">博文</a>
+  <a href="/zh/showcase" class="navbar__menu-item navbar__slide-down " dir="ltr" data-ani="true">项目</a>
   
   
   
@@ -1683,14 +1679,6 @@ if (!doNotTrack) {
   
   
   <a href="/zh/archive" class="navbar__menu-item navbar__slide-down " dir="ltr" data-ani="true">归档</a>
-  
-  
-  
-  
-  
-  
-  
-  <a href="/zh/presentation" class="navbar__menu-item navbar__slide-down " dir="ltr" data-ani="true">讲座</a>
   
   
   
@@ -1756,6 +1744,7 @@ if (!doNotTrack) {
     
     <div class="single__meta">
       <span class="caption pub__meta">📅 </span><span class="caption pub__meta">✍️ Peichen Wu, Wenbo Chen, Hongrui Liu, Yifan Duan, Nan Lin, Xiaoping Chen</span><span class="caption pub__meta">📚 Predicting Grasping Order in Clutter Environment by Using Both Color Image and Points Cloud</span><span class="caption pub__meta" data-entry-type="paper">🎯 paper</span>
+
       
 <ul id="tags" class="pub__tags caption">
   
@@ -1830,13 +1819,14 @@ organization={IEEE}<br />
       
     
       
-        <a href="javascript:void(function(){var d=document,e=encodeURIComponent,s1=window.getSelection,s2=d.getSelection,s3=d.selection,s=s1?s1():s2?s2():s3?s3.createRange().text:'',r='https://www.douban.com/recommend/?url='+e(d.location.href)+'&title='+e(d.title)+'&sel='+e(s)+'&v=1',w=450,h=330,x=function(){if(!window.open(r,'douban','toolbar=0,resizable=1,scrollbars=yes,status=1,width='+w+',height='+h+',left='+(screen.width-w)/2+',top='+(screen.height-h)/2))location.href=r+'&r=1'};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})()" class="donation__item" target="_blank" rel="noreferer" title="Douban" aria-label="Douban Share Button" data-type="share">
+        <a href="javascript:void(function(){var d=document,e=encodeURIComponent,s1=window.getSelection,s2=d.getSelection,s3=d.selection,s=s1?s1():s2?s2():s3?s3.createRange().text:'',r='https://www.douban.com/recommend/?url='+e(d.location.href)+'&title='+e(d.title)+'&sel='+e(s)+'&v=1',w=450,h=330,x=function(){if(!window.open(r,'douban','toolbar=0,resizable=1,scrollbars=yes,status=1,width='+w+',height='+h+',left='+(screen.width-w)/2+',top='+(screen.height-h)/2))location.href=r+'&r=1'};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})()" class="donation__item" target="_blank" rel="noreferrer" title="Douban" aria-label="Douban Share Button" data-type="share">
           <svg data-name="douban" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="35" height="35"><path fill="currentColor" d="M 4 4 A 1.0001 1.0001 0 1 0 4 6 L 20 6 A 1.0001 1.0001 0 1 0 20 4 L 4 4 z M 7 8 C 5.9069372 8 5 8.9069372 5 10 L 5 13 C 5 14.093063 5.9069372 15 7 15 L 7.2792969 15 L 8.6113281 19 L 4 19 A 1.0001 1.0001 0 1 0 4 21 L 20 21 A 1.0001 1.0001 0 1 0 20 19 L 15.388672 19 L 16.720703 15 L 17 15 C 18.093063 15 19 14.093063 19 13 L 19 10 C 19 8.9069372 18.093063 8 17 8 L 7 8 z M 7 10 L 17 10 L 17 13 L 7 13 L 7 10 z M 9.3886719 15 L 14.611328 15 L 13.279297 19 L 10.720703 19 L 9.3886719 15 z"/></svg>
         </a>
       
     
   </div>
 </div>
+
 
     
     

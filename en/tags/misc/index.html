@@ -663,6 +663,12 @@
     
     var enableSearch = JSON.parse("true");
     
+    var searchDistance = JSON.parse("null");
+    
+    var searchThreshold = JSON.parse("null");
+    
+    var searchContent = JSON.parse("null");
+    
     var enableSearchHighlight = JSON.parse("true");
     
     var searchResultPosition = JSON.parse("\"main\"");
@@ -686,12 +692,13 @@
         xhr.onload = function () {
           if (xhr.status === 200) {
             fuse = new Fuse(JSON.parse(xhr.response.toString('utf-8')), {
-              keys: sectionType.includes('publication') ? ['title', 'abstract'] : ['title', 'description', 'content'],
+              keys: sectionType.includes('publication') ? ['title', 'abstract'] : 
+                searchContent ? ['title', 'description', 'content'] : ['title', 'description'],
               includeMatches: enableSearchHighlight,
               shouldSort: true, 
-              threshold: 0.4, 
+              threshold: searchThreshold ? searchThreshold : 0.4, 
               location: 0, 
-              distance: 100, 
+              distance: searchDistance ? searchDistance : 100, 
               maxPatternLength: 32,
               minMatchCharLength: 1,
               isCaseSensitive: false, 
@@ -715,7 +722,7 @@
       var a = document.createElement('a');
       a.innerHTML = obj.item.title;
       a.setAttribute('class', 'search-result__item--title');
-      a.setAttribute('href', obj.item.permalink);
+      a.setAttribute('href', obj.item.uri);
 
       var descDiv = document.createElement('div');
       descDiv.setAttribute('class', 'search-result__item--desc');
@@ -1315,7 +1322,8 @@
     }
   
   });
-</script>    
+</script>
+    
     
 
 
@@ -1537,18 +1545,6 @@ if (!doNotTrack) {
 
       
         <li class="navbarm__menu--item ">
-          <a href="/en/resume">Resume</a>
-        </li>
-      
-      
-    
-      
-      
-      
-      
-
-      
-        <li class="navbarm__menu--item ">
           <a href="/en/posts">Posts</a>
         </li>
       
@@ -1573,7 +1569,7 @@ if (!doNotTrack) {
 
       
         <li class="navbarm__menu--item ">
-          <a href="/en/presentation">Pre</a>
+          <a href="/en/project">Project</a>
         </li>
       
       
@@ -1586,18 +1582,6 @@ if (!doNotTrack) {
       
         <li class="navbarm__menu--item ">
           <a href="/en/publication">Pub</a>
-        </li>
-      
-      
-    
-      
-      
-      
-      
-
-      
-        <li class="navbarm__menu--item ">
-          <a href="/en/note">Note</a>
         </li>
       
       
@@ -1676,14 +1660,6 @@ if (!doNotTrack) {
   
   
   
-  <a href="/en/resume" class="navbar__menu-item navbar__slide-down " dir="ltr" data-ani="true">Resume</a>
-  
-  
-  
-  
-  
-  
-  
   <a href="/en/posts" class="navbar__menu-item navbar__slide-down " dir="ltr" data-ani="true">Posts</a>
   
   
@@ -1700,7 +1676,7 @@ if (!doNotTrack) {
   
   
   
-  <a href="/en/presentation" class="navbar__menu-item navbar__slide-down " dir="ltr" data-ani="true">Pre</a>
+  <a href="/en/project" class="navbar__menu-item navbar__slide-down " dir="ltr" data-ani="true">Project</a>
   
   
   
@@ -1709,14 +1685,6 @@ if (!doNotTrack) {
   
   
   <a href="/en/publication" class="navbar__menu-item navbar__slide-down " dir="ltr" data-ani="true">Pub</a>
-  
-  
-  
-  
-  
-  
-  
-  <a href="/en/note" class="navbar__menu-item navbar__slide-down " dir="ltr" data-ani="true">Note</a>
   
   
 </div>
@@ -1798,6 +1766,7 @@ if (!doNotTrack) {
   </div>
   <hr />
 </article>
+
 
       
       

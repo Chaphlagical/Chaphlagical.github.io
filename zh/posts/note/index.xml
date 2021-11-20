@@ -13,83 +13,39 @@
     <language>zh</language>
     <managingEditor>chaf@mail.ustc.edu.cn (Wenbo Chen)</managingEditor>
     <webMaster>chaf@mail.ustc.edu.cn (Wenbo Chen)</webMaster>
-    <copyright>&amp;copy;{year}, All Rights Reserved</copyright>
+    <copyright>©2021, All Rights Reserved</copyright>
     <lastBuildDate>Wed, 29 Sep 2021 00:00:00 +0000</lastBuildDate>
     
         <atom:link href="https://chaphlagical.github.io/zh/posts/note/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    
 
       
       <item>
-        <title>强化学习 | 马尔可夫决策过程</title>
-        <link>https://chaphlagical.github.io/zh/posts/note/reinforcement_learning/mdp/</link>
-        <pubDate>Thu, 30 Sep 2021 16:19:11 +0100</pubDate>
+        <title>Computer Graphics</title>
+        <link>https://chaphlagical.github.io/zh/posts/note/graphics/</link>
+        <pubDate>Sun, 17 Oct 2021 00:00:00 +0000</pubDate>
         <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
-        <atom:modified>Thu, 30 Sep 2021 16:19:11 +0100</atom:modified>
-        <guid>https://chaphlagical.github.io/zh/posts/note/reinforcement_learning/mdp/</guid>
-        <description>1. 马尔可夫过程 1.1. 马尔可夫性质Markov Property 马尔可夫性质的特点： 当一个随机过程在给定现在状态及所有过去状态情况下，其未来状态的条件概率分布仅依</description>
+        <atom:modified>Sun, 17 Oct 2021 00:00:00 +0000</atom:modified>
+        <guid>https://chaphlagical.github.io/zh/posts/note/graphics/</guid>
+        <description></description>
         
         <dc:creator>Wenbo Chen</dc:creator>
         
         
         
         
-          
-            
-              <category>Reinforcement Learning</category>
-            
-          
-        
-        
-          
-            
-              <category>note</category>
-            
-          
         
         
       </item>
       
       <item>
-        <title>强化学习 | 简介</title>
-        <link>https://chaphlagical.github.io/zh/posts/note/reinforcement_learning/intro/</link>
-        <pubDate>Wed, 29 Sep 2021 17:19:11 +0100</pubDate>
-        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
-        <atom:modified>Wed, 29 Sep 2021 17:19:11 +0100</atom:modified>
-        <guid>https://chaphlagical.github.io/zh/posts/note/reinforcement_learning/intro/</guid>
-        <description>1. 机器学习的分类 机器学习主要分为监督学习、无监督学习、强化学习 监督学习：对于有标签的数据进行学习，目的是能够正确判断无标签的数据。主要任务分</description>
-        
-        <dc:creator>Wenbo Chen</dc:creator>
-        
-        
-        
-        
-          
-            
-              <category>Reinforcement Learning</category>
-            
-          
-        
-        
-          
-            
-              <category>note</category>
-            
-          
-        
-        
-      </item>
-      
-      <item>
-        <title>Differential Geometry</title>
-        <link>https://chaphlagical.github.io/zh/posts/note/differential_geometry/</link>
+        <title>Mathematics</title>
+        <link>https://chaphlagical.github.io/zh/posts/note/mathematics/</link>
         <pubDate>Fri, 30 Apr 2021 00:00:00 +0000</pubDate>
         <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
         <atom:modified>Fri, 30 Apr 2021 00:00:00 +0000</atom:modified>
-        <guid>https://chaphlagical.github.io/zh/posts/note/differential_geometry/</guid>
-        <description>古典微分几何学习笔记，参考资料： 微分几何（陈维桓） 曲线与曲面的微分几何（Manfredo Do Carmo）</description>
+        <guid>https://chaphlagical.github.io/zh/posts/note/mathematics/</guid>
+        <description>数学学习笔记</description>
         
         <dc:creator>Wenbo Chen</dc:creator>
         

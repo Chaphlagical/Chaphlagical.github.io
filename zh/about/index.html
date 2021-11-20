@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>关于 – Chaf&#39;s Blog</title>
+    <title>简介 – Chaf&#39;s Blog</title>
     
 
 
@@ -663,6 +663,12 @@
     
     var enableSearch = JSON.parse("true");
     
+    var searchDistance = JSON.parse("null");
+    
+    var searchThreshold = JSON.parse("null");
+    
+    var searchContent = JSON.parse("null");
+    
     var enableSearchHighlight = JSON.parse("true");
     
     var searchResultPosition = JSON.parse("\"main\"");
@@ -686,12 +692,13 @@
         xhr.onload = function () {
           if (xhr.status === 200) {
             fuse = new Fuse(JSON.parse(xhr.response.toString('utf-8')), {
-              keys: sectionType.includes('publication') ? ['title', 'abstract'] : ['title', 'description', 'content'],
+              keys: sectionType.includes('publication') ? ['title', 'abstract'] : 
+                searchContent ? ['title', 'description', 'content'] : ['title', 'description'],
               includeMatches: enableSearchHighlight,
               shouldSort: true, 
-              threshold: 0.4, 
+              threshold: searchThreshold ? searchThreshold : 0.4, 
               location: 0, 
-              distance: 100, 
+              distance: searchDistance ? searchDistance : 100, 
               maxPatternLength: 32,
               minMatchCharLength: 1,
               isCaseSensitive: false, 
@@ -715,7 +722,7 @@
       var a = document.createElement('a');
       a.innerHTML = obj.item.title;
       a.setAttribute('class', 'search-result__item--title');
-      a.setAttribute('href', obj.item.permalink);
+      a.setAttribute('href', obj.item.uri);
 
       var descDiv = document.createElement('div');
       descDiv.setAttribute('class', 'search-result__item--desc');
@@ -1315,7 +1322,8 @@
     }
   
   });
-</script>    
+</script>
+    
     
 
 
@@ -1334,7 +1342,7 @@
 
 
 <meta property="og:site_name" content="Chaf&#39;s Blog">
-<meta property="og:title" content="关于">
+<meta property="og:title" content="简介">
 <meta property="og:url" content="https://chaphlagical.github.io/zh/about/">
 <meta property="og:type" content="article">
 <meta property="og:description" content="My Blog">
@@ -1374,7 +1382,7 @@
   {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    "headline": "关于",
+    "headline": "简介",
     "datePublished": "2020-11-13T00:00:00Z",
     "dateModified": "2020-11-13T00:00:00Z",
     "url" : "https://chaphlagical.github.io/zh/about/",
@@ -1525,7 +1533,7 @@ if (!doNotTrack) {
 
       
         <li class="navbarm__menu--item active">
-          <a href="/zh/about">关于</a>
+          <a href="/zh/about">简介</a>
         </li>
       
       
@@ -1537,7 +1545,7 @@ if (!doNotTrack) {
 
       
         <li class="navbarm__menu--item ">
-          <a href="/zh/resume">简历</a>
+          <a href="/zh/posts">文章</a>
         </li>
       
       
@@ -1549,7 +1557,7 @@ if (!doNotTrack) {
 
       
         <li class="navbarm__menu--item ">
-          <a href="/zh/posts">博文</a>
+          <a href="/zh/showcase">项目</a>
         </li>
       
       
@@ -1562,18 +1570,6 @@ if (!doNotTrack) {
       
         <li class="navbarm__menu--item ">
           <a href="/zh/archive">归档</a>
-        </li>
-      
-      
-    
-      
-      
-      
-      
-
-      
-        <li class="navbarm__menu--item ">
-          <a href="/zh/presentation">讲座</a>
         </li>
       
       
@@ -1656,7 +1652,7 @@ if (!doNotTrack) {
   
   
   
-  <a href="/zh/about" class="navbar__menu-item navbar__slide-down active" dir="ltr" data-ani="true">关于</a>
+  <a href="/zh/about" class="navbar__menu-item navbar__slide-down active" dir="ltr" data-ani="true">简介</a>
   
   
   
@@ -1664,7 +1660,7 @@ if (!doNotTrack) {
   
   
   
-  <a href="/zh/resume" class="navbar__menu-item navbar__slide-down " dir="ltr" data-ani="true">简历</a>
+  <a href="/zh/posts" class="navbar__menu-item navbar__slide-down " dir="ltr" data-ani="true">文章</a>
   
   
   
@@ -1672,7 +1668,7 @@ if (!doNotTrack) {
   
   
   
-  <a href="/zh/posts" class="navbar__menu-item navbar__slide-down " dir="ltr" data-ani="true">博文</a>
+  <a href="/zh/showcase" class="navbar__menu-item navbar__slide-down " dir="ltr" data-ani="true">项目</a>
   
   
   
@@ -1681,14 +1677,6 @@ if (!doNotTrack) {
   
   
   <a href="/zh/archive" class="navbar__menu-item navbar__slide-down " dir="ltr" data-ani="true">归档</a>
-  
-  
-  
-  
-  
-  
-  
-  <a href="/zh/presentation" class="navbar__menu-item navbar__slide-down " dir="ltr" data-ani="true">讲座</a>
   
   
   
@@ -1705,7 +1693,7 @@ if (!doNotTrack) {
             
 <header class="header basicflex-column">
   <h3 class="h3 terms__title">
-    关于
+    简介
   </h3>
 </header>
 <main class="main about">
