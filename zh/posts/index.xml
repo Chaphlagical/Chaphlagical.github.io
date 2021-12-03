@@ -14,11 +14,71 @@
     <managingEditor>chaf@mail.ustc.edu.cn (Wenbo Chen)</managingEditor>
     <webMaster>chaf@mail.ustc.edu.cn (Wenbo Chen)</webMaster>
     <copyright>©2021, All Rights Reserved</copyright>
-    <lastBuildDate>Fri, 15 Oct 2021 10:07:11 +0100</lastBuildDate>
+    <lastBuildDate>Fri, 03 Dec 2021 15:13:11 +0100</lastBuildDate>
     
         <atom:link href="https://chaphlagical.github.io/zh/posts/index.xml" rel="self" type="application/rss+xml" />
     
 
+      
+      <item>
+        <title>Lazy Snapping</title>
+        <link>https://chaphlagical.github.io/zh/posts/image_process/lazy_snapping/</link>
+        <pubDate>Fri, 03 Dec 2021 15:13:11 +0100</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        <atom:modified>Fri, 03 Dec 2021 15:13:11 +0100</atom:modified>
+        <guid>https://chaphlagical.github.io/zh/posts/image_process/lazy_snapping/</guid>
+        <description>Lazy Snapping是一种基于图的图像分割方法\cite{li2004lazy}，能够将图像分割为前景和背景，通过用户交互挑选前景和背景种子，</description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        <media:content url="https://chaphlagical.github.ioimages/posts/lazy_snapping.png" medium="image"><media:title type="html">featured image</media:title></media:content>
+        
+        
+        
+          
+            
+              <category>Digital Image Process</category>
+            
+          
+        
+        
+          
+            
+              <category>Digital Image Process</category>
+            
+          
+        
+        
+      </item>
+      
+      <item>
+        <title>Seam Carving</title>
+        <link>https://chaphlagical.github.io/zh/posts/image_process/seam_carving/</link>
+        <pubDate>Fri, 03 Dec 2021 15:13:11 +0100</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        <atom:modified>Fri, 03 Dec 2021 15:13:11 +0100</atom:modified>
+        <guid>https://chaphlagical.github.io/zh/posts/image_process/seam_carving/</guid>
+        <description>Seam Carving算法是一种基于内容的图像缩放方法，在保证图像中“重要区域”不发生形变的前提下，对图像进行缩放。 一种直观的想法便是找出图像中的</description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        <media:content url="https://chaphlagical.github.ioimages/posts/seam_carving.png" medium="image"><media:title type="html">featured image</media:title></media:content>
+        
+        
+        
+          
+            
+              <category>Digital Image Process</category>
+            
+          
+        
+        
+          
+            
+              <category>Digital Image Process</category>
+            
+          
+        
+        
+      </item>
       
       <item>
         <title>实时渲染优化技术(1)</title>
@@ -50,6 +110,96 @@
               <category>Graphics</category>
             
           
+        
+        
+      </item>
+      
+      <item>
+        <title></title>
+        <link>https://chaphlagical.github.io/zh/posts/geometry/spline/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        
+        <guid>https://chaphlagical.github.io/zh/posts/geometry/spline/</guid>
+        <description></description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        
+        
+        
+        
+        
+        
+      </item>
+      
+      <item>
+        <title></title>
+        <link>https://chaphlagical.github.io/zh/posts/image_process/color_transfer/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        
+        <guid>https://chaphlagical.github.io/zh/posts/image_process/color_transfer/</guid>
+        <description></description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        
+        
+        
+        
+        
+        
+      </item>
+      
+      <item>
+        <title></title>
+        <link>https://chaphlagical.github.io/zh/posts/image_process/colorization/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        
+        <guid>https://chaphlagical.github.io/zh/posts/image_process/colorization/</guid>
+        <description></description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        
+        
+        
+        
+        
+        
+      </item>
+      
+      <item>
+        <title></title>
+        <link>https://chaphlagical.github.io/zh/posts/image_process/image_warping/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        
+        <guid>https://chaphlagical.github.io/zh/posts/image_process/image_warping/</guid>
+        <description></description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        
+        
+        
+        
+        
+        
+      </item>
+      
+      <item>
+        <title></title>
+        <link>https://chaphlagical.github.io/zh/posts/image_process/possion/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        
+        <guid>https://chaphlagical.github.io/zh/posts/image_process/possion/</guid>
+        <description></description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        
+        
+        
+        
         
         
       </item>
