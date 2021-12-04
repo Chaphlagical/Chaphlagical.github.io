@@ -136,6 +136,36 @@
       </item>
       
       <item>
+        <title>Color Transfer</title>
+        <link>https://chaphlagical.github.io/zh/posts/image_process/color_transfer/</link>
+        <pubDate>Sun, 19 Sep 2021 15:13:11 +0100</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        <atom:modified>Sun, 19 Sep 2021 15:13:11 +0100</atom:modified>
+        <guid>https://chaphlagical.github.io/zh/posts/image_process/color_transfer/</guid>
+        <description>1. 问题描述 给定一张原图像： 和一张参考图像： 我们希望通过设计一个颜色转换算法，使得源图像具有目标图像的颜色风格，如下图： 2. 算法描述 衡量一幅图像</description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        <media:content url="https://chaphlagical.github.ioimages/posts/color_transfer.png" medium="image"><media:title type="html">featured image</media:title></media:content>
+        
+        
+        
+          
+            
+              <category>Digital Image Process</category>
+            
+          
+        
+        
+          
+            
+              <category>Digital Image Process</category>
+            
+          
+        
+        
+      </item>
+      
+      <item>
         <title>Colorization</title>
         <link>https://chaphlagical.github.io/zh/posts/image_process/colorization/</link>
         <pubDate>Sun, 19 Sep 2021 15:13:11 +0100</pubDate>
@@ -172,24 +202,6 @@
         <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
         
         <guid>https://chaphlagical.github.io/zh/posts/geometry/spline/</guid>
-        <description></description>
-        
-        <dc:creator>Wenbo Chen</dc:creator>
-        
-        
-        
-        
-        
-        
-      </item>
-      
-      <item>
-        <title></title>
-        <link>https://chaphlagical.github.io/zh/posts/image_process/color_transfer/</link>
-        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
-        
-        <guid>https://chaphlagical.github.io/zh/posts/image_process/color_transfer/</guid>
         <description></description>
         
         <dc:creator>Wenbo Chen</dc:creator>

@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title> – Chaf&#39;s Blog</title>
+    <title>Color Transfer – Chaf&#39;s Blog</title>
     
 
 
@@ -1331,21 +1331,32 @@
 
 
     
-<meta name="description" content="Create the World with codes." />
+<meta name="description" content="复现论文《Color Transfer between Images》" />
 
 
-<meta name="created" content="0001-01-01T00:00:00&#43;0000">
-<meta name="modified" content="0001-01-01T00:00:00&#43;0000">
-<meta property="article:published_time" content="0001-01-01T00:00:00&#43;0000">
+<meta name="keywords" content="Digital Image Process">
+
+<meta name="created" content="2021-09-19T15:13:11&#43;0100">
+<meta name="modified" content="2021-09-19T15:13:11&#43;0100">
+<meta property="article:published_time" content="2021-09-19T15:13:11&#43;0100">
 
 <meta name="author" content="Wenbo Chen">
 
 
 <meta property="og:site_name" content="Chaf&#39;s Blog">
-<meta property="og:title" content="">
+<meta property="og:title" content="Color Transfer">
 <meta property="og:url" content="https://chaphlagical.github.io/zh/posts/image_process/color_transfer/">
 <meta property="og:type" content="article">
-<meta property="og:description" content="Create the World with codes.">
+<meta property="og:description" content="复现论文《Color Transfer between Images》">
+
+  
+    <meta property="og:image" content="https://chaphlagical.github.io/images/posts/color_transfer.png">
+    <meta property="og:image:url" content="https://chaphlagical.github.io/images/posts/color_transfer.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:app:name:iphone" content="Chaf&#39;s Blog">
+    <meta property="twitter:title" content="Color Transfer">
+    <meta property="twitter:description" content="复现论文《Color Transfer between Images》">
+  
 
 <meta name="generator" content="Hugo 0.82.0" />
 <meta name="msapplication-TileColor" content="#fff">
@@ -1382,11 +1393,13 @@
   {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    "headline": "",
-    "datePublished": "0001-01-01T00:00:00Z",
-    "dateModified": "0001-01-01T00:00:00Z",
+    "headline": "Color Transfer",
+    "datePublished": "2021-09-19T15:13:11+01:00",
+    "dateModified": "2021-09-19T15:13:11+01:00",
     "url" : "https://chaphlagical.github.io/zh/posts/image_process/color_transfer/",
-    "description": "",
+    "description": "复现论文《Color Transfer between Images》",
+    "keywords": ["Digital Image Process"],
+    "image" : "https://chaphlagical.github.io/images/posts/color_transfer.png",
     "mainEntityOfPage": {
       "@type": "WebPage",
       "@id": "https://chaphlagical.github.io"
@@ -1719,7 +1732,7 @@ if (!doNotTrack) {
   
   <li  class="is-active" >
     
-      <a href="https://chaphlagical.github.io/zh/posts/image_process/color_transfer/" class="capitalize">Chaf&#39;s Blog</a>
+      <span>Color Transfer</span>
     
   </li>
   
@@ -1731,14 +1744,14 @@ if (!doNotTrack) {
   <div class="single ">
     <div class="single__nojs">Please enable Javascript to view the contents</div>
     <script>document.querySelector('.single').classList.remove('hide'); document.querySelector('.single__nojs').classList.add('hide');</script>
-    <h2 class="single__title" data-ani="true"></h2>
+    <h2 class="single__title" data-ani="true">Color Transfer</h2>
     <h3 class="single__subtitle"></h3>
     <div class="single__meta">
       
 <div class="single__infos">
-  <time class="single__info" title="创建日期">📅&nbsp;0001年01月01日 </time>
+  <time class="single__info" title="创建日期">📅&nbsp;2021年09月19日 </time>
   
-  &nbsp;&middot;&nbsp; <span class="single__info" title="阅读时长"> ☕&nbsp;0&nbsp;分钟 </span>
+  &nbsp;&middot;&nbsp; <span class="single__info" title="阅读时长"> ☕&nbsp;2&nbsp;分钟 </span>
   
   <span class="single__info">
     
@@ -1748,13 +1761,142 @@ if (!doNotTrack) {
       
 <ul class="single__tags caption">
   
+  🏷️
+  
+
+  <li><a href="https://chaphlagical.github.io/zh/tags/digital-image-process/" class="single__tag" title="Digital Image Process">#Digital Image Process</a></li>
 
 </ul>
 
     </div>
     <article class="single__contents" data-dir="ltr" data-ani="true">
       
-      
+      <p><img src="image-20211204155636354.png" alt="image-20211204155636354" /></p>
+<h2 id="1-问题描述">1. 问题描述</h2>
+<p>给定一张原图像：</p>
+<p><img src="src5.png" alt="src5" /></p>
+<p>和一张参考图像：</p>
+<p><img src="tar5.png" alt="tar5" /></p>
+<p>我们希望通过设计一个颜色转换算法，使得源图像具有目标图像的颜色风格，如下图：</p>
+<p><img src="res5.png" alt="res5" /></p>
+<h2 id="2-算法描述">2. 算法描述</h2>
+<p>衡量一幅图像的颜色分布最基础的统计特征就是均值和标准差，文献[1]中便通过这两个特征对图像进行简单的变换并取得不错的效果。</p>
+<p>首先，需要将图像的颜色空间从$RGB$空间变换到$l\alpha\beta$空间：</p>
+<ul>
+<li>
+<p>$RGB$空间$\rightarrow$ $XYZ$空间<br />
+$$<br />
+\begin{pmatrix}<br />
+X\\Y\\Z<br />
+\end{pmatrix}=<br />
+\begin{pmatrix}<br />
+0.5141&amp;0.3239&amp;0.1604\\<br />
+0.2651&amp;0.6702&amp;0.0641\\<br />
+0.0241&amp;0.1228&amp;0.8444<br />
+\end{pmatrix}<br />
+\begin{pmatrix}<br />
+R\\G\\B<br />
+\end{pmatrix}<br />
+$$</p>
+</li>
+<li>
+<p>$XYZ$空间$\rightarrow$ $LMS$空间<br />
+$$<br />
+\begin{pmatrix}<br />
+L\\M\\S<br />
+\end{pmatrix}=<br />
+\begin{pmatrix}<br />
+0.3897&amp;0.6890&amp;-0.0787\\<br />
+-0.2298&amp;1.1834&amp;0.0464\\<br />
+0.0000&amp;0.0000&amp;1.0000<br />
+\end{pmatrix}<br />
+\begin{pmatrix}<br />
+X\\Y\\Z<br />
+\end{pmatrix}<br />
+$$</p>
+</li>
+<li>
+<p>变换到对数空间<br />
+$$<br />
+\begin{aligned}<br />
+\pmb L&amp;=\lg L\\<br />
+\pmb M&amp;=\lg M\\<br />
+\pmb S&amp;=\lg S<br />
+\end{aligned}<br />
+$$</p>
+</li>
+<li>
+<p>$\pmb{LMS}$空间$\rightarrow$ $l\alpha\beta$空间<br />
+$$<br />
+\begin{pmatrix}<br />
+l\\\alpha\\\beta<br />
+\end{pmatrix}=<br />
+\begin{pmatrix}<br />
+\frac{1}{\sqrt{3}}&amp;0&amp;0\\<br />
+0&amp;\frac{1}{\sqrt{6}}&amp;0\\<br />
+0&amp;0&amp;\frac{1}{\sqrt{2}}<br />
+\end{pmatrix}<br />
+\begin{pmatrix}<br />
+1&amp;1&amp;1\\<br />
+1&amp;1&amp;-2\\<br />
+1&amp;-1&amp;0<br />
+\end{pmatrix}<br />
+\begin{pmatrix}<br />
+\pmb L\\\pmb M\\\pmb S<br />
+\end{pmatrix}<br />
+$$</p>
+</li>
+</ul>
+<p>同理，将图像的颜色空间从 lαβ 空间变换到 RGB 空间只需将相应的变换矩阵依次求逆即可。</p>
+<p>设变换到$l\alpha\beta$颜色空间的源图像的均值和标准差分别为$\mu_s$、$\sigma_s$，目标图像的均值和标准差分别为$\mu_t$、$\sigma_t$，只需通过如下简单处理，即可将源图像的颜色分布变换到接近与目标图像<br />
+$$<br />
+\begin{aligned}<br />
+l'&amp;=\frac{\sigma_t^l}{\sigma_s^l}(l-\mu^l_s)+\mu^l_t\\<br />
+\alpha'&amp;=\frac{\sigma_t^\alpha}{\sigma_s^\alpha}(\alpha-mu^\alpha_s)+\mu^\alpha_t\\<br />
+\beta'&amp;=\frac{\sigma_t^\beta}{\sigma_s^\beta}(\beta-\mu^\beta_s)+\mu^\beta_t\<br />
+\end{aligned}<br />
+$$<br />
+并将图像$(l',\alpha',\beta')$变换回$RGB$空间即可得到处理后的结果。</p>
+<h2 id="3-实验结果">3. 实验结果</h2>
+<table>
+<thead>
+<tr>
+<th align="center">原图像</th>
+<th align="center">参考图像</th>
+<th align="center">结果图像</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><img src="src1.png" alt="src1" /></td>
+<td align="center"><img src="tar1.png" alt="tar1" /></td>
+<td align="center"><img src="res1.png" alt="res1" /></td>
+</tr>
+<tr>
+<td align="center"><img src="src2.png" alt="src2" /></td>
+<td align="center"><img src="tar2.png" alt="tar2" /></td>
+<td align="center"><img src="res2.png" alt="res2" /></td>
+</tr>
+<tr>
+<td align="center"><img src="src3.png" alt="src3" /></td>
+<td align="center"><img src="tar3.png" alt="tar3" /></td>
+<td align="center"><img src="res3.png" alt="res3" /></td>
+</tr>
+<tr>
+<td align="center"><img src="src4.png" alt="src4" /></td>
+<td align="center"><img src="tar4.png" alt="tar4" /></td>
+<td align="center"><img src="res4.png" alt="res4" /></td>
+</tr>
+<tr>
+<td align="center"><img src="src5-16386052781032.png" alt="src5" /></td>
+<td align="center"><img src="tar5-16386052914353.png" alt="tar5" /></td>
+<td align="center"><img src="res5-16386052637831.png" alt="res5" /></td>
+</tr>
+</tbody>
+</table>
+<h2 id="参考文献"><em>参考文献</em></h2>
+<p>[1] E. Reinhard, M. Adhikhmin, B. Gooch, and P. Shirley. Color transfer between images. IEEE Computer graphics and applications, 21(5):34–41, 2001.10</p>
+
     </article>
     
     
@@ -2126,22 +2268,37 @@ if (!doNotTrack) {
     <section class="related">
     
     
+    <h1 class="related__title">
+      <hr class="hr-dots"/>
+      <div>
+        相关内容
+      </div>
+      <hr class="hr-dots"/>
+    </h1>
+    <ul class="related-ul">
+        
+        <li>
+          <a href="/zh/posts/image_process/colorization/" class="related__link">Colorization</a>
+        </li>
+        
+    </ul>
+    
   </section>
     <div class="grow"></div>
 <nav class="pagination-single">
   
     
-      <a href="https://chaphlagical.github.io/zh/posts/image_process/image_warping/" class="pagination-single__left">
+      <a href="https://chaphlagical.github.io/zh/posts/image_process/colorization/" class="pagination-single__left">
         <div class="pagination-single__icon">
           <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path fill="currentColor" d="M19 11H7.83l4.88-4.88c.39-.39.39-1.03 0-1.42-.39-.39-1.02-.39-1.41 0l-6.59 6.59c-.39.39-.39 1.02 0 1.41l6.59 6.59c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41L7.83 13H19c.55 0 1-.45 1-1s-.45-1-1-1z"/></svg>
         </div>
-        <div class="pagination-single__left-title"></div>      
+        <div class="pagination-single__left-title">Colorization</div>      
       </a>
     
     <div class="grow"></div>
     
-      <a href="https://chaphlagical.github.io/zh/posts/geometry/spline/" class="pagination-single__right">      
-        <div class="pagination-single__right-title"></div>
+      <a href="https://chaphlagical.github.io/zh/posts/rendering/optimization1/" class="pagination-single__right">      
+        <div class="pagination-single__right-title">实时渲染优化技术(1)</div>
         <div class="pagination-single__icon">
           <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path fill="currentColor" d="M5 13h11.17l-4.88 4.88c-.39.39-.39 1.03 0 1.42.39.39 1.02.39 1.41 0l6.59-6.59c.39-.39.39-1.02 0-1.41l-6.58-6.6c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41L16.17 11H5c-.55 0-1 .45-1 1s.45 1 1 1z"/></svg>
         </div>
@@ -2624,6 +2781,24 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+    },
+    options: {
+      skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      ignoreHtmlClass: 'tex2jax_ignore',
+      processHtmlClass: 'tex2jax_process'
+    }
+  };
+  </script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script"></script>
+
 
 
 
@@ -2883,7 +3058,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     
     
-    var lib = JSON.parse("null");
+    var lib = JSON.parse("[\"mathjax\"]");
 
     if (lib && lib.includes('mermaid')) {
       
@@ -3305,7 +3480,14 @@ document.addEventListener('DOMContentLoaded', function () {
           
         </div>
         <div class="toc toc__outer " data-dir="ltr" data-folding="true" data-ani="true">
-          <nav id="TableOfContents"></nav>
+          <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-问题描述">1. 问题描述</a></li>
+    <li><a href="#2-算法描述">2. 算法描述</a></li>
+    <li><a href="#3-实验结果">3. 实验结果</a></li>
+    <li><a href="#参考文献"><em>参考文献</em></a></li>
+  </ul>
+</nav>
         </div>
       
     
