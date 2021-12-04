@@ -102,6 +102,36 @@
       </item>
       
       <item>
+        <title>Poisson Image Editing</title>
+        <link>https://chaphlagical.github.io/zh/posts/image_process/possion/</link>
+        <pubDate>Sat, 23 Oct 2021 16:45:11 +0100</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        <atom:modified>Sat, 23 Oct 2021 16:45:11 +0100</atom:modified>
+        <guid>https://chaphlagical.github.io/zh/posts/image_process/possion/</guid>
+        <description>1. 问题描述 给定以下两幅图： 现我们需要将第一幅图中的女孩搬到第二幅图的海水中，为使得复制粘贴更加逼真自然，我们需要设计算法来满足我们两幅图像融</description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        <media:content url="https://chaphlagical.github.ioimages/posts/poisson.jpg" medium="image"><media:title type="html">featured image</media:title></media:content>
+        
+        
+        
+          
+            
+              <category>Digital Image Process</category>
+            
+          
+        
+        
+          
+            
+              <category>Digital Image Process</category>
+            
+          
+        
+        
+      </item>
+      
+      <item>
         <title>实时渲染优化技术(1)</title>
         <link>https://chaphlagical.github.io/zh/posts/rendering/optimization1/</link>
         <pubDate>Fri, 15 Oct 2021 10:07:11 +0100</pubDate>
@@ -232,24 +262,6 @@
         <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
         
         <guid>https://chaphlagical.github.io/zh/posts/geometry/spline/</guid>
-        <description></description>
-        
-        <dc:creator>Wenbo Chen</dc:creator>
-        
-        
-        
-        
-        
-        
-      </item>
-      
-      <item>
-        <title></title>
-        <link>https://chaphlagical.github.io/zh/posts/image_process/possion/</link>
-        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
-        
-        <guid>https://chaphlagical.github.io/zh/posts/image_process/possion/</guid>
         <description></description>
         
         <dc:creator>Wenbo Chen</dc:creator>

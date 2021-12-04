@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title> – Chaf&#39;s Blog</title>
+    <title>Poisson Image Editing – Chaf&#39;s Blog</title>
     
 
 
@@ -1331,21 +1331,32 @@
 
 
     
-<meta name="description" content="Create the World with codes." />
+<meta name="description" content="复现Siggraph2003论文《Poisson Image Editing》" />
 
 
-<meta name="created" content="0001-01-01T00:00:00&#43;0000">
-<meta name="modified" content="0001-01-01T00:00:00&#43;0000">
-<meta property="article:published_time" content="0001-01-01T00:00:00&#43;0000">
+<meta name="keywords" content="Digital Image Process">
+
+<meta name="created" content="2021-10-23T16:45:11&#43;0100">
+<meta name="modified" content="2021-10-23T16:45:11&#43;0100">
+<meta property="article:published_time" content="2021-10-23T16:45:11&#43;0100">
 
 <meta name="author" content="Wenbo Chen">
 
 
 <meta property="og:site_name" content="Chaf&#39;s Blog">
-<meta property="og:title" content="">
+<meta property="og:title" content="Poisson Image Editing">
 <meta property="og:url" content="https://chaphlagical.github.io/zh/posts/image_process/possion/">
 <meta property="og:type" content="article">
-<meta property="og:description" content="Create the World with codes.">
+<meta property="og:description" content="复现Siggraph2003论文《Poisson Image Editing》">
+
+  
+    <meta property="og:image" content="https://chaphlagical.github.io/images/posts/poisson.jpg">
+    <meta property="og:image:url" content="https://chaphlagical.github.io/images/posts/poisson.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:app:name:iphone" content="Chaf&#39;s Blog">
+    <meta property="twitter:title" content="Poisson Image Editing">
+    <meta property="twitter:description" content="复现Siggraph2003论文《Poisson Image Editing》">
+  
 
 <meta name="generator" content="Hugo 0.82.0" />
 <meta name="msapplication-TileColor" content="#fff">
@@ -1382,11 +1393,13 @@
   {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    "headline": "",
-    "datePublished": "0001-01-01T00:00:00Z",
-    "dateModified": "0001-01-01T00:00:00Z",
+    "headline": "Poisson Image Editing",
+    "datePublished": "2021-10-23T16:45:11+01:00",
+    "dateModified": "2021-10-23T16:45:11+01:00",
     "url" : "https://chaphlagical.github.io/zh/posts/image_process/possion/",
-    "description": "",
+    "description": "复现Siggraph2003论文《Poisson Image Editing》",
+    "keywords": ["Digital Image Process"],
+    "image" : "https://chaphlagical.github.io/images/posts/poisson.jpg",
     "mainEntityOfPage": {
       "@type": "WebPage",
       "@id": "https://chaphlagical.github.io"
@@ -1719,7 +1732,7 @@ if (!doNotTrack) {
   
   <li  class="is-active" >
     
-      <a href="https://chaphlagical.github.io/zh/posts/image_process/possion/" class="capitalize">Chaf&#39;s Blog</a>
+      <span>Poisson Image Editing</span>
     
   </li>
   
@@ -1731,14 +1744,14 @@ if (!doNotTrack) {
   <div class="single ">
     <div class="single__nojs">Please enable Javascript to view the contents</div>
     <script>document.querySelector('.single').classList.remove('hide'); document.querySelector('.single__nojs').classList.add('hide');</script>
-    <h2 class="single__title" data-ani="true"></h2>
+    <h2 class="single__title" data-ani="true">Poisson Image Editing</h2>
     <h3 class="single__subtitle"></h3>
     <div class="single__meta">
       
 <div class="single__infos">
-  <time class="single__info" title="创建日期">📅&nbsp;0001年01月01日 </time>
+  <time class="single__info" title="创建日期">📅&nbsp;2021年10月23日 </time>
   
-  &nbsp;&middot;&nbsp; <span class="single__info" title="阅读时长"> ☕&nbsp;0&nbsp;分钟 </span>
+  &nbsp;&middot;&nbsp; <span class="single__info" title="阅读时长"> ☕&nbsp;3&nbsp;分钟 </span>
   
   <span class="single__info">
     
@@ -1748,13 +1761,137 @@ if (!doNotTrack) {
       
 <ul class="single__tags caption">
   
+  🏷️
+  
+
+  <li><a href="https://chaphlagical.github.io/zh/tags/digital-image-process/" class="single__tag" title="Digital Image Process">#Digital Image Process</a></li>
 
 </ul>
 
     </div>
     <article class="single__contents" data-dir="ltr" data-ani="true">
       
-      
+      <p><img src="poisson.png" alt="poisson" /></p>
+<h2 id="1-问题描述">1. 问题描述</h2>
+<p>给定以下两幅图：</p>
+<p><img src="girl.jpg" alt="girl" /></p>
+<p><img src="sea.jpg" alt="sea" /></p>
+<p>现我们需要将第一幅图中的女孩搬到第二幅图的海水中，为使得复制粘贴更加逼真自然，我们需要设计算法来满足我们两幅图像融合的需要</p>
+<h2 id="2-算法描述">2. 算法描述</h2>
+<p>Poisson Image Editing算法[1]的基本思想是在尽可能保持原图像内部梯度的前提下，让粘贴后图像的边界值与新的背景图相同，以实现无缝粘贴的效果。从数学上讲，对于原图像$f(x,y)$，新背景$f^<em>(x,y)$和嵌入新背景后的新图像$v(x,y)$，等价于解最优化问题：<br />
+$$<br />
+\min\limits_f \iint <em>\Omega |\nabla f-\boldsymbol v |^2 \ \ \mathrm{with}\ f|</em>{\partial \Omega}=f^</em>|_{\partial \Omega}<br />
+$$<br />
+利用变分法，令$F=|\nabla f-\boldsymbol v |^2=(\nabla f_x-\boldsymbol v_x)^2+(\nabla f_y-\boldsymbol v_y)^2$</p>
+<p>代入欧拉-拉格朗日方程：<br />
+$$<br />
+F_f-\frac{\mathrm d}{\mathrm d x}F_{f_x}-\frac{\mathrm d}{\mathrm d y}F_{f_y}=0<br />
+$$<br />
+由于$F$是关于$\nabla f$的函数，因此$F_f=0$</p>
+<p>所以有：<br />
+$$<br />
+\begin{align}<br />
+&amp;\frac{\partial F}{\partial f}=\frac{\mathrm d}{\mathrm dx}\left[\frac{\partial F}{\partial(\nabla f_x-\pmb v_x)^2}\right]+\frac{\mathrm d}{\mathrm dy}\left[\frac{\partial F}{\partial(\nabla f_y-\pmb v_y)^2}\right]\\\\<br />
+&amp;\Rightarrow 0=\frac{\mathrm d}{\mathrm dx}[2(\nabla f_x-\pmb v_x)]+<br />
+\frac{\mathrm d}{\mathrm dy}[2(\nabla f_y-\pmb v_y)]\\\\<br />
+&amp;\Rightarrow 0=\left(\frac{\partial ^2f}{\partial x^2}-\frac{\partial \pmb v}{\partial x}\right)+\left(\frac{\partial ^2f}{\partial y^2}-\frac{\partial \pmb v}{\partial y}\right)\\\\<br />
+&amp;\Rightarrow \Delta f=\mathrm{div}\pmb v<br />
+\end{align}<br />
+$$<br />
+可转化为具有Dirichlet边界条件的Poisson方程：</p>
+<p>$$<br />
+\Delta f= \mathrm{div} \boldsymbol v\ \ \mathrm{over}\ \Omega\ \ \mathrm{with} \ \ f|_{\partial \Omega}=f^\ast|_{\partial\Omega}<br />
+$$</p>
+<p>以第一幅图和第二幅图为例，将图1中需要复制的区域设为$S$，定义$N_p$为$S$中的每一个像素$p$四个方向连接邻域，令$&lt;p,q&gt;$为满足$q\in N_p$的像素对。边界$\Omega$定义为$\partial \Omega ={p\in S\setminus \Omega: N_p \cap \Omega \neq \emptyset }$，设$f_p$为$p$处的像素值$f$，目标即求解像素值集$f|_\Omega ={f_p,p\in \Omega}$</p>
+<p>利用Poisson Image Editing算法的基本原理，上述问题转化为求解最优化问题：<br />
+$$<br />
+\min\limits_{f|_\Omega}\sum\limits_{&lt;p,q&gt;\cap \Omega\neq \emptyset}(f_p-f_q-v_{pq})^2,\mathrm{with}\ f_p=f_p^*,\forall\ p\in \partial\Omega<br />
+$$<br />
+化为求解线性方程组：<br />
+$$<br />
+\forall\ p\in \Omega,\ |N_p|f_p-\sum\limits_{q\in N_p\cap \Omega} f_q=\sum\limits_{q\in N_p\cap \partial \Omega}f_p^*+\sum\limits_{q\in N_p}v_{pq}<br />
+$$<br />
+对于梯度场$\boldsymbol{v}(\boldsymbol{x})$的选择，文献[1]给出两种方法，一种是完全使用前景图像的内部梯度，即：<br />
+$$<br />
+\forall\ &lt;p,q&gt;,v_{pq}=g_p-g_q<br />
+$$<br />
+另一种是使用混合梯度：<br />
+$$<br />
+\forall\ \boldsymbol{x}\in \Omega,\ \boldsymbol{v}(\boldsymbol{x})=\begin{cases}<br />
+\nabla f^*(\boldsymbol{x})&amp;\mathrm{if}\ |\nabla f^*(\boldsymbol{x})&gt;|\nabla g(\boldsymbol{x})|,\\\\<br />
+\nabla g(\boldsymbol{x})&amp;\mathrm{otherwise}<br />
+\end{cases} <br />
+$$<br />
+**扫描线算法**</p>
+<p>为实现多边形和自由绘制闭合图形区域的Poisson Image Editing算法，需通过扫描线算法获取多边形内部掩膜。这里从网上资料了解到一种有序边表法，其基本思想是定义边表ET和活动边表AET，ET记录当前扫描线与边的交点坐标、从当前扫描线到下一条扫描线间x的增量、该边所交的最高扫描线，AET记录只与当前扫描线相交的边的链表，通过迭代得到当前扫描线与待求多边形各边的交点，再利用奇偶检测法判断该点是否在多边形内部进行填充。</p>
+<h2 id="3-实验结果">3. 实验结果</h2>
+<h3 id="31-标准图像测试">3.1. 标准图像测试</h3>
+<p>原图像：</p>
+<p><img src="girl-16386098219061.jpg" alt="girl" /></p>
+<p><img src="bear.jpg" alt="bear" /></p>
+<p>新背景图像：</p>
+<p><img src="sea.jpg" alt="sea" /></p>
+<table>
+<thead>
+<tr>
+<th align="center">边界形式</th>
+<th align="center">图1选择区域</th>
+<th align="center">图2选择区域</th>
+<th align="center">结果图像</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">矩形边界</td>
+<td align="center"><img src="girlrect.png" alt="girlrect" /></td>
+<td align="center"><img src="bearrect.png" alt="bearrect" /></td>
+<td align="center"><img src="rect.jpg" alt="rect" /></td>
+</tr>
+<tr>
+<td align="center">多边形边界</td>
+<td align="center"><img src="girlpolygon.png" alt="girlpolygon" /></td>
+<td align="center"><img src="bearpolygon.png" alt="bearpolygon" /></td>
+<td align="center"><img src="polygon.jpg" alt="polygon" /></td>
+</tr>
+<tr>
+<td align="center">自由绘制边界</td>
+<td align="center"><img src="girlfree.png" alt="girlfree" /></td>
+<td align="center"><img src="bearfree.png" alt="bearfree" /></td>
+<td align="center"><img src="freedraw.jpg" alt="freedraw" /></td>
+</tr>
+</tbody>
+</table>
+<h3 id="32-poisson-vs-mix-poisson">3.2. Poisson vs. Mix Poisson</h3>
+<p>背景图像：</p>
+<p><img src="back.jpg" alt="back" /></p>
+<p>前景图像：</p>
+<p><img src="smile.jpg" alt="smile" /></p>
+<p>混合结果：</p>
+<p><img src="compare.jpg" alt="compare" /></p>
+<p>如图，左上为直接复制粘贴，保留前景全部颜色梯度信息；左下为普通Poisson编辑，保留前景全部梯度信息，前景像素颜色与背景作融合；右上为应用混合梯度的Poisson编辑，前景梯度部分保留，效果上比普通Poisson编辑更加“透明”，适合用在水印等场景。</p>
+<h3 id="33-其他应用">3.3. 其他应用</h3>
+<h4 id="331-遮盖不必要的信息如去皱纹">3.3.1. 遮盖不必要的信息（如去皱纹）</h4>
+<p>原图像：</p>
+<p><img src="wrinkles.jpg" alt="wrinkles" /></p>
+<p>处理效果：</p>
+<p><img src="wrinklesprocess.jpg" alt="wrinklesprocess" /></p>
+<h4 id="332-恐怖片特效">3.3.2. 恐怖片特效</h4>
+<p>原图：</p>
+<p><img src="mirror.jpg" alt="mirror" /></p>
+<p>掩盖镜子中人物：</p>
+<p><img src="3.jpg" alt="3" /></p>
+<p>使用电影《修女》中的角色：</p>
+<p><img src="nuts.jpg" alt="nuts" /></p>
+<p>处理效果：</p>
+<p><img src="4.jpg" alt="4" /></p>
+<h4 id="333-生成表情包">3.3.3. 生成表情包</h4>
+<p>原图：</p>
+<p><img src="banana.jpg" alt="banana" /></p>
+<p>处理效果：</p>
+<p><img src="bananaprocess.jpg" alt="bananaprocess" /></p>
+<h2 id="参考文献"><em>参考文献</em></h2>
+<p>[1] Patrick Pérez, Michel Gangnet, Andrew Blake. Poisson image editing. Siggraph 2003.</p>
+
     </article>
     
     
@@ -2126,15 +2263,45 @@ if (!doNotTrack) {
     <section class="related">
     
     
+    <h1 class="related__title">
+      <hr class="hr-dots"/>
+      <div>
+        相关内容
+      </div>
+      <hr class="hr-dots"/>
+    </h1>
+    <ul class="related-ul">
+        
+        <li>
+          <a href="/zh/posts/image_process/image_warping/" class="related__link">Image Warping</a>
+        </li>
+        
+        <li>
+          <a href="/zh/posts/image_process/color_transfer/" class="related__link">Color Transfer</a>
+        </li>
+        
+        <li>
+          <a href="/zh/posts/image_process/colorization/" class="related__link">Colorization</a>
+        </li>
+        
+    </ul>
+    
   </section>
     <div class="grow"></div>
 <nav class="pagination-single">
   
     
+      <a href="https://chaphlagical.github.io/zh/posts/rendering/optimization1/" class="pagination-single__left">
+        <div class="pagination-single__icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path fill="currentColor" d="M19 11H7.83l4.88-4.88c.39-.39.39-1.03 0-1.42-.39-.39-1.02-.39-1.41 0l-6.59 6.59c-.39.39-.39 1.02 0 1.41l6.59 6.59c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41L7.83 13H19c.55 0 1-.45 1-1s-.45-1-1-1z"/></svg>
+        </div>
+        <div class="pagination-single__left-title">实时渲染优化技术(1)</div>      
+      </a>
+    
     <div class="grow"></div>
     
-      <a href="https://chaphlagical.github.io/zh/posts/geometry/spline/" class="pagination-single__right">      
-        <div class="pagination-single__right-title"></div>
+      <a href="https://chaphlagical.github.io/zh/posts/image_process/seam_carving/" class="pagination-single__right">      
+        <div class="pagination-single__right-title">Seam Carving</div>
         <div class="pagination-single__icon">
           <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path fill="currentColor" d="M5 13h11.17l-4.88 4.88c-.39.39-.39 1.03 0 1.42.39.39 1.02.39 1.41 0l6.59-6.59c.39-.39.39-1.02 0-1.41l-6.58-6.6c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41L16.17 11H5c-.55 0-1 .45-1 1s.45 1 1 1z"/></svg>
         </div>
@@ -2617,6 +2784,24 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+    },
+    options: {
+      skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      ignoreHtmlClass: 'tex2jax_ignore',
+      processHtmlClass: 'tex2jax_process'
+    }
+  };
+  </script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script"></script>
+
 
 
 
@@ -2876,7 +3061,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     
     
-    var lib = JSON.parse("null");
+    var lib = JSON.parse("[\"mathjax\"]");
 
     if (lib && lib.includes('mermaid')) {
       
@@ -3298,7 +3483,26 @@ document.addEventListener('DOMContentLoaded', function () {
           
         </div>
         <div class="toc toc__outer " data-dir="ltr" data-folding="true" data-ani="true">
-          <nav id="TableOfContents"></nav>
+          <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-问题描述">1. 问题描述</a></li>
+    <li><a href="#2-算法描述">2. 算法描述</a></li>
+    <li><a href="#3-实验结果">3. 实验结果</a>
+      <ul>
+        <li><a href="#31-标准图像测试">3.1. 标准图像测试</a></li>
+        <li><a href="#32-poisson-vs-mix-poisson">3.2. Poisson vs. Mix Poisson</a></li>
+        <li><a href="#33-其他应用">3.3. 其他应用</a>
+          <ul>
+            <li><a href="#331-遮盖不必要的信息如去皱纹">3.3.1. 遮盖不必要的信息（如去皱纹）</a></li>
+            <li><a href="#332-恐怖片特效">3.3.2. 恐怖片特效</a></li>
+            <li><a href="#333-生成表情包">3.3.3. 生成表情包</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#参考文献"><em>参考文献</em></a></li>
+  </ul>
+</nav>
         </div>
       
     
