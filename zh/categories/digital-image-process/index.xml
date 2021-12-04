@@ -27,7 +27,7 @@
         <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
         <atom:modified>Fri, 03 Dec 2021 15:13:11 +0100</atom:modified>
         <guid>https://chaphlagical.github.io/zh/posts/image_process/lazy_snapping/</guid>
-        <description>Lazy Snapping是一种基于图的图像分割方法\cite{li2004lazy}，能够将图像分割为前景和背景，通过用户交互挑选前景和背景种子，</description>
+        <description>Lazy Snapping是一种基于图的图像分割方法[1]，能够将图像分割为前景和背景，通过用户交互挑选前景和背景种子，利用最大流最小分割的方法对图</description>
         
         <dc:creator>Wenbo Chen</dc:creator>
         <media:content url="https://chaphlagical.github.ioimages/posts/lazy_snapping.png" medium="image"><media:title type="html">featured image</media:title></media:content>
