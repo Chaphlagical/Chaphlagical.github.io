@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title> – Chaf&#39;s Blog</title>
+    <title>Image Warping – Chaf&#39;s Blog</title>
     
 
 
@@ -1331,21 +1331,32 @@
 
 
     
-<meta name="description" content="Create the World with codes." />
+<meta name="description" content="基于IDW与RBF方法的图像扭曲算法实现" />
 
 
-<meta name="created" content="0001-01-01T00:00:00&#43;0000">
-<meta name="modified" content="0001-01-01T00:00:00&#43;0000">
-<meta property="article:published_time" content="0001-01-01T00:00:00&#43;0000">
+<meta name="keywords" content="Digital Image Process">
+
+<meta name="created" content="2021-10-05T15:13:11&#43;0100">
+<meta name="modified" content="2021-10-05T15:13:11&#43;0100">
+<meta property="article:published_time" content="2021-10-05T15:13:11&#43;0100">
 
 <meta name="author" content="Wenbo Chen">
 
 
 <meta property="og:site_name" content="Chaf&#39;s Blog">
-<meta property="og:title" content="">
+<meta property="og:title" content="Image Warping">
 <meta property="og:url" content="https://chaphlagical.github.io/zh/posts/image_process/image_warping/">
 <meta property="og:type" content="article">
-<meta property="og:description" content="Create the World with codes.">
+<meta property="og:description" content="基于IDW与RBF方法的图像扭曲算法实现">
+
+  
+    <meta property="og:image" content="https://chaphlagical.github.io/images/posts/image_warping.jpg">
+    <meta property="og:image:url" content="https://chaphlagical.github.io/images/posts/image_warping.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:app:name:iphone" content="Chaf&#39;s Blog">
+    <meta property="twitter:title" content="Image Warping">
+    <meta property="twitter:description" content="基于IDW与RBF方法的图像扭曲算法实现">
+  
 
 <meta name="generator" content="Hugo 0.82.0" />
 <meta name="msapplication-TileColor" content="#fff">
@@ -1382,11 +1393,13 @@
   {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    "headline": "",
-    "datePublished": "0001-01-01T00:00:00Z",
-    "dateModified": "0001-01-01T00:00:00Z",
+    "headline": "Image Warping",
+    "datePublished": "2021-10-05T15:13:11+01:00",
+    "dateModified": "2021-10-05T15:13:11+01:00",
     "url" : "https://chaphlagical.github.io/zh/posts/image_process/image_warping/",
-    "description": "",
+    "description": "基于IDW与RBF方法的图像扭曲算法实现",
+    "keywords": ["Digital Image Process"],
+    "image" : "https://chaphlagical.github.io/images/posts/image_warping.jpg",
     "mainEntityOfPage": {
       "@type": "WebPage",
       "@id": "https://chaphlagical.github.io"
@@ -1719,7 +1732,7 @@ if (!doNotTrack) {
   
   <li  class="is-active" >
     
-      <a href="https://chaphlagical.github.io/zh/posts/image_process/image_warping/" class="capitalize">Chaf&#39;s Blog</a>
+      <span>Image Warping</span>
     
   </li>
   
@@ -1731,14 +1744,14 @@ if (!doNotTrack) {
   <div class="single ">
     <div class="single__nojs">Please enable Javascript to view the contents</div>
     <script>document.querySelector('.single').classList.remove('hide'); document.querySelector('.single__nojs').classList.add('hide');</script>
-    <h2 class="single__title" data-ani="true"></h2>
+    <h2 class="single__title" data-ani="true">Image Warping</h2>
     <h3 class="single__subtitle"></h3>
     <div class="single__meta">
       
 <div class="single__infos">
-  <time class="single__info" title="创建日期">📅&nbsp;0001年01月01日 </time>
+  <time class="single__info" title="创建日期">📅&nbsp;2021年10月05日 </time>
   
-  &nbsp;&middot;&nbsp; <span class="single__info" title="阅读时长"> ☕&nbsp;0&nbsp;分钟 </span>
+  &nbsp;&middot;&nbsp; <span class="single__info" title="阅读时长"> ☕&nbsp;3&nbsp;分钟 </span>
   
   <span class="single__info">
     
@@ -1748,13 +1761,146 @@ if (!doNotTrack) {
       
 <ul class="single__tags caption">
   
+  🏷️
+  
+
+  <li><a href="https://chaphlagical.github.io/zh/tags/digital-image-process/" class="single__tag" title="Digital Image Process">#Digital Image Process</a></li>
 
 </ul>
 
     </div>
     <article class="single__contents" data-dir="ltr" data-ani="true">
       
-      
+      <p><img src="1.png" alt="1" /></p>
+<h2 id="1-算法原理">1. 算法原理</h2>
+<h3 id="11-基本原理">1.1. 基本原理</h3>
+<ul>
+<li>输入：$n$对控制点对$(\pmb p_i,\pmb q_i)$，$i=1,2,\cdots,n$，其中$\pmb p_i\in\mathbb R^2$为控制起始点，$\pmb q_i\in\mathbb{R}^2$为控制目标点</li>
+<li>目标：找到一个映射$f:\mathbb R^2\rightarrow \mathbb{R}^2$，满足$f(\pmb p_i)=\pmb q_i$，$i=1,2,\cdots,n$</li>
+</ul>
+<h3 id="12-inverse-distance-weighted-interpolation-methodsidw1">1.2. Inverse distance-weighted interpolation methods(IDW)[1]</h3>
+<p>IDW 算法基本原理是根据给定的控制点对和控制点对的位移矢量，计算控制点对周围像素的反距离加权权重影响，实现图像每一个像素点的位移。</p>
+<p>选择$n$对控制点对$(\pmb p_i,\pmb q_i)$，$i=1,2,\cdots,n$，目标映射$f:\mathbb R^2\rightarrow \mathbb{R}^2$可表示成</p>
+<p>以下形式：<br />
+$$<br />
+f(\pmb p)=\sum_{i=1}^n\omega_i(\pmb p)f_i(\pmb p)<br />
+$$<br />
+其中，权重$\omega_i(\pmb p)$满足：<br />
+$$<br />
+w_i(\pmb p)=\frac{\sigma_i(\pmb p)}{\sum_{j=1}^n\sigma_j(\pmb p)}<br />
+$$<br />
+$\sigma_i(\pmb p)$反映第$i$对控制点对像素$\pmb p$得反距离加权权重影响程度，可以直接取：<br />
+$$<br />
+\sigma_i(\pmb p)=\frac{1}{|\pmb p-\pmb p_i|^\mu}<br />
+$$<br />
+其中$\mu&gt;1$，也可以取locally bounded weight：<br />
+$$<br />
+\sigma_i(\pmb p)=\left[\frac{R_i-d(\pmb p,\pmb p_i)}{R_id(\pmb p,\pmb p_i)}\right]^\mu<br />
+$$<br />
+$f_i$为线性函数，满足：<br />
+$$<br />
+f_i(\pmb p)=\pmb q_i+\pmb T_i(\pmb p-\pmb p_i)<br />
+$$<br />
+其中$\pmb T_i$为二阶矩阵：<br />
+$$<br />
+\pmb T_i=\begin{bmatrix}<br />
+t_{11}^{(i)}&amp;t_{12}^{(i)}\\<br />
+t_{21}^{(i)}&amp;t_{22}^{(i)}<br />
+\end{bmatrix}<br />
+$$<br />
+矩阵$\pmb T$得确定，可以通过求解如下最优化问题：<br />
+$$<br />
+\arg\min_{\pmb T_i} E(\pmb T_i)=\sum_{j=1,j\neq i}^n\sigma_i(\pmb p_j)|\pmb q_j-f_i(\pmb p_j)|^2<br />
+$$<br />
+上式对$\pmb T_i$求导，令方程为0得：<br />
+$$<br />
+\pmb T_i\sum_{j=1,j\neq i}\sigma_i(\pmb p_j)\pmb p\pmb p^T=\sum_{j=1,j\neq i}\sigma_i(\pmb p_j)\pmb q\pmb p^T<br />
+$$<br />
+其中$\pmb p=\pmb p_j-\pmb p_i$，$\pmb q=\pmb q_j-\pmb q_i$</p>
+<p>又$\sigma_i(\pmb p_j)\pmb p\pmb p^T$非奇异，因此可以直接解出$\pmb T_i$的值：<br />
+$$<br />
+\pmb T_i=\left(\sum_{j=1,j\neq i}\sigma_i(\pmb p_j)\pmb q\pmb p^T\right)\left(\sum_{j=1,j\neq i}\sigma_i(\pmb p_j)\pmb p\pmb p^T\right)^{-1}<br />
+$$<br />
+求出$\pmb T_i(i=1,\cdots,n)$后，映射$f$也就相应确定</p>
+<h3 id="13-radial-basis-functions-interpolation-methodrbf2">1.3. Radial basis functions interpolation method(RBF)[2]</h3>
+<p>选择$n$对控制点对$(\pmb p_i,\pmb q_i)$，$i=1,2,\cdots,n$，目标映射$f:\mathbb R^2\rightarrow \mathbb{R}^2$可表示为以下形式：<br />
+$$<br />
+f(\pmb p)=\sum_{i=1}^n\alpha_ig_i(|\pmb p-\pmb p_i|)+\pmb{Ap}+\pmb B<br />
+$$<br />
+其中，$g_i$为径向基函数，通常可以取Hardy multiquadrics：$g(t)=(t^2+c^2)^{\pm \frac{1}{2}}$或高斯函数$g_\sigma(t)=e^{-t^2/\sigma^2}$，</p>
+<p>为了计算方便，这里取Hardy multiquadrics：<br />
+$$<br />
+\begin{aligned}<br />
+g_i(d)&amp;=(d+r_i)^{\pm\frac{1}{2}}\<br />
+r_i&amp;=\min_{j\neq i}d(\pmb p_i,\pmb p_j)<br />
+\end{aligned}<br />
+$$<br />
+对于线性部分分量$\pmb {Ap}+\pmb B$，本例简单地取$\pmb A=\pmb I$和$\pmb B=\pmb 0$</p>
+<h2 id="2-实验结果">2. 实验结果</h2>
+<h3 id="21-标准图像测试">2.1. 标准图像测试</h3>
+<p>如下图所示，固定四角，蓝色为控制起始点，绿色为控制终止。</p>
+<p><img src="tag.png" alt="tag" /></p>
+<h3 id="22-idw算法">2.2. IDW算法</h3>
+<table>
+<thead>
+<tr>
+<th align="center">$\mu$取值</th>
+<th align="center">修复前</th>
+<th align="center">修复后</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">$\mu=-1$</td>
+<td align="center"><img src="IDW_mu=-1_nofix.jpg" alt="IDW_mu=-1_nofix" /></td>
+<td align="center"><img src="IDW_mu=-1_fix.jpg" alt="IDW_mu=-1_fix" /></td>
+</tr>
+<tr>
+<td align="center">$\mu=-2$</td>
+<td align="center"><img src="IDW_mu=-2_nofix.jpg" alt="IDW_mu=-2_nofix" /></td>
+<td align="center"><img src="IDW_mu=-2_fix.jpg" alt="IDW_mu=-2_fix" /></td>
+</tr>
+</tbody>
+</table>
+<h3 id="23-rbf算法">2.3. RBF算法</h3>
+<table>
+<thead>
+<tr>
+<th align="center">$\mu$取值</th>
+<th align="center">修复前</th>
+<th align="center">修复后</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">$\mu=-0.5$</td>
+<td align="center"><img src="RBF_mu=-0_5_nofix-16386065505671.jpg" alt="RBF_mu=-0_5_nofix" /></td>
+<td align="center"><img src="RBF_mu=-0_5_fix.jpg" alt="RBF_mu=-0_5_fix" /></td>
+</tr>
+<tr>
+<td align="center">$\mu=0.5$</td>
+<td align="center"><img src="RBF_mu=0_5_nofix.jpg" alt="RBF_mu=0_5_nofix" /></td>
+<td align="center"><img src="RBF_mu=0_5_fix.jpg" alt="RBF_mu=0_5_fix" /></td>
+</tr>
+</tbody>
+</table>
+<h3 id="24-相关应用">2.4. 相关应用</h3>
+<h4 id="241-柴犬表情包">2.4.1. 柴犬表情包</h4>
+<p>原图像：</p>
+<p><img src="dog.jpg" alt="dog" /></p>
+<p>开心：</p>
+<p><img src="dog1.jpg" alt="dog1" /></p>
+<p>Emmm……：</p>
+<p><img src="dog2.bmp" alt="dog2" /></p>
+<h4 id="242-藏狐的笑容">2.4.2. 藏狐的笑容</h4>
+<p>原图像：</p>
+<p><img src="zanhu.png" alt="zanhu" /></p>
+<p>处理后：</p>
+<p><img src="result.png" alt="result" /></p>
+<h2 id="参考文献"><em>参考文献</em></h2>
+<p>[1] D. Ruprecht and H. Muller. Image warping with scattered data interpolation. IEEE Computer Graphics and Applications, 15(2):37–43, 1995. 10</p>
+<p>[2] N. Arad and D. Reisfeld. Image warping using few anchor points and radial functions. In Computer graphics forum, volume 14, pages 35–46. Wiley Online Library, 1995.</p>
+
     </article>
     
     
@@ -2126,22 +2272,41 @@ if (!doNotTrack) {
     <section class="related">
     
     
+    <h1 class="related__title">
+      <hr class="hr-dots"/>
+      <div>
+        相关内容
+      </div>
+      <hr class="hr-dots"/>
+    </h1>
+    <ul class="related-ul">
+        
+        <li>
+          <a href="/zh/posts/image_process/color_transfer/" class="related__link">Color Transfer</a>
+        </li>
+        
+        <li>
+          <a href="/zh/posts/image_process/colorization/" class="related__link">Colorization</a>
+        </li>
+        
+    </ul>
+    
   </section>
     <div class="grow"></div>
 <nav class="pagination-single">
   
     
-      <a href="https://chaphlagical.github.io/zh/posts/image_process/possion/" class="pagination-single__left">
+      <a href="https://chaphlagical.github.io/zh/posts/image_process/color_transfer/" class="pagination-single__left">
         <div class="pagination-single__icon">
           <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path fill="currentColor" d="M19 11H7.83l4.88-4.88c.39-.39.39-1.03 0-1.42-.39-.39-1.02-.39-1.41 0l-6.59 6.59c-.39.39-.39 1.02 0 1.41l6.59 6.59c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41L7.83 13H19c.55 0 1-.45 1-1s-.45-1-1-1z"/></svg>
         </div>
-        <div class="pagination-single__left-title"></div>      
+        <div class="pagination-single__left-title">Color Transfer</div>      
       </a>
     
     <div class="grow"></div>
     
-      <a href="https://chaphlagical.github.io/zh/posts/geometry/spline/" class="pagination-single__right">      
-        <div class="pagination-single__right-title"></div>
+      <a href="https://chaphlagical.github.io/zh/posts/rendering/optimization1/" class="pagination-single__right">      
+        <div class="pagination-single__right-title">实时渲染优化技术(1)</div>
         <div class="pagination-single__icon">
           <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path fill="currentColor" d="M5 13h11.17l-4.88 4.88c-.39.39-.39 1.03 0 1.42.39.39 1.02.39 1.41 0l6.59-6.59c.39-.39.39-1.02 0-1.41l-6.58-6.6c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41L16.17 11H5c-.55 0-1 .45-1 1s.45 1 1 1z"/></svg>
         </div>
@@ -2624,6 +2789,24 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+    },
+    options: {
+      skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      ignoreHtmlClass: 'tex2jax_ignore',
+      processHtmlClass: 'tex2jax_process'
+    }
+  };
+  </script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script"></script>
+
 
 
 
@@ -2883,7 +3066,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     
     
-    var lib = JSON.parse("null");
+    var lib = JSON.parse("[\"mathjax\"]");
 
     if (lib && lib.includes('mermaid')) {
       
@@ -3305,7 +3488,31 @@ document.addEventListener('DOMContentLoaded', function () {
           
         </div>
         <div class="toc toc__outer " data-dir="ltr" data-folding="true" data-ani="true">
-          <nav id="TableOfContents"></nav>
+          <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-算法原理">1. 算法原理</a>
+      <ul>
+        <li><a href="#11-基本原理">1.1. 基本原理</a></li>
+        <li><a href="#12-inverse-distance-weighted-interpolation-methodsidw1">1.2. Inverse distance-weighted interpolation methods(IDW)[1]</a></li>
+        <li><a href="#13-radial-basis-functions-interpolation-methodrbf2">1.3. Radial basis functions interpolation method(RBF)[2]</a></li>
+      </ul>
+    </li>
+    <li><a href="#2-实验结果">2. 实验结果</a>
+      <ul>
+        <li><a href="#21-标准图像测试">2.1. 标准图像测试</a></li>
+        <li><a href="#22-idw算法">2.2. IDW算法</a></li>
+        <li><a href="#23-rbf算法">2.3. RBF算法</a></li>
+        <li><a href="#24-相关应用">2.4. 相关应用</a>
+          <ul>
+            <li><a href="#241-柴犬表情包">2.4.1. 柴犬表情包</a></li>
+            <li><a href="#242-藏狐的笑容">2.4.2. 藏狐的笑容</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#参考文献"><em>参考文献</em></a></li>
+  </ul>
+</nav>
         </div>
       
     

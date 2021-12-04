@@ -81,6 +81,36 @@
       </item>
       
       <item>
+        <title>Image Warping</title>
+        <link>https://chaphlagical.github.io/zh/posts/image_process/image_warping/</link>
+        <pubDate>Tue, 05 Oct 2021 15:13:11 +0100</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        <atom:modified>Tue, 05 Oct 2021 15:13:11 +0100</atom:modified>
+        <guid>https://chaphlagical.github.io/zh/posts/image_process/image_warping/</guid>
+        <description>1. 算法原理 1.1. 基本原理 输入：$n$对控制点对$(\pmb p_i,\pmb q_i)$，$i=1,2,\cdots,n$，其中$\pmb p_i\in\mathbb R^2$为控制起始点，</description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        <media:content url="https://chaphlagical.github.ioimages/posts/image_warping.jpg" medium="image"><media:title type="html">featured image</media:title></media:content>
+        
+        
+        
+          
+            
+              <category>Digital Image Process</category>
+            
+          
+        
+        
+          
+            
+              <category>Digital Image Process</category>
+            
+          
+        
+        
+      </item>
+      
+      <item>
         <title>Color Transfer</title>
         <link>https://chaphlagical.github.io/zh/posts/image_process/color_transfer/</link>
         <pubDate>Sun, 19 Sep 2021 15:13:11 +0100</pubDate>
