@@ -14,19 +14,19 @@
     <managingEditor>chaf@mail.ustc.edu.cn (Wenbo Chen)</managingEditor>
     <webMaster>chaf@mail.ustc.edu.cn (Wenbo Chen)</webMaster>
     <copyright>©2021, All Rights Reserved</copyright>
-    <lastBuildDate>Fri, 03 Dec 2021 15:13:11 +0100</lastBuildDate>
+    <lastBuildDate>Tue, 07 Dec 2021 10:07:11 +0100</lastBuildDate>
     
         <atom:link href="https://chaphlagical.github.io/zh/tags/index.xml" rel="self" type="application/rss+xml" />
     
 
       
       <item>
-        <title>Digital Image Process</title>
-        <link>https://chaphlagical.github.io/zh/tags/digital-image-process/</link>
-        <pubDate>Fri, 03 Dec 2021 15:13:11 +0100</pubDate>
+        <title>Real-time Rendering</title>
+        <link>https://chaphlagical.github.io/zh/tags/real-time-rendering/</link>
+        <pubDate>Tue, 07 Dec 2021 10:07:11 +0100</pubDate>
         <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
         
-        <guid>https://chaphlagical.github.io/zh/tags/digital-image-process/</guid>
+        <guid>https://chaphlagical.github.io/zh/tags/real-time-rendering/</guid>
         <description></description>
         
         <dc:creator>Wenbo Chen</dc:creator>
@@ -39,12 +39,12 @@
       </item>
       
       <item>
-        <title>Real-time Rendering</title>
-        <link>https://chaphlagical.github.io/zh/tags/real-time-rendering/</link>
-        <pubDate>Fri, 15 Oct 2021 10:07:11 +0100</pubDate>
+        <title>Digital Image Process</title>
+        <link>https://chaphlagical.github.io/zh/tags/digital-image-process/</link>
+        <pubDate>Fri, 03 Dec 2021 15:13:11 +0100</pubDate>
         <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
         
-        <guid>https://chaphlagical.github.io/zh/tags/real-time-rendering/</guid>
+        <guid>https://chaphlagical.github.io/zh/tags/digital-image-process/</guid>
         <description></description>
         
         <dc:creator>Wenbo Chen</dc:creator>

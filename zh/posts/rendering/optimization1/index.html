@@ -1336,9 +1336,9 @@
 
 <meta name="keywords" content="Real-time Rendering">
 
-<meta name="created" content="2021-10-15T10:07:11&#43;0100">
-<meta name="modified" content="2021-10-15T10:07:11&#43;0100">
-<meta property="article:published_time" content="2021-10-15T10:07:11&#43;0100">
+<meta name="created" content="2021-12-07T10:07:11&#43;0100">
+<meta name="modified" content="2021-12-07T10:07:11&#43;0100">
+<meta property="article:published_time" content="2021-12-07T10:07:11&#43;0100">
 
 <meta name="author" content="Wenbo Chen">
 
@@ -1394,8 +1394,8 @@
     "@context": "https://schema.org",
     "@type": "WebPage",
     "headline": "实时渲染优化技术(1)",
-    "datePublished": "2021-10-15T10:07:11+01:00",
-    "dateModified": "2021-10-15T10:07:11+01:00",
+    "datePublished": "2021-12-07T10:07:11+01:00",
+    "dateModified": "2021-12-07T10:07:11+01:00",
     "url" : "https://chaphlagical.github.io/zh/posts/rendering/optimization1/",
     "description": "IlumEngine的第一次渲染性能优化",
     "keywords": ["Real-time Rendering"],
@@ -1749,9 +1749,9 @@ if (!doNotTrack) {
     <div class="single__meta">
       
 <div class="single__infos">
-  <time class="single__info" title="创建日期">📅&nbsp;2021年10月15日 </time>
+  <time class="single__info" title="创建日期">📅&nbsp;2021年12月07日 </time>
   
-  &nbsp;&middot;&nbsp; <span class="single__info" title="阅读时长"> ☕&nbsp;0&nbsp;分钟 </span>
+  &nbsp;&middot;&nbsp; <span class="single__info" title="阅读时长"> ☕&nbsp;11&nbsp;分钟 </span>
   
   <span class="single__info">
     
@@ -1771,7 +1771,610 @@ if (!doNotTrack) {
     </div>
     <article class="single__contents" data-dir="ltr" data-ani="true">
       
-      
+      <p><img src="image-20211130105935862.png" alt="image-20211130105935862" /></p>
+<p>前段时间初步完成了个人图形引擎<a href="https://github.com/Chaf-Libraries/IlumEngine">IlumEngine</a>的第一次性能优化。此次优化主要集中在几何渲染与纹理系统上，主要内容大致有：</p>
+<ul>
+<li>Vertex/Index Buffer Packing</li>
+<li>GPU Driven Rendering
+<ul>
+<li>GPU Based Culling
+<ul>
+<li>Frustum Culling</li>
+<li>Hierarchy Z Buffer Occlusion Culling</li>
+<li>Cone Back Face Culling</li>
+</ul>
+</li>
+<li>Multi Draw Indirect</li>
+<li>Bindless Texture System</li>
+</ul>
+</li>
+</ul>
+<p>利用现代API灵活的可操作性，解决了几何阶段大量DrawCalls带来的CPU压力，以及提高顶点、索引数据的利用率，并且该架构也有利于后续集成实时光线追踪等功能</p>
+<h2 id="1-ilumengine简介">1. IlumEngine简介</h2>
+<p>IlumEngine是我目前正在开发的一个玩具图形引擎，名字取自*《星球大战》*中凯伯水晶的产地<a href="https://starwars.fandom.com/wiki/Ilum">伊冷</a>（后传中被第一军团改造为弑星者基地），引擎使用Vulkan作为图形API（后续或重构为RHI层以支持DX12甚至向下兼容OpenGL），目的是锻炼软件系统工程能力和作为学习图形学经典技术复现和前沿技术的实验平台，预期功能：</p>
+<ul>
+<li>
+<p>Render Graph高灵活度渲染管线架构</p>
+</li>
+<li>
+<p>基于ImGui的交互友好的编辑器</p>
+</li>
+<li>
+<p>异步资源加载系统（或进化至流式加载系统）</p>
+</li>
+<li>
+<p>集成基本几何造型算法</p>
+<ul>
+<li>Bezier曲线</li>
+<li>三次样条曲线</li>
+<li>B样条曲线</li>
+<li>有理样条曲线</li>
+<li>有理样条曲面等</li>
+</ul>
+</li>
+<li>
+<p>集成基本数字几何处理算法</p>
+<ul>
+<li>网格参数化</li>
+<li>网格简化与细分</li>
+<li>网格变形等</li>
+</ul>
+</li>
+<li>
+<p>集成基本物理模拟算法</p>
+<ul>
+<li>刚体模拟</li>
+<li>布料模拟</li>
+<li>柔性体模拟</li>
+<li>流体模拟</li>
+</ul>
+</li>
+<li>
+<p>集成基本光栅渲染算法</p>
+<ul>
+<li>Forward/Deferred/Tile Based渲染管线</li>
+<li>实时阴影
+<ul>
+<li>PCF、PCSS</li>
+<li>VSM</li>
+<li>CSM</li>
+</ul>
+</li>
+<li>环境光照：IBL、PRT</li>
+<li>全局光照
+<ul>
+<li>DDGI</li>
+<li>VXGI等</li>
+</ul>
+</li>
+<li>屏幕空间后处理
+<ul>
+<li>Blooming</li>
+<li>SSGI</li>
+<li>SSR等</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>集成基本离线渲染算法</p>
+<ul>
+<li>PT</li>
+<li>PM</li>
+<li>BDPT等</li>
+</ul>
+</li>
+</ul>
+<p>目前已将基础的架构部分搭建完成，能够支持Disney PBR材质的延迟渲染管线：</p>
+<p><img src="image-20211207102525865.png" alt="image-20211207102525865" /></p>
+<p>接下来几节将从存储优化、CPU负载优化、GPU负载优化方面来介绍此次引擎优化的主要内容。</p>
+<h2 id="2-几何缓存优化">2. 几何缓存优化</h2>
+<p>在介绍引擎的几何缓存优化之前，先介绍一下目前引擎使用的场景图和几何模型存储结构。</p>
+<h3 id="21-场景图">2.1. 场景图</h3>
+<p>场景图是渲染引擎中重要的一个部分，通常采用树状结构（有向无环图）进行组织，IlumEngine中使用基于<a href="https://github.com/skypjack/entt">entt</a>的实体组件系统ECS来实现场景图：</p>
+<ul>
+<li>每个实体（Entity）作为场景图中的一个结点</li>
+<li>每个实体可以挂上若干个组件（Component）</li>
+<li>实体只是拓扑关系的结点，不存储实际数据</li>
+<li>组件仅存储数据，而不存储逻辑（函数、方法）</li>
+<li>组件中的数据由系统（System）使用，实现场景图的更新</li>
+</ul>
+<p>想让一个实体拥有几何数据，则将该实体挂载上<code>MeshRenderer</code>组件，在渲染循环系统中，将从所有实体的<code>MeshRenderer</code>中获取渲染所需的几何数据，以完成几何阶段的渲染。</p>
+<h3 id="22-几何模型存储结构">2.2. 几何模型存储结构</h3>
+<p>组件<code>MeshRenderer</code>定义如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">struct</span> <span class="nc">MeshRenderer</span>
+<span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">model</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">scope</span><span class="o">&lt;</span><span class="n">IMaterial</span><span class="o">&gt;&gt;</span> <span class="n">materials</span><span class="p">;</span>
+    <span class="kr">inline</span> <span class="k">static</span> <span class="kt">bool</span> <span class="n">update</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>其中，</p>
+<ul>
+<li><code>model</code>为模型数据的索引，这里使用模型文件所在位置的相对路径表示</li>
+<li><code>materials</code>为模型的材质，初始化时将拷贝为模型的默认材质，在编辑器中也可对某个实体的材质进行修改</li>
+<li><code>update</code>为全局静态更新变量，表示在某循环中与<code>MeshRenderer</code>相关的更新</li>
+</ul>
+<p>为得到实际的几何数据，我们还需要利用索引<code>model</code>在资源管理器<code>ResourceCache</code>中查询几何模型，<code>ResourceCache</code>实现了模型与贴图的多线程异步加载和缓存查询等功能，这里不作展开。通过查询，将得到实际模型对象的引用<code>ModelReference</code>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">using</span> <span class="n">ModelReference</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">reference_wrapper</span><span class="o">&lt;</span><span class="n">Model</span><span class="o">&gt;</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>而<code>Model</code>便是我们实际存储几何数据的对象了，<code>Model</code>中又有如下数据：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">struct</span> <span class="nc">Model</span>
+<span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">SubMesh</span><span class="o">&gt;</span> <span class="n">submeshes</span><span class="p">;</span>
+    <span class="n">geometry</span><span class="o">::</span><span class="n">BoundingBox</span> <span class="n">bounding_box</span><span class="p">;</span>
+    <span class="n">VertexInfo</span> <span class="n">vertex_info</span><span class="p">;</span>
+    <span class="n">IndexInfo</span> <span class="n">index_info</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>其中，<code>Submesh</code>为模型的子网格，为导入方便以及支持单个模型不同部分使用不同材质，IlumEngine采用了子网格的形式来组织大型模型，每个子网格拥有以下信息：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">struct</span> <span class="nc">Submesh</span>
+<span class="p">{</span>
+    <span class="kt">uint32_t</span> <span class="n">index</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">glm</span><span class="o">::</span><span class="n">mat4</span> <span class="n">pre_transform</span> <span class="o">=</span> <span class="n">glm</span><span class="o">::</span><span class="n">mat4</span><span class="p">(</span><span class="mf">1.f</span><span class="p">);</span>
+    <span class="n">material</span><span class="o">::</span><span class="n">DisneyPBR</span> <span class="n">material</span><span class="p">;</span>
+    <span class="n">geometry</span><span class="o">::</span><span class="n">BoundingBox</span> <span class="n">bounding_box</span><span class="p">;</span>
+    <span class="n">VertexInfo</span> <span class="n">vertex_info</span><span class="p">;</span>
+    <span class="n">IndexInfo</span> <span class="n">index_info</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>其实和<code>Model</code>是差不多的，<code>Submesh</code>是目前几何数据渲染的最小独立单位。</p>
+<h3 id="23-几何存储方案">2.3. 几何存储方案</h3>
+<p>上文已介绍了几何模型的一个存储结构，但是并未涉及具体的几何数据存储方案，所谓的几何数据存储方案，一个是CPU端的存储，即顶点和索引数据的存储；一个是GPU端的存储，即Vertex Buffer与Index Buffer的存储。对于静态网格模型而已，完全可以将几何数据送入GPU后删除CPU端的数据，但由于本引擎后续需要加入几何处理的功能，为了方便起见依旧全部保留CPU端的几何信息。</p>
+<h4 id="231-极简方案">2.3.1. 极简方案</h4>
+<p>最简单的一种也是最直观的一种策略，便是每个子网格存一份位置的几何信息，即：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">struct</span> <span class="nc">Submesh</span>
+<span class="p">{</span>
+    <span class="kt">uint32_t</span> <span class="n">index</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">glm</span><span class="o">::</span><span class="n">mat4</span> <span class="n">pre_transform</span> <span class="o">=</span> <span class="n">glm</span><span class="o">::</span><span class="n">mat4</span><span class="p">(</span><span class="mf">1.f</span><span class="p">);</span>
+    <span class="n">material</span><span class="o">::</span><span class="n">DisneyPBR</span> <span class="n">material</span><span class="p">;</span>
+    <span class="n">geometry</span><span class="o">::</span><span class="n">BoundingBox</span> <span class="n">bounding_box</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Vertex</span><span class="o">&gt;</span> <span class="n">vertices</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">uint32_t</span><span class="o">&gt;</span> <span class="n">indices</span><span class="p">;</span>
+    <span class="n">Buffer</span> <span class="n">vertex_buffer</span><span class="p">;</span>
+    <span class="n">Buffer</span> <span class="n">index_buffer</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这种方法最为简单直观，也方便编程，但在实际渲染过程中会有渲染状态频繁切换的问题。假设有$N$个模型，第$i$个模型具有$M_i$个子网格，那么在一个渲染循环内需要做以下操作：</p>
+<ol>
+<li>
+<p>遍历$N$个模型</p>
+</li>
+<li>
+<p>遍历模型$i$中的$M_i$个子网格</p>
+</li>
+<li>
+<p>绑定子网格对应的GPU资源</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="n">vkCmdBindVertexBuffers</span><span class="p">(</span><span class="n">cmd_buffer</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">vertex_buffer</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+<span class="n">vkCmdBindIndexBuffer</span><span class="p">(</span><span class="n">cmd_buffer</span><span class="p">,</span> <span class="n">index_buffer</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">VK_INDEX_TYPE_UINT32</span><span class="p">);</span>
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>执行渲染绘制操作</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="n">vkCmdDrawIndexed</span><span class="p">(</span><span class="n">cmd_buffer</span><span class="p">,</span> <span class="n">index_count</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</code></pre></td></tr></table>
+</div>
+</div></li>
+</ol>
+<p>因此在一个渲染循环中需要切换绑定$N*M$次顶点/索引缓冲，当模型数量增加时会明显影响效率，而且多块小存储空间也不是一种好的存储分配策略，容易带来内存碎片等问题，同时，当模型具有多个重复的子网格时，这种存储策略将造成数据冗余，降低存储资源的利用率</p>
+<h4 id="232-基于模型的优化方案">2.3.2. 基于模型的优化方案</h4>
+<p>既然子网格存储所有的几何数据不太好，那我就每个模型存储一份几何数据，然后子网格只存偏移和长度咯。基于模型的优化方案也确实是这样的设计思路：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-C++" data-lang="C++"><span class="k">struct</span> <span class="nc">Model</span>
+<span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">SubMesh</span><span class="o">&gt;</span> <span class="n">submeshes</span><span class="p">;</span>
+    <span class="n">geometry</span><span class="o">::</span><span class="n">BoundingBox</span> <span class="n">bounding_box</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Vertex</span><span class="o">&gt;</span> <span class="n">vertices</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">uint32_t</span><span class="o">&gt;</span> <span class="n">indices</span><span class="p">;</span>
+    <span class="n">Buffer</span> <span class="n">vertex_buffer</span><span class="p">;</span>
+    <span class="n">Buffer</span> <span class="n">index_buffer</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">struct</span> <span class="nc">Submesh</span>
+<span class="p">{</span>
+    <span class="kt">uint32_t</span> <span class="n">index</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">glm</span><span class="o">::</span><span class="n">mat4</span> <span class="n">pre_transform</span> <span class="o">=</span> <span class="n">glm</span><span class="o">::</span><span class="n">mat4</span><span class="p">(</span><span class="mf">1.f</span><span class="p">);</span>
+    <span class="n">material</span><span class="o">::</span><span class="n">DisneyPBR</span> <span class="n">material</span><span class="p">;</span>
+    <span class="n">geometry</span><span class="o">::</span><span class="n">BoundingBox</span> <span class="n">bounding_box</span><span class="p">;</span>
+    <span class="kt">uint32_t</span> <span class="n">indices_offset</span><span class="p">;</span>
+    <span class="kt">uint32_t</span> <span class="n">indices_count</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>模型中存储了所有子网格的几何数据，通过顶点索引的偏移<code>offset</code>和顶点索引数量<code>count</code>即可绘制出相应的子网格。由于目前的索引均从顶点缓冲的开头开始，因此暂不需要<code>vertex_offset</code>的参与。</p>
+<p>假设有$N$个模型，第$i$个模型具有$M_i$个子网格，那么在一个渲染循环内需要做以下操作：</p>
+<ol>
+<li>
+<p>遍历$N$个模型</p>
+</li>
+<li>
+<p>绑定模型对应的GPU资源</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="n">vkCmdBindVertexBuffers</span><span class="p">(</span><span class="n">cmd_buffer</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">vertex_buffer</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+<span class="n">vkCmdBindIndexBuffer</span><span class="p">(</span><span class="n">cmd_buffer</span><span class="p">,</span> <span class="n">index_buffer</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">VK_INDEX_TYPE_UINT32</span><span class="p">);</span>
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>遍历模型$i$中的$M_i$个子网格</p>
+</li>
+<li>
+<p>执行渲染绘制操作</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="n">vkCmdDrawIndexed</span><span class="p">(</span><span class="n">cmd_buffer</span><span class="p">,</span> <span class="n">index_count</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">index_offset</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</code></pre></td></tr></table>
+</div>
+</div></li>
+</ol>
+<p>因此在一个渲染循环中需要切换绑定$N$次顶点/索引缓冲，比前述的极简方案要好不少，同时模型存储也避免了多个重复子网格冗余的问题，相同的子网格只要有相同的索引偏移和数量即可。</p>
+<h4 id="233-统一存储的优化方案">2.3.3. 统一存储的优化方案</h4>
+<p>基于模型的方案在渲染每个模型时依然需要切换绑定顶点索引缓冲，在模型数量很多时同样可能带来瓶颈，同时也不利于我们后面进行GPU Driven Rendering的single drawcall设计。所以这次一劳永逸，分配一个大块的GPU显存资源来存储所有的顶点和索引缓冲，而CPU端的几何数据则仍按基于模型的方案设计。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">struct</span> <span class="nc">Model</span>
+<span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">SubMesh</span><span class="o">&gt;</span> <span class="n">submeshes</span><span class="p">;</span>
+    <span class="n">geometry</span><span class="o">::</span><span class="n">BoundingBox</span> <span class="n">bounding_box</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Vertex</span><span class="o">&gt;</span> <span class="n">vertices</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">uint32_t</span><span class="o">&gt;</span> <span class="n">indices</span><span class="p">;</span>
+    <span class="kt">uint32_t</span> <span class="n">indices_offset</span><span class="p">;</span>
+    <span class="kt">uint32_t</span> <span class="n">vertices_offset</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">struct</span> <span class="nc">Submesh</span>
+<span class="p">{</span>
+    <span class="kt">uint32_t</span> <span class="n">index</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">glm</span><span class="o">::</span><span class="n">mat4</span> <span class="n">pre_transform</span> <span class="o">=</span> <span class="n">glm</span><span class="o">::</span><span class="n">mat4</span><span class="p">(</span><span class="mf">1.f</span><span class="p">);</span>
+    <span class="n">material</span><span class="o">::</span><span class="n">DisneyPBR</span> <span class="n">material</span><span class="p">;</span>
+    <span class="n">geometry</span><span class="o">::</span><span class="n">BoundingBox</span> <span class="n">bounding_box</span><span class="p">;</span>
+    <span class="kt">uint32_t</span> <span class="n">vertex_offset</span><span class="p">;</span>
+    <span class="kt">uint32_t</span> <span class="n">indices_offset</span><span class="p">;</span>
+    <span class="kt">uint32_t</span> <span class="n">indices_count</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">class</span> <span class="nc">Renderer</span>
+<span class="p">{</span>
+    <span class="n">Buffer</span> <span class="n">vertex_buffer</span><span class="p">;</span>
+    <span class="n">Buffer</span> <span class="n">index_buffer</span><span class="p">;</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>该方案的麻烦之处在于，每当有模型添加、修改或删除时需要对全局缓冲进行更新，同时也需要更新每个模型的偏移。下图为各个存储索引关系示例：</p>
+<p><img src="image-20211209211621438.png" alt="image-20211209211621438" /></p>
+<p>现在，假设有$N$个模型，第$i$个模型具有$M_i$个子网格，那么在一个渲染循环内需要做以下操作：</p>
+<ol>
+<li>
+<p>绑定几何数据对应的GPU资源</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="n">vkCmdBindVertexBuffers</span><span class="p">(</span><span class="n">cmd_buffer</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">vertex_buffer</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+<span class="n">vkCmdBindIndexBuffer</span><span class="p">(</span><span class="n">cmd_buffer</span><span class="p">,</span> <span class="n">index_buffer</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">VK_INDEX_TYPE_UINT32</span><span class="p">);</span>
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>遍历$N$个模型</p>
+</li>
+<li>
+<p>遍历模型$i$中的$M_i$个子网格</p>
+</li>
+<li>
+<p>执行渲染绘制操作</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="n">vkCmdDrawIndexed</span><span class="p">(</span><span class="n">cmd_buffer</span><span class="p">,</span> <span class="n">index_count</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">index_offset</span><span class="p">,</span> <span class="n">vertex_offset</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</code></pre></td></tr></table>
+</div>
+</div></li>
+</ol>
+<p>现在，我们彻底地将几何资源绑定次数降低至single bind，无论场景多大，模型数量多少我们均只需单次绑定开销，而在后续的GPU Driven Rendering的管线设计中，我们也会看到这种Vertex/Index Buffer packing的方法具有的巨大优势。</p>
+<h2 id="3-gpu驱动渲染管线">3. GPU驱动渲染管线</h2>
+<p><img src="image-20211209212327003.png" alt="image-20211209212327003" /></p>
+<p>GPU Driven Rendering Pipelien的概念最早在Siggraph2015上由育碧Ubisoft提出，其相应技术也已在《刺客信条：大革命》中得以落地，在当时可以说是相当前卫的一种设计，但由于当年硬件条件所限，《刺客信条：大革命》却因为层出不穷的Bug被当时的玩家所诟病，一度将育碧和刺客信条系列推向低谷，不过回过头看，《刺客信条：大革命》确实在大型场景和复杂建筑、海量NPC、真实感渲染等方面都是前作所不能比拟的，可以算是3A大作进入画质内卷的一个分界线。</p>
+<p>在IlumEngine中，我也尝试了使用GPU Driven Rendering Pipeline的思想，来对引擎进行性能调优。</p>
+<h3 id="31-无绑定纹理">3.1. 无绑定纹理</h3>
+<p>Bindless方法指不通过传统方法将资源通过bindTexture/bindBuffer的方式进行绑定，而是直接将Texture/Buffer等GPU资源的虚拟地址直接存储在Bindless Buffer中，在着色器中可以直接使用索引进行访问。Bindless技术最早来源于Nvidia提出的 AZDO（Approaching Zero Driver Overhead）技术框架，2008年Nvidia的Tesla架构就已经实现了Bindless Buffer，而在2012年的Kepler架构正式加入了Bindless Texture特性。</p>
+<p>对于传统的绑定模型，我们往往需要在着色器中声明所需要的纹理/缓冲资源，并且分配相应的槽位（slot）：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-glsl" data-lang="glsl"><span class="n">layout</span> <span class="p">(</span><span class="n">binding</span> <span class="o">=</span> <span class="mo">0</span><span class="p">)</span> <span class="k">uniform</span> <span class="k">sampler2D</span> <span class="n">tex0</span><span class="p">;</span>
+<span class="n">layout</span> <span class="p">(</span><span class="n">binding</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="k">uniform</span> <span class="k">sampler2D</span> <span class="n">tex1</span><span class="p">;</span>
+<span class="n">layout</span> <span class="p">(</span><span class="n">binding</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span> <span class="k">uniform</span> <span class="k">sampler2D</span> <span class="n">tex2</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>在CPU端，需要显式绑定所有纹理资源：</p>
+<p><img src="image-20211209214836148.png" alt="image-20211209214836148" style="zoom:50%;" /></p>
+<p>而使用Bindless绑定模型，在着色器中，我们相当于使用了一个无穷大的纹理数组：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-glsl" data-lang="glsl"><span class="n">layout</span> <span class="p">(</span><span class="n">binding</span> <span class="o">=</span> <span class="mo">0</span><span class="p">)</span> <span class="k">uniform</span> <span class="k">sampler2D</span> <span class="n">textureArray</span><span class="p">[];</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>所有的纹理数据可以一次性全部灌入其中，需要用到时，我们只需要一个下标索引即可进行访问，而对于材质而言，也不再像下图那样的贴图绑定：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-glsl" data-lang="glsl"><span class="n">layout</span> <span class="p">(</span><span class="n">binding</span> <span class="o">=</span> <span class="mo">0</span><span class="p">)</span> <span class="k">uniform</span> <span class="k">sampler2D</span> <span class="n">Albedo</span><span class="p">;</span>
+<span class="n">layout</span> <span class="p">(</span><span class="n">binding</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="k">uniform</span> <span class="k">sampler2D</span> <span class="n">Metallic</span><span class="p">;</span>
+<span class="n">layout</span> <span class="p">(</span><span class="n">binding</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span> <span class="k">uniform</span> <span class="k">sampler2D</span> <span class="n">Roughness</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>而是使用一个结构体，存储所有的材质贴图索引：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-glsl" data-lang="glsl"><span class="k">struct</span> <span class="n">Material</span>
+<span class="p">{</span>
+    <span class="n">uint</span> <span class="n">Albedo</span><span class="p">;</span>
+    <span class="n">uint</span> <span class="n">Metallic</span><span class="p">;</span>
+    <span class="n">uint</span> <span class="n">Roughness</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>访问时只需：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-glsl" data-lang="glsl"><span class="k">vec4</span> <span class="n">albedo</span> <span class="o">=</span> <span class="n">texture</span><span class="p">(</span><span class="n">textureArray</span><span class="p">[</span><span class="n">nonuniformEXT</span><span class="p">(</span><span class="n">material</span><span class="p">.</span><span class="n">Albedo</span><span class="p">)],</span> <span class="n">inUV</span><span class="p">);</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>即可。对于GLSL，记得开启扩展<code>GL_EXT_nonuniform_qualifier</code></p>
+<p>Bindless访问模型如下：</p>
+<p><img src="image-20211209215522589.png" alt="image-20211209215522589" style="zoom:50%;" /></p>
+<p>Bindless对GPU Driven Rendering Pipeline有至关重要的作用，它主要解决了传统API下绑定资源到管线的开销问题，同时突破了着色器的硬件访问限制，进一步降低CPU-GPU的交互，我们不需要在CPU端设置Bindless资源的绑定状态，是之后实现single drawcall for everything的基础。</p>
+<p>Vulkan中与Bindless相关的技术叫<code>descriptor_indexing</code>，在Vulkan 1.0属于EXT特性，但在Vulkan 1.2中已升为Core特性。在Logical Device的创建时指定：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="n">VkPhysicalDeviceVulkan12Features</span> <span class="n">vulkan12_features</span> <span class="o">=</span> <span class="p">{};</span>
+<span class="n">vulkan12_features</span><span class="p">.</span><span class="n">sType</span>                            <span class="o">=</span> <span class="n">VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_2_FEATURES</span><span class="p">;</span>
+
+<span class="n">vulkan12_features</span><span class="p">.</span><span class="n">shaderSampledImageArrayNonUniformIndexing</span> <span class="o">=</span> <span class="n">VK_TRUE</span><span class="p">;</span>
+<span class="n">vulkan12_features</span><span class="p">.</span><span class="n">runtimeDescriptorArray</span>                    <span class="o">=</span> <span class="n">VK_TRUE</span><span class="p">;</span>
+<span class="n">vulkan12_features</span><span class="p">.</span><span class="n">descriptorBindingVariableDescriptorCount</span>  <span class="o">=</span> <span class="n">VK_TRUE</span><span class="p">;</span>
+<span class="n">vulkan12_features</span><span class="p">.</span><span class="n">descriptorBindingPartiallyBound</span>           <span class="o">=</span> <span class="n">VK_TRUE</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>其中，<code>shaderSampledImageArrayNonUniformIndexing</code>、<code>runtimeDescriptorArray</code>、<code>descriptorBindingVariableDescriptorCount</code>指定开启<code>descriptor_indexing</code>特性，<code>descriptorBindingPartiallyBound</code>解决了缺省绑定的问题。</p>
+<p>在创建Bindless Texture过程中，需要指定Bindless Texture的数组支持的最大容量，通常会指定为一个较大的数（如1024）以避免反复扩容，而大部分情况下场景中的纹理都不会填满最大容量，此时需要开启<code>descriptorBindingPartiallyBound</code>支持缺省绑定，以防止出错。</p>
+<p>Bindless Texture可视化：</p>
+<p><img src="bindless_texture.png" alt="img" /></p>
+<p>至此，我们又将一个费时的操作从CPU端移走了。</p>
+<h3 id="32-多重间接绘制">3.2. 多重间接绘制</h3>
+<p>此前的一章一节中，我们将几何数据资源绑定的CPU开销降至最低，将纹理资源绑定的CPU开销给完全移走了，在本节中，我们将要把绘制开销降至最低，实现心心念念的single drawcall for everything。</p>
+<p>在最开始的设计中，我以一种非常低效的方式进行几何阶段的渲染，流程如下：</p>
+<ol>
+<li>绑定Pipeline、DescriptorSet、Vertex/Index Buffer</li>
+<li>遍历模型</li>
+<li>遍历子网格</li>
+<li>收集材质信息，使用Push Constant操作将材质数据送往着色器</li>
+<li>调用绘制命令</li>
+</ol>
+<p>可以看到，每一个子网格都将贡献一次Push Constant开销和一次Drawcall的开销，更不用说其他的逻辑判断操作，结果可想而知，场景复杂度一上去，CPU开销裂开，非常不贴合现代图形API的设计初衷，我们需要更多类似Bindless Texture的低CPU开销设计。</p>
+<p>好在现代图形API已经帮我们考虑好了，多重间接绘制Multi Draw Indirect能够完美地满足我们的需求。不同于显式调用绘制命令，Multi Draw Indirect允许我们实现将绘制命令预存在GPU的显存中，在需要绘制时调用：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="n">vkCmdDrawIndexedIndirect</span><span class="p">(</span><span class="n">cmd_buffer</span><span class="p">,</span> <span class="n">draw_buffer</span><span class="p">,</span> <span class="n">buffer_size</span><span class="p">,</span> <span class="n">draw_count</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">VkDrawIndexedIndirectCommand</span><span class="p">));</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>一个Drawcall即可完成所有的绘制指令提交。</p>
+<p>下面介绍多重间接绘制相关的技术细节：</p>
+<h4 id="321-指令缓冲">3.2.1. 指令缓冲</h4>
+<p>前述中，Multi Draw Indirect使用我们预存在GPU显存中的绘制命令进行提交，这些绘制命令存储在指令缓冲。在Vulkan中，有结构体<code>VkDrawIndexedIndirectCommand</code>或<code>VkDrawIndirectCommand</code>帮助我们指定指令缓冲中需要存哪些信息，一般来讲我们使用索引进行绘制，因此用的是<code>VkDrawIndexedIndirectCommand</code>，其数据结构定义为：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-C" data-lang="C"><span class="k">typedef</span> <span class="k">struct</span> <span class="n">VkDrawIndexedIndirectCommand</span> <span class="p">{</span>
+    <span class="n">uint32_t</span>    <span class="n">indexCount</span><span class="p">;</span>
+    <span class="n">uint32_t</span>    <span class="n">instanceCount</span><span class="p">;</span>
+    <span class="n">uint32_t</span>    <span class="n">firstIndex</span><span class="p">;</span>
+    <span class="n">int32_t</span>     <span class="n">vertexOffset</span><span class="p">;</span>
+    <span class="n">uint32_t</span>    <span class="n">firstInstance</span><span class="p">;</span>
+<span class="p">}</span> <span class="n">VkDrawIndexedIndirectCommand</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>是不是和我们显式绘制指令的参数不能说很像，只能说一模一样？</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">void</span> <span class="nf">vkCmdDrawIndexed</span><span class="p">(</span>
+    <span class="n">VkCommandBuffer</span>                             <span class="n">commandBuffer</span><span class="p">,</span>
+    <span class="n">uint32_t</span>                                    <span class="n">indexCount</span><span class="p">,</span>
+    <span class="n">uint32_t</span>                                    <span class="n">instanceCount</span><span class="p">,</span>
+    <span class="n">uint32_t</span>                                    <span class="n">firstIndex</span><span class="p">,</span>
+    <span class="n">int32_t</span>                                     <span class="n">vertexOffset</span><span class="p">,</span>
+    <span class="n">uint32_t</span>                                    <span class="n">firstInstance</span><span class="p">);</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>当然用法也一样，就是把之前要在渲染循环里指定的参数一一写入一个<code>std::vector&lt;VkDrawIndexedIndirectCommand&gt;</code>容器里，然后在把里面的数据传到GPU显存中，使用其缓冲句柄即可调用<code>vkCmdDrawIndexedIndirect</code>了。</p>
+
     </article>
     
     
@@ -2148,21 +2751,14 @@ if (!doNotTrack) {
 <nav class="pagination-single">
   
     
-      <a href="https://chaphlagical.github.io/zh/posts/image_process/image_warping/" class="pagination-single__left">
+      <a href="https://chaphlagical.github.io/zh/posts/image_process/lazy_snapping/" class="pagination-single__left">
         <div class="pagination-single__icon">
           <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path fill="currentColor" d="M19 11H7.83l4.88-4.88c.39-.39.39-1.03 0-1.42-.39-.39-1.02-.39-1.41 0l-6.59 6.59c-.39.39-.39 1.02 0 1.41l6.59 6.59c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41L7.83 13H19c.55 0 1-.45 1-1s-.45-1-1-1z"/></svg>
         </div>
-        <div class="pagination-single__left-title">Image Warping</div>      
+        <div class="pagination-single__left-title">Lazy Snapping</div>      
       </a>
     
     <div class="grow"></div>
-    
-      <a href="https://chaphlagical.github.io/zh/posts/image_process/possion/" class="pagination-single__right">      
-        <div class="pagination-single__right-title">Poisson Image Editing</div>
-        <div class="pagination-single__icon">
-          <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path fill="currentColor" d="M5 13h11.17l-4.88 4.88c-.39.39-.39 1.03 0 1.42.39.39 1.02.39 1.41 0l6.59-6.59c.39-.39.39-1.02 0-1.41l-6.58-6.6c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41L16.17 11H5c-.55 0-1 .45-1 1s.45 1 1 1z"/></svg>
-        </div>
-      </a>
     
   
 </nav>
@@ -3340,7 +3936,34 @@ document.addEventListener('DOMContentLoaded', function () {
           
         </div>
         <div class="toc toc__outer " data-dir="ltr" data-folding="true" data-ani="true">
-          <nav id="TableOfContents"></nav>
+          <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-ilumengine简介">1. IlumEngine简介</a></li>
+    <li><a href="#2-几何缓存优化">2. 几何缓存优化</a>
+      <ul>
+        <li><a href="#21-场景图">2.1. 场景图</a></li>
+        <li><a href="#22-几何模型存储结构">2.2. 几何模型存储结构</a></li>
+        <li><a href="#23-几何存储方案">2.3. 几何存储方案</a>
+          <ul>
+            <li><a href="#231-极简方案">2.3.1. 极简方案</a></li>
+            <li><a href="#232-基于模型的优化方案">2.3.2. 基于模型的优化方案</a></li>
+            <li><a href="#233-统一存储的优化方案">2.3.3. 统一存储的优化方案</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#3-gpu驱动渲染管线">3. GPU驱动渲染管线</a>
+      <ul>
+        <li><a href="#31-无绑定纹理">3.1. 无绑定纹理</a></li>
+        <li><a href="#32-多重间接绘制">3.2. 多重间接绘制</a>
+          <ul>
+            <li><a href="#321-指令缓冲">3.2.1. 指令缓冲</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
         </div>
       
     
