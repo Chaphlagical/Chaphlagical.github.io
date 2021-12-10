@@ -3302,7 +3302,7 @@ $$<br />
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
-</div><h2 id="34--基于meshlet的渲染优化">3.4.  基于Meshlet的渲染优化</h2>
+</div><h3 id="34--基于meshlet的渲染优化">3.4.  基于Meshlet的渲染优化</h3>
 <p>前文中我们已经实现了基本的基于GPU的剔除优化技术，在多数场景下都能带来一定的性能增益，但目前我们还只是以子网格为单位进行的剔除与提交，当子网格较大时仍存在不少计算资源的浪费，由于我们已经使用了GPGPU技术来帮助我们完成剔除与绘制的操作，模型的数量和Drawcall已不再是我们的性能瓶颈，一个很自然的想法便是能否将一个大的网格切分为诸多一定规则的小网格，从而提高剔除的粒度，同时利用GPU强大的并行处理能力，对它们进行处理也不将成为问题，因此，我们引入了Mesh Shader中Meshlet的概念，只是我们为了平台灵活性，不打算用Mesh Shader进行处理，而是使用计算着色器来帮助我们完成相同的功能。</p>
 <h2 id="参考链接"><em>参考链接</em></h2>
 <p>[1] <a href="https://advances.realtimerendering.com/s2015/aaltonenhaar_siggraph2015_combined_final_footer_220dpi.pdf">Haar U, Aaltonen S. Gpu-driven rendering pipelines. Ubisoft, Siggraph 2015: Advances in Real-Time Rendering in Games course, 2015</a></p>
@@ -4901,9 +4901,9 @@ document.addEventListener('DOMContentLoaded', function () {
             <li><a href="#332-hierarchy-z-buffer遮挡剔除">3.3.2. Hierarchy Z-Buffer遮挡剔除</a></li>
           </ul>
         </li>
+        <li><a href="#34--基于meshlet的渲染优化">3.4.  基于Meshlet的渲染优化</a></li>
       </ul>
     </li>
-    <li><a href="#34--基于meshlet的渲染优化">3.4.  基于Meshlet的渲染优化</a></li>
     <li><a href="#参考链接"><em>参考链接</em></a></li>
   </ul>
 </nav>
