@@ -14,7 +14,7 @@
     <managingEditor>chaf@mail.ustc.edu.cn (Wenbo Chen)</managingEditor>
     <webMaster>chaf@mail.ustc.edu.cn (Wenbo Chen)</webMaster>
     <copyright>©2021, All Rights Reserved</copyright>
-    <lastBuildDate>Tue, 07 Dec 2021 10:07:11 +0100</lastBuildDate>
+    <lastBuildDate>Sat, 11 Dec 2021 10:07:11 +0100</lastBuildDate>
     
         <atom:link href="https://chaphlagical.github.io/zh/categories/rendering/index.xml" rel="self" type="application/rss+xml" />
     
@@ -23,9 +23,9 @@
       <item>
         <title>实时渲染优化技术(1)</title>
         <link>https://chaphlagical.github.io/zh/posts/rendering/optimization1/</link>
-        <pubDate>Tue, 07 Dec 2021 10:07:11 +0100</pubDate>
+        <pubDate>Sat, 11 Dec 2021 10:07:11 +0100</pubDate>
         <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
-        <atom:modified>Tue, 07 Dec 2021 10:07:11 +0100</atom:modified>
+        <atom:modified>Sat, 11 Dec 2021 10:07:11 +0100</atom:modified>
         <guid>https://chaphlagical.github.io/zh/posts/rendering/optimization1/</guid>
         <description>前段时间初步完成了个人图形引擎IlumEngine的第一次性能优化。此次优化主要集中在几何渲染与纹理系统上，主要内容大致有： Vertex/Index Buffer Packing GPU Driven Rendering GPU Based</description>
         
