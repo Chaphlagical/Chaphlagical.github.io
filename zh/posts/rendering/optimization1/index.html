@@ -1751,7 +1751,7 @@ if (!doNotTrack) {
 <div class="single__infos">
   <time class="single__info" title="创建日期">📅&nbsp;2021年12月07日 </time>
   
-  &nbsp;&middot;&nbsp; <span class="single__info" title="阅读时长"> ☕&nbsp;25&nbsp;分钟 </span>
+  &nbsp;&middot;&nbsp; <span class="single__info" title="阅读时长"> ☕&nbsp;29&nbsp;分钟 </span>
   
   <span class="single__info">
     
@@ -3141,7 +3141,7 @@ $$<br />
 <td class="lntd">
 <pre class="chroma"><code class="language-glsl" data-lang="glsl"><span class="k">bool</span> <span class="n">projectSphere</span><span class="p">(</span><span class="k">vec3</span> <span class="n">C</span><span class="p">,</span> <span class="k">float</span> <span class="n">r</span><span class="p">,</span> <span class="k">float</span> <span class="n">znear</span><span class="p">,</span> <span class="k">float</span> <span class="n">P00</span><span class="p">,</span> <span class="k">float</span> <span class="n">P11</span><span class="p">,</span> <span class="k">out</span> <span class="k">vec4</span> <span class="n">aabb</span><span class="p">)</span>
 <span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">C</span><span class="p">.</span><span class="n">z</span> <span class="o">&lt;</span> <span class="n">r</span> <span class="o">+</span> <span class="n">znear</span><span class="p">)</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">-</span><span class="n">C</span><span class="p">.</span><span class="n">z</span> <span class="o">&lt;</span> <span class="n">r</span> <span class="o">+</span> <span class="n">znear</span><span class="p">)</span>
         <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
 
     <span class="k">vec2</span> <span class="n">cx</span> <span class="o">=</span> <span class="n">C</span><span class="p">.</span><span class="n">xz</span><span class="p">;</span>
@@ -3213,7 +3213,7 @@ $$<br />
 $$<br />
 z_c=\frac{2f\cdot n}{(f-n)\cdot z_n-(f+n)}<br />
 $$<br />
-其中，$f$为远裁剪面距离，$n$为近裁剪面距离</p>
+其中，$f$为远裁剪面距离，$n$为近裁剪面距离，注意这里得到的$z_c$为负，需要取反。</p>
 <p>在实际实验中，在摄像机远离物体的过程中可能会出现误剔除的情况，这是由于我们利用了上一帧的深度信息，而这一帧由于远离物体，深度变大，会导致自遮挡的现象出现，解决办法也很简单，我们需要保留上一帧的相机视图-投影矩阵，在计算用于比较的实际深度值时，应使用上一帧的相机参数，以解决自遮挡问题。</p>
 <p>完整的遮挡剔除代码如下所示：</p>
 <div class="highlight"><div class="chroma">
@@ -3262,7 +3262,7 @@ $$<br />
 <td class="lntd">
 <pre class="chroma"><code class="language-glsl" data-lang="glsl"><span class="k">float</span> <span class="n">LinearizeDepth</span><span class="p">(</span><span class="k">float</span> <span class="n">depth</span><span class="p">)</span>
 <span class="p">{</span>
-    <span class="k">return</span> <span class="p">(</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">cullData</span><span class="p">.</span><span class="n">zfar</span> <span class="o">*</span> <span class="n">cullData</span><span class="p">.</span><span class="n">znear</span><span class="p">)</span> <span class="o">/</span> 
+    <span class="k">return</span> <span class="o">-</span><span class="p">(</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">cullData</span><span class="p">.</span><span class="n">zfar</span> <span class="o">*</span> <span class="n">cullData</span><span class="p">.</span><span class="n">znear</span><span class="p">)</span> <span class="o">/</span> 
         <span class="p">(</span><span class="n">cullData</span><span class="p">.</span><span class="n">zfar</span> <span class="o">+</span> <span class="n">cullData</span><span class="p">.</span><span class="n">znear</span> <span class="o">-</span> <span class="n">depth</span> <span class="o">*</span> <span class="p">(</span><span class="n">cullData</span><span class="p">.</span><span class="n">zfar</span> <span class="o">-</span> <span class="n">cullData</span><span class="p">.</span><span class="n">znear</span><span class="p">));</span>	
 <span class="p">}</span>
 
@@ -3303,7 +3303,173 @@ $$<br />
 </code></pre></td></tr></table>
 </div>
 </div><h3 id="34--基于meshlet的渲染优化">3.4.  基于Meshlet的渲染优化</h3>
-<p>前文中我们已经实现了基本的基于GPU的剔除优化技术，在多数场景下都能带来一定的性能增益，但目前我们还只是以子网格为单位进行的剔除与提交，当子网格较大时仍存在不少计算资源的浪费，由于我们已经使用了GPGPU技术来帮助我们完成剔除与绘制的操作，模型的数量和Drawcall已不再是我们的性能瓶颈，一个很自然的想法便是能否将一个大的网格切分为诸多一定规则的小网格，从而提高剔除的粒度，同时利用GPU强大的并行处理能力，对它们进行处理也不将成为问题，因此，我们引入了Mesh Shader中Meshlet的概念，只是我们为了平台灵活性，不打算用Mesh Shader进行处理，而是使用计算着色器来帮助我们完成相同的功能。</p>
+<p>前文中我们已经实现了基本的基于GPU的剔除优化技术，在多数场景下都能带来一定的性能增益，但目前我们还只是以子网格为单位进行的剔除与提交，当子网格较大时仍存在不少计算资源的浪费，由于我们已经使用了GPGPU技术来帮助我们完成剔除与绘制的操作，模型的数量和Drawcall已不再是我们的性能瓶颈，一个很自然的想法便是能否将一个大的网格切分为诸多一定规则的小网格，从而提高剔除的粒度，同时由于我们使用了GPU强大的并行处理能力进行剔除，对它们进行处理也不将成为问题，因此，我们引入了Mesh Shader中Meshlet的概念，只是我们为了平台灵活性，不打算用Mesh Shader进行处理，而是使用计算着色器来帮助我们完成相同的功能。</p>
+<p>Meshlet是网格划分为小块的单位，是Mesh Shader处理的基本单元，传统的顶点着色器是逐顶点处理模型的，而Mesh Shader则支持逐Meshlet处理模型。通常来讲，每个Meshlet具有相同的顶点数以及支持的最大三角形数，NVIDIA建议选取顶点数为64，三角形数为124的Meshlet进行处理，Meshlet的生成需要通过离线工具构建，IlumEngine中使用了开源库<a href="https://github.com/zeux/meshoptimizer">meshoptimizer</a>进行处理，<code>meshoptimizer</code>使用非常方便，文档齐全，这里不多讲其使用。如下封面图所示，我们已经成功将整个场景分成了大量小网格块：</p>
+<p><img src="image-20211130105935862.png" alt="image-20211130105935862" /></p>
+<p>加入了Meshlet支持的模型存储方式与之前也基本一致，区别在于每个<code>Model</code>对象需要维护其所有的Meshlet，每个子网格需要存储其拥有的Meshlet的偏移和数量，Meshlet结构体定义如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">struct</span> <span class="nc">Meshlet</span>
+<span class="p">{</span>
+    <span class="n">meshopt_Bounds</span> <span class="n">bounds</span><span class="p">;</span>
+    <span class="kt">uint32_t</span>       <span class="n">indices_offset</span><span class="p">;</span>
+    <span class="kt">uint32_t</span>       <span class="n">indices_count</span><span class="p">;</span>
+    <span class="kt">uint32_t</span>       <span class="n">vertices_offset</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><code>meshopt_Bounds</code>为<code>meshoptimizer</code>的包围体结构，使用的是包围球结构以及用于锥体背面剔除的相关参数。</p>
+<p>现在的<code>Model</code>和<code>Submesh</code>结构体定义如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">struct</span> <span class="nc">Model</span>
+<span class="p">{</span>
+  <span class="k">public</span><span class="o">:</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">SubMesh</span><span class="o">&gt;</span> <span class="n">submeshes</span><span class="p">;</span>
+    
+    <span class="kt">uint32_t</span> <span class="n">vertices_count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="kt">uint32_t</span> <span class="n">indices_count</span>  <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    
+    <span class="kt">uint32_t</span> <span class="n">vertices_offset</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="kt">uint32_t</span> <span class="n">indices_offset</span>  <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    
+    <span class="c1">// Raw geometry, original data
+</span><span class="c1"></span>    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Vertex</span><span class="o">&gt;</span>   <span class="n">vertices</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">uint32_t</span><span class="o">&gt;</span> <span class="n">indices</span><span class="p">;</span>
+    
+    <span class="c1">// Meshlet, for mesh shading &amp; cluster culling
+</span><span class="c1"></span>    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Meshlet</span><span class="o">&gt;</span>  <span class="n">meshlets</span><span class="p">;</span>
+    
+    <span class="n">geometry</span><span class="o">::</span><span class="n">BoundingBox</span> <span class="n">bounding_box</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">struct</span> <span class="nc">SubMesh</span>
+<span class="p">{</span>
+  <span class="k">public</span><span class="o">:</span>
+    <span class="kt">uint32_t</span> <span class="n">index</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+    <span class="n">glm</span><span class="o">::</span><span class="n">mat4</span> <span class="n">pre_transform</span> <span class="o">=</span> <span class="n">glm</span><span class="o">::</span><span class="n">mat4</span><span class="p">(</span><span class="mf">1.f</span><span class="p">);</span>
+
+    <span class="kt">uint32_t</span> <span class="n">vertices_count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="kt">uint32_t</span> <span class="n">indices_count</span>  <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+    <span class="kt">uint32_t</span> <span class="n">vertices_offset</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="kt">uint32_t</span> <span class="n">indices_offset</span>  <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+    <span class="kt">uint32_t</span> <span class="n">meshlet_offset</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="kt">uint32_t</span> <span class="n">meshlet_count</span>  <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+    <span class="n">material</span><span class="o">::</span><span class="n">DisneyPBR</span> <span class="n">material</span><span class="p">;</span>
+
+    <span class="n">geometry</span><span class="o">::</span><span class="n">BoundingBox</span> <span class="n">bounding_box</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>现在我们已经将最小渲染单位从子网格换成了Meshlet，原先的间接绘制、GPU剔除等操作照样进行。</p>
+<h4 id="341-meshlet渲染性能调优1压缩合批">3.4.1. Meshlet渲染性能调优1：压缩合批</h4>
+<p>由于我们将每个网格都分成了众多Meshlet，在提高剔除粒度的同时也增加了渲染物的数量，同时用于间接绘制所需要的<code>Draw_Buffer</code>也会相应的变大，在之前的实现中，我们通过设置<code>VkDrawIndexedIndirectCommand</code>中的<code>instanceCount</code>参数来决定是否进行绘制，设为0时则表示被剔除。但在直接从子网格处理转换到Meshlet处理时，却发现当场景规模很大时，渲染效率反而没有原来的高，经过Profile发现瓶颈出在了几何阶段的GPU开销上，尽管有了一系列CPU优化和GPU剔除，CPU已经基本不需要花什么时间了，但绘制过程中的GPU用时居高不下，经分析是由于<code>Draw_Buffer</code>过大造成，光是遍历里头每一条渲染指令就已经花了GPU很多时间了。这个问题的解决方法也很简单：只提交需要进行绘制的指令。</p>
+<p>在之前的实现中，我们是在CPU端事先设置好所有的<code>VkDrawIndexedIndirectCommand</code>数组，传到GPU中，通过GPU可见性判断来设置<code>instanceCount</code>参数决定是否绘制该物体，这种方法造成了最后进行提交的绘制缓冲中有效指令和无效指令相互混叠，容易产生流水线气泡，如果能够对绘制缓冲中的指令进行排序，将有效指令移至渲染队列的头部，将绘制指令数量设置为有效指令的数量，则可以大幅提升性能。但在着色器中实现排序操作似乎不是一件简单的操作，因此我们另辟蹊径，在剔除管线中不仅设置可见性，我们直接在里头设置整个渲染指令。</p>
+<p>为方便渲染队列的构建和有效指令数量的跟踪，我们使用了一个<code>Count_Buffer</code>来记录有效绘制指令的数量，在计算着色器中，通过原子加法操作，实现类似<code>push_back</code>的功能：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">if</span> <span class="p">(</span><span class="n">visible</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">uint</span> <span class="n">dci</span> <span class="o">=</span> <span class="n">atomicAdd</span><span class="p">(</span><span class="n">visible_count</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+    <span class="n">indirectDraws</span><span class="p">[</span><span class="n">dci</span><span class="p">].</span><span class="n">indexCount</span> <span class="o">=</span> <span class="n">meshlet</span><span class="p">.</span><span class="n">index_count</span><span class="p">;</span>
+    <span class="n">indirectDraws</span><span class="p">[</span><span class="n">dci</span><span class="p">].</span><span class="n">instanceCount</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="n">indirectDraws</span><span class="p">[</span><span class="n">dci</span><span class="p">].</span><span class="n">firstIndex</span> <span class="o">=</span> <span class="n">meshlet</span><span class="p">.</span><span class="n">index_offset</span><span class="p">;</span>
+    <span class="n">indirectDraws</span><span class="p">[</span><span class="n">dci</span><span class="p">].</span><span class="n">vertexOffset</span> <span class="o">=</span> <span class="kt">int</span><span class="p">(</span><span class="n">meshlet</span><span class="p">.</span><span class="n">vertex_offset</span><span class="p">);</span>
+    <span class="n">indirectDraws</span><span class="p">[</span><span class="n">dci</span><span class="p">].</span><span class="n">firstInstance</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">draw_data</span><span class="p">[</span><span class="n">dci</span><span class="p">]</span> <span class="o">=</span> <span class="n">meshlet</span><span class="p">.</span><span class="n">instance_id</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>然而，在开发过程中，又遇到一个问题，如何获取<code>Count_Buffer</code>中的计数数据？使用GPU-CPU回读？那样在 一个渲染循环中只能获取到上一帧的计数结果。通过查阅文档发现，Vulkan开发者已经考虑过这个问题了，提供了<code>vkCmdDrawIndexedIndirectCount</code>函数，让我们能够直接使用<code>Count_Buffer</code>作为参数向GPU指定渲染指令数量。</p>
+<p>至此，Meshlet渲染带来的合批过大问题已被完美解决。</p>
+<h4 id="342-meshlet渲染性能调优2层次剔除">3.4.2. Meshlet渲染性能调优2：层次剔除</h4>
+<p>简单使用Meshlet进行渲染，除了有合批过大的问题外，还有剔除开销的问题，当场景面数一多，Meshlet数量一大，剔除阶段的计算量也是不可忽视的。这里IlumEngine采用的解决方案是分层次进行剔除，其实也就是先对实例（子网格）进行剔除，再进行Meshlet进行剔除。已经在实例剔除阶段剔除的实例，其包含的Meshlet也就不用再进行剔除了，减少了剔除用时。事实上，层次剔除还可以更进一步的，通过构建不同层级的Meshlet BVH，进行高效地索引需要剔除的层级，能够实现更加高效的剔除策略，和LOD方法相结合，也就是虚幻引擎5中Nanite虚拟几何体的处理方法了。</p>
+<h2 id="4-结果">4. 结果</h2>
+<p><strong>场景总览</strong></p>
+<p><img src="image-20211211160655840.png" alt="image-20211211160655840" /></p>
+<p><strong>渲染管线</strong></p>
+<p><img src="image-20211211161013525.png" alt="image-20211211161013525" /></p>
+<p><strong>无优化</strong></p>
+<p><img src="image-20211211161304743.png" alt="image-20211211161304743" /></p>
+<p><strong>仅视锥剔除</strong></p>
+<p><img src="image-20211211161400036.png" alt="image-20211211161400036" /></p>
+<p><strong>仅背面剔除</strong></p>
+<p><img src="image-20211211161438056.png" alt="image-20211211161438056" /></p>
+<p><strong>仅遮挡剔除</strong></p>
+<p><img src="image-20211211161504590.png" alt="image-20211211161504590" /></p>
+<p><strong>使用所有剔除</strong></p>
+<p><img src="image-20211211161543245.png" alt="image-20211211161543245" /></p>
+<p><strong>演示Demo</strong></p>
+<p><video src="demo.mp4" controls = true></video></p>
+<p>可以看到由于使用了帧间连续性的原因，在某些地方仍会有部分闪烁，后续引入TAA等帧间累积方法可以一定程度上解决这个问题，但在帧率上确实有了实质性的提升。</p>
 <h2 id="参考链接"><em>参考链接</em></h2>
 <p>[1] <a href="https://advances.realtimerendering.com/s2015/aaltonenhaar_siggraph2015_combined_final_footer_220dpi.pdf">Haar U, Aaltonen S. Gpu-driven rendering pipelines. Ubisoft, Siggraph 2015: Advances in Real-Time Rendering in Games course, 2015</a></p>
 <p>[2] <a href="https://www.gamedevs.org/uploads/fast-extraction-viewing-frustum-planes-from-world-view-projection-matrix.pdf">Gribb G, Hartmann K. Fast extraction of viewing frustum planes from the worldview-projection matrix. Online document, 2001. </a></p>
@@ -4901,9 +5067,15 @@ document.addEventListener('DOMContentLoaded', function () {
             <li><a href="#332-hierarchy-z-buffer遮挡剔除">3.3.2. Hierarchy Z-Buffer遮挡剔除</a></li>
           </ul>
         </li>
-        <li><a href="#34--基于meshlet的渲染优化">3.4.  基于Meshlet的渲染优化</a></li>
+        <li><a href="#34--基于meshlet的渲染优化">3.4.  基于Meshlet的渲染优化</a>
+          <ul>
+            <li><a href="#341-meshlet渲染性能调优1压缩合批">3.4.1. Meshlet渲染性能调优1：压缩合批</a></li>
+            <li><a href="#342-meshlet渲染性能调优2层次剔除">3.4.2. Meshlet渲染性能调优2：层次剔除</a></li>
+          </ul>
+        </li>
       </ul>
     </li>
+    <li><a href="#4-结果">4. 结果</a></li>
     <li><a href="#参考链接"><em>参考链接</em></a></li>
   </ul>
 </nav>
