@@ -6,9 +6,9 @@
   xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" 
   xmlns:media="http://search.yahoo.com/mrss/">
   <channel>
-    <title>Rendering on Chaf&#39;s Blog</title>
-    <link>https://chaphlagical.github.io/zh/categories/rendering/</link>
-    <description>Recent content in Rendering on Chaf&#39;s Blog</description>
+    <title>IlumEngine on Chaf&#39;s Blog</title>
+    <link>https://chaphlagical.github.io/zh/tags/ilumengine/</link>
+    <description>Recent content in IlumEngine on Chaf&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
     <managingEditor>chaf@mail.ustc.edu.cn (Wenbo Chen)</managingEditor>
@@ -16,7 +16,7 @@
     <copyright>©2021, All Rights Reserved</copyright>
     <lastBuildDate>Tue, 14 Dec 2021 17:25:11 +0100</lastBuildDate>
     
-        <atom:link href="https://chaphlagical.github.io/zh/categories/rendering/index.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="https://chaphlagical.github.io/zh/tags/ilumengine/index.xml" rel="self" type="application/rss+xml" />
     
 
       
@@ -37,40 +37,6 @@
           
             
               <category>IlumEngine</category>
-            
-          
-        
-        
-          
-            
-              <category>Rendering</category>
-            
-          
-            
-              <category>Graphics</category>
-            
-          
-        
-        
-      </item>
-      
-      <item>
-        <title>实时渲染优化技术(1)</title>
-        <link>https://chaphlagical.github.io/zh/posts/rendering/optimization1/</link>
-        <pubDate>Sat, 11 Dec 2021 10:07:11 +0100</pubDate>
-        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
-        <atom:modified>Sat, 11 Dec 2021 10:07:11 +0100</atom:modified>
-        <guid>https://chaphlagical.github.io/zh/posts/rendering/optimization1/</guid>
-        <description>前段时间初步完成了个人图形引擎IlumEngine的第一次性能优化。此次优化主要集中在几何渲染与纹理系统上，主要内容大致有： Vertex/Index Buffer Packing GPU Driven Rendering GPU Based</description>
-        
-        <dc:creator>Wenbo Chen</dc:creator>
-        <media:content url="https://chaphlagical.github.ioimages/posts/vulkan.png" medium="image"><media:title type="html">featured image</media:title></media:content>
-        
-        
-        
-          
-            
-              <category>Real-time Rendering</category>
             
           
         

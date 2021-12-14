@@ -18,7 +18,7 @@
     <lastmod>2020-01-19T21:13:42+09:00</lastmod>
   </url><url>
     <loc>https://chaphlagical.github.io/zh/</loc>
-    <lastmod>2021-12-11T10:07:11+01:00</lastmod>
+    <lastmod>2021-12-14T17:25:11+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -31,7 +31,7 @@
                 />
   </url><url>
     <loc>https://chaphlagical.github.io/zh/categories/</loc>
-    <lastmod>2021-12-11T10:07:11+01:00</lastmod>
+    <lastmod>2021-12-14T17:25:11+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -44,10 +44,13 @@
                 />
   </url><url>
     <loc>https://chaphlagical.github.io/zh/categories/graphics/</loc>
-    <lastmod>2021-12-11T10:07:11+01:00</lastmod>
+    <lastmod>2021-12-14T17:25:11+01:00</lastmod>
+  </url><url>
+    <loc>https://chaphlagical.github.io/zh/tags/ilumengine/</loc>
+    <lastmod>2021-12-14T17:25:11+01:00</lastmod>
   </url><url>
     <loc>https://chaphlagical.github.io/zh/posts/</loc>
-    <lastmod>2021-12-11T10:07:11+01:00</lastmod>
+    <lastmod>2021-12-14T17:25:11+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -59,14 +62,11 @@
                 href="https://chaphlagical.github.io/zh/posts/"
                 />
   </url><url>
-    <loc>https://chaphlagical.github.io/zh/tags/real-time-rendering/</loc>
-    <lastmod>2021-12-11T10:07:11+01:00</lastmod>
-  </url><url>
     <loc>https://chaphlagical.github.io/zh/categories/rendering/</loc>
-    <lastmod>2021-12-11T10:07:11+01:00</lastmod>
+    <lastmod>2021-12-14T17:25:11+01:00</lastmod>
   </url><url>
     <loc>https://chaphlagical.github.io/zh/tags/</loc>
-    <lastmod>2021-12-11T10:07:11+01:00</lastmod>
+    <lastmod>2021-12-14T17:25:11+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -77,6 +77,12 @@
                 hreflang="zh"
                 href="https://chaphlagical.github.io/zh/tags/"
                 />
+  </url><url>
+    <loc>https://chaphlagical.github.io/zh/posts/rendering/mouse_picking/</loc>
+    <lastmod>2021-12-14T17:25:11+01:00</lastmod>
+  </url><url>
+    <loc>https://chaphlagical.github.io/zh/tags/real-time-rendering/</loc>
+    <lastmod>2021-12-11T10:07:11+01:00</lastmod>
   </url><url>
     <loc>https://chaphlagical.github.io/zh/posts/rendering/optimization1/</loc>
     <lastmod>2021-12-11T10:07:11+01:00</lastmod>

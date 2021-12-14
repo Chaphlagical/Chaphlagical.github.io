@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Seam Carving – Chaf&#39;s Blog</title>
+    <title>场景编辑器：鼠标拾取 – Chaf&#39;s Blog</title>
     
 
 
@@ -653,7 +653,7 @@
     
     var baseurl = JSON.parse("\"https://chaphlagical.github.io\"");
     
-    var permalink = JSON.parse("\"https://chaphlagical.github.io/zh/posts/image_process/seam_carving/\"");
+    var permalink = JSON.parse("\"https://chaphlagical.github.io/zh/posts/rendering/mouse_picking/\"");
     
     var langprefix = JSON.parse("\"/zh\"");
     var searchResults = null;
@@ -1331,31 +1331,31 @@
 
 
     
-<meta name="description" content="复现Siggraph2007论文《Seam Carving for Content-Aware Image Resizing》" />
+<meta name="description" content="IlumEngine编辑器鼠标拾取原理" />
 
 
-<meta name="keywords" content="Digital Image Process">
+<meta name="keywords" content="IlumEngine">
 
-<meta name="created" content="2021-12-03T15:13:11&#43;0100">
-<meta name="modified" content="2021-12-03T15:13:11&#43;0100">
-<meta property="article:published_time" content="2021-12-03T15:13:11&#43;0100">
+<meta name="created" content="2021-12-14T17:25:11&#43;0100">
+<meta name="modified" content="2021-12-14T17:25:11&#43;0100">
+<meta property="article:published_time" content="2021-12-14T17:25:11&#43;0100">
 
 <meta name="author" content="Wenbo Chen">
 
 
 <meta property="og:site_name" content="Chaf&#39;s Blog">
-<meta property="og:title" content="Seam Carving">
-<meta property="og:url" content="https://chaphlagical.github.io/zh/posts/image_process/seam_carving/">
+<meta property="og:title" content="场景编辑器：鼠标拾取">
+<meta property="og:url" content="https://chaphlagical.github.io/zh/posts/rendering/mouse_picking/">
 <meta property="og:type" content="article">
-<meta property="og:description" content="复现Siggraph2007论文《Seam Carving for Content-Aware Image Resizing》">
+<meta property="og:description" content="IlumEngine编辑器鼠标拾取原理">
 
   
-    <meta property="og:image" content="https://chaphlagical.github.io/images/posts/seam_carving.png">
-    <meta property="og:image:url" content="https://chaphlagical.github.io/images/posts/seam_carving.png">
+    <meta property="og:image" content="https://chaphlagical.github.io/images/posts/mouse_picking.png">
+    <meta property="og:image:url" content="https://chaphlagical.github.io/images/posts/mouse_picking.png">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:app:name:iphone" content="Chaf&#39;s Blog">
-    <meta property="twitter:title" content="Seam Carving">
-    <meta property="twitter:description" content="复现Siggraph2007论文《Seam Carving for Content-Aware Image Resizing》">
+    <meta property="twitter:title" content="场景编辑器：鼠标拾取">
+    <meta property="twitter:description" content="IlumEngine编辑器鼠标拾取原理">
   
 
 <meta name="generator" content="Hugo 0.82.0" />
@@ -1367,7 +1367,7 @@
 
 <meta name="apple-mobile-web-app-status-bar-style" content="#fff">
 
-<link rel="canonical" href="https://chaphlagical.github.io/zh/posts/image_process/seam_carving/">
+<link rel="canonical" href="https://chaphlagical.github.io/zh/posts/rendering/mouse_picking/">
 
 <link rel="manifest" href="/manifest.json">
 
@@ -1393,13 +1393,13 @@
   {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    "headline": "Seam Carving",
-    "datePublished": "2021-12-03T15:13:11+01:00",
-    "dateModified": "2021-12-03T15:13:11+01:00",
-    "url" : "https://chaphlagical.github.io/zh/posts/image_process/seam_carving/",
-    "description": "复现Siggraph2007论文《Seam Carving for Content-Aware Image Resizing》",
-    "keywords": ["Digital Image Process"],
-    "image" : "https://chaphlagical.github.io/images/posts/seam_carving.png",
+    "headline": "场景编辑器：鼠标拾取",
+    "datePublished": "2021-12-14T17:25:11+01:00",
+    "dateModified": "2021-12-14T17:25:11+01:00",
+    "url" : "https://chaphlagical.github.io/zh/posts/rendering/mouse_picking/",
+    "description": "IlumEngine编辑器鼠标拾取原理",
+    "keywords": ["IlumEngine"],
+    "image" : "https://chaphlagical.github.io/images/posts/mouse_picking.png",
     "mainEntityOfPage": {
       "@type": "WebPage",
       "@id": "https://chaphlagical.github.io"
@@ -1732,7 +1732,7 @@ if (!doNotTrack) {
   
   <li  class="is-active" >
     
-      <span>Seam Carving</span>
+      <span>场景编辑器：鼠标拾取</span>
     
   </li>
   
@@ -1744,12 +1744,12 @@ if (!doNotTrack) {
   <div class="single ">
     <div class="single__nojs">Please enable Javascript to view the contents</div>
     <script>document.querySelector('.single').classList.remove('hide'); document.querySelector('.single__nojs').classList.add('hide');</script>
-    <h2 class="single__title" data-ani="true">Seam Carving</h2>
+    <h2 class="single__title" data-ani="true">场景编辑器：鼠标拾取</h2>
     <h3 class="single__subtitle"></h3>
     <div class="single__meta">
       
 <div class="single__infos">
-  <time class="single__info" title="创建日期">📅&nbsp;2021年12月03日 </time>
+  <time class="single__info" title="创建日期">📅&nbsp;2021年12月14日 </time>
   
   &nbsp;&middot;&nbsp; <span class="single__info" title="阅读时长"> ☕&nbsp;3&nbsp;分钟 </span>
   
@@ -1764,27 +1764,61 @@ if (!doNotTrack) {
   🏷️
   
 
-  <li><a href="https://chaphlagical.github.io/zh/tags/digital-image-process/" class="single__tag" title="Digital Image Process">#Digital Image Process</a></li>
+  <li><a href="https://chaphlagical.github.io/zh/tags/ilumengine/" class="single__tag" title="IlumEngine">#IlumEngine</a></li>
 
 </ul>
 
     </div>
     <article class="single__contents" data-dir="ltr" data-ani="true">
       
-      <p><img src="result.gif" alt="result" /></p>
-<p>Seam Carving算法是一种基于内容的图像缩放方法，在保证图像中“重要区域”不发生形变的前提下，对图像进行缩放。</p>
-<p>一种直观的想法便是找出图像中的“不重要区域”，并将其删除。文献[1]中便是采用这种思想，</p>
-<p>通过定义像素的能量函数，通过动态规划方法对某一方向的像素进行能量累积，最后回溯求出能量最低的一条路径，该路径便是我们要删除的“最不重要”路径。</p>
-<h2 id="1-基本方法">1. 基本方法</h2>
-<p>图像的能量简单地由图像梯度描述：<br />
-$$<br />
-e_1(\pmb I)=\left|\frac{\partial}{\partial x}\pmb I\right|+\left|\frac{\partial}{\partial y}\pmb I\right|<br />
-$$<br />
-论文中也给出另外一种能量的变体实现：<br />
-$$<br />
-e_{HoG}(\pmb I)=\frac{\left|\frac{\partial}{\partial x}\pmb I\right|+\left|\frac{\partial}{\partial y}\pmb I\right|}{\max(HoG(\pmb I(x,y)))}<br />
-$$<br />
-实现中，采用Sobel算子提取图像梯度作为能量图：</p>
+      <p><img src="image-20211214200711937.png" alt="image-20211214200711937" /></p>
+<p>鼠标拾取是引擎场景编辑器的一个非常基础的功能，通过点击屏幕像素选择场景中的物体，能够使用户更加方便地选择物体、编辑场景。利用空闲时间我将IlumEngine场景编辑器的鼠标拾取功能做了一个优化，从原来的基于Ray Casting方法到现在所使用的G-Buffer回读的方法，两种方法各有优劣，下面详细介绍这两种鼠标拾取的方法。</p>
+<h2 id="1-基于ray-casting的鼠标拾取方法">1. 基于Ray Casting的鼠标拾取方法</h2>
+<p>基于Ray Casting的鼠标拾取是一种几何方法，其基本原理如下：</p>
+<ol>
+<li>由鼠标点击的屏幕像素坐标，生成一条从摄像机发射的射线</li>
+<li>对场景作求交计算（与Ray Tracing中的相交检测相同）</li>
+<li>寻找与光线相交的最近包围盒，其对应的物体即为鼠标将选中的物体</li>
+</ol>
+<p>已知我们已从窗口/UI系统中得到鼠标点击的像素坐标<code>click_pos</code>，首先将其转化为屏幕空间坐标：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="kt">float</span> <span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="n">click_pos</span><span class="p">.</span><span class="n">x</span> <span class="o">/</span> <span class="n">scene_view_size</span><span class="p">.</span><span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="mf">2.f</span> <span class="o">-</span> <span class="mf">1.f</span><span class="p">;</span>
+<span class="kt">float</span> <span class="n">y</span> <span class="o">=</span> <span class="o">-</span><span class="p">((</span><span class="n">click_pos</span><span class="p">.</span><span class="n">y</span> <span class="o">/</span> <span class="n">scene_view_size</span><span class="p">.</span><span class="n">y</span><span class="p">)</span> <span class="o">*</span> <span class="mf">2.f</span> <span class="o">-</span> <span class="mf">1.f</span><span class="p">);</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>我们希望利用拾取点的屏幕空间坐标从相机发射一条射线，一种思路是计算拾取点的远近平面投影坐标，然后将它们连起来即可：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="n">glm</span><span class="o">::</span><span class="n">mat4</span> <span class="n">inv</span> <span class="o">=</span> <span class="n">glm</span><span class="o">::</span><span class="n">inverse</span><span class="p">(</span><span class="n">main_camera</span><span class="p">.</span><span class="n">view_projection</span><span class="p">);</span>
+
+<span class="n">glm</span><span class="o">::</span><span class="n">vec4</span> <span class="n">near_point</span> <span class="o">=</span> <span class="n">inv</span> <span class="o">*</span> <span class="n">glm</span><span class="o">::</span><span class="n">vec4</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="mf">0.f</span><span class="p">,</span> <span class="mf">1.f</span><span class="p">);</span>
+<span class="n">near_point</span> <span class="o">/=</span> <span class="n">near_point</span><span class="p">.</span><span class="n">w</span><span class="p">;</span>
+<span class="n">glm</span><span class="o">::</span><span class="n">vec4</span> <span class="n">far_point</span> <span class="o">=</span> <span class="n">inv</span> <span class="o">*</span> <span class="n">glm</span><span class="o">::</span><span class="n">vec4</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="mf">1.f</span><span class="p">,</span> <span class="mf">1.f</span><span class="p">);</span>
+<span class="n">far_point</span> <span class="o">/=</span> <span class="n">far_point</span><span class="p">.</span><span class="n">w</span><span class="p">;</span>
+
+<span class="n">geometry</span><span class="o">::</span><span class="n">Ray</span> <span class="n">ray</span><span class="p">;</span>
+<span class="n">ray</span><span class="p">.</span><span class="n">origin</span>    <span class="o">=</span> <span class="n">main_camera</span><span class="p">.</span><span class="n">position</span><span class="p">;</span>
+<span class="n">ray</span><span class="p">.</span><span class="n">direction</span> <span class="o">=</span> <span class="n">glm</span><span class="o">::</span><span class="n">normalize</span><span class="p">(</span><span class="n">glm</span><span class="o">::</span><span class="n">vec3</span><span class="p">(</span><span class="n">far_point</span> <span class="o">-</span> <span class="n">near_point</span><span class="p">));</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>最后，用射线做与包围盒的求交，求交的计算也可用BVH、KD-Tree等加速结构进行加速，这里为了快速实现只是简单遍历并对每个包围盒进行求交：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt"> 1
@@ -1798,124 +1832,116 @@ $$<br />
 </span><span class="lnt"> 9
 </span><span class="lnt">10
 </span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="kt">void</span> <span class="n">SeamCarving</span><span class="o">::</span><span class="n">genEnergyMap</span><span class="p">(</span><span class="k">const</span> <span class="n">cv</span><span class="o">::</span><span class="n">Mat</span><span class="o">&amp;</span> <span class="n">img</span><span class="p">,</span> <span class="n">cv</span><span class="o">::</span><span class="n">Mat</span><span class="o">&amp;</span> <span class="n">energy</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="n">cv</span><span class="o">::</span><span class="n">Mat</span> <span class="n">sobel_x</span><span class="p">,</span> <span class="n">sobel_y</span><span class="p">,</span> <span class="n">gray_energy</span><span class="p">;</span>
-    <span class="n">cv</span><span class="o">::</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">gray_energy</span><span class="p">,</span> <span class="n">cv</span><span class="o">::</span><span class="n">COLOR_BGR2GRAY</span><span class="p">);</span>
-    <span class="n">cv</span><span class="o">::</span><span class="n">Sobel</span><span class="p">(</span><span class="n">gray_energy</span><span class="p">,</span> <span class="n">sobel_x</span><span class="p">,</span> <span class="n">CV_32F</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
-    <span class="n">cv</span><span class="o">::</span><span class="n">convertScaleAbs</span><span class="p">(</span><span class="n">sobel_x</span><span class="p">,</span> <span class="n">sobel_x</span><span class="p">);</span>
-    <span class="n">cv</span><span class="o">::</span><span class="n">Sobel</span><span class="p">(</span><span class="n">gray_energy</span><span class="p">,</span> <span class="n">sobel_y</span><span class="p">,</span> <span class="n">CV_32F</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
-    <span class="n">cv</span><span class="o">::</span><span class="n">convertScaleAbs</span><span class="p">(</span><span class="n">sobel_y</span><span class="p">,</span> <span class="n">sobel_y</span><span class="p">);</span>
-    <span class="n">cv</span><span class="o">::</span><span class="n">addWeighted</span><span class="p">(</span><span class="n">sobel_x</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">sobel_y</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">energy</span><span class="p">);</span>
-    <span class="n">energy</span><span class="p">.</span><span class="n">convertTo</span><span class="p">(</span><span class="n">energy</span><span class="p">,</span> <span class="n">CV_32FC1</span><span class="p">);</span>
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="kt">float</span> <span class="n">distance</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">numeric_limits</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;::</span><span class="n">infinity</span><span class="p">();</span>
+<span class="k">const</span> <span class="k">auto</span> <span class="n">group</span>    <span class="o">=</span> <span class="n">Scene</span><span class="o">::</span><span class="n">instance</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">getRegistry</span><span class="p">().</span><span class="n">group</span><span class="o">&lt;&gt;</span><span class="p">(</span><span class="n">entt</span><span class="o">::</span><span class="n">get</span><span class="o">&lt;</span><span class="n">cmpt</span><span class="o">::</span><span class="n">MeshRenderer</span><span class="p">,</span> <span class="n">cmpt</span><span class="o">::</span><span class="n">Transform</span><span class="o">&gt;</span><span class="p">);</span>
+<span class="n">group</span><span class="p">.</span><span class="n">each</span><span class="p">([</span><span class="o">&amp;</span><span class="p">](</span><span class="k">const</span> <span class="n">entt</span><span class="o">::</span><span class="n">entity</span> <span class="o">&amp;</span><span class="n">entity</span><span class="p">,</span> <span class="k">const</span> <span class="n">cmpt</span><span class="o">::</span><span class="n">MeshRenderer</span> <span class="o">&amp;</span><span class="n">mesh_renderer</span><span class="p">,</span> <span class="k">const</span> <span class="n">cmpt</span><span class="o">::</span><span class="n">Transform</span> <span class="o">&amp;</span><span class="n">transform</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">Renderer</span><span class="o">::</span><span class="n">instance</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">getResourceCache</span><span class="p">().</span><span class="n">hasModel</span><span class="p">(</span><span class="n">mesh_renderer</span><span class="p">.</span><span class="n">model</span><span class="p">))</span>
+    <span class="p">{</span>
+        <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">auto</span> <span class="o">&amp;</span><span class="n">model</span> <span class="o">=</span> <span class="n">Renderer</span><span class="o">::</span><span class="n">instance</span><span class="p">()</span><span class="o">-</span><span class="n">getResourceCache</span><span class="p">().</span><span class="n">loadModel</span><span class="p">(</span><span class="n">mesh_renderer</span><span class="p">.</span><span class="n">model</span><span class="p">);</span>
+    <span class="kt">float</span> <span class="n">hit_distance</span> <span class="o">=</span> <span class="n">ray</span><span class="p">.</span><span class="n">hit</span><span class="p">(</span><span class="n">model</span><span class="p">.</span><span class="n">get</span><span class="p">().</span><span class="n">bounding_box</span><span class="p">.</span><span class="n">transform</span><span class="p">(</span><span class="n">transform</span><span class="p">.</span><span class="n">world_transform</span><span class="p">));</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">distance</span> <span class="o">&gt;</span> <span class="n">hit_distance</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">distance</span> <span class="o">=</span> <span class="n">hit_distance</span><span class="p">;</span>
+        <span class="n">Editor</span><span class="o">::</span><span class="n">instance</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">select</span><span class="p">(</span><span class="n">Entity</span><span class="p">(</span><span class="n">entity</span><span class="p">));</span>
+    <span class="p">}</span>
+<span class="p">});</span>
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
-</div><p>对于$n\times m$的图像$\pmb I$，用于删除的接缝由如下定义：</p>
-<p>水平接缝：<br />
-$$<br />
-\pmb{s^x}=\{s_i^x\}_{i=1}^n=\{(x(i),i)\}_{i=1}^n,\ \<br />
-s.t.\ \ \forall i,\ \  |x(i)-x(i-1)|\leq 1<br />
-$$</p>
-<p>竖直接缝：</p>
-<p>$$<br />
-\pmb{s^y}=\{s_i^y\}_{j=1}^m=\{(j, y(j))\}_{j=1}^m,\ \<br />
-s.t.\ \ \forall j,\ \  |y(j)-y(j-1)|\leq 1<br />
-$$</p>
-<p>其中，$x:[1,\cdots,n]\rightarrow[1,\cdots,m]$，$y:[1,\cdots,m]\rightarrow[1,\cdots,n]$</p>
-<p>而我们要寻找最低能量路径即求解最小优化问题：<br />
-$$<br />
-s^\ast=\min_{\pmb s}E(\pmb s)=\min_{\pmb s}\sum_{i=1}^ne(\pmb I(s_i))<br />
-$$<br />
-利用动态规划的思想可以很方便地求出上述优化问题，利用能量累积矩阵$M$，转移方程：<br />
-$$<br />
-M(i,j)=e(i,j)+\min(M(i-1,j-1), M(i-1,j), M(i-1,j+1))<br />
-$$<br />
-从边缘出发按转移方程填充能量累积矩阵，最后寻找能量最低的终点$M(n,x)$（竖直搜索）或$M(x,m)$（水平搜索），回溯即可得到完整的最优路径。</p>
-<h3 id="11-图像缩小任务">1.1. 图像缩小任务</h3>
-<p>对于单方向缩小任务，只需重复上述接缝搜索流程，每次删除一条接缝即可。</p>
-<p>对于多方向缩小任务，文献中也将横向竖向接缝的选择顺序其视为一个优化问题，假设现有$m\times n$的图像$\pmb I$欲缩小至$m'\times n'$，其中$m&gt;m',n&gt;n'$，接缝顺序的选择等价于优化以下能量函数：<br />
-$$<br />
-\min_{\pmb{s^x},\pmb{s^y},\alpha}\sum_{i=1}^kE(\alpha_i\pmb {s_i^x}+(1-\alpha_i)\pmb{s_i^y})<br />
-$$<br />
-其中，$r=m-m'$，$c=n-n'$， $\alpha_i\in{0,1}$描述了接缝选择的方向，因此有$\sum_{i=1}^k\alpha_i=r$，$\sum_{i=1}^k(1-\alpha_i)=c$成立。该问题同样可以利用动态规划的想法进行求解，取能量累积矩阵$\pmb T$，满足$\pmb T(0,0)=0$，转移方程：<br />
-$$<br />
-\pmb T(r,c)=\min(\pmb T(r-1,c),E(\pmb s^x(\pmb {I_{n-r-1\times m-c}})),\pmb T(r,c-1),E(\pmb s^y(\pmb {I_{n-r\times m-c-1}})))<br />
-$$<br />
-$\pmb {I_{n-r-1\times m-c}}$表示大小为$n-r-1\times m-c$的图像（中间量），$E(\pmb{s^x}(\pmb I))$和$E(\pmb{s^y}(\pmb I))$为相应的方向接缝删除后的能量。</p>
-<p>但上述方法实测速度很慢，因此在实现中选择简单的贪婪策略选择带来当前最低能量的方法。</p>
-<h3 id="12-图像拉伸任务">1.2. 图像拉伸任务</h3>
-<p>对于图像拉伸任务，同样可以采用缩小任务相似的处理方法，只是将最优接缝的删除修改为最优接缝邻域的插值，但和缩小任务不同的是，每次对单条最优接缝进行插值，容易导致后续的最优接缝</p>
-<p>搜索会集中在同一区域，因此在图像拉伸任务中，建议一次性选择多条低能量接缝进行插值。</p>
-<h2 id="2-实验结果">2. 实验结果</h2>
-<h3 id="21-图像缩小">2.1. 图像缩小</h3>
-<table>
-<thead>
-<tr>
-<th>原图像</th>
-<th>图像能量</th>
-<th>结果图像</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><img src="m_src_image.png" alt="m_src_image" /></td>
-<td><img src="m_energy_map.png" alt="m_energy_map" /></td>
-<td><img src="m_dst_image.png" alt="m_dst_image" /></td>
-</tr>
-<tr>
-<td><img src="m_src_image-16385176770361.png" alt="m_src_image" /></td>
-<td><img src="m_energy_map-16385176839362.png" alt="m_energy_map" /></td>
-<td><img src="m_dst_image-16385176973263.png" alt="m_dst_image" /></td>
-</tr>
-<tr>
-<td><img src="m_src_image-16385177209344.png" alt="m_src_image" /></td>
-<td><img src="m_energy_map-16385177354636.png" alt="m_energy_map" /></td>
-<td><img src="m_dst_image-16385177271135.png" alt="m_dst_image" /></td>
-</tr>
-</tbody>
-</table>
-<h3 id="22-图像拉伸">2.2. 图像拉伸</h3>
-<table>
-<thead>
-<tr>
-<th>原图像</th>
-<th>图像能量</th>
-<th>最优接缝</th>
-<th>结果图像</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><img src="m_src_image-16385177894437.png" alt="m_src_image" /></td>
-<td><img src="m_energy_map-16385177920408.png" alt="m_energy_map" /></td>
-<td><img src="m_seam_map.png" alt="m_seam_map" /></td>
-<td><img src="m_dst_image-16385177978839.png" alt="m_dst_image" /></td>
-</tr>
-<tr>
-<td><img src="m_src_image-163851780666310.png" alt="m_src_image" /></td>
-<td><img src="m_energy_map-163851781026811.png" alt="m_energy_map" /></td>
-<td><img src="m_seam_map-163851781181412.png" alt="m_seam_map" /></td>
-<td><img src="m_dst_image-163851781337813.png" alt="m_dst_image" /></td>
-</tr>
-<tr>
-<td><img src="m_src_image-163851782052714.png" alt="m_src_image" /></td>
-<td><img src="m_energy_map-163851782298015.png" alt="m_energy_map" /></td>
-<td><img src="m_seam_map-163851782473416.png" alt="m_seam_map" /></td>
-<td><img src="m_dst_image-163851782683017.png" alt="m_dst_image" /></td>
-</tr>
-</tbody>
-</table>
-<h2 id="3-总结">3. 总结</h2>
-<p>从上图中可以看出 Seam Carving 的一些局限性：</p>
+</div><p>具体求交的计算后续光线追踪模块的开发将会提到，这里不作具体阐述。</p>
+<h2 id="2-基于g-buffer回读的鼠标拾取方法">2. 基于G-Buffer回读的鼠标拾取方法</h2>
+<p>基于G-Buffer的鼠标拾取是一种图像方法，在几何阶段生成G-Buffers时我们顺带生成一张带有场景物体实体ID的G-Buffer，格式为<code>VK_FORMAT_R32_UINT</code>。在得到鼠标响应时，将该G-Buffer的数据回读到CPU中，利用像素坐标查找相应的实体ID，得到拾取到的对象。完整过程的源码如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="n">ImageReference</span> <span class="n">entity_id_buffer</span> <span class="o">=</span> <span class="n">Renderer</span><span class="o">::</span><span class="n">instance</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">getRenderGraph</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">getAttachment</span><span class="p">(</span><span class="s">&#34;debug - entity&#34;</span><span class="p">);</span>
+
+<span class="n">CommandBuffer</span> <span class="n">cmd_buffer</span><span class="p">;</span>
+<span class="n">cmd_buffer</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span>
+<span class="n">Buffer</span> <span class="nf">staging_buffer</span><span class="p">(</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">VkDeviceSize</span><span class="o">&gt;</span><span class="p">(</span><span class="n">entity_id_buffer</span><span class="p">.</span><span class="n">get</span><span class="p">().</span><span class="n">getWidth</span><span class="p">()</span> <span class="o">*</span> <span class="n">entity_id_buffer</span><span class="p">.</span><span class="n">get</span><span class="p">().</span><span class="n">getHeight</span><span class="p">())</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">uint32_t</span><span class="p">),</span> <span class="n">VK_BUFFER_USAGE_TRANSFER_DST_BIT</span><span class="p">,</span> <span class="n">VMA_MEMORY_USAGE_GPU_TO_CPU</span><span class="p">);</span>
+<span class="n">cmd_buffer</span><span class="p">.</span><span class="n">transferLayout</span><span class="p">(</span><span class="n">entity_id_buffer</span><span class="p">,</span> <span class="n">VK_IMAGE_USAGE_SAMPLED_BIT</span><span class="p">,</span> <span class="n">VK_IMAGE_USAGE_TRANSFER_SRC_BIT</span><span class="p">);</span>
+<span class="n">cmd_buffer</span><span class="p">.</span><span class="n">copyImageToBuffer</span><span class="p">(</span><span class="n">ImageInfo</span><span class="p">{</span><span class="n">entity_id_buffer</span><span class="p">,</span> <span class="n">VK_IMAGE_USAGE_TRANSFER_SRC_BIT</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">},</span> <span class="n">BufferInfo</span><span class="p">{</span><span class="n">staging_buffer</span><span class="p">,</span> <span class="mi">0</span><span class="p">});</span>
+<span class="n">cmd_buffer</span><span class="p">.</span><span class="n">transferLayout</span><span class="p">(</span><span class="n">entity_id_buffer</span><span class="p">,</span> <span class="n">VK_IMAGE_USAGE_TRANSFER_SRC_BIT</span><span class="p">,</span> <span class="n">VK_IMAGE_USAGE_SAMPLED_BIT</span><span class="p">);</span>
+<span class="n">cmd_buffer</span><span class="p">.</span><span class="n">end</span><span class="p">();</span>
+<span class="n">cmd_buffer</span><span class="p">.</span><span class="n">submitIdle</span><span class="p">();</span>
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">uint32_t</span><span class="o">&gt;</span> <span class="n">image_data</span><span class="p">(</span><span class="n">entity_id_buffer</span><span class="p">.</span><span class="n">get</span><span class="p">().</span><span class="n">getWidth</span><span class="p">()</span> <span class="o">*</span> <span class="n">entity_id_buffer</span><span class="p">.</span><span class="n">get</span><span class="p">().</span><span class="n">getHeight</span><span class="p">());</span>
+<span class="n">std</span><span class="o">::</span><span class="n">memcpy</span><span class="p">(</span><span class="n">image_data</span><span class="p">.</span><span class="n">data</span><span class="p">(),</span> <span class="n">staging_buffer</span><span class="p">.</span><span class="n">map</span><span class="p">(),</span> <span class="n">image_data</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">uint32_t</span><span class="p">));</span>
+
+<span class="n">click_pos</span><span class="p">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">glm</span><span class="o">::</span><span class="n">clamp</span><span class="p">(</span><span class="n">click_pos</span><span class="p">.</span><span class="n">x</span><span class="p">,</span> <span class="mf">0.f</span><span class="p">,</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="p">(</span><span class="n">entity_id_buffer</span><span class="p">.</span><span class="n">get</span><span class="p">().</span><span class="n">getWidth</span><span class="p">()));</span>
+<span class="n">click_pos</span><span class="p">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">glm</span><span class="o">::</span><span class="n">clamp</span><span class="p">(</span><span class="n">click_pos</span><span class="p">.</span><span class="n">y</span><span class="p">,</span> <span class="mf">0.f</span><span class="p">,</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="p">(</span><span class="n">entity_id_buffer</span><span class="p">.</span><span class="n">get</span><span class="p">().</span><span class="n">getHeight</span><span class="p">()));</span>
+
+<span class="k">auto</span> <span class="n">entity</span> <span class="o">=</span> <span class="n">Entity</span><span class="p">(</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">entt</span><span class="o">::</span><span class="n">entity</span><span class="o">&gt;</span><span class="p">(</span><span class="n">image_data</span><span class="p">[</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">uint32_t</span><span class="o">&gt;</span><span class="p">(</span><span class="n">click_pos</span><span class="p">.</span><span class="n">y</span><span class="p">)</span> <span class="o">*</span> <span class="n">entity_id_buffer</span><span class="p">.</span><span class="n">get</span><span class="p">().</span><span class="n">getWidth</span><span class="p">()</span> <span class="o">+</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">uint32_t</span><span class="o">&gt;</span><span class="p">(</span><span class="n">click_pos</span><span class="p">.</span><span class="n">x</span><span class="p">)]));</span>
+<span class="n">Editor</span><span class="o">::</span><span class="n">instance</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">select</span><span class="p">(</span><span class="n">entity</span><span class="p">);</span>
+
+<span class="n">staging_buffer</span><span class="p">.</span><span class="n">unmap</span><span class="p">();</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>由于G-Buffer的内存访问方式均为<code>GPU_only</code>的，我们需要使用一块<code>GPU_to_CPU</code>的Buffer进行暂存，最后Map到CPU内存中。</p>
+<h2 id="3-比较与选择">3. 比较与选择</h2>
 <ul>
-<li>进行图像拉伸任务时容易造成图像区块重复，可以考虑手动排除部分区域进行优化</li>
-<li>在梯度变化不明显的“重要区域”容易造成误处理，比如：《蒙娜丽莎》大片的头发。可以考虑手动划分“重要区域”进行处理</li>
+<li>Ray Casting方法
+<ul>
+<li>优点
+<ul>
+<li>CPU实现，不依赖于渲染管线，能够很方便地集成</li>
 </ul>
-<h2 id="参考文献"><em>参考文献</em></h2>
-<p>[1] S. Avidan and A. Shamir. Seam carving for content-aware image resizing. In ACM SIGGRAPH 2007 papers, pages 10–es. 2007</p>
+</li>
+<li>缺点
+<ul>
+<li>不够精确，由于是射线与包围盒求交，拾取的实际上是物体对应的包围盒而不是物体本身，有时候会带来误差，在场景复杂时效果不好</li>
+<li>性能受场景规模影响较大，而使用加速结构进行求交加速实际上也增加了集成复杂度（需要引擎具有光追或物理模块支持）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>G-Buffer方法
+<ul>
+<li>优点
+<ul>
+<li>精准，由于是直接把实体ID贴到纹理上，因此能够做到像素级的拾取</li>
+</ul>
+</li>
+<li>缺点
+<ul>
+<li>需要一张G-Buffer，增加了带宽开销</li>
+<li>需要回读GPU数据，不过只有在鼠标点击时才会触发，影响并不大</li>
+<li>需要渲染管线支持，需要配合整个渲染系统进行设计</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>在开发前期，Render Graph还不够完善，渲染管线扩展能力一般，为了简便，我先直接用Ray Casting的方法给IlumEngine加上一个基本能用的拾取方法，后来为了拾取精度的需要，将拾取算法改为了基于G-Buffer方法。</p>
 
     </article>
     
@@ -2115,7 +2141,7 @@ $\pmb {I_{n-r-1\times m-c}}$表示大小为$n-r-1\times m-c$的图像（中间�
     
     
       
-        <a href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fchaphlagical.github.io%2fzh%2fposts%2fimage_process%2fseam_carving%2f" title="Facebook" aria-label="Facebook Share Button" class="donation__item" target="_blank" rel="noreferrer" data-type="share">
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fchaphlagical.github.io%2fzh%2fposts%2frendering%2fmouse_picking%2f" title="Facebook" aria-label="Facebook Share Button" class="donation__item" target="_blank" rel="noreferrer" data-type="share">
           <svg data-name="facebook" enable-background="new 0 0 24 24" viewBox="0 0 24 24" width="35" height="35" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="m15.997 3.985h2.191v-3.816c-.378-.052-1.678-.169-3.192-.169-3.159 0-5.323 1.987-5.323 5.639v3.361h-3.486v4.266h3.486v10.734h4.274v-10.733h3.345l.531-4.266h-3.877v-2.939c.001-1.233.333-2.077 2.051-2.077z"/></svg>
         </a>
       
@@ -2288,57 +2314,19 @@ $\pmb {I_{n-r-1\times m-c}}$表示大小为$n-r-1\times m-c$的图像（中间�
     <section class="related">
     
     
-    <h1 class="related__title">
-      <hr class="hr-dots"/>
-      <div>
-        相关内容
-      </div>
-      <hr class="hr-dots"/>
-    </h1>
-    <ul class="related-ul">
-        
-        <li>
-          <a href="/zh/posts/image_process/lazy_snapping/" class="related__link">Lazy Snapping</a>
-        </li>
-        
-        <li>
-          <a href="/zh/posts/image_process/possion/" class="related__link">Poisson Image Editing</a>
-        </li>
-        
-        <li>
-          <a href="/zh/posts/image_process/image_warping/" class="related__link">Image Warping</a>
-        </li>
-        
-        <li>
-          <a href="/zh/posts/image_process/color_transfer/" class="related__link">Color Transfer</a>
-        </li>
-        
-        <li>
-          <a href="/zh/posts/image_process/colorization/" class="related__link">Colorization</a>
-        </li>
-        
-    </ul>
-    
   </section>
     <div class="grow"></div>
 <nav class="pagination-single">
   
     
-      <a href="https://chaphlagical.github.io/zh/posts/image_process/possion/" class="pagination-single__left">
+      <a href="https://chaphlagical.github.io/zh/posts/rendering/optimization1/" class="pagination-single__left">
         <div class="pagination-single__icon">
           <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path fill="currentColor" d="M19 11H7.83l4.88-4.88c.39-.39.39-1.03 0-1.42-.39-.39-1.02-.39-1.41 0l-6.59 6.59c-.39.39-.39 1.02 0 1.41l6.59 6.59c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41L7.83 13H19c.55 0 1-.45 1-1s-.45-1-1-1z"/></svg>
         </div>
-        <div class="pagination-single__left-title">Poisson Image Editing</div>      
+        <div class="pagination-single__left-title">实时渲染优化技术(1)</div>      
       </a>
     
     <div class="grow"></div>
-    
-      <a href="https://chaphlagical.github.io/zh/posts/image_process/lazy_snapping/" class="pagination-single__right">      
-        <div class="pagination-single__right-title">Lazy Snapping</div>
-        <div class="pagination-single__icon">
-          <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path fill="currentColor" d="M5 13h11.17l-4.88 4.88c-.39.39-.39 1.03 0 1.42.39.39 1.02.39 1.41 0l6.59-6.59c.39-.39.39-1.02 0-1.41l-6.58-6.6c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41L16.17 11H5c-.55 0-1 .45-1 1s.45 1 1 1z"/></svg>
-        </div>
-      </a>
     
   
 </nav>
@@ -3314,7 +3302,7 @@ document.addEventListener('DOMContentLoaded', function () {
         
           
             
-              <a href="https://chaphlagical.github.io/zh/posts/image_process/seam_carving/" data-lang="zh" class="dropdown-item is-active">简体中文</a>
+              <a href="https://chaphlagical.github.io/zh/posts/rendering/mouse_picking/" data-lang="zh" class="dropdown-item is-active">简体中文</a>
             
           
         
@@ -3518,20 +3506,9 @@ document.addEventListener('DOMContentLoaded', function () {
         <div class="toc toc__outer " data-dir="ltr" data-folding="true" data-ani="true">
           <nav id="TableOfContents">
   <ul>
-    <li><a href="#1-基本方法">1. 基本方法</a>
-      <ul>
-        <li><a href="#11-图像缩小任务">1.1. 图像缩小任务</a></li>
-        <li><a href="#12-图像拉伸任务">1.2. 图像拉伸任务</a></li>
-      </ul>
-    </li>
-    <li><a href="#2-实验结果">2. 实验结果</a>
-      <ul>
-        <li><a href="#21-图像缩小">2.1. 图像缩小</a></li>
-        <li><a href="#22-图像拉伸">2.2. 图像拉伸</a></li>
-      </ul>
-    </li>
-    <li><a href="#3-总结">3. 总结</a></li>
-    <li><a href="#参考文献"><em>参考文献</em></a></li>
+    <li><a href="#1-基于ray-casting的鼠标拾取方法">1. 基于Ray Casting的鼠标拾取方法</a></li>
+    <li><a href="#2-基于g-buffer回读的鼠标拾取方法">2. 基于G-Buffer回读的鼠标拾取方法</a></li>
+    <li><a href="#3-比较与选择">3. 比较与选择</a></li>
   </ul>
 </nav>
         </div>
