@@ -43,6 +43,12 @@
                 href="https://chaphlagical.github.io/zh/categories/"
                 />
   </url><url>
+    <loc>https://chaphlagical.github.io/zh/tags/geometry/</loc>
+    <lastmod>2021-12-14T17:25:11+01:00</lastmod>
+  </url><url>
+    <loc>https://chaphlagical.github.io/zh/categories/geometry/</loc>
+    <lastmod>2021-12-14T17:25:11+01:00</lastmod>
+  </url><url>
     <loc>https://chaphlagical.github.io/zh/categories/graphics/</loc>
     <lastmod>2021-12-14T17:25:11+01:00</lastmod>
   </url><url>
@@ -77,6 +83,9 @@
                 hreflang="zh"
                 href="https://chaphlagical.github.io/zh/tags/"
                 />
+  </url><url>
+    <loc>https://chaphlagical.github.io/zh/posts/geometry/bezier_curve/</loc>
+    <lastmod>2021-12-14T17:25:11+01:00</lastmod>
   </url><url>
     <loc>https://chaphlagical.github.io/zh/posts/rendering/mouse_picking/</loc>
     <lastmod>2021-12-14T17:25:11+01:00</lastmod>
@@ -168,8 +177,6 @@
                 hreflang="zh"
                 href="https://chaphlagical.github.io/zh/about/"
                 />
-  </url><url>
-    <loc>https://chaphlagical.github.io/zh/posts/geometry/curve1/</loc>
   </url><url>
     <loc>https://chaphlagical.github.io/zh/publication/paper/paper1/</loc>
     <xhtml:link

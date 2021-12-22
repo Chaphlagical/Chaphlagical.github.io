@@ -21,6 +21,40 @@
 
       
       <item>
+        <title>几何造型(1)：Bézier曲线</title>
+        <link>https://chaphlagical.github.io/zh/posts/geometry/bezier_curve/</link>
+        <pubDate>Tue, 14 Dec 2021 17:25:11 +0100</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        <atom:modified>Tue, 14 Dec 2021 17:25:11 +0100</atom:modified>
+        <guid>https://chaphlagical.github.io/zh/posts/geometry/bezier_curve/</guid>
+        <description>1. 基本原理 Bézier曲线于1962年，由法国工程师Pierre Bézier所提出，用于汽车的主体的几何造型设计。 二阶Bézier曲线如下图</description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        <media:content url="https://chaphlagical.github.ioimages/posts/bezier_curve.png" medium="image"><media:title type="html">featured image</media:title></media:content>
+        
+        
+        
+          
+            
+              <category>Geometry</category>
+            
+          
+        
+        
+          
+            
+              <category>Geometry</category>
+            
+          
+            
+              <category>Graphics</category>
+            
+          
+        
+        
+      </item>
+      
+      <item>
         <title>场景编辑器：鼠标拾取</title>
         <link>https://chaphlagical.github.io/zh/posts/rendering/mouse_picking/</link>
         <pubDate>Tue, 14 Dec 2021 17:25:11 +0100</pubDate>
@@ -264,24 +298,6 @@
               <category>Digital Image Process</category>
             
           
-        
-        
-      </item>
-      
-      <item>
-        <title></title>
-        <link>https://chaphlagical.github.io/zh/posts/geometry/curve1/</link>
-        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
-        
-        <guid>https://chaphlagical.github.io/zh/posts/geometry/curve1/</guid>
-        <description></description>
-        
-        <dc:creator>Wenbo Chen</dc:creator>
-        
-        
-        
-        
         
         
       </item>
