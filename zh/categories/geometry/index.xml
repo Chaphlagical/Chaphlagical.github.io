@@ -14,7 +14,7 @@
     <managingEditor>chaf@mail.ustc.edu.cn (Wenbo Chen)</managingEditor>
     <webMaster>chaf@mail.ustc.edu.cn (Wenbo Chen)</webMaster>
     <copyright>©2021, All Rights Reserved</copyright>
-    <lastBuildDate>Fri, 24 Dec 2021 10:45:11 +0100</lastBuildDate>
+    <lastBuildDate>Wed, 29 Dec 2021 10:45:11 +0100</lastBuildDate>
     
         <atom:link href="https://chaphlagical.github.io/zh/categories/geometry/index.xml" rel="self" type="application/rss+xml" />
     
@@ -23,9 +23,9 @@
       <item>
         <title>几何造型(3)：B样条曲线</title>
         <link>https://chaphlagical.github.io/zh/posts/geometry/b_spline/</link>
-        <pubDate>Fri, 24 Dec 2021 10:45:11 +0100</pubDate>
+        <pubDate>Wed, 29 Dec 2021 10:45:11 +0100</pubDate>
         <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
-        <atom:modified>Fri, 24 Dec 2021 10:45:11 +0100</atom:modified>
+        <atom:modified>Wed, 29 Dec 2021 10:45:11 +0100</atom:modified>
         <guid>https://chaphlagical.github.io/zh/posts/geometry/b_spline/</guid>
         <description>1. B样条基函数 为解决Bézier曲线的全局性、端点性等问题，我们引入了Bézier样条来实现曲线的局部编辑，但由于Bézier样条曲线本质上</description>
         
