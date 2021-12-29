@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" 
+  xmlns:content="http://purl.org/rss/1.0/modules/content/" 
+  xmlns:dc="http://purl.org/dc/elements/1.1/" 
+  xmlns:atom="http://www.w3.org/2005/Atom" 
+  xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" 
+  xmlns:media="http://search.yahoo.com/mrss/">
+  <channel>
+    <title>Gaming on Chaf&#39;s Blog</title>
+    <link>https://chaphlagical.github.io/zh/tags/gaming/</link>
+    <description>Recent content in Gaming on Chaf&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <managingEditor>chaf@mail.ustc.edu.cn (Wenbo Chen)</managingEditor>
+    <webMaster>chaf@mail.ustc.edu.cn (Wenbo Chen)</webMaster>
+    <copyright>©2021, All Rights Reserved</copyright>
+    <lastBuildDate>Fri, 24 Dec 2021 22:45:11 +0100</lastBuildDate>
+    
+        <atom:link href="https://chaphlagical.github.io/zh/tags/gaming/index.xml" rel="self" type="application/rss+xml" />
+    
+
+      
+      <item>
+        <title>游戏通关：《漫威银河护卫队》</title>
+        <link>https://chaphlagical.github.io/zh/posts/gaming/marvel_guardians_of_the_galaxy/</link>
+        <pubDate>Fri, 24 Dec 2021 22:45:11 +0100</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        <atom:modified>Fri, 24 Dec 2021 22:45:11 +0100</atom:modified>
+        <guid>https://chaphlagical.github.io/zh/posts/gaming/marvel_guardians_of_the_galaxy/</guid>
+        <description>因为有了《漫威复仇者联盟》的前车之鉴，许多人是不看好今年这款Crystal Dynamics开发的漫威IP新作，但游戏正式发布后评价却意外的好</description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        <media:content url="https://chaphlagical.github.ioimages/posts/marvel_guardians_of_the_galaxy.jpg" medium="image"><media:title type="html">featured image</media:title></media:content>
+        
+        
+        
+          
+            
+              <category>Gaming</category>
+            
+          
+        
+        
+          
+            
+              <category>Gaming</category>
+            
+          
+        
+        
+      </item>
+      
+
+    
+  </channel>
+</rss>
