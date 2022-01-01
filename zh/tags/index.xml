@@ -13,12 +13,30 @@
     <language>zh</language>
     <managingEditor>chaf@mail.ustc.edu.cn (Wenbo Chen)</managingEditor>
     <webMaster>chaf@mail.ustc.edu.cn (Wenbo Chen)</webMaster>
-    <copyright>©2021, All Rights Reserved</copyright>
-    <lastBuildDate>Wed, 29 Dec 2021 10:45:11 +0100</lastBuildDate>
+    <copyright>©2022, All Rights Reserved</copyright>
+    <lastBuildDate>Fri, 31 Dec 2021 10:25:11 +0100</lastBuildDate>
     
         <atom:link href="https://chaphlagical.github.io/zh/tags/index.xml" rel="self" type="application/rss+xml" />
     
 
+      
+      <item>
+        <title>Real-time Rendering</title>
+        <link>https://chaphlagical.github.io/zh/tags/real-time-rendering/</link>
+        <pubDate>Fri, 31 Dec 2021 10:25:11 +0100</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        
+        <guid>https://chaphlagical.github.io/zh/tags/real-time-rendering/</guid>
+        <description></description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        
+        
+        
+        
+        
+        
+      </item>
       
       <item>
         <title>Geometry</title>
@@ -63,24 +81,6 @@
         <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
         
         <guid>https://chaphlagical.github.io/zh/tags/ilumengine/</guid>
-        <description></description>
-        
-        <dc:creator>Wenbo Chen</dc:creator>
-        
-        
-        
-        
-        
-        
-      </item>
-      
-      <item>
-        <title>Real-time Rendering</title>
-        <link>https://chaphlagical.github.io/zh/tags/real-time-rendering/</link>
-        <pubDate>Sat, 11 Dec 2021 10:07:11 +0100</pubDate>
-        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
-        
-        <guid>https://chaphlagical.github.io/zh/tags/real-time-rendering/</guid>
         <description></description>
         
         <dc:creator>Wenbo Chen</dc:creator>

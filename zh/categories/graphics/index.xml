@@ -13,12 +13,80 @@
     <language>zh</language>
     <managingEditor>chaf@mail.ustc.edu.cn (Wenbo Chen)</managingEditor>
     <webMaster>chaf@mail.ustc.edu.cn (Wenbo Chen)</webMaster>
-    <copyright>©2021, All Rights Reserved</copyright>
-    <lastBuildDate>Wed, 29 Dec 2021 10:45:11 +0100</lastBuildDate>
+    <copyright>©2022, All Rights Reserved</copyright>
+    <lastBuildDate>Fri, 31 Dec 2021 10:25:11 +0100</lastBuildDate>
     
         <atom:link href="https://chaphlagical.github.io/zh/categories/graphics/index.xml" rel="self" type="application/rss+xml" />
     
 
+      
+      <item>
+        <title>基于物理的实时渲染着色方法：PBR材质模型</title>
+        <link>https://chaphlagical.github.io/zh/posts/rendering/pbr/</link>
+        <pubDate>Fri, 31 Dec 2021 10:25:11 +0100</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        <atom:modified>Fri, 31 Dec 2021 10:25:11 +0100</atom:modified>
+        <guid>https://chaphlagical.github.io/zh/posts/rendering/pbr/</guid>
+        <description>事实上，从IlumEngine能够显示东西之初，我就已经搭建了一套基于金属工作流的延迟PBR渲染管线，但之前对于PBR材质模型的理解还不够深</description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        <media:content url="https://chaphlagical.github.ioimages/posts/pbr.png" medium="image"><media:title type="html">featured image</media:title></media:content>
+        
+        
+        
+          
+            
+              <category>Real-time Rendering</category>
+            
+          
+        
+        
+          
+            
+              <category>Rendering</category>
+            
+          
+            
+              <category>Graphics</category>
+            
+          
+        
+        
+      </item>
+      
+      <item>
+        <title>实时光照：球谐环境光</title>
+        <link>https://chaphlagical.github.io/zh/posts/rendering/sh_lighting/</link>
+        <pubDate>Thu, 30 Dec 2021 10:25:11 +0100</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        <atom:modified>Thu, 30 Dec 2021 10:25:11 +0100</atom:modified>
+        <guid>https://chaphlagical.github.io/zh/posts/rendering/sh_lighting/</guid>
+        <description></description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        <media:content url="https://chaphlagical.github.ioimages/posts/mouse_picking.png" medium="image"><media:title type="html">featured image</media:title></media:content>
+        
+        
+        
+          
+            
+              <category>Real-time Rendering</category>
+            
+          
+        
+        
+          
+            
+              <category>Rendering</category>
+            
+          
+            
+              <category>Graphics</category>
+            
+          
+        
+        
+      </item>
       
       <item>
         <title>几何造型(3)：B样条曲线</title>
