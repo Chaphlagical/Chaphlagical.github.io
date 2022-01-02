@@ -1751,7 +1751,7 @@ if (!doNotTrack) {
 <div class="single__infos">
   <time class="single__info" title="创建日期">📅&nbsp;2021年12月31日 </time>
   
-  &nbsp;&middot;&nbsp; <span class="single__info" title="阅读时长"> ☕&nbsp;13&nbsp;分钟 </span>
+  &nbsp;&middot;&nbsp; <span class="single__info" title="阅读时长"> ☕&nbsp;24&nbsp;分钟 </span>
   
   <span class="single__info">
     
@@ -1989,7 +1989,7 @@ f_r(\pmb p, \pmb \omega_o,\pmb \omega_i)=\frac{\mathrm dL_o(\pmb p,\pmb \omega_o
 $$<br />
 因此在半球上积分有：<br />
 $$<br />
-L_o(\pmb p,\pmb \omega_o,\pmb \omega_i)=\int_\Omega f_r(\pmb p, \pmb \omega_o,\pmb\omega_i)L_i(\pmb p,\pmb \omega_i)\cos\theta_i\mathrm d\pmb\omega_i<br />
+L_o(\pmb p,\pmb \omega_o,\pmb \omega_i)=\int_\Omega f_r(\pmb p, \pmb \omega_o,\pmb \omega_i)L_i(\pmb p,\pmb \omega_i)\cos\theta_i\mathrm d\pmb \omega_i<br />
 $$<br />
 BRDF的性质：</p>
 <ol>
@@ -2007,8 +2007,8 @@ $$<br />
 <p>Lambertian漫反射模型假定出射光线在各个方向上都是均匀的（强度相等），由反射方程：<br />
 $$<br />
 \begin{aligned}<br />
-L_o(\pmb\omega_o)&amp;=\int_\Omega f_rL_i(\pmb\omega_i)\cos\theta_i\mathrm d\omega_i\\\\<br />
-&amp;=f_rL_i\int_\Omega \cos\theta_i\mathrm d\omega_i\\\\<br />
+L_o(\pmb\omega_o)&amp;=\int_\Omega f_rL_i(\pmb\omega_i)\cos\theta_i\mathrm d\pmb \omega_i\\\\<br />
+&amp;=f_rL_i\int_\Omega \cos\theta_i\mathrm d\pmb \omega_i\\\\<br />
 &amp;=\pi f_rL_i<br />
 \end{aligned}<br />
 $$<br />
@@ -2146,7 +2146,10 @@ $$<br />
 D(\pmb m)=\frac{1}{\pi\alpha_x\alpha_y}\frac{1}{\left(\frac{(\pmb t\cdot\pmb m)^2}{\alpha_x^2}+\frac{(\pmb b\cdot\pmb m)^2}{\alpha_y^2}+(\pmb n\cdot\pmb m)^2\right)^2}<br />
 $$</p>
 <h4 id="425-beckmann与ggx法线分布函数效果比较">4.2.5. Beckmann与GGX法线分布函数效果比较</h4>
+<p>各向同性比较：</p>
 <p><img src="image-20220101225554052.png" alt="image-20220101225554052" /></p>
+<p>各向异性比较（上一行为Beckmann分布，下一行为GGX分布，$\alpha_x$从左到右依次递增，$\alpha_y$保持不变）：</p>
+<p><img src="image-20220102110241030.png" alt="image-20220102110241030" /></p>
 <h3 id="43-几何函数geometry-function">4.3. 几何函数（Geometry Function）</h3>
 <p>从法线分布函数一节中我们从微表面模型导出了几何函数的基本概念：<br />
 $$<br />
@@ -2171,6 +2174,7 @@ $$<br />
 $$<br />
 又具有法线遮蔽独立性的便利特性的函数，因此业界更青睐于使用Smith模型，Smith模型也比V-cavity模型能够更好地拟合真实世界的反射现象：</p>
 <p><img src="v2-13e64081024b7006b835e143751fa0ac_1440w.jpg" alt="img" /></p>
+<h4 id="431-smith遮蔽函数">4.3.1. Smith遮蔽函数</h4>
 <p>下面我们将从各项同性的法线分布函数出发，详细推导Smith几何函数模型。</p>
 <p>在前面的介绍中我们已经得到微表面模型的基本方程：<br />
 $$<br />
@@ -2218,10 +2222,570 @@ $$<br />
 $$<br />
 与$\chi^+(\pmb m,\pmb v)$项结合起来有：<br />
 $$<br />
-\chi^+(\pmb m,\pmb v)\pmb n\cdot\pmb m(\tilde m)=\frac{\chi^+(-x_0x_{\tilde m}-y_0y_{\tilde m}+z_0)(-x_0x_{\tilde m}-y_0y_{\tilde m}+z_0)}{\sqrt{x_{\tilde m}^2+ y_{\tilde m}^2+1}}<br />
+\chi^+(\pmb m,\pmb v)\pmb v\cdot\pmb m(\tilde m)=\frac{\chi^+(-x_0x_{\tilde m}-y_0y_{\tilde m}+z_0)(-x_0x_{\tilde m}-y_0y_{\tilde m}+z_0)}{\sqrt{x_{\tilde m}^2+ y_{\tilde m}^2+1}}<br />
 $$<br />
-TODO: 未完待续</p>
-<p>不同金属度和粗糙度的着色结果：</p>
+因此积分可以写为：<br />
+$$<br />
+\int_{\Omega}\chi^+(\pmb m,\pmb v)D(\pmb m)(\pmb v\cdot\pmb m)\mathrm d\pmb m=<br />
+\int_{-\infty}^\infty\int_{-\infty}^\infty \chi^+(-x_0x_{\tilde m}-y_0y_{\tilde m}+z_0)(-x_0x_{\tilde m}-y_0y_{\tilde m}+z_0) P^{22}(x_{\tilde m},y_{\tilde m})\mathrm dx_{\tilde m}\mathrm dy_{\tilde m}<br />
+$$<br />
+不失一般性地，我们可以假设视角方向与$x$轴对齐，即$\pmb v=(\sin\theta_o,0,\cos\theta_o)$，则积分表示为：<br />
+$$<br />
+\begin{align}<br />
+&amp;\int_{\Omega}\chi^+(\pmb m,\pmb v)D(\pmb m)(\pmb v\cdot\pmb m)\mathrm d\pmb m\\\\<br />
+=&amp;\int_{-\infty}^\infty\int_{-\infty}^\infty\chi^+(-\sin\theta_ox_{\tilde m}+\cos\theta_o)(-\sin\theta_ox_{\tilde m}+\cos\theta_o)P^{22}(x_{\tilde m},y_{\tilde m})\mathrm dx_{\tilde m}\mathrm dy_{\tilde m}\\\\<br />
+=&amp;\int_{-\infty}^\infty\chi^+(-\sin\theta_ox_{\tilde m}+\cos\theta_o)(-\sin\theta_ox_{\tilde m}+\cos\theta_o)\left(\int_{-\infty}^\infty P^{22}(x_{\tilde m},y_{\tilde m})\mathrm dy_{\tilde m}\right)\mathrm dx_{\tilde m}\\\\<br />
+=&amp;\int_{-\infty}^\infty \chi^+(-\sin\theta_ox_{\tilde m}+\cos\theta_o)(-\sin\theta_ox_{\tilde m}+\cos\theta_o)P^2(x_{\tilde m})\mathrm dx_{\tilde m}<br />
+\end{align}<br />
+$$<br />
+其中，$P^2(x_{\tilde m})$为沿着视角法向的一维坡度分布函数，定义为：<br />
+$$<br />
+P^2(x_{\tilde m})=\int_{-\infty}^{+\infty}P^{22}(x_{\tilde m},y_{\tilde m})\mathrm dy_{\tilde m}<br />
+$$<br />
+又：<br />
+$$<br />
+-\sin\theta_ox_{\tilde m}+\cos\theta_o&gt;0\Rightarrow x_{\tilde m}&lt;\cot\theta_o<br />
+$$</p>
+<p>因此原积分又可化为：<br />
+$$<br />
+\int_{-\infty}^\infty \chi^+(-\sin\theta_ox_{\tilde m}+\cos\theta_o)(-\sin\theta_ox_{\tilde m}+\cos\theta_o)P^2(x_{\tilde m})\mathrm dx_{\tilde m}=<br />
+\int_{-\infty}^{\cot\theta_o} (-\sin\theta_ox_{\tilde m}+\cos\theta_o)P^2(x_{\tilde m})\mathrm dx_{\tilde m}<br />
+$$<br />
+代入到方程：<br />
+$$<br />
+\pmb v\cdot \pmb m=G_1'(\pmb v)\int_{m\in\Theta}\chi^+(\pmb m,\pmb v)D(\pmb m)(\pmb v\cdot\pmb m)\mathrm d\pmb m<br />
+$$<br />
+可以得到：<br />
+$$<br />
+\cos\theta_o=G_1'(\pmb v)\int_{-\infty}^{\cot\theta_o} (-\sin\theta_ox_{\tilde m}+\cos\theta_o)P^2(x_{\tilde m})\mathrm dx_{\tilde m}<br />
+$$<br />
+两边同除以$\sin\theta_o$可得：<br />
+$$<br />
+\cot\theta_o=G_1'(\pmb v)\int_{-\infty}^{\cot\theta_o} (-x_{\tilde m}+\cot\theta_o)P^2(x_{\tilde m})\mathrm dx_{\tilde m}<br />
+$$<br />
+由于微表面分布是中心对称的，且任意方向的平均坡度为零（正负抵消，分布的均值为0），即<br />
+$$<br />
+\int_{-\infty}^{+\infty} x_{\tilde m}P^2(x_{\tilde m})\mathrm dx_{\tilde m}=0<br />
+$$<br />
+引入该项有：<br />
+$$<br />
+\cot\theta_o=G_1'(\pmb v)\int_{-\infty}^{+\infty}x_{\tilde m}P^2(x_{\tilde m})\mathrm dx_{\tilde m}+  G_1'(\pmb v)\int_{-\infty}^{\cot\theta_o} (-x_{\tilde m}+\cot\theta_o)P^2(x_{\tilde m})\mathrm dx_{\tilde m}<br />
+$$<br />
+利用$\cot\theta_o=(1-G_1'(\pmb v))\cot\theta_o+G_1'(\pmb v)\cot\theta_o$，代入有：<br />
+$$<br />
+\begin{align}<br />
+(1-G_1'(\pmb v))\cot\theta_o+G_1'(\pmb v)\cot\theta_o<br />
+=&amp;G_1'(\pmb v)\int_{-\infty}^{+\infty}x_{\tilde m}P^2(x_{\tilde m})\mathrm dx_{\tilde m}+  G_1'(\pmb v)\int_{-\infty}^{\cot\theta_o} (-x_{\tilde m}+\cot\theta_o)P^2(x_{\tilde m})\mathrm dx_{\tilde m}\\\\<br />
+(1-G_1'(\pmb v))\cot\theta_o<br />
+=&amp;G_1'(\pmb v)\int_{-\infty}^{+\infty}x_{\tilde m}P^2(x_{\tilde m})\mathrm dx_{\tilde m}+  G_1'(\pmb v)\int_{-\infty}^{\cot\theta_o} (-x_{\tilde m}+\cot\theta_o)P^2(x_{\tilde m})\mathrm dx_{\tilde m}\\\\<br />
+&amp;-G_1'(\pmb v)\cot\theta_o<br />
+\end{align}<br />
+$$<br />
+由于概率密度函数的归一性：<br />
+$$<br />
+\int_{-\infty}^{+\infty} P^2(x_{\tilde m})\mathrm dx_{\tilde m}=1<br />
+$$<br />
+因此有<br />
+$$<br />
+G_1'(\pmb v)\cot\theta_o=G_1'(\pmb v) \int_{-\infty}^{+\infty} \cot\theta_oP^2(x_{\tilde m})\mathrm dx_{\tilde m}<br />
+$$<br />
+代入得：<br />
+$$<br />
+\begin{align}<br />
+(1-G_1'(\pmb v))\cot\theta_o=&amp;G_1'(\pmb v)\int_{-\infty}^{+\infty}x_{\tilde m}P^2(x_{\tilde m})\mathrm dx_{\tilde m}+  G_1'(\pmb v)\int_{-\infty}^{\cot\theta_o} (-x_{\tilde m}+\cot\theta_o)P^2(x_{\tilde m})\mathrm dx_{\tilde m}\\\\<br />
+&amp;-G_1'(\pmb v) \int_{-\infty}^{+\infty} \cot\theta_oP^2(x_{\tilde m})\mathrm dx_{\tilde m}\\\\<br />
+=&amp;G_1'(\pmb v)\left(\int_{-\infty}^{+\infty}x_{\tilde m}P^2(x_{\tilde m})\mathrm dx_{\tilde m}-\int_{-\infty}^{\cot\theta_o} x_{\tilde m}P^2(x_{\tilde m})\mathrm dx_{\tilde m}\right)\\\\<br />
+&amp;+G_1'(\pmb v)\left(\int_{-\infty}^{\cot\theta_o}\cot\theta_oP^2(x_{\tilde m})\mathrm dx_{\tilde m}-\int_{-\infty}^{\infty}\cot\theta_oP^2(x_{\tilde m})\mathrm dx_{\tilde m}  \right)\\\\<br />
+=&amp;G_1'(\pmb v)\int_{\cot\theta_o}^{+\infty}x_{\tilde m}P^2(x_{\tilde m})\mathrm dx_{\tilde m}-G_1'(\pmb v)\int_{\cot\theta_o}^{+\infty}\cot\theta_oP^2(x_{\tilde m})\mathrm dx_{\tilde m}\\\\<br />
+=&amp;G_1'(\pmb v)\int_{\cot\theta_o}^{+\infty}(x_{\tilde m}-\cot\theta_o)P^2(x_{\tilde m})\mathrm dx_{\tilde m}<br />
+\end{align}<br />
+$$<br />
+等式变换一下有：<br />
+$$<br />
+\frac{1-G'_1(\pmb v)}{G'_1(\pmb v)}=\frac{1}{\cot\theta_o}\int_{\cot\theta_o}^{+\infty}(x_{\tilde m}-\cot\theta_o)P^2(x_{\tilde m})\mathrm dx_{\tilde m}<br />
+$$<br />
+于是得到最终形式：<br />
+$$<br />
+G_1'(\pmb v)=\frac{1}{1+\Lambda(\pmb v)}<br />
+$$<br />
+其中，$\Lambda(\cdot)$定义为：<br />
+$$<br />
+\Lambda(\pmb v)=\frac{1}{\cot\theta_o}\int_{\cot\theta_o}^{+\infty}(x_{\tilde m}-\cot\theta_o)P^2(x_{\tilde m})\mathrm dx_{\tilde m}<br />
+$$<br />
+这是一个与法线分布函数$D(\pmb m)$相关的函数，每个$D(\pmb m)$都有唯一的$\Lambda(\pmb v)$与之对应。</p>
+<p>综合起来可得Smith几何函数$G_1$的具体形式：<br />
+$$<br />
+G_1(\pmb m, \pmb v)=\frac{\chi^+(\pmb m\cdot\pmb v)}{1+\Lambda(\pmb v)}<br />
+$$<br />
+具有形状不变性的法线分布函数能够得到$\Lambda(\pmb v)$的解析解，如：</p>
+<p><strong>Beckmann分布函数</strong><br />
+$$<br />
+\begin{align}<br />
+P^{22}(x_{\tilde m},y_{\tilde m})&amp;=\frac{1}{\pi\alpha^2}\exp\left(-\frac{x^2_{\tilde m}+y^2_{\tilde m}}{\alpha^2}\right)\\\\<br />
+D(\pmb m)&amp;=\frac{1}{\pi\alpha^2(\pmb n\cdot\pmb m)^4}\exp(\frac{(\pmb n\cdot\pmb m)^2-1}{\alpha^2(\pmb n\cdot\pmb m)^2})\\\\<br />
+\Lambda(a)&amp;=\frac{\mathrm{erf}(a)-1}{2}+\frac{1}{2a\sqrt{\pi}}\exp(-a^2)<br />
+\end{align}<br />
+$$<br />
+其中，<br />
+$$<br />
+\begin{align}<br />
+a&amp;=\frac{\pmb n\cdot \pmb v}{a\sqrt{1-(\pmb n\cdot\pmb v)^2}}\\\\<br />
+\mathrm{erf}(x)&amp;=\frac{2}{\sqrt{\pi}}\int_0^xe^{-x'^2}\mathrm dx'^2<br />
+\end{align}<br />
+$$<br />
+当然上述公式的计算开销很大，Walter等人给出一种近似逼近：<br />
+$$<br />
+\Lambda(a)=\begin{cases}<br />
+\frac{1-1.259a+0.396a^2}{3.535a+2.181a^2},&amp;a&lt;1.6\\\\<br />
+0,&amp;a\geq 1.6<br />
+\end{cases}<br />
+$$<br />
+**GGX分布函数**<br />
+$$<br />
+\begin{aligned}<br />
+P^{22}(x_{\tilde m},y_{\tilde m})&amp;=\frac{1}{\pi\alpha^2\left(1+\frac{x^2_{\tilde m}+y_{\tilde m}^2}{\alpha^2}\right)^2}\\\\<br />
+D(\pmb m)&amp;=\frac{\alpha^2}{\pi((\pmb n\cdot \pmb m)^2(\alpha^2-1)+1)^2}\\\\<br />
+\Lambda(a)&amp;=\frac{-1+\sqrt{1+\frac{1}{a^2}}}{2}<br />
+\end{aligned}<br />
+$$<br />
+其中，<br />
+$$<br />
+a=\frac{\pmb n\cdot \pmb v}{a\sqrt{1-(\pmb n\cdot\pmb v)^2}}<br />
+$$<br />
+同时，Karis也给出了GGX的Smith $G_1$计算近似公式：<br />
+$$<br />
+G_1(\pmb v)\approx \frac{2(\pmb n\cdot\pmb v)}{(\pmb n\cdot\pmb v)(2-\alpha)+\alpha}<br />
+$$<br />
+可以很方便地用在实时渲染中。</p>
+<p>对于各向异性的法线分布函数，可以证明$\Lambda(\cdot)$与各向同性版本的一致。</p>
+<h4 id="432-smith联合遮蔽函数-阴影函数">4.3.2. Smith联合遮蔽函数-阴影函数</h4>
+<p><strong>分离的遮蔽阴影函数</strong></p>
+<p>最简单和广泛使用的遮蔽阴影函数，认为遮蔽和阴影是独立的，可以分别计算并进行相乘：<br />
+$$<br />
+\begin{align}<br />
+G_2(\pmb v,\pmb l,\pmb m)&amp;=G_1(\pmb v,\pmb m)G_1(\pmb l,\pmb m)\\\\<br />
+&amp;=\frac{\chi^+(\pmb v\cdot\pmb m)}{1+\Lambda(\pmb v)}\frac{\chi^+(\pmb l\cdot\pmb m)}{1+\Lambda(\pmb l)}<br />
+\end{align}<br />
+$$<br />
+这种形式不模拟遮蔽和阴影之间的相关性，因此总会多估算阴影，因为一些相关性总是存在的</p>
+<p><strong>高度相关的遮蔽阴影函数</strong></p>
+<p>这种形式的遮蔽阴影函数更好地模拟了由于微表面高度引起的遮蔽和阴影之间的相关性。直观地说，微平面在微表面升高得越多，对于出射方向未被遮蔽和入射方向未被掩蔽的可见概率会同时增加，形式如下：<br />
+$$<br />
+G_2(\pmb v,\pmb l,\pmb m)=\frac{\chi^+(\pmb v\cdot\pmb m)\chi^+(\pmb l\cdot\pmb m)}{1+\Lambda(\pmb v)+\Lambda(\pmb l)}<br />
+$$<br />
+<strong>方向相关的遮蔽阴影函数</strong></p>
+<p>通过混合可分离的遮蔽阴影函数与两个方向完全相关的情形来表达方向相关：<br />
+$$<br />
+G_2(\pmb v,\pmb l,\pmb m)=\lambda(\phi)G_1(\pmb v,\pmb m)G_1(\pmb l,\pmb m)+(1-\lambda(\phi))\min(G_1(\pmb v,\pmb m),G_1(\pmb l,\pmb m))<br />
+$$<br />
+其中$\lambda(\phi)$是一个经验公式，随着角度$\phi$的增大，$\lambda$从0增大到1，Ashikhmin等人建议使用一个高斯函数进行处理：<br />
+$$<br />
+\lambda(\phi)=1-e^{-7.3\phi^2}<br />
+$$<br />
+van Ginneken则提出另外一种计算方法：<br />
+$$<br />
+\lambda(\phi)=\frac{4.41\phi}{4.41\phi+1}<br />
+$$<br />
+<strong>高度方向相关的遮蔽阴影函数</strong></p>
+<p>结合高度相关形式和方向相关形式，可以得到：<br />
+$$<br />
+G_2(\pmb v, \pmb l,\pmb m)=\frac{\chi^+(\pmb v\cdot\pmb m)\chi^+(\pmb l\cdot\pmb m)}{1+\max(\Lambda(\pmb v),\Lambda(\pmb l))+\lambda(\pmb v\cdot\pmb l)\min(\Lambda(\pmb v),\Lambda(\pmb l))}<br />
+$$</p>
+<ul>
+<li>
+<p>当出射方向与入射方向平行且$\lambda=0$时，遮蔽和阴影完全相关</p>
+</li>
+<li>
+<p>相关性随着方向之间的夹角增加而减小，当$\lambda=1$时，遮蔽和阴影不再方向相关，而是退化为高度相关的形式</p>
+</li>
+<li>
+<p>$\lambda$的计算同样可以通过：<br />
+$$<br />
+\lambda(\phi)=\frac{4.41\phi}{4.41\phi+1}<br />
+$$<br />
+$\phi$为$\pmb v$和$\pmb l$之间的方位角</p>
+</li>
+</ul>
+<h3 id="44-菲涅尔反射">4.4. 菲涅尔反射</h3>
+<p>我们已经知道光在两介质的交界表面会发生反射和折射现象，在不考虑次表面散射和透射的情况下我们常常只关注反射光（只有反射光对BRDF有贡献），由费马原理（光路最短原理）我们能够从几何上求出入射角和折射角的关系，但无法确定入射光和折射光、反射光的比例关系。而菲涅尔方程则能够描述了光在介质表面传播的能量关系。</p>
+<h4 id="441-菲涅尔方程的推导">4.4.1. 菲涅尔方程的推导</h4>
+<p>要推导出菲涅尔方程，我们需要重新回到麦克斯韦方程组，假设在均匀线性物质中，不存在自由电荷和电流，则麦克斯韦方程组变为：<br />
+$$<br />
+\begin{aligned}<br />
+\nabla \cdot\pmb E &amp;= 0\\\\<br />
+\nabla\cdot\pmb B&amp;=0\\\\<br />
+\nabla\times \pmb E&amp;=-\frac{\partial \pmb B}{\partial t}\\\\<br />
+\nabla\times \pmb B&amp;=\varepsilon\mu\frac{\partial \pmb E}{\partial t}<br />
+\end{aligned}<br />
+$$<br />
+由前述推导中，我们可以很容易求得：<br />
+$$<br />
+\begin{matrix}<br />
+\nabla^2\pmb E=\mu\varepsilon\dfrac{\partial^2\pmb E}{\partial t^2}&amp;\nabla^2\pmb B=\mu\varepsilon\dfrac{\partial^2\pmb B}{\partial t^2}<br />
+\end{matrix}<br />
+$$<br />
+可以看到$\pmb E$和$\pmb B$的每个直角坐标分量都满足三维波方程的形式：<br />
+$$<br />
+\nabla^2f=\frac{1}{v^2}\frac{\partial^2 f}{\partial t^2}<br />
+$$<br />
+波速：<br />
+$$<br />
+v=\frac{1}{\sqrt{\mu\varepsilon}}<br />
+$$<br />
+这个波速也为光速，在真空中$v=1/\sqrt{\mu_0\varepsilon_0}=3.00\times 10^8m/s$</p>
+<p>定义折射率<br />
+$$<br />
+n=\sqrt{\frac{\varepsilon\mu}{\varepsilon_0\mu_0}}<br />
+$$<br />
+则均匀线性物质中的光速为$v=c/n$</p>
+<p>能量密度为：<br />
+$$<br />
+u=\frac{1}{2}\left(\varepsilon E^2+\frac{1}{\mu}B^2 \right)<br />
+$$<br />
+对于单色平面波，波的强度为：<br />
+$$<br />
+I=\frac{1}{2}\varepsilon vE_0^2<br />
+$$<br />
+<strong>边界条件</strong></p>
+<p>根据麦克斯韦的积分形式，我们可以推导出电磁场在无自由电荷或自由电流的线性介质的边界条件：<br />
+$$<br />
+\begin{aligned}<br />
+\varepsilon_1\pmb E_1^\perp-\varepsilon_2\pmb E_2^\perp&amp;=0\\\\<br />
+\pmb E_1^{\parallel}-\pmb E_2^{\parallel}&amp;=0\\\\<br />
+\pmb B_1^\perp-\pmb B_2^\perp&amp;=0\\\\<br />
+\frac{1}{\mu_1}\pmb B_1^\parallel-\frac{1}{\mu_2}\pmb B_2^\parallel&amp;=0<br />
+\end{aligned}<br />
+$$<br />
+<strong>垂直入射的反射与折射</strong></p>
+<p><img src="image-20220102143146861.png" alt="image-20220102143146861" /></p>
+<p>如上图所示，假设$xy$平面为两线性介质的界面，角频率为$\omega$，沿$z$方向传播和沿$x$方向偏振的平面波从左边入射到界面：<br />
+$$<br />
+\begin{align}<br />
+\tilde{\pmb E}_ I(z,t)&amp;=\tilde E_{0I}e^{i(k_1z-\omega t)}\hat{\pmb x}\\\\<br />
+\tilde{\pmb B}_ I(z,t)&amp;=\frac{1}{v_I}\tilde E_{0I}e^{i(k_1z-\omega t)}\hat{\pmb y}<br />
+\end{align}<br />
+$$<br />
+它将产生一个反射波：<br />
+$$<br />
+\begin{align}<br />
+\tilde{\pmb E}_ R(z,t)&amp;=\tilde E_{0R}e^{i(-k_1z-\omega t)}\hat{\pmb x}\\\\<br />
+\tilde{\pmb B}_ R(z,t)&amp;=-\frac{1}{v_1}\tilde E_{0R}e^{i(-k_1z-\omega t)}\hat{\pmb y}<br />
+\end{align}<br />
+$$<br />
+和一个透射波：<br />
+$$<br />
+\begin{align}<br />
+\tilde{\pmb E}_ T(z,t)&amp;=\tilde E_{0T}e^{i(k_2z-\omega t)}\hat{\pmb x}\\\\<br />
+\tilde{\pmb B}_ T(z,t)&amp;=\frac{1}{v_2}\tilde E_{0T}e^{i(k_2z-\omega t)}\hat{\pmb y}<br />
+\end{align}<br />
+$$<br />
+由边界条件可以得到：<br />
+$$<br />
+\begin{align}<br />
+\tilde E_{0I}+\tilde E_{0R}&amp;=\tilde E_{0T}\\\\<br />
+\frac{1}{\mu_1}\left(\frac{1}{v_1}\tilde E_{0I}-\frac{1}{v_1}\tilde E_{0R} \right)&amp;=\frac{1}{\mu_2}\left(\frac{1}{v_2}\tilde E_{0T}\right)<br />
+\end{align}<br />
+$$<br />
+解得：<br />
+$$<br />
+\begin{aligned}<br />
+\tilde E_{0R}=\left(\frac{1-\beta}{1+\beta}\right)\tilde E_{0I}\\\\<br />
+\tilde E_{0T}=\left(\frac{2}{1+\beta}\right)\tilde E_{0I}<br />
+\end{aligned}<br />
+$$<br />
+其中，<br />
+$$<br />
+\beta\equiv \frac{\mu_1v_1}{\mu_2v_2}=\frac{\mu_1n_2}{\mu_2n_1}<br />
+$$<br />
+若介质的磁导率$\mu$与真空中的接近（大多数介质是这样），则$\beta\approx v_1/v_2$，有：<br />
+$$<br />
+\begin{aligned}<br />
+\tilde E_{0R}=\left(\frac{v_2-v_1}{v_2+v_1}\right)\tilde E_{0I}\\\\<br />
+\tilde E_{0T}=\left(\frac{2v_2}{v_2+v_1}\right)\tilde E_{0I}<br />
+\end{aligned}<br />
+$$<br />
+实振幅间有以下关系：<br />
+$$<br />
+\begin{aligned}<br />
+E_{0R}=\left|\frac{v_2-v_1}{v_2+v_1}\right|E_{0I}=\left|\frac{n_1-n_2}{n_1+n_2}\right|E_{0I}\\\\<br />
+E_{0T}=\left|\frac{2v_2}{v_2+v_1}\right|E_{0I}=\left|\frac{2n_1}{n_1+n_2}\right|E_{0I}<br />
+\end{aligned}<br />
+$$<br />
+从能量角度看，反射波与入射波强度之比为：<br />
+$$<br />
+R\equiv\frac{I_R}{I_I}=\left(\frac{E_{0R}}{E_{0I}}\right)^2=\left(\frac{n_1-n_2}{n_1+n_2}\right)^2<br />
+$$<br />
+透射波与入射波强度之比为：<br />
+$$<br />
+T\equiv\frac{I_T}{I_I}=\frac{\varepsilon_2v_2}{\varepsilon_1v_1}\left(\frac{E_{0T}}{E_{0I}}\right)^2=\frac{4n_1n_2}{(n_1+n_2)^2}<br />
+$$<br />
+其中，$R$称为反射系数，$T$称为透射系数，注意到，$R+T=1$，也是一种能量守恒。</p>
+<p><strong>倾斜入射的反射与折射</strong></p>
+<p><img src="image-20220102145704778.png" alt="image-20220102145704778" /></p>
+<p>如上图所示，考虑更一般的入射情况，入射角度为$\theta_I$，假设一个单色平面波：<br />
+$$<br />
+\begin{align}<br />
+\tilde{\pmb E}_ I(\pmb r,t)&amp;=\tilde E_{0I}e^{i(\pmb k_I\cdot\pmb r-\omega t)}\\\\<br />
+\tilde{\pmb B}_ I(\pmb r,t)&amp;=\frac{1}{v_1}(\tilde{\pmb k_I}\times\tilde{\pmb E_I})<br />
+\end{align}<br />
+$$<br />
+从左边入射，得到一个反射波：<br />
+$$<br />
+\begin{align}<br />
+\tilde{\pmb E}_ R(\pmb r,t)&amp;=\tilde {\pmb E}_{0R}e^{i(\pmb k_R\cdot\pmb r-\omega t)}\\\\<br />
+\tilde{\pmb B}_ R(\pmb r,t)&amp;=\frac{1}{v_1}(\tilde{\pmb k_R}\times\tilde{\pmb E_R})<br />
+\end{align}<br />
+$$<br />
+和一个透射波：<br />
+$$<br />
+\begin{align}<br />
+\tilde{\pmb E}_ T(\pmb r,t)&amp;=\tilde {\pmb E}_{0T}e^{i(\pmb k_T\cdot\pmb r-\omega t)}\\\\<br />
+\tilde{\pmb B}_ T(\pmb r,t)&amp;=\frac{1}{v_2}(\tilde{\pmb k_T}\times\tilde{\pmb E_T})<br />
+\end{align}<br />
+$$<br />
+所有三个波具有相同的频率$\omega$，该物理量由光源所决定，因此三个波的波数之间存在关系：<br />
+$$<br />
+k_Iv_1=k_Rv_1=k_Tv_2=\omega<br />
+$$<br />
+由边界条件，介质(1)中的合场强$\tilde{\pmb E}_I+\tilde{\pmb E}_R$和$\tilde{\pmb B}_I+\tilde{\pmb B}_R$必须拟合介质(2)中的合场强$\tilde{\pmb E_T}+\tilde{\pmb B}_T$，因此当$z=0$时，应有：<br />
+$$<br />
+\pmb k_I\cdot \pmb r=\pmb k_R\cdot\pmb r=\pmb k_T\cdot\pmb r<br />
+$$<br />
+保证指数项相等，因此，对所有的$x$和$y$有：<br />
+$$<br />
+x(k_I)_x+y(k_I)_y=<br />
+x(k_R)_x+y(k_R)_y=<br />
+x(k_T)_x+y(k_T)_y<br />
+$$<br />
+对$x=0$，有<br />
+$$<br />
+(k_I)_y=(k_R)_y=(k_T)_y<br />
+$$<br />
+对$y=0$，有<br />
+$$<br />
+(k_I)_x=(k_R)_x=(k_T)_x<br />
+$$<br />
+因此，通过改变坐标轴的方向，我们可以使得$\pmb k_I$、$\pmb k_R$和$\pmb k_T$均在xz平面内，至此，我们可以得出几何光学的三个基本定律：</p>
+<ol>
+<li>
+<p>入射光、反射光和折射光矢量在同一个平面内（称为入射面），入射面法线也在入射面内，同时满足：<br />
+$$<br />
+k_I\sin\theta_I=k_R\sin\theta_R=k_T\sin\theta_T<br />
+$$<br />
+式中，$\theta_I$为入射角，$\theta_R$为反射角，$\theta_T$为折射角，都是相对于法线方向考虑</p>
+</li>
+<li>
+<p>由于$k_1v_1=k_Rv_1=\omega$，因此$k_I=k_R$，于是有入射角等于反射角：<br />
+$$<br />
+\theta_I=\theta_R<br />
+$$<br />
+即反射定律</p>
+</li>
+<li>
+<p>由$k_Iv_1=k_Tv_2=\omega$，可得<br />
+$$<br />
+k_I=\frac{n_1}{n_2}k_T<br />
+$$<br />
+因此有<br />
+$$<br />
+\frac{\sin\theta_T}{\sin\theta_I}=\frac{n_1}{n_2}<br />
+$$<br />
+即折射定律，又称斯涅尔定律</p>
+</li>
+</ol>
+<p>回到边界条件问题，我们已经可以将指数项进行抵消，则可以得到下述新的边界条件方程：<br />
+$$<br />
+\begin{aligned}<br />
+\varepsilon_1(\tilde {\pmb E}_ {0I}+\tilde{\pmb E}_ {0R})_z&amp;=\varepsilon_2(\tilde {\pmb E}_ {0T})_z\\\\<br />
+(\tilde {\pmb B}_{0I}+\tilde{\pmb B}_ {0R})_z&amp;=(\tilde {\pmb B}_ {0T})_z\\\\<br />
+(\tilde{\pmb E}_{0T}+\tilde {\pmb E}_ {0R})_{x,y}&amp;=(\tilde {\pmb E}_ {0T})_{x,y}\\\\<br />
+\frac{1}{\mu_1}(\tilde{\pmb B}_ {0T}+\tilde {\pmb B}_ {0R})_{x,y}&amp;=\frac{1}{\mu_2}(\tilde {\pmb B}_ {0T})_{x,y}<br />
+\end{aligned}<br />
+$$<br />
+其中，$\tilde{\pmb B}_0=(1/v)\hat{\pmb k}\times\tilde{\pmb E}_0$</p>
+<p>为了简化问题，假设入射波的电场的偏振方向平行于入射面，即图中的$xz$平面，这样一来反射和透射波的电场的偏振方向也在这个面内，则边界条件方程可表示为：<br />
+$$<br />
+\begin{align}<br />
+\varepsilon_1(-\tilde E_{0I}\sin\theta_I+\tilde E_{0R}\sin\theta_R)&amp;=\varepsilon_2(-\tilde E_{0T}\sin\theta_T)\\\\<br />
+\tilde E_{0I}\cos\theta_I+\tilde E_{0R}\cos\theta_R&amp;=\tilde{E}_{0T}\cos\theta_T\\\\<br />
+\frac{1}{\mu_1v_1}(\tilde E_{0I}-\tilde E_{0R})&amp;=\frac{1}{\mu_2v_2}\tilde E_{0T}<br />
+\end{align}<br />
+$$<br />
+由反射定律和折射定律，上式可简化为：<br />
+$$<br />
+\begin{aligned}<br />
+\tilde E_{0I}-\tilde E_{0R}&amp;=\beta\tilde E_{0T}\\\\<br />
+\tilde E_{0I}+\tilde E_{0R}&amp;=\alpha\tilde E_{0T}<br />
+\end{aligned}<br />
+$$<br />
+其中，<br />
+$$<br />
+\begin{align}<br />
+\alpha&amp;\equiv\frac{\cos\theta_T}{\cos\theta_I}\\\\<br />
+\beta&amp;\equiv\frac{\mu_1v_1}{\mu_2v_2}=\frac{\mu_1n_2}{\mu_2n_1}<br />
+\end{align}<br />
+$$<br />
+解得：<br />
+$$<br />
+\begin{aligned}<br />
+\tilde E_{0R}&amp;=\left(\frac{\alpha-\beta}{\alpha+\beta}\right)\tilde E_{0I}\\\\<br />
+\tilde E_{0T}&amp;=\left(\frac{2}{\alpha+\beta}\right)\tilde E_{0I}<br />
+\end{aligned}<br />
+$$</p>
+<p>上式则是大名鼎鼎的菲涅尔方程了，可以看到透射波和反射波的振幅受入射角度影响，因为$\alpha$是关于$\theta_I$的函数：<br />
+$$<br />
+\alpha=\frac{\sqrt{1-\sin^2\theta_T}}{\cos\theta_I}=\frac{\sqrt{1-[(n_1/n_2)\sin\theta_I]^2}}{\cos\theta_I}<br />
+$$<br />
+反射率和透射率随入射角度的变化如下图所示：</p>
+<p><img src="image-20220102160026088.png" alt="image-20220102160026088" /></p>
+<p>而且可以看到，当$\alpha=\beta$时，即<br />
+$$<br />
+\sin^2\theta_B=\frac{1-\beta^2}{(n_1/n_2)^2-\beta^2}<br />
+$$<br />
+反射波完全消失，$\theta_B$成为布鲁斯特角。而当入射角$\theta_I=90°$时，$\tilde E_{0R}=\tilde E_{0I}$，入射光全部反射，因此当光打在一个球体上，球面掠角方向应会有反光现象：</p>
+<p><img src="fresnel.png" alt="img" /></p>
+<p>再从能量角度看，单位入射面上的功率为$\pmb S\cdot\hat{\pmb z}$，入射强度为：<br />
+$$<br />
+I_I=\frac{1}{2}\varepsilon_1v_1E_{0I}^2\cos\theta_I<br />
+$$<br />
+反射和折射强度分别为：<br />
+$$<br />
+\begin{align}<br />
+I_R&amp;=\frac{1}{2}\varepsilon_1v_1E_ {0R}^2\cos\theta_R\\\\<br />
+I_T&amp;=\frac{1}{2}\varepsilon_2v_2E_ {0T}^2\cos\theta_T<br />
+\end{align}<br />
+$$<br />
+反射系数和透射系数为：<br />
+$$<br />
+\begin{aligned}<br />
+R&amp;\equiv\frac{I_R}{I_I}=\left(\frac{E_{0R}}{E_{0I}}\right)^2=\left(\frac{\alpha-\beta}{\alpha+\beta}\right)^2\\\\<br />
+I_T&amp;\equiv\frac{I_T}{I_I}=\frac{\varepsilon_2v_2}{\varepsilon_1v_1}\left(\frac{E_{0T}}{E_{0I}}\right)^2\frac{\cos\theta_T}{\cos\theta_I}=\alpha\beta\left(\frac{2}{\alpha+\beta}\right)^2<br />
+\end{aligned}<br />
+$$</p>
+<h4 id="442-schlick近似">4.4.2. Schlick近似</h4>
+<p>在实际渲染中，对菲涅尔项的处理经常采用Schlick近似方法进行逼近：<br />
+$$<br />
+R(\theta)=R_0+(1-R_0)(1-\cos\theta)^5<br />
+$$<br />
+其中，<br />
+$$<br />
+R_0=\left(\frac{n_1-n_2}{n_1+n_2}\right)^2<br />
+$$</p>
+<h3 id="45-镜面反射项">4.5. 镜面反射项</h3>
+<p>至此，我们已经详细推导了基于物理的BRDF中镜面反射项的三个重要组成部分：</p>
+<ol>
+<li>法线分布函数$D(\pmb m)$</li>
+<li>几何函数$G(\pmb m,\pmb v)$</li>
+<li>菲涅尔项$F(\pmb v,\pmb m)$</li>
+</ol>
+<p>现在来研究如何将这三项整合到我们的PBR着色模型中。</p>
+<h4 id="451-半矢量">4.5.1. 半矢量</h4>
+<p><img src="image-20220102161421511.png" alt="image-20220102161421511" /></p>
+<p>前面已经简单介绍过半矢量$\pmb h$的概念，这里再提一下。如上图所示，只有当入射光通过微表面反射后能够沿着视角方向的反射光才能对BRDF有贡献，因此我们定义使得反射光能够沿视角方向的法向量为半矢量：<br />
+$$<br />
+\pmb h=\widehat{\pmb v+\pmb l}<br />
+$$<br />
+在渲染中，我们常用半矢量$\pmb h$代替微表面法向$\pmb m$。</p>
+<p><img src="image-20220102162628836.png" alt="image-20220102162628836" /></p>
+<p>下面推导中，我们采用的符号意义如上图所示</p>
+<h4 id="452-torrance-sparrow模型">4.5.2. Torrance-Sparrow模型</h4>
+<p>Torrance-Sparrow模型是微表面BRDF的一个经典模型，其镜面反射项与IlumEngine中所用的Cook-Torrance BRDF几乎一致，这里以Torrance-Sparrow模型为例推导从微表面模型到基于物理的BRDF。</p>
+<p>微表面上方向为$\pmb \omega_h$的微元面积为：<br />
+$$<br />
+\mathrm dA(\pmb \omega_h)=D(\pmb \omega_h)\mathrm d\pmb \omega_h\mathrm dA<br />
+$$<br />
+因此微元面积上的辐射通量为：<br />
+$$<br />
+\begin{align}<br />
+\mathrm d\Phi_h&amp;=L_i(\pmb \omega_i)\mathrm d\pmb \omega_i\mathrm dA^\perp(\pmb \omega_h)\\\\<br />
+&amp;=L_i(\pmb \omega_i)\mathrm d\pmb \omega_i\cos\theta_h\mathrm dA(\pmb \omega_h)\\\\<br />
+&amp;=L_i(\pmb \omega_i)\mathrm d\pmb \omega_i\cos\theta_hD(\pmb \omega_h)\mathrm d\pmb \omega_h\mathrm dA<br />
+\end{align}<br />
+$$<br />
+又由菲涅尔定律，出射辐射通量有：<br />
+$$<br />
+\mathrm d\Phi_o=F(\pmb \omega_o)\mathrm d\Phi_h<br />
+$$<br />
+又根据辐亮度定义：<br />
+$$<br />
+L(\pmb \omega_o)=\frac{\mathrm d\Phi_o}{\mathrm d\pmb \omega_o\cos\theta_o\mathrm dA}<br />
+$$<br />
+联立有：<br />
+$$<br />
+L(\pmb \omega_o)=\frac{F(\pmb \omega_o)L_i(\pmb \omega_i)\mathrm d\pmb \omega_iD(\pmb \omega_h)\mathrm d\pmb \omega_h\mathrm dA\cos\theta_h}{\mathrm d\pmb \omega_o\mathrm dA\cos\theta_o}<br />
+$$<br />
+但是对半矢量$\pmb \omega_h$是困难的，我们将其转化为简单地对$\pmb \omega_o$采样，由立体角公式，我们有：<br />
+$$<br />
+\frac{\mathrm d\pmb \omega_h}{\mathrm d\pmb \omega_i}=\frac{\sin\theta_h\mathrm d\theta_h\mathrm d\phi_h}{\sin\theta_i\mathrm d\theta_i\mathrm d\phi_i}<br />
+$$<br />
+如下图所示，</p>
+<p><img src="image-20220102164617227.png" alt="image-20220102164617227" /></p>
+<p>由反射定律，显然有$\theta_i=2\theta_h$，又由反射面性质，有$\phi_i=\phi_h$，因此，<br />
+$$<br />
+\begin{align}<br />
+\frac{\mathrm d\pmb \omega_h}{\mathrm d\pmb \omega_i}=\frac{\mathrm d\pmb \omega_h}{\mathrm d\pmb \omega_o}<br />
+&amp;=\frac{\sin\theta_h\mathrm d\theta_h\mathrm d\phi_h}{\sin\theta_i\mathrm d\theta_i\mathrm d\phi_i}\\\\<br />
+&amp;=\frac{\sin\theta_h\mathrm d\theta_h\mathrm d\phi_h}{2\sin2\theta_h\mathrm d\theta_h\mathrm d\phi_h}\\\\<br />
+&amp;=\frac{1}{4\cos\theta_h}\\\\<br />
+&amp;=\frac{1}{4(\pmb \omega_i\cdot\pmb \omega_h)}=\frac{1}{4(\pmb \omega_o\cdot\pmb \omega_h)}<br />
+\end{align}<br />
+$$<br />
+代入到辐亮度求算公式，有：<br />
+$$<br />
+L(\pmb \omega_o)=\frac{F(\pmb \omega_o)L_i(\pmb \omega_i)D(\pmb \omega_h)\mathrm d\pmb \omega_i}{4\cos\theta_o}<br />
+$$<br />
+进一步考虑几何函数，则BRDF可以写为：<br />
+$$<br />
+f_r(\pmb \omega_o,\pmb \omega_i)=\frac{F(\pmb \omega_o)G(\pmb \omega_o,\pmb \omega_i)D(\pmb \omega_h)}{4\cos\theta_o\cos\theta_i}=\frac{F(\pmb \omega_o)G(\pmb \omega_o,\pmb \omega_i)D(\pmb \omega_h)}{4(\pmb \omega_o\cdot \pmb n)(\pmb \omega_i\cdot \pmb n)}<br />
+$$</p>
+<p>至此，我们的基于物理BRDF的镜面反射项推导完成。</p>
+<h2 id="5-pbr着色模型">5. PBR着色模型</h2>
+<h3 id="51-cook-torrance-brdf">5.1. Cook-Torrance BRDF</h3>
+<p>综合前述推导，我们得到Cook-Torrance BRDF的最终形式：<br />
+$$<br />
+f_r(\pmb \omega_o,\pmb \omega_i)=(1-F(\pmb\omega_o))\frac{\rho}{\pi}+\frac{F(\pmb \omega_o)G(\pmb \omega_o,\pmb \omega_i)D(\pmb \omega_h)}{4(\pmb \omega_o\cdot \pmb n)(\pmb \omega_i\cdot \pmb n)}<br />
+$$<br />
+其中，</p>
+<ul>
+<li>
+<p>$\rho$为Albedo，材质的颜色</p>
+</li>
+<li>
+<p>$F(\pmb\omega_o)$为菲涅尔系数，选用Schlick近似<br />
+$$<br />
+\begin{align}<br />
+F(\theta)&amp;=F_0+(1-F_0)(1-\cos\theta)^5\\\\<br />
+F_0&amp;=\left(\frac{n_1-n_2}{n_1+n_2}\right)^2<br />
+\end{align}<br />
+$$</p>
+</li>
+<li>
+<p>$D(\pmb \omega_h)$为法线分布函数，选用GGX分布<br />
+$$<br />
+D(\pmb \omega_h)=\frac{\alpha^2}{\pi((\pmb n\cdot \pmb \omega_h)^2(\alpha^2-1)+1)^2}<br />
+$$</p>
+</li>
+<li>
+<p>$G(\pmb\omega_o,\pmb\omega_i)$为几何函数，选用Smith分布的Schlick近似<br />
+$$<br />
+G(\pmb \omega_o,\pmb\omega_i)=\frac{\pmb \omega_o\cdot\pmb\omega_h}{(\pmb \omega_o\cdot\pmb\omega_h)(1-k)+k}<br />
+$$<br />
+其中，$k=\alpha/2$</p>
+</li>
+</ul>
+<h3 id="52-金属工作流">5.2. 金属工作流</h3>
+<p>Cook-Torrance BRDF中的Schlick近似的菲涅尔公式只能用于描述电介质材质（水、玻璃），对于导体（如金属）则需要使用另外一个菲涅尔公式，对材质设计造成不变，金属工作流则使用金属度参数进行插值金属属性，使得菲涅尔公式同时可以用于描述电介质和导体，非金属的$F_0$默认为0.04，而金属的$F_0$则为表面颜色，通过金属度插值$F_0$的GLSL代码如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-glsl" data-lang="glsl"><span class="k">vec3</span> <span class="n">F0</span> <span class="o">=</span> <span class="k">vec3</span><span class="p">(</span><span class="mf">0.04</span><span class="p">);</span>
+<span class="n">F0</span> <span class="o">=</span> <span class="n">mix</span><span class="p">(</span><span class="n">F0</span><span class="p">,</span> <span class="n">albedo</span><span class="p">,</span> <span class="n">metallic</span><span class="p">);</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>不同金属度和粗糙度的着色结果：</p>
 <table>
 <thead>
 <tr>
@@ -2263,6 +2827,19 @@ TODO: 未完待续</p>
 </tr>
 </tbody>
 </table>
+<h3 id="53-多次弹射kulla-conty能量补偿">5.3. 多次弹射Kulla-Conty能量补偿</h3>
+<p>前述的微表面模型仅考虑光线与微表面的单次反射，而不考虑光线多次弹射的结果，这将带来能量损失的问题，具体表现为当材质粗糙度越大时，物体的亮度越低，如下图所示：</p>
+<p><img src="image-20220102172010125.png" alt="image-20220102172010125" /></p>
+<p>Heitz于2016年给出了能量补偿问题的精确解，但由于计算量过大并不适合于实时渲染，Kulla和Conty则给出了一种近似的能量补偿算法。</p>
+<p>首先，定义给定出射方向$\pmb\omega_o$二维BRDF lobe的总能量，这个能量表示了单次弹射的能量占比：<br />
+$$<br />
+E(\pmb\omega_o)=\int_0^{2\pi}\int_0^1f_r(\pmb\omega_o,\pmb\omega_i,\phi)\pmb\omega_i\mathrm d\pmb\omega_i\mathrm d\phi<br />
+$$<br />
+Kulla-Conty方法的核心思想是设计另外一个BRDF lobe，满足积分得到$1-E(\mu_0)$，则这个能量将作为能量补偿项。</p>
+<p>通过拼凑，凑出了一个满足要求的BRDF函数：<br />
+$$<br />
+f_{ms}()<br />
+$$</p>
 
     </article>
     
@@ -3882,7 +4459,31 @@ document.addEventListener('DOMContentLoaded', function () {
             <li><a href="#425-beckmann与ggx法线分布函数效果比较">4.2.5. Beckmann与GGX法线分布函数效果比较</a></li>
           </ul>
         </li>
-        <li><a href="#43-几何函数geometry-function">4.3. 几何函数（Geometry Function）</a></li>
+        <li><a href="#43-几何函数geometry-function">4.3. 几何函数（Geometry Function）</a>
+          <ul>
+            <li><a href="#431-smith遮蔽函数">4.3.1. Smith遮蔽函数</a></li>
+            <li><a href="#432-smith联合遮蔽函数-阴影函数">4.3.2. Smith联合遮蔽函数-阴影函数</a></li>
+          </ul>
+        </li>
+        <li><a href="#44-菲涅尔反射">4.4. 菲涅尔反射</a>
+          <ul>
+            <li><a href="#441-菲涅尔方程的推导">4.4.1. 菲涅尔方程的推导</a></li>
+            <li><a href="#442-schlick近似">4.4.2. Schlick近似</a></li>
+          </ul>
+        </li>
+        <li><a href="#45-镜面反射项">4.5. 镜面反射项</a>
+          <ul>
+            <li><a href="#451-半矢量">4.5.1. 半矢量</a></li>
+            <li><a href="#452-torrance-sparrow模型">4.5.2. Torrance-Sparrow模型</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#5-pbr着色模型">5. PBR着色模型</a>
+      <ul>
+        <li><a href="#51-cook-torrance-brdf">5.1. Cook-Torrance BRDF</a></li>
+        <li><a href="#52-金属工作流">5.2. 金属工作流</a></li>
+        <li><a href="#53-多次弹射kulla-conty能量补偿">5.3. 多次弹射Kulla-Conty能量补偿</a></li>
       </ul>
     </li>
   </ul>
