@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>几何造型(4)：开花与极形式 – Chaf&#39;s Blog</title>
+    <title>几何造型(4)：极形式和开花算法 – Chaf&#39;s Blog</title>
     
 
 
@@ -1331,31 +1331,31 @@
 
 
     
-<meta name="description" content="PBR着色的相关理论推导与实现" />
+<meta name="description" content="多项式曲线的极形式应用" />
 
 
 <meta name="keywords" content="Real-time Rendering">
 
-<meta name="created" content="2022-01-03T10:25:11&#43;0100">
-<meta name="modified" content="2022-01-03T10:25:11&#43;0100">
-<meta property="article:published_time" content="2022-01-03T10:25:11&#43;0100">
+<meta name="created" content="2022-01-03T11:25:11&#43;0100">
+<meta name="modified" content="2022-01-03T11:25:11&#43;0100">
+<meta property="article:published_time" content="2022-01-03T11:25:11&#43;0100">
 
 <meta name="author" content="Wenbo Chen">
 
 
 <meta property="og:site_name" content="Chaf&#39;s Blog">
-<meta property="og:title" content="几何造型(4)：开花与极形式">
+<meta property="og:title" content="几何造型(4)：极形式和开花算法">
 <meta property="og:url" content="https://chaphlagical.github.io/zh/posts/geometry/polar_form/">
 <meta property="og:type" content="article">
-<meta property="og:description" content="PBR着色的相关理论推导与实现">
+<meta property="og:description" content="多项式曲线的极形式应用">
 
   
     <meta property="og:image" content="https://chaphlagical.github.io/images/posts/pbr.png">
     <meta property="og:image:url" content="https://chaphlagical.github.io/images/posts/pbr.png">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:app:name:iphone" content="Chaf&#39;s Blog">
-    <meta property="twitter:title" content="几何造型(4)：开花与极形式">
-    <meta property="twitter:description" content="PBR着色的相关理论推导与实现">
+    <meta property="twitter:title" content="几何造型(4)：极形式和开花算法">
+    <meta property="twitter:description" content="多项式曲线的极形式应用">
   
 
 <meta name="generator" content="Hugo 0.82.0" />
@@ -1393,11 +1393,11 @@
   {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    "headline": "几何造型(4)：开花与极形式",
-    "datePublished": "2022-01-03T10:25:11+01:00",
-    "dateModified": "2022-01-03T10:25:11+01:00",
+    "headline": "几何造型(4)：极形式和开花算法",
+    "datePublished": "2022-01-03T11:25:11+01:00",
+    "dateModified": "2022-01-03T11:25:11+01:00",
     "url" : "https://chaphlagical.github.io/zh/posts/geometry/polar_form/",
-    "description": "PBR着色的相关理论推导与实现",
+    "description": "多项式曲线的极形式应用",
     "keywords": ["Real-time Rendering"],
     "image" : "https://chaphlagical.github.io/images/posts/pbr.png",
     "mainEntityOfPage": {
@@ -1732,7 +1732,7 @@ if (!doNotTrack) {
   
   <li  class="is-active" >
     
-      <span>几何造型(4)：开花与极形式</span>
+      <span>几何造型(4)：极形式和开花算法</span>
     
   </li>
   
@@ -1744,14 +1744,14 @@ if (!doNotTrack) {
   <div class="single ">
     <div class="single__nojs">Please enable Javascript to view the contents</div>
     <script>document.querySelector('.single').classList.remove('hide'); document.querySelector('.single__nojs').classList.add('hide');</script>
-    <h2 class="single__title" data-ani="true">几何造型(4)：开花与极形式</h2>
+    <h2 class="single__title" data-ani="true">几何造型(4)：极形式和开花算法</h2>
     <h3 class="single__subtitle"></h3>
     <div class="single__meta">
       
 <div class="single__infos">
   <time class="single__info" title="创建日期">📅&nbsp;2022年01月03日 </time>
   
-  &nbsp;&middot;&nbsp; <span class="single__info" title="阅读时长"> ☕&nbsp;0&nbsp;分钟 </span>
+  &nbsp;&middot;&nbsp; <span class="single__info" title="阅读时长"> ☕&nbsp;8&nbsp;分钟 </span>
   
   <span class="single__info">
     
@@ -1771,7 +1771,369 @@ if (!doNotTrack) {
     </div>
     <article class="single__contents" data-dir="ltr" data-ani="true">
       
-      
+      <h2 id="1-基本思想">1. 基本思想</h2>
+<h3 id="11-仿射组合affine-combinations">1.1. 仿射组合(Affine Combinations)</h3>
+<p>$n$点的仿射组合为：<br />
+$$<br />
+p_{\pmb\alpha}=\sum_{i=1}^n\alpha_i\pmb{p}_i<br />
+$$<br />
+其中，$\sum_{i=1}^n\alpha_i=1$</p>
+<p>函数 $f$ 对参数 $x_i$ 是仿射的是指：<br />
+$$<br />
+f \left( x _ { 1 } , \ldots , \sum _ { k = 1 } ^ { n } \alpha _ { k } x _ { i } ^ { ( k ) } , \ldots , x _ { m } \right) = \sum _ { k = 1 } ^ { n } \alpha _ { k } f \left( x _ { 1 } , \ldots , x _ { i } ^ { ( k ) } , \ldots , x _ { m } \right)<br />
+$$<br />
+其中，$\sum_{i=1}^n\alpha_i=1$</p>
+<p><strong>示例：</strong></p>
+<blockquote>
+<ul>
+<li>
+<p>两点间的仿射插值为：<br />
+$$<br />
+\pmb{p}_\alpha = (1-\alpha)\pmb{p}_1+\alpha\pmb{p}_2<br />
+$$<br />
+<img src="image-20220103112000955.png" alt="image-20220103112000955" /></p>
+</li>
+<li>
+<p>三点间的仿射组合（亦为重心坐标）为：<br />
+$$<br />
+\pmb{p}=\alpha\pmb{p}_1+\beta\pmb{p}_2+\gamma\pmb{p}_3<br />
+$$<br />
+其中，$\alpha+\beta+\gamma=1$</p>
+<p>系数可用坐标表示：<br />
+$$<br />
+\alpha = \frac { \operatorname { area } \left( \Delta \left( p _ { 2 } , p _ { 3 } , p \right) \right) } { \operatorname { area } \left( \Delta \left( p _ { 1 } , p _ { 2 } , p _ { 3 } \right) \right) } ,<br />
+\beta = \frac { \operatorname { area } \left( \Delta \left( p _ { 1 } , p _ { 3 } , p \right) \right) } { \operatorname { area } \left( \Delta \left( p _ { 1 } , p _ { 2 } , p _ { 3 } \right) \right) } ,<br />
+\gamma = \frac { \operatorname { area } \left( \Delta \left( p _ { 1 } , p _ { 2 } , p \right) \right) } { \operatorname { area } \left( \Delta \left( p _ { 1 } , p _ { 2 } , p _ { 3 } \right) \right) }<br />
+$$<br />
+<img src="image-20220103112111944.png" alt="image-20220103112111944" /></p>
+</li>
+</ul>
+</blockquote>
+<h3 id="12-动机">1.2. 动机</h3>
+<p>我们希望：将（分段）多项式曲线表示为迭代线性（仿射）插值的形式</p>
+<p>例如：</p>
+<ul>
+<li>
+<p>对于一个多项式：$p(t)=at^3+bt^2+ct+d$</p>
+</li>
+<li>
+<p>能够写为$p(t)=a\cdot t\cdot t\cdot t+b\cdot t\cdot t+c\cdot t+d$</p>
+</li>
+<li>
+<p>将每个变量t解释为单独的参数：<br />
+$$<br />
+\pmb p(t_1,t_2,t_3)=\pmb at_1t_2t_3+\pmb bt_1t_2+\pmb ct_1+\pmb d<br />
+$$</p>
+<ul>
+<li>$t_1$控制$\pmb a+\pmb b+\pmb c$方向上的移动</li>
+<li>$t_2$控制$\pmb a+\pmb b$方向上的移动</li>
+<li>$t_3$控制$\pmb a$方向上的移动</li>
+</ul>
+</li>
+<li>
+<p>上述方法存在的问题：固定方向，多种表示形式</p>
+</li>
+</ul>
+<h2 id="2-极形式">2. 极形式</h2>
+<h3 id="21-定义">2.1. 定义</h3>
+<p>将（分段）多项式曲线表示为迭代线性（仿射）插值的形式的升级版解决方法：极形式/开花</p>
+<p>$n$次多项式$F:\mathbb{R}\to\mathbb{R}$ 的极形式/开花$f:\mathbb{R}^n\to\mathbb{R}$ 是一个满足以下性质的$ d $维函数：</p>
+<ul>
+<li>对角性Diagonality：$f(t,\dots,t)=F(t)$</li>
+<li>对称性Symmetry：对任意置换 $\pi$，$f(t_1,\dots,t_d)=f(t_{\pi(1)},\dots,t_{\pi(d)})$</li>
+<li>多仿射Multi-affine：$f(t_1,\dots,\sum_\limits{k=1}^n\alpha_kt_i^{(k)},\dots,t_d)=\sum_{k=1}^n\alpha_k f(t_1,\dots,t_i^{(k)},\dots,t_d)$</li>
+</ul>
+<h3 id="22-唯一性">2.2. 唯一性</h3>
+<p>多项式 $F(t)$ 与极形式 $f(t_1,\dots,t_n)$ 是一一对应的，常用多项式的极形式如下：</p>
+<ul>
+<li>0 次：$f=c_0$</li>
+<li>1 次：$f(t_1)=c_0+c_1t_1$</li>
+<li>2 次：$f(t_1,t_2)=c_0+c_1\frac{t_1+t_2}{2} + c_2t_1t_2$</li>
+<li>3 次：$f(t_1,t_2,t_3)=c_0+c_1\frac{t_1+t_2+t_3}{3}+c_2\frac{t_1t_2+t_2t_3+t_1t_3}{3}+c_3t_1t_2t_3$</li>
+</ul>
+<p>一般形式：<br />
+$$<br />
+\begin{aligned}<br />
+F(t)&amp;=\sum_{i=0}^n c_i t^i\\\\<br />
+f(t_1,\cdots,t_n)&amp;=\sum_{i=0}^n c_i \begin{pmatrix}n\\\\i\end{pmatrix}^{-1}\sum_{S\subseteq\{1,\cdots,n\},|S|=i}\prod_{j\in S}t_i<br />
+\end{aligned}<br />
+$$</p>
+<h3 id="23-泛化">2.3. 泛化</h3>
+<p>对于高维情况：<br />
+$$<br />
+\begin{aligned}<br />
+F&amp;:\mathbb{R}^m\to \mathbb{R}^n\<br />
+f&amp;:\mathbb{R}^{d\times m}\to \mathbb{R}^n<br />
+\end{aligned}<br />
+$$<br />
+满足性质</p>
+<ul>
+<li>对角性 diagonality：$f(\pmb{t},\dots,\pmb{t})=F(\pmb{t})$</li>
+<li>对称性 symmetry：对任意置换 $\pi$，$f(\pmb t_1,\cdots \pmb t_d)=f(\pmb t_ {\pi(1)},\cdots,\pmb t_ {\pi(d)})$</li>
+<li>多仿射 multi-affine：$f(\pmb t_1,\cdots,\sum_{k=1}^n\alpha_k\pmb t_i^{(k)},\cdots,\pmb t_d)=\sum_{k=1}^n\alpha_kf(\pmb t_1,\cdots,\pmb t_i^{(k)},\cdots,\pmb t_d)$</li>
+</ul>
+<p>对于参数向量：</p>
+<ul>
+<li>
+<p>需要区分点 point 和向量 vectors（点的差值）</p>
+</li>
+<li>
+<p>使用“帽子”记号 $\hat{v}=p-q$ 来表示向量</p>
+</li>
+<li>
+<p>1向量：$\hat{1}=1-0,\hat{\pmb{1}}=[1,\dots,1]^\top-\pmb{0}$</p>
+</li>
+<li>
+<p>极形式中向量的递归定义：<br />
+$$<br />
+\begin{aligned}<br />
+f(\underbrace{t_1,\dots,t_{n-k}}_{n-k},\underbrace{\hat{v}_1,\dots,\hat{v}_k}_k)&amp;:=\\\\<br />
+f(\underbrace{t_1,\dots,t_{n-k}}_{n-k},p_1,\underbrace{\hat{v}_2,\dots,\hat{v}_{k-1}}_{k-1})&amp;-f(\underbrace{t_1,\dots,t_{n-k}}_{n-k},q_1,\underbrace{\hat{v}_2,\dots,\hat{v}_{k-1}}_{k-1})<br />
+\end{aligned}<br />
+$$<br />
+其中 $\hat{v}_i=p_i-q_i(i=1,\dots,k)$</p>
+</li>
+</ul>
+<h3 id="24-导数">2.4. 导数</h3>
+<p>$$<br />
+f(t_1,\cdots,t_n)=\sum_{i=0}^n c_i \begin{pmatrix}n\\\\i\end{pmatrix}^{-1}\sum_{S\subseteq\{1,\cdots,n\},|S|=i}\prod_{j\in S}t_i<br />
+$$</p>
+<ul>
+<li>
+<p>$c_i$与$t=0$处的导数值相关</p>
+</li>
+<li>
+<p>因此有：<br />
+$$<br />
+c_k=\frac{1}{k!}\frac{\mathrm d^k}{\mathrm dt^k}F(0)=\begin{pmatrix}n\\\\k\end{pmatrix}^{-1}f(\underbrace{0,\dots,0}_{n-k},\underbrace{\hat{1},\dots,\hat{1}}_k)<br />
+$$</p>
+</li>
+<li>
+<p>一般情况：<br />
+$$<br />
+\frac{\mathrm d^k}{\mathrm dt^k}F(t)=\frac{n!}{(n-k)!}f(\underbrace{t,\dots,t}_{n-k},\underbrace{\hat{1},\dots,\hat{1}}_k)<br />
+$$</p>
+</li>
+</ul>
+<p>示例：</p>
+<blockquote>
+<p>$$<br />
+\begin{aligned}<br />
+F(t)&amp;=c_0+c_1t+c_2t^2+c_3t^3\\\\<br />
+f \left( t _ { 1 } , t _ { 2 } , t _ { 3 } \right) &amp;= c _ { 0 } + c _ { 1 } \frac { t _ { 1 } + t _ { 2 } + t _ { 3 } } { 3 } + c _ { 1 } \frac { t _ { 1 } t _ { 2 } + t _ { 1 } t _ { 3 } + t _ { 2 } t _ { 3 } } { 3 } + c _ { 3 } t _ { 1 } t _ { 2 } t _ { 3 }\\\\<br />
+F ^ { \prime } ( t )<br />
+&amp;= 3f(t,t,\hat{1})\\\\<br />
+&amp;= 3 \left[f(t,t,1)-f(t,t,0)\right]\\\\<br />
+&amp;= 3 \left[ \left( c _ { 0 } + c_1\frac { 1 + t + t } { 3 } + c _ { 2 } \frac { 1 t + t t + 1 t } { 3 } + c _ { 3 } 1 t t \right) - \left( c _ { 0 } + c_1\frac { 0 + t + t } { 3 } + c _ { 2 } \frac { t t } { 3 } \right) \right]\\\\<br />
+&amp;= 3 \left( c _ { 1 } \frac { 1 } { 3 } + c _ { 2 } \frac { 2 t } { 3 } + c _ { 3 } t t \right)\\\\<br />
+&amp;= 3 c _ { 3 } t ^ { 2 } + 2 c _ { 2 } t + c _ { 1 }<br />
+\end{aligned}<br />
+$$</p>
+</blockquote>
+<h3 id="25-连续性条件">2.5. 连续性条件</h3>
+<p>下列三个条件分别等价</p>
+<ul>
+<li>$F$ 和 $G$ 在 $t$ 点 $C^k$ 连续</li>
+<li>$\forall t_1,\dots,t_k, f(t,\dots,t,t_1,\dots,t_k)=g(t,\dots,t,t_1,\dots,t_k)$</li>
+<li>$f ( t , \ldots , t , \underbrace{\hat { 1 } , \ldots , \hat { 1 }}_k ) = g ( t , \ldots , t , \underbrace{\hat { 1 } , \ldots , \hat { 1 }}_k )$</li>
+</ul>
+<blockquote>
+<p>2$\Leftrightarrow$3证明：<br />
+$$<br />
+\begin{aligned}<br />
+f(t,\cdots,t,t_1)&amp;=f(t,\cdots,t,(t_1-0))\\\\<br />
+&amp;=t_1f(t,\cdots,t,1)-f(t,\cdots,t,0)\\\\<br />
+&amp;=t_1f(t,\cdots,t,\hat 1)<br />
+\end{aligned}<br />
+$$</p>
+</blockquote>
+<p>举例：</p>
+<blockquote>
+<ul>
+<li>$\forall t_1,t_2,t_3$：$f(t_1,t_2,t_3)=g(t_1,t_2,t_3)\Rightarrow$同一条曲线</li>
+<li>$\forall t_1,t_2$：$f(t_1,t_2,t)=g(t_1,t_2,t)\Rightarrow$在$t$处$C^2$连续</li>
+<li>$\forall t_1$：$f(t_1,t,t)=g(t_1,t,t)\Rightarrow$在$t$处$C^1$连续</li>
+<li>$f(t,t,t)=g(t,t,t)\Rightarrow$在$t$处$C^0$连续</li>
+</ul>
+</blockquote>
+<h3 id="26-升阶">2.6. 升阶</h3>
+<p>给定$ d $次函数 $f(t_1,\dots,t_d)$，升阶得：<br />
+$$<br />
+f ^ { ( + 1 ) } \left( t _ { 1 } , \ldots , t _ { d + 1 } \right) = \frac { 1 } { d + 1 } \sum _ { i = 1 } ^ { d + 1 } f \left( t _ { 1 } , \ldots , t _ { i - 1 } , t _ { i + 1 } , \ldots , t _ { d + 1 } \right)<br />
+$$</p>
+<ul>
+<li>注意：$t_i$没了</li>
+</ul>
+<blockquote>
+<p>证明$F^{(+1)}(t)=F(t)$：<br />
+$$<br />
+\begin{aligned} \forall t : f ^ { ( + 1 ) } ( t , \ldots , t ) &amp; = \left. \frac { 1 } { d + 1 } \sum _ { i = 1 } ^ { d + 1 } f \left( t _ { 1 } , \ldots , t _ { i - 1 } , t _ { i + 1 } , \ldots , t _ { d + 1 } \right) \right| _ { t _ { 1 } = \cdots t _ { d + 1 } = t } \\\\ &amp; = \frac { 1 } { d + 1 } \sum _ { i = 1 } ^ { d + 1 } f ( t , \ldots , t ) \\\\ &amp; = f ( t , \ldots , t ) \end{aligned}<br />
+$$</p>
+</blockquote>
+<h2 id="3-bézier样条的极形式应用">3. Bézier样条的极形式应用</h2>
+<h3 id="31-回顾de-casteljau算法">3.1. 回顾De Casteljau算法</h3>
+<p>之前我们已经推导过构造Bézier曲线的De Casteljau算法：<br />
+$$<br />
+\pmb b_i^{(r)}=(1-t)\pmb b_i^{(r-1)}+t\pmb b_{i+1}^{(r-1)}<br />
+$$<br />
+三次Bézier曲线的构造过程如下图所示：</p>
+<p><img src="image-20220103120516305.png" alt="image-20220103120516305" style="zoom:50%;" /></p>
+<h3 id="32-bézier样条的极形式">3.2. Bézier样条的极形式</h3>
+<p>根据极形式的仿射组合性质，导出Bernstein基函数的组合形式：<br />
+$$<br />
+\begin{aligned}<br />
+f(t,\cdots,t)<br />
+&amp;=(1-t)f(t,\cdots,t,0)+tf(t,\cdots,t,1)\\\\<br />
+&amp;=(1-t)[(1-t)f(t,\cdots,t,0,0)+tf(t,\cdots,t,0,1)]+<br />
+t[(1-t)f(t,\cdots,t,1,0)+tf(t,\cdots,t,1,1)]\\\\<br />
+&amp;=(1-t)^2f(t,\cdots,t,0,0)+2t(1-t)f(t,\cdots,0,1)+t^2f(t,\cdots,t,1,1)\\\\<br />
+&amp;=\cdots\\\\<br />
+&amp;=\sum_{i=0}^n\begin{pmatrix}n\\\\i\end{pmatrix}t^i(1-t)^{n-i}f(\underbrace{0,\dots,0}_{n-i},\underbrace{1,\dots,1}_i)\\\\<br />
+&amp;=\sum_{i=0}^nB_n^i(t)f(\underbrace{0,\dots,0}_{n-i},\underbrace{1,\dots,1}_i)<br />
+\end{aligned}<br />
+$$<br />
+因此，我们可以看到：</p>
+<ul>
+<li>
+<p>Bézier点为：$\pmb b_i^{(0)}(t)=f(\underbrace{0,\dots,0}_{n-i},\underbrace{1,\dots,1}_i)$</p>
+</li>
+<li>
+<p>中间的生成点为：$\pmb b_i^{(j)}(t)=f(\underbrace{0,\dots,0}_{n-i-j},\underbrace{1,\dots,1}_i,\underbrace{t,\dots,t}_j)$</p>
+</li>
+<li>
+<p>De Casteljau算法递归计算：<br />
+$$<br />
+\begin{aligned}<br />
+\pmb b_i^{(j)}(t)&amp;=f(\underbrace{0,\dots,0}_ {n-i-j},\underbrace{1,\dots,1}_i,\underbrace{t,\dots,t}_j)\\\\<br />
+&amp;=(1-t)f(\underbrace{0,\dots,0}_ {n-i-j+1},\underbrace{1,\dots,1}_i,\underbrace{t,\dots,t}_ {j-1})+tf(\underbrace{0,\dots,0}_ {n-i-j},\underbrace{1,\dots,1}_ {i+1},\underbrace{t,\dots,t}_ {j-1})\\\\<br />
+&amp;=(1-t)\pmb b_i^{(j-1)}+t\pmb b_ {i+1}^{(j-1)}(t)<br />
+\end{aligned}<br />
+$$</p>
+</li>
+</ul>
+<p>示例：</p>
+<blockquote>
+<p>仿射组合：<br />
+$$<br />
+\begin{align}<br />
+b(0,t,1)&amp;=b(0,0(1-t)+1t,1(1-t)+1t)\\\\<br />
+&amp;=(1-t)b(0,0,1)+tb(0,1,1)<br />
+\end{align}<br />
+$$<br />
+<img src="image-20220103163030843.png" alt="image-20220103163030843" style="zoom:50%;" /></p>
+<p><img src="image-20220103122257916.png" alt="image-20220103122257916" /></p>
+</blockquote>
+<h3 id="33-泛化情况">3.3. 泛化情况</h3>
+<p>$f(t)$是$t\in [u,v]$的$d$阶 Bezier 曲线，$\pmb{p}$是$f$的极形式，则Bézier点用极形式表示为：<br />
+$$<br />
+\pmb b_i=p(u,\cdots,u,v,\cdots,v)<br />
+$$<br />
+示例：</p>
+<blockquote>
+<p>三次Bézier曲线控制点为：</p>
+<p>$\pmb{p}(u,u,u),\pmb{p}(u,u,v),\pmb{p}(u,v,v),\pmb{p}(v,v,v)$</p>
+<p><img src="image-20220103151232765.png" alt="image-20220103151232765" /></p>
+</blockquote>
+<h3 id="34-换基">3.4. 换基</h3>
+<p>给定$n$次多项式$\pmb p(t)$，反求Bézier控制点${\pmb b_i}^n_{i=0}$</p>
+<p>计算方法：</p>
+<ul>
+<li>求出极形式：$\pmb p(t)\Rightarrow\pmb b(t_1,\cdots,t_n)$</li>
+<li>求出控制点：$\pmb{b}_ i=\pmb{b}(\underbrace{0,\dots,0}_ {n-i},\underbrace{1,\dots,1}_ i)$，其中$i=0,\cdots,n$</li>
+</ul>
+<p>示例：</p>
+<blockquote>
+<p>$p(t)=1+2t+3t^2-t^3$</p>
+<p>极形式表示：<br />
+$$<br />
+\pmb{b} \left( t _ { 0 } , t _ { 1 } , t _ { 2 } \right) = 1 + 2 \frac { t _ { 0 } + t _ { 1 } + t _ { 2 } } { 3 } + 3 \frac { t _ { 0 } t _ { 1 } + t _ { 1 } t _ { 2 } + t _ { 0 } t _ { 2 } } { 3 } - t _ { 0 } t _ { 1 } t _ { 2 }<br />
+$$<br />
+则有<br />
+$$<br />
+\begin{aligned}<br />
+\pmb{b}(0,0,0)&amp;=1\<br />
+\pmb{b}(0,0,1)&amp;=\frac{5}{3}\<br />
+\pmb{b}(0,1,1)&amp;=\frac{10}{3}\<br />
+\pmb{b}(1,1,1)&amp;=5\<br />
+\end{aligned}<br />
+$$</p>
+</blockquote>
+<h3 id="35-分段曲线">3.5. 分段曲线</h3>
+<p><img src="image-20220103151955642.png" alt="image-20220103151955642" /></p>
+<p>两条曲线段<br />
+$$<br />
+\{ \boldsymbol { p } ( 0,0,0 ) , \boldsymbol { p } ( 0,0,1 ) , \boldsymbol { p } ( 0,1,1 ) , \boldsymbol { p } ( 1,1,1 ) \} , \{ p ( 1,1,1 ) , \boldsymbol { p } ( 1,1,2 ) , \boldsymbol { p } ( 1,2,2 ) , \boldsymbol { p } ( 2,2,2 ) \}<br />
+$$</p>
+<h3 id="36-导数">3.6. 导数</h3>
+<p>$$<br />
+\frac { \mathrm{d} } { \mathrm{d} t } F ( t ) = n f ( t , \ldots , t , \hat { 1 } ) = n ( f ( t , \ldots , t , 1 ) - f ( t , \ldots , t , 0 ) )<br />
+$$</p>
+<h3 id="37-细分">3.7. 细分</h3>
+<p><img src="image-20220103154022104.png" alt="image-20220103154022104" /></p>
+<ul>
+<li>每一次de Casteljau迭代都会产生两个新的控制多边形，分别描述Bézier曲线$f(t)$的左侧和右侧</li>
+<li>利用这两个新的控制多边形，可以将该Bézier曲线分割成两条，实现细分</li>
+</ul>
+<h3 id="38-升阶">3.8. 升阶</h3>
+<p>对Bézier曲线$\pmb b(t_1,\cdots,t_n)$进行升阶得到：<br />
+$$<br />
+\pmb{b} ^ { ( + 1 ) } \left( t _ { 1 } , \ldots , t _ { n + 1 } \right) = \frac { 1 } { n + 1 } \sum _ { i = 1 } ^ { n + 1 } \pmb{b} \left( t _ { 1 } , \ldots , t _ { i - 1 } , t _ { i + 1 } , \ldots , t _ { n + 1 } \right)<br />
+$$<br />
+升阶后曲线 $\pmb{b}^{(+1)}$ 的 $n+2$ 个控制点 $\pmb{b}^{(+1)}_ 0,\dots,\pmb{b}^{(+1)}_ {n+1}$ 为：<br />
+$$<br />
+\begin{aligned}<br />
+\pmb b_i^{(+1)}&amp;=\pmb b^{(+1)}(\underbrace{0,\dots,0}_{n+1-i},\underbrace{1,\dots,1}_i)\\\\<br />
+&amp;=\frac{i}{n+i}\pmb b(\underbrace{0,\dots,0}_{d+1-i},\underbrace{1,\dots,1}_{i-1})+\left(1-\frac{i}{n+1}\right)\pmb{b}(\underbrace{0,\dots,0}_{n-i},\underbrace{1,\dots,1}_i)\\\\<br />
+&amp;=\frac{i}{n+1}\pmb b_{i-1}+\left(1-\frac{i}{n+1}\right)\pmb b_i<br />
+\end{aligned}<br />
+$$<br />
+特别地，<br />
+$$<br />
+\begin{aligned}<br />
+\pmb{b}_0^{(+1)}&amp;=\pmb{b}_0\\\\<br />
+\pmb{b}_{n+1}^{(+1)}&amp;=\pmb{b}_n\<br />
+\end{aligned}<br />
+$$</p>
+<h2 id="4-b样条的极形式应用">4. B样条的极形式应用</h2>
+<h3 id="41-b样条的极形式">4.1. B样条的极形式</h3>
+<p>分段线性多项式曲线的极形式是存在且唯一的</p>
+<p>给定$k$阶（$k-1$次）B样条曲线$\pmb x$</p>
+<ul>
+<li>结向量：$T=(t_0,\dots,t_{n+k})$</li>
+<li>de Boor 点 $\pmb{d}_0,\dots,\pmb{d}_n$</li>
+</ul>
+<p>设$\underline { \pmb{x} }(u_1,\dots,u_{k-1})$是$\pmb{x}(t)$的极形式，则de Boor点可表示为：<br />
+$$<br />
+\pmb{d}_i=\underline{\pmb{x}}(t_{i+1},\dots,t_{i+k-1})<br />
+$$</p>
+<blockquote>
+<p>示例：</p>
+<p>$k=4,n=5$</p>
+<p><img src="image-20220103161420023.png" alt="image-20220103161420023" /></p>
+</blockquote>
+<h3 id="42-de-boor算法的极形式">4.2. de Boor算法的极形式</h3>
+<p>要确定$t$处B样条曲线的值，确定出$t$前后的$k-1$个结：<br />
+$$<br />
+r_{k-1}\leq\cdots\leq r_1\leq t\leq s_1\leq\cdots\leq s_{k-1}<br />
+$$<br />
+其中，$r_1\leq t&lt;s_1$，则中间结点为：<br />
+$$<br />
+\pmb d_j^l(t)=\underline {\pmb x}(r_1,\cdots,r_{k-1-l-j},\underbrace{t,\cdots,t}_l,s_1,\cdots,s_j)<br />
+$$<br />
+最终的曲线为：<br />
+$$<br />
+\pmb x(t)=\pmb d_0^{(k-1)}(t)=\underline{\pmb x}(\underbrace{t,\cdots,t}_{k-1})<br />
+$$</p>
+<blockquote>
+<p>示例：</p>
+<p>$k=4$</p>
+<p><img src="image-20220103162640889.png" alt="image-20220103162640889" /></p>
+<p>仿射组合：</p>
+<p><img src="image-20220103163248564.png" alt="image-20220103163248564" style="zoom:50%;" /></p>
+<p>对于$t_2\leq t&lt;t_4$，进行如下迭代：</p>
+<p><img src="image-20220103164358187.png" alt="image-20220103164358187" /></p>
+</blockquote>
+
     </article>
     
     
@@ -3352,7 +3714,44 @@ document.addEventListener('DOMContentLoaded', function () {
           
         </div>
         <div class="toc toc__outer " data-dir="ltr" data-folding="true" data-ani="true">
-          <nav id="TableOfContents"></nav>
+          <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-基本思想">1. 基本思想</a>
+      <ul>
+        <li><a href="#11-仿射组合affine-combinations">1.1. 仿射组合(Affine Combinations)</a></li>
+        <li><a href="#12-动机">1.2. 动机</a></li>
+      </ul>
+    </li>
+    <li><a href="#2-极形式">2. 极形式</a>
+      <ul>
+        <li><a href="#21-定义">2.1. 定义</a></li>
+        <li><a href="#22-唯一性">2.2. 唯一性</a></li>
+        <li><a href="#23-泛化">2.3. 泛化</a></li>
+        <li><a href="#24-导数">2.4. 导数</a></li>
+        <li><a href="#25-连续性条件">2.5. 连续性条件</a></li>
+        <li><a href="#26-升阶">2.6. 升阶</a></li>
+      </ul>
+    </li>
+    <li><a href="#3-bézier样条的极形式应用">3. Bézier样条的极形式应用</a>
+      <ul>
+        <li><a href="#31-回顾de-casteljau算法">3.1. 回顾De Casteljau算法</a></li>
+        <li><a href="#32-bézier样条的极形式">3.2. Bézier样条的极形式</a></li>
+        <li><a href="#33-泛化情况">3.3. 泛化情况</a></li>
+        <li><a href="#34-换基">3.4. 换基</a></li>
+        <li><a href="#35-分段曲线">3.5. 分段曲线</a></li>
+        <li><a href="#36-导数">3.6. 导数</a></li>
+        <li><a href="#37-细分">3.7. 细分</a></li>
+        <li><a href="#38-升阶">3.8. 升阶</a></li>
+      </ul>
+    </li>
+    <li><a href="#4-b样条的极形式应用">4. B样条的极形式应用</a>
+      <ul>
+        <li><a href="#41-b样条的极形式">4.1. B样条的极形式</a></li>
+        <li><a href="#42-de-boor算法的极形式">4.2. de Boor算法的极形式</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
         </div>
       
     
