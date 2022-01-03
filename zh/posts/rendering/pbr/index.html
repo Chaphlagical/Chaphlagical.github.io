@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>基于物理的实时渲染着色方法：PBR材质模型 – Chaf&#39;s Blog</title>
+    <title>基于物理的实时渲染方法 – Chaf&#39;s Blog</title>
     
 
 
@@ -1331,31 +1331,31 @@
 
 
     
-<meta name="description" content="PBR微表面材质模型与Kulla-Conty能量补偿的推导与实现" />
+<meta name="description" content="PBR着色的相关理论推导与实现" />
 
 
 <meta name="keywords" content="Real-time Rendering">
 
-<meta name="created" content="2021-12-31T10:25:11&#43;0100">
-<meta name="modified" content="2021-12-31T10:25:11&#43;0100">
-<meta property="article:published_time" content="2021-12-31T10:25:11&#43;0100">
+<meta name="created" content="2021-01-03T10:25:11&#43;0100">
+<meta name="modified" content="2021-01-03T10:25:11&#43;0100">
+<meta property="article:published_time" content="2021-01-03T10:25:11&#43;0100">
 
 <meta name="author" content="Wenbo Chen">
 
 
 <meta property="og:site_name" content="Chaf&#39;s Blog">
-<meta property="og:title" content="基于物理的实时渲染着色方法：PBR材质模型">
+<meta property="og:title" content="基于物理的实时渲染方法">
 <meta property="og:url" content="https://chaphlagical.github.io/zh/posts/rendering/pbr/">
 <meta property="og:type" content="article">
-<meta property="og:description" content="PBR微表面材质模型与Kulla-Conty能量补偿的推导与实现">
+<meta property="og:description" content="PBR着色的相关理论推导与实现">
 
   
     <meta property="og:image" content="https://chaphlagical.github.io/images/posts/pbr.png">
     <meta property="og:image:url" content="https://chaphlagical.github.io/images/posts/pbr.png">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:app:name:iphone" content="Chaf&#39;s Blog">
-    <meta property="twitter:title" content="基于物理的实时渲染着色方法：PBR材质模型">
-    <meta property="twitter:description" content="PBR微表面材质模型与Kulla-Conty能量补偿的推导与实现">
+    <meta property="twitter:title" content="基于物理的实时渲染方法">
+    <meta property="twitter:description" content="PBR着色的相关理论推导与实现">
   
 
 <meta name="generator" content="Hugo 0.82.0" />
@@ -1393,11 +1393,11 @@
   {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    "headline": "基于物理的实时渲染着色方法：PBR材质模型",
-    "datePublished": "2021-12-31T10:25:11+01:00",
-    "dateModified": "2021-12-31T10:25:11+01:00",
+    "headline": "基于物理的实时渲染方法",
+    "datePublished": "2021-01-03T10:25:11+01:00",
+    "dateModified": "2021-01-03T10:25:11+01:00",
     "url" : "https://chaphlagical.github.io/zh/posts/rendering/pbr/",
-    "description": "PBR微表面材质模型与Kulla-Conty能量补偿的推导与实现",
+    "description": "PBR着色的相关理论推导与实现",
     "keywords": ["Real-time Rendering"],
     "image" : "https://chaphlagical.github.io/images/posts/pbr.png",
     "mainEntityOfPage": {
@@ -1732,7 +1732,7 @@ if (!doNotTrack) {
   
   <li  class="is-active" >
     
-      <span>基于物理的实时渲染着色方法：PBR材质模型</span>
+      <span>基于物理的实时渲染方法</span>
     
   </li>
   
@@ -1744,12 +1744,12 @@ if (!doNotTrack) {
   <div class="single ">
     <div class="single__nojs">Please enable Javascript to view the contents</div>
     <script>document.querySelector('.single').classList.remove('hide'); document.querySelector('.single__nojs').classList.add('hide');</script>
-    <h2 class="single__title" data-ani="true">基于物理的实时渲染着色方法：PBR材质模型</h2>
+    <h2 class="single__title" data-ani="true">基于物理的实时渲染方法</h2>
     <h3 class="single__subtitle"></h3>
     <div class="single__meta">
       
 <div class="single__infos">
-  <time class="single__info" title="创建日期">📅&nbsp;2021年12月31日 </time>
+  <time class="single__info" title="创建日期">📅&nbsp;2021年01月03日 </time>
   
   &nbsp;&middot;&nbsp; <span class="single__info" title="阅读时长"> ☕&nbsp;26&nbsp;分钟 </span>
   
@@ -3270,38 +3270,19 @@ $$<br />
     <section class="related">
     
     
-    <h1 class="related__title">
-      <hr class="hr-dots"/>
-      <div>
-        相关内容
-      </div>
-      <hr class="hr-dots"/>
-    </h1>
-    <ul class="related-ul">
-        
-        <li>
-          <a href="/zh/posts/rendering/sh_lighting/" class="related__link">实时光照：球谐环境光</a>
-        </li>
-        
-        <li>
-          <a href="/zh/posts/rendering/optimization1/" class="related__link">实时渲染优化技术(1)</a>
-        </li>
-        
-    </ul>
-    
   </section>
     <div class="grow"></div>
 <nav class="pagination-single">
   
     
-      <a href="https://chaphlagical.github.io/zh/posts/rendering/sh_lighting/" class="pagination-single__left">
-        <div class="pagination-single__icon">
-          <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path fill="currentColor" d="M19 11H7.83l4.88-4.88c.39-.39.39-1.03 0-1.42-.39-.39-1.02-.39-1.41 0l-6.59 6.59c-.39.39-.39 1.02 0 1.41l6.59 6.59c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41L7.83 13H19c.55 0 1-.45 1-1s-.45-1-1-1z"/></svg>
-        </div>
-        <div class="pagination-single__left-title">实时光照：球谐环境光</div>      
-      </a>
-    
     <div class="grow"></div>
+    
+      <a href="https://chaphlagical.github.io/zh/posts/image_process/colorization/" class="pagination-single__right">      
+        <div class="pagination-single__right-title">Colorization</div>
+        <div class="pagination-single__icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path fill="currentColor" d="M5 13h11.17l-4.88 4.88c-.39.39-.39 1.03 0 1.42.39.39 1.02.39 1.41 0l6.59-6.59c.39-.39.39-1.02 0-1.41l-6.58-6.6c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41L16.17 11H5c-.55 0-1 .45-1 1s.45 1 1 1z"/></svg>
+        </div>
+      </a>
     
   
 </nav>
