@@ -14,7 +14,7 @@
     <managingEditor>chaf@mail.ustc.edu.cn (Wenbo Chen)</managingEditor>
     <webMaster>chaf@mail.ustc.edu.cn (Wenbo Chen)</webMaster>
     <copyright>©2022, All Rights Reserved</copyright>
-    <lastBuildDate>Mon, 03 Jan 2022 16:25:11 +0100</lastBuildDate>
+    <lastBuildDate>Mon, 03 Jan 2022 21:43:11 +0100</lastBuildDate>
     
         <atom:link href="https://chaphlagical.github.io/zh/tags/index.xml" rel="self" type="application/rss+xml" />
     
@@ -23,7 +23,7 @@
       <item>
         <title>Geometry</title>
         <link>https://chaphlagical.github.io/zh/tags/geometry/</link>
-        <pubDate>Mon, 03 Jan 2022 16:25:11 +0100</pubDate>
+        <pubDate>Mon, 03 Jan 2022 21:43:11 +0100</pubDate>
         <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
         
         <guid>https://chaphlagical.github.io/zh/tags/geometry/</guid>
@@ -99,6 +99,24 @@
         <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
         
         <guid>https://chaphlagical.github.io/zh/tags/digital-image-process/</guid>
+        <description></description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        
+        
+        
+        
+        
+        
+      </item>
+      
+      <item>
+        <title>Computer Network</title>
+        <link>https://chaphlagical.github.io/zh/tags/computer-network/</link>
+        <pubDate>Mon, 10 Aug 2020 21:43:11 +0100</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        
+        <guid>https://chaphlagical.github.io/zh/tags/computer-network/</guid>
         <description></description>
         
         <dc:creator>Wenbo Chen</dc:creator>

@@ -14,7 +14,7 @@
     <managingEditor>chaf@mail.ustc.edu.cn (Wenbo Chen)</managingEditor>
     <webMaster>chaf@mail.ustc.edu.cn (Wenbo Chen)</webMaster>
     <copyright>©2022, All Rights Reserved</copyright>
-    <lastBuildDate>Mon, 03 Jan 2022 16:25:11 +0100</lastBuildDate>
+    <lastBuildDate>Mon, 03 Jan 2022 21:43:11 +0100</lastBuildDate>
     
         <atom:link href="https://chaphlagical.github.io/zh/index.xml" rel="self" type="application/rss+xml" />
     
@@ -40,6 +40,40 @@
         
       
 
+      
+      <item>
+        <title>几何造型(6)：样条曲面</title>
+        <link>https://chaphlagical.github.io/zh/posts/geometry/spline_surface/</link>
+        <pubDate>Mon, 03 Jan 2022 21:43:11 +0100</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        <atom:modified>Mon, 03 Jan 2022 21:43:11 +0100</atom:modified>
+        <guid>https://chaphlagical.github.io/zh/posts/geometry/spline_surface/</guid>
+        <description>1. 样条曲面简介 当输入为一维时，将得到曲线，而将输入变为二维时，则可以得到曲面输出 1.1. 参数样条曲面 两个参数坐标$(u,v)$ 分段双变量多项式 多片</description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        <media:content url="https://chaphlagical.github.ioimages/posts/rational.png" medium="image"><media:title type="html">featured image</media:title></media:content>
+        
+        
+        
+          
+            
+              <category>Geometry</category>
+            
+          
+        
+        
+          
+            
+              <category>Geometry</category>
+            
+          
+            
+              <category>Graphics</category>
+            
+          
+        
+        
+      </item>
       
       <item>
         <title>几何造型(5)：有理样条曲线</title>
@@ -517,6 +551,40 @@
           
             
               <category>Digital Image Process</category>
+            
+          
+        
+        
+      </item>
+      
+      <item>
+        <title>计算机网络学习要点</title>
+        <link>https://chaphlagical.github.io/zh/posts/computer/network/</link>
+        <pubDate>Mon, 10 Aug 2020 21:43:11 +0100</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        <atom:modified>Mon, 10 Aug 2020 21:43:11 +0100</atom:modified>
+        <guid>https://chaphlagical.github.io/zh/posts/computer/network/</guid>
+        <description>第一章 计算机网络与互联网络 一、什么是互联网络 1、从构成角度看 节点：端系统（=主机），网络应用程序+网络交换设备（路由器、交换机等） 边：通信链</description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        <media:content url="https://chaphlagical.github.ioimages/posts/network.jpg" medium="image"><media:title type="html">featured image</media:title></media:content>
+        
+        
+        
+          
+            
+              <category>Computer Network</category>
+            
+          
+        
+        
+          
+            
+              <category>Computer Science</category>
+            
+          
+            
+              <category>Computer Network</category>
             
           
         
