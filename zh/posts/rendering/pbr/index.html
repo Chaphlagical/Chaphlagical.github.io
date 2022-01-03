@@ -1751,7 +1751,7 @@ if (!doNotTrack) {
 <div class="single__infos">
   <time class="single__info" title="创建日期">📅&nbsp;2021年12月31日 </time>
   
-  &nbsp;&middot;&nbsp; <span class="single__info" title="阅读时长"> ☕&nbsp;24&nbsp;分钟 </span>
+  &nbsp;&middot;&nbsp; <span class="single__info" title="阅读时长"> ☕&nbsp;26&nbsp;分钟 </span>
   
   <span class="single__info">
     
@@ -2770,7 +2770,7 @@ $$</p>
 $$<br />
 G(\pmb \omega_o,\pmb\omega_i)=\frac{\pmb \omega_o\cdot\pmb\omega_h}{(\pmb \omega_o\cdot\pmb\omega_h)(1-k)+k}<br />
 $$<br />
-其中，$k=\alpha/2$</p>
+其中，$k=\frac{(\alpha+1)^2}{8}$</p>
 </li>
 </ul>
 <h3 id="52-金属工作流">5.2. 金属工作流</h3>
@@ -2831,15 +2831,73 @@ $$<br />
 <p>前述的微表面模型仅考虑光线与微表面的单次反射，而不考虑光线多次弹射的结果，这将带来能量损失的问题，具体表现为当材质粗糙度越大时，物体的亮度越低，如下图所示：</p>
 <p><img src="image-20220102172010125.png" alt="image-20220102172010125" /></p>
 <p>Heitz于2016年给出了能量补偿问题的精确解，但由于计算量过大并不适合于实时渲染，Kulla和Conty则给出了一种近似的能量补偿算法。</p>
-<p>首先，定义给定出射方向$\pmb\omega_o$二维BRDF lobe的总能量，这个能量表示了单次弹射的能量占比：<br />
+<p>首先，定义给定出射方向$\mu_o$二维BRDF lobe的总能量，这个能量表示了单次弹射的能量占比：<br />
 $$<br />
-E(\pmb\omega_o)=\int_0^{2\pi}\int_0^1f_r(\pmb\omega_o,\pmb\omega_i,\phi)\pmb\omega_i\mathrm d\pmb\omega_i\mathrm d\phi<br />
+E(\mu_o)=\int_0^{2\pi}\int_0^1f(\mu_o,\mu_i,\phi)\mu_i\mathrm d\mu_i\mathrm d\phi<br />
 $$<br />
-Kulla-Conty方法的核心思想是设计另外一个BRDF lobe，满足积分得到$1-E(\mu_0)$，则这个能量将作为能量补偿项。</p>
-<p>通过拼凑，凑出了一个满足要求的BRDF函数：<br />
+在半球上进行积分，其中$\mu=\sin\theta$</p>
+<p>Kulla-Conty方法的核心思想是设计另外一个BRDF，满足积分为$1-E(\mu_0)$，则这个能量将作为能量补偿项。</p>
+<p>通过经验性的拼凑，凑出了一个满足要求的BRDF函数：<br />
 $$<br />
-f_{ms}()<br />
+f_{ms}(\mu_o,\mu_i)=\frac{(1-E(\mu_o))(1-E(\mu_i))}{\pi(1-E_{avg})}<br />
+$$<br />
+其中，<br />
+$$<br />
+E_{\mathrm{avg}}=2\int_0^1E(\mu)\mu\mathrm d\mu<br />
 $$</p>
+<p>验证一下$f_{ms}(\mu_o,\mu_i)$是否满足要求：<br />
+$$<br />
+\begin{align}<br />
+E_{ms}(\mu_o)<br />
+&amp;=\int_0^{2\pi}\int_0^1f_{ms}(\mu_o,\mu_i,\phi)\mu_i\mathrm d\mu_i\mathrm d\phi\\\\<br />
+&amp;=2\pi\int_0^1\frac{(1-E(\mu_o))(1-E(\mu_i))}{\pi(1-E_{\mathrm{avg}})}\mu_i\mathrm d\mu_i\\\\<br />
+&amp;=2\frac{1-E(\mu_o)}{1-E_{\mathrm {avg}}}\int_0^1(1-E(\mu_i))\mu_i\mathrm d\mu_i\\\\<br />
+&amp;=\frac{1-E(\mu_o)}{1-E_{\mathrm {avg}}}(1-E_{\mathrm {avg}})\\\\<br />
+&amp;=1-E(\mu_o)<br />
+\end{align}<br />
+$$<br />
+确实是可以的。</p>
+<p>然而$E(\mu)$和$E_{\mathrm {avg}}$都没有解析表达，因此在实际开发中应使用预计算的方法，用贴图预存积分结果。</p>
+<p>对于$E(\mu)$，采用一张单通道二维贴图进行存储，从上到下粗糙度依次增加，从左到右$\mu$依次增加</p>
+<p><img src="Emu.png" alt="Emu" style="zoom:200%;" /></p>
+<p>对于$E_{\mathrm{avg}}$，采用一张单通道一维贴图进行存储，为了可视化方便，这里仍采用二维贴图进行展示，从上到下粗糙度依次增加</p>
+<p><img src="Eavg.png" alt="Eavg" style="zoom:200%;" /></p>
+<p>从上图中可以看到的能量，在粗糙度低时微表面能量损失少，能量多存储结果较大；在粗糙度高时微表面能量损失多，能量少结果偏黑，与我们的认知是一致的。</p>
+<p>截至目前，我们仅讨论没有颜色的BRDF的能量补偿情况，对于具有颜色的BRDF，意味着会发生能量的吸收，能量将发生损失，因此我们仍需要计算损失的能量。</p>
+<p>定义平均菲涅尔系数（表示了被反射的能量的多少）：<br />
+$$<br />
+E_{\mathrm{avg}}=\frac{\int_0^1F(\mu)\mu\mathrm d\mu}{\int_0^1\mu\mathrm d\mu}=2\int_0^1F(\mu)\mu\mathrm d\mu<br />
+$$<br />
+因此带有颜色的反射能量为：$F_{\mathrm{avg}}E_{\mathrm{avg}}$</p>
+<ul>
+<li>一次弹射之后：$F_{\mathrm{avg}}(1-E_{\mathrm{avg}})\cdot F_{\mathrm{avg}}E_{\mathrm{avg}}$</li>
+<li>……</li>
+<li>$k$次弹射之后：$F_{\mathrm{avg}}^k(1-E_{\mathrm{avg}})^k\cdot F_{\mathrm{avg}}E_{\mathrm{avg}}$</li>
+</ul>
+<p>等比数列求和得到颜色项：<br />
+$$<br />
+\sum_{k=0}^\infty F_{\mathrm{avg}}^k(1-E_{\mathrm{avg}})^k\cdot F_{\mathrm{avg}}E_{\mathrm{avg}}=\frac{F_{\mathrm{avg}}E_{\mathrm{avg}}}{1-F_{\mathrm{avg}}(1-E_{\mathrm{avg}})}<br />
+$$<br />
+其中$F_{\mathrm{avg}}$也没有很好求，不过有一种近似的计算方法：<br />
+$$<br />
+\begin{aligned}<br />
+F_{\mathrm{avg}}(r,g)&amp;\approx 0.087237 + 0.0230685g - 0.0864902g^2 + 0.0774594g^3\\\\<br />
+&amp;+ 0.782654r - 0.136432r^2 + 0.278708r^3\\\\<br />
+&amp;+ 0.19744gr + 0.0360605g^2r - 0.2586gr^2;<br />
+\end{aligned}<br />
+$$<br />
+其中$r$为反射率，$g$为边缘色调，通常取$r$为Albedo颜色，$g=(0.827, 0.792, 0.678)$即可</p>
+<p>下图展示了Kulla-Conty能量补偿的结果，其中上面一行为进行能量补偿的结果，下一行为未进行能量补偿的结果</p>
+<p><img src="image-20211231141039926.png" alt="image-20211231141039926" /></p>
+<h3 id="6-参考资料">6. 参考资料</h3>
+<p><a href="https://zhuanlan.zhihu.com/p/53086060">【基于物理的渲染（PBR）白皮书】（一） 开篇：PBR核心知识体系总结与概览</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/56967462">【基于物理的渲染（PBR）白皮书】（二） PBR核心理论与渲染光学原理总结</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/69380665">【基于物理的渲染（PBR）白皮书】（四）法线分布函数相关总结</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/81708753">【基于物理的渲染（PBR）白皮书】（五）几何函数相关总结</a></p>
+<p>Akenine-Moller, Tomas, Eric Haines, and Naty Hoffman. <em>Real-time rendering</em>. AK Peters/crc Press, 2019.</p>
+<p>Pharr, Matt, Wenzel Jakob, and Greg Humphreys. <em>Physically based rendering: From theory to implementation</em>. Morgan Kaufmann, 2016.</p>
+<p><a href="https://www.bilibili.com/video/BV1YK4y1T7yY?from=search&amp;seid=15576827308893416813&amp;spm_id_from=333.337.0.0">GAMES202:高质量实时渲染</a></p>
+<p>Griffiths, David J. &ldquo;Introduction to electrodynamics.&rdquo; (2005): 574-574.</p>
 
     </article>
     
@@ -4484,6 +4542,7 @@ document.addEventListener('DOMContentLoaded', function () {
         <li><a href="#51-cook-torrance-brdf">5.1. Cook-Torrance BRDF</a></li>
         <li><a href="#52-金属工作流">5.2. 金属工作流</a></li>
         <li><a href="#53-多次弹射kulla-conty能量补偿">5.3. 多次弹射Kulla-Conty能量补偿</a></li>
+        <li><a href="#6-参考资料">6. 参考资料</a></li>
       </ul>
     </li>
   </ul>
