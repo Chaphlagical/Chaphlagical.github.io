@@ -14,11 +14,45 @@
     <managingEditor>chaf@mail.ustc.edu.cn (Wenbo Chen)</managingEditor>
     <webMaster>chaf@mail.ustc.edu.cn (Wenbo Chen)</webMaster>
     <copyright>©2022, All Rights Reserved</copyright>
-    <lastBuildDate>Mon, 03 Jan 2022 11:25:11 +0100</lastBuildDate>
+    <lastBuildDate>Mon, 03 Jan 2022 16:25:11 +0100</lastBuildDate>
     
         <atom:link href="https://chaphlagical.github.io/zh/categories/graphics/index.xml" rel="self" type="application/rss+xml" />
     
 
+      
+      <item>
+        <title>几何造型(5)：有理样条曲线</title>
+        <link>https://chaphlagical.github.io/zh/posts/geometry/rational/</link>
+        <pubDate>Mon, 03 Jan 2022 16:25:11 +0100</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        <atom:modified>Mon, 03 Jan 2022 16:25:11 +0100</atom:modified>
+        <guid>https://chaphlagical.github.io/zh/posts/geometry/rational/</guid>
+        <description>Bézier曲线和B样条曲线均不能用于表示圆锥曲线（如圆、椭圆、双曲线），我们需要一种更强大的样条曲线表示方法。 1. 二次曲面与圆锥曲线 1.1. 定义 圆</description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        <media:content url="https://chaphlagical.github.ioimages/posts/rational.png" medium="image"><media:title type="html">featured image</media:title></media:content>
+        
+        
+        
+          
+            
+              <category>Geometry</category>
+            
+          
+        
+        
+          
+            
+              <category>Geometry</category>
+            
+          
+            
+              <category>Graphics</category>
+            
+          
+        
+        
+      </item>
       
       <item>
         <title>几何造型(4)：极形式和开花算法</title>
@@ -30,20 +64,20 @@
         <description>1. 基本思想 1.1. 仿射组合(Affine Combinations) $n$点的仿射组合为： $$ p_{\pmb\alpha}=\sum_{i=1}^n\alpha_i\pmb{p}_i $$ 其中，$\sum_{i=1}^n\alpha_i=1$ 函数 $f$ 对参数 $x_i$ 是仿射的</description>
         
         <dc:creator>Wenbo Chen</dc:creator>
-        <media:content url="https://chaphlagical.github.ioimages/posts/pbr.png" medium="image"><media:title type="html">featured image</media:title></media:content>
+        <media:content url="https://chaphlagical.github.ioimages/posts/polar_form.png" medium="image"><media:title type="html">featured image</media:title></media:content>
         
         
         
           
             
-              <category>Real-time Rendering</category>
+              <category>Geometry</category>
             
           
         
         
           
             
-              <category>Rendering</category>
+              <category>Geometry</category>
             
           
             
