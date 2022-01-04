@@ -1751,7 +1751,7 @@ if (!doNotTrack) {
 <div class="single__infos">
   <time class="single__info" title="创建日期">📅&nbsp;2022年01月03日 </time>
   
-  &nbsp;&middot;&nbsp; <span class="single__info" title="阅读时长"> ☕&nbsp;5&nbsp;分钟 </span>
+  &nbsp;&middot;&nbsp; <span class="single__info" title="阅读时长"> ☕&nbsp;11&nbsp;分钟 </span>
   
   <span class="single__info">
     
@@ -1803,7 +1803,7 @@ if (!doNotTrack) {
 <li>三角形块Triangle Patch</li>
 <li>曲线的自然泛化</li>
 </ul>
-<h2 id="2-张量积曲面">2. 张量积曲面</h2>
+<h2 id="2-张量积曲面-tensor-product-surface">2. 张量积曲面 Tensor Product Surface</h2>
 <h3 id="21-基本思想">2.1. 基本思想</h3>
 <p>给定一个$n$维基函数空间<br />
 $$<br />
@@ -1935,7 +1935,7 @@ $$<br />
 <p><strong>de Casteljau算法的极形式表示</strong></p>
 <p><img src="image-20220103224055746.png" alt="image-20220103224055746" /></p>
 <h3 id="23-张量积b样条曲面">2.3. 张量积B样条曲面</h3>
-<h4 id="231-b样条块">2.3.1. B样条块</h4>
+<p><strong>B样条块</strong></p>
 <ul>
 <li>
 <p>比Bézier块更具一般性</p>
@@ -1953,6 +1953,331 @@ $$<br />
 $$</p>
 </li>
 </ul>
+<p>B样条块定义为：<br />
+$$<br />
+\boldsymbol { f } ( u , v ) = \sum _ { i = 0 } ^ { d } \sum _ { j = 0 } ^ { d } N _ { i } ^ { ( d ) } ( u ) N _ { j } ^ { ( d ) } ( v ) \boldsymbol { p } _ { i , j }<br />
+$$<br />
+使用B样条基函数的张量积作为基函数</p>
+<p>可以用 de Boor 算法计算该块（“曲线的曲线”思想），也可用 2D de Boor 算法，类似 2D de Casteljau 算法但权重不同（通过极形式计算）</p>
+<h3 id="24-张量积有理样条曲面">2.4. 张量积有理样条曲面</h3>
+<p><strong>有理块</strong></p>
+<p>使用有理Bézier/B样条创建块</p>
+<p>基本思想：</p>
+<ul>
+<li>在4D齐次空间中创建参数曲面</li>
+<li>投影到$\omega=1$的3D欧式空间</li>
+</ul>
+<p>欧式空间中3D曲面不是一个张量积曲面，齐次空间中4D曲面是张量积曲面</p>
+<p><strong>有理Bézier块</strong><br />
+$$<br />
+\begin{aligned} \boldsymbol { f } ^ { ( h o m ) } ( u , v ) = &amp; \sum _ { i = 0 } ^ { d } \sum _ { j = 0 } ^ { d } B _ { i } ^ { ( d ) } ( u ) B _ { j } ^ { ( d ) } ( v ) \left( \begin{array} { c } { \omega _ { i , j } \boldsymbol { p } _ { i , j } } \\ { \omega _ { i , j } } \end{array} \right) \\\\ \boldsymbol { f } ^ { ( \text {Eucl} ) } ( u , v )  =&amp; \frac { \sum _ { i = 0 } ^ { d } \sum _ { j = 0 } ^ { d } B _ { i } ^ { ( d ) } ( u ) B _ { j } ^ { ( d ) } ( v ) \omega _ { i , j } \boldsymbol { p } _ { i , j } } { \sum _ { i = 0 } ^ { d } \sum _ { j = 0 } ^ { d } B _ { i } ^ { ( d ) } ( u ) B _ { j } ^ { ( d ) } ( v ) \omega _ { i , j } } \end{aligned}<br />
+$$<br />
+<strong>有理B样条块</strong><br />
+$$<br />
+\begin{aligned}<br />
+\boldsymbol { f } ^ { ( \text {hom} ) } ( u , v ) = &amp; \sum _ { i = 0 } ^ { d } \sum _ { j = 0 } ^ { d } N _ { i } ^ { ( d ) } ( u ) N _ { j } ^ { ( d ) } ( v ) \left( \begin{array} { c } { \omega _ { i , j } \boldsymbol { p } _ { i , j } } \\ { \omega _ { i , j } } \end{array} \right) \\\\<br />
+\boldsymbol { f } ^ { ( \text {eucl} ) } ( u , v ) = &amp; \frac { \sum _ { i = 0 } ^ { d } \sum _ { j = 0 } ^ { d } N _ { i } ^ { ( d ) } ( u ) N _ { j } ^ { ( d ) } ( v ) \omega _ { i , j } \boldsymbol { p } _ { i , j } } { \sum _ { i = 0 } ^ { d } \sum _ { j = 0 } ^ { d } N _ { i } ^ { ( d ) } ( u ) N _ { j } ^ { ( d ) } ( v ) \omega _ { i , j } }<br />
+\end{aligned}<br />
+$$<br />
+<strong>旋转曲面</strong></p>
+<p><img src="image-20220104112502425.png" alt="image-20220104112502425" style="zoom:50%;" /></p>
+<p>有理块的优势：</p>
+<ul>
+<li>能够精确表示旋转曲面</li>
+<li>例子：圆柱、圆锥、球体、椭球等</li>
+</ul>
+<p>给定：曲线控制点$\pmb{p}_ 1,\dots,\pmb{p}_ n$，欲计算有理曲面$\pmb p_{i,j}$，描述了母线在 $y$ 轴上的旋转曲面</p>
+<p><img src="image-20220104112531875.png" alt="image-20220104112531875" style="zoom:50%;" /></p>
+<p>考虑简单情形，只看一个有理Bézier曲线，在 $u$ 方向给定控制顶点 $\pmb{p}_ 1,\dots,\pmb{p}_ {d+1}$，然后引入新参数 $v$，在 $v$ 方向使用二次Bézier曲线</p>
+<p><img src="image-20220104112816501.png" alt="image-20220104112816501" style="zoom:50%;" /></p>
+<p>使一个点按 $y$ 轴旋转，这样得到四段：</p>
+<p><img src="image-20220104113004614.png" alt="image-20220104113004614" /></p>
+<blockquote>
+<p>举例：</p>
+<p>双三次有理Bézier曲面表示椭球面：<br />
+$$<br />
+\frac{x^2}{a^2}+\frac{y^2}{b^2}+\frac{z^2}{c^2}=1<br />
+$$<br />
+参数方程表示：<br />
+$$<br />
+\begin{cases}<br />
+x=a\cos\varphi\cos\theta\\\\<br />
+y=b\cos\varphi\sin\theta\\\\<br />
+z=c\sin\varphi<br />
+\end{cases}<br />
+$$<br />
+令$u=\tan\frac{\varphi}{2}$，$v=\tan\frac{\theta}{2}$，有：<br />
+$$<br />
+\begin{cases}<br />
+x=\dfrac{a(1-u^2)(1-v^2)}{(1+u^2)(1+v^2)}\\\\<br />
+y=\dfrac{2b(1-u^2)v}{(1+u^2)(1+v^2)}\\\\<br />
+z=\dfrac{2cu}{1+u^2}<br />
+\end{cases}<br />
+$$<br />
+齐次坐标表示：<br />
+$$<br />
+\begin{cases}<br />
+x=a(1-u^2)(1-v^2)\\\\<br />
+y=2b(1-u^2)v\\\\<br />
+z=2c(1+v^2)u\\\\<br />
+w=(1+u^2)(1+v^2)<br />
+\end{cases}<br />
+$$<br />
+极形式表示为：<br />
+$$<br />
+\begin{cases}<br />
+X=a\left(1-\dfrac{u_1u_2+u_2u_3+u_1u_3}{3}\right)\left(1-\dfrac{v_1v_2+v_2v_3+v_1v_3}{3}\right)\\\\<br />
+Y=2b\left(1-\dfrac{u_1u_2+u_2u_3+u_1u_3}{3}\right)\dfrac{v_1+v_2+v_3}{3}\\\\<br />
+Z=2c\left(1+\dfrac{v_1v_2+v_2v_3+v_1v_3}{3}\right)\dfrac{u_1+u_2+u_3}{3}\\\\<br />
+W=\left(1+\dfrac{u_1u_2+u_2u_3+u_1u_3}{3}\right)\left(1+\dfrac{v_1v_2+v_2v_3+v_1v_3}{3}\right)<br />
+\end{cases}<br />
+$$<br />
+通过2D de Casteljau算法，即设置$f(0,\cdots,1;0,\cdots,1)$可得控制点：<br />
+$$<br />
+\begin{aligned}<br />
+\begin{pmatrix}<br />
+p_{00}&amp;p_{01}&amp;p_{02}&amp;p_{03}\\<br />
+w_{00}&amp;w_{01}&amp;w_{02}&amp;w_{03}<br />
+\end{pmatrix}<br />
+&amp;=<br />
+\begin{pmatrix}<br />
+a&amp;a&amp;\frac{2a}{3}&amp;0\\<br />
+0&amp;0&amp;0&amp;0\\<br />
+0&amp;\frac{2c}{3}&amp;\frac{4c}{3}&amp;2c\\<br />
+1&amp;1&amp;\frac{4}{3}&amp;2<br />
+\end{pmatrix}\\\\<br />
+\begin{pmatrix}<br />
+p_{10}&amp;p_{11}&amp;p_{12}&amp;p_{13}\\<br />
+w_{10}&amp;w_{11}&amp;w_{12}&amp;w_{13}<br />
+\end{pmatrix}<br />
+&amp;=<br />
+\begin{pmatrix}<br />
+a&amp;a&amp;\frac{2a}{3}&amp;0\\<br />
+\frac{2b}{3}&amp;\frac{2b}{3}&amp;\frac{4b}{9}&amp;0\\<br />
+0&amp;\frac{2c}{3}&amp;\frac{4c}{3}&amp;2c\\<br />
+1&amp;1&amp;\frac{4}{3}&amp;2<br />
+\end{pmatrix}\\\\<br />
+\begin{pmatrix}<br />
+p_{20}&amp;p_{21}&amp;p_{22}&amp;p_{23}\\<br />
+w_{20}&amp;w_{21}&amp;w_{22}&amp;w_{23}<br />
+\end{pmatrix}<br />
+&amp;=<br />
+\begin{pmatrix}<br />
+\frac{2a}{3}&amp;\frac{2a}{3}&amp;\frac{4a}{9}&amp;0\\<br />
+\frac{4b}{3}&amp;\frac{4b}{3}&amp;\frac{8b}{9}&amp;0\\<br />
+0&amp;\frac{8c}{9}&amp;\frac{16c}{9}&amp;\frac{8c}{3}\\<br />
+\frac{4}{3}&amp;\frac{4}{3}&amp;\frac{16}{9}&amp;\frac{8}{3}<br />
+\end{pmatrix}\\\\<br />
+\begin{pmatrix}<br />
+p_{30}&amp;p_{31}&amp;p_{32}&amp;p_{33}\\<br />
+w_{30}&amp;w_{31}&amp;w_{32}&amp;w_{33}<br />
+\end{pmatrix}<br />
+&amp;=<br />
+\begin{pmatrix}<br />
+0&amp;0&amp;0&amp;0\\<br />
+2b&amp;2b&amp;\frac{4b}{3}&amp;0\\<br />
+0&amp;\frac{4c}{3}&amp;\frac{8c}{3}&amp;4c\\<br />
+2&amp;2&amp;\frac{8}{3}&amp;4<br />
+\end{pmatrix}<br />
+\end{aligned}<br />
+$$<br />
+代入双三次有理Bézier曲面方程：<br />
+$$<br />
+\pmb f^{(Eucl)}(u,v)=<br />
+\frac{\sum_{i=0}^3\sum_{j=0}^3B_i^{(3)}(u)B_j^{(3)}(v)\omega_{i,j}\pmb p_{ij}}<br />
+{\sum_{i=0}^3\sum_{j=0}^3B_i^{(3)}(u)B_j^{(3)}(v)\omega_{i,j}}<br />
+$$<br />
+通过采样$(u,v)$可以画出最终的曲面</p>
+</blockquote>
+<h2 id="3-全度曲面-total-degree-surface">3. 全度曲面 Total Degree Surface</h2>
+<h3 id="31-bézier三角形">3.1. Bézier三角形</h3>
+<p><img src="image-20220104115439811.png" alt="image-20220104115439811" style="zoom:50%;" /></p>
+<p>能用三角形 de Casteljau 算法</p>
+<ul>
+<li>极形式能很好地定义 Bezier 三角形</li>
+<li>对开花值进行重心插值</li>
+</ul>
+<p><strong>极形式</strong></p>
+<p>使用点做参数的原函数 $F$ 与极形式 $\pmb{f}$ 分别为<br />
+$$<br />
+\begin{aligned}<br />
+F:\mathbb{R}^n \to \mathbb{R}^m\\\\<br />
+\pmb{f}:\mathbb{R}^{d\times n} \to \mathbb{R}^m<br />
+\end{aligned}<br />
+$$<br />
+性质</p>
+<ul>
+<li>
+<p>对角性：$\pmb{f}(\pmb{t},\dots,\pmb{t})=\pmb{F}(\pmb{t})$</p>
+</li>
+<li>
+<p>对称性：$\pmb{f}(\pmb{t}_ 1,\dots,\pmb{t}_ d)=\pmb{f}(\pmb{t}_ {\pi(1)},\dots,\pmb{p}_ {\pi(d)})$</p>
+</li>
+<li>
+<p>多重仿射：<br />
+$$<br />
+\pmb{f}(\pmb{t}_ 1,\dots,\sum\alpha_k\pmb{t}_ i^{(k)},\dots,\pmb{t}_ d)=\sum \alpha_k \pmb{f}(\pmb{t}_ {\pi(1)},\dots,\pmb{t}_ i^{(k)},\dots,\pmb{p}_ {\pi(d)})<br />
+$$</p>
+</li>
+</ul>
+<blockquote>
+<p>示例：</p>
+<p>双变量单项式基函数：<br />
+$$<br />
+\begin{aligned}<br />
+B=\{ &amp;\\<br />
+&amp; 1,\\<br />
+&amp; u,v,\\<br />
+&amp; u^2,uv,v^2\}<br />
+\end{aligned}<br />
+$$<br />
+对应的极形式为：<br />
+$$<br />
+\begin{aligned}<br />
+B=\{&amp;\\<br />
+&amp;1,\\<br />
+&amp;\frac{1}{2}(u_1+u_2),\frac{1}{2}(v_1+v_2)\\<br />
+&amp;u_1u_2,\frac{1}{4}(u_1v_1+u_1v_2+u_2v_1+u_2v_2),v_1v_2\<br />
+\}<br />
+\end{aligned}<br />
+$$</p>
+</blockquote>
+<p><strong>重心坐标</strong></p>
+<p><img src="image-20220104120007821.png" alt="image-20220104120007821" style="zoom:50%;" /></p>
+<p>其中 $\alpha + \beta + \gamma = 1$ <br />
+$$<br />
+\alpha = \frac { \operatorname { area } \left( \Delta \left( \boldsymbol { p } _ { 2 } , \boldsymbol { p } _ { 3 } , \boldsymbol { p } \right) \right) } { \operatorname { area } \left( \Delta \left( \boldsymbol { p } _ { 1 } , \boldsymbol { p } _ { 2 } , \boldsymbol { p } _ { 3 } \right) \right) } , \beta = \frac { \operatorname { area } \left( \Delta \left( \boldsymbol { p } _ { 1 } , \boldsymbol { p } _ { 3 } , \boldsymbol { p } \right) \right) } { \operatorname { area } \left( \Delta \left( \boldsymbol { p } _ { 1 } , \boldsymbol { p } _ { 2 } , \boldsymbol { p } _ { 3 } \right) \right) } , \gamma = \frac { \operatorname { area } \left( \Delta \left( \boldsymbol { p } _ { 1 } , \boldsymbol { p } _ { 2 } , \boldsymbol { p } \right) \right) } { \operatorname { area } \left( \Delta \left( \boldsymbol { p } _ { 1 } , \boldsymbol { p } _ { 2 } , \boldsymbol { p } _ { 3 } \right) \right) }<br />
+$$<br />
+可以化为：<br />
+$$<br />
+\begin{aligned}<br />
+\pmb{p} &amp;= \alpha \boldsymbol { p } _ { 1 } + \beta \boldsymbol { p } _ { 2 } + \gamma \boldsymbol { p } _ { 3 }\\\\<br />
+&amp;= \alpha \boldsymbol { p } _ { 1 } + \beta \boldsymbol { p } _ { 2 } + ( 1 - \alpha - \beta ) \boldsymbol { p } _ { 3 }\\\\<br />
+&amp;= \alpha \boldsymbol { p } _ { 1 } + \beta \boldsymbol { p } _ { 2 } + \boldsymbol { p } _ { 3 } - \alpha \boldsymbol { p } _ { 3 } - \beta \boldsymbol { p } _ { 3 }\\\\<br />
+&amp;= \boldsymbol { p } _ { 3 } + \alpha \left( \boldsymbol { p } _ { 1 } - \boldsymbol { p } _ { 3 } \right) + \beta \left( \boldsymbol { p } _ { 2 } - \boldsymbol { p } _ { 3 } \right)<br />
+\end{aligned}<br />
+$$<br />
+<img src="image-20220104120147309.png" alt="image-20220104120147309" style="zoom:50%;" /></p>
+<p><strong>Bézier三角形</strong></p>
+<p>基本思想：</p>
+<ul>
+<li>使用三角形上3D坐标作为极形式输入，对应一个重心坐标 $(\alpha,\beta,\gamma)$，其中 $\alpha + \beta + \gamma=1$</li>
+<li>输出是3D点</li>
+<li>控制点为$\pmb{p}(\underbrace{a,\dots,a}_i,\underbrace{b,\dots,b}_j,\underbrace{c,\dots,c}_k)$，其中$i+j+k=d$</li>
+<li>De Casteljau算法：通过重心坐标插值计算多项式值$\pmb p(x,\cdots,x)$</li>
+</ul>
+<p>Bézier三角形：</p>
+<ul>
+<li>
+<p>标准形式：<br />
+$$<br />
+\pmb F(t)=\sum_{i=0}^d\begin{pmatrix}d\\i\end{pmatrix}t^i(1-t)^{d-i}\pmb f(\underbrace{\pmb a,\cdots,\pmb a}_i,\underbrace{\pmb b,\cdots,\pmb b}_{d-i})<br />
+$$<br />
+重心插值点$\pmb p=(1-t)\pmb a+t\pmb b$</p>
+</li>
+<li>
+<p>重心形式：<br />
+$$<br />
+\pmb F(\pmb p)=\sum_{\begin{matrix}i+j=d\\i\geq0,j\geq 0\end{matrix}}\frac{d!}{i!j!}\alpha^i\beta^j\pmb f(\underbrace{\pmb a,\cdots,\pmb a}_i,\underbrace{\pmb b,\cdots,\pmb b}_j)<br />
+$$<br />
+其中，$\alpha+\beta=1$，重心插值点$\pmb p=\alpha\pmb a+\beta\pmb b$</p>
+</li>
+<li>
+<p>Bernstein形式：<br />
+$$<br />
+\pmb F(\pmb x)=\sum_{\begin{matrix}i+j+k=d\\i,j,k\geq 0\end{matrix}}\frac{d!}{i!j!k!}\alpha^i\beta^j\gamma^k\pmb f(\underbrace{\pmb a,\cdots,\pmb a}_i,\underbrace{\pmb b,\cdots,\pmb b}_j,\underbrace{\pmb c,\cdots,\pmb c}_k)<br />
+$$<br />
+其中，$\alpha+\beta+\gamma=1$，重心插值点$\pmb x=\alpha\pmb a+\beta\pmb b+\gamma\pmb c$</p>
+</li>
+</ul>
+<blockquote>
+<p>示例：</p>
+<p>三次Bézier三角形</p>
+<p><img src="image-20220104121513307.png" alt="image-20220104121513307" style="zoom:50%;" /></p>
+<p>De Casteljau算法：</p>
+<p><img src="image-20220104121551541.png" alt="image-20220104121551541" style="zoom:50%;" /></p>
+</blockquote>
+<h3 id="32-连续性">3.2. 连续性</h3>
+<p>为了简单起见，仅考虑二次Bézier三角形（即二维情形）</p>
+<p><img src="image-20220104140956688.png" alt="image-20220104140956688" style="zoom:50%;" /></p>
+<p>两个二次Bézier三角形具有公共边：</p>
+<ul>
+<li>参数化：$T_1=\{\pmb a,\pmb b,\pmb c\}$，$T_2=\{\pmb c,\pmb b,\pmb d\}$</li>
+<li>多项式表面：$\pmb F(T_1)$，$\pmb G(T_2)$</li>
+<li>控制点：
+<ul>
+<li>$\pmb F(T_1):\pmb f(\pmb a, \pmb a),\pmb f(\pmb a, \pmb b),\pmb f(\pmb b, \pmb b),\pmb f(\pmb a, \pmb c),\pmb f(\pmb c, \pmb c),\pmb f(\pmb b, \pmb c)$</li>
+<li>$\pmb G(T_2):\pmb g(\pmb d, \pmb d),\pmb g(\pmb d, \pmb b),\pmb g(\pmb b, \pmb b),\pmb g(\pmb d, \pmb c),\pmb g(\pmb c, \pmb c),\pmb g(\pmb b, \pmb c)$</li>
+</ul>
+</li>
+</ul>
+<p><strong>$C^0$连续性</strong></p>
+<p>边界点应满足：<br />
+$$<br />
+\begin{aligned}<br />
+\pmb f(\pmb b,\pmb b)&amp;=\pmb g(\pmb b,\pmb b)\\\\<br />
+\pmb f(\pmb b,\pmb c)&amp;=\pmb g(\pmb b,\pmb c)\\\\<br />
+\pmb f(\pmb c,\pmb c)&amp;=\pmb g(\pmb c,\pmb c)<br />
+\end{aligned}<br />
+$$</p>
+<blockquote>
+<p>证明：</p>
+<p>定义$\pmb x:=\beta\pmb b+\gamma\pmb c$，$\beta+\gamma=1$<br />
+$$<br />
+\begin{aligned}<br />
+\pmb f(\pmb x,\pmb x)<br />
+&amp;=\beta\pmb f(\pmb b,\pmb x)+\gamma\pmb f(\pmb c,\pmb x)\\\\<br />
+&amp;=\beta\pmb f(\pmb b,\beta\pmb b+\gamma\pmb c)+\gamma\pmb f(\pmb c,\beta\pmb b+\gamma\pmb c)\\\\<br />
+&amp;=\beta^2\pmb f(\pmb b,\pmb b)+2\beta\gamma\pmb f(\pmb b,\pmb c)+\gamma^2\pmb f(\pmb c,\pmb c)\\\\<br />
+&amp;=\beta^2\pmb g(\pmb b,\pmb b)+2\beta\gamma\pmb g(\pmb b,\pmb c)+\gamma^2\pmb g(\pmb c,\pmb c)\\\\<br />
+&amp;=\beta\pmb g(\pmb b,\beta\pmb b+\gamma\pmb c)+\gamma\pmb g(\pmb c,\beta\pmb b+\gamma\pmb c)\\\\<br />
+&amp;=\beta\pmb g(\pmb b,\pmb x)+\gamma\pmb g(\pmb c,\pmb x)\\\\<br />
+&amp;=\pmb g(\pmb x,\pmb x)<br />
+\end{aligned}<br />
+$$</p>
+</blockquote>
+<p><strong>$C^1$连续性</strong></p>
+<p>满足$C^1$连续性的前提是满足$C^0$连续性</p>
+<p>并且极形式满足：<br />
+$$<br />
+\begin{aligned}<br />
+\pmb f(\pmb a,\pmb b)&amp;=\pmb g(\pmb a,\pmb b)\\\\<br />
+\pmb f(\pmb b,\pmb d)&amp;=\pmb g(\pmb b,\pmb d)\\\\<br />
+\pmb f(\pmb a,\pmb c)&amp;=\pmb g(\pmb a,\pmb c)\\\\<br />
+\pmb f(\pmb c,\pmb d)&amp;=\pmb g(\pmb c,\pmb d)<br />
+\end{aligned}<br />
+$$</p>
+<blockquote>
+<p>证明：</p>
+<p>导数：<br />
+$$<br />
+\frac{\partial}{\partial \hat {\pmb d}}\pmb F(\pmb x)\Bigg|_{\pmb x=\pmb p}=\pmb f(\pmb p,\hat{\pmb d})<br />
+$$<br />
+$C^1$连续，则有：<br />
+$$<br />
+\forall \pmb x\in\mathbb R^3:\pmb f(\pmb p,\pmb x)=\pmb g(\pmb p,\pmb x)<br />
+$$<br />
+因此，<br />
+$$<br />
+\forall \pmb x\in\mathbb R^3:<br />
+\begin{cases}<br />
+\pmb f(\pmb b,\pmb x)=\pmb g(\pmb b,\pmb x)\\\\<br />
+\pmb f(\pmb c,\pmb x)=\pmb g(\pmb c,\pmb x)<br />
+\end{cases}<br />
+$$<br />
+对重心坐标：$\pmb x=\alpha\pmb a+\beta\pmb b+\gamma\pmb c$<br />
+$$<br />
+\begin{aligned}<br />
+\pmb f(\pmb b,\pmb x)&amp;=\alpha\pmb f(\pmb a,\pmb b)+\beta\pmb f(\pmb b,\pmb b)+\gamma\pmb f(\pmb b,\pmb c)\\\\<br />
+\pmb g(\pmb b,\pmb x)&amp;=\alpha\pmb g(\pmb a,\pmb b)+\beta\pmb g(\pmb b,\pmb b)+\gamma\pmb g(\pmb b,\pmb c)\\\\<br />
+\pmb f(\pmb b,\pmb x)=\pmb g(\pmb b,\pmb x)&amp;\Leftrightarrow<br />
+\alpha\pmb f(\pmb a,\pmb b)+\beta\pmb f(\pmb b,\pmb b)+\gamma\pmb f(\pmb b,\pmb c)\\\\<br />
+&amp;=\alpha\pmb g(\pmb a,\pmb b)+\beta\pmb g(\pmb b,\pmb b)+\gamma\pmb g(\pmb b,\pmb c)\\\\<br />
+&amp;\Leftrightarrow \pmb f(\pmb a,\pmb b)=\pmb g(\pmb a,\pmb b)<br />
+\end{aligned}<br />
+$$<br />
+同理可得其他条件</p>
+</blockquote>
 
     </article>
     
@@ -3555,7 +3880,7 @@ document.addEventListener('DOMContentLoaded', function () {
         <li><a href="#13-全度曲面">1.3. 全度曲面</a></li>
       </ul>
     </li>
-    <li><a href="#2-张量积曲面">2. 张量积曲面</a>
+    <li><a href="#2-张量积曲面-tensor-product-surface">2. 张量积曲面 Tensor Product Surface</a>
       <ul>
         <li><a href="#21-基本思想">2.1. 基本思想</a></li>
         <li><a href="#22-张量积bézier曲面">2.2. 张量积Bézier曲面</a>
@@ -3566,11 +3891,14 @@ document.addEventListener('DOMContentLoaded', function () {
             <li><a href="#224-极形式">2.2.4. 极形式</a></li>
           </ul>
         </li>
-        <li><a href="#23-张量积b样条曲面">2.3. 张量积B样条曲面</a>
-          <ul>
-            <li><a href="#231-b样条块">2.3.1. B样条块</a></li>
-          </ul>
-        </li>
+        <li><a href="#23-张量积b样条曲面">2.3. 张量积B样条曲面</a></li>
+        <li><a href="#24-张量积有理样条曲面">2.4. 张量积有理样条曲面</a></li>
+      </ul>
+    </li>
+    <li><a href="#3-全度曲面-total-degree-surface">3. 全度曲面 Total Degree Surface</a>
+      <ul>
+        <li><a href="#31-bézier三角形">3.1. Bézier三角形</a></li>
+        <li><a href="#32-连续性">3.2. 连续性</a></li>
       </ul>
     </li>
   </ul>
