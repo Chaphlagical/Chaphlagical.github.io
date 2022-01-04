@@ -88,6 +88,40 @@
         
       </item>
       
+      <item>
+        <title>现代控制理论学习要点</title>
+        <link>https://chaphlagical.github.io/zh/posts/physics/control/</link>
+        <pubDate>Tue, 02 Jun 2020 09:14:11 +0100</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        <atom:modified>Tue, 02 Jun 2020 09:14:11 +0100</atom:modified>
+        <guid>https://chaphlagical.github.io/zh/posts/physics/control/</guid>
+        <description>1. 数学基础 1.1. 线性空间与线性变换 1.1.1. 代数结构简介 集 定义为具有相同属性事物的全体 群 设$\pmb F$为一非空集，如果在$\pmb F$中存在某种运算$</description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        <media:content url="https://chaphlagical.github.ioimages/posts/control.png" medium="image"><media:title type="html">featured image</media:title></media:content>
+        
+        
+        
+          
+            
+              <category>Computer Network</category>
+            
+          
+        
+        
+          
+            
+              <category>Computer Science</category>
+            
+          
+            
+              <category>Computer Network</category>
+            
+          
+        
+        
+      </item>
+      
 
     
   </channel>
