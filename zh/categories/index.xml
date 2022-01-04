@@ -111,12 +111,12 @@
       </item>
       
       <item>
-        <title>Computer Network</title>
-        <link>https://chaphlagical.github.io/zh/categories/computer-network/</link>
-        <pubDate>Mon, 10 Aug 2020 21:43:11 +0100</pubDate>
+        <title>Computer Science</title>
+        <link>https://chaphlagical.github.io/zh/categories/computer-science/</link>
+        <pubDate>Thu, 10 Dec 2020 21:43:11 +0100</pubDate>
         <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
         
-        <guid>https://chaphlagical.github.io/zh/categories/computer-network/</guid>
+        <guid>https://chaphlagical.github.io/zh/categories/computer-science/</guid>
         <description></description>
         
         <dc:creator>Wenbo Chen</dc:creator>
@@ -129,12 +129,30 @@
       </item>
       
       <item>
-        <title>Computer Science</title>
-        <link>https://chaphlagical.github.io/zh/categories/computer-science/</link>
+        <title>Embedded System</title>
+        <link>https://chaphlagical.github.io/zh/categories/embedded-system/</link>
+        <pubDate>Thu, 10 Dec 2020 21:43:11 +0100</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        
+        <guid>https://chaphlagical.github.io/zh/categories/embedded-system/</guid>
+        <description></description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        
+        
+        
+        
+        
+        
+      </item>
+      
+      <item>
+        <title>Computer Network</title>
+        <link>https://chaphlagical.github.io/zh/categories/computer-network/</link>
         <pubDate>Mon, 10 Aug 2020 21:43:11 +0100</pubDate>
         <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
         
-        <guid>https://chaphlagical.github.io/zh/categories/computer-science/</guid>
+        <guid>https://chaphlagical.github.io/zh/categories/computer-network/</guid>
         <description></description>
         
         <dc:creator>Wenbo Chen</dc:creator>

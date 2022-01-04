@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" 
+  xmlns:content="http://purl.org/rss/1.0/modules/content/" 
+  xmlns:dc="http://purl.org/dc/elements/1.1/" 
+  xmlns:atom="http://www.w3.org/2005/Atom" 
+  xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" 
+  xmlns:media="http://search.yahoo.com/mrss/">
+  <channel>
+    <title>Embedded System on Chaf&#39;s Blog</title>
+    <link>https://chaphlagical.github.io/zh/tags/embedded-system/</link>
+    <description>Recent content in Embedded System on Chaf&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <managingEditor>chaf@mail.ustc.edu.cn (Wenbo Chen)</managingEditor>
+    <webMaster>chaf@mail.ustc.edu.cn (Wenbo Chen)</webMaster>
+    <copyright>©2022, All Rights Reserved</copyright>
+    <lastBuildDate>Thu, 10 Dec 2020 21:43:11 +0100</lastBuildDate>
+    
+        <atom:link href="https://chaphlagical.github.io/zh/tags/embedded-system/index.xml" rel="self" type="application/rss+xml" />
+    
+
+      
+      <item>
+        <title>嵌入式系统学习要点</title>
+        <link>https://chaphlagical.github.io/zh/posts/computer/embedded_system/</link>
+        <pubDate>Thu, 10 Dec 2020 21:43:11 +0100</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        <atom:modified>Thu, 10 Dec 2020 21:43:11 +0100</atom:modified>
+        <guid>https://chaphlagical.github.io/zh/posts/computer/embedded_system/</guid>
+        <description>1. 概述 1.1. 计算机的发展简史 1.1.1. 计算机的诞生 布莱兹·帕斯卡(Blaise Pasca)：基于齿轮结构的机械加减法器 莱布尼茨(Gottfried Wilhelm Le</description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        <media:content url="https://chaphlagical.github.ioimages/posts/embedded_system.png" medium="image"><media:title type="html">featured image</media:title></media:content>
+        
+        
+        
+          
+            
+              <category>Embedded System</category>
+            
+          
+        
+        
+          
+            
+              <category>Computer Science</category>
+            
+          
+            
+              <category>Embedded System</category>
+            
+          
+        
+        
+      </item>
+      
+
+    
+  </channel>
+</rss>

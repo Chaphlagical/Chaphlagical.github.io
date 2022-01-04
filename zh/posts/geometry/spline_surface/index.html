@@ -1331,7 +1331,7 @@
 
 
     
-<meta name="description" content="张量积曲面与" />
+<meta name="description" content="张量积曲面与全度曲面介绍" />
 
 
 <meta name="keywords" content="Geometry">
@@ -1347,15 +1347,15 @@
 <meta property="og:title" content="几何造型(6)：样条曲面">
 <meta property="og:url" content="https://chaphlagical.github.io/zh/posts/geometry/spline_surface/">
 <meta property="og:type" content="article">
-<meta property="og:description" content="张量积曲面与">
+<meta property="og:description" content="张量积曲面与全度曲面介绍">
 
   
-    <meta property="og:image" content="https://chaphlagical.github.io/images/posts/rational.png">
-    <meta property="og:image:url" content="https://chaphlagical.github.io/images/posts/rational.png">
+    <meta property="og:image" content="https://chaphlagical.github.io/images/posts/spline_surface.png">
+    <meta property="og:image:url" content="https://chaphlagical.github.io/images/posts/spline_surface.png">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:app:name:iphone" content="Chaf&#39;s Blog">
     <meta property="twitter:title" content="几何造型(6)：样条曲面">
-    <meta property="twitter:description" content="张量积曲面与">
+    <meta property="twitter:description" content="张量积曲面与全度曲面介绍">
   
 
 <meta name="generator" content="Hugo 0.82.0" />
@@ -1397,9 +1397,9 @@
     "datePublished": "2022-01-03T21:43:11+01:00",
     "dateModified": "2022-01-03T21:43:11+01:00",
     "url" : "https://chaphlagical.github.io/zh/posts/geometry/spline_surface/",
-    "description": "张量积曲面与",
+    "description": "张量积曲面与全度曲面介绍",
     "keywords": ["Geometry"],
-    "image" : "https://chaphlagical.github.io/images/posts/rational.png",
+    "image" : "https://chaphlagical.github.io/images/posts/spline_surface.png",
     "mainEntityOfPage": {
       "@type": "WebPage",
       "@id": "https://chaphlagical.github.io"
@@ -1934,6 +1934,25 @@ $$<br />
 <p><img src="image-20220103223926601.png" alt="image-20220103223926601" /></p>
 <p><strong>de Casteljau算法的极形式表示</strong></p>
 <p><img src="image-20220103224055746.png" alt="image-20220103224055746" /></p>
+<h3 id="23-张量积b样条曲面">2.3. 张量积B样条曲面</h3>
+<h4 id="231-b样条块">2.3.1. B样条块</h4>
+<ul>
+<li>
+<p>比Bézier块更具一般性</p>
+</li>
+<li>
+<p>给定阶数$k$</p>
+</li>
+<li>
+<p>给定在$u$、$v$方向上的结序列$(u_0,\dots,u_{n+k})$、$(v_0,\dots,v_{m+k})$</p>
+</li>
+<li>
+<p>控制点阵：<br />
+$$<br />
+\begin{array} { c c c } { d _ { 0,0 } } &amp; { \dots } &amp; { d _ { n,0 } } \\\\ { \dots } &amp; { } &amp; { \dots } \\\\ { d _ { 0 , m } } &amp; { \dots } &amp; { d _ { n , m } } \end{array}<br />
+$$</p>
+</li>
+</ul>
 
     </article>
     
@@ -3545,6 +3564,11 @@ document.addEventListener('DOMContentLoaded', function () {
             <li><a href="#222-bézier块">2.2.2. Bézier块</a></li>
             <li><a href="#223-连续性">2.2.3. 连续性</a></li>
             <li><a href="#224-极形式">2.2.4. 极形式</a></li>
+          </ul>
+        </li>
+        <li><a href="#23-张量积b样条曲面">2.3. 张量积B样条曲面</a>
+          <ul>
+            <li><a href="#231-b样条块">2.3.1. B样条块</a></li>
           </ul>
         </li>
       </ul>

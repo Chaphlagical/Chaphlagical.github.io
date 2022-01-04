@@ -30,7 +30,7 @@
         <description>1. 样条曲面简介 当输入为一维时，将得到曲线，而将输入变为二维时，则可以得到曲面输出 1.1. 参数样条曲面 两个参数坐标$(u,v)$ 分段双变量多项式 多片</description>
         
         <dc:creator>Wenbo Chen</dc:creator>
-        <media:content url="https://chaphlagical.github.ioimages/posts/rational.png" medium="image"><media:title type="html">featured image</media:title></media:content>
+        <media:content url="https://chaphlagical.github.ioimages/posts/spline_surface.png" medium="image"><media:title type="html">featured image</media:title></media:content>
         
         
         
