@@ -625,6 +625,58 @@
         
       </item>
       
+      <item>
+        <title>理论力学学习要点</title>
+        <link>https://chaphlagical.github.io/zh/posts/physics/mechanics/</link>
+        <pubDate>Sat, 06 Jun 2020 10:43:11 +0100</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        <atom:modified>Sat, 06 Jun 2020 10:43:11 +0100</atom:modified>
+        <guid>https://chaphlagical.github.io/zh/posts/physics/mechanics/</guid>
+        <description>1. 物体机械运动的基本规律 1.1. 物体运动的描述 1.1.1. 描述运动的两种方法 拉格朗日方法 拉格朗日方法是一种随体方法.观察者在确定研究对象后，自始至终跟随这一</description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        <media:content url="https://chaphlagical.github.ioimages/posts/machanics.png" medium="image"><media:title type="html">featured image</media:title></media:content>
+        
+        
+        
+          
+            
+              <category>Physics</category>
+            
+          
+        
+        
+          
+            
+              <category>Physics</category>
+            
+          
+            
+              <category>Theoretical Mechanics</category>
+            
+          
+        
+        
+      </item>
+      
+      <item>
+        <title></title>
+        <link>https://chaphlagical.github.io/zh/posts/physics/control/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        
+        <guid>https://chaphlagical.github.io/zh/posts/physics/control/</guid>
+        <description>现代控制理论总复习 [TOC] 1. 数学基础 1.1. 线性空间与线性变换 1.1.1. 代数结构简介 集 定义为具有相同属性事物的全体 群 设$\pmb F$为一非空集，如果在$\pmb</description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        
+        
+        
+        
+        
+        
+      </item>
+      
 
     
   </channel>

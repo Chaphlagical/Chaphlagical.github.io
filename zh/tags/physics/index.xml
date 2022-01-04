@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" 
+  xmlns:content="http://purl.org/rss/1.0/modules/content/" 
+  xmlns:dc="http://purl.org/dc/elements/1.1/" 
+  xmlns:atom="http://www.w3.org/2005/Atom" 
+  xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" 
+  xmlns:media="http://search.yahoo.com/mrss/">
+  <channel>
+    <title>Physics on Chaf&#39;s Blog</title>
+    <link>https://chaphlagical.github.io/zh/tags/physics/</link>
+    <description>Recent content in Physics on Chaf&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <managingEditor>chaf@mail.ustc.edu.cn (Wenbo Chen)</managingEditor>
+    <webMaster>chaf@mail.ustc.edu.cn (Wenbo Chen)</webMaster>
+    <copyright>©2022, All Rights Reserved</copyright>
+    <lastBuildDate>Sat, 06 Jun 2020 10:43:11 +0100</lastBuildDate>
+    
+        <atom:link href="https://chaphlagical.github.io/zh/tags/physics/index.xml" rel="self" type="application/rss+xml" />
+    
+
+      
+      <item>
+        <title>理论力学学习要点</title>
+        <link>https://chaphlagical.github.io/zh/posts/physics/mechanics/</link>
+        <pubDate>Sat, 06 Jun 2020 10:43:11 +0100</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        <atom:modified>Sat, 06 Jun 2020 10:43:11 +0100</atom:modified>
+        <guid>https://chaphlagical.github.io/zh/posts/physics/mechanics/</guid>
+        <description>1. 物体机械运动的基本规律 1.1. 物体运动的描述 1.1.1. 描述运动的两种方法 拉格朗日方法 拉格朗日方法是一种随体方法.观察者在确定研究对象后，自始至终跟随这一</description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        <media:content url="https://chaphlagical.github.ioimages/posts/machanics.png" medium="image"><media:title type="html">featured image</media:title></media:content>
+        
+        
+        
+          
+            
+              <category>Physics</category>
+            
+          
+        
+        
+          
+            
+              <category>Physics</category>
+            
+          
+            
+              <category>Theoretical Mechanics</category>
+            
+          
+        
+        
+      </item>
+      
+
+    
+  </channel>
+</rss>
