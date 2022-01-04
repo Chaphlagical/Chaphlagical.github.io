@@ -14,19 +14,19 @@
     <managingEditor>chaf@mail.ustc.edu.cn (Wenbo Chen)</managingEditor>
     <webMaster>chaf@mail.ustc.edu.cn (Wenbo Chen)</webMaster>
     <copyright>©2022, All Rights Reserved</copyright>
-    <lastBuildDate>Mon, 03 Jan 2022 21:43:11 +0100</lastBuildDate>
+    <lastBuildDate>Wed, 05 Jan 2022 14:36:11 +0100</lastBuildDate>
     
         <atom:link href="https://chaphlagical.github.io/zh/tags/index.xml" rel="self" type="application/rss+xml" />
     
 
       
       <item>
-        <title>Geometry</title>
-        <link>https://chaphlagical.github.io/zh/tags/geometry/</link>
-        <pubDate>Mon, 03 Jan 2022 21:43:11 +0100</pubDate>
+        <title>Computer Aided Geometric Design</title>
+        <link>https://chaphlagical.github.io/zh/tags/computer-aided-geometric-design/</link>
+        <pubDate>Wed, 05 Jan 2022 14:36:11 +0100</pubDate>
         <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
         
-        <guid>https://chaphlagical.github.io/zh/tags/geometry/</guid>
+        <guid>https://chaphlagical.github.io/zh/tags/computer-aided-geometric-design/</guid>
         <description></description>
         
         <dc:creator>Wenbo Chen</dc:creator>
@@ -147,12 +147,30 @@
       </item>
       
       <item>
-        <title>Physics</title>
-        <link>https://chaphlagical.github.io/zh/tags/physics/</link>
+        <title>Theoretical Mechanics</title>
+        <link>https://chaphlagical.github.io/zh/tags/theoretical-mechanics/</link>
         <pubDate>Sat, 06 Jun 2020 10:43:11 +0100</pubDate>
         <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
         
-        <guid>https://chaphlagical.github.io/zh/tags/physics/</guid>
+        <guid>https://chaphlagical.github.io/zh/tags/theoretical-mechanics/</guid>
+        <description></description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        
+        
+        
+        
+        
+        
+      </item>
+      
+      <item>
+        <title>Control Theory</title>
+        <link>https://chaphlagical.github.io/zh/tags/control-theory/</link>
+        <pubDate>Tue, 02 Jun 2020 09:14:11 +0100</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        
+        <guid>https://chaphlagical.github.io/zh/tags/control-theory/</guid>
         <description></description>
         
         <dc:creator>Wenbo Chen</dc:creator>

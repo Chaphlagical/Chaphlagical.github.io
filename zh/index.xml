@@ -14,7 +14,7 @@
     <managingEditor>chaf@mail.ustc.edu.cn (Wenbo Chen)</managingEditor>
     <webMaster>chaf@mail.ustc.edu.cn (Wenbo Chen)</webMaster>
     <copyright>©2022, All Rights Reserved</copyright>
-    <lastBuildDate>Mon, 03 Jan 2022 21:43:11 +0100</lastBuildDate>
+    <lastBuildDate>Wed, 05 Jan 2022 14:36:11 +0100</lastBuildDate>
     
         <atom:link href="https://chaphlagical.github.io/zh/index.xml" rel="self" type="application/rss+xml" />
     
@@ -42,6 +42,40 @@
 
       
       <item>
+        <title>几何造型(7)：细分曲线与曲面</title>
+        <link>https://chaphlagical.github.io/zh/posts/geometry/subdivision/</link>
+        <pubDate>Wed, 05 Jan 2022 14:36:11 +0100</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        <atom:modified>Wed, 05 Jan 2022 14:36:11 +0100</atom:modified>
+        <guid>https://chaphlagical.github.io/zh/posts/geometry/subdivision/</guid>
+        <description>1. 简介 样条曲面的局限性 连续张量积样条曲面的参数域仅在特定的方形网格上定义，因此拓扑受限 将多个参数域装配到一个曲面非常繁琐，很难获得连续性保证</description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        <media:content url="https://chaphlagical.github.ioimages/posts/subdivision.png" medium="image"><media:title type="html">featured image</media:title></media:content>
+        
+        
+        
+          
+            
+              <category>Computer Aided Geometric Design</category>
+            
+          
+        
+        
+          
+            
+              <category>Geometry</category>
+            
+          
+            
+              <category>Graphics</category>
+            
+          
+        
+        
+      </item>
+      
+      <item>
         <title>几何造型(6)：样条曲面</title>
         <link>https://chaphlagical.github.io/zh/posts/geometry/spline_surface/</link>
         <pubDate>Mon, 03 Jan 2022 21:43:11 +0100</pubDate>
@@ -57,7 +91,7 @@
         
           
             
-              <category>Geometry</category>
+              <category>Computer Aided Geometric Design</category>
             
           
         
@@ -91,7 +125,7 @@
         
           
             
-              <category>Geometry</category>
+              <category>Computer Aided Geometric Design</category>
             
           
         
@@ -125,7 +159,7 @@
         
           
             
-              <category>Geometry</category>
+              <category>Computer Aided Geometric Design</category>
             
           
         
@@ -193,7 +227,7 @@
         
           
             
-              <category>Geometry</category>
+              <category>Computer Aided Geometric Design</category>
             
           
         
@@ -257,7 +291,7 @@
         
           
             
-              <category>Geometry</category>
+              <category>Computer Aided Geometric Design</category>
             
           
         
@@ -291,7 +325,7 @@
         
           
             
-              <category>Geometry</category>
+              <category>Computer Aided Geometric Design</category>
             
           
         
@@ -583,10 +617,6 @@
               <category>Computer Science</category>
             
           
-            
-              <category>Embedded System</category>
-            
-          
         
         
       </item>
@@ -617,10 +647,6 @@
               <category>Computer Science</category>
             
           
-            
-              <category>Computer Network</category>
-            
-          
         
         
       </item>
@@ -641,18 +667,14 @@
         
           
             
-              <category>Physics</category>
-            
-          
-        
-        
-          
-            
-              <category>Physics</category>
-            
-          
-            
               <category>Theoretical Mechanics</category>
+            
+          
+        
+        
+          
+            
+              <category>Physics</category>
             
           
         
@@ -675,20 +697,34 @@
         
           
             
-              <category>Computer Network</category>
+              <category>Control Theory</category>
             
           
         
         
           
             
-              <category>Computer Science</category>
+              <category>Control Theory</category>
             
           
-            
-              <category>Computer Network</category>
-            
-          
+        
+        
+      </item>
+      
+      <item>
+        <title></title>
+        <link>https://chaphlagical.github.io/zh/posts/geometry/differential_geometry/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        
+        <guid>https://chaphlagical.github.io/zh/posts/geometry/differential_geometry/</guid>
+        <description></description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        
+        
+        
+        
         
         
       </item>

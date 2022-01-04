@@ -18,7 +18,7 @@
     <lastmod>2020-01-19T21:13:42+09:00</lastmod>
   </url><url>
     <loc>https://chaphlagical.github.io/zh/</loc>
-    <lastmod>2022-01-03T21:43:11+01:00</lastmod>
+    <lastmod>2022-01-05T14:36:11+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -31,7 +31,7 @@
                 />
   </url><url>
     <loc>https://chaphlagical.github.io/zh/categories/</loc>
-    <lastmod>2022-01-03T21:43:11+01:00</lastmod>
+    <lastmod>2022-01-05T14:36:11+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -43,17 +43,17 @@
                 href="https://chaphlagical.github.io/zh/categories/"
                 />
   </url><url>
-    <loc>https://chaphlagical.github.io/zh/tags/geometry/</loc>
-    <lastmod>2022-01-03T21:43:11+01:00</lastmod>
+    <loc>https://chaphlagical.github.io/zh/tags/computer-aided-geometric-design/</loc>
+    <lastmod>2022-01-05T14:36:11+01:00</lastmod>
   </url><url>
     <loc>https://chaphlagical.github.io/zh/categories/geometry/</loc>
-    <lastmod>2022-01-03T21:43:11+01:00</lastmod>
+    <lastmod>2022-01-05T14:36:11+01:00</lastmod>
   </url><url>
     <loc>https://chaphlagical.github.io/zh/categories/graphics/</loc>
-    <lastmod>2022-01-03T21:43:11+01:00</lastmod>
+    <lastmod>2022-01-05T14:36:11+01:00</lastmod>
   </url><url>
     <loc>https://chaphlagical.github.io/zh/posts/</loc>
-    <lastmod>2022-01-03T21:43:11+01:00</lastmod>
+    <lastmod>2022-01-05T14:36:11+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -66,7 +66,7 @@
                 />
   </url><url>
     <loc>https://chaphlagical.github.io/zh/tags/</loc>
-    <lastmod>2022-01-03T21:43:11+01:00</lastmod>
+    <lastmod>2022-01-05T14:36:11+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -77,6 +77,9 @@
                 hreflang="zh"
                 href="https://chaphlagical.github.io/zh/tags/"
                 />
+  </url><url>
+    <loc>https://chaphlagical.github.io/zh/posts/geometry/subdivision/</loc>
+    <lastmod>2022-01-05T14:36:11+01:00</lastmod>
   </url><url>
     <loc>https://chaphlagical.github.io/zh/posts/geometry/spline_surface/</loc>
     <lastmod>2022-01-03T21:43:11+01:00</lastmod>
@@ -159,9 +162,6 @@
     <loc>https://chaphlagical.github.io/zh/tags/embedded-system/</loc>
     <lastmod>2020-12-10T21:43:11+01:00</lastmod>
   </url><url>
-    <loc>https://chaphlagical.github.io/zh/categories/embedded-system/</loc>
-    <lastmod>2020-12-10T21:43:11+01:00</lastmod>
-  </url><url>
     <loc>https://chaphlagical.github.io/zh/posts/computer/embedded_system/</loc>
     <lastmod>2020-12-10T21:43:11+01:00</lastmod>
   </url><url>
@@ -220,26 +220,28 @@
     <loc>https://chaphlagical.github.io/zh/tags/computer-network/</loc>
     <lastmod>2020-08-10T21:43:11+01:00</lastmod>
   </url><url>
-    <loc>https://chaphlagical.github.io/zh/categories/computer-network/</loc>
-    <lastmod>2020-08-10T21:43:11+01:00</lastmod>
-  </url><url>
     <loc>https://chaphlagical.github.io/zh/posts/computer/network/</loc>
     <lastmod>2020-08-10T21:43:11+01:00</lastmod>
-  </url><url>
-    <loc>https://chaphlagical.github.io/zh/tags/physics/</loc>
-    <lastmod>2020-06-06T10:43:11+01:00</lastmod>
   </url><url>
     <loc>https://chaphlagical.github.io/zh/categories/physics/</loc>
     <lastmod>2020-06-06T10:43:11+01:00</lastmod>
   </url><url>
-    <loc>https://chaphlagical.github.io/zh/categories/theoretical-mechanics/</loc>
+    <loc>https://chaphlagical.github.io/zh/tags/theoretical-mechanics/</loc>
     <lastmod>2020-06-06T10:43:11+01:00</lastmod>
   </url><url>
     <loc>https://chaphlagical.github.io/zh/posts/physics/mechanics/</loc>
     <lastmod>2020-06-06T10:43:11+01:00</lastmod>
   </url><url>
+    <loc>https://chaphlagical.github.io/zh/tags/control-theory/</loc>
+    <lastmod>2020-06-02T09:14:11+01:00</lastmod>
+  </url><url>
+    <loc>https://chaphlagical.github.io/zh/categories/control-theory/</loc>
+    <lastmod>2020-06-02T09:14:11+01:00</lastmod>
+  </url><url>
     <loc>https://chaphlagical.github.io/zh/posts/physics/control/</loc>
     <lastmod>2020-06-02T09:14:11+01:00</lastmod>
+  </url><url>
+    <loc>https://chaphlagical.github.io/zh/posts/geometry/differential_geometry/</loc>
   </url><url>
     <loc>https://chaphlagical.github.io/zh/publication/paper/paper1/</loc>
     <xhtml:link

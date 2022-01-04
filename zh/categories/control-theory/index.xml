@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" 
+  xmlns:content="http://purl.org/rss/1.0/modules/content/" 
+  xmlns:dc="http://purl.org/dc/elements/1.1/" 
+  xmlns:atom="http://www.w3.org/2005/Atom" 
+  xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" 
+  xmlns:media="http://search.yahoo.com/mrss/">
+  <channel>
+    <title>Control Theory on Chaf&#39;s Blog</title>
+    <link>https://chaphlagical.github.io/zh/categories/control-theory/</link>
+    <description>Recent content in Control Theory on Chaf&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <managingEditor>chaf@mail.ustc.edu.cn (Wenbo Chen)</managingEditor>
+    <webMaster>chaf@mail.ustc.edu.cn (Wenbo Chen)</webMaster>
+    <copyright>©2022, All Rights Reserved</copyright>
+    <lastBuildDate>Tue, 02 Jun 2020 09:14:11 +0100</lastBuildDate>
+    
+        <atom:link href="https://chaphlagical.github.io/zh/categories/control-theory/index.xml" rel="self" type="application/rss+xml" />
+    
+
+      
+      <item>
+        <title>现代控制理论学习要点</title>
+        <link>https://chaphlagical.github.io/zh/posts/physics/control/</link>
+        <pubDate>Tue, 02 Jun 2020 09:14:11 +0100</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        <atom:modified>Tue, 02 Jun 2020 09:14:11 +0100</atom:modified>
+        <guid>https://chaphlagical.github.io/zh/posts/physics/control/</guid>
+        <description>1. 数学基础 1.1. 线性空间与线性变换 1.1.1. 代数结构简介 集 定义为具有相同属性事物的全体 群 设$\pmb F$为一非空集，如果在$\pmb F$中存在某种运算$</description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        <media:content url="https://chaphlagical.github.ioimages/posts/control.png" medium="image"><media:title type="html">featured image</media:title></media:content>
+        
+        
+        
+          
+            
+              <category>Control Theory</category>
+            
+          
+        
+        
+          
+            
+              <category>Control Theory</category>
+            
+          
+        
+        
+      </item>
+      
+
+    
+  </channel>
+</rss>
