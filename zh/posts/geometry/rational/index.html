@@ -1771,7 +1771,8 @@ if (!doNotTrack) {
     </div>
     <article class="single__contents" data-dir="ltr" data-ani="true">
       
-      <p>Bézier曲线和B样条曲线均不能用于表示圆锥曲线（如圆、椭圆、双曲线），我们需要一种更强大的样条曲线表示方法。</p>
+      <p><img src="image-20220105110839764.png" alt="image-20220105110839764" /></p>
+<p>Bézier曲线和B样条曲线均不能用于表示圆锥曲线（如圆、椭圆、双曲线），我们需要一种更强大的样条曲线表示方法。</p>
 <h2 id="1-二次曲面与圆锥曲线">1. 二次曲面与圆锥曲线</h2>
 <h3 id="11-定义">1.1. 定义</h3>
 <p>圆锥曲线可以表示为二次函数的零集：<br />
@@ -2215,6 +2216,9 @@ $$<br />
 \pmb{f}^\prime(1)&amp;=\frac{d(\omega_{d}\pmb{p}_{d}-\omega_{d-1}\pmb{p}_{d-1})-d(\omega_{d}-\omega_{d-1})\pmb{p}_{d}}{\omega_d}=d\frac{\omega_{d-1}}{\omega_d}(\pmb{p}_d-\pmb{p}_{d-1})<br />
 \end{aligned}<br />
 $$</p>
+<h2 id="4-视频演示">4. 视频演示</h2>
+<p>IlumEngine中已实现有理Bézier曲线的绘制，通过调节控制点的权重得到不同的曲线形态。</p>
+<p><video src="demo.mp4" controls=true></video></p>
 
     </article>
     
@@ -3848,6 +3852,7 @@ document.addEventListener('DOMContentLoaded', function () {
         </li>
       </ul>
     </li>
+    <li><a href="#4-视频演示">4. 视频演示</a></li>
   </ul>
 </nav>
         </div>

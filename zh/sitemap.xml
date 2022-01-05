@@ -18,7 +18,7 @@
     <lastmod>2020-01-19T21:13:42+09:00</lastmod>
   </url><url>
     <loc>https://chaphlagical.github.io/zh/</loc>
-    <lastmod>2022-01-05T14:36:11+01:00</lastmod>
+    <lastmod>2022-01-04T20:19:11+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -31,7 +31,7 @@
                 />
   </url><url>
     <loc>https://chaphlagical.github.io/zh/categories/</loc>
-    <lastmod>2022-01-05T14:36:11+01:00</lastmod>
+    <lastmod>2022-01-04T20:19:11+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -44,16 +44,16 @@
                 />
   </url><url>
     <loc>https://chaphlagical.github.io/zh/tags/computer-aided-geometric-design/</loc>
-    <lastmod>2022-01-05T14:36:11+01:00</lastmod>
+    <lastmod>2022-01-04T20:19:11+01:00</lastmod>
   </url><url>
     <loc>https://chaphlagical.github.io/zh/categories/geometry/</loc>
-    <lastmod>2022-01-05T14:36:11+01:00</lastmod>
+    <lastmod>2022-01-04T20:19:11+01:00</lastmod>
   </url><url>
     <loc>https://chaphlagical.github.io/zh/categories/graphics/</loc>
-    <lastmod>2022-01-05T14:36:11+01:00</lastmod>
+    <lastmod>2022-01-04T20:19:11+01:00</lastmod>
   </url><url>
     <loc>https://chaphlagical.github.io/zh/posts/</loc>
-    <lastmod>2022-01-05T14:36:11+01:00</lastmod>
+    <lastmod>2022-01-04T20:19:11+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -66,7 +66,7 @@
                 />
   </url><url>
     <loc>https://chaphlagical.github.io/zh/tags/</loc>
-    <lastmod>2022-01-05T14:36:11+01:00</lastmod>
+    <lastmod>2022-01-04T20:19:11+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -78,8 +78,11 @@
                 href="https://chaphlagical.github.io/zh/tags/"
                 />
   </url><url>
+    <loc>https://chaphlagical.github.io/zh/posts/geometry/implicit_surface/</loc>
+    <lastmod>2022-01-04T20:19:11+01:00</lastmod>
+  </url><url>
     <loc>https://chaphlagical.github.io/zh/posts/geometry/subdivision/</loc>
-    <lastmod>2022-01-05T14:36:11+01:00</lastmod>
+    <lastmod>2022-01-04T14:36:11+01:00</lastmod>
   </url><url>
     <loc>https://chaphlagical.github.io/zh/posts/geometry/spline_surface/</loc>
     <lastmod>2022-01-03T21:43:11+01:00</lastmod>
@@ -123,7 +126,7 @@
     <loc>https://chaphlagical.github.io/zh/posts/rendering/mouse_picking/</loc>
     <lastmod>2021-12-14T17:25:11+01:00</lastmod>
   </url><url>
-    <loc>https://chaphlagical.github.io/zh/posts/rendering/optimization1/</loc>
+    <loc>https://chaphlagical.github.io/zh/posts/rendering/optimization/</loc>
     <lastmod>2021-12-11T10:07:11+01:00</lastmod>
   </url><url>
     <loc>https://chaphlagical.github.io/zh/tags/digital-image-process/</loc>
@@ -241,7 +244,7 @@
     <loc>https://chaphlagical.github.io/zh/posts/physics/control/</loc>
     <lastmod>2020-06-02T09:14:11+01:00</lastmod>
   </url><url>
-    <loc>https://chaphlagical.github.io/zh/posts/geometry/differential_geometry/</loc>
+    <loc>https://chaphlagical.github.io/zh/posts/geometry/curve_differential_geometry/</loc>
   </url><url>
     <loc>https://chaphlagical.github.io/zh/publication/paper/paper1/</loc>
     <xhtml:link
