@@ -2216,7 +2216,12 @@ $$<br />
 \pmb{f}^\prime(1)&amp;=\frac{d(\omega_{d}\pmb{p}_{d}-\omega_{d-1}\pmb{p}_{d-1})-d(\omega_{d}-\omega_{d-1})\pmb{p}_{d}}{\omega_d}=d\frac{\omega_{d-1}}{\omega_d}(\pmb{p}_d-\pmb{p}_{d-1})<br />
 \end{aligned}<br />
 $$</p>
-<h2 id="4-视频演示">4. 视频演示</h2>
+<h2 id="4-非均匀有理b样条nurb">4. 非均匀有理B样条NURB</h2>
+<p>$$<br />
+\boldsymbol { f } ( t ) = \frac { \sum _ { i = 1 } ^ { n } N _ { i,k } ( t ) \omega _ { i } \boldsymbol { p } _ { i } } { \sum _ { i = 1 } ^ { n } N _ { i,k } ( t ) \omega _ { i } }<br />
+$$</p>
+<p>类似于有理Bézier曲线</p>
+<h2 id="5-视频演示">5. 视频演示</h2>
 <p>IlumEngine中已实现有理Bézier曲线的绘制，通过调节控制点的权重得到不同的曲线形态。</p>
 <p><video src="demo.mp4" controls=true></video></p>
 
@@ -3852,7 +3857,8 @@ document.addEventListener('DOMContentLoaded', function () {
         </li>
       </ul>
     </li>
-    <li><a href="#4-视频演示">4. 视频演示</a></li>
+    <li><a href="#4-非均匀有理b样条nurb">4. 非均匀有理B样条NURB</a></li>
+    <li><a href="#5-视频演示">5. 视频演示</a></li>
   </ul>
 </nav>
         </div>
