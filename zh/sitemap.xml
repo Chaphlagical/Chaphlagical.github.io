@@ -18,7 +18,7 @@
     <lastmod>2020-01-19T21:13:42+09:00</lastmod>
   </url><url>
     <loc>https://chaphlagical.github.io/zh/</loc>
-    <lastmod>2022-01-04T20:19:11+01:00</lastmod>
+    <lastmod>2022-01-04T14:36:11+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -31,7 +31,7 @@
                 />
   </url><url>
     <loc>https://chaphlagical.github.io/zh/categories/</loc>
-    <lastmod>2022-01-04T20:19:11+01:00</lastmod>
+    <lastmod>2022-01-04T14:36:11+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -44,16 +44,16 @@
                 />
   </url><url>
     <loc>https://chaphlagical.github.io/zh/tags/computer-aided-geometric-design/</loc>
-    <lastmod>2022-01-04T20:19:11+01:00</lastmod>
+    <lastmod>2022-01-04T14:36:11+01:00</lastmod>
   </url><url>
     <loc>https://chaphlagical.github.io/zh/categories/geometry/</loc>
-    <lastmod>2022-01-04T20:19:11+01:00</lastmod>
+    <lastmod>2022-01-04T14:36:11+01:00</lastmod>
   </url><url>
     <loc>https://chaphlagical.github.io/zh/categories/graphics/</loc>
-    <lastmod>2022-01-04T20:19:11+01:00</lastmod>
+    <lastmod>2022-01-04T14:36:11+01:00</lastmod>
   </url><url>
     <loc>https://chaphlagical.github.io/zh/posts/</loc>
-    <lastmod>2022-01-04T20:19:11+01:00</lastmod>
+    <lastmod>2022-01-04T14:36:11+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -66,7 +66,7 @@
                 />
   </url><url>
     <loc>https://chaphlagical.github.io/zh/tags/</loc>
-    <lastmod>2022-01-04T20:19:11+01:00</lastmod>
+    <lastmod>2022-01-04T14:36:11+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -77,9 +77,6 @@
                 hreflang="zh"
                 href="https://chaphlagical.github.io/zh/tags/"
                 />
-  </url><url>
-    <loc>https://chaphlagical.github.io/zh/posts/geometry/implicit_surface/</loc>
-    <lastmod>2022-01-04T20:19:11+01:00</lastmod>
   </url><url>
     <loc>https://chaphlagical.github.io/zh/posts/geometry/subdivision/</loc>
     <lastmod>2022-01-04T14:36:11+01:00</lastmod>

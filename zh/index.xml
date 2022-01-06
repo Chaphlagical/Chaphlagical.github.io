@@ -14,7 +14,7 @@
     <managingEditor>chaf@mail.ustc.edu.cn (Wenbo Chen)</managingEditor>
     <webMaster>chaf@mail.ustc.edu.cn (Wenbo Chen)</webMaster>
     <copyright>©2022, All Rights Reserved</copyright>
-    <lastBuildDate>Tue, 04 Jan 2022 20:19:11 +0100</lastBuildDate>
+    <lastBuildDate>Tue, 04 Jan 2022 14:36:11 +0100</lastBuildDate>
     
         <atom:link href="https://chaphlagical.github.io/zh/index.xml" rel="self" type="application/rss+xml" />
     
@@ -40,40 +40,6 @@
         
       
 
-      
-      <item>
-        <title>几何造型(8)：隐式曲面</title>
-        <link>https://chaphlagical.github.io/zh/posts/geometry/implicit_surface/</link>
-        <pubDate>Tue, 04 Jan 2022 20:19:11 +0100</pubDate>
-        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
-        <atom:modified>Tue, 04 Jan 2022 20:19:11 +0100</atom:modified>
-        <guid>https://chaphlagical.github.io/zh/posts/geometry/implicit_surface/</guid>
-        <description>1. 隐式函数 1.1. 基本思想 通过一个隐式方程来描述对象$S\subseteq\mathbb R^d$： $S=\{\pmb x\in\mathbb R^d|f(\pmb x)=0\}$ 函数$f$描述了对象的形状 应用： 一般来说</description>
-        
-        <dc:creator>Wenbo Chen</dc:creator>
-        <media:content url="https://chaphlagical.github.ioimages/posts/subdivision.png" medium="image"><media:title type="html">featured image</media:title></media:content>
-        
-        
-        
-          
-            
-              <category>Computer Aided Geometric Design</category>
-            
-          
-        
-        
-          
-            
-              <category>Geometry</category>
-            
-          
-            
-              <category>Graphics</category>
-            
-          
-        
-        
-      </item>
       
       <item>
         <title>几何造型(7)：细分曲线与曲面</title>
