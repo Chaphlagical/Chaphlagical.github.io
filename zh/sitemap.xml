@@ -18,7 +18,7 @@
     <lastmod>2020-01-19T21:13:42+09:00</lastmod>
   </url><url>
     <loc>https://chaphlagical.github.io/zh/</loc>
-    <lastmod>2022-01-04T14:36:11+01:00</lastmod>
+    <lastmod>2022-01-11T15:13:11+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -31,7 +31,7 @@
                 />
   </url><url>
     <loc>https://chaphlagical.github.io/zh/categories/</loc>
-    <lastmod>2022-01-04T14:36:11+01:00</lastmod>
+    <lastmod>2022-01-11T15:13:11+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -43,17 +43,11 @@
                 href="https://chaphlagical.github.io/zh/categories/"
                 />
   </url><url>
-    <loc>https://chaphlagical.github.io/zh/tags/computer-aided-geometric-design/</loc>
-    <lastmod>2022-01-04T14:36:11+01:00</lastmod>
-  </url><url>
-    <loc>https://chaphlagical.github.io/zh/categories/geometry/</loc>
-    <lastmod>2022-01-04T14:36:11+01:00</lastmod>
-  </url><url>
     <loc>https://chaphlagical.github.io/zh/categories/graphics/</loc>
-    <lastmod>2022-01-04T14:36:11+01:00</lastmod>
+    <lastmod>2022-01-11T15:13:11+01:00</lastmod>
   </url><url>
     <loc>https://chaphlagical.github.io/zh/posts/</loc>
-    <lastmod>2022-01-04T14:36:11+01:00</lastmod>
+    <lastmod>2022-01-11T15:13:11+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -65,8 +59,11 @@
                 href="https://chaphlagical.github.io/zh/posts/"
                 />
   </url><url>
+    <loc>https://chaphlagical.github.io/zh/tags/resource/</loc>
+    <lastmod>2022-01-11T15:13:11+01:00</lastmod>
+  </url><url>
     <loc>https://chaphlagical.github.io/zh/tags/</loc>
-    <lastmod>2022-01-04T14:36:11+01:00</lastmod>
+    <lastmod>2022-01-11T15:13:11+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -77,6 +74,36 @@
                 hreflang="zh"
                 href="https://chaphlagical.github.io/zh/tags/"
                 />
+  </url><url>
+    <loc>https://chaphlagical.github.io/zh/posts/misc/resource/</loc>
+    <lastmod>2022-01-11T15:13:11+01:00</lastmod>
+  </url><url>
+    <loc>https://chaphlagical.github.io/zh/tags/anti-alias/</loc>
+    <lastmod>2022-01-11T12:20:11+01:00</lastmod>
+  </url><url>
+    <loc>https://chaphlagical.github.io/zh/categories/computer-science/</loc>
+    <lastmod>2022-01-11T12:20:11+01:00</lastmod>
+  </url><url>
+    <loc>https://chaphlagical.github.io/zh/tags/mathematics/</loc>
+    <lastmod>2022-01-11T12:20:11+01:00</lastmod>
+  </url><url>
+    <loc>https://chaphlagical.github.io/zh/categories/mathematics/</loc>
+    <lastmod>2022-01-11T12:20:11+01:00</lastmod>
+  </url><url>
+    <loc>https://chaphlagical.github.io/zh/categories/rendering/</loc>
+    <lastmod>2022-01-11T12:20:11+01:00</lastmod>
+  </url><url>
+    <loc>https://chaphlagical.github.io/zh/posts/rendering/taa/</loc>
+    <lastmod>2022-01-11T12:20:11+01:00</lastmod>
+  </url><url>
+    <loc>https://chaphlagical.github.io/zh/posts/computer/application_mathematics/</loc>
+    <lastmod>2022-01-11T12:20:11+01:00</lastmod>
+  </url><url>
+    <loc>https://chaphlagical.github.io/zh/tags/computer-aided-geometric-design/</loc>
+    <lastmod>2022-01-04T14:36:11+01:00</lastmod>
+  </url><url>
+    <loc>https://chaphlagical.github.io/zh/categories/geometry/</loc>
+    <lastmod>2022-01-04T14:36:11+01:00</lastmod>
   </url><url>
     <loc>https://chaphlagical.github.io/zh/posts/geometry/subdivision/</loc>
     <lastmod>2022-01-04T14:36:11+01:00</lastmod>
@@ -91,9 +118,6 @@
     <lastmod>2022-01-03T11:25:11+01:00</lastmod>
   </url><url>
     <loc>https://chaphlagical.github.io/zh/tags/real-time-rendering/</loc>
-    <lastmod>2022-01-03T10:25:11+01:00</lastmod>
-  </url><url>
-    <loc>https://chaphlagical.github.io/zh/categories/rendering/</loc>
     <lastmod>2022-01-03T10:25:11+01:00</lastmod>
   </url><url>
     <loc>https://chaphlagical.github.io/zh/posts/rendering/pbr/</loc>
@@ -155,9 +179,6 @@
   </url><url>
     <loc>https://chaphlagical.github.io/zh/posts/image_process/colorization/</loc>
     <lastmod>2021-09-19T15:13:11+01:00</lastmod>
-  </url><url>
-    <loc>https://chaphlagical.github.io/zh/categories/computer-science/</loc>
-    <lastmod>2020-12-10T21:43:11+01:00</lastmod>
   </url><url>
     <loc>https://chaphlagical.github.io/zh/tags/embedded-system/</loc>
     <lastmod>2020-12-10T21:43:11+01:00</lastmod>

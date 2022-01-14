@@ -14,11 +14,109 @@
     <managingEditor>chaf@mail.ustc.edu.cn (Wenbo Chen)</managingEditor>
     <webMaster>chaf@mail.ustc.edu.cn (Wenbo Chen)</webMaster>
     <copyright>©2022, All Rights Reserved</copyright>
-    <lastBuildDate>Tue, 04 Jan 2022 14:36:11 +0100</lastBuildDate>
+    <lastBuildDate>Tue, 11 Jan 2022 15:13:11 +0100</lastBuildDate>
     
         <atom:link href="https://chaphlagical.github.io/zh/posts/index.xml" rel="self" type="application/rss+xml" />
     
 
+      
+      <item>
+        <title>计算机图形学学习资源汇总</title>
+        <link>https://chaphlagical.github.io/zh/posts/misc/resource/</link>
+        <pubDate>Tue, 11 Jan 2022 15:13:11 +0100</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        <atom:modified>Tue, 11 Jan 2022 15:13:11 +0100</atom:modified>
+        <guid>https://chaphlagical.github.io/zh/posts/misc/resource/</guid>
+        <description>1. 优质课程 1.1. GAMES系列课程 2. 相关书籍 2.1. 渲染 2.2. 仿真 2.3. 几何 2.4. 程序设计 3. 相关网站 4. 有用的工具（开源项目+商业软件） 5. 经典论文 6. 个人学习目标</description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        <media:content url="https://chaphlagical.github.ioimages/posts/resource.jpg" medium="image"><media:title type="html">featured image</media:title></media:content>
+        
+        
+        
+          
+            
+              <category>Resource</category>
+            
+          
+        
+        
+          
+            
+              <category>Graphics</category>
+            
+          
+        
+        
+      </item>
+      
+      <item>
+        <title>时间性抗锯齿方法</title>
+        <link>https://chaphlagical.github.io/zh/posts/rendering/taa/</link>
+        <pubDate>Tue, 11 Jan 2022 12:20:11 +0100</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        <atom:modified>Tue, 11 Jan 2022 12:20:11 +0100</atom:modified>
+        <guid>https://chaphlagical.github.io/zh/posts/rendering/taa/</guid>
+        <description></description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        <media:content url="https://chaphlagical.github.ioimages/posts/taa.png" medium="image"><media:title type="html">featured image</media:title></media:content>
+        
+        
+        
+          
+            
+              <category>Anti-Alias</category>
+            
+          
+        
+        
+          
+            
+              <category>Rendering</category>
+            
+          
+            
+              <category>Graphics</category>
+            
+          
+        
+        
+      </item>
+      
+      <item>
+        <title>计算机应用数学总结</title>
+        <link>https://chaphlagical.github.io/zh/posts/computer/application_mathematics/</link>
+        <pubDate>Tue, 11 Jan 2022 12:20:11 +0100</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        <atom:modified>Tue, 11 Jan 2022 12:20:11 +0100</atom:modified>
+        <guid>https://chaphlagical.github.io/zh/posts/computer/application_mathematics/</guid>
+        <description>1. 概率论的基本概念 1.1. 随机试验 1.1.1. 随机现象 随机现象： 在一定的条件下，并不总出现相同结果的现象称为随机现象 特点： 结果不止一个 事先明确所有可能的结果</description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        <media:content url="https://chaphlagical.github.ioimages/posts/application_mathematics.jpg" medium="image"><media:title type="html">featured image</media:title></media:content>
+        
+        
+        
+          
+            
+              <category>Mathematics</category>
+            
+          
+        
+        
+          
+            
+              <category>Computer Science</category>
+            
+          
+            
+              <category>Mathematics</category>
+            
+          
+        
+        
+      </item>
       
       <item>
         <title>几何造型(7)：细分曲线与曲面</title>

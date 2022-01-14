@@ -14,34 +14,16 @@
     <managingEditor>chaf@mail.ustc.edu.cn (Wenbo Chen)</managingEditor>
     <webMaster>chaf@mail.ustc.edu.cn (Wenbo Chen)</webMaster>
     <copyright>©2022, All Rights Reserved</copyright>
-    <lastBuildDate>Tue, 04 Jan 2022 14:36:11 +0100</lastBuildDate>
+    <lastBuildDate>Tue, 11 Jan 2022 15:13:11 +0100</lastBuildDate>
     
         <atom:link href="https://chaphlagical.github.io/zh/categories/index.xml" rel="self" type="application/rss+xml" />
     
 
       
       <item>
-        <title>Geometry</title>
-        <link>https://chaphlagical.github.io/zh/categories/geometry/</link>
-        <pubDate>Tue, 04 Jan 2022 14:36:11 +0100</pubDate>
-        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
-        
-        <guid>https://chaphlagical.github.io/zh/categories/geometry/</guid>
-        <description></description>
-        
-        <dc:creator>Wenbo Chen</dc:creator>
-        
-        
-        
-        
-        
-        
-      </item>
-      
-      <item>
         <title>Graphics</title>
         <link>https://chaphlagical.github.io/zh/categories/graphics/</link>
-        <pubDate>Tue, 04 Jan 2022 14:36:11 +0100</pubDate>
+        <pubDate>Tue, 11 Jan 2022 15:13:11 +0100</pubDate>
         <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
         
         <guid>https://chaphlagical.github.io/zh/categories/graphics/</guid>
@@ -57,12 +39,66 @@
       </item>
       
       <item>
+        <title>Computer Science</title>
+        <link>https://chaphlagical.github.io/zh/categories/computer-science/</link>
+        <pubDate>Tue, 11 Jan 2022 12:20:11 +0100</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        
+        <guid>https://chaphlagical.github.io/zh/categories/computer-science/</guid>
+        <description></description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        
+        
+        
+        
+        
+        
+      </item>
+      
+      <item>
+        <title>Mathematics</title>
+        <link>https://chaphlagical.github.io/zh/categories/mathematics/</link>
+        <pubDate>Tue, 11 Jan 2022 12:20:11 +0100</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        
+        <guid>https://chaphlagical.github.io/zh/categories/mathematics/</guid>
+        <description></description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        
+        
+        
+        
+        
+        
+      </item>
+      
+      <item>
         <title>Rendering</title>
         <link>https://chaphlagical.github.io/zh/categories/rendering/</link>
-        <pubDate>Mon, 03 Jan 2022 10:25:11 +0100</pubDate>
+        <pubDate>Tue, 11 Jan 2022 12:20:11 +0100</pubDate>
         <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
         
         <guid>https://chaphlagical.github.io/zh/categories/rendering/</guid>
+        <description></description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        
+        
+        
+        
+        
+        
+      </item>
+      
+      <item>
+        <title>Geometry</title>
+        <link>https://chaphlagical.github.io/zh/categories/geometry/</link>
+        <pubDate>Tue, 04 Jan 2022 14:36:11 +0100</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        
+        <guid>https://chaphlagical.github.io/zh/categories/geometry/</guid>
         <description></description>
         
         <dc:creator>Wenbo Chen</dc:creator>
@@ -99,24 +135,6 @@
         <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
         
         <guid>https://chaphlagical.github.io/zh/categories/digital-image-process/</guid>
-        <description></description>
-        
-        <dc:creator>Wenbo Chen</dc:creator>
-        
-        
-        
-        
-        
-        
-      </item>
-      
-      <item>
-        <title>Computer Science</title>
-        <link>https://chaphlagical.github.io/zh/categories/computer-science/</link>
-        <pubDate>Thu, 10 Dec 2020 21:43:11 +0100</pubDate>
-        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
-        
-        <guid>https://chaphlagical.github.io/zh/categories/computer-science/</guid>
         <description></description>
         
         <dc:creator>Wenbo Chen</dc:creator>
