@@ -18,7 +18,7 @@
     <lastmod>2020-01-19T21:13:42+09:00</lastmod>
   </url><url>
     <loc>https://chaphlagical.github.io/zh/</loc>
-    <lastmod>2022-01-11T15:13:11+01:00</lastmod>
+    <lastmod>2022-01-11T12:20:11+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -30,8 +30,11 @@
                 href="https://chaphlagical.github.io/zh/"
                 />
   </url><url>
+    <loc>https://chaphlagical.github.io/zh/tags/allocator/</loc>
+    <lastmod>2022-01-11T12:20:11+01:00</lastmod>
+  </url><url>
     <loc>https://chaphlagical.github.io/zh/categories/</loc>
-    <lastmod>2022-01-11T15:13:11+01:00</lastmod>
+    <lastmod>2022-01-11T12:20:11+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -43,11 +46,20 @@
                 href="https://chaphlagical.github.io/zh/categories/"
                 />
   </url><url>
-    <loc>https://chaphlagical.github.io/zh/categories/graphics/</loc>
-    <lastmod>2022-01-11T15:13:11+01:00</lastmod>
+    <loc>https://chaphlagical.github.io/zh/categories/computer-science/</loc>
+    <lastmod>2022-01-11T12:20:11+01:00</lastmod>
+  </url><url>
+    <loc>https://chaphlagical.github.io/zh/categories/engine/</loc>
+    <lastmod>2022-01-11T12:20:11+01:00</lastmod>
+  </url><url>
+    <loc>https://chaphlagical.github.io/zh/tags/mathematics/</loc>
+    <lastmod>2022-01-11T12:20:11+01:00</lastmod>
+  </url><url>
+    <loc>https://chaphlagical.github.io/zh/categories/mathematics/</loc>
+    <lastmod>2022-01-11T12:20:11+01:00</lastmod>
   </url><url>
     <loc>https://chaphlagical.github.io/zh/posts/</loc>
-    <lastmod>2022-01-11T15:13:11+01:00</lastmod>
+    <lastmod>2022-01-11T12:20:11+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -59,11 +71,8 @@
                 href="https://chaphlagical.github.io/zh/posts/"
                 />
   </url><url>
-    <loc>https://chaphlagical.github.io/zh/tags/resource/</loc>
-    <lastmod>2022-01-11T15:13:11+01:00</lastmod>
-  </url><url>
     <loc>https://chaphlagical.github.io/zh/tags/</loc>
-    <lastmod>2022-01-11T15:13:11+01:00</lastmod>
+    <lastmod>2022-01-11T12:20:11+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -75,25 +84,7 @@
                 href="https://chaphlagical.github.io/zh/tags/"
                 />
   </url><url>
-    <loc>https://chaphlagical.github.io/zh/posts/misc/resource/</loc>
-    <lastmod>2022-01-11T15:13:11+01:00</lastmod>
-  </url><url>
-    <loc>https://chaphlagical.github.io/zh/tags/anti-alias/</loc>
-    <lastmod>2022-01-11T12:20:11+01:00</lastmod>
-  </url><url>
-    <loc>https://chaphlagical.github.io/zh/categories/computer-science/</loc>
-    <lastmod>2022-01-11T12:20:11+01:00</lastmod>
-  </url><url>
-    <loc>https://chaphlagical.github.io/zh/tags/mathematics/</loc>
-    <lastmod>2022-01-11T12:20:11+01:00</lastmod>
-  </url><url>
-    <loc>https://chaphlagical.github.io/zh/categories/mathematics/</loc>
-    <lastmod>2022-01-11T12:20:11+01:00</lastmod>
-  </url><url>
-    <loc>https://chaphlagical.github.io/zh/categories/rendering/</loc>
-    <lastmod>2022-01-11T12:20:11+01:00</lastmod>
-  </url><url>
-    <loc>https://chaphlagical.github.io/zh/posts/rendering/taa/</loc>
+    <loc>https://chaphlagical.github.io/zh/posts/engine/allocator/</loc>
     <lastmod>2022-01-11T12:20:11+01:00</lastmod>
   </url><url>
     <loc>https://chaphlagical.github.io/zh/posts/computer/application_mathematics/</loc>
@@ -103,6 +94,9 @@
     <lastmod>2022-01-04T14:36:11+01:00</lastmod>
   </url><url>
     <loc>https://chaphlagical.github.io/zh/categories/geometry/</loc>
+    <lastmod>2022-01-04T14:36:11+01:00</lastmod>
+  </url><url>
+    <loc>https://chaphlagical.github.io/zh/categories/graphics/</loc>
     <lastmod>2022-01-04T14:36:11+01:00</lastmod>
   </url><url>
     <loc>https://chaphlagical.github.io/zh/posts/geometry/subdivision/</loc>
@@ -118,6 +112,9 @@
     <lastmod>2022-01-03T11:25:11+01:00</lastmod>
   </url><url>
     <loc>https://chaphlagical.github.io/zh/tags/real-time-rendering/</loc>
+    <lastmod>2022-01-03T10:25:11+01:00</lastmod>
+  </url><url>
+    <loc>https://chaphlagical.github.io/zh/categories/rendering/</loc>
     <lastmod>2022-01-03T10:25:11+01:00</lastmod>
   </url><url>
     <loc>https://chaphlagical.github.io/zh/posts/rendering/pbr/</loc>
@@ -261,6 +258,8 @@
   </url><url>
     <loc>https://chaphlagical.github.io/zh/posts/physics/control/</loc>
     <lastmod>2020-06-02T09:14:11+01:00</lastmod>
+  </url><url>
+    <loc>https://chaphlagical.github.io/zh/posts/engine/jobsystem/</loc>
   </url><url>
     <loc>https://chaphlagical.github.io/zh/publication/paper/paper1/</loc>
     <xhtml:link

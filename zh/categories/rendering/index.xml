@@ -14,45 +14,11 @@
     <managingEditor>chaf@mail.ustc.edu.cn (Wenbo Chen)</managingEditor>
     <webMaster>chaf@mail.ustc.edu.cn (Wenbo Chen)</webMaster>
     <copyright>©2022, All Rights Reserved</copyright>
-    <lastBuildDate>Tue, 11 Jan 2022 12:20:11 +0100</lastBuildDate>
+    <lastBuildDate>Mon, 03 Jan 2022 10:25:11 +0100</lastBuildDate>
     
         <atom:link href="https://chaphlagical.github.io/zh/categories/rendering/index.xml" rel="self" type="application/rss+xml" />
     
 
-      
-      <item>
-        <title>时间性抗锯齿方法</title>
-        <link>https://chaphlagical.github.io/zh/posts/rendering/taa/</link>
-        <pubDate>Tue, 11 Jan 2022 12:20:11 +0100</pubDate>
-        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
-        <atom:modified>Tue, 11 Jan 2022 12:20:11 +0100</atom:modified>
-        <guid>https://chaphlagical.github.io/zh/posts/rendering/taa/</guid>
-        <description></description>
-        
-        <dc:creator>Wenbo Chen</dc:creator>
-        <media:content url="https://chaphlagical.github.ioimages/posts/taa.png" medium="image"><media:title type="html">featured image</media:title></media:content>
-        
-        
-        
-          
-            
-              <category>Anti-Alias</category>
-            
-          
-        
-        
-          
-            
-              <category>Rendering</category>
-            
-          
-            
-              <category>Graphics</category>
-            
-          
-        
-        
-      </item>
       
       <item>
         <title>基于物理的实时渲染着色方法</title>
@@ -132,7 +98,7 @@
         <description>前段时间初步完成了个人图形引擎IlumEngine的第一次性能优化。此次优化主要集中在几何渲染与纹理系统上，主要内容大致有： Vertex/Index Buffer Packing GPU Driven Rendering GPU Based</description>
         
         <dc:creator>Wenbo Chen</dc:creator>
-        <media:content url="https://chaphlagical.github.ioimages/posts/vulkan.png" medium="image"><media:title type="html">featured image</media:title></media:content>
+        <media:content url="https://chaphlagical.github.ioimages/posts/optimize1.png" medium="image"><media:title type="html">featured image</media:title></media:content>
         
         
         

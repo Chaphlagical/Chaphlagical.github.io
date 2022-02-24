@@ -14,50 +14,20 @@
     <managingEditor>chaf@mail.ustc.edu.cn (Wenbo Chen)</managingEditor>
     <webMaster>chaf@mail.ustc.edu.cn (Wenbo Chen)</webMaster>
     <copyright>©2022, All Rights Reserved</copyright>
-    <lastBuildDate>Tue, 11 Jan 2022 15:13:11 +0100</lastBuildDate>
+    <lastBuildDate>Tue, 11 Jan 2022 12:20:11 +0100</lastBuildDate>
     
         <atom:link href="https://chaphlagical.github.io/zh/posts/index.xml" rel="self" type="application/rss+xml" />
     
 
       
       <item>
-        <title>计算机图形学学习资源汇总</title>
-        <link>https://chaphlagical.github.io/zh/posts/misc/resource/</link>
-        <pubDate>Tue, 11 Jan 2022 15:13:11 +0100</pubDate>
-        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
-        <atom:modified>Tue, 11 Jan 2022 15:13:11 +0100</atom:modified>
-        <guid>https://chaphlagical.github.io/zh/posts/misc/resource/</guid>
-        <description>1. 优质课程 1.1. GAMES系列课程 2. 相关书籍 2.1. 渲染 2.2. 仿真 2.3. 几何 2.4. 程序设计 3. 相关网站 4. 有用的工具（开源项目+商业软件） 5. 经典论文 6. 个人学习目标</description>
-        
-        <dc:creator>Wenbo Chen</dc:creator>
-        <media:content url="https://chaphlagical.github.ioimages/posts/resource.jpg" medium="image"><media:title type="html">featured image</media:title></media:content>
-        
-        
-        
-          
-            
-              <category>Resource</category>
-            
-          
-        
-        
-          
-            
-              <category>Graphics</category>
-            
-          
-        
-        
-      </item>
-      
-      <item>
-        <title>时间性抗锯齿方法</title>
-        <link>https://chaphlagical.github.io/zh/posts/rendering/taa/</link>
+        <title>渲染引擎内存管理</title>
+        <link>https://chaphlagical.github.io/zh/posts/engine/allocator/</link>
         <pubDate>Tue, 11 Jan 2022 12:20:11 +0100</pubDate>
         <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
         <atom:modified>Tue, 11 Jan 2022 12:20:11 +0100</atom:modified>
-        <guid>https://chaphlagical.github.io/zh/posts/rendering/taa/</guid>
-        <description></description>
+        <guid>https://chaphlagical.github.io/zh/posts/engine/allocator/</guid>
+        <description>1. 简介 内存管理对渲染引擎性能有着重要影响，在C++17以前，默认的内存分配策略有如下常见的问题： 内存分配和释放不够快 内存分配并行程度低 内存对</description>
         
         <dc:creator>Wenbo Chen</dc:creator>
         <media:content url="https://chaphlagical.github.ioimages/posts/taa.png" medium="image"><media:title type="html">featured image</media:title></media:content>
@@ -66,18 +36,14 @@
         
           
             
-              <category>Anti-Alias</category>
+              <category>Allocator</category>
             
           
         
         
           
             
-              <category>Rendering</category>
-            
-          
-            
-              <category>Graphics</category>
+              <category>Engine</category>
             
           
         
@@ -464,7 +430,7 @@
         <description>前段时间初步完成了个人图形引擎IlumEngine的第一次性能优化。此次优化主要集中在几何渲染与纹理系统上，主要内容大致有： Vertex/Index Buffer Packing GPU Driven Rendering GPU Based</description>
         
         <dc:creator>Wenbo Chen</dc:creator>
-        <media:content url="https://chaphlagical.github.ioimages/posts/vulkan.png" medium="image"><media:title type="html">featured image</media:title></media:content>
+        <media:content url="https://chaphlagical.github.ioimages/posts/optimize1.png" medium="image"><media:title type="html">featured image</media:title></media:content>
         
         
         
@@ -784,6 +750,24 @@
               <category>Control Theory</category>
             
           
+        
+        
+      </item>
+      
+      <item>
+        <title></title>
+        <link>https://chaphlagical.github.io/zh/posts/engine/jobsystem/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        
+        <guid>https://chaphlagical.github.io/zh/posts/engine/jobsystem/</guid>
+        <description></description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        
+        
+        
+        
         
         
       </item>
