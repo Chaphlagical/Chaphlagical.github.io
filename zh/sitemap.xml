@@ -18,7 +18,7 @@
     <lastmod>2020-01-19T21:13:42+09:00</lastmod>
   </url><url>
     <loc>https://chaphlagical.github.io/zh/</loc>
-    <lastmod>2022-02-27T17:34:11+01:00</lastmod>
+    <lastmod>2022-03-03T19:45:00+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -31,7 +31,7 @@
                 />
   </url><url>
     <loc>https://chaphlagical.github.io/zh/categories/</loc>
-    <lastmod>2022-02-27T17:34:11+01:00</lastmod>
+    <lastmod>2022-03-03T19:45:00+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -43,11 +43,17 @@
                 href="https://chaphlagical.github.io/zh/categories/"
                 />
   </url><url>
+    <loc>https://chaphlagical.github.io/zh/categories/geometry/</loc>
+    <lastmod>2022-03-03T19:45:00+01:00</lastmod>
+  </url><url>
+    <loc>https://chaphlagical.github.io/zh/tags/geometry-processing/</loc>
+    <lastmod>2022-03-03T19:45:00+01:00</lastmod>
+  </url><url>
     <loc>https://chaphlagical.github.io/zh/categories/graphics/</loc>
-    <lastmod>2022-02-27T17:34:11+01:00</lastmod>
+    <lastmod>2022-03-03T19:45:00+01:00</lastmod>
   </url><url>
     <loc>https://chaphlagical.github.io/zh/posts/</loc>
-    <lastmod>2022-02-27T17:34:11+01:00</lastmod>
+    <lastmod>2022-03-03T19:45:00+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -59,17 +65,8 @@
                 href="https://chaphlagical.github.io/zh/posts/"
                 />
   </url><url>
-    <loc>https://chaphlagical.github.io/zh/tags/ray-tracing/</loc>
-    <lastmod>2022-02-27T17:34:11+01:00</lastmod>
-  </url><url>
-    <loc>https://chaphlagical.github.io/zh/tags/real-time-rendering/</loc>
-    <lastmod>2022-02-27T17:34:11+01:00</lastmod>
-  </url><url>
-    <loc>https://chaphlagical.github.io/zh/categories/rendering/</loc>
-    <lastmod>2022-02-27T17:34:11+01:00</lastmod>
-  </url><url>
     <loc>https://chaphlagical.github.io/zh/tags/</loc>
-    <lastmod>2022-02-27T17:34:11+01:00</lastmod>
+    <lastmod>2022-03-03T19:45:00+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -80,6 +77,18 @@
                 hreflang="zh"
                 href="https://chaphlagical.github.io/zh/tags/"
                 />
+  </url><url>
+    <loc>https://chaphlagical.github.io/zh/posts/geometry/geometry_representation/</loc>
+    <lastmod>2022-03-03T19:45:00+01:00</lastmod>
+  </url><url>
+    <loc>https://chaphlagical.github.io/zh/tags/ray-tracing/</loc>
+    <lastmod>2022-02-27T17:34:11+01:00</lastmod>
+  </url><url>
+    <loc>https://chaphlagical.github.io/zh/tags/real-time-rendering/</loc>
+    <lastmod>2022-02-27T17:34:11+01:00</lastmod>
+  </url><url>
+    <loc>https://chaphlagical.github.io/zh/categories/rendering/</loc>
+    <lastmod>2022-02-27T17:34:11+01:00</lastmod>
   </url><url>
     <loc>https://chaphlagical.github.io/zh/posts/rendering/rtx/</loc>
     <lastmod>2022-02-27T17:34:11+01:00</lastmod>
@@ -97,9 +106,6 @@
     <lastmod>2022-01-11T12:20:11+01:00</lastmod>
   </url><url>
     <loc>https://chaphlagical.github.io/zh/tags/computer-aided-geometric-design/</loc>
-    <lastmod>2022-01-04T14:36:11+01:00</lastmod>
-  </url><url>
-    <loc>https://chaphlagical.github.io/zh/categories/geometry/</loc>
     <lastmod>2022-01-04T14:36:11+01:00</lastmod>
   </url><url>
     <loc>https://chaphlagical.github.io/zh/posts/geometry/subdivision/</loc>
@@ -135,10 +141,10 @@
     <loc>https://chaphlagical.github.io/zh/tags/ilumengine/</loc>
     <lastmod>2021-12-14T17:25:11+01:00</lastmod>
   </url><url>
-    <loc>https://chaphlagical.github.io/zh/posts/geometry/bezier_curve/</loc>
+    <loc>https://chaphlagical.github.io/zh/posts/rendering/mouse_picking/</loc>
     <lastmod>2021-12-14T17:25:11+01:00</lastmod>
   </url><url>
-    <loc>https://chaphlagical.github.io/zh/posts/rendering/mouse_picking/</loc>
+    <loc>https://chaphlagical.github.io/zh/posts/geometry/bezier_curve/</loc>
     <lastmod>2021-12-14T17:25:11+01:00</lastmod>
   </url><url>
     <loc>https://chaphlagical.github.io/zh/posts/rendering/optimization/</loc>

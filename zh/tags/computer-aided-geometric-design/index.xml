@@ -21,7 +21,7 @@
 
       
       <item>
-        <title>几何造型(7)：细分曲线与曲面</title>
+        <title>计算机辅助几何设计(7)：细分曲线与曲面</title>
         <link>https://chaphlagical.github.io/zh/posts/geometry/subdivision/</link>
         <pubDate>Tue, 04 Jan 2022 14:36:11 +0100</pubDate>
         <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
@@ -55,7 +55,7 @@
       </item>
       
       <item>
-        <title>几何造型(6)：样条曲面</title>
+        <title>计算机辅助几何设计(6)：样条曲面</title>
         <link>https://chaphlagical.github.io/zh/posts/geometry/spline_surface/</link>
         <pubDate>Mon, 03 Jan 2022 21:43:11 +0100</pubDate>
         <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
@@ -89,7 +89,7 @@
       </item>
       
       <item>
-        <title>几何造型(5)：有理样条曲线</title>
+        <title>计算机辅助几何设计(5)：有理样条曲线</title>
         <link>https://chaphlagical.github.io/zh/posts/geometry/rational/</link>
         <pubDate>Mon, 03 Jan 2022 16:25:11 +0100</pubDate>
         <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
@@ -123,7 +123,7 @@
       </item>
       
       <item>
-        <title>几何造型(4)：极形式和开花算法</title>
+        <title>计算机辅助几何设计(4)：极形式和开花算法</title>
         <link>https://chaphlagical.github.io/zh/posts/geometry/polar_form/</link>
         <pubDate>Mon, 03 Jan 2022 11:25:11 +0100</pubDate>
         <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
@@ -157,7 +157,7 @@
       </item>
       
       <item>
-        <title>几何造型(3)：B样条曲线</title>
+        <title>计算机辅助几何设计(3)：B样条曲线</title>
         <link>https://chaphlagical.github.io/zh/posts/geometry/b_spline/</link>
         <pubDate>Wed, 29 Dec 2021 10:45:11 +0100</pubDate>
         <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
@@ -191,7 +191,7 @@
       </item>
       
       <item>
-        <title>几何造型(2)：Bézier样条曲线</title>
+        <title>计算机辅助几何设计(2)：Bézier样条曲线</title>
         <link>https://chaphlagical.github.io/zh/posts/geometry/bezier_spline/</link>
         <pubDate>Thu, 23 Dec 2021 20:45:11 +0100</pubDate>
         <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
@@ -225,7 +225,7 @@
       </item>
       
       <item>
-        <title>几何造型(1)：Bézier曲线</title>
+        <title>计算机辅助几何设计(1)：Bézier曲线</title>
         <link>https://chaphlagical.github.io/zh/posts/geometry/bezier_curve/</link>
         <pubDate>Tue, 14 Dec 2021 17:25:11 +0100</pubDate>
         <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>

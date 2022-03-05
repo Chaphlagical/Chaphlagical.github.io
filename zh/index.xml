@@ -14,7 +14,7 @@
     <managingEditor>chaf@mail.ustc.edu.cn (Wenbo Chen)</managingEditor>
     <webMaster>chaf@mail.ustc.edu.cn (Wenbo Chen)</webMaster>
     <copyright>©2022, All Rights Reserved</copyright>
-    <lastBuildDate>Sun, 27 Feb 2022 17:34:11 +0100</lastBuildDate>
+    <lastBuildDate>Thu, 03 Mar 2022 19:45:00 +0100</lastBuildDate>
     
         <atom:link href="https://chaphlagical.github.io/zh/index.xml" rel="self" type="application/rss+xml" />
     
@@ -40,6 +40,40 @@
         
       
 
+      
+      <item>
+        <title>几何处理(1)：几何表达</title>
+        <link>https://chaphlagical.github.io/zh/posts/geometry/geometry_representation/</link>
+        <pubDate>Thu, 03 Mar 2022 19:45:00 +0100</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        <atom:modified>Thu, 03 Mar 2022 19:45:00 +0100</atom:modified>
+        <guid>https://chaphlagical.github.io/zh/posts/geometry/geometry_representation/</guid>
+        <description>1. 曲面的定义与性质 1.1. 曲面的数学表达 曲面可以通过参数表达和隐式表达进行建模： 参数表达 函数域 定义为曲面片 $$ \pmb f:\mathbb R^2\rightarrow\mathbb R^3,\quad S_\Omega=\pmb f(\Omega) $$ 隐式表达 函数核 定义为水平</description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        <media:content url="https://chaphlagical.github.ioimages/posts/dgp.jpg" medium="image"><media:title type="html">featured image</media:title></media:content>
+        
+        
+        
+          
+            
+              <category>Geometry Processing</category>
+            
+          
+        
+        
+          
+            
+              <category>Geometry</category>
+            
+          
+            
+              <category>Graphics</category>
+            
+          
+        
+        
+      </item>
       
       <item>
         <title>Vulkan光线追踪管线初探</title>
@@ -114,7 +148,7 @@
       </item>
       
       <item>
-        <title>几何造型(7)：细分曲线与曲面</title>
+        <title>计算机辅助几何设计(7)：细分曲线与曲面</title>
         <link>https://chaphlagical.github.io/zh/posts/geometry/subdivision/</link>
         <pubDate>Tue, 04 Jan 2022 14:36:11 +0100</pubDate>
         <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
@@ -148,7 +182,7 @@
       </item>
       
       <item>
-        <title>几何造型(6)：样条曲面</title>
+        <title>计算机辅助几何设计(6)：样条曲面</title>
         <link>https://chaphlagical.github.io/zh/posts/geometry/spline_surface/</link>
         <pubDate>Mon, 03 Jan 2022 21:43:11 +0100</pubDate>
         <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
@@ -182,7 +216,7 @@
       </item>
       
       <item>
-        <title>几何造型(5)：有理样条曲线</title>
+        <title>计算机辅助几何设计(5)：有理样条曲线</title>
         <link>https://chaphlagical.github.io/zh/posts/geometry/rational/</link>
         <pubDate>Mon, 03 Jan 2022 16:25:11 +0100</pubDate>
         <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
@@ -216,7 +250,7 @@
       </item>
       
       <item>
-        <title>几何造型(4)：极形式和开花算法</title>
+        <title>计算机辅助几何设计(4)：极形式和开花算法</title>
         <link>https://chaphlagical.github.io/zh/posts/geometry/polar_form/</link>
         <pubDate>Mon, 03 Jan 2022 11:25:11 +0100</pubDate>
         <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
@@ -284,7 +318,7 @@
       </item>
       
       <item>
-        <title>几何造型(3)：B样条曲线</title>
+        <title>计算机辅助几何设计(3)：B样条曲线</title>
         <link>https://chaphlagical.github.io/zh/posts/geometry/b_spline/</link>
         <pubDate>Wed, 29 Dec 2021 10:45:11 +0100</pubDate>
         <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
@@ -348,7 +382,7 @@
       </item>
       
       <item>
-        <title>几何造型(2)：Bézier样条曲线</title>
+        <title>计算机辅助几何设计(2)：Bézier样条曲线</title>
         <link>https://chaphlagical.github.io/zh/posts/geometry/bezier_spline/</link>
         <pubDate>Thu, 23 Dec 2021 20:45:11 +0100</pubDate>
         <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
@@ -358,40 +392,6 @@
         
         <dc:creator>Wenbo Chen</dc:creator>
         <media:content url="https://chaphlagical.github.ioimages/posts/bezier_spline.png" medium="image"><media:title type="html">featured image</media:title></media:content>
-        
-        
-        
-          
-            
-              <category>Computer Aided Geometric Design</category>
-            
-          
-        
-        
-          
-            
-              <category>Geometry</category>
-            
-          
-            
-              <category>Graphics</category>
-            
-          
-        
-        
-      </item>
-      
-      <item>
-        <title>几何造型(1)：Bézier曲线</title>
-        <link>https://chaphlagical.github.io/zh/posts/geometry/bezier_curve/</link>
-        <pubDate>Tue, 14 Dec 2021 17:25:11 +0100</pubDate>
-        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
-        <atom:modified>Tue, 14 Dec 2021 17:25:11 +0100</atom:modified>
-        <guid>https://chaphlagical.github.io/zh/posts/geometry/bezier_curve/</guid>
-        <description>1. 基本原理 Bézier曲线于1962年，由法国工程师Pierre Bézier所提出，用于汽车的主体的几何造型设计。 二阶Bézier曲线如下图</description>
-        
-        <dc:creator>Wenbo Chen</dc:creator>
-        <media:content url="https://chaphlagical.github.ioimages/posts/bezier_curve.png" medium="image"><media:title type="html">featured image</media:title></media:content>
         
         
         
@@ -439,6 +439,40 @@
           
             
               <category>Rendering</category>
+            
+          
+            
+              <category>Graphics</category>
+            
+          
+        
+        
+      </item>
+      
+      <item>
+        <title>计算机辅助几何设计(1)：Bézier曲线</title>
+        <link>https://chaphlagical.github.io/zh/posts/geometry/bezier_curve/</link>
+        <pubDate>Tue, 14 Dec 2021 17:25:11 +0100</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        <atom:modified>Tue, 14 Dec 2021 17:25:11 +0100</atom:modified>
+        <guid>https://chaphlagical.github.io/zh/posts/geometry/bezier_curve/</guid>
+        <description>1. 基本原理 Bézier曲线于1962年，由法国工程师Pierre Bézier所提出，用于汽车的主体的几何造型设计。 二阶Bézier曲线如下图</description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        <media:content url="https://chaphlagical.github.ioimages/posts/bezier_curve.png" medium="image"><media:title type="html">featured image</media:title></media:content>
+        
+        
+        
+          
+            
+              <category>Computer Aided Geometric Design</category>
+            
+          
+        
+        
+          
+            
+              <category>Geometry</category>
             
           
             
