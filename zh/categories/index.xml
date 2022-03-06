@@ -14,7 +14,7 @@
     <managingEditor>chaf@mail.ustc.edu.cn (Wenbo Chen)</managingEditor>
     <webMaster>chaf@mail.ustc.edu.cn (Wenbo Chen)</webMaster>
     <copyright>©2022, All Rights Reserved</copyright>
-    <lastBuildDate>Thu, 03 Mar 2022 19:45:00 +0100</lastBuildDate>
+    <lastBuildDate>Sat, 05 Mar 2022 10:12:00 +0100</lastBuildDate>
     
         <atom:link href="https://chaphlagical.github.io/zh/categories/index.xml" rel="self" type="application/rss+xml" />
     
@@ -23,7 +23,7 @@
       <item>
         <title>Geometry</title>
         <link>https://chaphlagical.github.io/zh/categories/geometry/</link>
-        <pubDate>Thu, 03 Mar 2022 19:45:00 +0100</pubDate>
+        <pubDate>Sat, 05 Mar 2022 10:12:00 +0100</pubDate>
         <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
         
         <guid>https://chaphlagical.github.io/zh/categories/geometry/</guid>
@@ -41,28 +41,10 @@
       <item>
         <title>Graphics</title>
         <link>https://chaphlagical.github.io/zh/categories/graphics/</link>
-        <pubDate>Thu, 03 Mar 2022 19:45:00 +0100</pubDate>
+        <pubDate>Sat, 05 Mar 2022 10:12:00 +0100</pubDate>
         <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
         
         <guid>https://chaphlagical.github.io/zh/categories/graphics/</guid>
-        <description></description>
-        
-        <dc:creator>Wenbo Chen</dc:creator>
-        
-        
-        
-        
-        
-        
-      </item>
-      
-      <item>
-        <title>Rendering</title>
-        <link>https://chaphlagical.github.io/zh/categories/rendering/</link>
-        <pubDate>Sun, 27 Feb 2022 17:34:11 +0100</pubDate>
-        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
-        
-        <guid>https://chaphlagical.github.io/zh/categories/rendering/</guid>
         <description></description>
         
         <dc:creator>Wenbo Chen</dc:creator>
@@ -99,6 +81,24 @@
         <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
         
         <guid>https://chaphlagical.github.io/zh/categories/mathematics/</guid>
+        <description></description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        
+        
+        
+        
+        
+        
+      </item>
+      
+      <item>
+        <title>Rendering</title>
+        <link>https://chaphlagical.github.io/zh/categories/rendering/</link>
+        <pubDate>Mon, 03 Jan 2022 10:25:11 +0100</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        
+        <guid>https://chaphlagical.github.io/zh/categories/rendering/</guid>
         <description></description>
         
         <dc:creator>Wenbo Chen</dc:creator>

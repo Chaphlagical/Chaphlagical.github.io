@@ -14,20 +14,20 @@
     <managingEditor>chaf@mail.ustc.edu.cn (Wenbo Chen)</managingEditor>
     <webMaster>chaf@mail.ustc.edu.cn (Wenbo Chen)</webMaster>
     <copyright>©2022, All Rights Reserved</copyright>
-    <lastBuildDate>Thu, 03 Mar 2022 19:45:00 +0100</lastBuildDate>
+    <lastBuildDate>Sat, 05 Mar 2022 10:12:00 +0100</lastBuildDate>
     
         <atom:link href="https://chaphlagical.github.io/zh/categories/graphics/index.xml" rel="self" type="application/rss+xml" />
     
 
       
       <item>
-        <title>几何处理(1)：几何表达</title>
-        <link>https://chaphlagical.github.io/zh/posts/geometry/geometry_representation/</link>
-        <pubDate>Thu, 03 Mar 2022 19:45:00 +0100</pubDate>
+        <title>几何处理(2)：微分几何基础</title>
+        <link>https://chaphlagical.github.io/zh/posts/geometry/differential_geometry/</link>
+        <pubDate>Sat, 05 Mar 2022 10:12:00 +0100</pubDate>
         <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
-        <atom:modified>Thu, 03 Mar 2022 19:45:00 +0100</atom:modified>
-        <guid>https://chaphlagical.github.io/zh/posts/geometry/geometry_representation/</guid>
-        <description>1. 曲面的定义与性质 1.1. 曲面的数学表达 曲面可以通过参数表达和隐式表达进行建模： 参数表达 函数域 定义为曲面片 $$ \pmb f:\mathbb R^2\rightarrow\mathbb R^3,\quad S_\Omega=\pmb f(\Omega) $$ 隐式表达 函数核 定义为水平</description>
+        <atom:modified>Sat, 05 Mar 2022 10:12:00 +0100</atom:modified>
+        <guid>https://chaphlagical.github.io/zh/posts/geometry/differential_geometry/</guid>
+        <description>1. 连续曲线 设有参数曲线$\pmb C(u)$，点$\pmb p$在曲线的$u_0$处，即： $$ \pmb p=\pmb C(u_0) $$ 曲线在$u_0$处的切线与$\pmb C(u)</description>
         
         <dc:creator>Wenbo Chen</dc:creator>
         <media:content url="https://chaphlagical.github.ioimages/posts/dgp.jpg" medium="image"><media:title type="html">featured image</media:title></media:content>
@@ -55,33 +55,29 @@
       </item>
       
       <item>
-        <title>Vulkan光线追踪管线初探</title>
-        <link>https://chaphlagical.github.io/zh/posts/rendering/rtx/</link>
-        <pubDate>Sun, 27 Feb 2022 17:34:11 +0100</pubDate>
+        <title>几何处理(1)：几何表达</title>
+        <link>https://chaphlagical.github.io/zh/posts/geometry/geometry_representation/</link>
+        <pubDate>Thu, 03 Mar 2022 19:45:00 +0100</pubDate>
         <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
-        <atom:modified>Sun, 27 Feb 2022 17:34:11 +0100</atom:modified>
-        <guid>https://chaphlagical.github.io/zh/posts/rendering/rtx/</guid>
-        <description>从挺久</description>
+        <atom:modified>Thu, 03 Mar 2022 19:45:00 +0100</atom:modified>
+        <guid>https://chaphlagical.github.io/zh/posts/geometry/geometry_representation/</guid>
+        <description>1. 曲面的定义与性质 1.1. 曲面的数学表达 曲面可以通过参数表达和隐式表达进行建模： 参数表达 函数域 定义为曲面片 $$ \pmb f:\mathbb R^2\rightarrow\mathbb R^3,\quad S_\Omega=\pmb f(\Omega) $$ 隐式表达 函数核 定义为水平</description>
         
         <dc:creator>Wenbo Chen</dc:creator>
-        <media:content url="https://chaphlagical.github.ioimages/posts/rtx.png" medium="image"><media:title type="html">featured image</media:title></media:content>
+        <media:content url="https://chaphlagical.github.ioimages/posts/dgp.jpg" medium="image"><media:title type="html">featured image</media:title></media:content>
         
         
         
           
             
-              <category>Real-time Rendering</category>
-            
-          
-            
-              <category>Ray Tracing</category>
+              <category>Geometry Processing</category>
             
           
         
         
           
             
-              <category>Rendering</category>
+              <category>Geometry</category>
             
           
             
