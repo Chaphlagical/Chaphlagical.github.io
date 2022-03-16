@@ -14,11 +14,45 @@
     <managingEditor>chaf@mail.ustc.edu.cn (Wenbo Chen)</managingEditor>
     <webMaster>chaf@mail.ustc.edu.cn (Wenbo Chen)</webMaster>
     <copyright>©2022, All Rights Reserved</copyright>
-    <lastBuildDate>Sat, 05 Mar 2022 10:12:00 +0100</lastBuildDate>
+    <lastBuildDate>Sun, 06 Mar 2022 22:45:00 +0100</lastBuildDate>
     
         <atom:link href="https://chaphlagical.github.io/zh/tags/geometry-processing/index.xml" rel="self" type="application/rss+xml" />
     
 
+      
+      <item>
+        <title>几何处理(3)：曲面平滑化</title>
+        <link>https://chaphlagical.github.io/zh/posts/geometry/smoothing/</link>
+        <pubDate>Sun, 06 Mar 2022 22:45:00 +0100</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        <atom:modified>Sun, 06 Mar 2022 22:45:00 +0100</atom:modified>
+        <guid>https://chaphlagical.github.io/zh/posts/geometry/smoothing/</guid>
+        <description></description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        <media:content url="https://chaphlagical.github.ioimages/posts/dgp.jpg" medium="image"><media:title type="html">featured image</media:title></media:content>
+        
+        
+        
+          
+            
+              <category>Geometry Processing</category>
+            
+          
+        
+        
+          
+            
+              <category>Geometry</category>
+            
+          
+            
+              <category>Graphics</category>
+            
+          
+        
+        
+      </item>
       
       <item>
         <title>几何处理(2)：微分几何基础</title>

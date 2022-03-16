@@ -18,7 +18,7 @@
     <lastmod>2020-01-19T21:13:42+09:00</lastmod>
   </url><url>
     <loc>https://chaphlagical.github.io/zh/</loc>
-    <lastmod>2022-03-05T10:12:00+01:00</lastmod>
+    <lastmod>2022-03-16T20:26:11+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -31,7 +31,7 @@
                 />
   </url><url>
     <loc>https://chaphlagical.github.io/zh/categories/</loc>
-    <lastmod>2022-03-05T10:12:00+01:00</lastmod>
+    <lastmod>2022-03-16T20:26:11+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -43,17 +43,11 @@
                 href="https://chaphlagical.github.io/zh/categories/"
                 />
   </url><url>
-    <loc>https://chaphlagical.github.io/zh/categories/geometry/</loc>
-    <lastmod>2022-03-05T10:12:00+01:00</lastmod>
-  </url><url>
-    <loc>https://chaphlagical.github.io/zh/tags/geometry-processing/</loc>
-    <lastmod>2022-03-05T10:12:00+01:00</lastmod>
-  </url><url>
     <loc>https://chaphlagical.github.io/zh/categories/graphics/</loc>
-    <lastmod>2022-03-05T10:12:00+01:00</lastmod>
+    <lastmod>2022-03-16T20:26:11+01:00</lastmod>
   </url><url>
     <loc>https://chaphlagical.github.io/zh/posts/</loc>
-    <lastmod>2022-03-05T10:12:00+01:00</lastmod>
+    <lastmod>2022-03-16T20:26:11+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -65,8 +59,14 @@
                 href="https://chaphlagical.github.io/zh/posts/"
                 />
   </url><url>
+    <loc>https://chaphlagical.github.io/zh/tags/real-time-rendering/</loc>
+    <lastmod>2022-03-16T20:26:11+01:00</lastmod>
+  </url><url>
+    <loc>https://chaphlagical.github.io/zh/categories/rendering/</loc>
+    <lastmod>2022-03-16T20:26:11+01:00</lastmod>
+  </url><url>
     <loc>https://chaphlagical.github.io/zh/tags/</loc>
-    <lastmod>2022-03-05T10:12:00+01:00</lastmod>
+    <lastmod>2022-03-16T20:26:11+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -77,6 +77,18 @@
                 hreflang="zh"
                 href="https://chaphlagical.github.io/zh/tags/"
                 />
+  </url><url>
+    <loc>https://chaphlagical.github.io/zh/posts/rendering/shadow/</loc>
+    <lastmod>2022-03-16T20:26:11+01:00</lastmod>
+  </url><url>
+    <loc>https://chaphlagical.github.io/zh/categories/geometry/</loc>
+    <lastmod>2022-03-06T22:45:00+01:00</lastmod>
+  </url><url>
+    <loc>https://chaphlagical.github.io/zh/tags/geometry-processing/</loc>
+    <lastmod>2022-03-06T22:45:00+01:00</lastmod>
+  </url><url>
+    <loc>https://chaphlagical.github.io/zh/posts/geometry/smoothing/</loc>
+    <lastmod>2022-03-06T22:45:00+01:00</lastmod>
   </url><url>
     <loc>https://chaphlagical.github.io/zh/posts/geometry/differential_geometry/</loc>
     <lastmod>2022-03-05T10:12:00+01:00</lastmod>
@@ -110,12 +122,6 @@
   </url><url>
     <loc>https://chaphlagical.github.io/zh/posts/geometry/polar_form/</loc>
     <lastmod>2022-01-03T11:25:11+01:00</lastmod>
-  </url><url>
-    <loc>https://chaphlagical.github.io/zh/tags/real-time-rendering/</loc>
-    <lastmod>2022-01-03T10:25:11+01:00</lastmod>
-  </url><url>
-    <loc>https://chaphlagical.github.io/zh/categories/rendering/</loc>
-    <lastmod>2022-01-03T10:25:11+01:00</lastmod>
   </url><url>
     <loc>https://chaphlagical.github.io/zh/posts/rendering/pbr/</loc>
     <lastmod>2022-01-03T10:25:11+01:00</lastmod>
