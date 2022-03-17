@@ -1751,7 +1751,7 @@ if (!doNotTrack) {
 <div class="single__infos">
   <time class="single__info" title="创建日期">📅&nbsp;2022年03月16日 </time>
   
-  &nbsp;&middot;&nbsp; <span class="single__info" title="阅读时长"> ☕&nbsp;4&nbsp;分钟 </span>
+  &nbsp;&middot;&nbsp; <span class="single__info" title="阅读时长"> ☕&nbsp;5&nbsp;分钟 </span>
   
   <span class="single__info">
     
@@ -1879,9 +1879,38 @@ $$<br />
 <p><img src="shadow1.png" alt="shadow1" /></p>
 <h2 id="3-平行光阴影cascade-shadow-map">3. 平行光阴影——Cascade Shadow Map</h2>
 <p>平行光相对于聚光灯要复杂不少，平行光没有具体的光源位置，只有一个方向，且覆盖范围为无穷远，在场景搭建中常常用来表示日光等主光源。由于没有具体的位置与范围，我们很难进行投影摄像机的设置，好在已经有成熟的方案来帮助我们实现平行光的阴影，那就是级联阴影映射，即Cascade Shadow Map，aka CSM。</p>
-<p>CSM的核心思想是根据当前主相机的视锥体进行架设投影相机，因为在主相机可见范围之外的深度判断没有意义，因此我们希望把深度信息用在刀刃上，只考虑主相机看得到的部分。一个最直接的想法是选择一个能够覆盖整个主相机视锥体的投影相机，但由于主相机可见范围可能很远，视锥体范围很大，相应的投影相机也会覆盖较大的范围，势必将会降低生成的Shadow Map的精度，而事实上用户往往只关心里自己近的渲染细节品质，大范围渲染一视同仁，将会带来不够让人满意的结果。而CSM则是对主相机视锥进行分割，对每一块都架设投影相机，这样一来既能保证覆盖主相机所有可见范围，又能保证近处的深度图精度。为了方便对齐，Ilum渲染器将Cascade级数设置为4，$n$个平行光需要$4n$张贴图，将其打包成TextureArray，每四张归于一个平行光。</p>
+<p>CSM的核心思想是根据当前主相机的视锥体进行架设投影相机，因为在主相机可见范围之外的深度判断没有意义，因此我们希望把深度信息用在刀刃上，只考虑主相机看得到的部分。一个最直接的想法是选择一个能够覆盖整个主相机视锥体的投影相机，但由于主相机可见范围可能很远，视锥体范围很大，相应的投影相机也会覆盖较大的范围，势必将会降低生成的Shadow Map的精度，而事实上用户往往只关心里自己近的渲染细节品质，大范围渲染一视同仁，将会带来不够让人满意的结果。而CSM则是对主相机视锥进行分割，对每一块都架设投影相机，这样一来既能保证覆盖主相机所有可见范围，又能保证近处的深度图精度。为了方便对齐，Ilum渲染器将Cascade级数设置为4，$n$个平行光需要$4n$张贴图，将其打包成TextureArray，每四张归于一个平行光。总结起来，CSM的基本步骤如下：</p>
+<ol>
+<li>将视锥体$V$通过分割平面$\{C_i\}$分割为$m$份$\{V_i\}$</li>
+<li>对每一份视锥体$V_i$计算平行光相机的View Projection矩阵</li>
+<li>对每一份视锥体$V_i$生成一张Shadow Map $\{T_i\}$</li>
+<li>在场景中渲染阴影结果</li>
+</ol>
+<p><img src="10fig02.jpg" alt="10fig02.jpg" /></p>
 <h3 id="31-视锥分割">3.1. 视锥分割</h3>
-<p>CSM的第一个首要任务便是分割主相机视锥体，</p>
+<p><img src="10fig03.jpg" alt="10fig03" /></p>
+<p>假设单位像素在阴影贴图中的边长为$\mathrm ds$，由上图所示，模型表面的混淆误差定义为：<br />
+$$<br />
+\frac{\mathrm dp}{\mathrm ds}=n\frac{\mathrm dz}{z\mathrm ds}\frac{\cos\phi}{\cos\theta}<br />
+$$<br />
+其中$n$即相机到近平面的距离。</p>
+<p>为了使得整个画面的阴影看起来质量一致，不会因为和相机的距离而出现明显的质量变化，我们应尽量使$\frac{\mathrm dp}{\mathrm ds}$项为一个常数，则余弦项系数$\frac{\mathrm dz}{z\mathrm ds}$也应保持常数，则有<br />
+$$<br />
+\frac{\mathrm dz}{z\mathrm ds}=\rho\Rightarrow s(z)=\int_0^s\mathrm ds=\frac{1}{\rho}\int_n^z\frac{1}{z}\mathrm dz=\frac{1}{\rho}\ln\frac{z}{n}<br />
+$$<br />
+又有$s(f)=1$，因此<br />
+$$<br />
+\rho=\ln\frac{f}{n}<br />
+$$<br />
+因此对于共计$m$次分割的第$i$个视锥体分割，有：<br />
+$$<br />
+s(z_i)=\frac{1}{\ln(f/n)}\ln\frac{z_i}{n}=\frac{i}{m}\Rightarrow z_i=n\left(\frac{f}{n}\right)^{i/m}<br />
+$$<br />
+<img src="image-20220317191201141.png" alt="image-20220317191201141" style="zoom:50%;" /></p>
+<p>从上图中可以看到光锥体包含了很大一部分不可见的区域，造成阴影贴图的浪费，因此我们可以添加一个线性项来改善这个问题：<br />
+$$<br />
+z_i=\lambda n\left(\frac{f}{n}\right)^{i/m}+(1-\lambda)(n+(f-n)\frac{i}{m})<br />
+$$</p>
 
     </article>
     
