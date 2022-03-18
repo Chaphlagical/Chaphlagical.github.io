@@ -1751,7 +1751,7 @@ if (!doNotTrack) {
 <div class="single__infos">
   <time class="single__info" title="创建日期">📅&nbsp;2022年03月16日 </time>
   
-  &nbsp;&middot;&nbsp; <span class="single__info" title="阅读时长"> ☕&nbsp;5&nbsp;分钟 </span>
+  &nbsp;&middot;&nbsp; <span class="single__info" title="阅读时长"> ☕&nbsp;12&nbsp;分钟 </span>
   
   <span class="single__info">
     
@@ -1910,7 +1910,583 @@ $$<br />
 <p>从上图中可以看到光锥体包含了很大一部分不可见的区域，造成阴影贴图的浪费，因此我们可以添加一个线性项来改善这个问题：<br />
 $$<br />
 z_i=\lambda n\left(\frac{f}{n}\right)^{i/m}+(1-\lambda)(n+(f-n)\frac{i}{m})<br />
-$$</p>
+$$<br />
+这样一来，我们便得到一个采样相对均匀的视锥体分割方法</p>
+<p><img src="10fig04.jpg" alt="10fig04.jpg" /></p>
+<p>实现代码：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="kt">float</span> <span class="n">cascade_splits</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mf">0.f</span><span class="p">};</span>
+
+<span class="kt">float</span> <span class="n">near_clip</span>  <span class="o">=</span> <span class="n">camera</span><span class="o">-&gt;</span><span class="n">near_plane</span><span class="p">;</span>
+<span class="kt">float</span> <span class="n">far_clip</span>   <span class="o">=</span> <span class="n">camera</span><span class="o">-&gt;</span><span class="n">far_plane</span><span class="p">;</span>
+<span class="kt">float</span> <span class="n">clip_range</span> <span class="o">=</span> <span class="n">far_clip</span> <span class="o">-</span> <span class="n">near_clip</span><span class="p">;</span>
+<span class="kt">float</span> <span class="n">ratio</span>      <span class="o">=</span> <span class="n">far_clip</span> <span class="o">/</span> <span class="n">near_clip</span><span class="p">;</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="kt">uint32_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">float</span> <span class="n">p</span>           <span class="o">=</span> <span class="p">(</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">+</span> <span class="mf">1.f</span><span class="p">)</span> <span class="o">/</span> <span class="mf">4.f</span><span class="p">;</span>
+    <span class="kt">float</span> <span class="n">log</span>         <span class="o">=</span> <span class="n">near_clip</span> <span class="o">*</span> <span class="n">std</span><span class="o">::</span><span class="n">pow</span><span class="p">(</span><span class="n">ratio</span><span class="p">,</span> <span class="n">p</span><span class="p">);</span>
+    <span class="kt">float</span> <span class="n">uniform</span>     <span class="o">=</span> <span class="n">near_clip</span> <span class="o">+</span> <span class="n">clip_range</span> <span class="o">*</span> <span class="n">p</span><span class="p">;</span>
+    <span class="kt">float</span> <span class="n">d</span>           <span class="o">=</span> <span class="mf">0.95f</span> <span class="o">*</span> <span class="p">(</span><span class="n">log</span> <span class="o">-</span> <span class="n">uniform</span><span class="p">)</span> <span class="o">+</span> <span class="n">uniform</span><span class="p">;</span>
+    <span class="n">cascade_splits</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">d</span> <span class="o">-</span> <span class="n">near_clip</span><span class="p">)</span> <span class="o">/</span> <span class="n">clip_range</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="32-计算光源的相机参数">3.2. 计算光源的相机参数</h3>
+<p><img src="image-20220318094640099.png" alt="image-20220318094640099" style="zoom:50%;" /></p>
+<p>每一级Cascade的阴影相机应覆盖相应的视锥体，首先计算分割后的视锥体各个顶点坐标，在屏幕空间中，视锥体应为屏幕边界，由于Vulkan中的深度范围为$[0,1]$，因此八个顶点坐标分别为：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="n">glm</span><span class="o">::</span><span class="n">vec3</span> <span class="n">frustum_corners</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">glm</span><span class="o">::</span><span class="n">vec3</span><span class="p">(</span><span class="o">-</span><span class="mf">1.0f</span><span class="p">,</span> <span class="mf">1.0f</span><span class="p">,</span> <span class="mf">0.0f</span><span class="p">),</span>
+    <span class="n">glm</span><span class="o">::</span><span class="n">vec3</span><span class="p">(</span><span class="mf">1.0f</span><span class="p">,</span> <span class="mf">1.0f</span><span class="p">,</span> <span class="mf">0.0f</span><span class="p">),</span>
+    <span class="n">glm</span><span class="o">::</span><span class="n">vec3</span><span class="p">(</span><span class="mf">1.0f</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0f</span><span class="p">,</span> <span class="mf">0.0f</span><span class="p">),</span>
+    <span class="n">glm</span><span class="o">::</span><span class="n">vec3</span><span class="p">(</span><span class="o">-</span><span class="mf">1.0f</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0f</span><span class="p">,</span> <span class="mf">0.0f</span><span class="p">),</span>
+    <span class="n">glm</span><span class="o">::</span><span class="n">vec3</span><span class="p">(</span><span class="o">-</span><span class="mf">1.0f</span><span class="p">,</span> <span class="mf">1.0f</span><span class="p">,</span> <span class="mf">1.0f</span><span class="p">),</span>
+    <span class="n">glm</span><span class="o">::</span><span class="n">vec3</span><span class="p">(</span><span class="mf">1.0f</span><span class="p">,</span> <span class="mf">1.0f</span><span class="p">,</span> <span class="mf">1.0f</span><span class="p">),</span>
+    <span class="n">glm</span><span class="o">::</span><span class="n">vec3</span><span class="p">(</span><span class="mf">1.0f</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0f</span><span class="p">,</span> <span class="mf">1.0f</span><span class="p">),</span>
+    <span class="n">glm</span><span class="o">::</span><span class="n">vec3</span><span class="p">(</span><span class="o">-</span><span class="mf">1.0f</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0f</span><span class="p">,</span> <span class="mf">1.0f</span><span class="p">)};</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>通过主相机的View Projection矩阵反变换到世界坐标中：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="n">glm</span><span class="o">::</span><span class="n">mat4</span> <span class="n">inv_cam</span> <span class="o">=</span> <span class="n">glm</span><span class="o">::</span><span class="n">inverse</span><span class="p">(</span><span class="n">camera</span><span class="o">-&gt;</span><span class="n">view_projection</span><span class="p">);</span>
+<span class="k">for</span> <span class="p">(</span><span class="kt">uint32_t</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="mi">8</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">glm</span><span class="o">::</span><span class="n">vec4</span> <span class="n">inv_corner</span> <span class="o">=</span> <span class="n">inv_cam</span> <span class="o">*</span> <span class="n">glm</span><span class="o">::</span><span class="n">vec4</span><span class="p">(</span><span class="n">frustum_corners</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="mf">1.f</span><span class="p">);</span>
+    <span class="n">frustum_corners</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>   <span class="o">=</span> <span class="n">glm</span><span class="o">::</span><span class="n">vec3</span><span class="p">(</span><span class="n">inv_corner</span> <span class="o">/</span> <span class="n">inv_corner</span><span class="p">.</span><span class="n">w</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>再通过分割比例对视锥体进行裁剪：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">for</span> <span class="p">(</span><span class="kt">uint32_t</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">glm</span><span class="o">::</span><span class="n">vec3</span> <span class="n">corner_ray</span>   <span class="o">=</span> <span class="n">frustum_corners</span><span class="p">[</span><span class="n">j</span> <span class="o">+</span> <span class="mi">4</span><span class="p">]</span> <span class="o">-</span> <span class="n">frustum_corners</span><span class="p">[</span><span class="n">j</span><span class="p">];</span>
+    <span class="n">frustum_corners</span><span class="p">[</span><span class="n">j</span> <span class="o">+</span> <span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="n">frustum_corners</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">+</span> <span class="n">corner_ray</span> <span class="o">*</span> <span class="n">split_dist</span><span class="p">;</span>
+    <span class="n">frustum_corners</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>     <span class="o">=</span> <span class="n">frustum_corners</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">+</span> <span class="n">corner_ray</span> <span class="o">*</span> <span class="n">last_split_dist</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>得到当前级的视锥体后，可以计算其包围球：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="n">glm</span><span class="o">::</span><span class="n">vec3</span> <span class="n">frustum_center</span> <span class="o">=</span> <span class="n">glm</span><span class="o">::</span><span class="n">vec3</span><span class="p">(</span><span class="mf">0.0f</span><span class="p">);</span>
+<span class="k">for</span> <span class="p">(</span><span class="kt">uint32_t</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="mi">8</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">frustum_center</span> <span class="o">+=</span> <span class="n">frustum_corners</span><span class="p">[</span><span class="n">j</span><span class="p">];</span>
+<span class="p">}</span>
+<span class="n">frustum_center</span> <span class="o">/=</span> <span class="mf">8.0f</span><span class="p">;</span>
+
+<span class="kt">float</span> <span class="n">radius</span> <span class="o">=</span> <span class="mf">0.0f</span><span class="p">;</span>
+<span class="k">for</span> <span class="p">(</span><span class="kt">uint32_t</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="mi">8</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">float</span> <span class="n">distance</span> <span class="o">=</span> <span class="n">glm</span><span class="o">::</span><span class="n">length</span><span class="p">(</span><span class="n">frustum_corners</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">-</span> <span class="n">frustum_center</span><span class="p">);</span>
+    <span class="n">radius</span>         <span class="o">=</span> <span class="n">glm</span><span class="o">::</span><span class="n">max</span><span class="p">(</span><span class="n">radius</span><span class="p">,</span> <span class="n">distance</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="n">radius</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">ceil</span><span class="p">(</span><span class="n">radius</span> <span class="o">*</span> <span class="mf">16.0f</span><span class="p">)</span> <span class="o">/</span> <span class="mf">16.0f</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>有了包围球，便能够很容易地求出相机参数了：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="n">glm</span><span class="o">::</span><span class="n">vec3</span> <span class="n">max_extents</span> <span class="o">=</span> <span class="n">glm</span><span class="o">::</span><span class="n">vec3</span><span class="p">(</span><span class="n">radius</span><span class="p">);</span>
+<span class="n">glm</span><span class="o">::</span><span class="n">vec3</span> <span class="n">min_extents</span> <span class="o">=</span> <span class="o">-</span><span class="n">max_extents</span><span class="p">;</span>
+
+<span class="n">glm</span><span class="o">::</span><span class="n">vec3</span> <span class="n">light_dir</span> <span class="o">=</span> <span class="n">glm</span><span class="o">::</span><span class="n">normalize</span><span class="p">(</span><span class="n">light</span><span class="p">.</span><span class="n">direction</span><span class="p">);</span>
+
+<span class="n">glm</span><span class="o">::</span><span class="n">mat4</span> <span class="n">light_view_matrix</span>  <span class="o">=</span> <span class="n">glm</span><span class="o">::</span><span class="n">lookAt</span><span class="p">(</span><span class="n">frustum_center</span> <span class="o">-</span> <span class="n">light_dir</span> <span class="o">*</span> <span class="n">max_extents</span><span class="p">.</span><span class="n">z</span><span class="p">,</span> 
+                                           <span class="n">frustum_center</span><span class="p">,</span> 
+                                           <span class="n">glm</span><span class="o">::</span><span class="n">vec3</span><span class="p">(</span><span class="mf">0.0f</span><span class="p">,</span> <span class="mf">1.0f</span><span class="p">,</span> <span class="mf">0.0f</span><span class="p">));</span>
+
+<span class="n">glm</span><span class="o">::</span><span class="n">mat4</span> <span class="n">light_ortho_matrix</span> <span class="o">=</span> <span class="n">glm</span><span class="o">::</span><span class="n">ortho</span><span class="p">(</span><span class="n">min_extents</span><span class="p">.</span><span class="n">x</span><span class="p">,</span> 
+                                          <span class="n">max_extents</span><span class="p">.</span><span class="n">x</span><span class="p">,</span> 
+                                          <span class="n">min_extents</span><span class="p">.</span><span class="n">y</span><span class="p">,</span> 
+                                          <span class="n">max_extents</span><span class="p">.</span><span class="n">y</span><span class="p">,</span> 
+                                          <span class="o">-</span><span class="mf">2.f</span> <span class="o">*</span> <span class="p">(</span><span class="n">max_extents</span><span class="p">.</span><span class="n">z</span> <span class="o">-</span> <span class="n">min_extents</span><span class="p">.</span><span class="n">z</span><span class="p">),</span> 
+                                          <span class="n">max_extents</span><span class="p">.</span><span class="n">z</span> <span class="o">-</span> <span class="n">min_extents</span><span class="p">.</span><span class="n">z</span><span class="p">);</span>
+
+<span class="n">light</span><span class="p">.</span><span class="n">split_depth</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>     <span class="o">=</span> <span class="o">-</span><span class="p">(</span><span class="n">near_clip</span> <span class="o">+</span> <span class="n">split_dist</span> <span class="o">*</span> <span class="n">clip_range</span><span class="p">);</span>
+<span class="n">light</span><span class="p">.</span><span class="n">view_projection</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">light_ortho_matrix</span> <span class="o">*</span> <span class="n">light_view_matrix</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="33-渲染深度图">3.3. 渲染深度图</h3>
+<p>知道了各级相机参数，我们便可以进行深度图的渲染了，一个简单的想法是对所以四个Cascade级渲染四遍场景，事实上为了减少Drawcall，我们可以利用几何着色器在一个Pass中绘制四遍场景。</p>
+<p>渲染方法延续此前的GPU Driven Rendering Pipeline中的Indirect Draw，不过在渲染深度图时没有做剔除操作，一方面是生成深度图开销较小，另外一方面是框架本身的局限性导致难以添加阴影剔除功能。</p>
+<p>顶点着色器中，我们只需要简单地将实例的索引传给下一阶段的几何着色器即可：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-glsl" data-lang="glsl"><span class="cp">#version 450</span>
+
+<span class="cp">#extension GL_KHR_vulkan_glsl : enable</span>
+<span class="cp">#extension GL_ARB_shader_viewport_layer_array : enable</span>
+
+<span class="cp">#include &#34;../../GlobalBuffer.glsl&#34;</span>
+
+<span class="n">layout</span><span class="p">(</span><span class="n">location</span> <span class="o">=</span> <span class="mo">0</span><span class="p">)</span> <span class="k">in</span> <span class="k">vec3</span> <span class="n">inPos</span><span class="p">;</span>
+<span class="n">layout</span><span class="p">(</span><span class="n">location</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="k">in</span> <span class="k">vec2</span> <span class="n">inUV</span><span class="p">;</span>
+<span class="n">layout</span><span class="p">(</span><span class="n">location</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span> <span class="k">in</span> <span class="k">vec3</span> <span class="n">inNormal</span><span class="p">;</span>
+<span class="n">layout</span><span class="p">(</span><span class="n">location</span> <span class="o">=</span> <span class="mi">3</span><span class="p">)</span> <span class="k">in</span> <span class="k">vec3</span> <span class="n">inTangent</span><span class="p">;</span>
+<span class="n">layout</span><span class="p">(</span><span class="n">location</span> <span class="o">=</span> <span class="mi">4</span><span class="p">)</span> <span class="k">in</span> <span class="k">vec3</span> <span class="n">inBiTangent</span><span class="p">;</span>
+
+<span class="n">layout</span><span class="p">(</span><span class="n">location</span> <span class="o">=</span> <span class="mo">0</span><span class="p">)</span> <span class="k">out</span> <span class="k">int</span> <span class="n">outInstanceIndex</span><span class="p">;</span>
+
+<span class="k">void</span> <span class="n">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">outInstanceIndex</span> <span class="o">=</span> <span class="n">gl_InstanceIndex</span><span class="p">;</span>
+    <span class="n">gl_Position</span> <span class="o">=</span>  <span class="k">vec4</span><span class="p">(</span><span class="n">inPos</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>在几何着色器中，渲染四遍场景：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-glsl" data-lang="glsl"><span class="cp">#version 450</span>
+
+<span class="cp">#extension GL_KHR_vulkan_glsl : enable</span>
+<span class="cp">#extension GL_ARB_shader_viewport_layer_array : enable</span>
+
+<span class="cp">#include &#34;../../GlobalBuffer.glsl&#34;</span>
+
+<span class="n">layout</span> <span class="p">(</span><span class="n">triangles</span><span class="p">,</span> <span class="n">invocations</span> <span class="o">=</span> <span class="mi">4</span><span class="p">)</span> <span class="k">in</span><span class="p">;</span>
+<span class="n">layout</span> <span class="p">(</span><span class="n">triangle_strip</span><span class="p">,</span> <span class="n">max_vertices</span> <span class="o">=</span> <span class="mi">3</span><span class="p">)</span> <span class="k">out</span><span class="p">;</span>
+
+<span class="n">layout</span> <span class="p">(</span><span class="n">location</span> <span class="o">=</span> <span class="mo">0</span><span class="p">)</span> <span class="k">in</span> <span class="k">int</span> <span class="n">inInstanceIndex</span><span class="p">[];</span>
+
+<span class="n">layout</span><span class="p">(</span><span class="n">set</span> <span class="o">=</span> <span class="mo">0</span><span class="p">,</span> <span class="n">binding</span> <span class="o">=</span> <span class="mo">0</span><span class="p">)</span> <span class="n">buffer</span> <span class="n">PerInstanceBuffer</span>
+<span class="p">{</span>
+    <span class="n">PerInstanceData</span> <span class="n">instance_data</span><span class="p">[</span> <span class="p">];</span>
+<span class="p">};</span>
+
+<span class="n">layout</span><span class="p">(</span><span class="n">set</span> <span class="o">=</span> <span class="mo">0</span><span class="p">,</span> <span class="n">binding</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="n">buffer</span> <span class="n">DirectionalLights</span><span class="p">{</span>
+    <span class="n">DirectionalLight</span> <span class="n">directional_lights</span><span class="p">[</span> <span class="p">];</span>
+<span class="p">};</span>
+
+<span class="n">layout</span><span class="p">(</span><span class="n">push_constant</span><span class="p">)</span> <span class="k">uniform</span> <span class="n">PushBlock</span><span class="p">{</span>
+    <span class="n">mat4</span> <span class="n">transform</span><span class="p">;</span>
+    <span class="n">uint</span> <span class="n">dynamic</span><span class="p">;</span>
+    <span class="n">uint</span> <span class="n">light_id</span><span class="p">;</span>
+<span class="p">}</span><span class="n">push_data</span><span class="p">;</span>
+
+<span class="k">void</span> <span class="n">main</span><span class="p">()</span> 
+<span class="p">{</span>
+    <span class="n">mat4</span> <span class="n">trans</span> <span class="o">=</span> <span class="n">push_data</span><span class="p">.</span><span class="n">dynamic</span> <span class="o">==</span> <span class="mi">1</span><span class="o">?</span> <span class="n">push_data</span><span class="p">.</span><span class="n">transform</span> <span class="o">:</span> <span class="n">instance_data</span><span class="p">[</span><span class="n">inInstanceIndex</span><span class="p">[</span><span class="mo">0</span><span class="p">]].</span><span class="n">transform</span><span class="p">;</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="k">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mo">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">gl_in</span><span class="p">.</span><span class="n">length</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">gl_Position</span> <span class="o">=</span>  <span class="n">directional_lights</span><span class="p">[</span><span class="n">push_data</span><span class="p">.</span><span class="n">light_id</span><span class="p">].</span><span class="n">view_projection</span><span class="p">[</span><span class="n">gl_InvocationID</span><span class="p">]</span> <span class="o">*</span> <span class="n">trans</span> <span class="o">*</span> <span class="n">gl_in</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">gl_Position</span><span class="p">;</span>
+        <span class="n">gl_Layer</span> <span class="o">=</span> <span class="k">int</span><span class="p">(</span><span class="n">push_data</span><span class="p">.</span><span class="n">light_id</span> <span class="o">*</span> <span class="mi">4</span> <span class="o">+</span> <span class="n">gl_InvocationID</span><span class="p">);</span>
+        <span class="n">EmitVertex</span><span class="p">();</span>
+    <span class="p">}</span>
+    <span class="n">EndPrimitive</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="34-渲染csm">3.4. 渲染CSM</h3>
+<p>在渲染CSM时，先计算当前像素位于哪一级Cascade的范围，索引相应的深度图，再按照之前计算Spot Light的Shadow Map的方法进行计算可见性，代码如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-glsl" data-lang="glsl"><span class="k">vec3</span> <span class="n">directional_light_shadow</span><span class="p">(</span><span class="n">DirectionalLight</span> <span class="n">light</span><span class="p">,</span> <span class="k">vec3</span> <span class="n">frag_color</span><span class="p">,</span> <span class="k">vec3</span> <span class="n">frag_pos</span><span class="p">,</span> <span class="k">vec3</span> <span class="n">view_pos</span><span class="p">,</span> <span class="k">float</span> <span class="n">layer</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">uint</span> <span class="n">cascade_index</span> <span class="o">=</span> <span class="mo">0</span><span class="p">;</span>
+
+    <span class="k">for</span><span class="p">(</span><span class="n">uint</span> <span class="n">i</span> <span class="o">=</span> <span class="mo">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">light</span><span class="p">.</span><span class="n">split_depth</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">view_pos</span><span class="p">.</span><span class="n">z</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">cascade_index</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    
+    <span class="n">layer</span> <span class="o">=</span> <span class="n">layer</span> <span class="o">*</span> <span class="mi">4</span> <span class="o">+</span> <span class="n">cascade_index</span><span class="p">;</span>
+
+    <span class="c1">// Same as Spot Light ...</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="35-实现结果">3.5. 实现结果</h3>
+<p>无阴影：</p>
+<p><img src="no_shadow2.png" alt="no_shadow2" /></p>
+<p>Cascade Shadow Map：</p>
+<table>
+<thead>
+<tr>
+<th align="center">Cascade #0</th>
+<th align="center">Cascade #1</th>
+<th align="center">Cascade #2</th>
+<th align="center">Cascade #3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><img src="csm0.png" alt="csm0" /></td>
+<td align="center"><img src="csm1.png" alt="csm1" /></td>
+<td align="center"><img src="csm2.png" alt="csm2" /></td>
+<td align="center"><img src="csm3.png" alt="csm3" /></td>
+</tr>
+</tbody>
+</table>
+<p>渲染结果：</p>
+<p><img src="cascade.png" alt="cascade" /></p>
+<h3 id="4-点光源阴影omnidirectional-shadow-map">4. 点光源阴影——Omnidirectional Shadow Map</h3>
+<p>点光源阴影的核心思想是渲染一张以点光源为中心的阴影立方体贴图，因此需要渲染六遍场景，开销也比较大。</p>
+<p>渲染相机方面，则是对点光源六个方向分别设置FOV为90°的透视相机，且远平面不宜过大，否则效果不佳，各个方向的相机参数通过如下计算：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="n">glm</span><span class="o">::</span><span class="n">mat4</span> <span class="n">get_point_light_shadow_matrix</span><span class="p">(</span><span class="k">const</span> <span class="n">glm</span><span class="o">::</span><span class="n">vec3</span> <span class="o">&amp;</span><span class="n">position</span><span class="p">,</span> <span class="kt">uint32_t</span> <span class="n">face</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">glm</span><span class="o">::</span><span class="n">mat4</span> <span class="n">projection_matrix</span> <span class="o">=</span> <span class="n">glm</span><span class="o">::</span><span class="n">perspective</span><span class="p">(</span><span class="n">glm</span><span class="o">::</span><span class="n">radians</span><span class="p">(</span><span class="mf">90.0f</span><span class="p">),</span> <span class="mf">1.0f</span><span class="p">,</span> <span class="mf">0.01f</span><span class="p">,</span> <span class="mf">100.f</span><span class="p">);</span>
+
+    <span class="k">switch</span> <span class="p">(</span><span class="n">face</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">case</span> <span class="mi">0</span><span class="o">:</span>        <span class="c1">// POSITIVE_X
+</span><span class="c1"></span>            <span class="k">return</span> <span class="n">projection_matrix</span> <span class="o">*</span> <span class="n">glm</span><span class="o">::</span><span class="n">lookAt</span><span class="p">(</span><span class="n">position</span><span class="p">,</span> <span class="n">position</span> <span class="o">+</span> <span class="n">glm</span><span class="o">::</span><span class="n">vec3</span><span class="p">(</span><span class="mf">1.0f</span><span class="p">,</span> <span class="mf">0.0f</span><span class="p">,</span> <span class="mf">0.0f</span><span class="p">),</span> <span class="n">glm</span><span class="o">::</span><span class="n">vec3</span><span class="p">(</span><span class="mf">0.0f</span><span class="p">,</span> <span class="mf">1.0f</span><span class="p">,</span> <span class="mf">0.0f</span><span class="p">));</span>
+        <span class="k">case</span> <span class="mi">1</span><span class="o">:</span>        <span class="c1">// NEGATIVE_X
+</span><span class="c1"></span>            <span class="k">return</span> <span class="n">projection_matrix</span> <span class="o">*</span> <span class="n">glm</span><span class="o">::</span><span class="n">lookAt</span><span class="p">(</span><span class="n">position</span><span class="p">,</span> <span class="n">position</span> <span class="o">+</span> <span class="n">glm</span><span class="o">::</span><span class="n">vec3</span><span class="p">(</span><span class="o">-</span><span class="mf">1.0f</span><span class="p">,</span> <span class="mf">0.0f</span><span class="p">,</span> <span class="mf">0.0f</span><span class="p">),</span> <span class="n">glm</span><span class="o">::</span><span class="n">vec3</span><span class="p">(</span><span class="mf">0.0f</span><span class="p">,</span> <span class="mf">1.0f</span><span class="p">,</span> <span class="mf">0.0f</span><span class="p">));</span>
+        <span class="k">case</span> <span class="mi">2</span><span class="o">:</span>        <span class="c1">// POSITIVE_Y
+</span><span class="c1"></span>            <span class="k">return</span> <span class="n">projection_matrix</span> <span class="o">*</span> <span class="n">glm</span><span class="o">::</span><span class="n">lookAt</span><span class="p">(</span><span class="n">position</span><span class="p">,</span> <span class="n">position</span> <span class="o">+</span> <span class="n">glm</span><span class="o">::</span><span class="n">vec3</span><span class="p">(</span><span class="mf">0.0f</span><span class="p">,</span> <span class="mf">1.0f</span><span class="p">,</span> <span class="mf">0.0f</span><span class="p">),</span> <span class="n">glm</span><span class="o">::</span><span class="n">vec3</span><span class="p">(</span><span class="mf">0.0f</span><span class="p">,</span> <span class="mf">0.0f</span><span class="p">,</span> <span class="mf">1.0f</span><span class="p">));</span>
+        <span class="k">case</span> <span class="mi">3</span><span class="o">:</span>        <span class="c1">// NEGATIVE_Y
+</span><span class="c1"></span>            <span class="k">return</span> <span class="n">projection_matrix</span> <span class="o">*</span> <span class="n">glm</span><span class="o">::</span><span class="n">lookAt</span><span class="p">(</span><span class="n">position</span><span class="p">,</span> <span class="n">position</span> <span class="o">+</span> <span class="n">glm</span><span class="o">::</span><span class="n">vec3</span><span class="p">(</span><span class="mf">0.0f</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0f</span><span class="p">,</span> <span class="mf">0.0f</span><span class="p">),</span> <span class="n">glm</span><span class="o">::</span><span class="n">vec3</span><span class="p">(</span><span class="mf">0.0f</span><span class="p">,</span> <span class="mf">0.0f</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0f</span><span class="p">));</span>
+        <span class="k">case</span> <span class="mi">4</span><span class="o">:</span>        <span class="c1">// POSITIVE_Z
+</span><span class="c1"></span>            <span class="k">return</span> <span class="n">projection_matrix</span> <span class="o">*</span> <span class="n">glm</span><span class="o">::</span><span class="n">lookAt</span><span class="p">(</span><span class="n">position</span><span class="p">,</span> <span class="n">position</span> <span class="o">+</span> <span class="n">glm</span><span class="o">::</span><span class="n">vec3</span><span class="p">(</span><span class="mf">0.0f</span><span class="p">,</span> <span class="mf">0.0f</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0f</span><span class="p">),</span> <span class="n">glm</span><span class="o">::</span><span class="n">vec3</span><span class="p">(</span><span class="mf">0.0f</span><span class="p">,</span> <span class="mf">1.0f</span><span class="p">,</span> <span class="mf">0.0f</span><span class="p">));</span>
+        <span class="k">case</span> <span class="mi">5</span><span class="o">:</span>        <span class="c1">// NEGATIVE_Z
+</span><span class="c1"></span>            <span class="k">return</span> <span class="n">projection_matrix</span> <span class="o">*</span> <span class="n">glm</span><span class="o">::</span><span class="n">lookAt</span><span class="p">(</span><span class="n">position</span><span class="p">,</span> <span class="n">position</span> <span class="o">+</span> <span class="n">glm</span><span class="o">::</span><span class="n">vec3</span><span class="p">(</span><span class="mf">0.0f</span><span class="p">,</span> <span class="mf">0.0f</span><span class="p">,</span> <span class="mf">1.0f</span><span class="p">),</span> <span class="n">glm</span><span class="o">::</span><span class="n">vec3</span><span class="p">(</span><span class="mf">0.0f</span><span class="p">,</span> <span class="mf">1.0f</span><span class="p">,</span> <span class="mf">0.0f</span><span class="p">));</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">glm</span><span class="o">::</span><span class="n">mat4</span><span class="p">(</span><span class="mf">1.f</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>在后续计算中，由于我们需要通过深度图还原出实际的世界深度，再与点光源和着色点之间连线的距离大小做判断，在实际开发中发现精确还原世界深度有一定难度，因此我们另辟蹊径，在片元着色器中计算点光源和阴影相机下着色点之间连线的距离，通过除以远平面进行归一化，赋值到<code>gl_FragDepth</code>，手动写入的深度信息不会进行深度校正，在后续计算中可以简单地进行采样并乘上远平面得到实际的世界深度。</p>
+<p>光照阶段的着色器代码如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-glsl" data-lang="glsl"><span class="k">float</span> <span class="n">sample_shadowmap_cube</span><span class="p">(</span><span class="n">samplerCubeArray</span> <span class="n">shadowmap</span><span class="p">,</span> <span class="k">vec3</span> <span class="n">L</span><span class="p">,</span> <span class="k">float</span> <span class="n">layer</span><span class="p">,</span> <span class="k">vec3</span> <span class="n">offset</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">float</span> <span class="n">shadow</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">;</span>
+    <span class="k">float</span> <span class="n">light_depth</span> <span class="o">=</span> <span class="n">length</span><span class="p">(</span><span class="n">L</span><span class="p">);</span>
+    <span class="n">L</span><span class="p">.</span><span class="n">z</span> <span class="o">=</span> <span class="o">-</span><span class="n">L</span><span class="p">.</span><span class="n">z</span><span class="p">;</span>
+    <span class="k">float</span> <span class="n">dist</span> <span class="o">=</span> <span class="n">texture</span><span class="p">(</span><span class="n">shadowmap</span><span class="p">,</span> <span class="k">vec4</span><span class="p">(</span><span class="n">L</span> <span class="o">+</span> <span class="n">offset</span><span class="p">,</span> <span class="n">layer</span><span class="p">)).</span><span class="n">r</span><span class="p">;</span>
+    <span class="n">dist</span> <span class="o">*=</span> <span class="mf">100.0</span><span class="p">;</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">light_depth</span> <span class="o">&gt;</span> <span class="n">dist</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">shadow</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">shadow</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">vec3</span> <span class="n">point_light_shadow</span><span class="p">(</span><span class="n">PointLight</span> <span class="n">light</span><span class="p">,</span> <span class="k">vec3</span> <span class="n">frag_color</span><span class="p">,</span> <span class="k">vec3</span> <span class="n">frag_pos</span><span class="p">,</span> <span class="k">float</span> <span class="n">layer</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="n">frag_color</span> <span class="o">*</span> <span class="n">sample_shadowmap_cube</span><span class="p">(</span><span class="n">OmniShadowMaps</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">layer</span><span class="p">,</span> <span class="k">vec3</span><span class="p">(</span><span class="mf">0.0</span><span class="p">));</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>实现效果：</strong></p>
+<p>无阴影：</p>
+<p><img src="no_shadow3.png" alt="no_shadow3" /></p>
+<p>立方体阴影贴图：</p>
+<table>
+<thead>
+<tr>
+<th align="center">X+</th>
+<th align="center">X-</th>
+<th align="center">Y+</th>
+<th align="center">Y-</th>
+<th align="center">Z+</th>
+<th align="center">Z-</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><img src="onmi_X+.png" alt="onmi_X+" /></td>
+<td align="center"><img src="onmi_X-.png" alt="onmi_X-" /></td>
+<td align="center"><img src="onmi_Y+.png" alt="onmi_Y+" /></td>
+<td align="center"><img src="onmi_Y-.png" alt="onmi_Y-" /></td>
+<td align="center"><img src="onmi_Z+.png" alt="onmi_Z+" /></td>
+<td align="center"><img src="onmi_Z-.png" alt="onmi_Z-" /></td>
+</tr>
+</tbody>
+</table>
+<p>渲染结果：</p>
+<p><img src="omni.png" alt="omni" /></p>
+<h2 id="5-实时阴影的效果提升">5. 实时阴影的效果提升</h2>
+<h3 id="51-自遮挡问题">5.1. 自遮挡问题</h3>
+<p><img src="image-20220318114924723.png" alt="image-20220318114924723" /></p>
+<p>直接使用Shadow Map容易出现上图的自遮挡现象，自遮挡现象出现的原因是数值精度问题，如下图所示，</p>
+<p><img src="image-20220318115653757.png" alt="image-20220318115653757" /></p>
+<p>由于阴影贴图分辨率有限，当距离光源比较远时，多个片元可能从深度图的同一个值中去采样，此时当光源以一个角度朝向表面时，不同的片元对深度图中同一个值可能出现差异，有些偏大，有些偏小，此时采样渲染结果将导致交错的黑白条纹，出现失真现象。而解决这个问题的思路也很简单，只需简单地给深度图增加一个偏置Bias即可，但当光线接近于平行入射时，依然会失败，一个更高效的方法是使用Slope Scale Bias，使得偏置正比于入射角。深度偏置可以在着色器中手动添加，也可以利用图形API驱动，调用Vulkan函数<code>vkCmdSetDepthBias</code>进行设置。深度偏置过小会导致自遮挡现象不能很好的消除，偏置过大则会出现漏光现象，事实上，Shadow Map的误差问题是可以进行定量计算的，即可以计算出自适应最优的Depth Bias，但在大多数时候使用固定的Bias即可解决问题，知乎上也有人提供了关于自适应Depth Bias的计算方法（<a href="https://zhuanlan.zhihu.com/p/370951892">链接</a>），可以作为参考</p>
+<h3 id="52-percentage-closer-filteringpcf">5.2. Percentage-Closer Filtering(PCF)</h3>
+<p>直接通过采样阴影相机深度图得到的阴影结果通常为硬阴影，即边缘会有走样问题，如下图所示：</p>
+<p><img src="no_pcf.png" alt="no_pcf" style="zoom:50%;" /></p>
+<p>而且，实际光源常常具有一定的体积，产生阴影时往往会得到边缘较为柔和的软阴影，如下图所示：</p>
+<p><img src="image-20220318132949840.png" alt="image-20220318132949840" style="zoom:50%;" /></p>
+<p>对于理想点光源，图中$P$点作为一个分界点，$P$点右侧无法被光源看到，表现为阴影；$P$点左侧能够被光源看到，表现为光照。而对于带有一定面积的光源，$P$点左右会被光源部分照射到，往左光照逐渐增加，往右逐渐减少，表现出来便是从阴影处到照明处有一段渐变，即软阴影。</p>
+<p>而Shadow Map方法，我们难以捕捉到面积光这种特性，因此需要采用一些滤波方法来近似达到软阴影和反走样的效果，其中一个最简单的便是Percentage-Closer Filtering(PCF)。</p>
+<p>PCF的思路是对阴影进行模糊，和普通的图像模糊一样，设计一个滤波核，采样邻域像素进行卷积即可，卷积核的大小和权重将影响PCF滤波结果。Ilum渲染器中利用均值滤波器，支持均匀随机采样与泊松盘随机采样，进行PCF滤波。</p>
+<p>实现效果：</p>
+<table>
+<thead>
+<tr>
+<th align="center">硬阴影</th>
+<th align="center">均匀采样PCF</th>
+<th align="center">泊松采样PCF</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><img src="no_pcf.png" alt="no_pcf" /></td>
+<td align="center"><img src="uniform_pcf.png" alt="uniform_pcf" /></td>
+<td align="center"><img src="poisson_pcf.png" alt="poisson_pcf" /></td>
+</tr>
+</tbody>
+</table>
+<h3 id="53-percentage-closer-soft-shadowspcss">5.3. Percentage-Closer Soft Shadows(PCSS)</h3>
+<p>PCSS算法是PCF算法的一个改进，考虑了光源面积的大小，如下图所示：</p>
+<p><img src="image-20220318134625721.png" alt="image-20220318134625721" /></p>
+<p>$w_{\mathrm{Light}}$为光源大小，$d_{\mathrm{block}}$为光源到遮挡物的垂直距离，$d_{\mathrm{receiver}}$为光源到着色点的垂直距离，根据简单的相似三角形原理，很容易得到关系：<br />
+$$<br />
+\frac{w_{\mathrm{Light}}}{w_{\mathrm{Penumbra}}}=\frac{d_{\mathrm{Block}}}{d_{\mathrm{Receiver}}-d_{\mathrm{Block}}}\Rightarrow w_{\mathrm{Penumbra}}=\frac{d_{\mathrm{Receiver}}-d_{\mathrm{Block}}}{d_{\mathrm{Block}}}\cdot w_{\mathrm{Light}}<br />
+$$<br />
+其中$w_{\mathrm{Penumbra}}$为PCF算法中的采样范围，PCSS考虑了光源面积，能够得到更加自然的软阴影，但同时计算开销也将增加，因为需要多次采样深度图</p>
+<p>实现效果：</p>
+<table>
+<thead>
+<tr>
+<th align="center">硬阴影</th>
+<th align="center">均匀采样PCSS</th>
+<th align="center">泊松采样PCSS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><img src="no_pcf.png" alt="no_pcf" /></td>
+<td align="center"><img src="uniform_pcss.png" alt="uniform_pcss" /></td>
+<td align="center"><img src="poisson_pcss.png" alt="poisson_pcss" /></td>
+</tr>
+</tbody>
+</table>
+<h2 id="6-效果展示">6. 效果展示</h2>
+<p>我们已经基本实现了各种光源的阴影渲染以及相应的软阴影优化，后续也将探索VSSM、SDF Shadow以及Moment Shadow Maps等更先进的软阴影技术，Ilum渲染器阴影渲染效果展示如下：</p>
+<p><video src="demo.mp4" controls = true></video></p>
+<h2 id="7-参考资料">7. 参考资料</h2>
+<p>[1] Akenine-Moller, Tomas, Eric Haines, and Naty Hoffman. <em>Real-time rendering</em>. AK Peters/crc Press, 2019.</p>
+<p>[2] <a href="https://www.bilibili.com/video/BV1YK4y1T7yY?from=search&amp;seid=15576827308893416813&amp;spm_id_from=333.337.0.0">GAMES202:高质量实时渲染</a></p>
+<p>[3] <a href="https://developer.nvidia.com/gpugems/gpugems3/part-ii-light-and-shadows/chapter-10-parallel-split-shadow-maps-programmable-gpus">GPU Gems3 Chapter 10</a></p>
+<p>[4] <a href="https://johanmedestrom.wordpress.com/2016/03/18/opengl-cascaded-shadow-maps/">https://johanmedestrom.wordpress.com/2016/03/18/opengl-cascaded-shadow-maps/</a></p>
+<p>[5] Lloyd, Brandon, et al. &ldquo;Warping and Partitioning for Low Error Shadow Maps.&rdquo; <em>Rendering Techniques</em>. 2006.</p>
+<p>[6] <a href="https://learnopengl.com/">https://learnopengl.com/</a></p>
 
     </article>
     
@@ -3499,8 +4075,22 @@ document.addEventListener('DOMContentLoaded', function () {
     <li><a href="#3-平行光阴影cascade-shadow-map">3. 平行光阴影——Cascade Shadow Map</a>
       <ul>
         <li><a href="#31-视锥分割">3.1. 视锥分割</a></li>
+        <li><a href="#32-计算光源的相机参数">3.2. 计算光源的相机参数</a></li>
+        <li><a href="#33-渲染深度图">3.3. 渲染深度图</a></li>
+        <li><a href="#34-渲染csm">3.4. 渲染CSM</a></li>
+        <li><a href="#35-实现结果">3.5. 实现结果</a></li>
+        <li><a href="#4-点光源阴影omnidirectional-shadow-map">4. 点光源阴影——Omnidirectional Shadow Map</a></li>
       </ul>
     </li>
+    <li><a href="#5-实时阴影的效果提升">5. 实时阴影的效果提升</a>
+      <ul>
+        <li><a href="#51-自遮挡问题">5.1. 自遮挡问题</a></li>
+        <li><a href="#52-percentage-closer-filteringpcf">5.2. Percentage-Closer Filtering(PCF)</a></li>
+        <li><a href="#53-percentage-closer-soft-shadowspcss">5.3. Percentage-Closer Soft Shadows(PCSS)</a></li>
+      </ul>
+    </li>
+    <li><a href="#6-效果展示">6. 效果展示</a></li>
+    <li><a href="#7-参考资料">7. 参考资料</a></li>
   </ul>
 </nav>
         </div>
