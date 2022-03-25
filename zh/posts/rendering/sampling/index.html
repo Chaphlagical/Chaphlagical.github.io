@@ -1751,7 +1751,7 @@ if (!doNotTrack) {
 <div class="single__infos">
   <time class="single__info" title="创建日期">📅&nbsp;2022年03月24日 </time>
   
-  &nbsp;&middot;&nbsp; <span class="single__info" title="阅读时长"> ☕&nbsp;3&nbsp;分钟 </span>
+  &nbsp;&middot;&nbsp; <span class="single__info" title="阅读时长"> ☕&nbsp;8&nbsp;分钟 </span>
   
   <span class="single__info">
     
@@ -1875,9 +1875,366 @@ D_N(B,P)=\sup_{b\in B}\left|\frac{\#\{x_i\in b\}}{N}-V(b) \right|<br />
 $$<br />
 其中$\#\{x_i\in b\}$为$b$中点的数量，$V(b)$为$b$的体积</p>
 <p>上式能够用于度量随机采样模式好坏的一大原因便是$\#\{x_i\in b\}/N$的值可以作为给定点集$P$下$b$的体积的近似，因此差异性表示为体积近似的最大误差。若$B$的集合覆盖了空间的边界时，差异性表示为$D^\ast_N(P)$</p>
-<p>通常来说，分布越均匀的点集，任意区域内的点集数量占点总数量的比例也会越接近于这个区域的体积，因此低差异序列往往是我们在渲染中需要用到的随机采样序列</p>
-<h3 id="22-分层抽样stratified-sampling">2.2. 分层抽样Stratified Sampling</h3>
-<p>分层抽样的核心思想是将采样域分为不重叠区域，然后对每一个区域进行采样</p>
+<p>通常来说，分布越均匀的点集，任意区域内的点集数量占点总数量的比例也会越接近于这个区域的体积，因此低差异序列往往是我们在渲染中需要用到的随机采样序列。</p>
+<p>生成随机序列的方法很多，这里参考了<a href="https://github.com/nvpro-samples/vk_raytrace/blob/master/shaders/random.glsl">https://github.com/nvpro-samples/vk_raytrace/blob/master/shaders/random.glsl</a>中的pcg随机数实现，可以实现$[0,1)$范围内的随机数：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-glsl" data-lang="glsl"><span class="c1">// https://dl.acm.org/doi/10.5555/1921479.1921500 </span>
+<span class="cm">/*GPU Random Numbers via the Tiny Encryption Algorithm*/</span>
+<span class="n">uint</span> <span class="n">tea</span><span class="p">(</span><span class="k">in</span> <span class="n">uint</span> <span class="n">val0</span><span class="p">,</span> <span class="k">in</span> <span class="n">uint</span> <span class="n">val1</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">uint</span> <span class="n">v0</span> <span class="o">=</span> <span class="n">val0</span><span class="p">;</span>
+    <span class="n">uint</span> <span class="n">v1</span> <span class="o">=</span> <span class="n">val1</span><span class="p">;</span>
+    <span class="n">uint</span> <span class="n">s0</span> <span class="o">=</span> <span class="mo">0</span><span class="p">;</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="n">uint</span> <span class="n">n</span> <span class="o">=</span> <span class="mo">0</span><span class="p">;</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="mi">16</span><span class="p">;</span> <span class="n">n</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">s0</span> <span class="o">+=</span> <span class="mh">0x9e3779b9</span><span class="p">;</span>
+        <span class="n">v0</span> <span class="o">+=</span> <span class="p">((</span><span class="n">v1</span> <span class="o">&lt;&lt;</span> <span class="mi">4</span><span class="p">)</span> <span class="o">+</span> <span class="mh">0xa341316c</span><span class="p">)</span> <span class="o">^</span> <span class="p">(</span><span class="n">v1</span> <span class="o">+</span> <span class="n">s0</span><span class="p">)</span> <span class="o">^</span> <span class="p">((</span><span class="n">v1</span> <span class="o">&gt;&gt;</span> <span class="mi">5</span><span class="p">)</span> <span class="o">+</span> <span class="mh">0xc8013ea4</span><span class="p">);</span>
+        <span class="n">v1</span> <span class="o">+=</span> <span class="p">((</span><span class="n">v0</span> <span class="o">&lt;&lt;</span> <span class="mi">4</span><span class="p">)</span> <span class="o">+</span> <span class="mh">0xad90777d</span><span class="p">)</span> <span class="o">^</span> <span class="p">(</span><span class="n">v0</span> <span class="o">+</span> <span class="n">s0</span><span class="p">)</span> <span class="o">^</span> <span class="p">((</span><span class="n">v0</span> <span class="o">&gt;&gt;</span> <span class="mi">5</span><span class="p">)</span> <span class="o">+</span> <span class="mh">0x7e95761e</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">v0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">uint</span> <span class="n">init_random</span><span class="p">(</span><span class="k">in</span> <span class="n">uvec2</span> <span class="n">resolution</span><span class="p">,</span> <span class="k">in</span> <span class="n">uvec2</span> <span class="n">screen_coord</span><span class="p">,</span> <span class="k">in</span> <span class="n">uint</span> <span class="n">frame</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="n">Tea</span><span class="p">(</span><span class="n">screen_coord</span><span class="p">.</span><span class="n">y</span> <span class="o">*</span> <span class="n">resolution</span><span class="p">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">screen_coord</span><span class="p">.</span><span class="n">x</span><span class="p">,</span> <span class="n">frame</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">// https://www.pcg-random.org/</span>
+<span class="n">uint</span> <span class="n">pcg</span><span class="p">(</span><span class="k">inout</span> <span class="n">uint</span> <span class="n">state</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">uint</span> <span class="n">prev</span> <span class="o">=</span> <span class="n">state</span> <span class="o">*</span> <span class="mi">747796405</span><span class="n">u</span> <span class="o">+</span> <span class="mi">2891336453</span><span class="n">u</span><span class="p">;</span>
+    <span class="n">uint</span> <span class="n">word</span> <span class="o">=</span> <span class="p">((</span><span class="n">prev</span> <span class="o">&gt;&gt;</span> <span class="p">((</span><span class="n">prev</span> <span class="o">&gt;&gt;</span> <span class="mi">28</span><span class="n">u</span><span class="p">)</span> <span class="o">+</span> <span class="mi">4</span><span class="n">u</span><span class="p">))</span> <span class="o">^</span> <span class="n">prev</span><span class="p">)</span> <span class="o">*</span> <span class="mi">277803737</span><span class="n">u</span><span class="p">;</span>
+    <span class="n">state</span>     <span class="o">=</span> <span class="n">prev</span><span class="p">;</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">word</span> <span class="o">&gt;&gt;</span> <span class="mi">22</span><span class="n">u</span><span class="p">)</span> <span class="o">^</span> <span class="n">word</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">uvec2</span> <span class="n">pcg2d</span><span class="p">(</span><span class="k">in</span> <span class="n">uvec2</span> <span class="n">v</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">v</span> <span class="o">=</span> <span class="n">v</span> <span class="o">*</span> <span class="mi">1664525</span><span class="n">u</span> <span class="o">+</span> <span class="mi">1013904223</span><span class="n">u</span><span class="p">;</span>
+    <span class="n">v</span><span class="p">.</span><span class="n">x</span> <span class="o">+=</span> <span class="n">v</span><span class="p">.</span><span class="n">y</span> <span class="o">*</span> <span class="mi">1664525</span><span class="n">u</span><span class="p">;</span>
+    <span class="n">v</span><span class="p">.</span><span class="n">y</span> <span class="o">+=</span> <span class="n">v</span><span class="p">.</span><span class="n">x</span> <span class="o">*</span> <span class="mi">1664525</span><span class="n">u</span><span class="p">;</span>
+    <span class="n">v</span> <span class="o">=</span> <span class="n">v</span> <span class="o">^</span> <span class="p">(</span><span class="n">v</span> <span class="o">&gt;&gt;</span> <span class="mi">16</span><span class="n">u</span><span class="p">);</span>
+    <span class="n">v</span><span class="p">.</span><span class="n">x</span> <span class="o">+=</span> <span class="n">v</span><span class="p">.</span><span class="n">y</span> <span class="o">*</span> <span class="mi">1664525</span><span class="n">u</span><span class="p">;</span>
+    <span class="n">v</span><span class="p">.</span><span class="n">y</span> <span class="o">+=</span> <span class="n">v</span><span class="p">.</span><span class="n">x</span> <span class="o">*</span> <span class="mi">1664525</span><span class="n">u</span><span class="p">;</span>
+    <span class="n">v</span> <span class="o">=</span> <span class="n">v</span> <span class="o">^</span> <span class="p">(</span><span class="n">v</span> <span class="o">&gt;&gt;</span> <span class="mi">16</span><span class="n">u</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">v</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">uvec3</span> <span class="n">pcg3d</span><span class="p">(</span><span class="k">in</span> <span class="n">uvec3</span> <span class="n">v</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">v</span> <span class="o">=</span> <span class="n">v</span> <span class="o">*</span> <span class="mi">1664525</span><span class="n">u</span> <span class="o">+</span> <span class="n">uvec3</span><span class="p">(</span><span class="mi">1013904223</span><span class="n">u</span><span class="p">);</span>
+    <span class="n">v</span><span class="p">.</span><span class="n">x</span> <span class="o">+=</span> <span class="n">v</span><span class="p">.</span><span class="n">y</span> <span class="o">*</span> <span class="n">v</span><span class="p">.</span><span class="n">z</span><span class="p">;</span>
+    <span class="n">v</span><span class="p">.</span><span class="n">y</span> <span class="o">+=</span> <span class="n">v</span><span class="p">.</span><span class="n">z</span> <span class="o">*</span> <span class="n">v</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
+    <span class="n">v</span><span class="p">.</span><span class="n">z</span> <span class="o">+=</span> <span class="n">v</span><span class="p">.</span><span class="n">x</span> <span class="o">*</span> <span class="n">v</span><span class="p">.</span><span class="n">y</span><span class="p">;</span>
+    <span class="n">v</span> <span class="o">^=</span> <span class="n">v</span> <span class="o">&gt;&gt;</span> <span class="n">uvec3</span><span class="p">(</span><span class="mi">16</span><span class="n">u</span><span class="p">);</span>
+    <span class="n">v</span><span class="p">.</span><span class="n">x</span> <span class="o">+=</span> <span class="n">v</span><span class="p">.</span><span class="n">y</span> <span class="o">*</span> <span class="n">v</span><span class="p">.</span><span class="n">z</span><span class="p">;</span>
+    <span class="n">v</span><span class="p">.</span><span class="n">y</span> <span class="o">+=</span> <span class="n">v</span><span class="p">.</span><span class="n">z</span> <span class="o">*</span> <span class="n">v</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
+    <span class="n">v</span><span class="p">.</span><span class="n">z</span> <span class="o">+=</span> <span class="n">v</span><span class="p">.</span><span class="n">x</span> <span class="o">*</span> <span class="n">v</span><span class="p">.</span><span class="n">y</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">v</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">float</span> <span class="n">rand</span><span class="p">(</span><span class="k">inout</span> <span class="n">uint</span> <span class="n">seed</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">uint</span> <span class="n">r</span> <span class="o">=</span> <span class="n">pcg</span><span class="p">(</span><span class="n">seed</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">uintBitsToFloat</span><span class="p">(</span><span class="mh">0x3f800000</span> <span class="o">|</span> <span class="p">(</span><span class="n">r</span> <span class="o">&gt;&gt;</span> <span class="mi">9</span><span class="p">))</span> <span class="o">-</span> <span class="mf">1.0</span><span class="n">f</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">vec2</span> <span class="n">rand2</span><span class="p">(</span><span class="k">inout</span> <span class="n">uint</span> <span class="n">prev</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="k">vec2</span><span class="p">(</span><span class="n">rand</span><span class="p">(</span><span class="n">prev</span><span class="p">),</span> <span class="n">rand</span><span class="p">(</span><span class="n">prev</span><span class="p">));</span>
+<span class="p">}</span>
+
+<span class="k">vec3</span> <span class="n">rand3</span><span class="p">(</span><span class="k">inout</span> <span class="n">uint</span> <span class="n">prev</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="k">vec3</span><span class="p">(</span><span class="n">rand</span><span class="p">(</span><span class="n">prev</span><span class="p">),</span> <span class="n">rand</span><span class="p">(</span><span class="n">prev</span><span class="p">),</span> <span class="n">rand</span><span class="p">(</span><span class="n">prev</span><span class="p">));</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>生成结果如下图所示：</p>
+<p><img src="uniform.png" alt="uniform" style="zoom:50%;" /></p>
+<h3 id="22-stratified采样">2.2. Stratified采样</h3>
+<p>Stratified采样的核心思想是将采样域分为不重叠区域，然后对每一个区域进行采样。这样能够使得生成的随机点覆盖更广、更均匀，如下图所示：</p>
+<p><img src="image-20220325102508236.png" alt="image-20220325102508236" style="zoom:50%;" /></p>
+<ul>
+<li>随机模式(a)是一种无效的的采样模式，因为大量区域没有被采样到，图形采样不足</li>
+<li>统一分层模式(b)分布较好，但会加剧混叠效应</li>
+<li>分层抖动模式(c)在保持分层优势的同时，将均匀模式的混叠转化为高频噪声</li>
+</ul>
+<p>生成结果如下图所示：</p>
+<p>统一分层模式</p>
+<p><img src="stratified.png" alt="stratified" style="zoom:50%;" /></p>
+<p>分层抖动模式</p>
+<p><img src="stratified_jitter.png" alt="stratified_jitter" style="zoom:50%;" /></p>
+<h3 id="23-latin-hypercube采样">2.3. Latin Hypercube采样</h3>
+<p>Latin Hypercube采样（LHS）是分层采样的一种优化，用于避免直接分层采样可能带来的样本在某一维上发生聚集到局部的情况，如下图所示：</p>
+<p><img src="image-20220325153523228.png" alt="image-20220325153523228" style="zoom:50%;" /></p>
+<p>对于$n$个采样点，LHS方法过程如下：</p>
+<ol>
+<li>先将采样区域$[0,1)^2$分成$n\times n$部分</li>
+<li>采样对角线部分区域</li>
+<li>沿y$方向随机排序</li>
+<li>沿$x$方向随机排序</li>
+</ol>
+<p>相当于对每一维上进行分层采样，如下图所示：</p>
+<p><img src="image-20220325153930056.png" alt="image-20220325153930056" /></p>
+<h3 id="24-halton采样">2.4. Halton采样</h3>
+<p>Halton采样序列是一种常用的低差异序列，在介绍Halton采样以及其他低差异序列之前需要了解一个基本运算Radical Inversion，Radical Inversion先将一个正整数$a$表达为以$b$的幂为基底的加权组合形式：<br />
+$$<br />
+a=\sum_{i=1}^m d_i(a)b^{i-1}<br />
+$$<br />
+则Radical Inversion函数$\Phi_b$表示为：<br />
+$$<br />
+\Phi_{b,C}(a)=(b^{-1}\cdots b^{-m})\left[C(d_0(a)\cdots d_{m-1}(a))^T\right]<br />
+$$<br />
+直观上来说，$a$为一个正整数，先将$a$表示为$b$进制的数，再把每一位上的数$d_i(a)$排成一个向量，和一个生成矩阵$C$相乘得到一个新的向量，最后将这个新向量镜像到小数点右边就能得到$a$以$b$为底数，以$C$为生成矩阵的Radical Inversion函数$\Phi_b$</p>
+<p>当生成矩阵$C$为单位阵时，将退化为Van der Corput序列，即：<br />
+$$<br />
+\Phi_{b}(a)=(b^{-1}\cdots b^{-m})(d_0(a)\cdots d_{m-1}(a))^T<br />
+$$<br />
+此时则是直接把$b$进制的数镜像到小数点右边即可。</p>
+<p>以$b=2$的Van der Corput序列$\Phi_2$为例，不同的$a$取值结果如下：</p>
+<p><img src="image-20220325132055685.png" alt="image-20220325132055685" /></p>
+<p>可以看到底为2的Van der Corput序列递归地将一维空间进行等距分割，其差异度为：<br />
+$$<br />
+D^\ast_N(P)=O\left(\frac{\log N}{N}\right)<br />
+$$<br />
+代码实现：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-glsl" data-lang="glsl"><span class="k">float</span> <span class="n">radical_inverse</span><span class="p">(</span><span class="n">uint</span> <span class="n">base</span><span class="p">,</span> <span class="n">uint</span> <span class="n">i</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">float</span> <span class="n">digit</span><span class="p">,</span> <span class="n">radical</span><span class="p">,</span> <span class="n">inverse</span><span class="p">;</span>
+    <span class="n">digit</span> <span class="o">=</span> <span class="n">radical</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="k">float</span><span class="p">(</span><span class="n">base</span><span class="p">);</span>
+    <span class="n">inverse</span>         <span class="o">=</span> <span class="mf">0.0</span><span class="p">;</span>
+
+    <span class="k">while</span> <span class="p">(</span><span class="n">i</span> <span class="o">!=</span> <span class="mo">0</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">inverse</span> <span class="o">+=</span> <span class="n">digit</span> <span class="o">*</span> <span class="k">float</span><span class="p">(</span><span class="n">i</span> <span class="o">%</span> <span class="n">base</span><span class="p">);</span>
+        <span class="n">digit</span> <span class="o">*=</span> <span class="n">radical</span><span class="p">;</span>
+        <span class="n">i</span> <span class="o">/=</span> <span class="n">base</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">inverse</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>此时我们可以定义Halton序列：<br />
+$$<br />
+x_a=(\Phi_2(a), \Phi_3(a), \Phi_5(a),\cdots,\Phi_{p_n}(a))<br />
+$$<br />
+其中，$p_1,p_2,\cdots$互为质数，Halton序列的差异度为：<br />
+$$<br />
+D^\ast_N(x_a)=O\left(\frac{(\log N)^n}{N}\right)<br />
+$$<br />
+达到渐近最优。</p>
+<p>当采样点数量$N$固定时，可以使用Hammersley序列来进一步降低差异度，Hammersley序列定义为：<br />
+$$<br />
+x_a=(\frac{a}{N}, \Phi_{p_1}(a), \Phi_{p_2}(a), \Phi_{p_3}(a),\cdots,\Phi_{p_n}(a))<br />
+$$<br />
+代码实现中，我们可以预存一个质数数组<code>Primes</code>，在计算Halton序列时只需简单地查询和计算Van der Corput序列即可：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-glsl" data-lang="glsl"><span class="k">float</span> <span class="n">halton</span><span class="p">(</span><span class="n">uint</span> <span class="n">dim</span><span class="p">,</span> <span class="n">uint</span> <span class="n">index</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="n">radical_inverse</span><span class="p">(</span><span class="n">Primes</span><span class="p">[</span><span class="n">dim</span> <span class="o">%</span> <span class="mi">1000</span><span class="p">],</span> <span class="n">index</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>一些采样结果如下图所示：</p>
+<table>
+<thead>
+<tr>
+<th align="center">$(\Phi_2(i),\Phi_3(i))_{i=0}^{3000}$</th>
+<th>$(\Phi_{15}(i),\Phi_{16}(i))_{i=0}^{3000}$</th>
+<th>$(\Phi_{29}(i),\Phi_{30}(i))_{i=0}^{3000}$</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><img src="halton2_3.png" alt="halton2_3" /></td>
+<td><img src="halton15_16.png" alt="halton15_16" /></td>
+<td><img src="halton29_30.png" alt="halton29_30" /></td>
+</tr>
+</tbody>
+</table>
+<p>可以看到当Halton序列的底比较大时，当序列的点的数量不够多时，点会趋于落在一条直线上分布，以29和31为底的序列为例，一开始的点为$1/29,2/29,3/29\cdots$，落在一条直线上。通常的解决方法是进行Scrambling，一个常用的方法是Faure Scrambling：<br />
+$$<br />
+\Phi_b(a)=\sum_{i=0}^{m-1}\sigma_b(d_i(a))b^{-i-1}<br />
+$$<br />
+在Radical Inverse的时候不直接将数字镜像到小数点右边，而是先通过一个permutation操作$\sigma_b$先转换为另一个数字，不同底数$b$下有不同的permutation，例如$\sigma_4=[0,2,1,3]$、Scrambling本质上在交换均等划分的部分，因此处理后的序列依然具有Radical Inverse的性质。</p>
+<p>在实际实现尤其是在着色器实现中，按公式计算需要有大量的二元运算和循环，效率低下，Leonhard的网页<a href="https://gruenschloss.org/">https://gruenschloss.org/</a>给出了高效的求解方法<a href="https://gruenschloss.org/halton/halton.zip">https://gruenschloss.org/halton/halton.zip</a>，通过查表可以得到Scrambling结果，例如$\Phi_5(a)$的实现如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-glsl" data-lang="glsl"><span class="k">const</span> <span class="n">uint</span> <span class="n">FaurePermutation5</span><span class="p">[</span><span class="mi">125</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="mo">0</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">65</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">115</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">85</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">35</span><span class="p">,</span> <span class="mi">110</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">55</span><span class="p">,</span>
+        <span class="mi">30</span><span class="p">,</span> <span class="mi">105</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">95</span><span class="p">,</span> <span class="mi">70</span><span class="p">,</span> <span class="mi">45</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">78</span><span class="p">,</span> <span class="mi">53</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">103</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">93</span><span class="p">,</span> <span class="mi">68</span><span class="p">,</span> <span class="mi">43</span><span class="p">,</span> <span class="mi">118</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">88</span><span class="p">,</span> <span class="mi">63</span><span class="p">,</span> <span class="mi">38</span><span class="p">,</span> <span class="mi">113</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">83</span><span class="p">,</span> <span class="mi">58</span><span class="p">,</span> <span class="mi">33</span><span class="p">,</span> <span class="mi">108</span><span class="p">,</span>
+        <span class="mi">23</span><span class="p">,</span> <span class="mi">98</span><span class="p">,</span> <span class="mi">73</span><span class="p">,</span> <span class="mi">48</span><span class="p">,</span> <span class="mi">123</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">77</span><span class="p">,</span> <span class="mi">52</span><span class="p">,</span> <span class="mi">27</span><span class="p">,</span> <span class="mi">102</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">92</span><span class="p">,</span> <span class="mi">67</span><span class="p">,</span> <span class="mi">42</span><span class="p">,</span> <span class="mi">117</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">87</span><span class="p">,</span> <span class="mi">62</span><span class="p">,</span> <span class="mi">37</span><span class="p">,</span> <span class="mi">112</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">82</span><span class="p">,</span> <span class="mi">57</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">107</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">97</span><span class="p">,</span>
+        <span class="mi">72</span><span class="p">,</span> <span class="mi">47</span><span class="p">,</span> <span class="mi">122</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">76</span><span class="p">,</span> <span class="mi">51</span><span class="p">,</span> <span class="mi">26</span><span class="p">,</span> <span class="mi">101</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">91</span><span class="p">,</span> <span class="mi">66</span><span class="p">,</span> <span class="mi">41</span><span class="p">,</span> <span class="mi">116</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">86</span><span class="p">,</span> <span class="mi">61</span><span class="p">,</span> <span class="mi">36</span><span class="p">,</span> <span class="mi">111</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">81</span><span class="p">,</span> <span class="mi">56</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span> <span class="mi">106</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="mi">96</span><span class="p">,</span> <span class="mi">71</span><span class="p">,</span> <span class="mi">46</span><span class="p">,</span>
+        <span class="mi">121</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">79</span><span class="p">,</span> <span class="mi">54</span><span class="p">,</span> <span class="mi">29</span><span class="p">,</span> <span class="mi">104</span><span class="p">,</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">94</span><span class="p">,</span> <span class="mi">69</span><span class="p">,</span> <span class="mi">44</span><span class="p">,</span> <span class="mi">119</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">89</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">39</span><span class="p">,</span> <span class="mi">114</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">84</span><span class="p">,</span> <span class="mi">59</span><span class="p">,</span> <span class="mi">34</span><span class="p">,</span> <span class="mi">109</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">99</span><span class="p">,</span> <span class="mi">74</span><span class="p">,</span> <span class="mi">49</span><span class="p">,</span> <span class="mi">124</span><span class="p">};</span>
+
+<span class="k">float</span> <span class="n">halton5</span><span class="p">(</span><span class="n">uint</span> <span class="n">index</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">FaurePermutation5</span><span class="p">[</span><span class="n">index</span> <span class="o">%</span> <span class="mi">125</span><span class="n">u</span><span class="p">]</span> <span class="o">*</span> <span class="mi">1953125</span><span class="n">u</span> <span class="o">+</span> <span class="n">FaurePermutation5</span><span class="p">[(</span><span class="n">index</span> <span class="o">/</span> <span class="mi">125</span><span class="n">u</span><span class="p">)</span> <span class="o">%</span> <span class="mi">125</span><span class="n">u</span><span class="p">]</span> <span class="o">*</span> <span class="mi">15625</span><span class="n">u</span> <span class="o">+</span>
+            <span class="n">FaurePermutation5</span><span class="p">[(</span><span class="n">index</span> <span class="o">/</span> <span class="mi">15625</span><span class="n">u</span><span class="p">)</span> <span class="o">%</span> <span class="mi">125</span><span class="n">u</span><span class="p">]</span> <span class="o">*</span> <span class="mi">125</span><span class="n">u</span> <span class="o">+</span>
+            <span class="n">FaurePermutation5</span><span class="p">[(</span><span class="n">index</span> <span class="o">/</span> <span class="mi">1953125</span><span class="n">u</span><span class="p">)</span> <span class="o">%</span> <span class="mi">125</span><span class="n">u</span><span class="p">])</span> <span class="o">*</span>
+        <span class="mf">4.096e-09</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>而$\Phi_2(a)$可以直接通过位运算求得：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-glsl" data-lang="glsl"><span class="k">float</span> <span class="n">halton2</span><span class="p">(</span><span class="n">uint</span> <span class="n">index</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">index</span> <span class="o">=</span> <span class="p">(</span><span class="n">index</span> <span class="o">&lt;&lt;</span> <span class="mi">16</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">index</span> <span class="o">&gt;&gt;</span> <span class="mi">16</span><span class="p">);</span>
+    <span class="n">index</span> <span class="o">=</span> <span class="p">((</span><span class="n">index</span> <span class="o">&amp;</span> <span class="mh">0x00ff00ff</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="mi">8</span><span class="p">)</span> <span class="o">|</span> <span class="p">((</span><span class="n">index</span> <span class="o">&amp;</span> <span class="mh">0xff00ff00</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="mi">8</span><span class="p">);</span>
+    <span class="n">index</span> <span class="o">=</span> <span class="p">((</span><span class="n">index</span> <span class="o">&amp;</span> <span class="mh">0x0f0f0f0f</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="mi">4</span><span class="p">)</span> <span class="o">|</span> <span class="p">((</span><span class="n">index</span> <span class="o">&amp;</span> <span class="mh">0xf0f0f0f0</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="mi">4</span><span class="p">);</span>
+    <span class="n">index</span> <span class="o">=</span> <span class="p">((</span><span class="n">index</span> <span class="o">&amp;</span> <span class="mh">0x33333333</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="mi">2</span><span class="p">)</span> <span class="o">|</span> <span class="p">((</span><span class="n">index</span> <span class="o">&amp;</span> <span class="mh">0xcccccccc</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="mi">2</span><span class="p">);</span>
+    <span class="n">index</span> <span class="o">=</span> <span class="p">((</span><span class="n">index</span> <span class="o">&amp;</span> <span class="mh">0x55555555</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span><span class="p">)</span> <span class="o">|</span> <span class="p">((</span><span class="n">index</span> <span class="o">&amp;</span> <span class="mh">0xaaaaaaaa</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="mi">1</span><span class="p">);</span>
+    <span class="n">index</span> <span class="o">=</span> <span class="mh">0x3f800000</span><span class="n">u</span> <span class="o">|</span> <span class="p">(</span><span class="n">index</span> <span class="o">&gt;&gt;</span> <span class="mi">9</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">uintBitsToFloat</span><span class="p">(</span><span class="n">index</span><span class="p">)</span> <span class="o">-</span> <span class="mf">1.</span><span class="n">f</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>$(\Phi_2(a),\Phi_5(a))$序列如下图所示：</p>
+<p><img src="halton.png" alt="halton" style="zoom:50%;" /></p>
+<h3 id="25-sobel采样">2.5. Sobel采样</h3>
+<p>Sobel序列的每一维均由底数为2的Radical Inversion组成，但每一维的Radical Inversion均有不同的生成矩阵$C$，即：<br />
+$$<br />
+x_a=(\Phi_{2,C_1}(a), \Phi_{2,C_2}(a), \Phi_{2,C_3}(a),\cdots,\Phi_{2,C_n}(a))<br />
+$$<br />
+Sobel序列不需要像Halton序列一样进行Scrambling，高质量分布的矩阵$C$可以在网站<a href="https://web.maths.unsw.edu.au/~fkuo/sobol/">https://web.maths.unsw.edu.au/~fkuo/sobol/</a>找到，因为矩阵$C$实在太大了，因此也没有在Shader里实现了。</p>
+<blockquote>
+<p>其他的采样序列还有0-2序列、最大最小距离序列以后有空再补</p>
+</blockquote>
 
     </article>
     
@@ -3469,7 +3826,10 @@ document.addEventListener('DOMContentLoaded', function () {
     <li><a href="#2-随机采样序列">2. 随机采样序列</a>
       <ul>
         <li><a href="#21-随机采样模式的差异性">2.1. 随机采样模式的差异性</a></li>
-        <li><a href="#22-分层抽样stratified-sampling">2.2. 分层抽样Stratified Sampling</a></li>
+        <li><a href="#22-stratified采样">2.2. Stratified采样</a></li>
+        <li><a href="#23-latin-hypercube采样">2.3. Latin Hypercube采样</a></li>
+        <li><a href="#24-halton采样">2.4. Halton采样</a></li>
+        <li><a href="#25-sobel采样">2.5. Sobel采样</a></li>
       </ul>
     </li>
   </ul>
