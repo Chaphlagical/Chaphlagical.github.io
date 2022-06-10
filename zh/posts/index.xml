@@ -14,11 +14,79 @@
     <managingEditor>chaf@mail.ustc.edu.cn (Wenbo Chen)</managingEditor>
     <webMaster>chaf@mail.ustc.edu.cn (Wenbo Chen)</webMaster>
     <copyright>©2022, All Rights Reserved</copyright>
-    <lastBuildDate>Thu, 24 Mar 2022 21:28:11 +0100</lastBuildDate>
+    <lastBuildDate>Fri, 10 Jun 2022 10:20:11 +0100</lastBuildDate>
     
         <atom:link href="https://chaphlagical.github.io/zh/posts/index.xml" rel="self" type="application/rss+xml" />
     
 
+      
+      <item>
+        <title>分布式操作系统总结</title>
+        <link>https://chaphlagical.github.io/zh/posts/computer/os/</link>
+        <pubDate>Fri, 10 Jun 2022 10:20:11 +0100</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        <atom:modified>Fri, 10 Jun 2022 10:20:11 +0100</atom:modified>
+        <guid>https://chaphlagical.github.io/zh/posts/computer/os/</guid>
+        <description>1. 分布式系统简介 1.1. 分布式系统的诞生和定义 诞生原因 大规模、超大规模以及极大规模集成电路性能价格比发生了巨大变化 多机互连结构和通信技术的日益成熟</description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        <media:content url="https://chaphlagical.github.ioimages/posts/application_mathematics.jpg" medium="image"><media:title type="html">featured image</media:title></media:content>
+        
+        
+        
+          
+            
+              <category>OS</category>
+            
+          
+        
+        
+          
+            
+              <category>Computer Science</category>
+            
+          
+            
+              <category>OS</category>
+            
+          
+        
+        
+      </item>
+      
+      <item>
+        <title>算法分析与设计课程笔记</title>
+        <link>https://chaphlagical.github.io/zh/posts/computer/algorithm/</link>
+        <pubDate>Sun, 10 Apr 2022 10:20:11 +0100</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        <atom:modified>Sun, 10 Apr 2022 10:20:11 +0100</atom:modified>
+        <guid>https://chaphlagical.github.io/zh/posts/computer/algorithm/</guid>
+        <description>1. 分布式算法 1.1. 分布式系统导论 1.1.1. 分布式系统 定义：一个分布式系统是一个能彼此通信的单个计算装置的集合（计算单元：硬——处理器；软——进程） 紧耦合</description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        <media:content url="https://chaphlagical.github.ioimages/posts/application_mathematics.jpg" medium="image"><media:title type="html">featured image</media:title></media:content>
+        
+        
+        
+          
+            
+              <category>Mathematics</category>
+            
+          
+        
+        
+          
+            
+              <category>Computer Science</category>
+            
+          
+            
+              <category>Mathematics</category>
+            
+          
+        
+        
+      </item>
       
       <item>
         <title>采样与低差异序列</title>
@@ -920,6 +988,34 @@
               <category>Control Theory</category>
             
           
+        
+        
+      </item>
+      
+      <item>
+        <title></title>
+        <link>https://chaphlagical.github.io/zh/posts/rendering/pbr_/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        
+        <guid>https://chaphlagical.github.io/zh/posts/rendering/pbr_/</guid>
+        <description>Fresnel Term Fresnel Schlick $$
+F=F_0+(F_{90}-F_0)(1-\pmb V\cdot \pmb H)^5
+$$
+Fresnel Dielectric $$
+F=\frac{1}{2}\left(
+\frac{\eta\cos\theta_t-\cos\theta_i}{\eta\cos\theta_t+\cos\theta_i}
+\right)^2
+\left(
+\frac{\eta\cos\theta_i-\cos\theta_t}{\eta\cos\theta_i+\cos\theta_t}
+\right)^2
+$$</description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        
+        
+        
+        
         
         
       </item>

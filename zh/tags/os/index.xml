@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" 
+  xmlns:content="http://purl.org/rss/1.0/modules/content/" 
+  xmlns:dc="http://purl.org/dc/elements/1.1/" 
+  xmlns:atom="http://www.w3.org/2005/Atom" 
+  xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" 
+  xmlns:media="http://search.yahoo.com/mrss/">
+  <channel>
+    <title>OS on Chaf&#39;s Blog</title>
+    <link>https://chaphlagical.github.io/zh/tags/os/</link>
+    <description>Recent content in OS on Chaf&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <managingEditor>chaf@mail.ustc.edu.cn (Wenbo Chen)</managingEditor>
+    <webMaster>chaf@mail.ustc.edu.cn (Wenbo Chen)</webMaster>
+    <copyright>©2022, All Rights Reserved</copyright>
+    <lastBuildDate>Fri, 10 Jun 2022 10:20:11 +0100</lastBuildDate>
+    
+        <atom:link href="https://chaphlagical.github.io/zh/tags/os/index.xml" rel="self" type="application/rss+xml" />
+    
+
+      
+      <item>
+        <title>分布式操作系统总结</title>
+        <link>https://chaphlagical.github.io/zh/posts/computer/os/</link>
+        <pubDate>Fri, 10 Jun 2022 10:20:11 +0100</pubDate>
+        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
+        <atom:modified>Fri, 10 Jun 2022 10:20:11 +0100</atom:modified>
+        <guid>https://chaphlagical.github.io/zh/posts/computer/os/</guid>
+        <description>1. 分布式系统简介 1.1. 分布式系统的诞生和定义 诞生原因 大规模、超大规模以及极大规模集成电路性能价格比发生了巨大变化 多机互连结构和通信技术的日益成熟</description>
+        
+        <dc:creator>Wenbo Chen</dc:creator>
+        <media:content url="https://chaphlagical.github.ioimages/posts/application_mathematics.jpg" medium="image"><media:title type="html">featured image</media:title></media:content>
+        
+        
+        
+          
+            
+              <category>OS</category>
+            
+          
+        
+        
+          
+            
+              <category>Computer Science</category>
+            
+          
+            
+              <category>OS</category>
+            
+          
+        
+        
+      </item>
+      
+
+    
+  </channel>
+</rss>
