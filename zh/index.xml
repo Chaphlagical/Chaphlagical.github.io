@@ -76,40 +76,6 @@
       </item>
       
       <item>
-        <title>算法分析与设计课程笔记</title>
-        <link>https://chaphlagical.github.io/zh/posts/computer/algorithm/</link>
-        <pubDate>Sun, 10 Apr 2022 10:20:11 +0100</pubDate>
-        <author>chaf@mail.ustc.edu.cn (Wenbo Chen)</author>
-        <atom:modified>Sun, 10 Apr 2022 10:20:11 +0100</atom:modified>
-        <guid>https://chaphlagical.github.io/zh/posts/computer/algorithm/</guid>
-        <description>1. 分布式算法 1.1. 分布式系统导论 1.1.1. 分布式系统 定义：一个分布式系统是一个能彼此通信的单个计算装置的集合（计算单元：硬——处理器；软——进程） 紧耦合</description>
-        
-        <dc:creator>Wenbo Chen</dc:creator>
-        <media:content url="https://chaphlagical.github.ioimages/posts/application_mathematics.jpg" medium="image"><media:title type="html">featured image</media:title></media:content>
-        
-        
-        
-          
-            
-              <category>Mathematics</category>
-            
-          
-        
-        
-          
-            
-              <category>Computer Science</category>
-            
-          
-            
-              <category>Mathematics</category>
-            
-          
-        
-        
-      </item>
-      
-      <item>
         <title>采样与低差异序列</title>
         <link>https://chaphlagical.github.io/zh/posts/rendering/sampling/</link>
         <pubDate>Thu, 24 Mar 2022 21:28:11 +0100</pubDate>
