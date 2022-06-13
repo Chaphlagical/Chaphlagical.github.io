@@ -18,7 +18,7 @@
     <lastmod>2020-01-19T21:13:42+09:00</lastmod>
   </url><url>
     <loc>https://chaphlagical.github.io/zh/</loc>
-    <lastmod>2022-06-10T10:20:11+01:00</lastmod>
+    <lastmod>2022-06-11T09:45:11+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -30,8 +30,14 @@
                 href="https://chaphlagical.github.io/zh/"
                 />
   </url><url>
+    <loc>https://chaphlagical.github.io/zh/tags/algorithm/</loc>
+    <lastmod>2022-06-11T09:45:11+01:00</lastmod>
+  </url><url>
+    <loc>https://chaphlagical.github.io/zh/categories/algorithm/</loc>
+    <lastmod>2022-06-11T09:45:11+01:00</lastmod>
+  </url><url>
     <loc>https://chaphlagical.github.io/zh/categories/</loc>
-    <lastmod>2022-06-10T10:20:11+01:00</lastmod>
+    <lastmod>2022-06-11T09:45:11+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -44,16 +50,10 @@
                 />
   </url><url>
     <loc>https://chaphlagical.github.io/zh/categories/computer-science/</loc>
-    <lastmod>2022-06-10T10:20:11+01:00</lastmod>
-  </url><url>
-    <loc>https://chaphlagical.github.io/zh/tags/os/</loc>
-    <lastmod>2022-06-10T10:20:11+01:00</lastmod>
-  </url><url>
-    <loc>https://chaphlagical.github.io/zh/categories/os/</loc>
-    <lastmod>2022-06-10T10:20:11+01:00</lastmod>
+    <lastmod>2022-06-11T09:45:11+01:00</lastmod>
   </url><url>
     <loc>https://chaphlagical.github.io/zh/posts/</loc>
-    <lastmod>2022-06-10T10:20:11+01:00</lastmod>
+    <lastmod>2022-06-11T09:45:11+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -66,7 +66,7 @@
                 />
   </url><url>
     <loc>https://chaphlagical.github.io/zh/tags/</loc>
-    <lastmod>2022-06-10T10:20:11+01:00</lastmod>
+    <lastmod>2022-06-11T09:45:11+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -77,6 +77,15 @@
                 hreflang="zh"
                 href="https://chaphlagical.github.io/zh/tags/"
                 />
+  </url><url>
+    <loc>https://chaphlagical.github.io/zh/posts/computer/parallel/</loc>
+    <lastmod>2022-06-11T09:45:11+01:00</lastmod>
+  </url><url>
+    <loc>https://chaphlagical.github.io/zh/tags/os/</loc>
+    <lastmod>2022-06-10T10:20:11+01:00</lastmod>
+  </url><url>
+    <loc>https://chaphlagical.github.io/zh/categories/os/</loc>
+    <lastmod>2022-06-10T10:20:11+01:00</lastmod>
   </url><url>
     <loc>https://chaphlagical.github.io/zh/posts/computer/os/</loc>
     <lastmod>2022-06-10T10:20:11+01:00</lastmod>
