@@ -1,1 +1,0 @@
-{"config":{"indexing":"full","lang":["en"],"min_search_length":3,"prebuild_index":false,"separator":"[\\s\\-]+"},"docs":[{"location":"blog/","text":"ABC \u00b6","title":"Index"},{"location":"blog/#abc","text":"","title":"ABC"},{"location":"blog/Rendering/Test/","text":"AAA \u00b6","title":"Test"},{"location":"blog/Rendering/Test/#aaa","text":"","title":"AAA"}]}
