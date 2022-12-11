@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"chaphlagical.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.14.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":true,"storage":true,"lazyload":false,"nav":{"disqus":{"text":"Load Disqus","order":-1}}},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Siggraph Asia 2021 Paper Reading">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="ExtraNet: Real-time Extrapolated Rendering for Low-latency Temporal Supersampling">
+<meta property="og:url" content="https://chaphlagical.github.io/2021/08/10/paper_reading/ExtraNet/index.html">
+<meta property="og:site_name" content="Chaf&#39;s Blog">
+<meta property="og:description" content="Siggraph Asia 2021 Paper Reading">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://chaphlagical.github.io/2021/08/10/paper_reading/ExtraNet/image-20210810160748362.png">
+<meta property="og:image" content="https://chaphlagical.github.io/2021/08/10/paper_reading/ExtraNet/image-20210810165027122.png">
+<meta property="og:image" content="https://chaphlagical.github.io/2021/08/10/paper_reading/ExtraNet/image-20210810170445162.png">
+<meta property="og:image" content="https://chaphlagical.github.io/2021/08/10/paper_reading/ExtraNet/image-20210810171446843.png">
+<meta property="og:image" content="https://chaphlagical.github.io/2021/08/10/paper_reading/ExtraNet/image-20210810200628067.png">
+<meta property="og:image" content="https://chaphlagical.github.io/2021/08/10/paper_reading/ExtraNet/image-20210810202820213.png">
+<meta property="og:image" content="https://chaphlagical.github.io/2021/08/10/paper_reading/ExtraNet/image-20210810204738275.png">
+<meta property="og:image" content="https://chaphlagical.github.io/2021/08/10/paper_reading/ExtraNet/image-20210810220452315.png">
+<meta property="og:image" content="https://chaphlagical.github.io/2021/08/10/paper_reading/ExtraNet/image-20210810220314215.png">
+<meta property="og:image" content="https://chaphlagical.github.io/2021/08/10/paper_reading/ExtraNet/image-20210810220301362.png">
+<meta property="og:image" content="https://chaphlagical.github.io/2021/08/10/paper_reading/ExtraNet/image-20210812091839252.png">
+<meta property="og:image" content="https://chaphlagical.github.io/2021/08/10/paper_reading/ExtraNet/image-20210812091915623.png">
+<meta property="og:image" content="https://chaphlagical.github.io/2021/08/10/paper_reading/ExtraNet/image-20210812092044870.png">
+<meta property="og:image" content="https://chaphlagical.github.io/2021/08/10/paper_reading/ExtraNet/image-20210812092056289.png">
+<meta property="og:image" content="https://chaphlagical.github.io/2021/08/10/paper_reading/ExtraNet/image-20210812092149063.png">
+<meta property="og:image" content="https://chaphlagical.github.io/2021/08/10/paper_reading/ExtraNet/image-20210812092258548.png">
+<meta property="og:image" content="https://chaphlagical.github.io/2021/08/10/paper_reading/ExtraNet/image-20210812092412313.png">
+<meta property="og:image" content="https://chaphlagical.github.io/2021/08/10/paper_reading/ExtraNet/image-20210812092433191.png">
+<meta property="og:image" content="https://chaphlagical.github.io/2021/08/10/paper_reading/ExtraNet/image-20210812092455410.png">
+<meta property="og:image" content="https://chaphlagical.github.io/2021/08/10/paper_reading/ExtraNet/image-20210812092521428.png">
+<meta property="article:published_time" content="2021-08-10T21:13:11.000Z">
+<meta property="article:modified_time" content="2022-12-11T17:26:52.558Z">
+<meta property="article:author" content="Chaf Chen">
+<meta property="article:tag" content="Rendering">
+<meta property="article:tag" content="Neural Network">
+<meta property="article:tag" content="Siggraph Asia 2021">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://chaphlagical.github.io/2021/08/10/paper_reading/ExtraNet/image-20210810160748362.png">
+
+
+<link rel="canonical" href="https://chaphlagical.github.io/2021/08/10/paper_reading/ExtraNet/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://chaphlagical.github.io/2021/08/10/paper_reading/ExtraNet/","path":"2021/08/10/paper_reading/ExtraNet/","title":"ExtraNet: Real-time Extrapolated Rendering for Low-latency Temporal Supersampling"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>ExtraNet: Real-time Extrapolated Rendering for Low-latency Temporal Supersampling | Chaf's Blog</title>
+  
+
+
+
+
+
+
+  <script async defer data-website-id="" src=""></script>
+
+  <script defer data-domain="" src=""></script>
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Chaf's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Here I share some fun stuff</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Introduction"><span class="nav-number">2.</span> <span class="nav-text">1. Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Related-work-and-background"><span class="nav-number">3.</span> <span class="nav-text">2. Related work and background</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-Temporal-Reconstruction"><span class="nav-number">3.1.</span> <span class="nav-text">2.1. Temporal Reconstruction</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-Texture-In-painting"><span class="nav-number">3.2.</span> <span class="nav-text">2.2. Texture In-painting</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-Image-Warping"><span class="nav-number">3.3.</span> <span class="nav-text">2.3. Image Warping</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-Video-and-Rendering-Interpolation"><span class="nav-number">3.4.</span> <span class="nav-text">2.4. Video and Rendering Interpolation</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Motivation-and-Challenge"><span class="nav-number">4.</span> <span class="nav-text">3. Motivation and Challenge</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-Latency"><span class="nav-number">4.1.</span> <span class="nav-text">3.1. Latency</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-Challenge"><span class="nav-number">4.2.</span> <span class="nav-text">3.2. Challenge</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-ExtraNet-for-frame-extrapolation"><span class="nav-number">5.</span> <span class="nav-text">4. ExtraNet for frame extrapolation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-Problem-Formulation"><span class="nav-number">5.1.</span> <span class="nav-text">4.1. Problem Formulation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-Motion-Vectors-and-Image-Warping"><span class="nav-number">5.2.</span> <span class="nav-text">4.2. Motion Vectors and Image Warping</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-Network-Architecture"><span class="nav-number">5.3.</span> <span class="nav-text">4.3. Network Architecture</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-4-History-Encoder"><span class="nav-number">5.4.</span> <span class="nav-text">4.4. History Encoder</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-5-Loss-Function"><span class="nav-number">5.5.</span> <span class="nav-text">4.5. Loss Function</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-6-Training-detail"><span class="nav-number">5.6.</span> <span class="nav-text">4.6. Training detail</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-Dataset"><span class="nav-number">6.</span> <span class="nav-text">5. Dataset</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-Scenes-and-Buffers"><span class="nav-number">6.1.</span> <span class="nav-text">5.1. Scenes and Buffers</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-Marking-Holes"><span class="nav-number">6.2.</span> <span class="nav-text">5.2. Marking Holes</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-Result-and-Comparisons"><span class="nav-number">7.</span> <span class="nav-text">6. Result and Comparisons</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#6-1-Comparisons-against-Frame-Interpolation-Methods"><span class="nav-number">7.1.</span> <span class="nav-text">6.1. Comparisons against Frame Interpolation Methods</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-2-Comparisons-against-Frame-Extrapolation-Methods"><span class="nav-number">8.</span> <span class="nav-text">6.2. Comparisons against Frame Extrapolation Methods</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#6-3-Comparisons-against-ASW-Technology"><span class="nav-number">8.1.</span> <span class="nav-text">6.3. Comparisons against ASW Technology</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-4-Analysis-of-Runtime-Performance-and-Latency"><span class="nav-number">8.2.</span> <span class="nav-text">6.4. Analysis of Runtime Performance and Latency</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-5-Ablation-Study"><span class="nav-number">8.3.</span> <span class="nav-text">6.5. Ablation Study</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Chaf Chen"
+      src="/images/logo.jpg">
+  <p class="site-author-name" itemprop="name">Chaf Chen</p>
+  <div class="site-description" itemprop="description">USTC CG Student</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/chaphlagical" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;chaphlagical" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:chaf@mail.ustc.cn" title="E-Mail → mailto:chaf@mail.ustc.cn" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+          Links
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="http://gcl.ustc.edu.cn/" title="http:&#x2F;&#x2F;gcl.ustc.edu.cn&#x2F;" rel="noopener" target="_blank">GCL</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://chaphlagical.github.io/2021/08/10/paper_reading/ExtraNet/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Chaf Chen">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chaf's Blog">
+      <meta itemprop="description" content="USTC CG Student">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="ExtraNet: Real-time Extrapolated Rendering for Low-latency Temporal Supersampling | Chaf's Blog">
+      <meta itemprop="description" content="Siggraph Asia 2021 Paper Reading">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          ExtraNet: Real-time Extrapolated Rendering for Low-latency Temporal Supersampling
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2021-08-10 21:13:11" itemprop="dateCreated datePublished" datetime="2021-08-10T21:13:11+00:00">2021-08-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2022-12-11 17:26:52" itemprop="dateModified" datetime="2022-12-11T17:26:52+00:00">2022-12-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Paper-Reading/" itemprop="url" rel="index"><span itemprop="name">Paper Reading</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2021/08/10/paper_reading/ExtraNet/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2021/08/10/paper_reading/ExtraNet/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+            <div class="post-description">Siggraph Asia 2021 Paper Reading</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><p><strong>Real-time Rendering</strong></p>
+<ul>
+<li>Frame rate</li>
+<li>Latency</li>
+</ul>
+<p><strong>Spatial Super Sampling</strong>: DLSS</p>
+<ul>
+<li>Decreasing the rendering time of each frame by rendering at a lower resolution</li>
+</ul>
+<p><strong>Temporal Super Sampling</strong></p>
+<ul>
+<li>Producing more frames on the fly</li>
+<li>Problems:<ul>
+<li>It’s own computational cost</li>
+<li>The latency introduced by interpolating frames from the future</li>
+</ul>
+</li>
+</ul>
+<p><strong>ExtraNet</strong></p>
+<ul>
+<li><p>An efficient neural network that predicts accurate shading results on an extrapolated frame, to minimize both the performance overhead and the latency</p>
+</li>
+<li><p>Rendered auxiliary geometry buffers of the extrapolated frame &amp; Temporally reliable motion vectors</p>
+</li>
+<li><p>Train to perform two tasks:</p>
+<ol>
+<li>Irradiance in-painting for regions that cannot find historical correspondences</li>
+<li>Accurate ghosting-free shading prediction for regions where temporal information is available</li>
+</ol>
+</li>
+<li><p>A robust hole-marking strategy to automate the classification of these tasks  </p>
+</li>
+<li><p>The data generation from a series of high-quality production-ready scenes</p>
+</li>
+</ul>
+<h2 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1. Introduction"></a>1. Introduction</h2><p><strong>Some techniques to increase the rendering performance</strong></p>
+<p>Leveraging the temporal coherency between frames: Reduces the sampling rate at each individual frame, and rely on temporal reprojections to combine samples taken over multiple frames to reconstruct a high quality image (Still performing spatial upsampling &#x2F; reconstruction, with a virtually higher sampling rate acquired temporally to speed up the generation of the current frame of interest)</p>
+<ul>
+<li>TAA (Temporal Anti-Aliasing)</li>
+<li>TAAU (Temporal Anti-Aliasing Upsample)</li>
+<li>DLSS (Deep Learning Super Sampling)</li>
+<li>Ray Tracing Denoising</li>
+</ul>
+<p><strong>Limitation of current work</strong></p>
+<ul>
+<li>Frame Interpolation: only when the next frame has been fully rendered, their algorithms can start to work to interpolate one or more frames in between</li>
+<li>Performance: generating a new frame is already more expensive than a full rendering of it  </li>
+<li>Situation: more information can be used in rendered scene, like G-buffers</li>
+</ul>
+<p><strong>Contribution</strong></p>
+<ul>
+<li>A new temporally interleaved real-time rendering and extrapolation architecture that can nearly double the frame rate without introducing additional latency.  </li>
+<li>A novel neural network architecture that leverages G-buffers and temporal motion (computed both from consecutive frames and temporally reliable motion vectors) to perform the extrapolation as a shading prediction task.</li>
+<li>A lightweight design that incurs low performance overhead (around 8 milliseconds per frame at 720P) but results in high quality and smoothly extrapolated frames.</li>
+</ul>
+<h2 id="2-Related-work-and-background"><a href="#2-Related-work-and-background" class="headerlink" title="2. Related work and background"></a>2. Related work and background</h2><h3 id="2-1-Temporal-Reconstruction"><a href="#2-1-Temporal-Reconstruction" class="headerlink" title="2.1. Temporal Reconstruction"></a>2.1. Temporal Reconstruction</h3><ul>
+<li>Rely on temporal motion vectors</li>
+<li>Temporal reconstruction methods reduce the samples taken at each individual frame, and reproject samples over the course of multiple frames using backward motion vectors to reconstruct a high quality image</li>
+<li>In their paper<ul>
+<li>Leverage temporal motion vectors to reproject shading of the previous rendered frames to the extrapolated frames</li>
+<li>But they do not have any samples in the extrapolated frames, unlike temporal reconstruction</li>
+</ul>
+</li>
+</ul>
+<p><strong>Motion Vectors</strong></p>
+<img src="image-20210810160748362.png" alt="image-20210810160748362" style="zoom: 80%;" />
+$$
+\pmb p_0^{t}=\pmb P^t\pmb M^t\pmb V^t \pmb s_0
+$$
+
+<p>$$<br>\pmb p_0^{t-1}&#x3D;\pmb P^{t-1}\pmb M^{t-1}\pmb V^{t-1}\pmb s_0<br>$$</p>
+<p>Store screen space motion vectors &#x3D;&gt; Velocity Buffer</p>
+<p>vertex shader:</p>
+<figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">uniform</span> <span class="type">mat4</span> uModelViewProjectionMat;</span><br><span class="line"><span class="keyword">uniform</span> <span class="type">mat4</span> uPrevModelViewProjectionMat;</span><br><span class="line"></span><br><span class="line"><span class="keyword">smooth</span> <span class="keyword">out</span> <span class="type">vec4</span> vPosition;</span><br><span class="line"><span class="keyword">smooth</span> <span class="keyword">out</span> <span class="type">vec4</span> vPrevPosition;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> main(<span class="type">void</span>) &#123;</span><br><span class="line">	vPosition = uModelViewProjectionMat * <span class="built_in">gl_Vertex</span>;</span><br><span class="line">	vPrevPosition = uPrevModelViewProjectionMat * <span class="built_in">gl_Vertex</span>;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">gl_Position</span> = vPosition;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>fragment shader:</p>
+<figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">smooth</span> <span class="keyword">in</span> <span class="type">vec4</span> vPosition;</span><br><span class="line"><span class="keyword">smooth</span> <span class="keyword">in</span> <span class="type">vec4</span> vPrevPosition;</span><br><span class="line"></span><br><span class="line"><span class="keyword">out</span> <span class="type">vec2</span> oVelocity;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> main(<span class="type">void</span>) &#123;</span><br><span class="line">	<span class="type">vec2</span> a = (vPosition.xy / vPosition.w) * <span class="number">0.5</span> + <span class="number">0.5</span>;</span><br><span class="line">	<span class="type">vec2</span> b = (vPrevPosition.xy / vPrevPosition.w) * <span class="number">0.5</span> + <span class="number">0.5</span>;</span><br><span class="line">	oVelocity = a - b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-2-Texture-In-painting"><a href="#2-2-Texture-In-painting" class="headerlink" title="2.2. Texture In-painting"></a>2.2. Texture In-painting</h3><ul>
+<li><p>Using backward motion vectors to reproject shading from previous frame is that disoccluded regions will not contain any valid information in the previous frame, resulting in “holes” in the reprojected image</p>
+</li>
+<li><p>Some work:</p>
+<ul>
+<li>Convolution</li>
+<li>Deep learning</li>
+<li>Resort to a two-stage prediction strategy to separately predict missing textures in a step-by-step manner</li>
+</ul>
+</li>
+<li><p>Limitation</p>
+<ul>
+<li>Not designed specifically for real-time rendering  </li>
+<li>Perform the in-painting task completely on single images without temporal information and G-buffers  </li>
+<li>The running time of some methods are in the order of seconds, which are not suitable in our real-time extrapolation task</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-3-Image-Warping"><a href="#2-3-Image-Warping" class="headerlink" title="2.3. Image Warping"></a>2.3. Image Warping</h3><ul>
+<li>Realized by forward scattering or backward gathering, according to their data access patterns  </li>
+<li>Compared with forward mapping, backward mapping is more appealing in real-time rendering due to its high efficiency  </li>
+<li>Although visually plausible contents can be recovered at hole regions after image warping, shadow and highlight movements are almost untouched in these traditional methods, especially those used in the context of frame extrapolation</li>
+</ul>
+<h3 id="2-4-Video-and-Rendering-Interpolation"><a href="#2-4-Video-and-Rendering-Interpolation" class="headerlink" title="2.4. Video and Rendering Interpolation"></a>2.4. Video and Rendering Interpolation</h3><ul>
+<li>Interpolation based frame rate upsampling is widely used for temporally upsampling videos, using optical flow of the last couple of frames</li>
+<li>Optical flow is an image based algorithm that often produces inaccurate motion, which will lead to artifacts in the interpolation results  </li>
+<li>Uses accurate motion vectors available from the rendering engine, usually rely on image warping techniques to reuse shading information across frames  </li>
+<li>Deep learning based video interpolation methods are still time-consuming, thus are not suitable for real-time rendering</li>
+</ul>
+<h2 id="3-Motivation-and-Challenge"><a href="#3-Motivation-and-Challenge" class="headerlink" title="3. Motivation and Challenge"></a>3. Motivation and Challenge</h2><h3 id="3-1-Latency"><a href="#3-1-Latency" class="headerlink" title="3.1. Latency"></a>3.1. Latency</h3><img src="image-20210810165027122.png" alt="image-20210810165027122" style="zoom:80%;" />
+
+<ul>
+<li>Interpolation &#x3D;&gt; Produce significant lantency</li>
+<li>Extrapolation &#x3D;&gt; doesn’t introduce any additional latency</li>
+</ul>
+<h3 id="3-2-Challenge"><a href="#3-2-Challenge" class="headerlink" title="3.2. Challenge"></a>3.2. Challenge</h3><p><strong>Disocclusion</strong></p>
+<p><img src="/2021/08/10/paper_reading/ExtraNet/image-20210810170445162.png" alt="image-20210810170445162"></p>
+<ul>
+<li>Backward motion vectors may not always exist  <ul>
+<li>Traditional motion vectors propose to use the same pixel values from previous frames, resulting in ghosting artifacts in the disoccluded regions  </li>
+<li>Occlusion motion vectors alleviates this problem by looking for a nearby similar region in the current frame, then look for the corresponding region from previous frames</li>
+</ul>
+</li>
+<li>Leverage an in-painting network to reshade the occluded regions  using occlusion motion vector</li>
+</ul>
+<p><strong>Dynamic changes in shading</strong></p>
+<img src="image-20210810171446843.png" alt="image-20210810171446843" style="zoom:80%;" />
+
+<ul>
+<li>Dynamic changes in shading over frames, such as moving shadows, parallax motion from reflections and the colors on rotating objects, may change drastically and are thus unknown in the current frame </li>
+<li>Always keep the most recently rendered 3 frames for the network to learn to extrapolate the changes</li>
+</ul>
+<p><strong>Other challenges</strong></p>
+<ul>
+<li>Extremely low tolerance towards errors and artifacts</li>
+<li>The inference of the neural network must be (ideally much) faster than the actual rendering process</li>
+</ul>
+<h2 id="4-ExtraNet-for-frame-extrapolation"><a href="#4-ExtraNet-for-frame-extrapolation" class="headerlink" title="4. ExtraNet for frame extrapolation"></a>4. ExtraNet for frame extrapolation</h2><p>Design and train a deep neural network, namely ExtraNet, to predict a new frame from some historical frames and the G-buffers of the extrapolated frame.</p>
+<ol>
+<li>Considering that disoccluded regions of the extrapolated frame lack shading information but reliable and cheap G-buffers are available, we construct  an In-painting Network to reshade the disoccluded regions with the help of occlusion motion vectors and those G-buffers</li>
+<li>In contrast to the general image in-painting task, regions that are not disoccluded may also contain invalid pixels attributing to dynamic shading changes in the scene. To tackle this issue, we design a History Encoder, an additional convolutional neural network, to extract necessary information from historical frames</li>
+<li>To meet the requirement of high inference speed which is critical to real-time rendering, adopting lightweight gated convolutions in the In-painting Network.</li>
+</ol>
+<h3 id="4-1-Problem-Formulation"><a href="#4-1-Problem-Formulation" class="headerlink" title="4.1. Problem Formulation"></a>4.1. Problem Formulation</h3><ul>
+<li>Frame $i$: Denoting the current frame rendered by the graphics engine</li>
+<li>Frame $i+0.5$: Next frame the network will predict</li>
+<li>Two historical frames including frame $i-1$ and $i-2$ and the corresponding G-buffers</li>
+</ul>
+<p><img src="/2021/08/10/paper_reading/ExtraNet/image-20210810200628067.png" alt="image-20210810200628067"></p>
+<p>Pipeline:</p>
+<ol>
+<li>Demodulation: Dividing by the albedo to acquire texture-free irradiance  </li>
+<li>Warp the demodulated frame using both traditional backward motion vectors and occlusion motion vectors</li>
+<li>The warping operation probably incurs holes in the frame. Using In-painting network to fill the frame</li>
+<li>Modulation: multiplying by the albedo to re-acquire textured shading  </li>
+<li>Apply regular post-processing(tone mapping ,TAA…)</li>
+</ol>
+<h3 id="4-2-Motion-Vectors-and-Image-Warping"><a href="#4-2-Motion-Vectors-and-Image-Warping" class="headerlink" title="4.2. Motion Vectors and Image Warping"></a>4.2. Motion Vectors and Image Warping</h3><p>Instead of computing a zero motion vector in disoccluded regions as the traditional backward motion vector does, occlusion motion vector computes the motion vector in disoccluded regions as the motion vector of the foreground in the previous frame</p>
+<h3 id="4-3-Network-Architecture"><a href="#4-3-Network-Architecture" class="headerlink" title="4.3. Network Architecture"></a>4.3. Network Architecture</h3><p><img src="/2021/08/10/paper_reading/ExtraNet/image-20210810202820213.png" alt="image-20210810202820213"></p>
+<ul>
+<li><p>Similar structure with U-NET</p>
+</li>
+<li><p>Adopt gated convolutions<br>$$<br>\pmb M&#x3D;\mathrm{Conv}(\pmb W_m, \pmb X)<br>$$</p>
+<p>$$<br>\pmb F&#x3D;\mathrm{Conv}(\pmb W_f,\pmb X)<br>$$</p>
+<p>$$<br>\pmb O&#x3D;\sigma(\pmb M)\odot \pmb F<br>$$</p>
+<ul>
+<li>$\pmb X$: Input feature map</li>
+<li>$\pmb W_m$ and $\pmb W_f$: Two trainable filters</li>
+<li>$\odot$ : Element-wise multiplication  </li>
+<li>$\sigma(\cdot)$: Sigmoid activation</li>
+</ul>
+</li>
+<li><p>Gated convolutions increase the inference time</p>
+<ul>
+<li>Resort to a light-weight variant of gated convolution by making $\pmb M$ a single-channel mask</li>
+<li>Not use any gated convolution in the upsampling stage<ul>
+<li>Assume all holes have already been filled in the downsampling stage</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Use a residual learning strategy in our pipeline by adding the predicted image of our network with the input image warped by traditional backward motion vectors</p>
+<ul>
+<li>This stabilizes the training process</li>
+</ul>
+</li>
+</ul>
+<h3 id="4-4-History-Encoder"><a href="#4-4-History-Encoder" class="headerlink" title="4.4. History Encoder"></a>4.4. History Encoder</h3><img src="image-20210810204738275.png" alt="image-20210810204738275" style="zoom:80%;" />
+
+<ul>
+<li><p>Input: Warped images of the current frame $i$ and its two past frames including frame $i-1$ and frame $i-2$</p>
+<ul>
+<li>Warp frames $i-1$ and $i-2$: accumulate the motion vectors</li>
+<li>Invalid pixels should be marked for these frames</li>
+</ul>
+</li>
+<li><p>Structure: Nine $3\times 3$ convolution layers</p>
+<ul>
+<li>Down sample the input</li>
+<li>Shared by different historical frames</li>
+</ul>
+</li>
+<li><p>Output: Implicitly encode the high-level representations of shadows and shadings in previous frames, are concatenated together and fed into our In-painting Network  </p>
+</li>
+<li><p>Optical flow can be explicitly predicted from several historical frames</p>
+<ul>
+<li>But correct forward optical flow is difficult to acquire in the frame extrapolation pipeline, since only historical frames are available  </li>
+<li>Use backward optical flow as an approximation  </li>
+<li>Not using it</li>
+</ul>
+</li>
+</ul>
+<h3 id="4-5-Loss-Function"><a href="#4-5-Loss-Function" class="headerlink" title="4.5. Loss Function"></a>4.5. Loss Function</h3><p><strong>Penalizes pixel-wise error between the predicted frame $\pmb P$ and ground-truth frame $\pmb T$</strong></p>
+<p>$$<br>\mathcal L_{l_1}&#x3D;\frac{1}{n}\sum_i |\pmb P_i - \pmb T_i|<br>$$</p>
+<p><strong>hole-augmented  loss: penalize more in the hole regions marked beforehand</strong></p>
+<p>$$<br>\mathcal L_{\mathrm {hole}}&#x3D;\frac{1}{n}\sum_i |\pmb P_i-\pmb T_i|\odot(1-\pmb m)<br>$$</p>
+<ul>
+<li>$\pmb m$​ is the binary mask fed into network</li>
+</ul>
+<p><strong>The shading-augmented loss: focuses on handling potential shading changes in the predicted frames</strong>  </p>
+<p>$$<br>\mathcal L_{\mathrm{shade}}&#x3D;\frac{1}{k}\sum_{i\in \Phi_{\mathrm{top}-k}}|\pmb P_i-\pmb T_i|<br>$$</p>
+<ul>
+<li>Shading changes: stem from moving shadows due to dynamic lights and specular reflections</li>
+<li>Considering that shadows and reflections tend to generate large pixel variation among neighboring frames, we select $𝑘$​ pixels with top $𝑘$​ largest errors from the predicted frame and mark these pixels as potential shading change regions  </li>
+<li>$\Phi_{\mathrm{top}-k}$ includes the indices of $k$ pixels with top $k$ largest errors<ul>
+<li>Currently, $k$ set to 10% of total pixels number</li>
+</ul>
+</li>
+</ul>
+<p><strong>Final loss function</strong><br>$$<br>\mathcal L&#x3D;\mathcal L_{l_1}+\lambda_{\mathrm{hole}}\mathcal L_{\mathrm{hole}}+\lambda_{\mathrm{shade}}\mathcal L_{\mathrm{shade}}<br>$$</p>
+<ul>
+<li>$\lambda_{\mathrm{hole}}$ and $\lambda_{\mathrm{shade}}$​ ​are weights to balance the influence of the losses, here set to 1</li>
+</ul>
+<h3 id="4-6-Training-detail"><a href="#4-6-Training-detail" class="headerlink" title="4.6. Training detail"></a>4.6. Training detail</h3><ul>
+<li>PyTorch</li>
+<li>Mini-batch SGD and Adam optimizer</li>
+<li>mini-batch size as 8, $\beta_1 &#x3D; 0.9$ and $\beta_2&#x3D;0.999$ in Adam optimizer</li>
+<li>default initialization</li>
+<li>applied HDR image: logarithm transformation $y&#x3D;\log(1+x)$ before feeding images into network</li>
+</ul>
+<h2 id="5-Dataset"><a href="#5-Dataset" class="headerlink" title="5. Dataset"></a>5. Dataset</h2><h3 id="5-1-Scenes-and-Buffers"><a href="#5-1-Scenes-and-Buffers" class="headerlink" title="5.1. Scenes and Buffers"></a>5.1. Scenes and Buffers</h3><img src="image-20210810220452315.png" alt="image-20210810220452315" style="zoom:80%;" />
+
+<img src="image-20210810220314215.png" alt="image-20210810220314215" style="zoom:80%;" />
+
+<p>Each dumped frame comprises 10 buffers which can be divided into three categories:  </p>
+<ol>
+<li>Actual shading frame before tone mapping (PreTonemapHDRColor) and albedo (Base color) for demodulation  </li>
+<li>G-buffers used in our network, including scene depth ($𝑑$​, 1channel), world normal ($\pmb n_𝑤$​​, 3 channels), roughness (1 channel), and metallic (1 channel)  </li>
+<li>Other auxiliary buffers which are necessary for marking holes (invalid pixels) in the warped frame. They are motion vector, world position ($\pmb p_𝑤$), NoV ($\pmb n_𝑤\cdot \pmb v$, the dot product of world normal $\pmb n_𝑤$ and view vector $\pmb v$), and customized stencil ($𝑠$)</li>
+</ol>
+<h3 id="5-2-Marking-Holes"><a href="#5-2-Marking-Holes" class="headerlink" title="5.2. Marking Holes"></a>5.2. Marking Holes</h3><img src="image-20210810220301362.png" alt="image-20210810220301362" style="zoom:80%;" />
+
+<p>When reusing previous frames to generate a new frame, some pixels in the warped frame will be invalid, due to camera sliding and object moving. These pixels should be marked as holes before feeding into the network  </p>
+<ol>
+<li><p>For occlusion caused by object moving, used custom stencil to indicate the sharp changes along the edge of the dynamic object. When custom stencil value is different between the current frame ($𝑠$) and the warped frame ($𝑠<em>𝑤$​), these pixels will be marked as invalid:<br>$$<br>\Phi</em>{\mathrm{stencil}}&#x3D;{s_i-s_{w,i}\neq 0}<br>$$<br>where $𝑖$ is the pixel index and $\Phi_{\mathrm{stencil}}$​ is the set including pixels that are counted as invalid according to stencil value  </p>
+</li>
+<li><p>Self occlusions for some dynamic objects when they are moving or the camera is sliding. Resort to world normal since world normal will probably change in these regions. Calculate the cosine value between current frame’s world normal ($\pmb n_𝑤$) and warped frame’s world normal ($\pmb n_{𝑤𝑤}$), i.e., $\pmb n_𝑤\cdot \pmb n_{𝑤𝑤}$. If this value is large than a predetermined threshold $𝑇<em>𝑛$, the corresponding pixel indexed by $𝑖$ in the warped frame is counted as invalid:<br>$$<br>\Phi</em>{wn}&#x3D;{\pmb n_{w,i}\cdot \pmb n_{ww,i}&gt;T_n}<br>$$<br>where $\pmb \Phi _{wn}$​​ contains invalid pixels marked by differences in world normal  </p>
+</li>
+<li><p>Invalid pixels due to camera movement. These pixels can be selected out by world position, considering that static objects’ world positions keep unchanged in a 3D scene. For a given pixel, let $\pmb p_𝑤$ and $\pmb p_{𝑤𝑤}$​​​​ be the world position of current frame and warped frame, respectively. We calculate their distance by $|\pmb p_𝑤 - \pmb p_{𝑤𝑤}|$. If this distance is larger than a threshold $𝑇<em>𝑑$ (which is computed by NoV and depth values), we mark this pixel as invalid. Hence, the invalid pixels in this set $\Phi</em>{wp}$​ are<br>$$<br>\Phi_{wp}&#x3D;{|\pmb p_{w,i}-\pmb p_{ww,i}|&gt;T_d}<br>$$</p>
+</li>
+</ol>
+<p>Finally,<br>$$<br>\Phi_{\mathcal{comb}}&#x3D;\Phi_{\mathrm{stencil}}\cup\Phi_{wn}\cup \Phi_{wp}<br>$$</p>
+<h2 id="6-Result-and-Comparisons"><a href="#6-Result-and-Comparisons" class="headerlink" title="6. Result and Comparisons"></a>6. Result and Comparisons</h2><p><strong>Training setups and time</strong></p>
+<img src="image-20210812091839252.png" alt="image-20210812091839252" style="zoom:80%;" />
+
+<h3 id="6-1-Comparisons-against-Frame-Interpolation-Methods"><a href="#6-1-Comparisons-against-Frame-Interpolation-Methods" class="headerlink" title="6.1. Comparisons against Frame Interpolation Methods"></a>6.1. Comparisons against Frame Interpolation Methods</h3><p><img src="/2021/08/10/paper_reading/ExtraNet/image-20210812091915623.png" alt="image-20210812091915623"></p>
+<h2 id="6-2-Comparisons-against-Frame-Extrapolation-Methods"><a href="#6-2-Comparisons-against-Frame-Extrapolation-Methods" class="headerlink" title="6.2. Comparisons against Frame Extrapolation Methods"></a>6.2. Comparisons against Frame Extrapolation Methods</h2><p><img src="/2021/08/10/paper_reading/ExtraNet/image-20210812092044870.png" alt="image-20210812092044870"></p>
+<img src="image-20210812092056289.png" alt="image-20210812092056289" style="zoom:80%;" />
+
+<h3 id="6-3-Comparisons-against-ASW-Technology"><a href="#6-3-Comparisons-against-ASW-Technology" class="headerlink" title="6.3. Comparisons against ASW Technology"></a>6.3. Comparisons against ASW Technology</h3><p><img src="/2021/08/10/paper_reading/ExtraNet/image-20210812092149063.png" alt="image-20210812092149063"></p>
+<h3 id="6-4-Analysis-of-Runtime-Performance-and-Latency"><a href="#6-4-Analysis-of-Runtime-Performance-and-Latency" class="headerlink" title="6.4. Analysis of Runtime Performance and Latency"></a>6.4. Analysis of Runtime Performance and Latency</h3><img src="image-20210812092258548.png" alt="image-20210812092258548" style="zoom:80%;" />
+
+<h3 id="6-5-Ablation-Study"><a href="#6-5-Ablation-Study" class="headerlink" title="6.5. Ablation Study"></a>6.5. Ablation Study</h3><p><strong>Validation of History Encoder</strong></p>
+<img src="image-20210812092412313.png" alt="image-20210812092412313" style="zoom:80%;" />
+
+<p><strong>Validation of occlusion motion vectors</strong></p>
+<img src="image-20210812092433191.png" alt="image-20210812092433191" style="zoom:80%;" />
+
+<p><strong>Validation of the shading-augmented loss</strong></p>
+<img src="image-20210812092455410.png" alt="image-20210812092455410" style="zoom:80%;" />
+
+<p><strong>Failure cases</strong></p>
+<img src="image-20210812092521428.png" alt="image-20210812092521428" style="zoom:80%;" />
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>Post author:  </strong>Chaf Chen
+  </li>
+  <li class="post-copyright-link">
+      <strong>Post link: </strong>
+      <a href="https://chaphlagical.github.io/2021/08/10/paper_reading/ExtraNet/" title="ExtraNet: Real-time Extrapolated Rendering for Low-latency Temporal Supersampling">https://chaphlagical.github.io/2021/08/10/paper_reading/ExtraNet/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Rendering/" rel="tag"># Rendering</a>
+              <a href="/tags/Neural-Network/" rel="tag"># Neural Network</a>
+              <a href="/tags/Siggraph-Asia-2021/" rel="tag"># Siggraph Asia 2021</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/08/15/paper_reading/GPU_Accelerated_Path_Tracing_of_Massive_Scenes/" rel="next" title="GPU Accelerated Path Tracing of Massive Scenes">
+                  GPU Accelerated Path Tracing of Massive Scenes <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chaf Chen</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"chaphlagical-github-io","count":true,"i18n":{"disqus":"disqus"}}</script>
+<script src="/js/third-party/comments/disqus.js"></script>
+
+</body>
+</html>

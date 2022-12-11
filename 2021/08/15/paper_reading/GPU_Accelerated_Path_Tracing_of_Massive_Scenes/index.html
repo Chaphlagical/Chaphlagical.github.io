@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"chaphlagical.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.14.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":true,"storage":true,"lazyload":false,"nav":{"disqus":{"text":"Load Disqus","order":-1}}},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Siggraph 2021 Paper Reading">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="GPU Accelerated Path Tracing of Massive Scenes">
+<meta property="og:url" content="https://chaphlagical.github.io/2021/08/15/paper_reading/GPU_Accelerated_Path_Tracing_of_Massive_Scenes/index.html">
+<meta property="og:site_name" content="Chaf&#39;s Blog">
+<meta property="og:description" content="Siggraph 2021 Paper Reading">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://chaphlagical.github.io/2021/08/15/paper_reading/GPU_Accelerated_Path_Tracing_of_Massive_Scenes/image-20210815200655447.png">
+<meta property="og:image" content="https://chaphlagical.github.io/2021/08/15/paper_reading/GPU_Accelerated_Path_Tracing_of_Massive_Scenes/image-20210815200711051.png">
+<meta property="og:image" content="https://chaphlagical.github.io/2021/08/15/paper_reading/GPU_Accelerated_Path_Tracing_of_Massive_Scenes/image-20210815094513710.png">
+<meta property="og:image" content="https://chaphlagical.github.io/2021/08/15/paper_reading/GPU_Accelerated_Path_Tracing_of_Massive_Scenes/image-20210815094628983.png">
+<meta property="og:image" content="https://chaphlagical.github.io/2021/08/15/paper_reading/GPU_Accelerated_Path_Tracing_of_Massive_Scenes/image-20210815101537608.png">
+<meta property="og:image" content="https://chaphlagical.github.io/2021/08/15/paper_reading/GPU_Accelerated_Path_Tracing_of_Massive_Scenes/image-20210815105113549.png">
+<meta property="og:image" content="https://chaphlagical.github.io/2021/08/15/paper_reading/GPU_Accelerated_Path_Tracing_of_Massive_Scenes/image-20210815151251218.png">
+<meta property="og:image" content="https://chaphlagical.github.io/2021/08/15/paper_reading/GPU_Accelerated_Path_Tracing_of_Massive_Scenes/image-20210815200844083.png">
+<meta property="og:image" content="https://chaphlagical.github.io/2021/08/15/paper_reading/GPU_Accelerated_Path_Tracing_of_Massive_Scenes/image-20210815151701943.png">
+<meta property="og:image" content="https://chaphlagical.github.io/2021/08/15/paper_reading/GPU_Accelerated_Path_Tracing_of_Massive_Scenes/image-20210815170302733.png">
+<meta property="og:image" content="https://chaphlagical.github.io/2021/08/15/paper_reading/GPU_Accelerated_Path_Tracing_of_Massive_Scenes/image-20210815171434217.png">
+<meta property="og:image" content="https://chaphlagical.github.io/2021/08/15/paper_reading/GPU_Accelerated_Path_Tracing_of_Massive_Scenes/image-20210815172628673.png">
+<meta property="og:image" content="https://chaphlagical.github.io/2021/08/15/paper_reading/GPU_Accelerated_Path_Tracing_of_Massive_Scenes/image-20210815195203217.png">
+<meta property="og:image" content="https://chaphlagical.github.io/2021/08/15/paper_reading/GPU_Accelerated_Path_Tracing_of_Massive_Scenes/image-20210815194342922.png">
+<meta property="og:image" content="https://chaphlagical.github.io/2021/08/15/paper_reading/GPU_Accelerated_Path_Tracing_of_Massive_Scenes/image-20210815195412094.png">
+<meta property="og:image" content="https://chaphlagical.github.io/2021/08/15/paper_reading/GPU_Accelerated_Path_Tracing_of_Massive_Scenes/image-20210815195506893.png">
+<meta property="article:published_time" content="2021-08-15T20:34:00.000Z">
+<meta property="article:modified_time" content="2022-12-11T17:26:52.674Z">
+<meta property="article:author" content="Chaf Chen">
+<meta property="article:tag" content="Rendering">
+<meta property="article:tag" content="Siggraph 2021">
+<meta property="article:tag" content="Distributed Computing">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://chaphlagical.github.io/2021/08/15/paper_reading/GPU_Accelerated_Path_Tracing_of_Massive_Scenes/image-20210815200655447.png">
+
+
+<link rel="canonical" href="https://chaphlagical.github.io/2021/08/15/paper_reading/GPU_Accelerated_Path_Tracing_of_Massive_Scenes/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://chaphlagical.github.io/2021/08/15/paper_reading/GPU_Accelerated_Path_Tracing_of_Massive_Scenes/","path":"2021/08/15/paper_reading/GPU_Accelerated_Path_Tracing_of_Massive_Scenes/","title":"GPU Accelerated Path Tracing of Massive Scenes"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>GPU Accelerated Path Tracing of Massive Scenes | Chaf's Blog</title>
+  
+
+
+
+
+
+
+  <script async defer data-website-id="" src=""></script>
+
+  <script defer data-domain="" src=""></script>
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Chaf's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Here I share some fun stuff</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Introduction"><span class="nav-number">1.</span> <span class="nav-text">1. Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Related-Work"><span class="nav-number">2.</span> <span class="nav-text">2. Related Work</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-Out-of-core-Rendering"><span class="nav-number">2.1.</span> <span class="nav-text">2.1. Out-of-core Rendering</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-Distributed-Rendering"><span class="nav-number">2.2.</span> <span class="nav-text">2.2. Distributed Rendering</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-1-Image-Parallel-Rendering"><span class="nav-number">2.2.1.</span> <span class="nav-text">2.2.1. Image-Parallel Rendering</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-2-Data-Parallel-Rendering"><span class="nav-number">2.2.2.</span> <span class="nav-text">2.2.2. Data-Parallel Rendering</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-Distributed-Shared-Memory-Systems"><span class="nav-number">2.3.</span> <span class="nav-text">2.3. Distributed Shared Memory Systems</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-CUDA-Unified-Memory-For-Multi-GPU-Systems"><span class="nav-number">2.4.</span> <span class="nav-text">2.4. CUDA Unified Memory For Multi-GPU Systems</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Blender-Cycles-Path-Tracer"><span class="nav-number">3.</span> <span class="nav-text">3. Blender Cycles Path Tracer</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-Extensions-for-Multi-GPU-Support"><span class="nav-number">3.1.</span> <span class="nav-text">3.1. Extensions for Multi-GPU Support</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-Multi-GPU-Benchmark-Systems"><span class="nav-number">3.2.</span> <span class="nav-text">3.2. Multi-GPU Benchmark Systems</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-Benchmark-Scenes"><span class="nav-number">3.3.</span> <span class="nav-text">3.3. Benchmark Scenes</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Data-Distributed-Multi-GPU-Path-Tracing"><span class="nav-number">4.</span> <span class="nav-text">4. Data Distributed Multi-GPU Path Tracing</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-Basic-Distribution-of-Entire-Data-Structures"><span class="nav-number">4.1.</span> <span class="nav-text">4.1. Basic Distribution of Entire Data Structures</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1-1-Memory-Access-Analysis"><span class="nav-number">4.1.1.</span> <span class="nav-text">4.1.1. Memory Access Analysis</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1-2-Performance-and-Scalability-Evaluation"><span class="nav-number">4.1.2.</span> <span class="nav-text">4.1.2. Performance and Scalability Evaluation</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-Advanced-Distribution-Based-on-Memory-Access-Pattern-and-Statistics"><span class="nav-number">4.2.</span> <span class="nav-text">4.2. Advanced Distribution Based on Memory Access Pattern and Statistics</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-1-Memory-Access-Pattern-Analysis"><span class="nav-number">4.2.1.</span> <span class="nav-text">4.2.1. Memory Access Pattern Analysis</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-2-Data-Placement-Algorithm-Based-on-Memory-Access-Pattern"><span class="nav-number">4.2.2.</span> <span class="nav-text">4.2.2. Data Placement Algorithm Based on Memory Access Pattern</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-3-Performance-Evaluation"><span class="nav-number">4.2.3.</span> <span class="nav-text">4.2.3. Performance Evaluation</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-4-Maximum-Scene-Size-Analysis"><span class="nav-number">4.2.4.</span> <span class="nav-text">4.2.4. Maximum Scene Size Analysis</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-Performance-for-massive-scenes"><span class="nav-number">5.</span> <span class="nav-text">5. Performance for massive scenes</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-Conclusions"><span class="nav-number">6.</span> <span class="nav-text">6. Conclusions</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Chaf Chen"
+      src="/images/logo.jpg">
+  <p class="site-author-name" itemprop="name">Chaf Chen</p>
+  <div class="site-description" itemprop="description">USTC CG Student</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/chaphlagical" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;chaphlagical" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:chaf@mail.ustc.cn" title="E-Mail → mailto:chaf@mail.ustc.cn" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+          Links
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="http://gcl.ustc.edu.cn/" title="http:&#x2F;&#x2F;gcl.ustc.edu.cn&#x2F;" rel="noopener" target="_blank">GCL</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://chaphlagical.github.io/2021/08/15/paper_reading/GPU_Accelerated_Path_Tracing_of_Massive_Scenes/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Chaf Chen">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chaf's Blog">
+      <meta itemprop="description" content="USTC CG Student">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="GPU Accelerated Path Tracing of Massive Scenes | Chaf's Blog">
+      <meta itemprop="description" content="Siggraph 2021 Paper Reading">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          GPU Accelerated Path Tracing of Massive Scenes
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2021-08-15 20:34:00" itemprop="dateCreated datePublished" datetime="2021-08-15T20:34:00+00:00">2021-08-15</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2022-12-11 17:26:52" itemprop="dateModified" datetime="2022-12-11T17:26:52+00:00">2022-12-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Paper-Reading/" itemprop="url" rel="index"><span itemprop="name">Paper Reading</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2021/08/15/paper_reading/GPU_Accelerated_Path_Tracing_of_Massive_Scenes/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2021/08/15/paper_reading/GPU_Accelerated_Path_Tracing_of_Massive_Scenes/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+            <div class="post-description">Siggraph 2021 Paper Reading</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p><strong>Author</strong>: <em>MILAN JAROŠ</em>, <em>LUBOMÍR ŘÍHA</em>, <em>PETR STRAKOŠ</em>, and <em>MATĚJ ŠPEŤKO</em>  </p>
+<p><strong>Institution</strong>: IT4Innovations, VSB–Technical University of Ostrava, Czech Republic  </p>
+<p><strong>Link</strong>: <a target="_blank" rel="noopener" href="https://dl.acm.org/doi/10.1145/3447807">https://dl.acm.org/doi/10.1145/3447807</a></p>
+<h2 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1. Introduction"></a>1. Introduction</h2><p><strong>GPUs Rendering vs CPUs Rendering</strong></p>
+<ul>
+<li>Limited memory size</li>
+<li>Example: Pixar’s Coco movie were using up to 120GB, do not fit into the memory of a single GPU</li>
+</ul>
+<p><strong>Main contribution</strong></p>
+<ul>
+<li><p>A solution to GPUs rendering memory size limitation</p>
+<ul>
+<li>Based on replication of a small amount of scene data, between 1% ~ 5%, and well-chosen distribution of the rest of the data into the memory of several GPUs</li>
+<li>Both replication and distribution of data is based on a memory access pattern analysis of a path tracer during a 1spp prepass  </li>
+<li>The data with the highest number of memory accesses are replicated and the rest is stored only in the memory of the GPU that had the highest number of accesses to it  </li>
+<li>Minimizes the penalty associated with reading data from the remote memory and is effective at providing near-linear scalability</li>
+</ul>
+</li>
+<li><p>Demonstration that our proposed approach works on a memory management level  </p>
+<ul>
+<li>Any path tracing code that supports GPU acceleration using CUDA can adopt our approach without redesigning its internal data structures</li>
+</ul>
+</li>
+</ul>
+<p><strong>Two key technologies</strong></p>
+<ul>
+<li>NVLink GPU Interconnect<ul>
+<li>Enables multiple GPUs to efficiently share the content of their memories due to its high bandwidth and low latency</li>
+</ul>
+</li>
+<li>CUDA Unified Memory(UM)<ul>
+<li>Provides programmers with control over data placement across the memories of interconnected GPUs</li>
+</ul>
+</li>
+</ul>
+<h2 id="2-Related-Work"><a href="#2-Related-Work" class="headerlink" title="2. Related Work"></a>2. Related Work</h2><h3 id="2-1-Out-of-core-Rendering"><a href="#2-1-Out-of-core-Rendering" class="headerlink" title="2.1. Out-of-core Rendering"></a>2.1. Out-of-core Rendering</h3><ul>
+<li>Out of core rendering is the capability to render (with GPUs) scenes requiring more memory than the one directly connected to the device</li>
+<li>It will use the system’s memory instead</li>
+</ul>
+<h3 id="2-2-Distributed-Rendering"><a href="#2-2-Distributed-Rendering" class="headerlink" title="2.2. Distributed Rendering"></a>2.2. Distributed Rendering</h3><ul>
+<li>sort first: Image based partitioning</li>
+<li>sort middle: Related to rasterization only</li>
+<li>sort last: Use scene data distribution</li>
+</ul>
+<h4 id="2-2-1-Image-Parallel-Rendering"><a href="#2-2-1-Image-Parallel-Rendering" class="headerlink" title="2.2.1. Image-Parallel Rendering"></a>2.2.1. Image-Parallel Rendering</h4><ul>
+<li>Distribute among processors or machines per blocks of pixels of a rendered image</li>
+<li>Most common and efficient way the scene data is fully replicated in all local memories and ray tracing is embarrassingly parallel</li>
+<li>In the case of ray tracing complex scenes that do not fit into local memory, this approach results in on-demand scene data movement while rays remains fixed (Moving scene data instead of ray data)</li>
+<li>Our proposed solution is based on scene data communication while rays never leave the GPU they are created on</li>
+</ul>
+<h4 id="2-2-2-Data-Parallel-Rendering"><a href="#2-2-2-Data-Parallel-Rendering" class="headerlink" title="2.2.2. Data-Parallel Rendering"></a>2.2.2. Data-Parallel Rendering</h4><ul>
+<li>Distribute the workload by subdividing the scene data</li>
+<li>In the case of distributed ray tracing, these approaches transfer ray data among processors or machines, while scene data do not move after the initial distribution (Moving ray data instead of scene data)</li>
+</ul>
+<h3 id="2-3-Distributed-Shared-Memory-Systems"><a href="#2-3-Distributed-Shared-Memory-Systems" class="headerlink" title="2.3. Distributed Shared Memory Systems"></a>2.3. Distributed Shared Memory Systems</h3><ul>
+<li>Shared Memory Processors (SMP) &amp; Distributed Shared Memory (DSM)<ul>
+<li>Local memory with caches</li>
+<li>Hardware or software layer transparently creates an illusion of global shared memory for applications</li>
+</ul>
+</li>
+<li>The latency to access remote data is considerably larger than the latency to access local data  <ul>
+<li>good data locality is therefore critical for high performance</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-4-CUDA-Unified-Memory-For-Multi-GPU-Systems"><a href="#2-4-CUDA-Unified-Memory-For-Multi-GPU-Systems" class="headerlink" title="2.4. CUDA Unified Memory For Multi-GPU Systems"></a>2.4. CUDA Unified Memory For Multi-GPU Systems</h3><ul>
+<li>UM Manages communication between multiple GPUs and CPUs transparently by adopting DSM techniques</li>
+<li>UM simplifies both out-of-core processing between GPUs and CPUs as well as multi-GPU processing and combinations of both  </li>
+<li>NVLink interconnect is the key enabler of DSM multi-GPU system</li>
+</ul>
+<h2 id="3-Blender-Cycles-Path-Tracer"><a href="#3-Blender-Cycles-Path-Tracer" class="headerlink" title="3. Blender Cycles Path Tracer"></a>3. Blender Cycles Path Tracer</h2><ul>
+<li>An unbiased renderer based on unidirectional path tracing that supports CPU and GPU rendering  </li>
+<li>For acceleration it uses a Bounding Volume Hierarchy (BVH)  </li>
+<li>Supports CUDA, Optix, and OpenCL</li>
+</ul>
+<h3 id="3-1-Extensions-for-Multi-GPU-Support"><a href="#3-1-Extensions-for-Multi-GPU-Support" class="headerlink" title="3.1. Extensions for Multi-GPU Support"></a>3.1. Extensions for Multi-GPU Support</h3><p>Workflow:</p>
+<ol>
+<li>distribute the data structures evenly among all GPUs  </li>
+<li>run the kernel with memory access counters and get the memory access statistics  </li>
+<li>redistribute the data structures among GPUs based on memory access statistics  </li>
+<li>run the original path-tracing kernel with redistributed data</li>
+</ol>
+<h3 id="3-2-Multi-GPU-Benchmark-Systems"><a href="#3-2-Multi-GPU-Benchmark-Systems" class="headerlink" title="3.2. Multi-GPU Benchmark Systems"></a>3.2. Multi-GPU Benchmark Systems</h3><ol>
+<li><p>BullSequana X410-E5 NVLink-V blade server</p>
+<ul>
+<li>with 4 Tesla V100 GPUs, each with 16 GB of memory and direct NVLink interconnect</li>
+</ul>
+<img src="image-20210815200655447.png" alt="image-20210815200655447" style="zoom: 80%;" />
+</li>
+<li><p>NVidia DGX-2</p>
+<ul>
+<li>able to process massive scenes of sizes up to 512 GB in the shared memory of its 16 Tesla V100 GPUs, each with 32 GB of memory</li>
+<li>The uniqueness of this platform is the enhancement of the NVLink interconnect by using NVSwitches, which enable the connection of all 16 GPUs and higher bandwidth</li>
+</ul>
+</li>
+</ol>
+<img src="image-20210815200711051.png" alt="image-20210815200711051" style="zoom: 80%;" />
+
+<img src="image-20210815094513710.png" alt="image-20210815094513710" style="zoom:80%;" />
+
+<h3 id="3-3-Benchmark-Scenes"><a href="#3-3-Benchmark-Scenes" class="headerlink" title="3.3. Benchmark Scenes"></a>3.3. Benchmark Scenes</h3><p><img src="/2021/08/15/paper_reading/GPU_Accelerated_Path_Tracing_of_Massive_Scenes/image-20210815094628983.png" alt="image-20210815094628983"></p>
+<h2 id="4-Data-Distributed-Multi-GPU-Path-Tracing"><a href="#4-Data-Distributed-Multi-GPU-Path-Tracing" class="headerlink" title="4. Data Distributed Multi-GPU Path Tracing"></a>4. Data Distributed Multi-GPU Path Tracing</h2><h3 id="4-1-Basic-Distribution-of-Entire-Data-Structures"><a href="#4-1-Basic-Distribution-of-Entire-Data-Structures" class="headerlink" title="4.1. Basic Distribution of Entire Data Structures"></a>4.1. Basic Distribution of Entire Data Structures</h3><h4 id="4-1-1-Memory-Access-Analysis"><a href="#4-1-1-Memory-Access-Analysis" class="headerlink" title="4.1.1. Memory Access Analysis"></a>4.1.1. Memory Access Analysis</h4><ul>
+<li>Define the order in which data structures are replicated as a ratio of the total memory accesses to a particular data structure over its size</li>
+<li>The analysis was done on the first sample when rendering the scenes with a resolution of 5,120x2,560 pixels</li>
+</ul>
+<img src="image-20210815101537608.png" alt="image-20210815101537608" style="zoom:80%;" />
+
+<ul>
+<li><em>small_structures</em>: a set of data structures smaller than 16MB (the most important one is svm_nodes, which stores Shader Virtual Machine (SVM) data and codes)</li>
+<li><em>bvh_node</em>: stores the BVH tree without its leaves (leaves are stored in a separate structure)</li>
+<li><em>prim_tri_verts</em>: holds coordinates of all vertices in the scene</li>
+<li><em>prim_tri_index</em>: a set of all triangles in the scene and it contains indices to the prim_tri_verts</li>
+</ul>
+<p>We can see that:</p>
+<ul>
+<li>The most important data structure is <em>bvh_nodes</em>, because it is responsible for 79.6% of all memory accesses  <ul>
+<li>If it is replicated in the memory of all GPUs, the 79.6% of all memory accesses will be to the local memory</li>
+<li>The size of this structure is 7.2 GB, which represents 26.5% of the entire scene size</li>
+</ul>
+</li>
+<li>If in addition to <em>small_structures</em> and <em>bvh_nodes</em>, <em>prim_tri_index</em> and <em>prim_tri_verts</em> are also replicated, then the relative rendering time is only 109% while 40.7% of the scene is replicated and the rest is distributed</li>
+</ul>
+<h4 id="4-1-2-Performance-and-Scalability-Evaluation"><a href="#4-1-2-Performance-and-Scalability-Evaluation" class="headerlink" title="4.1.2. Performance and Scalability Evaluation"></a>4.1.2. Performance and Scalability Evaluation</h4><p>The scalability of the proposed approach is evaluated for four different cases:  </p>
+<ol>
+<li>all data structures are replicated—this case serves as a baseline as it achieves the best performance and scalability  </li>
+<li>all data structures are evenly distributed  <ul>
+<li>continuous distribution: the structures are divided into large chunks of a size equal to the structure size over a number of GPUs, and each GPU owns one chunk  </li>
+<li>round robin distribution: the distributed structure is divided into chunks of 2 MB, which are distributed in a round robin fashion</li>
+</ul>
+</li>
+<li><em>small structures</em> and <em>bvh_nodes</em> are replicated while all other data structures are distributed</li>
+<li><em>small structures</em>, <em>bvh_nodes</em>, <em>prim_tri_index</em>, and <em>prim_tri_verts</em> are replicated while all other data structures are distributed</li>
+</ol>
+<img src="image-20210815105113549.png" alt="image-20210815105113549" style="zoom:80%;" />
+
+<p>Result:</p>
+<ol>
+<li>round robin distribution of small chunks performs better than continuous distribution of large chunks, therefore it is always used to distribute non-replicated data structures  </li>
+<li>path tracing with fully distributed data structures does not scale on both platforms (there is reasonable scalability for two GPUs on DGX-2, but not beyond that)  </li>
+<li>if <em>small structures</em> and <em>bvh_nodes</em> are replicated, the scalability is significantly improved</li>
+<li>if <em>small structures</em>, <em>bvh_nodes</em>, <em>prim_tri_index</em>, and <em>prim_tri_verts</em> are replicated, the scalability is further improved</li>
+</ol>
+<h3 id="4-2-Advanced-Distribution-Based-on-Memory-Access-Pattern-and-Statistics"><a href="#4-2-Advanced-Distribution-Based-on-Memory-Access-Pattern-and-Statistics" class="headerlink" title="4.2. Advanced Distribution Based on Memory Access Pattern and Statistics"></a>4.2. Advanced Distribution Based on Memory Access Pattern and Statistics</h3><ul>
+<li><p>The data placement is done with chunks, and hints are set for each chunk individually  </p>
+</li>
+<li><p>The optimal chunk size was identified experimentally by benchmarking the path tracer performance for chunks of sizes from 64 kB to 128 MB:</p>
+<ul>
+<li>for scenes smaller than 30 GB the optimal chunk size is 2 MB (smaller chunks are not recommended)  </li>
+<li>for scenes of sizes around 40 GB the optimal chunk size is 16 MB  </li>
+<li>for scenes of sizes above 120 GB the optimal chunk size is 64 MB</li>
+</ul>
+</li>
+<li><p>The workflow of this data placement strategy:</p>
+<ol>
+<li>copy&#x2F;distribute every data structure across all GPUs in a round robin fashion using chunks of an optimal size</li>
+<li>run the path tracing kernel with memory access counters for 1spp to measure the statistics</li>
+<li>gather the statistics on the CPU and run the proposed algorithm to get the optimal data chunks distribution  </li>
+<li>use <em>cudaMemAdvise</em> to migrate or replicate all chunks</li>
+<li>run the original unmodified path tracing kernel</li>
+</ol>
+</li>
+</ul>
+<h4 id="4-2-1-Memory-Access-Pattern-Analysis"><a href="#4-2-1-Memory-Access-Pattern-Analysis" class="headerlink" title="4.2.1. Memory Access Pattern Analysis"></a>4.2.1. Memory Access Pattern Analysis</h4><ul>
+<li><p>To identify the memory access pattern, per chunk access counters have been implemented in the GPU path tracing kernel of Cycles  </p>
+<ul>
+<li>Independent counters for all data structures and all their chunks</li>
+<li>A total number of memory accesses per chunk can be recorded for each GPU</li>
+</ul>
+</li>
+<li><p>The memory analysis starts with all data structures being evenly distributed using a round robin distribution</p>
+<ul>
+<li>The modified path tracing kernel with memory access counters is executed on all GPUs for one sample</li>
+</ul>
+</li>
+<li><p>When the kernel finishes, then for every chunk of every structure, a number of accesses from all GPUs is recorded</p>
+<ul>
+<li>The workload is distributed among GPUs by horizontal stripes so that each GPU works on one stripe</li>
+</ul>
+</li>
+</ul>
+<img src="image-20210815151251218.png" alt="image-20210815151251218" style="zoom:80%;" />
+
+<ul>
+<li>1% of scene data covers between 56.7% and 74.4% of memory accesses, depending on the scene size  </li>
+<li>This analysis shows that there are clear candidates among the chunks that should be replicated on all GPUs, while a major portion of the data is accessed infrequently and can be distributed with an acceptable impact on performance.</li>
+</ul>
+<h4 id="4-2-2-Data-Placement-Algorithm-Based-on-Memory-Access-Pattern"><a href="#4-2-2-Data-Placement-Algorithm-Based-on-Memory-Access-Pattern" class="headerlink" title="4.2.2. Data Placement Algorithm Based on Memory Access Pattern"></a>4.2.2. Data Placement Algorithm Based on Memory Access Pattern</h4><p><img src="/2021/08/15/paper_reading/GPU_Accelerated_Path_Tracing_of_Massive_Scenes/image-20210815200844083.png" alt="image-20210815200844083"></p>
+<p><img src="/2021/08/15/paper_reading/GPU_Accelerated_Path_Tracing_of_Massive_Scenes/image-20210815151701943.png" alt="image-20210815151701943"></p>
+<ol>
+<li><p>The per GPU counters are summed to get the total number of accesses $a_{sum}$ for each chunk $c\in C$ of each data structure $s\in S$ and $a(a_{sum},s,c)$ tuple is created</p>
+</li>
+<li><p>All tuples are put into a single 1D array $H_{comb}$. The array is sorted by $a_{sum}$ from largest value to the smallest one and stored in $H_{&lt;}$ array</p>
+</li>
+<li><p>The last input of the algorithm is the number of chunks that can be replicated $N_{dup}$. This value can either be set manually or automatically using formula:<br>$$<br>N_{dup}&#x3D;\dfrac{1}{C_s}\Big(G_f-\frac{S_s}{N_g}\Big)<br>$$</p>
+<ul>
+<li>$G_f$: the amount of free memory per GPU in MB available to store scene data</li>
+<li>$S_s$: scene size in MB</li>
+<li>$N_g$: total number of GPUs</li>
+<li>$C_s$: the chunk size in MB</li>
+</ul>
+</li>
+<li><p>Define a threshold $t$ as the $N_{dup}$-th element in the sorted array $H_&lt;$ and evaluate all tuples in the array $H_&lt;$. If the counter value $a_{sum}$ is larger than $t$, then the corresponding chunk will be set as <em>SetReadMostly</em>, and therefore replicated</p>
+<ul>
+<li>In the opposite case, the chunk is set as <em>SetPreferredLocation</em> and is assigned to the GPU with the highest number of accesses to this chunk<ul>
+<li>If the memory of this GPU is full, then the GPU with second, third, fourth, and so on, highest number of accesses is selected until a GPU with free memory is found.</li>
+</ul>
+</li>
+<li>It the counter value is equal to zero (without any accesses), then the corresponding chunk will be distributed in a round robin fashion across GPUs with free memory</li>
+</ul>
+</li>
+</ol>
+<h4 id="4-2-3-Performance-Evaluation"><a href="#4-2-3-Performance-Evaluation" class="headerlink" title="4.2.3. Performance Evaluation"></a>4.2.3. Performance Evaluation</h4><ul>
+<li>The performance of the proposed algorithm was evaluated for different ratios between replicated and distributed data at a 2 MB chunk level of granularity for the Moana 12 and 27 GB scenes</li>
+</ul>
+<img src="image-20210815170302733.png" alt="image-20210815170302733" style="zoom:80%;" />
+
+<ul>
+<li>Figure shows the path tracing performance for one sample per pixel and 5,120x2,560 pixel resolution for both scenes and platforms, and for all available GPUs</li>
+<li>Once at least 1% of chunks are replicated, the performance is almost identical</li>
+</ul>
+<h4 id="4-2-4-Maximum-Scene-Size-Analysis"><a href="#4-2-4-Maximum-Scene-Size-Analysis" class="headerlink" title="4.2.4. Maximum Scene Size Analysis"></a>4.2.4. Maximum Scene Size Analysis</h4><p>The following equation describes the maximum ratio of replicated data that fits into the memory of GPU memory for a scene of a given size:<br>$$<br>N_{max_dup}&#x3D;\frac{\Big(G_f-\frac{S_s}{N_g}\Big)}{\Big(S_s-\frac{S_s}{N_g}\Big)}<br>$$</p>
+<ul>
+<li>$G_f$: the amount of free memory per GPU in MB available to store the scene data</li>
+<li>$S_s$: the scene size in MB</li>
+<li>$N_g$: total number of GPUs</li>
+</ul>
+<h2 id="5-Performance-for-massive-scenes"><a href="#5-Performance-for-massive-scenes" class="headerlink" title="5. Performance for massive scenes"></a>5. Performance for massive scenes</h2><p><strong>Group 1</strong>: <em>Moana</em> 38 GB, <em>Museum</em> 41 GB, <em>Agent</em> 37 GB, and <em>Spring</em> 41 GB are designed to stress the <em>Barbora</em> GPU server with 64 GB of total GPU memory  </p>
+<img src="image-20210815171434217.png" alt="image-20210815171434217" style="zoom:80%;" />
+
+<ul>
+<li>the performance of the <em>Barbora</em> server is almost identical to the performance of DGX-2 for the same amount of scene replication (up to 10%)  </li>
+<li>DGX-2 is able to further replicate scene data up to 60%, which improves performance by 2.8% only in the case of the Moana 38 GB scene (for the other scenes the performance is higher by only less than 1%)  </li>
+<li>This means that for scenes of sizes approximately up to 45 GB distributed over 4 GPUs, the significantly less complex and cheaper GPU interconnect in the <em>Barbora</em> server is sufficient</li>
+<li>For the Museum, Agent, and Spring scenes 2% of scene replication attains optimal performance. This holds for 4, 8, and 16 GPUs</li>
+<li>Only the Moana scene needs higher amounts of replicated data, up to 25% for 16 GPUs</li>
+<li>Scalability can be evaluated on DGX-2 for 4, 8, and 16 GPUs only. For the Moana, Museum, Agent, and Spring scenes, for 5% scene replication, the parallel efficiencies, going from 4 to 16 GPUs, are 82.7%, 97.1%, 97.9%, and 98.1%, respectively. In the case of the Moana scene, a higher replication ratio is needed to improve scalability, e.g., for 25% data replication ratio the parallel efficiency is 94.4%</li>
+</ul>
+<p><strong>Group 2</strong>: Moana 169 GB, Museum 124 GB, Agent 167 GB, and Spring 137 GB are designed to stress the DGX-2 server with 512 GB of total GPU memory  </p>
+<img src="image-20210815172628673.png" alt="image-20210815172628673" style="zoom:80%;" />
+
+<img src="image-20210815195203217.png" alt="image-20210815195203217" style="zoom: 50%;" />
+
+<ul>
+<li>The performance is affected by selecting the right chunk size, particularly for the Moana scene</li>
+<li>For 8 GPUs and the Moana, Agent, and Spring scenes, if the replication ratio is 10% the scene does not fit into GPU shared memory anymore and chunks are swapped between GPU and CPU memory (the default behavior of the CUDA Unified Memory), which makes the rendering several times slower depending on the number of chunks being moved back and forth. This is the point at which our approach stops working, and therefore it is crucial to correctly select the replication ratio to avoid this situation</li>
+<li>For the Agent scene 1% of scene replication gives optimal performance for both 8 and 16 GPUs. The Spring scenes needs only 0.1% for 8 GPUs and 0.25% for 16 GPUs. The Museum scene needs 1% for 8 GPUs and 2% for 16 GPUs. Finally, the Moana scene requires 2% for 8 GPUs and 5% for 16 GPUs</li>
+<li>Scalability between 8 and 16 GPUs is good for all scenes. The parallel efficiencies are 93.8%, 98.8%, 98.6%, and 99.0% for the Moana, Museum, Agent, and Spring scenes, respectively</li>
+</ul>
+<img src="image-20210815194342922.png" alt="image-20210815194342922" style="zoom: 50%;" />
+
+<ul>
+<li>Analyze memory access pattern only for one sample per pixel</li>
+<li>Rendering times grows linearly with the number of samples</li>
+</ul>
+<img src="image-20210815195412094.png" alt="image-20210815195412094" style="zoom: 50%;" />
+
+<img src="image-20210815195506893.png" alt="image-20210815195506893" style="zoom:50%;" />
+
+<ul>
+<li>Number of bounces influence</li>
+</ul>
+<h2 id="6-Conclusions"><a href="#6-Conclusions" class="headerlink" title="6. Conclusions"></a>6. Conclusions</h2><p><strong>Contribution</strong></p>
+<ul>
+<li>Presented a solution for path tracing of massive scenes on multiple GPUs</li>
+<li>Analyzes the memory access pattern of a path tracer and defines how the scene data should be distributed across GPUs with a minimal loss of performance</li>
+<li>Those parts of the scene data that have the highest memory access rate are replicated on all GPUs, because their distribution would have a major negative impact on performance</li>
+</ul>
+<p><strong>Methods</strong></p>
+<ul>
+<li>Uses the same memory management rules for the entire data structure</li>
+<li>Splits the data structures into chunks and we control the placement and&#x2F;or replication of each chunk separately</li>
+</ul>
+<p><strong>Feature</strong></p>
+<ul>
+<li>Only control the memory allocations, the path tracer data structures do not have to be redesigned  </li>
+<li>Take full advantage of NVLink 2.0 interconnect and its high bandwidth and low latency</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>Post author:  </strong>Chaf Chen
+  </li>
+  <li class="post-copyright-link">
+      <strong>Post link: </strong>
+      <a href="https://chaphlagical.github.io/2021/08/15/paper_reading/GPU_Accelerated_Path_Tracing_of_Massive_Scenes/" title="GPU Accelerated Path Tracing of Massive Scenes">https://chaphlagical.github.io/2021/08/15/paper_reading/GPU_Accelerated_Path_Tracing_of_Massive_Scenes/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Rendering/" rel="tag"># Rendering</a>
+              <a href="/tags/Siggraph-2021/" rel="tag"># Siggraph 2021</a>
+              <a href="/tags/Distributed-Computing/" rel="tag"># Distributed Computing</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/08/10/paper_reading/ExtraNet/" rel="prev" title="ExtraNet: Real-time Extrapolated Rendering for Low-latency Temporal Supersampling">
+                  <i class="fa fa-chevron-left"></i> ExtraNet: Real-time Extrapolated Rendering for Low-latency Temporal Supersampling
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/08/18/paper_reading/Temporally_Adaptive_Shading_Reuse_for_Real_time_Rendering_and_Virtual_Reality/" rel="next" title="Temporally Adaptive Shading Reuse for Real-time Rendering and Virtual Reality">
+                  Temporally Adaptive Shading Reuse for Real-time Rendering and Virtual Reality <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chaf Chen</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"chaphlagical-github-io","count":true,"i18n":{"disqus":"disqus"}}</script>
+<script src="/js/third-party/comments/disqus.js"></script>
+
+</body>
+</html>

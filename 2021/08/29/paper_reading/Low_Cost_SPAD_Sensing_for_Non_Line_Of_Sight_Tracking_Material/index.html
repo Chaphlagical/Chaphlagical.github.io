@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"chaphlagical.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.14.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":true,"storage":true,"lazyload":false,"nav":{"disqus":{"text":"Load Disqus","order":-1}}},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Siggraph 2021 Paper Reading">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="Low-Cost SPAD Sensing for Non-Line-Of-Sight Tracking, Material Classification and Depth Imaging">
+<meta property="og:url" content="https://chaphlagical.github.io/2021/08/29/paper_reading/Low_Cost_SPAD_Sensing_for_Non_Line_Of_Sight_Tracking_Material/index.html">
+<meta property="og:site_name" content="Chaf&#39;s Blog">
+<meta property="og:description" content="Siggraph 2021 Paper Reading">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://chaphlagical.github.io/2021/08/29/paper_reading/Low_Cost_SPAD_Sensing_for_Non_Line_Of_Sight_Tracking_Material/teaser.png">
+<meta property="og:image" content="https://chaphlagical.github.io/2021/08/29/paper_reading/Low_Cost_SPAD_Sensing_for_Non_Line_Of_Sight_Tracking_Material/CheapSPAD_nlossetup-1.png">
+<meta property="og:image" content="https://chaphlagical.github.io/2021/08/29/paper_reading/Low_Cost_SPAD_Sensing_for_Non_Line_Of_Sight_Tracking_Material/CheapSPAD_depthsetup-1.png">
+<meta property="og:image" content="https://chaphlagical.github.io/2021/08/29/paper_reading/Low_Cost_SPAD_Sensing_for_Non_Line_Of_Sight_Tracking_Material/CheapSPAD_depth.png">
+<meta property="article:published_time" content="2021-08-29T21:00:00.000Z">
+<meta property="article:modified_time" content="2022-12-11T17:26:52.702Z">
+<meta property="article:author" content="Chaf Chen">
+<meta property="article:tag" content="Rendering">
+<meta property="article:tag" content="Siggraph 2021">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://chaphlagical.github.io/2021/08/29/paper_reading/Low_Cost_SPAD_Sensing_for_Non_Line_Of_Sight_Tracking_Material/teaser.png">
+
+
+<link rel="canonical" href="https://chaphlagical.github.io/2021/08/29/paper_reading/Low_Cost_SPAD_Sensing_for_Non_Line_Of_Sight_Tracking_Material/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://chaphlagical.github.io/2021/08/29/paper_reading/Low_Cost_SPAD_Sensing_for_Non_Line_Of_Sight_Tracking_Material/","path":"2021/08/29/paper_reading/Low_Cost_SPAD_Sensing_for_Non_Line_Of_Sight_Tracking_Material/","title":"Low-Cost SPAD Sensing for Non-Line-Of-Sight Tracking, Material Classification and Depth Imaging"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Low-Cost SPAD Sensing for Non-Line-Of-Sight Tracking, Material Classification and Depth Imaging | Chaf's Blog</title>
+  
+
+
+
+
+
+
+  <script async defer data-website-id="" src=""></script>
+
+  <script defer data-domain="" src=""></script>
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Chaf's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Here I share some fun stuff</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Background"><span class="nav-number">1.</span> <span class="nav-text">1. Background</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Related-Work"><span class="nav-number">2.</span> <span class="nav-text">2. Related Work</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Main-Work"><span class="nav-number">3.</span> <span class="nav-text">3. Main Work</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-Low-Cost-SPAD-System"><span class="nav-number">3.1.</span> <span class="nav-text">3.1. Low-Cost SPAD System</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-Material-Classification"><span class="nav-number">3.2.</span> <span class="nav-text">3.2. Material Classification</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-Tracking-Objects-%E2%80%9CAround-the-Corner%E2%80%9D"><span class="nav-number">3.3.</span> <span class="nav-text">3.3. Tracking Objects “Around the Corner”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-Depth-Imaging"><span class="nav-number">3.4.</span> <span class="nav-text">3.4. Depth Imaging</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Chaf Chen"
+      src="/images/logo.jpg">
+  <p class="site-author-name" itemprop="name">Chaf Chen</p>
+  <div class="site-description" itemprop="description">USTC CG Student</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/chaphlagical" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;chaphlagical" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:chaf@mail.ustc.cn" title="E-Mail → mailto:chaf@mail.ustc.cn" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+          Links
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="http://gcl.ustc.edu.cn/" title="http:&#x2F;&#x2F;gcl.ustc.edu.cn&#x2F;" rel="noopener" target="_blank">GCL</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://chaphlagical.github.io/2021/08/29/paper_reading/Low_Cost_SPAD_Sensing_for_Non_Line_Of_Sight_Tracking_Material/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Chaf Chen">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chaf's Blog">
+      <meta itemprop="description" content="USTC CG Student">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Low-Cost SPAD Sensing for Non-Line-Of-Sight Tracking, Material Classification and Depth Imaging | Chaf's Blog">
+      <meta itemprop="description" content="Siggraph 2021 Paper Reading">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Low-Cost SPAD Sensing for Non-Line-Of-Sight Tracking, Material Classification and Depth Imaging
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2021-08-29 21:00:00" itemprop="dateCreated datePublished" datetime="2021-08-29T21:00:00+00:00">2021-08-29</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2022-12-11 17:26:52" itemprop="dateModified" datetime="2022-12-11T17:26:52+00:00">2022-12-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Paper-Reading/" itemprop="url" rel="index"><span itemprop="name">Paper Reading</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2021/08/29/paper_reading/Low_Cost_SPAD_Sensing_for_Non_Line_Of_Sight_Tracking_Material/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2021/08/29/paper_reading/Low_Cost_SPAD_Sensing_for_Non_Line_Of_Sight_Tracking_Material/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+            <div class="post-description">Siggraph 2021 Paper Reading</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p><strong>Authors</strong>:</p>
+<p><em>CLARA CALLENBERG</em>, University of Bonn, Germany<br><em>ZHENG SHI</em>, Princeton University, USA<br><em>FELIX HEIDE</em>, Princeton University, USA<br><em>MATTHIAS B. HULLIN</em>, University of Bonn, Germany</p>
+<p><strong>Link</strong>: <a target="_blank" rel="noopener" href="https://light.princeton.edu/publication/cheapspad/">https://light.princeton.edu/publication/cheapspad/</a></p>
+<h2 id="1-Background"><a href="#1-Background" class="headerlink" title="1. Background"></a>1. Background</h2><ul>
+<li>Time-correlated imaging, or the recording of the optical response of a scene to transient illumination, allows to analyze the temporal dimension of light transport, a feature that is not accessible in pure intensity imaging</li>
+<li>Time-correlated optical measurements have established themselves as a valuable source of information</li>
+<li>The approaches available for recording time-correlated measurements are rich and varied, but most require bulky and expensive hardware and are too fragile to be used outside of lab settings </li>
+<li>A notable exception is the emerging technology of single-photon avalanche diodes (SPADs)</li>
+</ul>
+<h2 id="2-Related-Work"><a href="#2-Related-Work" class="headerlink" title="2. Related Work"></a>2. Related Work</h2><ul>
+<li>Single-photon avalanche diodes</li>
+<li>Time-of-flight (ToF), transient and depth imaging</li>
+<li>Non-line-of-sight (NLOS) tracking</li>
+<li>Material classification</li>
+</ul>
+<h2 id="3-Main-Work"><a href="#3-Main-Work" class="headerlink" title="3. Main Work"></a>3. Main Work</h2><p><img src="/2021/08/29/paper_reading/Low_Cost_SPAD_Sensing_for_Non_Line_Of_Sight_Tracking_Material/teaser.png" alt="img"></p>
+<ul>
+<li>Propose to use an off-the-shelf sensor evaluation kit as a lowcost alternative to high-end SPAD sensors, and equip the board with a custom firmware to output raw photon count histograms </li>
+<li>Introduce hardware add-ons such as collimating optics and galvanometer scanners to meet the needs of a selection of key applications for time-resolved imaging. Further propose reconstruction pipelines based on inverse filtering, deep learning, and other computational sensing paradigms that are capable of handling the low-resolution time-tagged measurements produced by our system</li>
+<li>Validate the proposed platform for some of the most iconic application modes of time-resolved imaging, namely non-line-of-sight object tracking, material classification, and depth imaging </li>
+<li>Propose cost-neutral feature additions to the sensor hardware that would greatly improve their interfacing to external hardware, and their suitability as a general-purpose sensing platform for time-resolved light transport</li>
+</ul>
+<h3 id="3-1-Low-Cost-SPAD-System"><a href="#3-1-Low-Cost-SPAD-System" class="headerlink" title="3.1. Low-Cost SPAD System"></a>3.1. Low-Cost SPAD System</h3><ul>
+<li>VL53L1X time-of-flight sensor module by STMicroelectronics</li>
+<li>The 12-pin package, priced around USD 3 for large volumes, has a footprint of 15mm^2 and integrates a 940nm light source and a 16X16 SPAD array sensor with a field of view of 27 degrees imaged by a miniature lens</li>
+<li>Use additional optical equipments including glasses and galvanometer scanners for increased flexibility of the system</li>
+</ul>
+<video src="https://light.princeton.edu/wp-content/uploads/2021/06/CheapSPAD_suppvideo.mp4" controls="controls">
+</video>
+
+<h3 id="3-2-Material-Classification"><a href="#3-2-Material-Classification" class="headerlink" title="3.2. Material Classification"></a>3.2. Material Classification</h3><ul>
+<li>When placing the sensor right onto the surface of a material, the infrared light from the VL53L1X light source penetrates the material, is scattered inside, and part of it is reflected back to the SPAD sensor</li>
+<li>Depending on the structure of the material, the signal measured by the sensor can vary temporally and spatially</li>
+<li>By training a neural network, characteristics of different materials can be learned and they can later be distinguished by holding the sensor to an object</li>
+</ul>
+<video src="https://light.princeton.edu/wp-content/uploads/2021/06/CheapSPAD_material.mp4" controls="controls">
+</video>
+
+<h3 id="3-3-Tracking-Objects-“Around-the-Corner”"><a href="#3-3-Tracking-Objects-“Around-the-Corner”" class="headerlink" title="3.3. Tracking Objects “Around the Corner”"></a>3.3. Tracking Objects “Around the Corner”</h3><img src="CheapSPAD_nlossetup-1.png" alt="img" style="zoom:50%;" />
+
+<ul>
+<li>VL53L1X can be used to track an object “around the corner” by illuminating a wall facing the hidden area and recording the echoing light signal that is reflected from the target object</li>
+<li>Train a neural network to recognize the target position from the SPAD data of four measurements on the wall</li>
+</ul>
+<video src="https://light.princeton.edu/wp-content/uploads/2021/06/CheapSPAD_nlos.mp4" controls="controls">
+</video>
+
+<h3 id="3-4-Depth-Imaging"><a href="#3-4-Depth-Imaging" class="headerlink" title="3.4. Depth Imaging"></a>3.4. Depth Imaging</h3><img src="CheapSPAD_depthsetup-1.png" alt="img" style="zoom: 50%;" />
+
+<ul>
+<li>The VL53L1X can yield a spatially resolved transient image by scanning all possible 4×4 ROIs on the 16×16 pixel sensor, which yields a 13×13 pixel measurement</li>
+<li>Use additional glasses and galvanometer scanners to avoid the substantial blur due to the overlapping ROIs and the poor optical quality of the imaging lens</li>
+<li>Depth maps are calculated in two different ways: <ul>
+<li>Calculate the given pixel’s depth as the weighted mean of the captured histogram. This way we achieve even smooth depth gradients and sub-bin accuracy in the depth estimation</li>
+<li>Compute the depth by fitting Gaussian functions to the histogram of each pixel, which yields sharper and more reliable results at the cost of a longer runtime</li>
+</ul>
+</li>
+</ul>
+<p><img src="/2021/08/29/paper_reading/Low_Cost_SPAD_Sensing_for_Non_Line_Of_Sight_Tracking_Material/CheapSPAD_depth.png" alt="img"></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>Post author:  </strong>Chaf Chen
+  </li>
+  <li class="post-copyright-link">
+      <strong>Post link: </strong>
+      <a href="https://chaphlagical.github.io/2021/08/29/paper_reading/Low_Cost_SPAD_Sensing_for_Non_Line_Of_Sight_Tracking_Material/" title="Low-Cost SPAD Sensing for Non-Line-Of-Sight Tracking, Material Classification and Depth Imaging">https://chaphlagical.github.io/2021/08/29/paper_reading/Low_Cost_SPAD_Sensing_for_Non_Line_Of_Sight_Tracking_Material/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Rendering/" rel="tag"># Rendering</a>
+              <a href="/tags/Siggraph-2021/" rel="tag"># Siggraph 2021</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/08/27/paper_reading/Real_Time_Global_Illumination_Decomposition_of_Videos/" rel="prev" title="Real-Time Global Illumination Decomposition of Videos">
+                  <i class="fa fa-chevron-left"></i> Real-Time Global Illumination Decomposition of Videos
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/12/24/gaming/marvel_guardians_of_the_galaxy/" rel="next" title="Marvel's Guardians of the Galaxy">
+                  Marvel's Guardians of the Galaxy <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chaf Chen</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"chaphlagical-github-io","count":true,"i18n":{"disqus":"disqus"}}</script>
+<script src="/js/third-party/comments/disqus.js"></script>
+
+</body>
+</html>

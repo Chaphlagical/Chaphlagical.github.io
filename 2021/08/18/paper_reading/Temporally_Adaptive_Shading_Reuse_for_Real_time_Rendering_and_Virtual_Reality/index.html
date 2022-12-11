@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"chaphlagical.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.14.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":true,"storage":true,"lazyload":false,"nav":{"disqus":{"text":"Load Disqus","order":-1}}},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Siggraph 2021 Paper Reading">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="Temporally Adaptive Shading Reuse for Real-time Rendering and Virtual Reality">
+<meta property="og:url" content="https://chaphlagical.github.io/2021/08/18/paper_reading/Temporally_Adaptive_Shading_Reuse_for_Real_time_Rendering_and_Virtual_Reality/index.html">
+<meta property="og:site_name" content="Chaf&#39;s Blog">
+<meta property="og:description" content="Siggraph 2021 Paper Reading">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://chaphlagical.github.io/2021/08/18/paper_reading/Temporally_Adaptive_Shading_Reuse_for_Real_time_Rendering_and_Virtual_Reality/image-20210817150114663.png">
+<meta property="og:image" content="https://chaphlagical.github.io/2021/08/18/paper_reading/Temporally_Adaptive_Shading_Reuse_for_Real_time_Rendering_and_Virtual_Reality/image-20210817160143501.png">
+<meta property="og:image" content="https://chaphlagical.github.io/2021/08/18/paper_reading/Temporally_Adaptive_Shading_Reuse_for_Real_time_Rendering_and_Virtual_Reality/image-20210817163844360.png">
+<meta property="og:image" content="https://chaphlagical.github.io/2021/08/18/paper_reading/Temporally_Adaptive_Shading_Reuse_for_Real_time_Rendering_and_Virtual_Reality/image-20210817171745231.png">
+<meta property="og:image" content="https://chaphlagical.github.io/2021/08/18/paper_reading/Temporally_Adaptive_Shading_Reuse_for_Real_time_Rendering_and_Virtual_Reality/image-20210817201101878.png">
+<meta property="og:image" content="https://chaphlagical.github.io/2021/08/18/paper_reading/Temporally_Adaptive_Shading_Reuse_for_Real_time_Rendering_and_Virtual_Reality/image-20210817205934016.png">
+<meta property="og:image" content="https://chaphlagical.github.io/2021/08/18/paper_reading/Temporally_Adaptive_Shading_Reuse_for_Real_time_Rendering_and_Virtual_Reality/image-20210817213317191.png">
+<meta property="og:image" content="https://chaphlagical.github.io/2021/08/18/paper_reading/Temporally_Adaptive_Shading_Reuse_for_Real_time_Rendering_and_Virtual_Reality/image-20210817214223500.png">
+<meta property="og:image" content="https://chaphlagical.github.io/2021/08/18/paper_reading/Temporally_Adaptive_Shading_Reuse_for_Real_time_Rendering_and_Virtual_Reality/image-20210818103217499.png">
+<meta property="og:image" content="https://chaphlagical.github.io/2021/08/18/paper_reading/Temporally_Adaptive_Shading_Reuse_for_Real_time_Rendering_and_Virtual_Reality/image-20210818103545061.png">
+<meta property="og:image" content="https://chaphlagical.github.io/2021/08/18/paper_reading/Temporally_Adaptive_Shading_Reuse_for_Real_time_Rendering_and_Virtual_Reality/image-20210818102918065.png">
+<meta property="og:image" content="https://chaphlagical.github.io/2021/08/18/paper_reading/Temporally_Adaptive_Shading_Reuse_for_Real_time_Rendering_and_Virtual_Reality/image-20210818095654798.png">
+<meta property="og:image" content="https://chaphlagical.github.io/2021/08/18/paper_reading/Temporally_Adaptive_Shading_Reuse_for_Real_time_Rendering_and_Virtual_Reality/image-20210818102309968.png">
+<meta property="og:image" content="https://chaphlagical.github.io/2021/08/18/paper_reading/Temporally_Adaptive_Shading_Reuse_for_Real_time_Rendering_and_Virtual_Reality/image-20210818110802081.png">
+<meta property="og:image" content="https://chaphlagical.github.io/2021/08/18/paper_reading/Temporally_Adaptive_Shading_Reuse_for_Real_time_Rendering_and_Virtual_Reality/image-20210818112410577.png">
+<meta property="og:image" content="https://chaphlagical.github.io/2021/08/18/paper_reading/Temporally_Adaptive_Shading_Reuse_for_Real_time_Rendering_and_Virtual_Reality/image-20210818113338203.png">
+<meta property="og:image" content="https://chaphlagical.github.io/2021/08/18/paper_reading/Temporally_Adaptive_Shading_Reuse_for_Real_time_Rendering_and_Virtual_Reality/image-20210818140915347.png">
+<meta property="article:published_time" content="2021-08-18T14:44:00.000Z">
+<meta property="article:modified_time" content="2022-12-11T17:26:52.734Z">
+<meta property="article:author" content="Chaf Chen">
+<meta property="article:tag" content="Rendering">
+<meta property="article:tag" content="Siggraph 2021">
+<meta property="article:tag" content="VR">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://chaphlagical.github.io/2021/08/18/paper_reading/Temporally_Adaptive_Shading_Reuse_for_Real_time_Rendering_and_Virtual_Reality/image-20210817150114663.png">
+
+
+<link rel="canonical" href="https://chaphlagical.github.io/2021/08/18/paper_reading/Temporally_Adaptive_Shading_Reuse_for_Real_time_Rendering_and_Virtual_Reality/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://chaphlagical.github.io/2021/08/18/paper_reading/Temporally_Adaptive_Shading_Reuse_for_Real_time_Rendering_and_Virtual_Reality/","path":"2021/08/18/paper_reading/Temporally_Adaptive_Shading_Reuse_for_Real_time_Rendering_and_Virtual_Reality/","title":"Temporally Adaptive Shading Reuse for Real-time Rendering and Virtual Reality"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Temporally Adaptive Shading Reuse for Real-time Rendering and Virtual Reality | Chaf's Blog</title>
+  
+
+
+
+
+
+
+  <script async defer data-website-id="" src=""></script>
+
+  <script defer data-domain="" src=""></script>
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Chaf's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Here I share some fun stuff</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Introduction"><span class="nav-number">2.</span> <span class="nav-text">1. Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Related-Work"><span class="nav-number">3.</span> <span class="nav-text">2. Related Work</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Perception-of-Shading-Differences"><span class="nav-number">4.</span> <span class="nav-text">3. Perception of Shading Differences</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Temporal-Coherence-for-Shading-Reuse"><span class="nav-number">5.</span> <span class="nav-text">4. Temporal Coherence for Shading Reuse</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-Temporal-coherence-of-visibility"><span class="nav-number">5.1.</span> <span class="nav-text">4.1. Temporal coherence of visibility</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-Temporal-coherence-of-shading"><span class="nav-number">5.2.</span> <span class="nav-text">4.2. Temporal coherence of shading</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-Limits-of-applying-temporal-coherence"><span class="nav-number">5.3.</span> <span class="nav-text">4.3. Limits of applying temporal coherence</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-Predicting-Shading-Changes"><span class="nav-number">6.</span> <span class="nav-text">5. Predicting Shading Changes</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-Prediction-with-fixed-upsampling-rates"><span class="nav-number">6.1.</span> <span class="nav-text">5.1. Prediction with fixed upsampling rates</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-Prediction-with-shading-gradients"><span class="nav-number">6.2.</span> <span class="nav-text">5.2. Prediction with shading gradients</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-3-Spatial-filtering-of-temporal-gradients"><span class="nav-number">6.3.</span> <span class="nav-text">5.3. Spatial filtering of temporal gradients</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-Temporal-adaptive-shading-framework"><span class="nav-number">7.</span> <span class="nav-text">6. Temporal adaptive shading framework</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#6-1-Temporally-adaptive-reprojection-caching-TARC"><span class="nav-number">7.1.</span> <span class="nav-text">6.1. Temporally adaptive reprojection caching (TARC)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-2-Temporally-adaptive-shading-atlas-TASA"><span class="nav-number">7.2.</span> <span class="nav-text">6.2. Temporally adaptive shading atlas  (TASA)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-Evaluation-and-Results"><span class="nav-number">8.</span> <span class="nav-text">7. Evaluation and Results</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#7-1-Reuse"><span class="nav-number">8.1.</span> <span class="nav-text">7.1. Reuse</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-2-Quality"><span class="nav-number">8.2.</span> <span class="nav-text">7.2. Quality</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-3-Runtime"><span class="nav-number">8.3.</span> <span class="nav-text">7.3. Runtime</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-4-Free-moving-virtual-reality-experiment"><span class="nav-number">8.4.</span> <span class="nav-text">7.4. Free-moving virtual reality experiment</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-Discussion-and-Conclusion"><span class="nav-number">9.</span> <span class="nav-text">8. Discussion and Conclusion</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#8-1-Limitations"><span class="nav-number">9.1.</span> <span class="nav-text">8.1. Limitations</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-2-Future-work"><span class="nav-number">9.2.</span> <span class="nav-text">8.2. Future work</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Chaf Chen"
+      src="/images/logo.jpg">
+  <p class="site-author-name" itemprop="name">Chaf Chen</p>
+  <div class="site-description" itemprop="description">USTC CG Student</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/chaphlagical" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;chaphlagical" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:chaf@mail.ustc.cn" title="E-Mail → mailto:chaf@mail.ustc.cn" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+          Links
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="http://gcl.ustc.edu.cn/" title="http:&#x2F;&#x2F;gcl.ustc.edu.cn&#x2F;" rel="noopener" target="_blank">GCL</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://chaphlagical.github.io/2021/08/18/paper_reading/Temporally_Adaptive_Shading_Reuse_for_Real_time_Rendering_and_Virtual_Reality/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Chaf Chen">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chaf's Blog">
+      <meta itemprop="description" content="USTC CG Student">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Temporally Adaptive Shading Reuse for Real-time Rendering and Virtual Reality | Chaf's Blog">
+      <meta itemprop="description" content="Siggraph 2021 Paper Reading">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Temporally Adaptive Shading Reuse for Real-time Rendering and Virtual Reality
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2021-08-18 14:44:00" itemprop="dateCreated datePublished" datetime="2021-08-18T14:44:00+00:00">2021-08-18</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2022-12-11 17:26:52" itemprop="dateModified" datetime="2022-12-11T17:26:52+00:00">2022-12-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Paper-Reading/" itemprop="url" rel="index"><span itemprop="name">Paper Reading</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2021/08/18/paper_reading/Temporally_Adaptive_Shading_Reuse_for_Real_time_Rendering_and_Virtual_Reality/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2021/08/18/paper_reading/Temporally_Adaptive_Shading_Reuse_for_Real_time_Rendering_and_Virtual_Reality/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+            <div class="post-description">Siggraph 2021 Paper Reading</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p><strong>Author</strong>: JOERG H. MUELLER, THOMAS NEFF, PHILIP VOGLREITER, MARKUS STEINBERGER, DIETER SCHMALSTIEG  </p>
+<p><strong>Institution</strong>: Graz University of Technology, Austria</p>
+<p><strong>Link</strong>: <a target="_blank" rel="noopener" href="https://dl.acm.org/doi/10.1145/3446790">https://dl.acm.org/doi/10.1145/3446790</a>  </p>
+<h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><p><strong>Motivation</strong></p>
+<ul>
+<li>Temporal coherence has the potential to enable a huge reduction of shading costs in rendering</li>
+</ul>
+<p><strong>Current Work</strong></p>
+<ul>
+<li>Existing techniques focus either only on spatial shading reuse or cannot adaptively choose temporal shading frequencies</li>
+</ul>
+<p><strong>Idea</strong></p>
+<ul>
+<li>Temporal shading reuse is possible for extended periods of time for a majority of samples</li>
+<li>Approximate shading gradients to efficiently determine when and how long shading can be reused</li>
+</ul>
+<h2 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1. Introduction"></a>1. Introduction</h2><ul>
+<li><p>An important strategy to reduce shading load is to exploit spatial and temporal coherence  </p>
+<ul>
+<li>Spatial coherence<ul>
+<li>Checkerboard rendering, </li>
+<li>Foveated rendering</li>
+<li>Variable rate shading</li>
+<li>Motion-adaptive shading</li>
+<li>…</li>
+</ul>
+</li>
+<li>Temporal coherence<ul>
+<li>Temporal anti-aliasing</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Four unresolved research questions for shading reuse over longer periods of time poses:</p>
+<ol>
+<li>How do temporal artifacts affect the perceived image quality when reusing shading samples over time?  <ul>
+<li>Perception of shading differences</li>
+<li>Conducting a controlled user study to determine the perceived effect of shading artifacts due to temporal shading reuse for scenes with advanced shading and animations</li>
+</ul>
+</li>
+<li>What are the limits of shading reuse in scenes with advanced shading and animation?  <ul>
+<li>Temporal coherence</li>
+<li>Analyzing the potential amount of coherence in shading and visibility over time</li>
+</ul>
+</li>
+<li>How can we determine ahead of time when shading samples become invalid without actually reshading the samples?  <ul>
+<li>Gradients</li>
+<li>Analyzing analytical and numerical first-order approximations of temporal shading gradients and their ability to predict the magnitude of future shading changes</li>
+<li>Analyzing the spatial variation of the temporal shading gradient and show how to incorporate spatial information to better predict future shading changes</li>
+</ul>
+</li>
+<li>Given sufficient temporally coherent shading samples, how can they efficiently be reused in practice?  <ul>
+<li>Framework</li>
+<li>A general-purpose framework for predicting shading changes and temporally reusing shading over time</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<h2 id="2-Related-Work"><a href="#2-Related-Work" class="headerlink" title="2. Related Work"></a>2. Related Work</h2><ul>
+<li><p>Reduce shader invocations by exploiting shading coherence</p>
+<ul>
+<li>Foveated rendering</li>
+<li>Variable rate shading</li>
+</ul>
+</li>
+<li><p>Temporal coherence is commonly exploited by using information from previous frames for spatio-temporal filtering</p>
+<ul>
+<li>Temporal anti-aliasing<ul>
+<li>Use exponential-decay history buffers for filtering</li>
+<li>Use the temporal variation of sampling position to achieve spatial anti-aliasing</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Shading gradients can be used to estimate the variation of shading and are thus often used in spatio-temporal filtering</p>
+<ul>
+<li>Guiding spatio-temporal upsampling filters</li>
+<li>Denoising filters</li>
+<li>Reconstruction in adaptive frameless rendering</li>
+<li>Spatial sampling</li>
+</ul>
+</li>
+<li><p>Temporal upsampling methods reuse previous shading result without filtering or accumulation</p>
+<ul>
+<li>Warps the image plane of the previous, fully rendered keyframe based on the latest headtracking update</li>
+<li>Advanced warping and reprojection techniques<ul>
+<li>Render cache</li>
+<li>Reverse reprojection caching<ul>
+<li>Use scene depth or motion vectors for dense 3D warping while reusing the shading from the last keyframe</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Temporal methods are based on the assumption that the temporal variation in shading is slow and as spatial reprojection errors accumulate over time, a frequent refresh of the cache is required</li>
+<li>A fraction of samples typically violate this assumption and thus lead to perceivable artifacts, when not shaded more often</li>
+</ul>
+</li>
+<li><p>To avoid spatial reprojection errors while reusing shading samples multiple times, shading can be generated in alternative spaces and resampled for display</p>
+<ul>
+<li>Example: Generation of depth of field and motion blur<ul>
+<li>For efficiency reason, shading in alternative spaces requires GPU extensions</li>
+</ul>
+</li>
+<li>Similarly, the shading cache has been designed to allow for spatio-temporal shading reuse in path tracing</li>
+<li>Texture-space shading methods have been popularized and have even been used for temporal upsampling on a VR client</li>
+<li>Cons: All these methods only allow for fixed temporal upsampling rate</li>
+</ul>
+</li>
+<li><p>Numerous image quality metrics try to model the human perception of images</p>
+<ul>
+<li>peak signal-to-noise ratio (PSNR)<ul>
+<li>Provides an objective and easy to compute metric</li>
+<li>Failed to capture human perception</li>
+</ul>
+</li>
+<li>structural similarity index measure(SSIM)<ul>
+<li>Designed to more closely resemble perception</li>
+</ul>
+</li>
+<li>IW-SSIM<ul>
+<li>Made to SSIM to enhance the predictions of the metric</li>
+</ul>
+</li>
+<li>HDR-VDP-2<ul>
+<li>Try to model the visual system to some extent</li>
+<li>Adapt the metric for the evaluation of foveated rendering</li>
+</ul>
+</li>
+<li>VMAF<ul>
+<li>Combination of different metrics</li>
+<li>Especially useful for video game content</li>
+</ul>
+</li>
+<li>FILP<ul>
+<li>Derived from the manual method of comparing images by alternating between them and provides an error map showing where differences would be perceived between the two images in comparison</li>
+</ul>
+</li>
+</ul>
+<p>Major disadvantage above all: only compare images, disregarding any temporal artifacts, such as flickering</p>
+</li>
+</ul>
+<h2 id="3-Perception-of-Shading-Differences"><a href="#3-Perception-of-Shading-Differences" class="headerlink" title="3. Perception of Shading Differences"></a>3. Perception of Shading Differences</h2><ul>
+<li><p>Conducted a controlled user experiment</p>
+<ul>
+<li><p>To determine the limits of keeping shading over multiple frames in scenes with advanced shading and animation</p>
+</li>
+<li><p>34 participants were shown two video clips, one generated with forward rendering as ground truth reference, and the other by reusing shading from previous frames and the participants were asked to rate the relative quality of the two video clips, following a pairwise comparison design   </p>
+<ul>
+<li>As the order of clips was randomized, they did not know which clip was the reference.</li>
+</ul>
+</li>
+<li><p>From the rating, we compute an average relative quality score ($Q$​​), ranging from -2 to +2, where +2 means the reference is significantly better and +1 slightly better. 0 indicates that they have been rated equal</p>
+</li>
+<li><p>Compute the probability $p_{ref}$​ of choosing the reference over the reuse approach</p>
+<ul>
+<li>A $p_{ref}$ of 50% indicates that there is no difference between the approaches </li>
+<li>$p_{ref}$ of 75% is referred to as 1 just-noticeable-difference (JND) unit</li>
+<li>Staying under 1 JND is considered high quality</li>
+</ul>
+</li>
+<li><p>For statistical analysis, use repeated-measures ANOVA and Bonferroni adjustment for post hoc tests</p>
+</li>
+<li><p>Test scenes:</p>
+<p><img src="/2021/08/18/paper_reading/Temporally_Adaptive_Shading_Reuse_for_Real_time_Rendering_and_Virtual_Reality/image-20210817150114663.png" alt="image-20210817150114663"></p>
+<ul>
+<li>Physically-based materials</li>
+<li>Animated models</li>
+<li>Animated light sources</li>
+<li>Dynamic shadows</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Temporal forward rendering (TFR)</p>
+<ul>
+<li>To determine the perceived quality reduction caused by reusing shading samples</li>
+<li>TFR decouples the temporal changes in shading from other major effects that influence the shading reuse ability<ul>
+<li>Temporal changes in visibility and spatial sampling</li>
+</ul>
+</li>
+<li>Use a modified fragment shader to  compute shading as if a fragment was shaded at a specific time in the past</li>
+<li>Recreate all input parameters to the shader, including view, light and model matrices, textures and shadow maps for up to 120 frames (2 s) in the past and compare the shading results to the new shading<ul>
+<li>If the difference of a shading sample$(r,g,b)$ is above a certain threshold $T$, i.e., $T&lt;\max(|\Delta r|,|\Delta g|,|\Delta b|)$​, we consider the shading to be changed</li>
+<li>Shading, including gamma-correction and possibly tone-mapping, is computed and compared in floating point</li>
+<li>This threshold is an approximation of Weber’s law, which states that the just noticeable luminance difference is constant in relation to the base luminance</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Result</p>
+<img src="image-20210817160143501.png" alt="image-20210817160143501" style="zoom:80%;" />
+
+<ul>
+<li>Reusing shading samples that are slightly different does not reduce perceived quality</li>
+<li>For $T&#x3D;2$ and $T&#x3D;4$, $Q$ cannot be separated from 0.0 with confidence, and $p_{ref}$ is nearly 50%</li>
+<li>At a threshold of $T&#x3D;8$, the mean quality is above 0.0, indicating that some participants see a minor quality deterioration. The distribution is still nearly balanced, with $p_{ref}$&#x3D;55%</li>
+<li>At $T&#x3D;16$, the distribution is just shy of 1 JND($p_{ref}$&#x3D;75%). $Q$ is closed to 0.5​</li>
+</ul>
+</li>
+</ul>
+<h2 id="4-Temporal-Coherence-for-Shading-Reuse"><a href="#4-Temporal-Coherence-for-Shading-Reuse" class="headerlink" title="4. Temporal Coherence for Shading Reuse"></a>4. Temporal Coherence for Shading Reuse</h2><h3 id="4-1-Temporal-coherence-of-visibility"><a href="#4-1-Temporal-coherence-of-visibility" class="headerlink" title="4.1. Temporal coherence of visibility"></a>4.1. Temporal coherence of visibility</h3><ul>
+<li>Project every sample of a current frame back to the previous frame and determine whether the sample was visible before</li>
+<li>Over 90% of samples stay visible between frames</li>
+<li>The most significant visibility disruption is caused by large camera movement or fast moving objects</li>
+</ul>
+<h3 id="4-2-Temporal-coherence-of-shading"><a href="#4-2-Temporal-coherence-of-shading" class="headerlink" title="4.2. Temporal coherence of shading"></a>4.2. Temporal coherence of shading</h3><img src="image-20210817163844360.png" alt="image-20210817163844360" style="zoom:80%;" />
+
+<ul>
+<li>Use temporal forward rendering to determine how shading behaves independently of changes in visibility and spatial sampling</li>
+<li>More than 75% of all samples change less than the color difference $T&#x3D;8$ for 120 frames in the test scenes</li>
+</ul>
+<h3 id="4-3-Limits-of-applying-temporal-coherence"><a href="#4-3-Limits-of-applying-temporal-coherence" class="headerlink" title="4.3. Limits of applying temporal coherence"></a>4.3. Limits of applying temporal coherence</h3><ul>
+<li>Both the temporal coherence of visibility and the temporal coherence of shading demonstrate a very high potential for reusing shading over many frames</li>
+<li>Practical implementations need to also consider the spatial sampling of shading<ul>
+<li>The drift of shading samples, their reprojection error and the required filtering</li>
+</ul>
+</li>
+</ul>
+<p>Evaluate two practical rendering approaches for shading reuse:</p>
+<ol>
+<li>reverse reprojection caching (RRC)<ul>
+<li>RRC reprojects samples from the previous frame to the current frame, potentially accumulating spatial sampling errors</li>
+<li>The implementation runs in two passes: a depth pre-pass and a forward rendering pass that either uses the cache or reshades</li>
+<li>In order to avoid the accumulation of these errors, shading samples can be gathered in a temporally invariant space such as object space or texture space</li>
+</ul>
+</li>
+<li>shading atlas (SA)<ul>
+<li>Combine the shading atlas with the rendering pipeline of texel shading</li>
+<li>This method shades pairs of triangles in rectangular blocks that are dynamically allocated in a single texture, the shading atlas</li>
+<li>The location of the shading samples remains unchanged in the atlas, until the visibility of the triangles changes, or their resolution changes due to a level of detail change, in which case shading is recomputed</li>
+</ul>
+</li>
+</ol>
+<p>Evaluate result:</p>
+<img src="image-20210817171745231.png" alt="image-20210817171745231" style="zoom:80%;" />
+
+<ul>
+<li>Reverse reprojection caching accumulates spatial sampling errors over time, especially when the camera is moving</li>
+<li>The shading atlas reuse is independent of spatial sampling, and thus the reuse correlates better with the dynamics of the shading<ul>
+<li>The shading atlas considers samples reusable only when an entire block is reusable, leading to a slightly worse overall reuse</li>
+</ul>
+</li>
+</ul>
+<h2 id="5-Predicting-Shading-Changes"><a href="#5-Predicting-Shading-Changes" class="headerlink" title="5. Predicting Shading Changes"></a>5. Predicting Shading Changes</h2><ul>
+<li>Existing methods enable us to map shading samples from one frame to the next either through image space reprojection or shading in a temporally unaffected space, such as object space or texture space</li>
+<li>We require efficient prediction of the point in the future when shading samples will become invalid in order to know how long shading can be reused</li>
+</ul>
+<h3 id="5-1-Prediction-with-fixed-upsampling-rates"><a href="#5-1-Prediction-with-fixed-upsampling-rates" class="headerlink" title="5.1. Prediction with fixed upsampling rates"></a>5.1. Prediction with fixed upsampling rates</h3><img src="image-20210817201101878.png" alt="image-20210817201101878" style="zoom:80%;" />
+
+<ul>
+<li>Previous strategies rely on uniform temporal upsampling<ul>
+<li>i.e., shading samples every $N^{\mathrm{th}}$ frame</li>
+</ul>
+</li>
+<li>RRC <ul>
+<li>Updates 16 × 16 pixel tiles with a constant refresh rate</li>
+<li>A constant fraction of all tiles is updated in each frame, leading to a fixed livespan for each tile</li>
+</ul>
+</li>
+<li>SAU<ul>
+<li>The livespan of cache entries is also constant, but every cache entry has an individual remaining time to live depending on when it became visible</li>
+</ul>
+</li>
+<li>Evaluate RRC and SAU with the same user study design as described in Section 3  </li>
+<li>Result<ul>
+<li>Uniform upsampling is not able to leverage the potential for shading reuse well, even when reusing shading only once (2× upsampling)</li>
+<li>RRC at 2x temporal upsampling leads to noticeable differences in 82% of the cases</li>
+<li>For higher upsampling rates (4 and 8), all participants always noticed differences and reported image quality to be close to “significantly worse”  </li>
+<li>A uniform upsampling frequency is not sufficient for longer shading reuse</li>
+</ul>
+</li>
+</ul>
+<h3 id="5-2-Prediction-with-shading-gradients"><a href="#5-2-Prediction-with-shading-gradients" class="headerlink" title="5.2. Prediction with shading gradients"></a>5.2. Prediction with shading gradients</h3><ul>
+<li><p>A first-order gradient analysis is often sufficient in the spatial domain</p>
+</li>
+<li><p>Consider a Taylor approximation of a shading function $s$​​ as an obvious choice for prediction  </p>
+<ul>
+<li>A simple linear predictor can be formulated as a first-order Taylor expansion from time $t_0$ to $t$:</li>
+</ul>
+<p>$$<br>s(t)&#x3D;s(t_0)+s’(t_0)\cdot(t-t_0)+e(t)<br>$$</p>
+<p>with a residual error $e(t)$.</p>
+<ul>
+<li>Based on a color threshold $T$, we can predict a reshading deadlien</li>
+</ul>
+<p>$$<br>d&#x3D;t-t_0&#x3D;\dfrac{T}{s’(t_0)}<br>$$</p>
+</li>
+</ul>
+<p><strong>Analytic derivatives</strong></p>
+<ul>
+<li>Handle scalar, vector-valued parameters, texture lookup, Poisson-sampled shadow maps</li>
+<li>Shader inputs such as camera, object or light transformations, are extended with their temporal derivatives</li>
+<li>All time-varying parameters where a future state can be calculated deterministically (such as prerecorded animations or physical simulations): Obtain their derivatives directly by augmenting the animation code</li>
+<li>User-driven inputs (Camera movement): compute gradient based on an extrapolation of the input</li>
+<li>Even though the derivatives can be computed alongside the shading, the overhead is non-negligible</li>
+</ul>
+<p><strong>Finite differences</strong></p>
+<ul>
+<li><p>An alternative to costly analytic derivatives</p>
+</li>
+<li><p>The simplest case: take the backward difference between two shading results</p>
+<ul>
+<li>It better approximates the limit of finite differences</li>
+<li>But always requires shading twice in a row</li>
+</ul>
+</li>
+<li><p>Computed between shading in consecutive frames or between frames that are further apart in time  </p>
+<ul>
+<li><p>More economical and has a potentially beneficial low-pass filtering effect on spurious shading changes</p>
+</li>
+<li><p>When a shading sample is first considered, shading must always be done twice</p>
+</li>
+<li><p>A first deadline for reshading is extrapolated from the initial gradient</p>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>Comparison of gradient methods</strong></p>
+<ul>
+<li><p>Evaluate these options for temporal forward rendering (TFR), using the previously found threshold $T &#x3D; 8$​ from the first user experiment</p>
+</li>
+<li><p>Render multiple frames of increasing shading age, resulting in frames with the same sample position, but increasingly outdated shading</p>
+<ul>
+<li>Use this data to retrospectively obtain the ideal deadline</li>
+<li>Starting from the current frame containing the correct shading result</li>
+<li>Determine the exact frame in the past where the shading difference exceeds the threshold $T$<ul>
+<li>Analytical derivatives &amp; finite differences: used to directly predict a future deadline</li>
+<li>Long-range differences: repeat the process to find the next frame in the past that exceeds the threshold<ul>
+<li>Limit the search process to 119 frames into the past, effectively clamping the deadline in the range of 1 to 118 frames</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Result</p>
+<img src="image-20210817205934016.png" alt="image-20210817205934016" style="zoom:80%;" />
+
+<ul>
+<li>Late shading: cause artifacts in the final image output and thus should be avoided</li>
+<li>Early shading: harm performance, but does not lower quality</li>
+<li>Ideally technique:<ul>
+<li>avoid late shading completely</li>
+<li>keeping early shadings as low as possible</li>
+</ul>
+</li>
+<li>Simple long-range differences (between two shading points) show the least amount of late shadings, while having only slightly increased early shading</li>
+</ul>
+</li>
+</ul>
+<h3 id="5-3-Spatial-filtering-of-temporal-gradients"><a href="#5-3-Spatial-filtering-of-temporal-gradients" class="headerlink" title="5.3. Spatial filtering of temporal gradients"></a>5.3. Spatial filtering of temporal gradients</h3><ul>
+<li><p>Propose a simple maximum filter in image space, inspired by the render cache and shading cache</p>
+<ul>
+<li>Make shading decision based on the estimated temporal gradients of neighboring samples</li>
+</ul>
+</li>
+<li><p>Evaluation</p>
+<ul>
+<li>Using TFR to isolate the effect of the spatial filtering, while avoiding other sources of misprediction, such as reprojection errors</li>
+<li>Using a downsampling factor of 8 x 8, followed by a convolution with a rectangular kernel size 9 × 9</li>
+</ul>
+</li>
+<li><p>Result</p>
+<img src="image-20210817213317191.png" alt="image-20210817213317191" style="zoom:80%;" />
+
+<ul>
+<li>The gradient filtering distributes the highly localized gradients of the shadow boundaries to the surroundings</li>
+</ul>
+<p><img src="/2021/08/18/paper_reading/Temporally_Adaptive_Shading_Reuse_for_Real_time_Rendering_and_Virtual_Reality/image-20210817214223500.png" alt="image-20210817214223500"></p>
+<ul>
+<li>Applying an image-space filter on top of the gradients strongly reduces late shading but increases early shading, leading to less reuse and less performance improvement</li>
+<li>Long-range differences are most attractive</li>
+</ul>
+</li>
+</ul>
+<h2 id="6-Temporal-adaptive-shading-framework"><a href="#6-Temporal-adaptive-shading-framework" class="headerlink" title="6. Temporal adaptive shading framework"></a>6. Temporal adaptive shading framework</h2><ul>
+<li><p>Temporally adaptive shading (TAS) framework</p>
+<ul>
+<li>Reliably avoids repeating redundant shading computations, while responding instantly to areas where rapid changes of shading occur.</li>
+</ul>
+</li>
+<li><p>Reuse unit (RU)</p>
+<ul>
+<li>To make the framework largely independent of the rendering algorithm to which it is applied</li>
+<li>RU is a group of samples for which a uniform decision is made on whether the samples will be shaded anew or shading will be reused</li>
+<li>The samples of these units are shaded together, and, consequently, must be stored together in the cache data structure</li>
+<li>The renderer determines visibility independently for each unit</li>
+<li>An RU can be a single pixel as in the case of reverse reprojection caching  or a whole block within the shading atlas</li>
+</ul>
+</li>
+<li><p>Workflow:</p>
+<ol>
+<li><p>Spatially-filtered shading gradients from the last frame are multiplied with the time elapsed since the last shading of each RU and compared to the threshold ($T$​​​) to decide whether reshading is necessary. Newly visible units are always shaded for two consecutive frames to determine a gradient from finite differences</p>
+<img src="image-20210818103217499.png" alt="image-20210818103217499" style="zoom: 50%;" />
+</li>
+<li><p>The shading is either reused, or the unit is reshaded. In the latter case, a new shading difference to the previous shading result is computed for each sample</p>
+<img src="image-20210818103545061.png" alt="image-20210818103545061" style="zoom:50%;" />
+</li>
+<li><p>The shading gradient is estimated based on the shading difference, scaled by the time difference between them, and a spatial filter is applied to distribute the shading gradient information</p>
+<img src="image-20210818102918065.png" alt="image-20210818102918065" style="zoom: 50%;" /></li>
+</ol>
+</li>
+</ul>
+<h3 id="6-1-Temporally-adaptive-reprojection-caching-TARC"><a href="#6-1-Temporally-adaptive-reprojection-caching-TARC" class="headerlink" title="6.1. Temporally adaptive reprojection caching (TARC)"></a>6.1. Temporally adaptive reprojection caching (TARC)</h3><ul>
+<li>Image-space pixels serve as reuse units</li>
+<li>Replace the periodic refresh of the reverse reprojection caching shader with the first two steps of the framework</li>
+<li>Store per-unit and per-sample variables in a double-buffered G-buffer</li>
+<li>The input buffers are reprojected, and the potentially altered values are stored in the output buffers</li>
+<li>Store the estimated shading gradient in the G-buffer during the depth pre-pass</li>
+<li>Implement spatial maximum filtering by downsampling the gradient buffer using a maximum filter with overlapping square kernels  </li>
+<li>In comparison to standard reverse reprojection caching, TARC needs additional memory for screen size buffers to store the shading difference and the time since the last shading</li>
+</ul>
+<h3 id="6-2-Temporally-adaptive-shading-atlas-TASA"><a href="#6-2-Temporally-adaptive-shading-atlas-TASA" class="headerlink" title="6.2. Temporally adaptive shading atlas  (TASA)"></a>6.2. Temporally adaptive shading atlas  (TASA)</h3><ul>
+<li><p>Using a texture-space representation for storing shading samples avoids the accumulation of reprojection errors faced by TARC  </p>
+</li>
+<li><p>Convenient to define reuse units by proximity of shading samples on object surfaces</p>
+</li>
+<li><p>The reuse units in TASA correspond to two triangles packed into a rectangle of $2^N × 2^M$​ texels, where each unit’s size in the atlas is determined based on its image-space projection</p>
+<ul>
+<li>Other granularities (e.g., 8x8 texels, per-object texture charts, micro-polygons) could be chosen</li>
+</ul>
+</li>
+<li><p>By retaining the maximum of all shading gradients across an entire reuse unit, a conservative object-space filter is applied to the unit at almost no additional cost </p>
+<ul>
+<li>The samples of a reuse unit are processed together</li>
+</ul>
+</li>
+<li><p>The resulting object-space filtering is particularly relevant when some of the shading samples are currently occluded in image space</p>
+</li>
+<li><p>Limiting the filter to the boundaries of a reuse unit fails to capture spatial gradients that cross the boundaries of adjacent reuse units</p>
+<ul>
+<li>Example: a shadow boundary may be creeping slowly across an entire surface consisting of multiple neighboring reuse units</li>
+<li>A solution: extend the object-space filter to support a convolution-style kernel larger than a single reuse unit<ul>
+<li>But it’s a costly operation</li>
+</ul>
+</li>
+<li>Another solution: concatenate the per-reuse-unit filter to an image-space filter that determines the maximum over direct image-space neighbors<ul>
+<li>Very inexpensive</li>
+<li>Captures spatial coherence of perspectively close shading samples, which may not be apparent in object space</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Resulting Pipeline:</p>
+<ol>
+<li>Exact visibility is computed per frame in a geometry pre-pass and stored in a G-buffer as primitive ID with corresponding shading gradients</li>
+<li>Reading the primitive ID, the atlas is updated such that it has room for the visible reuse units. The shading gradients are maximum filtered using a 2 × 2 window in image-space for each reuse unit to propagate the maximum gradient in an image-space neighborhood</li>
+<li>Shading decisions are made on all reuse units. Reuse units for which samples are newly allocated and reallocated in the atlas are always shaded, i.e., they are considered newly visible</li>
+<li>The shading workload is executed including the computation of the shading differences and shading gradients are directly maximum filtered per reuse unit</li>
+<li>The G-buffer is revisited for the final deferred rendering pass</li>
+</ol>
+</li>
+<li><p>The additional memory requirements include a copy of shading atlas to compute the shading differences, per-patch shading differences and times, and a screen space buffer for the spatial filter</p>
+</li>
+</ul>
+<h2 id="7-Evaluation-and-Results"><a href="#7-Evaluation-and-Results" class="headerlink" title="7. Evaluation and Results"></a>7. Evaluation and Results</h2><ul>
+<li>Test TASA with a 16 MPx atlas (TASA16) and with an 8 MPx atlas (TASA8) to evaluate actual use<ul>
+<li>To avoid sampling artifacts from the atlas when displaying the final image</li>
+</ul>
+</li>
+<li>Use a threshold of $T&#x3D;8$ in all experiments<ul>
+<li>Aiming to stay below 1 JND</li>
+</ul>
+</li>
+<li>Present detailed timing results in comparison to Forward+ rendering</li>
+<li>Experimental setup<ul>
+<li>Three test scenes</li>
+<li>An image resolution of 1920 x 1080</li>
+<li>Extended the tested sequences to 15 seconds</li>
+</ul>
+</li>
+<li>Run on Intel Core i7-4820K GPU and NVIDIA GTX 1080Ti using a custom rendering framework based on Vulkan</li>
+</ul>
+<h3 id="7-1-Reuse"><a href="#7-1-Reuse" class="headerlink" title="7.1. Reuse"></a>7.1. Reuse</h3><ul>
+<li><p>In Section 4.3, the theoretically possible reuse with a perfect prediction of when to shade, resulting in a reuse of 80–90% for both TARC and TASA. About 1–5% of shading is due to changes in visibility</p>
+</li>
+<li><p>Actual reuse for the TAS implementations with a color difference threshold $T&#x3D;8$:</p>
+<img src="image-20210818095654798.png" alt="image-20210818095654798" style="zoom:80%;" />
+* TARC shows low reuse for dynamic camera movements
+  * The reprojection error for camera movements also effects shading gradient predictions, which are slightly too high and, in combination with the spatial filter, invalidate shading often
+  * While a smaller filter size would increase the reuse potential, it leads to clearly visible artifacts due to missing shading in some scenes
+  * A better reprojection filter for gradients and an adaptively sized image-space filter may increase reuse potential for TARC
+    * More advanced filtering and filter size adjustments would also increase overheads  
+* TASA is able to retain a high amount of reuse in comparison to its ideal version
+  * The reuse reduction is similar for both stationary and moving cameras, underlining that shading in texture space enables consistent addressing of shading samples
+  * View-dependent shading effects do not heavily influence shading reuse
+  * Only in Space with its many highly metallic materials, a moving camera significantly reduces shading reuse</li>
+</ul>
+<h3 id="7-2-Quality"><a href="#7-2-Quality" class="headerlink" title="7.2. Quality"></a>7.2. Quality</h3><img src="image-20210818102309968.png" alt="image-20210818102309968" style="zoom:80%;" />
+
+<ul>
+<li>For $T&#x3D;4$， $p_{ref}$ is close to 50%, and $Q$ is at about 0.1</li>
+<li>For $T&#x3D;8$, $p_{ref}$ is about 60%, still significantly below 1 JND, and $Q$ is 0.2, indicating a very high quality</li>
+<li>A setting of $T &#x3D; 16$​ is about twice as bad in $Q$​ and very close to 1 JND, thus, we would suggest to use $T &#x3D; 8$</li>
+<li>For $T &#x3D; 32$​, TARC is already above 1 JND, and $Q$​ is close to “slightly worse”  </li>
+<li>Unknown reason for the slight drop in $Q$ for TASA16 from $T &#x3D; 2$ to $T &#x3D; 4$<ul>
+<li>as the confidence intervals overlap, this may just be a statistical outlier</li>
+</ul>
+</li>
+</ul>
+<h3 id="7-3-Runtime"><a href="#7-3-Runtime" class="headerlink" title="7.3. Runtime"></a>7.3. Runtime</h3><ul>
+<li><p>The overheads of TAS include computing shading differences, spatial filtering, and dynamically deciding whether to shade or not  </p>
+<ul>
+<li>May lead to thread divergence during shading and thus reduce the efficiency</li>
+</ul>
+</li>
+<li><p>Measure the overhead of TARC and TASA in addition to the full shading</p>
+<ul>
+<li>TARC: between 14.5% to 16.9%</li>
+<li>TASA: between 2.3% to 5%</li>
+</ul>
+</li>
+<li><p>The actual speedups:</p>
+<img src="image-20210818110802081.png" alt="image-20210818110802081" style="zoom: 50%;" />
+
+<ul>
+<li>Among the tested scenes, <em>Space</em> is especially difficult to speed up using temporal coherence, since most of the scene’s surface points are either very dynamic or belong to the sky box</li>
+<li>TARC does not improve over Forward+ for moving cameras, but it does have some considerable speedups between 1.38× and 2.4× when the camera is stationary  </li>
+<li>The main focus is on the performance gains of TASA  <ul>
+<li>Able to reuse shading across the left and right eye buffers in VR stereo rendering</li>
+<li>TASA outperforms the other methods for all scenes, both in mono and stereo rendering</li>
+<li>The speedup in stereo mode over Forward+ is in the range 2 - 5× (1.1 - 3× in mono mode)  <ul>
+<li>TASA must compensate the overhead of its SA foundation</li>
+<li>SA alone is only around half the speed of Forward+ for monoscopic rendering, most likely due to its 8 MPx atlas size that is 4× the resolution of the final output image</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>Overall</strong></p>
+<ul>
+<li>Adaptivity is key for temporal shading reuse<ul>
+<li>Uniform temporal reuse strategies reduce shader invocations, quality drops quickly</li>
+<li>Using simple shading differences with spatial filtering for gradient estimates works well and is efficient</li>
+<li>Especially placing shading samples in texture space appears to be an efficient strategy for reusing them over longer periods of time</li>
+</ul>
+</li>
+<li>Using an atlas that matches the screen resolution introduces spatial sampling artifacts and reduces sharpness<ul>
+<li>TAS can easily compensate for these additional shading samples, leading to overall performance gains</li>
+</ul>
+</li>
+</ul>
+<h3 id="7-4-Free-moving-virtual-reality-experiment"><a href="#7-4-Free-moving-virtual-reality-experiment" class="headerlink" title="7.4. Free-moving virtual reality experiment"></a>7.4. Free-moving virtual reality experiment</h3><ul>
+<li><p>Integrated TASA into Unreal Engine 4 and conducted a small user experiment in VR</p>
+<ul>
+<li>Adapted the <em>Showdown VR Demo</em> scene , a slow motion fly-through of a combat scenario involving several soldiers fighting a giant animated robot  </li>
+<li>The comparison to the threshold $T$​​​ is evaluated after tone mapping with the Academy Color Encoding System (ACES) Filmic Tonemapper used in Unreal Engine 4</li>
+</ul>
+</li>
+<li><p>For VR user experiment</p>
+<ul>
+<li>Slightly modified the scene by subdividing large primitives that exceed the maximum block size in the shading atlas</li>
+<li>Modified the scene to include fully dynamic directional lighting with cascaded shadow mapping, which was only approximated in the original scene</li>
+<li>Eight participants (6 male, 2 female, age 24 to 33, with VR experience) tried the SA baseline, followed by TASA configurations using the thresholds [4, 8, 16, 32, 64] and SAU with 4× and 8× upsampling in a randomized order</li>
+<li>Used an Intel Core i7-8700K with an NVIDIA RTX 2080Ti and displayed on an HTC Vive at a resolution of 1512 × 1680 per eye, using a fixed frame rate of 90 Hz</li>
+</ul>
+</li>
+<li><p>Result</p>
+<img src="image-20210818112410577.png" alt="image-20210818112410577" style="zoom:80%;" />
+
+<ul>
+<li>For TASA with $T &#x3D; 64$ and $T &#x3D; 32$​, all participants detected artifacts<ul>
+<li>$T&#x3D;64$ was “very bad”  </li>
+<li>$T&#x3D;32$​​​ was “adequate with some annoying artifacts”</li>
+</ul>
+</li>
+<li>For $T&#x3D;16$​​​​​​, four participants reported an identical experience compared to the baseline, while the remaining four detected minor artifacts on shadows, reflective surfaces and the soldiers in the scene</li>
+<li>For $T&#x3D;8$​​​​, six participants reported an identical experience compared to the baseline, while two participants were still able to identify minor artifacts on the soldiers</li>
+<li>For $T&#x3D;4$​​, no participant was able to detect any visual artifacts, and all participants reported an identical experience compared to the baseline</li>
+</ul>
+</li>
+</ul>
+<img src="image-20210818113338203.png" alt="image-20210818113338203" style="zoom:80%;" />
+
+<ul>
+<li>For SAU with 4× upsampling, four participants reported artifacts related to “jittery” and “flickery” motion, and they reported “low frame rate” for the reflections</li>
+<li>For SAU with 8× upsampling, all but one participant reported major artifacts of reflections and shadows, as well as major discomfort, particularly describing the experience as “very uncomfortable when moving around”  <ul>
+<li>One participant even reported a mild case of motion sickness</li>
+</ul>
+</li>
+<li>Constant temporal upsampling is more likely to be perceived as jittery, which according to the participants is more discomforting and distracting than the artifacts of TASA, even for large thresholds  </li>
+<li>TASA with $T &#x3D; 8$​ resulted in a mostly identical experience to the baseline</li>
+</ul>
+<img src="image-20210818140915347.png" alt="image-20210818140915347" style="zoom:80%;" />
+
+<ul>
+<li>TASA provides a more optimal performance-quality tradeoff compared to SAU</li>
+</ul>
+<h2 id="8-Discussion-and-Conclusion"><a href="#8-Discussion-and-Conclusion" class="headerlink" title="8. Discussion and Conclusion"></a>8. Discussion and Conclusion</h2><ul>
+<li>Investigate how shading reuse is perceived and could benefit rendering, considering visibility, spatial sampling and temporal behavior of shading, separated and combined</li>
+<li>Evaluated the perception of outdated shading using a rendering approach that separates shading from visibility and spatial sampling effects, finding that a shading difference of 3% ($T &#x3D; 8$​​ after 8-bit quantization) is not noticed by study participants</li>
+<li>Even in highly dynamic scenes, many shading samples stay valid for extended periods of time, when considered independently of visibility and spatial sampling</li>
+<li>There is a potential of typically more than 80% shading reuse from frame to frame even in highly dynamic scenes at 60 Hz<ul>
+<li>The higher frame rates of VR increase this potential further</li>
+</ul>
+</li>
+<li>Accumulating spatial resampling errors limits the temporal reuse<ul>
+<li>Using texture-space caching of shading samples instead</li>
+</ul>
+</li>
+<li>Fixed upsampling techniques lead to noticable artifacts even at low upsampling rates<ul>
+<li>Extrapolating shading differences works very well when combined with a simple image-space filter for capturing spatio-temporal effects</li>
+</ul>
+</li>
+</ul>
+<h3 id="8-1-Limitations"><a href="#8-1-Limitations" class="headerlink" title="8.1. Limitations"></a>8.1. Limitations</h3><ul>
+<li><p>The simple box filter with a rather big kernel size used in TARC leads to considerable amounts of unnecessary shading</p>
+<ul>
+<li>A more advanced spatial filter could consider spatial gradients such as optical flow to resolve these issues at the cost of increased runtime and complexity</li>
+</ul>
+</li>
+<li><p>While the existing measures capture most changes, some less frequent ones can still cause artifacts</p>
+<ul>
+<li>Example: discontinuous rendering  or changes that propagate from outside the image or from an occluded area</li>
+<li>Depending on the use case, specialized cases such as discontinuous changes, e.g. to light sources, can be caught on the scene object level</li>
+<li>A more general solution to capture artifacts from discontinuous shading could speculatively update samples that are not due yet</li>
+</ul>
+</li>
+<li><p>Evaluation is based on a single threshold applied to the per-channel maximum RGB color difference after tone mapping</p>
+<ul>
+<li>The threshold might be too conservative in certain areas of the HDR spectrum and overlook additional gains</li>
+<li>A more advanced method may be necessary</li>
+</ul>
+</li>
+<li><p>A method for deriving the threshold for noticeable differences from the perception of the human visual system has the potential to lead to further temporal savings</p>
+<ul>
+<li>This can possibly be done in a different color space or in the high dynamic range space before tone mapping</li>
+<li>Example: a higher threshold could be used for dark pixels that are close to bright ones, or a lower threshold needs to be used in dark areas where the visual system is more sensitive</li>
+</ul>
+</li>
+<li><p>The shading atlas shades pairs of triangles within rectangular blocks with power-of-two side lengths</p>
+<ul>
+<li>When the level of detail changes, a block of a different size is allocated and shading cannot be reused</li>
+</ul>
+</li>
+</ul>
+<h3 id="8-2-Future-work"><a href="#8-2-Future-work" class="headerlink" title="8.2. Future work"></a>8.2. Future work</h3><ul>
+<li><p>Temporal reuse and TAS can be applied to other rendering techniques, including global illumination algorithms and ray-tracing</p>
+</li>
+<li><p>For the overall speedup, it is important to not only consider the non-shading workload, such as the geometry stage, but also pre- and post-processing, which do not necessarily lend themselves to shading reuse</p>
+<ul>
+<li>Motion blur and depth of field benefit greatly from spatial shading reuse, especially in object or texture space as shown by stochastic rasterization literature</li>
+<li>Many of the currently used preand post-processing techniques approximate global shading effects, such as shadows and reflections<ul>
+<li>If, by virtue of shading reuse, more time can be spent on the samples that actually require shading, this benefits the trend for moving global effect computation from post-processing to ray-tracing</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>In the worst case (discontinuous view change), the whole scene has to be shaded, this can lead to a higher variability in frame rate: Only some frames can be accelerated; others remain at the baseline speed</p>
+<ul>
+<li>The absolute frame time variability was unchanged in comparison to the baseline, while the mean frame time was reduced</li>
+<li>The frame time variability depends mostly on the complexity of the current view  </li>
+<li>Lower frame rate variability could be obtained by using TAS as an oracle for a scheduling technique, which uses the predicted shading differences as priority, instead of making decision based on a fixed threshold</li>
+</ul>
+</li>
+<li><p>TAS can be easily combined with spatial reuse of sampling, such as variable rate shading, foveation and checkerboard rendering  </p>
+<ul>
+<li>Bring more physically correct shading and fewer approximations that require pre-processing steps, like rendering shadow maps, or post-processing, like screen-space effects in deferred rendering</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>Post author:  </strong>Chaf Chen
+  </li>
+  <li class="post-copyright-link">
+      <strong>Post link: </strong>
+      <a href="https://chaphlagical.github.io/2021/08/18/paper_reading/Temporally_Adaptive_Shading_Reuse_for_Real_time_Rendering_and_Virtual_Reality/" title="Temporally Adaptive Shading Reuse for Real-time Rendering and Virtual Reality">https://chaphlagical.github.io/2021/08/18/paper_reading/Temporally_Adaptive_Shading_Reuse_for_Real_time_Rendering_and_Virtual_Reality/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Rendering/" rel="tag"># Rendering</a>
+              <a href="/tags/Siggraph-2021/" rel="tag"># Siggraph 2021</a>
+              <a href="/tags/VR/" rel="tag"># VR</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/08/15/paper_reading/GPU_Accelerated_Path_Tracing_of_Massive_Scenes/" rel="prev" title="GPU Accelerated Path Tracing of Massive Scenes">
+                  <i class="fa fa-chevron-left"></i> GPU Accelerated Path Tracing of Massive Scenes
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/" rel="next" title="Fast Diffraction Pathfinding for Dynamic Sound Propagation">
+                  Fast Diffraction Pathfinding for Dynamic Sound Propagation <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chaf Chen</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"chaphlagical-github-io","count":true,"i18n":{"disqus":"disqus"}}</script>
+<script src="/js/third-party/comments/disqus.js"></script>
+
+</body>
+</html>

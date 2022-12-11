@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"chaphlagical.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.14.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":true,"storage":true,"lazyload":false,"nav":{"disqus":{"text":"Load Disqus","order":-1}}},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Siggraph 2021 Paper Reading">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="Neural Light Transport for Relighting and View Synthesis">
+<meta property="og:url" content="https://chaphlagical.github.io/2021/08/25/paper_reading/Neural_Light_Transport_for_Relighting_and_View_Synthesis/index.html">
+<meta property="og:site_name" content="Chaf&#39;s Blog">
+<meta property="og:description" content="Siggraph 2021 Paper Reading">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://chaphlagical.github.io/2021/08/25/paper_reading/Neural_Light_Transport_for_Relighting_and_View_Synthesis/image-20210824205558319.png">
+<meta property="og:image" content="https://chaphlagical.github.io/2021/08/25/paper_reading/Neural_Light_Transport_for_Relighting_and_View_Synthesis/image-20210825094924494.png">
+<meta property="og:image" content="https://chaphlagical.github.io/2021/08/25/paper_reading/Neural_Light_Transport_for_Relighting_and_View_Synthesis/image-20210826171628552.png">
+<meta property="article:published_time" content="2021-08-25T15:30:00.000Z">
+<meta property="article:modified_time" content="2022-12-11T17:26:52.722Z">
+<meta property="article:author" content="Chaf Chen">
+<meta property="article:tag" content="Rendering">
+<meta property="article:tag" content="Siggraph 2021">
+<meta property="article:tag" content="Neural Network">
+<meta property="article:tag" content="Light Transport Theory">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://chaphlagical.github.io/2021/08/25/paper_reading/Neural_Light_Transport_for_Relighting_and_View_Synthesis/image-20210824205558319.png">
+
+
+<link rel="canonical" href="https://chaphlagical.github.io/2021/08/25/paper_reading/Neural_Light_Transport_for_Relighting_and_View_Synthesis/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://chaphlagical.github.io/2021/08/25/paper_reading/Neural_Light_Transport_for_Relighting_and_View_Synthesis/","path":"2021/08/25/paper_reading/Neural_Light_Transport_for_Relighting_and_View_Synthesis/","title":"Neural Light Transport for Relighting and View Synthesis"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Neural Light Transport for Relighting and View Synthesis | Chaf's Blog</title>
+  
+
+
+
+
+
+
+  <script async defer data-website-id="" src=""></script>
+
+  <script defer data-domain="" src=""></script>
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Chaf's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Here I share some fun stuff</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Introduction"><span class="nav-number">2.</span> <span class="nav-text">1. Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Related-Work"><span class="nav-number">3.</span> <span class="nav-text">2. Related Work</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Method"><span class="nav-number">4.</span> <span class="nav-text">3. Method</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Limitations"><span class="nav-number">5.</span> <span class="nav-text">4. Limitations</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Chaf Chen"
+      src="/images/logo.jpg">
+  <p class="site-author-name" itemprop="name">Chaf Chen</p>
+  <div class="site-description" itemprop="description">USTC CG Student</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/chaphlagical" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;chaphlagical" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:chaf@mail.ustc.cn" title="E-Mail → mailto:chaf@mail.ustc.cn" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+          Links
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="http://gcl.ustc.edu.cn/" title="http:&#x2F;&#x2F;gcl.ustc.edu.cn&#x2F;" rel="noopener" target="_blank">GCL</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://chaphlagical.github.io/2021/08/25/paper_reading/Neural_Light_Transport_for_Relighting_and_View_Synthesis/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Chaf Chen">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chaf's Blog">
+      <meta itemprop="description" content="USTC CG Student">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Neural Light Transport for Relighting and View Synthesis | Chaf's Blog">
+      <meta itemprop="description" content="Siggraph 2021 Paper Reading">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Neural Light Transport for Relighting and View Synthesis
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2021-08-25 15:30:00" itemprop="dateCreated datePublished" datetime="2021-08-25T15:30:00+00:00">2021-08-25</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2022-12-11 17:26:52" itemprop="dateModified" datetime="2022-12-11T17:26:52+00:00">2022-12-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Paper-Reading/" itemprop="url" rel="index"><span itemprop="name">Paper Reading</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2021/08/25/paper_reading/Neural_Light_Transport_for_Relighting_and_View_Synthesis/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2021/08/25/paper_reading/Neural_Light_Transport_for_Relighting_and_View_Synthesis/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+            <div class="post-description">Siggraph 2021 Paper Reading</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p><strong>Author &amp; Institution</strong></p>
+<p><em>XIUMING ZHANG</em>, Massachusetts Institute of Technology<br><em>SEAN FANELLO</em> and <em>YUN-TA TSAI</em>, Google<br><em>TIANCHENG SUN</em>, <em>University of California</em>, San Diego<br><em>TIANFAN XUE</em>, <em>ROHIT PANDEY</em>, <em>SERGIO ORTS-ESCOLANO</em>, <em>PHILIP DAVIDSON</em>, <em>CHRISTOPH RHEMANN</em>, <em>PAUL DEBEVEC</em>, and <em>JONATHAN T. BARRON</em>, Google<br><em>RAVI RAMAMOORTHI</em>, University of California, San Diego<br><em>WILLIAM T. FREEMAN</em>, Massachusetts Institute of Technology &amp; Google</p>
+<p><strong>Link</strong>: <a target="_blank" rel="noopener" href="http://nlt.csail.mit.edu/">http://nlt.csail.mit.edu/</a></p>
+<h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><ul>
+<li><p>Light transport (LT)</p>
+<ul>
+<li>The light transport (LT) of a scene describes how it appears under different lighting conditions from different viewing directions</li>
+<li>Complete knowledge of a scene’s LT enables the synthesis of novel views under arbitrary lighting</li>
+</ul>
+</li>
+<li><p>In this paper</p>
+<ul>
+<li>Focus on image-based LT acquisition, primarily for human bodies within a light stage setup  </li>
+<li>Propose a semi-parametric approach for learning a neural representation of the LT that is embedded in a texture atlas of known but possibly rough geometry</li>
+<li>Model all non-diffuse and global LT as residuals added to a physically-based diffuse base rendering<ul>
+<li>Show how to fuse previously seen observations of illuminants and views to synthesize a new image of the same scene under a desired lighting condition from a chosen viewpoint</li>
+<li>Allows the network to learn complex material effects (such as subsurface scattering) and global illumination (such as diffuse interreflection), while guaranteeing the physical correctness of the diffuse LT (such as hard shadows)</li>
+</ul>
+</li>
+<li>With this learned LT, one can relight the scene photorealistically with a directional light or an HDRI map, synthesize novel views with view-dependent effects, or do both simultaneously, all in a unified framework using a set of sparse observations</li>
+</ul>
+</li>
+</ul>
+<h2 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1. Introduction"></a>1. Introduction</h2><ul>
+<li><p>Light Transport</p>
+<ul>
+<li>Models how light interacts with objects in the scene to produce an observed image</li>
+</ul>
+</li>
+<li><p>Inferring light transport</p>
+<ul>
+<li>Acquiring the LT of a scene from images of that scene requires untangling the myriad interconnected effects of occlusion, shading, shadowing, interreflections, scattering, etc</li>
+</ul>
+</li>
+<li><p>Application</p>
+<ul>
+<li>Phototourism</li>
+<li>Telepresence</li>
+<li>Storytelling</li>
+<li>Special effects</li>
+<li>Generating ground truth data for machine learning task<ul>
+<li>Many works rely on high-quality renderings of relit subjects under arbitrary lighting conditions and from multiple viewpoints<ul>
+<li>Relighting</li>
+<li>View synthesis</li>
+<li>Re-enacting</li>
+<li>Alpha-matting</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Previous work has shown that it is possible to construct a light stage , plenoptic camera , or gantry that directly captures a subset of the LT function and thereby enables the image-based rendering thereof</p>
+<ul>
+<li>Widely used in film productions and within the research community</li>
+<li>Can only provide sparse sampling of the LT limited to the number of LEDs(~ 300 on a spherical dome) and the number of cameras (~50-100 around the subject), resulting in the inability to produce photorealistic renderings outside the supported camera&#x2F;light locations</li>
+<li>Traditional image-based rendering approaches are usually designed for fixed viewpoints and are unable to synthesize unseen (novel) views under a desired illumination</li>
+</ul>
+</li>
+<li><p>In this paper</p>
+<ul>
+<li>Learn to interpolate the dense LT function of a given scene from sparse multi-view, One-Light-at-A-Time (OLAT) images acquired in a light stage,  through a semi-parametric technique that called Neural Light Transport (NLT)  </li>
+<li>Many prior works have addressed similar tasks with classic works tending to rely on physics to recover analytical and interpretable models</li>
+<li>Recent works using neural networks to infer a more direct mapping from input images to an output image</li>
+</ul>
+</li>
+<li><p>Rendering method</p>
+<ul>
+<li>Traditional rendering methods<ul>
+<li>Make simplifying assumptions when modeling geometry, BRDFs, or complex inter-object interactions</li>
+<li>Make the problem tractable</li>
+</ul>
+</li>
+<li>Deep learning approaches<ul>
+<li>Can tolerate geometric and reflectance imperfections</li>
+<li>Require many aspects of image formation (even those guaranteed by physics) be learned “from scratch,” which may necessitate a prohibitively large training set</li>
+</ul>
+</li>
+<li>NLT<ul>
+<li>Straddle this divide between traditional methods and deep learning approaches<ul>
+<li>Construct a classical model of the subject being imaged (a mesh and a diffuse texture atlas per Lambertian reflectance)</li>
+<li>Embed a neural network within the parameterization provided by that classical model</li>
+<li>Construct the inputs and outputs of the model in ways that leverage domain knowledge of classical graphics techniques  </li>
+<li>Train that network to model all aspects of LT, including those not captured by a classical model</li>
+</ul>
+</li>
+<li>Able to learn an accurate model of the complicated LT function for a subject from a small training dataset of sparse observations</li>
+<li>A key novelty: the learned model is embedded within the texture atlas space of an existing geometric model of the subject, which provides a novel framework for simultaneous relighting and view interpolation</li>
+<li>Express the 6D LT function at each location on the surface of the geometric model as simply the output of a deep neural network<ul>
+<li>Works well (as neural networks are smooth and universal function approximators) and obviates the need for a complicated parameterization of spatially-varying reflectance</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="/2021/08/25/paper_reading/Neural_Light_Transport_for_Relighting_and_View_Synthesis/image-20210824205558319.png" alt="image-20210824205558319"></p>
+<ul>
+<li>Main contribution<ul>
+<li>An end-to-end, semi-parametric method for learning to interpolate the 6D light transport function per-subject from real data using convolutional neural networks</li>
+<li>A unified framework for simultaneous relighting and view synthesis by embedding networks into a parameterized texture atlas and leveraging as input a set of One-Light-at-A-Time (OLAT) images</li>
+<li>A set of augmented texture-space inputs and a residual learning scheme on top of a physically accurate diffuse base, which together allow the network to easily learn non-diffuse, higher-order light transport effects including specular highlights, subsurface scattering, and global illumination</li>
+</ul>
+</li>
+</ul>
+<h2 id="2-Related-Work"><a href="#2-Related-Work" class="headerlink" title="2. Related Work"></a>2. Related Work</h2><ul>
+<li>Problem<ul>
+<li>Recovering a model of light transport from a sparse set of images of some subject</li>
+<li>Predicting novel images of that subject from unseen views and&#x2F;or under unobserved illuminations</li>
+</ul>
+</li>
+</ul>
+<p><strong>Single observation</strong></p>
+<ul>
+<li>The most sparse sampling is just a single image, from which one could attempt to infer a model (geometry, reflectance, and illumination) of the physical world that resulted in that image<ul>
+<li>Via hand-crafted or learned priors</li>
+</ul>
+</li>
+<li>Though practical, the quality gap between what can be accomplished by single-image techniques and what has been demonstrated by multi-image techniques is significant<ul>
+<li>Can’t show complex light transport effects such as specular highlights or subsurface scattering </li>
+<li>Limited to a single task, such as relighting, and some support only a limited range of viewpoint change</li>
+</ul>
+</li>
+</ul>
+<p><strong>Multiple views</strong></p>
+<ul>
+<li>Multiview geometry techniques recover a textured 3D model that can be rendered using conventional graphics or photogrammetry techniques<ul>
+<li>Have material and shading variation baked in</li>
+<li>Do not enable relighting</li>
+</ul>
+</li>
+<li>Image-based rendering techniques such as light fields or lumigraphs<ul>
+<li>Can be used to directly sample and render the plenoptic function</li>
+<li>The accuracy of these techniques is limited by the density of sampled input images</li>
+<li>Do not enable relighting</li>
+</ul>
+</li>
+<li>Reprojection-based methods<ul>
+<li>For unstructured inputs</li>
+<li>Assume the availability of a geometry proxy (so does our work), reproject nearby views to the query view, and perform image blending in that view</li>
+<li>Rely heavily on the quality of the geometry proxy<ul>
+<li>A class-specific geometry prior (such as that of a human body) can be used to increase the accuracy of a geometry proxy</li>
+</ul>
+</li>
+<li>Cannot synthesize pixels that are not visible in the input views</li>
+<li>Do not enable relighting</li>
+</ul>
+</li>
+<li>Deep learning<ul>
+<li>Been used to synthesize new images from sparse sets of input images</li>
+<li>Usually by training neural networks to synthesize some intermediate geometric representation that is then projected into the desired image</li>
+<li>Some techniques even entirely replace the rendering process with a learned “neural” renderer</li>
+<li>Generally do not attempt to explicitly model light transport<ul>
+<li>Do not enable relighting</li>
+<li>Capable of preserving view-dependent effects for the fixed illumination condition under which the input images were acquired</li>
+</ul>
+</li>
+<li>Often breaks “backwards compatibility” with existing graphics systems</li>
+</ul>
+</li>
+</ul>
+<p><strong>Multiple illuminants</strong></p>
+<ul>
+<li>Repeatedly imaging a subject with a fixed camera but under different illuminations and then recovering the surface normals</li>
+<li>Most photometric stereo solutions assume Lambertian reflectance and do not support relighting with non-diffuse light transport</li>
+<li>Neural networks can be applied to relight a scene captured under multiple lighting conditions from a fixed viewpoint</li>
+</ul>
+<p><strong>Multiple views and illuminant</strong></p>
+<ul>
+<li><p>Utilize the symmetry of illuminations and view directions to collect sparse samples of an 8D reflectance field, and reconstruct a complete field using a low-rank assumption</p>
+</li>
+<li><p>Lack an explicit geometric model</p>
+<ul>
+<li>Rendering is limited to a fixed set of viewpoints</li>
+</ul>
+</li>
+<li><p>Supports relighting and view synthesis</p>
+<ul>
+<li>But assume pre-defined BRDFs</li>
+<li>Cannot synthesize more complex light transport effects present in real images</li>
+</ul>
+</li>
+<li><p>In this paper</p>
+<ul>
+<li>Follows the convention of the nascent field of “neural rendering”, in which a separate neural network is trained for each subject to be rendered, and all images of that subject are treated as “training data.”<ul>
+<li>These approaches have shown great promise in terms of their rendering fidelity</li>
+<li>But require per-subject training and are unable to generalize across subjects yet</li>
+</ul>
+</li>
+<li>Paper’s approach<ul>
+<li>Unlike prior work that focuses on a specific task  </li>
+<li>The texture-space formulation allows for simultaneous light and view interpolation</li>
+<li>The model is a valuable training data generator for many works that rely on high-quality renderings of subjects under arbitrary lighting conditions and from multiple viewpoints</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-Method"><a href="#3-Method" class="headerlink" title="3. Method"></a>3. Method</h2><img src="image-20210825094924494.png" alt="image-20210825094924494" style="zoom:80%;" />
+
+<ul>
+<li><p>The framework is a semi-parametric model with a residual learning scheme that aims to close the gap between the diffuse rendering of the geometry proxy and the real input image</p>
+<ul>
+<li>The semi-parametric approach is used to fuse previously recorded observations to synthesize a novel, photorealistic image under any desired illumination and viewpoint</li>
+</ul>
+</li>
+<li><p>The method relies on recent advances in computer vision that have enabled accurate 3D reconstructions of human subjects</p>
+<ul>
+<li>Such as technique that takes as input several images of a subject and produces as output a mesh of that subject and a UV texture map describing its albedo</li>
+<li>At first glance, this appears to address the entirety of the problem: given a textured mesh, we can perform simultaneous view synthesis and relighting by simply re-rendering that mesh from some arbitrary camera location and under some arbitrary illumination</li>
+<li>Simplistic model of reflectance and illumination only permits equally simplistic relighting and view synthesis</li>
+</ul>
+</li>
+<li><p>Assuming Lambertian reflectance:<br>$$<br>\tilde L_o(\pmb x,\pmb \omega_o)&#x3D;\rho(\pmb x)L_i(\pmb x,\pmb \omega_i)(\pmb \omega_i\cdot \pmb n(\pmb x))<br>$$</p>
+<ul>
+<li><p>$\tilde L_0(\pmb x,\pmb\omega_0)$ is the diffuse rendering of a point $\pmb x$ with a surface normal $\pmb n(\pmb x)$ and albedo $\rho(\pmb x)$, lit by a directional light $\pmb \omega_i$ with an incoming intensity $L_i(\pmb x,\pmb \omega_i)$ and view from $\pmb \omega_0$</p>
+</li>
+<li><p>This reflectance model is only sufficient for describing matte surfaces and direct illumination  </p>
+</li>
+<li><p>More recent methods also make strong assumptions about materials by modeling reflectance with a cosine lobe model</p>
+<ul>
+<li>The shortcomings of these methods are obvious when compared to a more expressive rendering approach, such as the rendering equation, which makes far fewer simplifying assumptions:</li>
+</ul>
+<p>$$<br>L_o(\pmb x,\pmb \omega_o)&#x3D;L_e(\pmb x,\pmb \omega_o)+\int_\Omega f_s(\pmb x,\pmb \omega_i,\pmb \omega_o)L_i(\pmb x,\pmb \omega_i)(\pmb \omega_i\cdot \pmb n(\pmb x))\mathrm d\pmb \omega_i<br>$$</p>
+</li>
+<li><p>Limitations in computing $\tilde L_o(\pmb x,\pmb \omega_o)$</p>
+<ul>
+<li>It assumes a single directional light instead of integrating over the hemisphere of all incident directions $\Omega$</li>
+<li>It approximates an object’s BRDF $f_s(\cdot)$​ as a single scalar</li>
+<li>It ignores emitted radiance $L_e(\cdot)$​ (in addition to scattering and transmittance, which this rendering equation does not model either)</li>
+</ul>
+</li>
+<li><p>The goal of the learning-based model is to close the gap between $L_o(\pmb x,\pmb \omega_o)$ and $\tilde L_o(\pmb x,\pmb \omega_o)$, and furthermore between $L_o(\pmb x,\pmb \omega_o)$ and the observed image</p>
+</li>
+</ul>
+</li>
+<li><p>Motivation</p>
+<ul>
+<li>the geometry and texture atlas offers us a mapping from each image of a subject onto a canonical texture atlas that is shared across all views of that subject</li>
+</ul>
+</li>
+<li><p>Approach</p>
+<ul>
+<li>Use geometry and texture atlas to map the input images of the subject from “camera space” (XY pixel coordinates) to “texture space” (UV texture atlas coordinates)  </li>
+<li>Use a semi-parametric neural network embedded in this texture space to fuse multiple observations and synthesize an RGB texture atlas for the desired relit and&#x2F;or novel-view image</li>
+<li>Warped back into the camera space of the desired viewpoint, thereby giving us an output rendering of the subject under the desired illumination and viewpoint</li>
+</ul>
+</li>
+</ul>
+<p>The Demo can explain everything:</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/gWdKjxCmYMI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+<h2 id="4-Limitations"><a href="#4-Limitations" class="headerlink" title="4. Limitations"></a>4. Limitations</h2><ol>
+<li>The method must be trained individually per scene, and generalizing to unseen scenes is an important future step for the field</li>
+<li>The fixed 1024×1024 resolution of the texture-space model limits the model’s ability to synthesize higher-frequency contents<ul>
+<li>Especially when the camera zooms very close to the subject, or when an image patch is allocated too few texels</li>
+<li>This could be solved by training on higherresolution images, but this would increase memory requirements and likely require significant engineering effort</li>
+</ul>
+</li>
+<li>Has occasional failure modes, where complex light transport effects, such as the ones on the glittery chain, are hard to synthesize, and the final renderings lack high-frequency details</li>
+</ol>
+<p><img src="/2021/08/25/paper_reading/Neural_Light_Transport_for_Relighting_and_View_Synthesis/image-20210826171628552.png" alt="image-20210826171628552"></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>Post author:  </strong>Chaf Chen
+  </li>
+  <li class="post-copyright-link">
+      <strong>Post link: </strong>
+      <a href="https://chaphlagical.github.io/2021/08/25/paper_reading/Neural_Light_Transport_for_Relighting_and_View_Synthesis/" title="Neural Light Transport for Relighting and View Synthesis">https://chaphlagical.github.io/2021/08/25/paper_reading/Neural_Light_Transport_for_Relighting_and_View_Synthesis/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Rendering/" rel="tag"># Rendering</a>
+              <a href="/tags/Siggraph-2021/" rel="tag"># Siggraph 2021</a>
+              <a href="/tags/Neural-Network/" rel="tag"># Neural Network</a>
+              <a href="/tags/Light-Transport-Theory/" rel="tag"># Light Transport Theory</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/" rel="prev" title="Fast Diffraction Pathfinding for Dynamic Sound Propagation">
+                  <i class="fa fa-chevron-left"></i> Fast Diffraction Pathfinding for Dynamic Sound Propagation
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/08/27/paper_reading/Real_Time_Global_Illumination_Decomposition_of_Videos/" rel="next" title="Real-Time Global Illumination Decomposition of Videos">
+                  Real-Time Global Illumination Decomposition of Videos <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chaf Chen</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"chaphlagical-github-io","count":true,"i18n":{"disqus":"disqus"}}</script>
+<script src="/js/third-party/comments/disqus.js"></script>
+
+</body>
+</html>

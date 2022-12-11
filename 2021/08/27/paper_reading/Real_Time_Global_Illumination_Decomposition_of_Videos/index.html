@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"chaphlagical.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.14.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":true,"storage":true,"lazyload":false,"nav":{"disqus":{"text":"Load Disqus","order":-1}}},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Siggraph 2021 Paper Reading">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="Real-Time Global Illumination Decomposition of Videos">
+<meta property="og:url" content="https://chaphlagical.github.io/2021/08/27/paper_reading/Real_Time_Global_Illumination_Decomposition_of_Videos/index.html">
+<meta property="og:site_name" content="Chaf&#39;s Blog">
+<meta property="og:description" content="Siggraph 2021 Paper Reading">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://chaphlagical.github.io/2021/08/27/paper_reading/Real_Time_Global_Illumination_Decomposition_of_Videos/image-20210826201519197.png">
+<meta property="og:image" content="https://chaphlagical.github.io/2021/08/27/paper_reading/Real_Time_Global_Illumination_Decomposition_of_Videos/image-20210826203430702.png">
+<meta property="og:image" content="https://chaphlagical.github.io/2021/08/27/paper_reading/Real_Time_Global_Illumination_Decomposition_of_Videos/image-20210826212455864.png">
+<meta property="og:image" content="https://chaphlagical.github.io/2021/08/27/paper_reading/Real_Time_Global_Illumination_Decomposition_of_Videos/image-20210827103559572.png">
+<meta property="article:published_time" content="2021-08-27T20:02:00.000Z">
+<meta property="article:modified_time" content="2022-12-11T17:26:52.730Z">
+<meta property="article:author" content="Chaf Chen">
+<meta property="article:tag" content="Siggraph 2021">
+<meta property="article:tag" content="Video Process">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://chaphlagical.github.io/2021/08/27/paper_reading/Real_Time_Global_Illumination_Decomposition_of_Videos/image-20210826201519197.png">
+
+
+<link rel="canonical" href="https://chaphlagical.github.io/2021/08/27/paper_reading/Real_Time_Global_Illumination_Decomposition_of_Videos/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://chaphlagical.github.io/2021/08/27/paper_reading/Real_Time_Global_Illumination_Decomposition_of_Videos/","path":"2021/08/27/paper_reading/Real_Time_Global_Illumination_Decomposition_of_Videos/","title":"Real-Time Global Illumination Decomposition of Videos"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Real-Time Global Illumination Decomposition of Videos | Chaf's Blog</title>
+  
+
+
+
+
+
+
+  <script async defer data-website-id="" src=""></script>
+
+  <script defer data-domain="" src=""></script>
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Chaf's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Here I share some fun stuff</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Introduction"><span class="nav-number">2.</span> <span class="nav-text">1. Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Related-Work"><span class="nav-number">3.</span> <span class="nav-text">2. Related Work</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Overview"><span class="nav-number">4.</span> <span class="nav-text">3. Overview</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Problem-Formulation"><span class="nav-number">5.</span> <span class="nav-text">4. Problem Formulation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-Base-Color-Estimation"><span class="nav-number">6.</span> <span class="nav-text">5. Base Color Estimation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-Chromaticity-Clustering"><span class="nav-number">6.1.</span> <span class="nav-text">5.1. Chromaticity Clustering</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-Misclustering-Correction"><span class="nav-number">6.2.</span> <span class="nav-text">5.2. Misclustering Correction</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#5-2-1-Region-Identification-and-Tracking"><span class="nav-number">6.2.1.</span> <span class="nav-text">5.2.1. Region Identification and Tracking</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-2-2-Reflectance-Correction"><span class="nav-number">6.2.2.</span> <span class="nav-text">5.2.2. Reflectance Correction</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-Illumination-Decomposition"><span class="nav-number">7.</span> <span class="nav-text">6. Illumination Decomposition</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#6-1-Reflectance-Priors"><span class="nav-number">7.1.</span> <span class="nav-text">6.1. Reflectance Priors</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-2-Illumination-Priors"><span class="nav-number">7.2.</span> <span class="nav-text">6.2. Illumination Priors</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-3-Base-Color-Refinement"><span class="nav-number">7.3.</span> <span class="nav-text">6.3. Base Color Refinement</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-4-Handling-the-Sparsity-Inducing-Norms"><span class="nav-number">7.4.</span> <span class="nav-text">6.4. Handling the Sparsity-Inducing Norms</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#6-4-1-Handling-Non-negativity-Constraints"><span class="nav-number">7.4.1.</span> <span class="nav-text">6.4.1. Handling Non-negativity Constraints</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-Data-Parallel-GPU-Optimization"><span class="nav-number">8.</span> <span class="nav-text">7. Data-Parallel GPU Optimization</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#7-1-Sparse-Dense-Splitting"><span class="nav-number">8.1.</span> <span class="nav-text">7.1. Sparse-Dense Splitting</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-Results-and-Evaluation"><span class="nav-number">9.</span> <span class="nav-text">8. Results and Evaluation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-Limitations"><span class="nav-number">10.</span> <span class="nav-text">9. Limitations</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Chaf Chen"
+      src="/images/logo.jpg">
+  <p class="site-author-name" itemprop="name">Chaf Chen</p>
+  <div class="site-description" itemprop="description">USTC CG Student</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/chaphlagical" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;chaphlagical" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:chaf@mail.ustc.cn" title="E-Mail → mailto:chaf@mail.ustc.cn" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+          Links
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="http://gcl.ustc.edu.cn/" title="http:&#x2F;&#x2F;gcl.ustc.edu.cn&#x2F;" rel="noopener" target="_blank">GCL</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://chaphlagical.github.io/2021/08/27/paper_reading/Real_Time_Global_Illumination_Decomposition_of_Videos/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Chaf Chen">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chaf's Blog">
+      <meta itemprop="description" content="USTC CG Student">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Real-Time Global Illumination Decomposition of Videos | Chaf's Blog">
+      <meta itemprop="description" content="Siggraph 2021 Paper Reading">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Real-Time Global Illumination Decomposition of Videos
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2021-08-27 20:02:00" itemprop="dateCreated datePublished" datetime="2021-08-27T20:02:00+00:00">2021-08-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2022-12-11 17:26:52" itemprop="dateModified" datetime="2022-12-11T17:26:52+00:00">2022-12-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Paper-Reading/" itemprop="url" rel="index"><span itemprop="name">Paper Reading</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2021/08/27/paper_reading/Real_Time_Global_Illumination_Decomposition_of_Videos/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2021/08/27/paper_reading/Real_Time_Global_Illumination_Decomposition_of_Videos/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+            <div class="post-description">Siggraph 2021 Paper Reading</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p><strong>Author &amp; Institution</strong></p>
+<p><em>ABHIMITRA MEKA*</em>, Max Planck Institute for Informatics, Saarland Informatics Campus and Google<br><em>MOHAMMAD SHAFIEI*</em>, Max Planck Institute for Informatics, Saarland Informatics Campus<br><em>MICHAEL ZOLLHÖFER</em>, Stanford University<br><em>CHRISTIAN RICHARDT</em>, University of Bath<br><em>CHRISTIAN THEOBALT</em>, <em>Max Planck</em> Institute for Informatics, Saarland Informatics Campus, Germany  </p>
+<p><strong>Link</strong>: <a target="_blank" rel="noopener" href="http://gvv.mpi-inf.mpg.de/projects/LiveIlluminationDecomposition/">http://gvv.mpi-inf.mpg.de/projects/LiveIlluminationDecomposition/</a></p>
+<h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><ul>
+<li>Propose the first approach for the decomposition of a monocular color video into direct and indirect illumination components in real time<ul>
+<li>In separate layers, the contribution made to the scene appearance by the scene reflectance, the light sources and the reflections from various coherent scene regions to one another</li>
+<li>Works for regular videos and produces temporally coherent decomposition layers at real-time frame rates</li>
+<li>Core: several sparsity priors that enable the estimation of the per-pixel direct and indirect illumination layers based on a small set of jointly estimated base reflectance colors</li>
+<li>The resulting variational decomposition problem uses a new formulation based on sparse and dense sets of non-linear equations that we solve efficiently using a novel alternating data-parallel optimization strategy</li>
+</ul>
+</li>
+<li>Existing techniques that invert global light transport require image capture under multiplexed controlled lighting, or only enable the decomposition of a single image at slow off-line frame rates</li>
+</ul>
+<h2 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1. Introduction"></a>1. Introduction</h2><p><img src="/2021/08/27/paper_reading/Real_Time_Global_Illumination_Decomposition_of_Videos/image-20210826201519197.png" alt="image-20210826201519197"></p>
+<ul>
+<li>Contributions<ol>
+<li>Joint illumination decomposition of direct and indirect illumination layers, and estimation and refinement of base colors that constitute the scene reflectance</li>
+<li>A sparsity-based automatic estimation of the underlying reflectance when a user identifies regions of strong interreflections</li>
+<li>A novel parallelized sparse–dense optimizer to solve a mixture of high-dimensional sparse problems jointly with lowdimensional dense problems at real-time frame rates</li>
+</ol>
+</li>
+</ul>
+<h2 id="2-Related-Work"><a href="#2-Related-Work" class="headerlink" title="2. Related Work"></a>2. Related Work</h2><ul>
+<li>Inverse Rendering<ul>
+<li>The colors in an image depend on scene geometry, material appearance and illumination</li>
+<li>Reconstructing these components from a single image or video is a challenging and illposed problem called <em>inverse rendering</em></li>
+<li>Many complex image editing tasks can be achieved using a purely image-based decomposition without full inverse rendering</li>
+</ul>
+</li>
+<li>Global Illumination Decomposition<ul>
+<li>To decompose the captured radiance of a scene into direct and indirect components, some methods actively illuminate the scene to investigate the effect of light transport</li>
+</ul>
+</li>
+<li>Intrinsic Images<ul>
+<li>Many approaches have been introduced for the task of intrinsic image decomposition that explains a photograph using physically interpretable images such as reflectance and shading</li>
+</ul>
+</li>
+<li>Intrinsic Video </li>
+<li>Layer-based Image Editing<ul>
+<li>A physically accurate decomposition is not required to achieve complex image editing tasks such as recoloring of objects</li>
+<li>Instead, a decomposition into multiple semitransparent layers is often sufficient</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-Overview"><a href="#3-Overview" class="headerlink" title="3. Overview"></a>3. Overview</h2><p><img src="/2021/08/27/paper_reading/Real_Time_Global_Illumination_Decomposition_of_Videos/image-20210826203430702.png" alt="image-20210826203430702"></p>
+<ul>
+<li>The first real-time method for temporally coherent illumination decomposition of a video into a reflectance layer, direct illumination layer and multiple indirect illumination layers  <ul>
+<li>Propose a novel sparsity-driven formulation for the estimation and refinement of a base color palette, which is used for decomposing the video frames</li>
+<li>Algorithm starts by automatically estimating a set of base colors that represent scene reflectances</li>
+<li>Automatic and only occasionally requires a minimal set of user clicks on the first video frame to identify regions of strong inter-reflections and refine the base colors<ul>
+<li>Propagate the user input automatically to the rest of the video by a spatiotemporal region-growing method</li>
+</ul>
+</li>
+<li>Perform the illumination decomposition</li>
+<li>Formulation results in a mixture of dense and sparse non-convex high-dimensional optimization problems, which they solve efficiently using a custom-tailored parallel iterative non-linear solver that they implement on the GPU</li>
+</ul>
+</li>
+<li>Evaluate on a variety of synthetic and real-world scenes, and provide comparisons that show that our method outperforms state-of-the-art illumination decomposition, intrinsic decomposition and layer-based image editing techniques, both qualitatively and quantitatively</li>
+<li>Demonstrate that real-time illumination decomposition of videos enables a range of advanced, illumination-aware video editing applications that are suitable for photo-real augmented reality applications, such as inter-reflection-aware recoloring and retexturing</li>
+</ul>
+<h2 id="4-Problem-Formulation"><a href="#4-Problem-Formulation" class="headerlink" title="4. Problem Formulation"></a>4. Problem Formulation</h2><p>Algorithm: video frame -&gt; a reflectance layer + a direct illumination layer + multiple indirect illumination layers</p>
+<ul>
+<li><p>Simplifying assumption</p>
+<ul>
+<li>Assume that the scene is Lambertian, i.e., surfaces exhibit no view-dependent effects and hence their reflectance can be parameterized as a diffuse albedo with RGB components</li>
+<li>Assume that all light sources in the scene produce only white colored light. Hence, the direct illumination in the scene can be expressed by a grayscale or single channel image</li>
+<li>Assume that the second reflection bounce (or the first inter-reflection) of light is the primary source of indirect illumination in the scene, while the contribution of subsequent bounces of light is negligible</li>
+<li>Assume that the motion of the camera in the video is smooth with significant overlap between adjacent frames</li>
+<li>Assume that no new objects or materials come into view after the first frame</li>
+</ul>
+</li>
+<li><p>The algorithm factors each video frame $\pmb I$ into a per-pixel product of the reflectance $\pmb R$ and the illumination $\pmb S$<br>$$<br>\pmb I(\pmb x)&#x3D;\pmb R(\pmb x)\odot \pmb S(\pmb x)<br>$$</p>
+<ul>
+<li>$\pmb x$: pixel location</li>
+<li>$\odot$: element-wise product</li>
+<li>For diffuse objects, the reflectance layer captures the surface albedo, and the illumination layer $\pmb S$​​ jointly captures the direct and indirect illumination effects</li>
+<li>Represent the illumination layer as a colored RGB image to allow indirect illumination effects to be expressed in the illumination layer</li>
+</ul>
+</li>
+<li><p>Further decompose the illumination layer into a grayscale direct illumination layer resulting from the white illuminant, and multiple indirect colored illumination layers resulting from inter-reflections from colored objects in the scene</p>
+<ul>
+<li><p>We start by estimating a set of base colors that consists of $K$ unique reflectance colors ${\pmb b_k}$​ that represent the scene</p>
+<ul>
+<li>$K$ is specified by the user, as superfluous clusters will be removed automatically</li>
+<li>This set of base colors serves as the basis for the illumination decomposition</li>
+<li>The base colors help constrain the values of pixels in the reflectance layer $\pmb R$</li>
+</ul>
+</li>
+<li><p>For every surface point in the scene, assume that a single indirect bounce of light may occur from every base reflectance color, in addition to the direct illumination</p>
+</li>
+<li><p>The global illumination in the scene is modeled using a linear decomposition of the illumination layer $\pmb S$​​ into a direct illumination layer $T_0$​​ and the sum of the $K$​​​ indirect illumination layers $\{T_k\}_{0&lt;k\leq K}$​​</p>
+<p>$$<br>\pmb I(\pmb x)&#x3D;\pmb R(\pmb x)\odot \sum_{k&#x3D;0}^K\pmb b_k T_k(\pmb x)<br>$$</p>
+<ul>
+<li>$\pmb b_0$: represents the color of the illuminant: white in paper’s case, i.e. $\pmb b_0&#x3D;(1,1,1)$</li>
+<li>$T_0(\pmb x)$: indicates the light transport contribution from the direct illumination</li>
+<li>The contribution from each base color $\pmb b_k$ at a given pixel location $\pmb x$ is measured by the map $T_k(\pmb x)$​<ul>
+<li>Provides the net contribution by the base reflectance color to the global scene illumination</li>
+</ul>
+</li>
+<li>Obtain the set of base colors automatically using a real-time clustering technique<ul>
+<li>Once the base colors are obtained, the scene clustering can be further refined using a few simple user-clicks</li>
+<li>This refines only the regions of clustering but not the base colors themselves</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="5-Base-Color-Estimation"><a href="#5-Base-Color-Estimation" class="headerlink" title="5. Base Color Estimation"></a>5. Base Color Estimation</h2><ul>
+<li>Initialize the set of base colors by clustering the dominant colors in the first video frame<ul>
+<li>This clustering step not only provides an initial base color estimate, but also a segmentation of the video into regions of approximately uniform reflectance</li>
+<li>If needed, the clustering in a video frame undergoes a user-guided correction</li>
+</ul>
+</li>
+<li>The base colors are used for the illumination decomposition<ul>
+<li>Further refined</li>
+<li>Used to compute the direct and indirect illumination layers</li>
+</ul>
+</li>
+</ul>
+<h3 id="5-1-Chromaticity-Clustering"><a href="#5-1-Chromaticity-Clustering" class="headerlink" title="5.1. Chromaticity Clustering"></a>5.1. Chromaticity Clustering</h3><ul>
+<li><p>Cluster the first video frame by color to approximate the regions of uniform reflectance that are observed in scenes with sparsely colored objects</p>
+<ul>
+<li>Based on a much faster histogram-based k-means clustering approach</li>
+<li>Perform the clustering of each RGB video frame in a discretized chromaticity space</li>
+</ul>
+</li>
+<li><p>Workflow</p>
+<ul>
+<li>Obtain chromaticity image by dividing the input image by its intensity $\pmb C(\pmb x)&#x3D;\pmb I(\pmb x)&#x2F;|\pmb I(\pmb x)|$</li>
+<li>Compute a histogram of the chromaticity image with 10 partitions along each axis</li>
+<li>Perform weighted k-means clustering to obtain cluster center chromaticity values, using the population of the bins as the weight and the mid-point of the bin as sample values<ul>
+<li>The user provides an upper limit of the number of clusters visible in the scene $K$</li>
+</ul>
+</li>
+<li>Collapse adjacent similar clusters by measuring the pairwise chromaticity distance between estimated cluster centers<ul>
+<li>If this distance is below a threshold of 0.2, merge the smaller cluster into the larger cluster</li>
+<li>The average RGB colors of all pixels assigned to each cluster then yield the set of initial base colors</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>The histogram-based clustering approach significantly reduces the segmentation complexity, independent of the image size</p>
+<ul>
+<li>Produces a segmentation of the input frame, by assigning each pixel to its closest cluster</li>
+<li>Provides a coarse approximation of the reflectance layer $\pmb R_{\mathrm{cluster}}$<ul>
+<li>Use $\pmb R_{\mathrm{cluster}}$ as an initialization for the reflectance layer $\pmb R$ in the energy optimization</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="5-2-Misclustering-Correction"><a href="#5-2-Misclustering-Correction" class="headerlink" title="5.2. Misclustering Correction"></a>5.2. Misclustering Correction</h3><img src="image-20210826212455864.png" alt="image-20210826212455864" style="zoom: 50%;" />
+
+<ul>
+<li>Since the clustering directly depends on the color of a pixel, regions of strong inter-reflections may be erroneously assigned to the base color of an indirect illuminant instead of the base color representing the reflectance of the region<ul>
+<li>Such a misclustering is difficult to correct automatically because of the inherent ambiguity of the illumination decomposition problem</li>
+<li>Rely on minimal manual interaction to identify misclustered regions and then automatically correct the underlying reflectance base color in all subsequent frames</li>
+</ul>
+</li>
+</ul>
+<h4 id="5-2-1-Region-Identification-and-Tracking"><a href="#5-2-1-Region-Identification-and-Tracking" class="headerlink" title="5.2.1. Region Identification and Tracking"></a>5.2.1. Region Identification and Tracking</h4><ul>
+<li><p>Identifying the true reflectance of a pixel in the presence of strong inter-reflections from other objects is an ambiguous task</p>
+<ul>
+<li>In case of direct illumination, the observed color value of a pixel is obtained by modulating the reflectance solely by the color of the illuminant</li>
+<li>In the case of inter-reflections, there is further modulation by light reflected from other objects, which then depends on their reflectance properties<ul>
+<li>Such regions are easy to identify by a user</li>
+<li>Ask the user to simply click on such a region only in the first frame it occurs</li>
+</ul>
+</li>
+<li>Automatically identify the full region by flood filling it using connected-components analysis based on the cluster identifier</li>
+</ul>
+</li>
+<li><p>Real-time tracking of non-rigidly deforming, non-convex marked regions in subsequent frames</p>
+<ul>
+<li>Given the marked pixel region in the previous frame</li>
+<li>Probe the same pixel locations in the current frame to identify pixels with the same cluster ID as in the previous frame</li>
+<li>Flood fill starting from these valid pixels to obtain the tracked marked region in the new frame<ul>
+<li>Do not flood fill for pixels inside the regions to keep this operation efficient</li>
+<li>Observe that one or two valid pixels are sufficient to correctly identify the entire misclustered region</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="5-2-2-Reflectance-Correction"><a href="#5-2-2-Reflectance-Correction" class="headerlink" title="5.2.2. Reflectance Correction"></a>5.2.2. Reflectance Correction</h4><ul>
+<li>Once all pixels in a misclustered region are identified in a video frame (either marked or tracked), exploit the sparsity constraint of the indirect illumination layers to solve for the correct reflectance base color<ol>
+<li>Perform multiple full illumination decompositions for each identified region, evaluating each base color’s suitability as the region’s reflectance</li>
+<li>For each base color, measure the sparsity obtained over the region using the illumination sparsity term</li>
+<li>The base color that provides the sparsest solution of the decomposition is then used as the corrected reflectance</li>
+</ol>
+</li>
+<li>The intuition behind such a sparsity prior is that using the correct underlying reflectance should lead to an illumination layer which is explained by the color spill from only a sparse number of nearby objects</li>
+</ul>
+<h2 id="6-Illumination-Decomposition"><a href="#6-Illumination-Decomposition" class="headerlink" title="6. Illumination Decomposition"></a>6. Illumination Decomposition</h2><ul>
+<li><p>Decomposition each input video frame $\pmb I$ into its reflectance layer $\pmb R$, its direct illumination layer $T_0$ and a set of indirect illumination layers ${T_k}$<br>corresponding to the base colors ${\pmb b_k}$</p>
+<ul>
+<li>The direct illumination layer $T_0$​​ represents the direct contribution to the scene by the external light sources</li>
+<li>The indirect illumination layers $\{T_k\}$​​​​ capture the inter-reflections that occur within the scene</li>
+</ul>
+</li>
+<li><p>Formulate the illumination decomposition as an energy minimization problem with the following energy:<br>$$<br>E_{\mathrm{decomp}}(\pmb \chi)&#x3D;E_{\mathrm{data}}(\pmb \chi)+E_{\mathrm{reflectance}}(\pmb \chi)+E_{\mathrm{illumination}}(\pmb \chi)<br>$$</p>
+<ul>
+<li>$\pmb \chi&#x3D;\{\pmb R,T_0,\{T_k\}\}$​ is the set of variables to be optimized  </li>
+<li>The base colors ${\pmb b_k}$ stay fixed</li>
+<li>Optimize this energy using a novel fast GPU solver to obtain real-time performance</li>
+</ul>
+</li>
+</ul>
+<p><strong>Data Fidelity Term</strong></p>
+<p>This constraint enforces that the decomposition result reproduces the input image:<br>$$<br>E_{\mathrm{data}}(\pmb \chi)&#x3D;\lambda_{\mathrm{data}}\cdot \sum_{\pmb x}\left\Vert\pmb I(\pmb x)-\pmb R(\pmb x)\odot \sum_{k&#x3D;0}^K\pmb b_kT_k(\pmb x) \right\Vert^2<br>$$</p>
+<ul>
+<li>$\lambda_{\mathrm {data}}$: the weight for this energy term</li>
+<li>$T_k$: the $(K+1)$​​​ illumination layers of the decomposition(one direct layer $T_0$​ and $K$​ indirect layers $\{T_k\}$​​)</li>
+</ul>
+<h3 id="6-1-Reflectance-Priors"><a href="#6-1-Reflectance-Priors" class="headerlink" title="6.1. Reflectance Priors"></a>6.1. Reflectance Priors</h3><ul>
+<li>Constrain the estimated reflectance layer $\pmb R$ using three priors:<br>$$<br>E_{\mathrm{reflectance}}(\pmb \chi)&#x3D;E_{\mathrm{clustering}}(\pmb \chi)+E_{\mathrm{r-sparsity}}(\pmb \chi)+E_{\mathrm{r-consistency}}(\pmb \chi)<br>$$</li>
+</ul>
+<p><strong>Reflectance Clustering Prior</strong></p>
+<ul>
+<li><p>Use the cluster to guide the decomposition, as the chromaticity-clustered image $\pmb R_{\mathrm{cluster}}$ is an approximation of the reflectance layer $\pmb R$​</p>
+</li>
+<li><p>Constrain the reflectance map to remain close to the clustered image using the following energy term:<br>$$<br>E_{\mathrm{clustering}}(\pmb \chi)&#x3D;\lambda_{\mathrm{clustering}}\cdot \sum_{\pmb x} \parallel\pmb r(\pmb x)-\pmb r_{\mathrm{cluster}}(\pmb x) \parallel_2^2<br>$$</p>
+<ul>
+<li>$\pmb r$: represent the quantity $\pmb R$​ in the log-domain, i.e. $\pmb r&#x3D;\ln\pmb R$</li>
+<li>$\pmb r_{\mathrm{cluster}}$: the clustered reflectance map</li>
+</ul>
+</li>
+</ul>
+<p><strong>Reflectance Sparsity Prior</strong></p>
+<ul>
+<li>Encourages a piecewise constant reflectance map using gradient sparsity</li>
+<li>Natural scenes generally consist of a small set of objects and materials, hence the reflectance layer is expected to have sparse gradients</li>
+<li>Such a spatially sparse solution for the reflectance image can be obtained by minimizing the $\mathcal ℓ_p-\mathrm{norm}$ ($p\in[0,1]$) of the gradient magnitude $\parallel\nabla \pmb r\parallel_2$</li>
+</ul>
+<p>$$<br>E_{\mathrm{r-sparsity}}&#x3D;\lambda_{\mathrm{r-sparsity}}\cdot\sum_{\pmb x}\parallel\nabla \pmb r(\pmb x)\parallel_2^p<br>$$</p>
+<p><strong>Spatiotemporal Reflectance Consistency Prior</strong></p>
+<ul>
+<li>Enforces that the reflectance stays temporally consistent by connecting every pixel with a set of randomly sampled pixels in a small spatiotemporal window by constraining the reflectance of the pixels to be close under a defined chromaticity-closeness condition</li>
+<li>For each pixel $\pmb x$​​ in the reflectance image, connect it to $N_s$ randomly sampled pixels $\pmb y_i$</li>
+<li>Samples are chosen from reflectance images of the current and previous frames $t_i$</li>
+</ul>
+<p>$$<br>\begin{align}<br>E_{\mathrm{r-consistency}}(\pmb \chi)&amp;&#x3D;\lambda_{\mathrm{r-consistency}}\cdot \sum_{i&#x3D;1}^{N_s}g_i(\pmb x)\cdot \parallel\pmb r(\pmb x)-\pmb r_{t_i}(\pmb y_i)\parallel_2^2\\<br>g_i(\pmb x)&amp;&#x3D;\begin{cases}<br>w_{iw}(\pmb x)&amp;\mathrm{if}\ \parallel\pmb c(\pmb x)-\pmb c_{t_i}(\pmb y_i)\parallel_2&lt;\tau_{cc}\\<br>0&amp;\mathrm{otherwise}<br>\end{cases}<br>\end{align}<br>$$</p>
+<ul>
+<li>$\tau_{cc}$: a chromaticity consistency threshold</li>
+</ul>
+<h3 id="6-2-Illumination-Priors"><a href="#6-2-Illumination-Priors" class="headerlink" title="6.2. Illumination Priors"></a>6.2. Illumination Priors</h3><ul>
+<li>Constrain the illumination $\pmb S$ to be close to monochrome and the indirect illumination layers ${T_k}$ to have a sparse decomposition, spatial smoothness and non-negativity</li>
+</ul>
+<p>$$<br>E_{\mathrm{illumination}}(\pmb \chi)&#x3D;E_{\mathrm{monochrome}}(\pmb \chi)+E_{\mathrm{i-sparsity}}(\pmb \chi)+E_{\mathrm{smoothness}}(\pmb \chi)+E_{\mathrm{non-neg}}(\pmb \chi)<br>$$</p>
+<p><strong>Soft-Retinex Weighted Monochromaticity Prior</strong></p>
+<ul>
+<li>The illumination layer is a combination of direct and indirect illumination effects</li>
+<li>Indirect effects such as inter-reflections tend to be spatially local with smooth color gradients whereas under the white-illumination assumption, the direct bounce does not contribute any color to the illumination layer</li>
+<li>Expect the illumination $\pmb S$ to be mostly monochromatic except at small spatial pockets where smooth color gradients occur due to inter-reflections</li>
+</ul>
+<p>$$<br>E_{\mathrm{monochrome}}(\pmb \chi)&#x3D;\lambda_{\mathrm{monochrome}}\cdot w_{\mathrm{SR}}\cdot \sum_{\pmb x}\sum_{\pmb c}(\pmb S_c(\pmb x)-|\pmb S(\pmb x)|)^2<br>$$</p>
+<ul>
+<li><p>$c\in{R,G,B}$</p>
+</li>
+<li><p>$|\pmb S|$: the intensity of the illumination layer $\pmb S$​</p>
+</li>
+<li><p>This constraint pulls the color channels of each pixel close to the grayscale intensity of the pixel, hence encouraging monochromaticity</p>
+</li>
+<li><p>$w_{\mathrm{SR}}$: the soft-color-Retinex weight<br>$$<br>w_{\mathrm{SR}}&#x3D;1-\exp(-50\cdot\Delta\pmb C)<br>$$</p>
+<ul>
+<li>$\Delta\pmb C$: ​the maximum of the chromaticity gradient of the input image in any of the four spatial directions at the pixel location</li>
+</ul>
+</li>
+<li><p>The soft-color-Retinex weight is high only for large chromaticity gradients, which represent reflectance edges</p>
+</li>
+<li><p>Hence, monochromaticity of the illumination layer is enforced only close to the reflectance edges and not at locations of slowly varying chromaticity, which represent inter-reflections</p>
+</li>
+<li><p>Relying on local chromaticity gradients may be problematic when there are regions of uniform colored reflectance, but in such regions the reflectance sparsity priors tend to be stronger and overrule the monochromaticity prior.</p>
+</li>
+</ul>
+<p><strong>Illumination Decomposition Sparsity</strong></p>
+<ul>
+<li><p>Enforce that the illumination decomposition is sparse in terms of the layers that are activated per-pixel, i.e., those that influence the pixel with their corresponding base color</p>
+</li>
+<li><p>Assume during image formation in the real world, a large part of the observed radiance for a scene point comes from a small subpart of the scene</p>
+</li>
+<li><p>Apply the sparsity-inducing $\mathcal ℓ_1-\mathrm{norm}$ to the indirect illumination layers<br>$$<br>E_{\mathrm{i-sparsity}}(\pmb \chi)&#x3D;\lambda_{\mathrm{i-sparsity}}\cdot\sum_{\pmb x}\left\Vert\{T_k(\pmb x)\}^K_{k&#x3D;1} \right\Vert_1<br>$$</p>
+</li>
+</ul>
+<p><strong>Spatial Smoothness</strong></p>
+<ul>
+<li><p>Encourage the decomposition to be spatially piecewise smooth using an $ℓ1-\mathrm{sparsity}$​ prior in the gradient domain</p>
+</li>
+<li><p>Enforces piecewise constancy of each direct or indirect illumination layer<br>$$<br>E_{\mathrm{smoothness}}(\pmb \chi)&#x3D;\lambda_{\mathrm{smoothness}}\cdot \sum_{\pmb x}\sum_{k&#x3D;0}^K\parallel\nabla T_k(\pmb x)\parallel_1<br>$$</p>
+</li>
+<li><p>This allows to have sharp edges in the decomposition layers</p>
+</li>
+</ul>
+<p><strong>Non-Negativity of Light Transport</strong></p>
+<ul>
+<li><p>Light transport is an inherently additive process</p>
+<ul>
+<li>Light bouncing around in the scene adds radiance to scene points  </li>
+<li>But never subtracts from them</li>
+</ul>
+</li>
+<li><p>The quantity of transported light is always positive<br>$$<br>E_{\mathrm{non-neg}}(\pmb \chi)&#x3D;\lambda_{\mathrm{non-neg}}\cdot \sum_{\pmb x}\sum_{k&#x3D;0}^K\max(-T_k(\pmb x),0)<br>$$</p>
+<ul>
+<li>If the decomposition layer $T_k(\pmb x)$​ is non-negative, there is no penalty</li>
+<li>If $T_k(\pmb x)$​ becomes negative, a linear penalty is enforced</li>
+</ul>
+</li>
+</ul>
+<h3 id="6-3-Base-Color-Refinement"><a href="#6-3-Base-Color-Refinement" class="headerlink" title="6.3. Base Color Refinement"></a>6.3. Base Color Refinement</h3><ul>
+<li><p>Refine the base colors further on the first video frame to approach the ground-truth reflectance of the materials in the scene</p>
+</li>
+<li><p>The refinement of base colors is formulated as an incremental update $\Delta \pmb b_k$ of the base colors $\pmb b_k$​ in the original data fidelity term, along with intensity and chromaticity regularizers<br>$$<br>\begin{align}<br>E_{\mathrm{refine}}(\pmb \chi)&amp;&#x3D;\lambda_{\mathrm{data}}\sum_{\pmb x}\left\Vert \pmb I(\pmb x)-\pmb R(\pmb x)\odot \sum_{k&#x3D;0}^K(\pmb b_k+\Delta\pmb b_k)T_k(\pmb x) \right\Vert^2\\<br>&amp;+\lambda_{\mathrm{IR}}\sum_{k&#x3D;1}^K\parallel\Delta\pmb b_k\parallel_2^2+\lambda_{\mathrm{CR}}\sum_{k&#x3D;1}^K\parallel(\pmb C(\pmb b_k)+\Delta\pmb b_k)-\pmb C(\pmb b_k)\parallel_2^2<br>\end{align}<br>$$</p>
+<ul>
+<li>$\pmb \chi&#x3D;{\Delta\pmb b_k}$: the vector of unknowns to be optimized</li>
+<li>$\lambda_{\mathrm{IR}}$: the weight for the intensity regularizer that ensures small base color updates</li>
+<li>$\lambda_{\mathrm{CR}}$: the weight of the chromaticity regularizer<ul>
+<li>Constrains base color updates $\Delta\pmb b_k$​ to remain close in chromaticity $\pmb C(\cdot)$​ to the initially estimated base color $\pmb b_k$</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>These regularizers ensure that base color updates do not lead to oscillations in the optimization process</p>
+</li>
+<li><p>The refinement energy is solved in combination with the illumination decomposition energy</p>
+<ul>
+<li>Resulting in an estimation of the unknown variables that together promotes decomposition sparsity</li>
+</ul>
+<img src="image-20210827103559572.png" alt="image-20210827103559572" style="zoom:80%;" />
+</li>
+<li><p>This refinement of the base colors leads to a dense Jacobian matrix, because the unknown variables ${\Delta \pmb b_𝑘}$​ in the energy are influenced by all pixels in the image</p>
+</li>
+</ul>
+<h3 id="6-4-Handling-the-Sparsity-Inducing-Norms"><a href="#6-4-Handling-the-Sparsity-Inducing-Norms" class="headerlink" title="6.4. Handling the Sparsity-Inducing Norms"></a>6.4. Handling the Sparsity-Inducing Norms</h3><ul>
+<li><p>Some energy terms contain sparsity-inducing $ℓ𝑝-\mathrm{norms}$ ($p \in [0, 1]$​)</p>
+</li>
+<li><p>Handle these objectives in a unified manner using Iteratively Re-weighted Least Squares</p>
+</li>
+<li><p>Approximate the $ℓ𝑝-\mathrm{norms}$​ by a nonlinear least-squares objective based on re-weighting, i.e., replace the corresponding residuals $\pmb r$​ as follows:</p>
+<p>$$<br>\begin{align}<br>\parallel\pmb r\parallel_p&amp;&#x3D;\parallel\pmb r\parallel_2^2\cdot \parallel\pmb r\parallel_2^{p-2}\\<br>&amp;\approx \parallel\pmb r\parallel_2^2\cdot \parallel\pmb r_{\mathrm {old}}\parallel_2^{p-2}<br>\end{align}<br>$$</p>
+<p>in each step of the applied iterative solver</p>
+<ul>
+<li>$\pmb r_{\mathrm{old}}$: the corresponding residual after the previous iteration step</li>
+</ul>
+</li>
+</ul>
+<h4 id="6-4-1-Handling-Non-negativity-Constraints"><a href="#6-4-1-Handling-Non-negativity-Constraints" class="headerlink" title="6.4.1. Handling Non-negativity Constraints"></a>6.4.1. Handling Non-negativity Constraints</h4><ul>
+<li><p>The non-negativity objective $E_{\mathrm{non-neg}}(\pmb \chi)$​​ contains a maximum function that is non-differentiable at zero</p>
+</li>
+<li><p>Handle this objective by replacing the maximum with a re-weighted least-squares term, $\max(-T_k(\pmb x),0)&#x3D;w_kT_k^2(\pmb x)$, using<br>$$<br>w_k&#x3D;\begin{cases}<br>0&amp;\mathrm{if}\ T_k(\pmb x)&gt;0\\<br>(|T_k(\pmb x)+\epsilon|)^{-1}&amp;\mathrm{otherwise}<br>\end{cases}<br>$$</p>
+<ul>
+<li>$\epsilon &#x3D; 0.002$: a small constant that prevents division by zero</li>
+</ul>
+</li>
+<li><p>Transforms the non-convex energy into a non-linear least-squares optimization problem</p>
+</li>
+</ul>
+<h2 id="7-Data-Parallel-GPU-Optimization"><a href="#7-Data-Parallel-GPU-Optimization" class="headerlink" title="7. Data-Parallel GPU Optimization"></a>7. Data-Parallel GPU Optimization</h2><ul>
+<li><p>The decomposition problems are all non-convex optimizations based on an objective $E$ with unknowns $\pmb \chi$</p>
+</li>
+<li><p>The best decomposition $\pmb \chi^\ast$​ by solving the following minimization problem:<br>$$<br>\pmb \chi^\ast&#x3D;\arg\min_{\pmb \chi} E(\pmb \chi)<br>$$</p>
+</li>
+<li><p>The optimization problems are in general non-linear least-squares form and can be tackled by the iterative Gauss–Newton algorithm that approximates the optimum $\pmb \chi^\ast\approx \pmb \chi_k$ by a sequence of solutions $\pmb \chi_k&#x3D;\pmb \chi_{k-1}+\pmb \delta_k^\ast$</p>
+<ul>
+<li><p>The optimal linear update $\pmb \delta_k^\ast$​​ is given by the solution of the associated normal equations: </p>
+<p>$$<br>\pmb\delta_k^\ast&#x3D;\arg\min_{\pmb\delta_k}\parallel\pmb F(\pmb \chi_{k-1})+\pmb\delta_k\pmb J(\pmb \chi_{k-1})\parallel_2^2<br>$$</p>
+<ul>
+<li>$\pmb F$: a vector field that stacks all residuals, i.e., $E(\pmb\chi)&#x3D;\parallel\pmb F(\pmb\chi)\parallel_2^2$</li>
+<li>$\pmb J$: its Jacobian matrix</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Obtaining real-time performance is challenging even with recent state-of-the-art data-parallel iterative non-linear least-squares solution strategies</p>
+<ul>
+<li>To avoid cluttered notation, we will omit the parameters and simply write $\pmb J$ instead of $\pmb J(\pmb\chi)$​ </li>
+<li>For our decomposition energies, the Jacobian $\pmb J$​ is a large matrix with usually more than 70 million rows and 4 million columns<ul>
+<li>Previous approaches assume $\pmb J$​​ to be a sparse matrix, meaning that only a few residuals are influenced by each variable</li>
+<li>While this holds for the columns of $\pmb J$​​​​ that corresponds to the variables that are associated with the decomposition layers, it does not hold for the columns that store the derivatives with respect to the base color updates ${\Delta \pmb b_k}$​​, since the base colors influence each residual of $E_{\mathrm{data}}$​</li>
+</ul>
+</li>
+<li>$\pmb J&#x3D;\begin{bmatrix}\pmb S_{\pmb J}&amp;\pmb D_{\pmb J}\end{bmatrix}$ has two sub-blocks:<ul>
+<li>$\pmb S_{\pmb J}$: a large sparse matrix with only a few non-zero entries per row</li>
+<li>$\pmb D_{\pmb J}$: a dense matrix with the same number of rows, but only a few columns</li>
+</ul>
+</li>
+<li>The evaluation of the Jacobian $\pmb J$ requires a different specialized parallelization for the dense and sparse parts</li>
+</ul>
+</li>
+</ul>
+<h3 id="7-1-Sparse-Dense-Splitting"><a href="#7-1-Sparse-Dense-Splitting" class="headerlink" title="7.1. Sparse-Dense Splitting"></a>7.1. Sparse-Dense Splitting</h3><ul>
+<li><p>Tackle the described problem using a sparse–dense splitting approach that splits the variables $\chi$​ into a sparse set $\mathcal T$​ (decomposition layers) and a dense set $\mathcal B$​ (base color updates)</p>
+<ul>
+<li>Afterwards, we optimize for $\mathcal B$ and $\mathcal T$​ independently in an iterative flip-flop manner</li>
+</ul>
+</li>
+<li><p>Algorithm:</p>
+<ol>
+<li><p>Optimize for $\mathcal T$, while keeping $\mathcal B$​ fixed</p>
+<ul>
+<li>The resulting optimization problem is a sparse non-linear least-squares problem</li>
+<li>Improve upon the previous solution by performing a nonlinear Gauss–Newton step</li>
+<li>The corresponding normal equations are solved using 16 steps of data-parallel preconditioned conjugate gradient</li>
+<li>Parallelize over the rows of the system matrix using one thread per row (variable)</li>
+</ul>
+</li>
+<li><p>After updating the ‘sparse’ variables $\mathcal T$​, keep them fixed and solve for the ‘dense’ variables $\mathcal B$​</p>
+<ul>
+<li>The resulting optimization problem is a dense least-squares problem with a small $3𝐾 \times 3𝐾$​ system matrix (normally $𝐾$​​ is between 4 and 7 due to merged clusters)</li>
+<li>Materialize the normal equations in device memory based on a sequence of outer products, using one thread per entry of $\pmb J^T\pmb J$</li>
+</ul>
+</li>
+<li><p>The system is mapped to the CPU and robustly solved using singular value decomposition. After updating ‘dense’ variables $\mathcal B$,<br>we again solve for ‘sparse’ variables $\mathcal T$​ and iterate this process until convergence</p>
+</li>
+</ol>
+</li>
+</ul>
+<h2 id="8-Results-and-Evaluation"><a href="#8-Results-and-Evaluation" class="headerlink" title="8. Results and Evaluation"></a>8. Results and Evaluation</h2><p><strong>Parameters</strong></p>
+<ul>
+<li>$\lambda_{\mathrm{clustering}}&#x3D;200$</li>
+<li>$\lambda_{\mathrm{r-sparsity}}&#x3D;20$</li>
+<li>$p&#x3D;1$</li>
+<li>$\lambda_{\mathrm{i-sparsity}}&#x3D;3$</li>
+<li>$\lambda_{\mathrm{smoothness}}&#x3D;3$</li>
+<li>$\lambda_{\mathrm{non-neg}}&#x3D;1000$</li>
+<li>$\lambda_{\mathrm{data}}&#x3D;5000$</li>
+<li>$\lambda_{\mathrm{IR}}&#x3D;10$</li>
+<li>$\lambda_{\mathrm{CR}}&#x3D;10$</li>
+<li>$\lambda_{\mathrm{r-consistency}}&#x3D;\lambda_{\mathrm{monochrome}}&#x3D;10$</li>
+</ul>
+<p><strong>Runtime performance</strong></p>
+<ul>
+<li>Platform: Intel Core i7 with 2.7 GHz, 32 GB RAM and an NVIDIA GeForce GTX 980</li>
+<li>Resolution: 640x512 pixels</li>
+<li>Performance:<ul>
+<li>Illumination decomposition: 14ms</li>
+<li>Base color refinement: 2s</li>
+<li>Misclustering correction: 1s</li>
+</ul>
+</li>
+<li>Perform the last two steps, base color refinement and misclustering correction, only once at the beginning of the video<ul>
+<li>Runs at real-time frame rates (⩾30 Hz) </li>
+<li>Enables real-time video editing applications</li>
+</ul>
+</li>
+</ul>
+<p><strong>Demo</strong></p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/31yT_O1wQ8s" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+<h2 id="9-Limitations"><a href="#9-Limitations" class="headerlink" title="9. Limitations"></a>9. Limitations</h2><ul>
+<li>Breaking the assumptions can lead to inaccurate estimations</li>
+<li>The method can face challenges if objects enter or leave the scene during the course of the video</li>
+<li>The inter-reflections caused by out-of-view objects cannot be properly modeled, since the corresponding base color might not be available</li>
+<li>If an object with an unseen color enters the scene for the first time, and the base colors are already exceeded, its inter-reflections cannot be modeled</li>
+<li>Complex, textured scenes with many different colors are challenging to decompose, since this requires many base colors, leading to a large number of variables and an even more under-constrained optimization problem</li>
+<li>More general indoor and outdoor scenes are not the ideal use cases for the method</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>Post author:  </strong>Chaf Chen
+  </li>
+  <li class="post-copyright-link">
+      <strong>Post link: </strong>
+      <a href="https://chaphlagical.github.io/2021/08/27/paper_reading/Real_Time_Global_Illumination_Decomposition_of_Videos/" title="Real-Time Global Illumination Decomposition of Videos">https://chaphlagical.github.io/2021/08/27/paper_reading/Real_Time_Global_Illumination_Decomposition_of_Videos/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Siggraph-2021/" rel="tag"># Siggraph 2021</a>
+              <a href="/tags/Video-Process/" rel="tag"># Video Process</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/08/25/paper_reading/Neural_Light_Transport_for_Relighting_and_View_Synthesis/" rel="prev" title="Neural Light Transport for Relighting and View Synthesis">
+                  <i class="fa fa-chevron-left"></i> Neural Light Transport for Relighting and View Synthesis
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/08/29/paper_reading/Low_Cost_SPAD_Sensing_for_Non_Line_Of_Sight_Tracking_Material/" rel="next" title="Low-Cost SPAD Sensing for Non-Line-Of-Sight Tracking, Material Classification and Depth Imaging">
+                  Low-Cost SPAD Sensing for Non-Line-Of-Sight Tracking, Material Classification and Depth Imaging <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chaf Chen</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"chaphlagical-github-io","count":true,"i18n":{"disqus":"disqus"}}</script>
+<script src="/js/third-party/comments/disqus.js"></script>
+
+</body>
+</html>
