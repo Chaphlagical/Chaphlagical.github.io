@@ -20,12 +20,12 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"chaphlagical.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.14.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":true,"storage":true,"lazyload":false,"nav":{"disqus":{"text":"Load Disqus","order":-1}}},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="Siggraph 2021 Paper Reading">
+    <meta name="description" content="Siggraph 2021 paper reading">
 <meta property="og:type" content="blog">
 <meta property="og:title" content="Fast Diffraction Pathfinding for Dynamic Sound Propagation">
 <meta property="og:url" content="https://chaphlagical.github.io/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/index.html">
 <meta property="og:site_name" content="Chaf&#39;s Blog">
-<meta property="og:description" content="Siggraph 2021 Paper Reading">
+<meta property="og:description" content="Siggraph 2021 paper reading">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://chaphlagical.github.io/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210821161415010.png">
 <meta property="og:image" content="https://chaphlagical.github.io/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210822093047703.png">
@@ -51,7 +51,7 @@
 <meta property="og:image" content="https://chaphlagical.github.io/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210824090007192.png">
 <meta property="og:image" content="https://chaphlagical.github.io/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210823220010421.png">
 <meta property="article:published_time" content="2021-08-23T21:20:00.000Z">
-<meta property="article:modified_time" content="2022-12-11T17:26:52.594Z">
+<meta property="article:modified_time" content="2022-12-12T05:26:12.773Z">
 <meta property="article:author" content="Chaf Chen">
 <meta property="article:tag" content="Siggraph 2021">
 <meta property="article:tag" content="Sound Rendering">
@@ -156,13 +156,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-count">9</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -231,7 +231,7 @@
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
       <meta itemprop="name" content="Fast Diffraction Pathfinding for Dynamic Sound Propagation | Chaf's Blog">
-      <meta itemprop="description" content="Siggraph 2021 Paper Reading">
+      <meta itemprop="description" content="Siggraph 2021 paper reading">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
@@ -253,7 +253,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2022-12-11 17:26:52" itemprop="dateModified" datetime="2022-12-11T17:26:52+00:00">2022-12-11</time>
+      <time title="Modified: 2022-12-12 05:26:12" itemprop="dateModified" datetime="2022-12-12T05:26:12+00:00">2022-12-12</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -282,7 +282,7 @@
   
 </div>
 
-            <div class="post-description">Siggraph 2021 Paper Reading</div>
+            <div class="post-description">Siggraph 2021 paper reading</div>
         </div>
       </header>
 
@@ -416,7 +416,7 @@
 <li>For either UTD or BTM</li>
 <li>Find sequences of edges that can form valid diffraction paths</li>
 <li>High-order diffraction involves considering the interaction of every edge with every other edge recursively<ul>
-<li>A naive approach is to recursively consider all pairs of edges, but this has complexity $O(N^d)$, where $N$ is the number of edges and $d$​ is the maximum diffraction order</li>
+<li>A naive approach is to recursively consider all pairs of edges, but this has complexity $O(N^d)$, where $N$ is the number of edges and $d$ is the maximum diffraction order</li>
 </ul>
 </li>
 </ul>
@@ -517,11 +517,11 @@
 </ul>
 </li>
 <li>Vertex welding is applied by greedily clustering each vertex with its neighbors within a certain tolerance distance $\epsilon_{weld}&#x3D;0.001\mathrm m$<ul>
-<li>Use a spatial hashing approach to implement this with $O(N)$​ time complexity</li>
+<li>Use a spatial hashing approach to implement this with $O(N)$ time complexity</li>
 </ul>
 </li>
 <li>Edge collapse algorithm is similar to the standard approach, but with a few extensions<ul>
-<li>Limit the maximum amount of error that can be introduced in triangles normals to $\epsilon_m&#x3D;10°$​, while the original algorithm only prevents flipping of triangles ($\epsilon_n&#x3D;90°$​​​)<ul>
+<li>Limit the maximum amount of error that can be introduced in triangles normals to $\epsilon_m&#x3D;10°$, while the original algorithm only prevents flipping of triangles ($\epsilon_n&#x3D;90°$)<ul>
 <li>Help to preserve the overall shape of the mesh better, particularly at the silhouette edges and mesh corners which are important for diffraction</li>
 </ul>
 </li>
@@ -575,10 +575,10 @@
 </ol>
 <ul>
 <li>Compute the merged normal cone for the two clusters, i.e. the smallest cone that contains both merged cones<ul>
-<li>Given two cones $i$​ and $j$​, this can be efficiently approximated by first computing the vector $\vec x_i$​, on the boundary of cone $i$​ that has the greatest angle with the axis of cone $j$​, and vice versa to yield $\vec x_j$​</li>
-<li>The average of the two extreme<br>vectors is then used as the merged cone axis and the angle between them is used as the opening angle of the cone $\theta_{\vec n}$<img src="image-20210822093047703.png" alt="image-20210822093047703" style="zoom:80%;" /></li>
-<li>The clusters are then merged if $\theta_\vec n$​ is less than merging threshold for either cluster<ul>
-<li><p>The merging threshold is maintained separately for each cluster and is initially set to $\tau&#x3D;\epsilon_\theta$ at the beginning of the algorithm, where $\epsilon_\theta$​​​ ​is the minimum dihedral angle to consider for diffraction</p>
+<li>Given two cones $i$ and $j$, this can be efficiently approximated by first computing the vector $\vec x_i$, on the boundary of cone $i$ that has the greatest angle with the axis of cone $j$​, and vice versa to yield $\vec x_j$</li>
+<li>The average of the two extreme<br>vectors is then used as the merged cone axis and the angle between them is used as the opening angle of the cone $\theta_{\vec n}$<br><img src="/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210822093047703.png" alt="image-20210822093047703.png"></li>
+<li>The clusters are then merged if $\theta_\vec n$ is less than merging threshold for either cluster<ul>
+<li><p>The merging threshold is maintained separately for each cluster and is initially set to $\tau&#x3D;\epsilon_\theta$ at the beginning of the algorithm, where $\epsilon_\theta$ is the minimum dihedral angle to consider for diffraction</p>
 </li>
 <li><p>After two clusters are merged, the resulting cluster’s threshold is increased according to the following relation:</p>
 <p>  $$<br>  \tau(F_i\cup F_j)&#x3D;\theta_{\vec n}+\frac{k_{\epsilon_\theta}}{|F_i|+|F_j|}<br>  $$</p>
@@ -639,21 +639,26 @@
 </li>
 <li>The output of this stage is a collection of mesh boundaries that are known to be approximately straight.</li>
 </ul>
-<img src="image-20210822151840621.png" alt="image-20210822151840621" style="zoom: 67%;" /></li>
+<p><img src="/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210822151840621.png" alt="image-20210822151840621.png"></p>
+</li>
 </ul>
 <h4 id="4-2-3-Silhouette-Edges"><a href="#4-2-3-Silhouette-Edges" class="headerlink" title="4.2.3. Silhouette Edges"></a>4.2.3. Silhouette Edges</h4><ul>
 <li><p>Only consider the diffraction that occurs in the shadow region of an edge</p>
 <ul>
 <li>The only edges that can produce diffraction are silhouette edges</li>
-<li>i.e. Those edges that can cast a “shadow” when illuminated from a point in the conservative shadow region<img src="image-20210822152155452.png" alt="image-20210822152155452" style="zoom: 67%;" />
-* The edge axis is perpendicular to the image
-* The edge is shared by faces $f_0$ and $f_1$ that have face normals $\vec n_0$ and $\vec n_1$
-* The exterior angle between $f_0$ and $f_1$ is bisected by edge normal $\vec n_e$ and a planar diffraction flag that extend a distance $d_{flag}$ from the edge
-* Conservative shadow regions: defined by the planes of $f_0$ and $f_1$​
-* Shadow regions: bounded by the horizon plane and plane of face $f_{shadow}$
-  * The horizon plane, with normal vector $\vec h$: defined by the edge vertices and the reference point $\vec p_{ref}$​, which corresponds to a source, listener, or point on a previous diffraction edge, calculated as $\vec h=(\vec v_1-\vec v_0)\times (\vec p_{ref}-\vec v_0)$
-*  $\epsilon_h$ and $\epsilon_f$ extend the shadow region on the horizon and face sides
-  * Enable smoother transitions between direct and diffracted state</li>
+<li>i.e. Those edges that can cast a “shadow” when illuminated from a point in the conservative shadow region<br><img src="/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210822152155452.png" alt="image-20210822152155452.png"><ul>
+<li>The edge axis is perpendicular to the image</li>
+<li>The edge is shared by faces $f_0$ and $f_1$ that have face normals $\vec n_0$ and $\vec n_1$</li>
+<li>The exterior angle between $f_0$ and $f_1$ is bisected by edge normal $\vec n_e$ and a planar diffraction flag that extend a distance $d_{flag}$ from the edge</li>
+<li>Conservative shadow regions: defined by the planes of $f_0$ and $f_1$</li>
+<li>Shadow regions: bounded by the horizon plane and plane of face $f_{shadow}$<ul>
+<li>The horizon plane, with normal vector $\vec h$: defined by the edge vertices and the reference point $\vec p_{ref}$, which corresponds to a source, listener, or point on a previous diffraction edge, calculated as $\vec h&#x3D;(\vec v_1-\vec v_0)\times (\vec p_{ref}-\vec v_0)$</li>
+</ul>
+</li>
+<li>$\epsilon_h$ and $\epsilon_f$ extend the shadow region on the horizon and face sides</li>
+<li>Enable smoother transitions between direct and diffracted state</li>
+</ul>
+</li>
 </ul>
 </li>
 <li><p>A novel approach to reliably identify these silhouette edges</p>
@@ -680,19 +685,15 @@
 </li>
 </ul>
 </li>
-<li>To sample the outgoing ray direction, use a uniform spherical distribution that has been modified to generate rays in a wedge<br>shape<img src="image-20210822160819792.png" alt="image-20210822160819792" style="zoom: 67%;" />
-* The outgoing ray direction in the local tangent space is given by:
-  $$
-  \vec r_d=\Big(u_0, \sqrt{1-u_0^2}\sin u_1, \sqrt{1-u_0^2}\cos u_1 \Big)
-  $$
-
+<li>To sample the outgoing ray direction, use a uniform spherical distribution that has been modified to generate rays in a wedge<br>shape<br><img src="/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210822160819792.png" alt="image-20210822160819792.png"><ul>
+<li><p>The outgoing ray direction in the local tangent space is given by:<br>$$<br>\vec r_d&#x3D;\Big(u_0, \sqrt{1-u_0^2}\sin u_1, \sqrt{1-u_0^2}\cos u_1 \Big)<br>$$</p>
 <ul>
-<li><p>$u_0$: a uniform random variable in the range $[0,\theta_s)$</p>
-</li>
-<li><p>$u_1$: a uniform random variable in the range $[-\sin\theta_r, \sin \theta_r]$</p>
-<ul>
+<li>$u_0$: a uniform random variable in the range $[0,\theta_s)$</li>
+<li>$u_1$: a uniform random variable in the range $[-\sin\theta_r, \sin \theta_r]$<ul>
 <li>$\theta_r&#x3D;30°$ controls the amount of spreading of the rays in the direction of the edge axis</li>
-<li>$\theta_r&#x3D;0$​​​ would generate rays that are always perpendicular to the edge</li>
+<li>$\theta_r&#x3D;0$ would generate rays that are always perpendicular to the edge</li>
+</ul>
+</li>
 </ul>
 </li>
 <li><p>Once the local ray direction is generated, it is rotated to mesh space by applying the orthonormal rotation matrix $\pmb R_i&#x3D;\begin{bmatrix}\frac{\vec v_1-\vec v_0}{|\vec v_1-\vec v_0|_2},\vec n_i,\vec t_i\end{bmatrix}$, where $i$ is the face index</p>
@@ -705,29 +706,28 @@
 <ul>
 <li><p>Use this information as a proxy for whether or not a source or listener can be occluded by the edge</p>
 </li>
-<li><p>The distance $\tilde d_s$​ is proportional to the diameter of a source or listener, $d_s$</p>
+<li><p>The distance $\tilde d_s$ is proportional to the diameter of a source or listener, $d_s$</p>
 <ul>
 <li>As a source or listener grows bigger, an edge must protrude further from the nearby geometry to produce any diffraction</li>
-<li>$d_s$​ is a parameter of our algorithm that controls how aggressive the silhouette edge detection is<ul>
+<li>$d_s$ is a parameter of our algorithm that controls how aggressive the silhouette edge detection is<ul>
 <li>Here use $d_s&#x3D;0.25\mathrm m$, which roughly corresponds to the size of a human head</li>
 </ul>
 </li>
 </ul>
-<img src="image-20210822162719475.png" alt="image-20210822162719475" style="zoom:67%;" />
-
+<p><img src="/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210822162719475.png" alt="image-20210822162719475.png"></p>
 <ul>
-<li>Yellow circle: a sound source or listener with diameter $d_s$​</li>
+<li>Yellow circle: a sound source or listener with diameter $d_s$</li>
 <li>Red rays: represent random rays generated by $\vec r_d&#x3D;\Big(u_0, \sqrt{1-u_0^2}\sin u_1, \sqrt{1-u_0^2}\cos u_1 \Big)$ </li>
 <li>In this figure:<ol>
 <li>Edge (a) is not silhouette edge because the circle cannot be placed where it is completely occluded by the edge and all of the rays hit<br>another face before traveling distance $\tilde d_s$</li>
-<li>Edge (b) is classified as a silhouette edge because at least $N_{valid}$ rays were able to travel for a least distance $\tilde d_s$​​ and because the circle can be occluded by the edge</li>
+<li>Edge (b) is classified as a silhouette edge because at least $N_{valid}$ rays were able to travel for a least distance $\tilde d_s$ and because the circle can be occluded by the edge</li>
 </ol>
 </li>
 </ul>
 </li>
-<li><p>In order for the approach to work correctly, the value of $\tilde d_s$​ must increase for rays that are closer to the CSR boundary</p>
+<li><p>In order for the approach to work correctly, the value of $\tilde d_s$ must increase for rays that are closer to the CSR boundary</p>
 <ul>
-<li><p>If $\tilde d_s$​ did not increase for rays near the CSR boundary, Edge (a) would be erroneously classified as a silhouette edge</p>
+<li><p>If $\tilde d_s$ did not increase for rays near the CSR boundary, Edge (a) would be erroneously classified as a silhouette edge</p>
 </li>
 <li><p>The value of $\tilde d_s$ for each ray using the following relation:<br>$$<br>\tilde d_s&#x3D;\dfrac{d_s}{\max(\cos(u_0),\epsilon)}<br>$$<br>This causes the threshold distance to increase substantially for rays that have large $u_0$</p>
 </li>
@@ -755,7 +755,7 @@
 <li>The accuracy of the diffraction approach does not depend on the flag length due to the use of the analytical UTD diffraction model</li>
 <li>Changing the flag length changes the diffracted sound intensity for UP because in that model the flag is an integral domain</li>
 <li>In this paper’s approach, the length of the diffraction flags controls how likely it is for a ray to intersect a flag and find diffraction paths over the associated edge<ul>
-<li>Use $d_{flag}&#x3D;1.0\mathrm m$​​​ as a reasonable tradeoff between finding enough diffraction paths and spending too much time on ray-versus-flag intersection tests for rays as they traverse the scene</li>
+<li>Use $d_{flag}&#x3D;1.0\mathrm m$ as a reasonable tradeoff between finding enough diffraction paths and spending too much time on ray-versus-flag intersection tests for rays as they traverse the scene</li>
 </ul>
 </li>
 </ul>
@@ -779,13 +779,12 @@
 <ul>
 <li><p>The simplest approach</p>
 <ul>
-<li><p>Place the far vertices at distance $d_{flag}$​ form each edge vertex in the direction of the edge normal, e.g. $\vec v_i+\vec n_e d_{flag}$</p>
+<li><p>Place the far vertices at distance $d_{flag}$ form each edge vertex in the direction of the edge normal, e.g. $\vec v_i+\vec n_e d_{flag}$</p>
 <ul>
 <li>Work well in many cases, but can fail with certain meshes</li>
 <li>Consider the diffraction edges at the top ring of a tessellated cylinder, like follow figure:</li>
 </ul>
-<img src="image-20210822201205087.png" alt="image-20210822201205087" style="zoom:67%;" />
-
+<p><img src="/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210822201205087.png" alt="image-20210822201205087.png"></p>
 <ul>
 <li>Placing the far vertices along the edge normal produces many gaps in the ring of flags that may reduce the effectiveness of the runtime diffraction algorithm</li>
 </ul>
@@ -921,13 +920,12 @@
 <li><p>Ray tracing repeats until a surface mesh is intersected or a maximum number of diffractions occur, at which point the further rays for the subpath are handled using standard BDPT</p>
 </li>
 </ul>
-<h3 id="5-2-Path-Validation"><a href="#5-2-Path-Validation" class="headerlink" title="5.2. Path Validation"></a>5.2. Path Validation</h3><h4 id="5-2-1-Shadow-Test"><a href="#5-2-1-Shadow-Test" class="headerlink" title="5.2.1. Shadow Test"></a>5.2.1. Shadow Test</h4><img src="image-20210822152155452.png" alt="image-20210822152155452" style="zoom: 67%;" />
-
+<h3 id="5-2-Path-Validation"><a href="#5-2-Path-Validation" class="headerlink" title="5.2. Path Validation"></a>5.2. Path Validation</h3><h4 id="5-2-1-Shadow-Test"><a href="#5-2-1-Shadow-Test" class="headerlink" title="5.2.1. Shadow Test"></a>5.2.1. Shadow Test</h4><p><img src="/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210822152155452.png" alt="image-20210822152155452.png"></p>
 <ul>
 <li>Each diffraction edge in a subpath must intersect the shadow region of the previous edge, if one exists<ul>
 <li>The shadow region is defined as the intersection of the two half-spaces corresponding to the shadow face plane and the shadow horizon plane</li>
-<li>The shadow horizon plane is defined by the diffraction edge vertices $\vec v_0$, $\vec v_1$ and the reference point $\vec p_{ref}$​, which for the first edge is the source or listener position</li>
-<li>For diffraction beyond 1, $\vec p_{ref}$​​ is the point on the previous edge that creates the largest (i.e. closest to conservative) shadow region<ul>
+<li>The shadow horizon plane is defined by the diffraction edge vertices $\vec v_0$, $\vec v_1$ and the reference point $\vec p_{ref}$, which for the first edge is the source or listener position</li>
+<li>For diffraction beyond 1, $\vec p_{ref}$ is the point on the previous edge that creates the largest (i.e. closest to conservative) shadow region<ul>
 <li>This can be determined by clipping the previous edge’s line segment with the face planes of the current edge, so as to limit the previous edge segment to only the part in the current edge’s CSR on the non-shadowed side<ul>
 <li>If the previous edge is completely outside of this region, diffraction cannot occur between the edges</li>
 </ul>
@@ -943,7 +941,7 @@
 <h4 id="5-2-2-Shadow-Test-Tolerances"><a href="#5-2-2-Shadow-Test-Tolerances" class="headerlink" title="5.2.2. Shadow Test Tolerances"></a>5.2.2. Shadow Test Tolerances</h4><ul>
 <li><p>Allow a tolerance of $\epsilon_h&#x3D;1.0\mathrm m$ for the horizon plane and $\epsilon_f&#x3D;0.1\mathrm m$ for the shadow face plane</p>
 </li>
-<li><p>The tolerance $\epsilon_f$​ allows our approach to find diffraction paths between coplanar edges without numerical issues</p>
+<li><p>The tolerance $\epsilon_f$ allows our approach to find diffraction paths between coplanar edges without numerical issues</p>
 <ul>
 <li>It also avoids problems where the diffraction wedge geometry doesn’t correspond exactly to the surface mesh<ul>
 <li>For instance, if the averaged face normals for a proxy edge are slightly wrong, the shadow test might reject otherwise valid diffraction paths. Introducing a face plane tolerance helps to avoid these geometric issues.</li>
@@ -951,7 +949,7 @@
 </li>
 </ul>
 </li>
-<li><p>The large horizon plane tolerance $\epsilon_h$​​​​ is to anticipate diffraction paths before they are needed and enable smooth transitions between direct and diffracted sound</p>
+<li><p>The large horizon plane tolerance $\epsilon_h$ is to anticipate diffraction paths before they are needed and enable smooth transitions between direct and diffracted sound</p>
 <ul>
 <li>This is important when a source or listener moves from the region where direct sound is valid into the shadow region of an edge</li>
 <li>It’s possible that a ray may not immediately hit the flag for the edge<ul>
@@ -979,7 +977,7 @@
 </li>
 <li><p>Once the apex points are determined, then trace a series of rays between the source, apex point(s), and listener to determine if the path is blocked by other geometry</p>
 <ul>
-<li><p>Bias each apex point a variable distance $\beta$ out from the edge along the edge normal $\vec n_e$​​​ to prevent self-intersection of rays with neighboring faces, and also to implement a robust soft visibility test</p>
+<li><p>Bias each apex point a variable distance $\beta$ out from the edge along the edge normal $\vec n_e$ to prevent self-intersection of rays with neighboring faces, and also to implement a robust soft visibility test</p>
 </li>
 <li><p>Main idea of soft visibility test</p>
 <ul>
@@ -993,7 +991,8 @@
 <ul>
 <li>Use $\beta_\min&#x3D;0.01\mathrm m$ and $\beta_\max&#x3D;1.0\mathrm m$</li>
 </ul>
-<img src="image-20210823195554438.png" alt="image-20210823195554438" style="zoom: 67%;" /></li>
+<p><img src="/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210823195554438.png" alt="image-20210823195554438.png"></p>
+</li>
 </ul>
 </li>
 </ul>
@@ -1104,49 +1103,38 @@
 </ul>
 </li>
 </ul>
-<h2 id="6-Implementation"><a href="#6-Implementation" class="headerlink" title="6. Implementation"></a>6. Implementation</h2><h2 id="7-Result"><a href="#7-Result" class="headerlink" title="7. Result"></a>7. Result</h2><h3 id="7-1-Scene"><a href="#7-1-Scene" class="headerlink" title="7.1. Scene"></a>7.1. Scene</h3><img src="image-20210823215019823.png" alt="image-20210823215019823" style="zoom: 50%;" />
-
-<img src="image-20210823215048917.png" alt="image-20210823215048917" style="zoom:50%;" />
-
-<img src="image-20210823215109007.png" alt="image-20210823215109007" style="zoom:50%;" />
-
-<img src="image-20210823215127730.png" alt="image-20210823215127730" style="zoom:50%;" />
-
-<img src="image-20210823215200235.png" alt="image-20210823215200235" style="zoom:50%;" />
-
-<img src="image-20210823215222200.png" alt="image-20210823215222200" style="zoom:50%;" />
-
+<h2 id="6-Implementation"><a href="#6-Implementation" class="headerlink" title="6. Implementation"></a>6. Implementation</h2><h2 id="7-Result"><a href="#7-Result" class="headerlink" title="7. Result"></a>7. Result</h2><h3 id="7-1-Scene"><a href="#7-1-Scene" class="headerlink" title="7.1. Scene"></a>7.1. Scene</h3><p><img src="/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210823215019823.png" alt="image-20210823215019823.png"></p>
+<p><img src="/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210823215048917.png" alt="image-20210823215048917.png"></p>
+<p><img src="/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210823215109007.png" alt="image-20210823215109007.png"></p>
+<p><img src="/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210823215127730.png" alt="image-20210823215127730.png"></p>
+<p><img src="/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210823215200235.png" alt="image-20210823215200235.png"></p>
+<p><img src="/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210823215222200.png" alt="image-20210823215222200.png"></p>
 <h3 id="7-2-Preprocessing"><a href="#7-2-Preprocessing" class="headerlink" title="7.2. Preprocessing"></a>7.2. Preprocessing</h3><ul>
 <li>The time taken by each section of our preprocessing pipeline</li>
 </ul>
-<img src="image-20210823215334108.png" alt="image-20210823215334108" style="zoom:80%;" />
-
+<p><img src="/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210823215334108.png" alt="image-20210823215334108.png"></p>
 <h3 id="7-3-Runtime"><a href="#7-3-Runtime" class="headerlink" title="7.3. Runtime"></a>7.3. Runtime</h3><ul>
 <li>The runtime performance with respect to the maximum diffraction order</li>
 </ul>
-<img src="image-20210823215444442.png" alt="image-20210823215444442" style="zoom:80%;" />
-
+<p><img src="/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210823215444442.png" alt="image-20210823215444442.png"></p>
 <ul>
 <li><p>The runtime performance with respect to the varying diffraction flag lengths  </p>
-<img src="image-20210823221752265.png" alt="image-20210823221752265" style="zoom:80%;" />
+<p><img src="/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210823221752265.png" alt="image-20210823221752265.png"></p>
 </li>
 <li><p>The number of paths found for varying diffraction flag lengths</p>
-<img src="image-20210823221837251.png" alt="image-20210823221837251" style="zoom:80%;" /></li>
+<p><img src="/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210823221837251.png" alt="image-20210823221837251.png"></p>
+</li>
 </ul>
 <h3 id="7-4-Validation"><a href="#7-4-Validation" class="headerlink" title="7.4. Validation"></a>7.4. Validation</h3><ul>
 <li>Paper’s approach vs. Offline FDTD simulation</li>
 </ul>
-<img src="image-20210823215852679.png" alt="image-20210823215852679" style="zoom: 80%;" />
-
-<img src="image-20210824085947838.png" alt="image-20210824085947838" style="zoom:80%;" />
-
-<img src="image-20210824090007192.png" alt="image-20210824090007192" style="zoom:80%;" />
-
+<p><img src="/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210823215852679.png" alt="image-20210823215852679.png"></p>
+<p><img src="/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210824085947838.png" alt="image-20210824085947838.png"></p>
+<p><img src="/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210824090007192.png" alt="image-20210824090007192.png"></p>
 <ul>
 <li>Two different configuration of paper’s approach vs. Offline FDTD simulation</li>
 </ul>
-<img src="image-20210823220010421.png" alt="image-20210823220010421" style="zoom:80%;" />
-
+<p><img src="/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210823220010421.png" alt="image-20210823220010421.png"></p>
 <h2 id="8-Conclusions"><a href="#8-Conclusions" class="headerlink" title="8. Conclusions"></a>8. Conclusions</h2><ul>
 <li><p>Presented a complete approach for simulating approximate acoustic diffraction for real-time AR and VR applications </p>
 <ul>

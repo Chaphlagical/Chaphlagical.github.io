@@ -20,19 +20,19 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"chaphlagical.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.14.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":true,"storage":true,"lazyload":false,"nav":{"disqus":{"text":"Load Disqus","order":-1}}},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="Siggraph 2021 Paper Reading">
+    <meta name="description" content="Siggraph 2021 paper reading">
 <meta property="og:type" content="blog">
 <meta property="og:title" content="Real-Time Global Illumination Decomposition of Videos">
 <meta property="og:url" content="https://chaphlagical.github.io/2021/08/27/paper_reading/Real_Time_Global_Illumination_Decomposition_of_Videos/index.html">
 <meta property="og:site_name" content="Chaf&#39;s Blog">
-<meta property="og:description" content="Siggraph 2021 Paper Reading">
+<meta property="og:description" content="Siggraph 2021 paper reading">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://chaphlagical.github.io/2021/08/27/paper_reading/Real_Time_Global_Illumination_Decomposition_of_Videos/image-20210826201519197.png">
 <meta property="og:image" content="https://chaphlagical.github.io/2021/08/27/paper_reading/Real_Time_Global_Illumination_Decomposition_of_Videos/image-20210826203430702.png">
 <meta property="og:image" content="https://chaphlagical.github.io/2021/08/27/paper_reading/Real_Time_Global_Illumination_Decomposition_of_Videos/image-20210826212455864.png">
 <meta property="og:image" content="https://chaphlagical.github.io/2021/08/27/paper_reading/Real_Time_Global_Illumination_Decomposition_of_Videos/image-20210827103559572.png">
 <meta property="article:published_time" content="2021-08-27T20:02:00.000Z">
-<meta property="article:modified_time" content="2022-12-11T17:26:52.730Z">
+<meta property="article:modified_time" content="2022-12-12T05:26:12.889Z">
 <meta property="article:author" content="Chaf Chen">
 <meta property="article:tag" content="Siggraph 2021">
 <meta property="article:tag" content="Video Process">
@@ -137,13 +137,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-count">9</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -212,7 +212,7 @@
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
       <meta itemprop="name" content="Real-Time Global Illumination Decomposition of Videos | Chaf's Blog">
-      <meta itemprop="description" content="Siggraph 2021 Paper Reading">
+      <meta itemprop="description" content="Siggraph 2021 paper reading">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
@@ -234,7 +234,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2022-12-11 17:26:52" itemprop="dateModified" datetime="2022-12-11T17:26:52+00:00">2022-12-11</time>
+      <time title="Modified: 2022-12-12 05:26:12" itemprop="dateModified" datetime="2022-12-12T05:26:12+00:00">2022-12-12</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -263,7 +263,7 @@
   
 </div>
 
-            <div class="post-description">Siggraph 2021 Paper Reading</div>
+            <div class="post-description">Siggraph 2021 paper reading</div>
         </div>
       </header>
 
@@ -346,13 +346,13 @@
 <ul>
 <li>$\pmb x$: pixel location</li>
 <li>$\odot$: element-wise product</li>
-<li>For diffuse objects, the reflectance layer captures the surface albedo, and the illumination layer $\pmb S$​​ jointly captures the direct and indirect illumination effects</li>
+<li>For diffuse objects, the reflectance layer captures the surface albedo, and the illumination layer $\pmb S$ jointly captures the direct and indirect illumination effects</li>
 <li>Represent the illumination layer as a colored RGB image to allow indirect illumination effects to be expressed in the illumination layer</li>
 </ul>
 </li>
 <li><p>Further decompose the illumination layer into a grayscale direct illumination layer resulting from the white illuminant, and multiple indirect colored illumination layers resulting from inter-reflections from colored objects in the scene</p>
 <ul>
-<li><p>We start by estimating a set of base colors that consists of $K$ unique reflectance colors ${\pmb b_k}$​ that represent the scene</p>
+<li><p>We start by estimating a set of base colors that consists of $K$ unique reflectance colors ${\pmb b_k}$ that represent the scene</p>
 <ul>
 <li>$K$ is specified by the user, as superfluous clusters will be removed automatically</li>
 <li>This set of base colors serves as the basis for the illumination decomposition</li>
@@ -361,7 +361,7 @@
 </li>
 <li><p>For every surface point in the scene, assume that a single indirect bounce of light may occur from every base reflectance color, in addition to the direct illumination</p>
 </li>
-<li><p>The global illumination in the scene is modeled using a linear decomposition of the illumination layer $\pmb S$​​ into a direct illumination layer $T_0$​​ and the sum of the $K$​​​ indirect illumination layers $\{T_k\}_{0&lt;k\leq K}$​​</p>
+<li><p>The global illumination in the scene is modeled using a linear decomposition of the illumination layer $\pmb S$ into a direct illumination layer $T_0$ and the sum of the $K$ indirect illumination layers $\{T_k\}_{0&lt;k\leq K}$</p>
 <p>$$<br>\pmb I(\pmb x)&#x3D;\pmb R(\pmb x)\odot \sum_{k&#x3D;0}^K\pmb b_k T_k(\pmb x)<br>$$</p>
 <ul>
 <li>$\pmb b_0$: represents the color of the illuminant: white in paper’s case, i.e. $\pmb b_0&#x3D;(1,1,1)$</li>
@@ -424,8 +424,7 @@
 </ul>
 </li>
 </ul>
-<h3 id="5-2-Misclustering-Correction"><a href="#5-2-Misclustering-Correction" class="headerlink" title="5.2. Misclustering Correction"></a>5.2. Misclustering Correction</h3><img src="image-20210826212455864.png" alt="image-20210826212455864" style="zoom: 50%;" />
-
+<h3 id="5-2-Misclustering-Correction"><a href="#5-2-Misclustering-Correction" class="headerlink" title="5.2. Misclustering Correction"></a>5.2. Misclustering Correction</h3><p><img src="/2021/08/27/paper_reading/Real_Time_Global_Illumination_Decomposition_of_Videos/image-20210826212455864.png" alt="image-20210826212455864.png"></p>
 <ul>
 <li>Since the clustering directly depends on the color of a pixel, regions of strong inter-reflections may be erroneously assigned to the base color of an indirect illuminant instead of the base color representing the reflectance of the region<ul>
 <li>Such a misclustering is difficult to correct automatically because of the inherent ambiguity of the illumination decomposition problem</li>
@@ -469,13 +468,13 @@
 <h2 id="6-Illumination-Decomposition"><a href="#6-Illumination-Decomposition" class="headerlink" title="6. Illumination Decomposition"></a>6. Illumination Decomposition</h2><ul>
 <li><p>Decomposition each input video frame $\pmb I$ into its reflectance layer $\pmb R$, its direct illumination layer $T_0$ and a set of indirect illumination layers ${T_k}$<br>corresponding to the base colors ${\pmb b_k}$</p>
 <ul>
-<li>The direct illumination layer $T_0$​​ represents the direct contribution to the scene by the external light sources</li>
-<li>The indirect illumination layers $\{T_k\}$​​​​ capture the inter-reflections that occur within the scene</li>
+<li>The direct illumination layer $T_0$ represents the direct contribution to the scene by the external light sources</li>
+<li>The indirect illumination layers $\{T_k\}$ capture the inter-reflections that occur within the scene</li>
 </ul>
 </li>
 <li><p>Formulate the illumination decomposition as an energy minimization problem with the following energy:<br>$$<br>E_{\mathrm{decomp}}(\pmb \chi)&#x3D;E_{\mathrm{data}}(\pmb \chi)+E_{\mathrm{reflectance}}(\pmb \chi)+E_{\mathrm{illumination}}(\pmb \chi)<br>$$</p>
 <ul>
-<li>$\pmb \chi&#x3D;\{\pmb R,T_0,\{T_k\}\}$​ is the set of variables to be optimized  </li>
+<li>$\pmb \chi&#x3D;\{\pmb R,T_0,\{T_k\}\}$ is the set of variables to be optimized  </li>
 <li>The base colors ${\pmb b_k}$ stay fixed</li>
 <li>Optimize this energy using a novel fast GPU solver to obtain real-time performance</li>
 </ul>
@@ -485,18 +484,18 @@
 <p>This constraint enforces that the decomposition result reproduces the input image:<br>$$<br>E_{\mathrm{data}}(\pmb \chi)&#x3D;\lambda_{\mathrm{data}}\cdot \sum_{\pmb x}\left\Vert\pmb I(\pmb x)-\pmb R(\pmb x)\odot \sum_{k&#x3D;0}^K\pmb b_kT_k(\pmb x) \right\Vert^2<br>$$</p>
 <ul>
 <li>$\lambda_{\mathrm {data}}$: the weight for this energy term</li>
-<li>$T_k$: the $(K+1)$​​​ illumination layers of the decomposition(one direct layer $T_0$​ and $K$​ indirect layers $\{T_k\}$​​)</li>
+<li>$T_k$: the $(K+1)$ illumination layers of the decomposition(one direct layer $T_0$ and $K$ indirect layers $\{T_k\}$)</li>
 </ul>
 <h3 id="6-1-Reflectance-Priors"><a href="#6-1-Reflectance-Priors" class="headerlink" title="6.1. Reflectance Priors"></a>6.1. Reflectance Priors</h3><ul>
 <li>Constrain the estimated reflectance layer $\pmb R$ using three priors:<br>$$<br>E_{\mathrm{reflectance}}(\pmb \chi)&#x3D;E_{\mathrm{clustering}}(\pmb \chi)+E_{\mathrm{r-sparsity}}(\pmb \chi)+E_{\mathrm{r-consistency}}(\pmb \chi)<br>$$</li>
 </ul>
 <p><strong>Reflectance Clustering Prior</strong></p>
 <ul>
-<li><p>Use the cluster to guide the decomposition, as the chromaticity-clustered image $\pmb R_{\mathrm{cluster}}$ is an approximation of the reflectance layer $\pmb R$​</p>
+<li><p>Use the cluster to guide the decomposition, as the chromaticity-clustered image $\pmb R_{\mathrm{cluster}}$ is an approximation of the reflectance layer $\pmb R$</p>
 </li>
 <li><p>Constrain the reflectance map to remain close to the clustered image using the following energy term:<br>$$<br>E_{\mathrm{clustering}}(\pmb \chi)&#x3D;\lambda_{\mathrm{clustering}}\cdot \sum_{\pmb x} \parallel\pmb r(\pmb x)-\pmb r_{\mathrm{cluster}}(\pmb x) \parallel_2^2<br>$$</p>
 <ul>
-<li>$\pmb r$: represent the quantity $\pmb R$​ in the log-domain, i.e. $\pmb r&#x3D;\ln\pmb R$</li>
+<li>$\pmb r$: represent the quantity $\pmb R$ in the log-domain, i.e. $\pmb r&#x3D;\ln\pmb R$</li>
 <li>$\pmb r_{\mathrm{cluster}}$: the clustered reflectance map</li>
 </ul>
 </li>
@@ -511,7 +510,7 @@
 <p><strong>Spatiotemporal Reflectance Consistency Prior</strong></p>
 <ul>
 <li>Enforces that the reflectance stays temporally consistent by connecting every pixel with a set of randomly sampled pixels in a small spatiotemporal window by constraining the reflectance of the pixels to be close under a defined chromaticity-closeness condition</li>
-<li>For each pixel $\pmb x$​​ in the reflectance image, connect it to $N_s$ randomly sampled pixels $\pmb y_i$</li>
+<li>For each pixel $\pmb x$ in the reflectance image, connect it to $N_s$ randomly sampled pixels $\pmb y_i$</li>
 <li>Samples are chosen from reflectance images of the current and previous frames $t_i$</li>
 </ul>
 <p>$$<br>\begin{align}<br>E_{\mathrm{r-consistency}}(\pmb \chi)&amp;&#x3D;\lambda_{\mathrm{r-consistency}}\cdot \sum_{i&#x3D;1}^{N_s}g_i(\pmb x)\cdot \parallel\pmb r(\pmb x)-\pmb r_{t_i}(\pmb y_i)\parallel_2^2\\<br>g_i(\pmb x)&amp;&#x3D;\begin{cases}<br>w_{iw}(\pmb x)&amp;\mathrm{if}\ \parallel\pmb c(\pmb x)-\pmb c_{t_i}(\pmb y_i)\parallel_2&lt;\tau_{cc}\\<br>0&amp;\mathrm{otherwise}<br>\end{cases}<br>\end{align}<br>$$</p>
@@ -532,13 +531,13 @@
 <ul>
 <li><p>$c\in{R,G,B}$</p>
 </li>
-<li><p>$|\pmb S|$: the intensity of the illumination layer $\pmb S$​</p>
+<li><p>$|\pmb S|$: the intensity of the illumination layer $\pmb S$</p>
 </li>
 <li><p>This constraint pulls the color channels of each pixel close to the grayscale intensity of the pixel, hence encouraging monochromaticity</p>
 </li>
 <li><p>$w_{\mathrm{SR}}$: the soft-color-Retinex weight<br>$$<br>w_{\mathrm{SR}}&#x3D;1-\exp(-50\cdot\Delta\pmb C)<br>$$</p>
 <ul>
-<li>$\Delta\pmb C$: ​the maximum of the chromaticity gradient of the input image in any of the four spatial directions at the pixel location</li>
+<li>$\Delta\pmb C$: the maximum of the chromaticity gradient of the input image in any of the four spatial directions at the pixel location</li>
 </ul>
 </li>
 <li><p>The soft-color-Retinex weight is high only for large chromaticity gradients, which represent reflectance edges</p>
@@ -576,20 +575,20 @@
 </li>
 <li><p>The quantity of transported light is always positive<br>$$<br>E_{\mathrm{non-neg}}(\pmb \chi)&#x3D;\lambda_{\mathrm{non-neg}}\cdot \sum_{\pmb x}\sum_{k&#x3D;0}^K\max(-T_k(\pmb x),0)<br>$$</p>
 <ul>
-<li>If the decomposition layer $T_k(\pmb x)$​ is non-negative, there is no penalty</li>
-<li>If $T_k(\pmb x)$​ becomes negative, a linear penalty is enforced</li>
+<li>If the decomposition layer $T_k(\pmb x)$ is non-negative, there is no penalty</li>
+<li>If $T_k(\pmb x)$ becomes negative, a linear penalty is enforced</li>
 </ul>
 </li>
 </ul>
 <h3 id="6-3-Base-Color-Refinement"><a href="#6-3-Base-Color-Refinement" class="headerlink" title="6.3. Base Color Refinement"></a>6.3. Base Color Refinement</h3><ul>
 <li><p>Refine the base colors further on the first video frame to approach the ground-truth reflectance of the materials in the scene</p>
 </li>
-<li><p>The refinement of base colors is formulated as an incremental update $\Delta \pmb b_k$ of the base colors $\pmb b_k$​ in the original data fidelity term, along with intensity and chromaticity regularizers<br>$$<br>\begin{align}<br>E_{\mathrm{refine}}(\pmb \chi)&amp;&#x3D;\lambda_{\mathrm{data}}\sum_{\pmb x}\left\Vert \pmb I(\pmb x)-\pmb R(\pmb x)\odot \sum_{k&#x3D;0}^K(\pmb b_k+\Delta\pmb b_k)T_k(\pmb x) \right\Vert^2\\<br>&amp;+\lambda_{\mathrm{IR}}\sum_{k&#x3D;1}^K\parallel\Delta\pmb b_k\parallel_2^2+\lambda_{\mathrm{CR}}\sum_{k&#x3D;1}^K\parallel(\pmb C(\pmb b_k)+\Delta\pmb b_k)-\pmb C(\pmb b_k)\parallel_2^2<br>\end{align}<br>$$</p>
+<li><p>The refinement of base colors is formulated as an incremental update $\Delta \pmb b_k$ of the base colors $\pmb b_k$ in the original data fidelity term, along with intensity and chromaticity regularizers<br>$$<br>\begin{align}<br>E_{\mathrm{refine}}(\pmb \chi)&amp;&#x3D;\lambda_{\mathrm{data}}\sum_{\pmb x}\left\Vert \pmb I(\pmb x)-\pmb R(\pmb x)\odot \sum_{k&#x3D;0}^K(\pmb b_k+\Delta\pmb b_k)T_k(\pmb x) \right\Vert^2\\<br>&amp;+\lambda_{\mathrm{IR}}\sum_{k&#x3D;1}^K\parallel\Delta\pmb b_k\parallel_2^2+\lambda_{\mathrm{CR}}\sum_{k&#x3D;1}^K\parallel(\pmb C(\pmb b_k)+\Delta\pmb b_k)-\pmb C(\pmb b_k)\parallel_2^2<br>\end{align}<br>$$</p>
 <ul>
 <li>$\pmb \chi&#x3D;{\Delta\pmb b_k}$: the vector of unknowns to be optimized</li>
 <li>$\lambda_{\mathrm{IR}}$: the weight for the intensity regularizer that ensures small base color updates</li>
 <li>$\lambda_{\mathrm{CR}}$: the weight of the chromaticity regularizer<ul>
-<li>Constrains base color updates $\Delta\pmb b_k$​ to remain close in chromaticity $\pmb C(\cdot)$​ to the initially estimated base color $\pmb b_k$</li>
+<li>Constrains base color updates $\Delta\pmb b_k$ to remain close in chromaticity $\pmb C(\cdot)$ to the initially estimated base color $\pmb b_k$</li>
 </ul>
 </li>
 </ul>
@@ -600,17 +599,17 @@
 <ul>
 <li>Resulting in an estimation of the unknown variables that together promotes decomposition sparsity</li>
 </ul>
-<img src="image-20210827103559572.png" alt="image-20210827103559572" style="zoom:80%;" />
+<p><img src="/2021/08/27/paper_reading/Real_Time_Global_Illumination_Decomposition_of_Videos/image-20210827103559572.png" alt="image-20210827103559572.png"></p>
 </li>
-<li><p>This refinement of the base colors leads to a dense Jacobian matrix, because the unknown variables ${\Delta \pmb b_𝑘}$​ in the energy are influenced by all pixels in the image</p>
+<li><p>This refinement of the base colors leads to a dense Jacobian matrix, because the unknown variables ${\Delta \pmb b_𝑘}$ in the energy are influenced by all pixels in the image</p>
 </li>
 </ul>
 <h3 id="6-4-Handling-the-Sparsity-Inducing-Norms"><a href="#6-4-Handling-the-Sparsity-Inducing-Norms" class="headerlink" title="6.4. Handling the Sparsity-Inducing Norms"></a>6.4. Handling the Sparsity-Inducing Norms</h3><ul>
-<li><p>Some energy terms contain sparsity-inducing $ℓ𝑝-\mathrm{norms}$ ($p \in [0, 1]$​)</p>
+<li><p>Some energy terms contain sparsity-inducing $ℓ𝑝-\mathrm{norms}$ ($p \in [0, 1]$)</p>
 </li>
 <li><p>Handle these objectives in a unified manner using Iteratively Re-weighted Least Squares</p>
 </li>
-<li><p>Approximate the $ℓ𝑝-\mathrm{norms}$​ by a nonlinear least-squares objective based on re-weighting, i.e., replace the corresponding residuals $\pmb r$​ as follows:</p>
+<li><p>Approximate the $ℓ𝑝-\mathrm{norms}$ by a nonlinear least-squares objective based on re-weighting, i.e., replace the corresponding residuals $\pmb r$ as follows:</p>
 <p>$$<br>\begin{align}<br>\parallel\pmb r\parallel_p&amp;&#x3D;\parallel\pmb r\parallel_2^2\cdot \parallel\pmb r\parallel_2^{p-2}\\<br>&amp;\approx \parallel\pmb r\parallel_2^2\cdot \parallel\pmb r_{\mathrm {old}}\parallel_2^{p-2}<br>\end{align}<br>$$</p>
 <p>in each step of the applied iterative solver</p>
 <ul>
@@ -619,7 +618,7 @@
 </li>
 </ul>
 <h4 id="6-4-1-Handling-Non-negativity-Constraints"><a href="#6-4-1-Handling-Non-negativity-Constraints" class="headerlink" title="6.4.1. Handling Non-negativity Constraints"></a>6.4.1. Handling Non-negativity Constraints</h4><ul>
-<li><p>The non-negativity objective $E_{\mathrm{non-neg}}(\pmb \chi)$​​ contains a maximum function that is non-differentiable at zero</p>
+<li><p>The non-negativity objective $E_{\mathrm{non-neg}}(\pmb \chi)$ contains a maximum function that is non-differentiable at zero</p>
 </li>
 <li><p>Handle this objective by replacing the maximum with a re-weighted least-squares term, $\max(-T_k(\pmb x),0)&#x3D;w_kT_k^2(\pmb x)$, using<br>$$<br>w_k&#x3D;\begin{cases}<br>0&amp;\mathrm{if}\ T_k(\pmb x)&gt;0\\<br>(|T_k(\pmb x)+\epsilon|)^{-1}&amp;\mathrm{otherwise}<br>\end{cases}<br>$$</p>
 <ul>
@@ -632,11 +631,11 @@
 <h2 id="7-Data-Parallel-GPU-Optimization"><a href="#7-Data-Parallel-GPU-Optimization" class="headerlink" title="7. Data-Parallel GPU Optimization"></a>7. Data-Parallel GPU Optimization</h2><ul>
 <li><p>The decomposition problems are all non-convex optimizations based on an objective $E$ with unknowns $\pmb \chi$</p>
 </li>
-<li><p>The best decomposition $\pmb \chi^\ast$​ by solving the following minimization problem:<br>$$<br>\pmb \chi^\ast&#x3D;\arg\min_{\pmb \chi} E(\pmb \chi)<br>$$</p>
+<li><p>The best decomposition $\pmb \chi^\ast$ by solving the following minimization problem:<br>$$<br>\pmb \chi^\ast&#x3D;\arg\min_{\pmb \chi} E(\pmb \chi)<br>$$</p>
 </li>
 <li><p>The optimization problems are in general non-linear least-squares form and can be tackled by the iterative Gauss–Newton algorithm that approximates the optimum $\pmb \chi^\ast\approx \pmb \chi_k$ by a sequence of solutions $\pmb \chi_k&#x3D;\pmb \chi_{k-1}+\pmb \delta_k^\ast$</p>
 <ul>
-<li><p>The optimal linear update $\pmb \delta_k^\ast$​​ is given by the solution of the associated normal equations: </p>
+<li><p>The optimal linear update $\pmb \delta_k^\ast$ is given by the solution of the associated normal equations: </p>
 <p>$$<br>\pmb\delta_k^\ast&#x3D;\arg\min_{\pmb\delta_k}\parallel\pmb F(\pmb \chi_{k-1})+\pmb\delta_k\pmb J(\pmb \chi_{k-1})\parallel_2^2<br>$$</p>
 <ul>
 <li>$\pmb F$: a vector field that stacks all residuals, i.e., $E(\pmb\chi)&#x3D;\parallel\pmb F(\pmb\chi)\parallel_2^2$</li>
@@ -647,10 +646,10 @@
 </li>
 <li><p>Obtaining real-time performance is challenging even with recent state-of-the-art data-parallel iterative non-linear least-squares solution strategies</p>
 <ul>
-<li>To avoid cluttered notation, we will omit the parameters and simply write $\pmb J$ instead of $\pmb J(\pmb\chi)$​ </li>
-<li>For our decomposition energies, the Jacobian $\pmb J$​ is a large matrix with usually more than 70 million rows and 4 million columns<ul>
-<li>Previous approaches assume $\pmb J$​​ to be a sparse matrix, meaning that only a few residuals are influenced by each variable</li>
-<li>While this holds for the columns of $\pmb J$​​​​ that corresponds to the variables that are associated with the decomposition layers, it does not hold for the columns that store the derivatives with respect to the base color updates ${\Delta \pmb b_k}$​​, since the base colors influence each residual of $E_{\mathrm{data}}$​</li>
+<li>To avoid cluttered notation, we will omit the parameters and simply write $\pmb J$ instead of $\pmb J(\pmb\chi)$</li>
+<li>For our decomposition energies, the Jacobian $\pmb J$ is a large matrix with usually more than 70 million rows and 4 million columns<ul>
+<li>Previous approaches assume $\pmb J$ to be a sparse matrix, meaning that only a few residuals are influenced by each variable</li>
+<li>While this holds for the columns of $\pmb J$ that corresponds to the variables that are associated with the decomposition layers, it does not hold for the columns that store the derivatives with respect to the base color updates ${\Delta \pmb b_k}$, since the base colors influence each residual of $E_{\mathrm{data}}$</li>
 </ul>
 </li>
 <li>$\pmb J&#x3D;\begin{bmatrix}\pmb S_{\pmb J}&amp;\pmb D_{\pmb J}\end{bmatrix}$ has two sub-blocks:<ul>
@@ -663,14 +662,14 @@
 </li>
 </ul>
 <h3 id="7-1-Sparse-Dense-Splitting"><a href="#7-1-Sparse-Dense-Splitting" class="headerlink" title="7.1. Sparse-Dense Splitting"></a>7.1. Sparse-Dense Splitting</h3><ul>
-<li><p>Tackle the described problem using a sparse–dense splitting approach that splits the variables $\chi$​ into a sparse set $\mathcal T$​ (decomposition layers) and a dense set $\mathcal B$​ (base color updates)</p>
+<li><p>Tackle the described problem using a sparse–dense splitting approach that splits the variables $\chi$ into a sparse set $\mathcal T$ (decomposition layers) and a dense set $\mathcal B$ (base color updates)</p>
 <ul>
-<li>Afterwards, we optimize for $\mathcal B$ and $\mathcal T$​ independently in an iterative flip-flop manner</li>
+<li>Afterwards, we optimize for $\mathcal B$ and $\mathcal T$ independently in an iterative flip-flop manner</li>
 </ul>
 </li>
 <li><p>Algorithm:</p>
 <ol>
-<li><p>Optimize for $\mathcal T$, while keeping $\mathcal B$​ fixed</p>
+<li><p>Optimize for $\mathcal T$, while keeping $\mathcal B$ fixed</p>
 <ul>
 <li>The resulting optimization problem is a sparse non-linear least-squares problem</li>
 <li>Improve upon the previous solution by performing a nonlinear Gauss–Newton step</li>
@@ -678,13 +677,13 @@
 <li>Parallelize over the rows of the system matrix using one thread per row (variable)</li>
 </ul>
 </li>
-<li><p>After updating the ‘sparse’ variables $\mathcal T$​, keep them fixed and solve for the ‘dense’ variables $\mathcal B$​</p>
+<li><p>After updating the ‘sparse’ variables $\mathcal T$, keep them fixed and solve for the ‘dense’ variables $\mathcal B$</p>
 <ul>
-<li>The resulting optimization problem is a dense least-squares problem with a small $3𝐾 \times 3𝐾$​ system matrix (normally $𝐾$​​ is between 4 and 7 due to merged clusters)</li>
+<li>The resulting optimization problem is a dense least-squares problem with a small $3𝐾 \times 3𝐾$ system matrix (normally $𝐾$ is between 4 and 7 due to merged clusters)</li>
 <li>Materialize the normal equations in device memory based on a sequence of outer products, using one thread per entry of $\pmb J^T\pmb J$</li>
 </ul>
 </li>
-<li><p>The system is mapped to the CPU and robustly solved using singular value decomposition. After updating ‘dense’ variables $\mathcal B$,<br>we again solve for ‘sparse’ variables $\mathcal T$​ and iterate this process until convergence</p>
+<li><p>The system is mapped to the CPU and robustly solved using singular value decomposition. After updating ‘dense’ variables $\mathcal B$,<br>we again solve for ‘sparse’ variables $\mathcal T$ and iterate this process until convergence</p>
 </li>
 </ol>
 </li>

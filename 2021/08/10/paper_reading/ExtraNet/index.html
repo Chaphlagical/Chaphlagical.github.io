@@ -20,12 +20,12 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"chaphlagical.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.14.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":true,"storage":true,"lazyload":false,"nav":{"disqus":{"text":"Load Disqus","order":-1}}},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="Siggraph Asia 2021 Paper Reading">
+    <meta name="description" content="Siggraph Asia 2021 paper reading">
 <meta property="og:type" content="blog">
 <meta property="og:title" content="ExtraNet: Real-time Extrapolated Rendering for Low-latency Temporal Supersampling">
 <meta property="og:url" content="https://chaphlagical.github.io/2021/08/10/paper_reading/ExtraNet/index.html">
 <meta property="og:site_name" content="Chaf&#39;s Blog">
-<meta property="og:description" content="Siggraph Asia 2021 Paper Reading">
+<meta property="og:description" content="Siggraph Asia 2021 paper reading">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://chaphlagical.github.io/2021/08/10/paper_reading/ExtraNet/image-20210810160748362.png">
 <meta property="og:image" content="https://chaphlagical.github.io/2021/08/10/paper_reading/ExtraNet/image-20210810165027122.png">
@@ -48,7 +48,7 @@
 <meta property="og:image" content="https://chaphlagical.github.io/2021/08/10/paper_reading/ExtraNet/image-20210812092455410.png">
 <meta property="og:image" content="https://chaphlagical.github.io/2021/08/10/paper_reading/ExtraNet/image-20210812092521428.png">
 <meta property="article:published_time" content="2021-08-10T21:13:11.000Z">
-<meta property="article:modified_time" content="2022-12-11T17:26:52.558Z">
+<meta property="article:modified_time" content="2022-12-12T05:26:12.741Z">
 <meta property="article:author" content="Chaf Chen">
 <meta property="article:tag" content="Rendering">
 <meta property="article:tag" content="Neural Network">
@@ -154,13 +154,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-count">9</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -229,7 +229,7 @@
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
       <meta itemprop="name" content="ExtraNet: Real-time Extrapolated Rendering for Low-latency Temporal Supersampling | Chaf's Blog">
-      <meta itemprop="description" content="Siggraph Asia 2021 Paper Reading">
+      <meta itemprop="description" content="Siggraph Asia 2021 paper reading">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
@@ -251,7 +251,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2022-12-11 17:26:52" itemprop="dateModified" datetime="2022-12-11T17:26:52+00:00">2022-12-11</time>
+      <time title="Modified: 2022-12-12 05:26:12" itemprop="dateModified" datetime="2022-12-12T05:26:12+00:00">2022-12-12</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -280,7 +280,7 @@
   
 </div>
 
-            <div class="post-description">Siggraph Asia 2021 Paper Reading</div>
+            <div class="post-description">Siggraph Asia 2021 paper reading</div>
         </div>
       </header>
 
@@ -353,11 +353,7 @@
 </li>
 </ul>
 <p><strong>Motion Vectors</strong></p>
-<img src="image-20210810160748362.png" alt="image-20210810160748362" style="zoom: 80%;" />
-$$
-\pmb p_0^{t}=\pmb P^t\pmb M^t\pmb V^t \pmb s_0
-$$
-
+<p><img src="/2021/08/10/paper_reading/ExtraNet/image-20210810160748362.png" alt="image-20210810160748362.png"><br>$$<br>\pmb p_0^{t}&#x3D;\pmb P^t\pmb M^t\pmb V^t \pmb s_0<br>$$</p>
 <p>$$<br>\pmb p_0^{t-1}&#x3D;\pmb P^{t-1}\pmb M^{t-1}\pmb V^{t-1}\pmb s_0<br>$$</p>
 <p>Store screen space motion vectors &#x3D;&gt; Velocity Buffer</p>
 <p>vertex shader:</p>
@@ -395,8 +391,7 @@ $$
 <li>Uses accurate motion vectors available from the rendering engine, usually rely on image warping techniques to reuse shading information across frames  </li>
 <li>Deep learning based video interpolation methods are still time-consuming, thus are not suitable for real-time rendering</li>
 </ul>
-<h2 id="3-Motivation-and-Challenge"><a href="#3-Motivation-and-Challenge" class="headerlink" title="3. Motivation and Challenge"></a>3. Motivation and Challenge</h2><h3 id="3-1-Latency"><a href="#3-1-Latency" class="headerlink" title="3.1. Latency"></a>3.1. Latency</h3><img src="image-20210810165027122.png" alt="image-20210810165027122" style="zoom:80%;" />
-
+<h2 id="3-Motivation-and-Challenge"><a href="#3-Motivation-and-Challenge" class="headerlink" title="3. Motivation and Challenge"></a>3. Motivation and Challenge</h2><h3 id="3-1-Latency"><a href="#3-1-Latency" class="headerlink" title="3.1. Latency"></a>3.1. Latency</h3><p><img src="/2021/08/10/paper_reading/ExtraNet/image-20210810165027122.png" alt="image-20210810165027122.png"></p>
 <ul>
 <li>Interpolation &#x3D;&gt; Produce significant lantency</li>
 <li>Extrapolation &#x3D;&gt; doesn’t introduce any additional latency</li>
@@ -412,8 +407,7 @@ $$
 <li>Leverage an in-painting network to reshade the occluded regions  using occlusion motion vector</li>
 </ul>
 <p><strong>Dynamic changes in shading</strong></p>
-<img src="image-20210810171446843.png" alt="image-20210810171446843" style="zoom:80%;" />
-
+<p><img src="/2021/08/10/paper_reading/ExtraNet/image-20210810171446843.png" alt="image-20210810171446843.png"></p>
 <ul>
 <li>Dynamic changes in shading over frames, such as moving shadows, parallax motion from reflections and the colors on rotating objects, may change drastically and are thus unknown in the current frame </li>
 <li>Always keep the most recently rendered 3 frames for the network to learn to extrapolate the changes</li>
@@ -473,8 +467,7 @@ $$
 </ul>
 </li>
 </ul>
-<h3 id="4-4-History-Encoder"><a href="#4-4-History-Encoder" class="headerlink" title="4.4. History Encoder"></a>4.4. History Encoder</h3><img src="image-20210810204738275.png" alt="image-20210810204738275" style="zoom:80%;" />
-
+<h3 id="4-4-History-Encoder"><a href="#4-4-History-Encoder" class="headerlink" title="4.4. History Encoder"></a>4.4. History Encoder</h3><p><img src="/2021/08/10/paper_reading/ExtraNet/image-20210810204738275.png" alt="image-20210810204738275.png"></p>
 <ul>
 <li><p>Input: Warped images of the current frame $i$ and its two past frames including frame $i-1$ and frame $i-2$</p>
 <ul>
@@ -503,13 +496,13 @@ $$
 <p><strong>hole-augmented  loss: penalize more in the hole regions marked beforehand</strong></p>
 <p>$$<br>\mathcal L_{\mathrm {hole}}&#x3D;\frac{1}{n}\sum_i |\pmb P_i-\pmb T_i|\odot(1-\pmb m)<br>$$</p>
 <ul>
-<li>$\pmb m$​ is the binary mask fed into network</li>
+<li>$\pmb m$ is the binary mask fed into network</li>
 </ul>
 <p><strong>The shading-augmented loss: focuses on handling potential shading changes in the predicted frames</strong>  </p>
 <p>$$<br>\mathcal L_{\mathrm{shade}}&#x3D;\frac{1}{k}\sum_{i\in \Phi_{\mathrm{top}-k}}|\pmb P_i-\pmb T_i|<br>$$</p>
 <ul>
 <li>Shading changes: stem from moving shadows due to dynamic lights and specular reflections</li>
-<li>Considering that shadows and reflections tend to generate large pixel variation among neighboring frames, we select $𝑘$​ pixels with top $𝑘$​ largest errors from the predicted frame and mark these pixels as potential shading change regions  </li>
+<li>Considering that shadows and reflections tend to generate large pixel variation among neighboring frames, we select $𝑘$ pixels with top $𝑘$ largest errors from the predicted frame and mark these pixels as potential shading change regions  </li>
 <li>$\Phi_{\mathrm{top}-k}$ includes the indices of $k$ pixels with top $k$ largest errors<ul>
 <li>Currently, $k$ set to 10% of total pixels number</li>
 </ul>
@@ -517,7 +510,7 @@ $$
 </ul>
 <p><strong>Final loss function</strong><br>$$<br>\mathcal L&#x3D;\mathcal L_{l_1}+\lambda_{\mathrm{hole}}\mathcal L_{\mathrm{hole}}+\lambda_{\mathrm{shade}}\mathcal L_{\mathrm{shade}}<br>$$</p>
 <ul>
-<li>$\lambda_{\mathrm{hole}}$ and $\lambda_{\mathrm{shade}}$​ ​are weights to balance the influence of the losses, here set to 1</li>
+<li>$\lambda_{\mathrm{hole}}$ and $\lambda_{\mathrm{shade}}$are weights to balance the influence of the losses, here set to 1</li>
 </ul>
 <h3 id="4-6-Training-detail"><a href="#4-6-Training-detail" class="headerlink" title="4.6. Training detail"></a>4.6. Training detail</h3><ul>
 <li>PyTorch</li>
@@ -526,49 +519,40 @@ $$
 <li>default initialization</li>
 <li>applied HDR image: logarithm transformation $y&#x3D;\log(1+x)$ before feeding images into network</li>
 </ul>
-<h2 id="5-Dataset"><a href="#5-Dataset" class="headerlink" title="5. Dataset"></a>5. Dataset</h2><h3 id="5-1-Scenes-and-Buffers"><a href="#5-1-Scenes-and-Buffers" class="headerlink" title="5.1. Scenes and Buffers"></a>5.1. Scenes and Buffers</h3><img src="image-20210810220452315.png" alt="image-20210810220452315" style="zoom:80%;" />
-
-<img src="image-20210810220314215.png" alt="image-20210810220314215" style="zoom:80%;" />
-
+<h2 id="5-Dataset"><a href="#5-Dataset" class="headerlink" title="5. Dataset"></a>5. Dataset</h2><h3 id="5-1-Scenes-and-Buffers"><a href="#5-1-Scenes-and-Buffers" class="headerlink" title="5.1. Scenes and Buffers"></a>5.1. Scenes and Buffers</h3><p><img src="/2021/08/10/paper_reading/ExtraNet/image-20210810220452315.png" alt="image-20210810220452315.png"></p>
+<p><img src="/2021/08/10/paper_reading/ExtraNet/image-20210810220314215.png" alt="image-20210810220314215.png"></p>
 <p>Each dumped frame comprises 10 buffers which can be divided into three categories:  </p>
 <ol>
 <li>Actual shading frame before tone mapping (PreTonemapHDRColor) and albedo (Base color) for demodulation  </li>
-<li>G-buffers used in our network, including scene depth ($𝑑$​, 1channel), world normal ($\pmb n_𝑤$​​, 3 channels), roughness (1 channel), and metallic (1 channel)  </li>
+<li>G-buffers used in our network, including scene depth ($𝑑$, 1channel), world normal ($\pmb n_𝑤$, 3 channels), roughness (1 channel), and metallic (1 channel)  </li>
 <li>Other auxiliary buffers which are necessary for marking holes (invalid pixels) in the warped frame. They are motion vector, world position ($\pmb p_𝑤$), NoV ($\pmb n_𝑤\cdot \pmb v$, the dot product of world normal $\pmb n_𝑤$ and view vector $\pmb v$), and customized stencil ($𝑠$)</li>
 </ol>
-<h3 id="5-2-Marking-Holes"><a href="#5-2-Marking-Holes" class="headerlink" title="5.2. Marking Holes"></a>5.2. Marking Holes</h3><img src="image-20210810220301362.png" alt="image-20210810220301362" style="zoom:80%;" />
-
+<h3 id="5-2-Marking-Holes"><a href="#5-2-Marking-Holes" class="headerlink" title="5.2. Marking Holes"></a>5.2. Marking Holes</h3><p><img src="/2021/08/10/paper_reading/ExtraNet/image-20210810220301362.png" alt="image-20210810220301362.png"></p>
 <p>When reusing previous frames to generate a new frame, some pixels in the warped frame will be invalid, due to camera sliding and object moving. These pixels should be marked as holes before feeding into the network  </p>
 <ol>
-<li><p>For occlusion caused by object moving, used custom stencil to indicate the sharp changes along the edge of the dynamic object. When custom stencil value is different between the current frame ($𝑠$) and the warped frame ($𝑠<em>𝑤$​), these pixels will be marked as invalid:<br>$$<br>\Phi</em>{\mathrm{stencil}}&#x3D;{s_i-s_{w,i}\neq 0}<br>$$<br>where $𝑖$ is the pixel index and $\Phi_{\mathrm{stencil}}$​ is the set including pixels that are counted as invalid according to stencil value  </p>
+<li><p>For occlusion caused by object moving, used custom stencil to indicate the sharp changes along the edge of the dynamic object. When custom stencil value is different between the current frame ($𝑠$) and the warped frame ($𝑠<em>𝑤$), these pixels will be marked as invalid:<br>$$<br>\Phi</em>{\mathrm{stencil}}&#x3D;{s_i-s_{w,i}\neq 0}<br>$$<br>where $𝑖$ is the pixel index and $\Phi_{\mathrm{stencil}}$ is the set including pixels that are counted as invalid according to stencil value  </p>
 </li>
-<li><p>Self occlusions for some dynamic objects when they are moving or the camera is sliding. Resort to world normal since world normal will probably change in these regions. Calculate the cosine value between current frame’s world normal ($\pmb n_𝑤$) and warped frame’s world normal ($\pmb n_{𝑤𝑤}$), i.e., $\pmb n_𝑤\cdot \pmb n_{𝑤𝑤}$. If this value is large than a predetermined threshold $𝑇<em>𝑛$, the corresponding pixel indexed by $𝑖$ in the warped frame is counted as invalid:<br>$$<br>\Phi</em>{wn}&#x3D;{\pmb n_{w,i}\cdot \pmb n_{ww,i}&gt;T_n}<br>$$<br>where $\pmb \Phi _{wn}$​​ contains invalid pixels marked by differences in world normal  </p>
+<li><p>Self occlusions for some dynamic objects when they are moving or the camera is sliding. Resort to world normal since world normal will probably change in these regions. Calculate the cosine value between current frame’s world normal ($\pmb n_𝑤$) and warped frame’s world normal ($\pmb n_{𝑤𝑤}$), i.e., $\pmb n_𝑤\cdot \pmb n_{𝑤𝑤}$. If this value is large than a predetermined threshold $𝑇<em>𝑛$, the corresponding pixel indexed by $𝑖$ in the warped frame is counted as invalid:<br>$$<br>\Phi</em>{wn}&#x3D;{\pmb n_{w,i}\cdot \pmb n_{ww,i}&gt;T_n}<br>$$<br>where $\pmb \Phi _{wn}$ contains invalid pixels marked by differences in world normal  </p>
 </li>
-<li><p>Invalid pixels due to camera movement. These pixels can be selected out by world position, considering that static objects’ world positions keep unchanged in a 3D scene. For a given pixel, let $\pmb p_𝑤$ and $\pmb p_{𝑤𝑤}$​​​​ be the world position of current frame and warped frame, respectively. We calculate their distance by $|\pmb p_𝑤 - \pmb p_{𝑤𝑤}|$. If this distance is larger than a threshold $𝑇<em>𝑑$ (which is computed by NoV and depth values), we mark this pixel as invalid. Hence, the invalid pixels in this set $\Phi</em>{wp}$​ are<br>$$<br>\Phi_{wp}&#x3D;{|\pmb p_{w,i}-\pmb p_{ww,i}|&gt;T_d}<br>$$</p>
+<li><p>Invalid pixels due to camera movement. These pixels can be selected out by world position, considering that static objects’ world positions keep unchanged in a 3D scene. For a given pixel, let $\pmb p_𝑤$ and $\pmb p_{𝑤𝑤}$ be the world position of current frame and warped frame, respectively. We calculate their distance by $|\pmb p_𝑤 - \pmb p_{𝑤𝑤}|$. If this distance is larger than a threshold $𝑇<em>𝑑$ (which is computed by NoV and depth values), we mark this pixel as invalid. Hence, the invalid pixels in this set $\Phi</em>{wp}$ are<br>$$<br>\Phi_{wp}&#x3D;{|\pmb p_{w,i}-\pmb p_{ww,i}|&gt;T_d}<br>$$</p>
 </li>
 </ol>
 <p>Finally,<br>$$<br>\Phi_{\mathcal{comb}}&#x3D;\Phi_{\mathrm{stencil}}\cup\Phi_{wn}\cup \Phi_{wp}<br>$$</p>
 <h2 id="6-Result-and-Comparisons"><a href="#6-Result-and-Comparisons" class="headerlink" title="6. Result and Comparisons"></a>6. Result and Comparisons</h2><p><strong>Training setups and time</strong></p>
-<img src="image-20210812091839252.png" alt="image-20210812091839252" style="zoom:80%;" />
-
+<p><img src="/2021/08/10/paper_reading/ExtraNet/image-20210812091839252.png" alt="image-20210812091839252.png"></p>
 <h3 id="6-1-Comparisons-against-Frame-Interpolation-Methods"><a href="#6-1-Comparisons-against-Frame-Interpolation-Methods" class="headerlink" title="6.1. Comparisons against Frame Interpolation Methods"></a>6.1. Comparisons against Frame Interpolation Methods</h3><p><img src="/2021/08/10/paper_reading/ExtraNet/image-20210812091915623.png" alt="image-20210812091915623"></p>
 <h2 id="6-2-Comparisons-against-Frame-Extrapolation-Methods"><a href="#6-2-Comparisons-against-Frame-Extrapolation-Methods" class="headerlink" title="6.2. Comparisons against Frame Extrapolation Methods"></a>6.2. Comparisons against Frame Extrapolation Methods</h2><p><img src="/2021/08/10/paper_reading/ExtraNet/image-20210812092044870.png" alt="image-20210812092044870"></p>
-<img src="image-20210812092056289.png" alt="image-20210812092056289" style="zoom:80%;" />
-
+<p><img src="/2021/08/10/paper_reading/ExtraNet/image-20210812092056289.png" alt="image-20210812092056289.png"></p>
 <h3 id="6-3-Comparisons-against-ASW-Technology"><a href="#6-3-Comparisons-against-ASW-Technology" class="headerlink" title="6.3. Comparisons against ASW Technology"></a>6.3. Comparisons against ASW Technology</h3><p><img src="/2021/08/10/paper_reading/ExtraNet/image-20210812092149063.png" alt="image-20210812092149063"></p>
-<h3 id="6-4-Analysis-of-Runtime-Performance-and-Latency"><a href="#6-4-Analysis-of-Runtime-Performance-and-Latency" class="headerlink" title="6.4. Analysis of Runtime Performance and Latency"></a>6.4. Analysis of Runtime Performance and Latency</h3><img src="image-20210812092258548.png" alt="image-20210812092258548" style="zoom:80%;" />
-
+<h3 id="6-4-Analysis-of-Runtime-Performance-and-Latency"><a href="#6-4-Analysis-of-Runtime-Performance-and-Latency" class="headerlink" title="6.4. Analysis of Runtime Performance and Latency"></a>6.4. Analysis of Runtime Performance and Latency</h3><p><img src="/2021/08/10/paper_reading/ExtraNet/image-20210812092258548.png" alt="image-20210812092258548.png"></p>
 <h3 id="6-5-Ablation-Study"><a href="#6-5-Ablation-Study" class="headerlink" title="6.5. Ablation Study"></a>6.5. Ablation Study</h3><p><strong>Validation of History Encoder</strong></p>
-<img src="image-20210812092412313.png" alt="image-20210812092412313" style="zoom:80%;" />
-
+<p><img src="/2021/08/10/paper_reading/ExtraNet/image-20210812092412313.png" alt="image-20210812092412313.png"></p>
 <p><strong>Validation of occlusion motion vectors</strong></p>
-<img src="image-20210812092433191.png" alt="image-20210812092433191" style="zoom:80%;" />
-
+<p><img src="/2021/08/10/paper_reading/ExtraNet/image-20210812092433191.png" alt="image-20210812092433191.png"></p>
 <p><strong>Validation of the shading-augmented loss</strong></p>
-<img src="image-20210812092455410.png" alt="image-20210812092455410" style="zoom:80%;" />
-
+<p><img src="/2021/08/10/paper_reading/ExtraNet/image-20210812092455410.png" alt="image-20210812092455410.png"></p>
 <p><strong>Failure cases</strong></p>
-<img src="image-20210812092521428.png" alt="image-20210812092521428" style="zoom:80%;" />
+<p><img src="/2021/08/10/paper_reading/ExtraNet/image-20210812092521428.png" alt="image-20210812092521428.png"></p>
 
     </div>
 
