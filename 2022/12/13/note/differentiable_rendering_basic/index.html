@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"chaphlagical.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.14.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":true,"storage":true,"lazyload":false,"nav":{"disqus":{"text":"Load Disqus","order":-1}}},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Basic introduction of physics based differentiable rendering">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="Physics Based Differentiable Rendering: Preliminaries">
+<meta property="og:url" content="https://chaphlagical.github.io/2022/12/13/note/differentiable_rendering_basic/index.html">
+<meta property="og:site_name" content="Chaf&#39;s Blog">
+<meta property="og:description" content="Basic introduction of physics based differentiable rendering">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://chaphlagical.github.io/2022/12/13/note/differentiable_rendering_basic/image-20221212220108088.png">
+<meta property="article:published_time" content="2022-12-13T15:16:22.787Z">
+<meta property="article:modified_time" content="2022-12-13T15:16:22.787Z">
+<meta property="article:author" content="Chaf Chen">
+<meta property="article:tag" content="Differentiable Rendering">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://chaphlagical.github.io/2022/12/13/note/differentiable_rendering_basic/image-20221212220108088.png">
+
+
+<link rel="canonical" href="https://chaphlagical.github.io/2022/12/13/note/differentiable_rendering_basic/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://chaphlagical.github.io/2022/12/13/note/differentiable_rendering_basic/","path":"2022/12/13/note/differentiable_rendering_basic/","title":"Physics Based Differentiable Rendering: Preliminaries"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Physics Based Differentiable Rendering: Preliminaries | Chaf's Blog</title>
+  
+
+
+
+
+
+
+  <script async defer data-website-id="" src=""></script>
+
+  <script defer data-domain="" src=""></script>
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Chaf's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Here I share some fun stuff</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reynolds-Transport-Theorem"><span class="nav-number">2.</span> <span class="nav-text">Reynolds Transport Theorem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Automatic-Differentiation"><span class="nav-number">3.</span> <span class="nav-text">Automatic Differentiation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-number">4.</span> <span class="nav-text">Reference</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Reasearcher-amp-Lab"><span class="nav-number">4.1.</span> <span class="nav-text">Reasearcher &amp; Lab</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Course"><span class="nav-number">4.2.</span> <span class="nav-text">Course</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tool"><span class="nav-number">4.3.</span> <span class="nav-text">Tool</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Paper"><span class="nav-number">4.4.</span> <span class="nav-text">Paper</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Chaf Chen"
+      src="/images/logo.jpg">
+  <p class="site-author-name" itemprop="name">Chaf Chen</p>
+  <div class="site-description" itemprop="description">USTC CG Student</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/chaphlagical" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;chaphlagical" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:chaf@mail.ustc.cn" title="E-Mail → mailto:chaf@mail.ustc.cn" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+          Links
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="http://gcl.ustc.edu.cn/" title="http:&#x2F;&#x2F;gcl.ustc.edu.cn&#x2F;" rel="noopener" target="_blank">GCL</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://chaphlagical.github.io/2022/12/13/note/differentiable_rendering_basic/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Chaf Chen">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chaf's Blog">
+      <meta itemprop="description" content="USTC CG Student">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Physics Based Differentiable Rendering: Preliminaries | Chaf's Blog">
+      <meta itemprop="description" content="Basic introduction of physics based differentiable rendering">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Physics Based Differentiable Rendering: Preliminaries
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-12-13 15:16:22" itemprop="dateCreated datePublished" datetime="2022-12-13T15:16:22+00:00">2022-12-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Note/" itemprop="url" rel="index"><span itemprop="name">Note</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2022/12/13/note/differentiable_rendering_basic/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2022/12/13/note/differentiable_rendering_basic/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+            <div class="post-description">Basic introduction of physics based differentiable rendering</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p><img src="/2022/12/13/note/differentiable_rendering_basic/image-20221212220108088.png" alt="image-20221212220108088.png"></p>
+<p>Differentiable rendering is the inverse problem of traditional rendering. Instead of rendering the image from given scene parameters, differentiable rendering trying to recover scene parameter from a given image. To do this, a common idea is using gradient based optimization methods like SGD, Adam, etc. An important part of gradient based optimization is calculating the derivative of the render result w.r.t. certain scene parameters.</p>
+<p>In traditional physics based rendering, we have various methods like path tracing, bidirectional path tracing, photon mapping, etc to achieve great render result. These methods are all trying to solve the rendering equation described as below:</p>
+<p>$$<br>    L_o(\pmb x,\omega_o,\lambda,t)&#x3D;L_e(\pmb x,\omega_o,\lambda,t)+\int_\Omega f_r(\pmb x,\omega_i,\omega_o,\lambda,t)L_i(\pmb x,\omega_i,\lambda,t)(\omega_i\cdot\pmb n)\mathrm d\omega_i<br>$$</p>
+<p>Now we want to calculate the the derivative of the render result w.r.t. certain scene parameters like $\pi$, a straight forward way to solving the derivative of the rendering equation:</p>
+<p>$$<br>    \frac{\partial}{\partial\pi}L_o(\pmb x,\omega_o,\lambda,t)&#x3D;\frac{\partial}{\partial\pi}L_e(\pmb x,\omega_o,\lambda,t)+\frac{\partial}{\partial\pi}\int_\Omega f_r(\pmb x,\omega_i,\omega_o,\lambda,t)L_i(\pmb x,\omega_i,\lambda,t)(\omega_i\cdot\pmb n)\mathrm d\omega_i<br>$$</p>
+<p>In computer algebra, we can use automatic differentiation to solving the derivative of a computing process w.r.t. some parameters. In most case, automatic differentiation is quite well. However, using automatic differentiation requires the process to be smooth. In rendering task, many situations can break the smoothing condition, like geometry edges, object silhouettes, etc. Therefore, we need some special methods to handle this failed cases. Calculating derivative of the rendering equation correctly and fast is one of the most important parts of differentiable rendering.</p>
+<p>Another important part of differentiable rendering is handle complex light transportation. We already have many light transport theorem to help us handle complex light transportation rendering like caustics, dispersion, subsurface scattering, volumetric rendering, etc. Simply using general differentiable rendering methods on these tasks may not always work well. Many researchers are working on this topic as well.</p>
+<p>Since we have some basic methods to deal with differentiable rendering problem, what can it do next? A common application of differentiable rendering is scene reconstruction. Using the derivative of the rendering result w.r.t. some parameters waiting to be optimized, we can easily do some reconstruction tasks, like reconstructing geometry (optimizing vertex position&#x2F;SDF parameters), reconstructing material (optimizing BSDF parameters), reconstructing light condition (optimizing emissive parameters), etc. Due to the power of realistic rendering, physics based differentiable rendering can do somthing that other reconstruction methods can’t, like taking full use of indirect illumination.</p>
+<h2 id="Reynolds-Transport-Theorem"><a href="#Reynolds-Transport-Theorem" class="headerlink" title="Reynolds Transport Theorem"></a>Reynolds Transport Theorem</h2><p>As we describe before, calculating the derivative of the rendering equation is solving:</p>
+<p>$$<br>    \frac{\partial}{\partial\pi}L_o(\pmb x,\omega_o,\lambda,t)&#x3D;\frac{\partial}{\partial\pi}L_e(\pmb x,\omega_o,\lambda,t)+\frac{\partial}{\partial\pi}\int_\Omega f_r(\pmb x,\omega_i,\omega_o,\lambda,t)L_i(\pmb x,\omega_i,\lambda,t)(\omega_i\cdot\pmb n)\mathrm d\omega_i<br>$$</p>
+<p>Assuming $I&#x3D;\int_{\mathcal X} f(x,\Theta)\mathrm dx&#x3D;\int_{\Omega} f_r(\pmb x,\omega_i,\omega_o,\lambda,t)L_i(\pmb x,\omega_i,\lambda,t)(\omega_i\cdot\pmb n)\mathrm d\omega_i$<br>If $f(x,\Theta)$ is smooth, we can easily apply:</p>
+<p>$$<br>    \frac{\partial}{\partial\pi}\int_{\mathcal X} f(x,\Theta)\mathrm dx&#x3D;\int_{\mathcal X}\frac{\partial}{\partial \pi}f(x,\Theta)\mathrm dx<br>$$<br>However, $f(x,\Theta)$ is not always smooth due to visibility, etc. In these cases, we can’t straightly calculate the derivative of $f(x,\Theta)$.</p>
+<p>Consider a simple case in 1D:</p>
+<p>$$<br>    I&#x3D;\int_a^bf(x,\pi)\mathrm dx<br>$$<br>Where $b\leq x\leq a$, and $f(x)$ has discontinuties at $p_1(\pi),p_2(\pi),\cdots,p_n(\pi)$. Therefore, </p>
+<p>$$<br>    \frac{\partial I}{\partial\pi}\neq \int_a^b\frac{\partial}{\partial\pi}f(x,\pi)\mathrm dx<br>$$<br>A trick to solve this problem is moving all discontinuties to the integral boundary, like:</p>
+<p>$$<br>    I&#x3D;\int_a^{p_1(\pi)}f(x,\pi)\mathrm dx+<br>    \int_{p_1(\pi)}^{p_2(\pi)}f(x,\pi)\mathrm dx+\cdots+<br>    \int_{p_n(\pi)}^bf(x,\pi)\mathrm dx<br>$$<br>In this case, $f(x)$ become smooth in $[a,p_1(\pi)]$, $[p_1(\pi),p_2(\pi)]$, $\cdots$, $[p_n(\pi), b]$.</p>
+<p>Based on Leibiniz integral rule, we know that</p>
+<p>$$<br>    \frac{\partial}{\partial \pi}\int_{p_i(\pi)}^{p_{i+1}(\pi)}f(x,\pi)\mathrm dx&#x3D;f^-(p_{i+1}(\pi))\cdot\frac{\mathrm d}{\mathrm d\pi}p_{i+1}(\pi)-f^+(p_{i}(\pi))\cdot\frac{\mathrm d}{\mathrm d\pi}p_{i}(\pi)+\int_{p_i(\pi)}^{p_{i+1}(\pi)}\frac{\partial}{\partial \pi}f(x,\pi)\mathrm dx<br>$$<br>Assuming $a&#x3D;p_0(\pi)$, $b&#x3D;p_{n+1}(\pi)$, $\Delta f_i&#x3D;f^-(p_{i+1}(\pi))\cdot\frac{\mathrm d}{\mathrm d\pi}p_{i+1}(\pi)-f^+(p_{i}(\pi))\cdot\frac{\mathrm d}{\mathrm d\pi}p_{i}(\pi)$</p>
+<p>$$<br>    \begin{aligned}<br>    \frac{\partial I}{\partial \pi}&amp;&#x3D;\sum_{i&#x3D;0}^{n+1}\left(f^-(p_{i+1}(\pi))\cdot\frac{\mathrm d}{\mathrm d\pi}p_{i+1}(\pi)-f^+(p_{i}(\pi))\cdot\frac{\mathrm d}{\mathrm d\pi}p_{i}(\pi)+\int_{p_i(\pi)}^{p_{i+1}(\pi)}\frac{\partial}{\partial \pi}f(x,\pi)\mathrm dx\right)\\<br>    &amp;&#x3D;\sum_{i&#x3D;0}^{n+1}\Delta f_i +\sum_{i&#x3D;0}^{n+1}\int_{p_i(\pi)}^{p_{i+1}(\pi)}\frac{\partial}{\partial \pi}f(x,\pi)\mathrm dx<br>    \end{aligned}<br>$$<br>We can see original equation is divided into two parts: interior term $\sum_{i&#x3D;0}^{n+1}\int_{p_i(\pi)}^{p_{i+1}(\pi)}\frac{\partial}{\partial \pi}f(x,\pi)\mathrm dx$ and boundary term $\sum_{i&#x3D;0}^{n+1}\Delta f_i$</p>
+<p>We can generalize above deduction to three-dimensions to become Reynolds Transport theorem:</p>
+<p>$$<br>    \frac{\partial}{\partial t}\int_{\Omega(t)}\pmb f\mathrm dV&#x3D;\int_{\Omega(t)}\frac{\partial\pmb f}{\partial t}\mathrm dV+\int_{\partial\Omega(t)}(\pmb v_b\cdot\pmb n)\pmb f\mathrm dA<br>$$</p>
+<ul>
+<li>Interior term: $\int_{\Omega(t)}\frac{\partial\pmb f}{\partial t}\mathrm dV$</li>
+<li>Boundary term: $\int_{\partial\Omega(t)}(\pmb v_b\cdot\pmb n)\pmb f\mathrm dA$</li>
+<li>$\pmb n(\pmb x,t)$ is the outward-pointing unit normal vector, $\pmb x$ is a point in the region and is the variable of integration</li>
+<li>$\mathrm dV$ and $\mathrm dA$ are volume and surface elements at $\pmb x$</li>
+<li>$v_b(\pmb x,t)$ is the velocity of the area element</li>
+</ul>
+<p>In differentiable rendering, interior term can be easily calculated by automatic differentiation, and the boundary term is not that easy. Most of the research focus on solving boundary term accurately and quickly, which I will write a series of notes for explaining the details.</p>
+<h2 id="Automatic-Differentiation"><a href="#Automatic-Differentiation" class="headerlink" title="Automatic Differentiation"></a>Automatic Differentiation</h2><p>The key idea of automatic differentiation is the chain rule:</p>
+<p>$$<br>    \frac{\partial z}{\partial \pmb x}&#x3D;\frac{\partial z}{\partial \pmb y}\cdot\frac{\partial \pmb y}{\partial \pmb x}<br>$$</p>
+<p>Single variable case :</p>
+<p>$$<br>    \begin{aligned}<br>        y&#x3D;f(x)\\\\<br>        z&#x3D;g(y)<br>    \end{aligned}<br>$$</p>
+<pre><code class="highlight mermaid">graph LR 
+	X--&gt;Y 
+	Y--&gt;Z</code></pre>
+
+<p>$$<br>    \begin{matrix}<br>        \dfrac{\mathrm dy}{\mathrm dx}&amp;\dfrac{\mathrm dz}{\mathrm dy}<br>    \end{matrix}<br>$$</p>
+<p>Multiple variable case:</p>
+<p>$$<br>    \begin{aligned}<br>        y&amp;&#x3D;f(x_0, x_1)\\\\<br>        z&amp;&#x3D;g(y)<br>    \end{aligned}<br>$$</p>
+<pre><code class="highlight mermaid">graph LR
+    X0--&gt;Y
+    X1--&gt;Y
+    Y--&gt;Z</code></pre>
+
+<p>$$<br>\begin{aligned}<br>    \frac{\partial z}{\partial x_0}&amp;&#x3D;\frac{\partial z}{\partial y}\frac{\partial y}{\partial x_0}\\\\<br>    \frac{\partial z}{\partial x_1}&amp;&#x3D;\frac{\partial z}{\partial y}\frac{\partial y}{\partial x_1}<br>\end{aligned}<br>$$</p>
+<p>We can see the result $\partial z&#x2F;\partial y$ can be reused. Therefore, for a complex computing process, we can construct a compute graph, searching for the best path to calculate the derivative using chain rule.</p>
+<p>There are two ways to execute automatic differentiation: forward mode and reverse mode</p>
+<p><strong>Forward Mode</strong></p>
+<pre><code class="highlight mermaid">graph LR
+    W0--&gt;X
+    W1--&gt;X
+    W2--&gt;X
+    W0--&gt;Y0
+    X--&gt;Y0
+    X--&gt;Y1
+    Y0--&gt;Z
+    Y1--&gt;Z</code></pre>
+
+<p>Forward mode automatic differentiation start from the beginning of the compute graph, and propagate the derivative forward. Assuming we want to calculate $\partial z&#x2F;\partial w_0$ form the compute graph above, we do:</p>
+<p>$$<br>\begin{aligned}<br>    W0:&amp;\frac{\partial w_0}{\partial w_0}&#x3D;1\\\<br>    W1:&amp;\frac{\partial w_1}{\partial w_0}&#x3D;0\\\<br>    W2:&amp;\frac{\partial w_2}{\partial w_0}&#x3D;0\\\<br>    X:&amp;\frac{\partial x}{\partial w_0}\\\<br>    Y0:&amp;\frac{\partial y_0}{\partial w_0}&#x3D;\frac{\partial y_0}{\partial x}\frac{\partial x}{\partial w_0}+\frac{\partial y_0}{\partial w_0}\\\<br>    Y1:&amp;\frac{\partial y_1}{\partial w_0}&#x3D;\frac{\partial y_1}{\partial x}\frac{\partial x}{\partial w_0}\\\<br>    Z:&amp;\frac{\partial z}{\partial w_0}&#x3D;\frac{\partial z}{\partial y_0}\frac{\partial y_0}{\partial w_0}+\frac{\partial z}{\partial y_1}\frac{\partial y_1}{\partial w_0}<br>\end{aligned}<br>$$</p>
+<p><strong>Reverse Mode</strong></p>
+<pre><code class="highlight mermaid">graph LR
+    W0--&gt;X
+    W1--&gt;X
+    W2--&gt;X
+    W0--&gt;Y0
+    X--&gt;Y0
+    X--&gt;Y1
+    Y0--&gt;Z
+    Y1--&gt;Z</code></pre>
+
+<p>Reverse mode automatic differentiation start from the end of the compute graph, and propagate the derivative backward. Like the compute graph above, start from $z$, we have:</p>
+<p>$$<br>\begin{aligned}<br>    Y0:&amp;\frac{\partial z}{\partial y_0}\\\\<br>    Y1:&amp;\frac{\partial z}{\partial y_1}\\\\<br>    X:&amp;\frac{\partial z}{\partial x}&#x3D;\frac{\partial z}{\partial y_0}\frac{\partial y_0}{\partial x}+\frac{\partial z}{\partial y_1}\frac{\partial y_1}{\partial x}\\\\<br>    W0:&amp;\frac{\partial z}{\partial w_0}&#x3D;\frac{\partial z}{\partial y_0}\frac{\partial y_0}{\partial w_0}+\frac{\partial z}{\partial x}\frac{\partial x}{\partial w_0}\\\\<br>    \cdots<br>\end{aligned}<br>$$</p>
+<p>In differentiable rendering, reverse mode automatic differentiation is used for optimization and forward mode automatic differentiation is used for gradient visualization.</p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><h3 id="Reasearcher-amp-Lab"><a href="#Reasearcher-amp-Lab" class="headerlink" title="Reasearcher &amp; Lab"></a>Reasearcher &amp; Lab</h3><p><a target="_blank" rel="noopener" href="https://shuangz.com/">Prof. Shuang Zhao</a></p>
+<p><a target="_blank" rel="noopener" href="https://rgl.epfl.ch/">EPFL’s Realistic Graphics Lab(Prof. Wenzel Jakob’s Group)</a></p>
+<p><a target="_blank" rel="noopener" href="https://people.csail.mit.edu/sbangaru">Sai Praveen Bangaru</a></p>
+<p><a target="_blank" rel="noopener" href="https://cseweb.ucsd.edu/~tzli/">Tzu-Mao Li</a></p>
+<p><a target="_blank" rel="noopener" href="https://cseweb.ucsd.edu/~ravir/">Ravi Ramamoorthi</a></p>
+<p><a target="_blank" rel="noopener" href="https://sites.cs.ucsb.edu/~lingqi/">Lingqi Yan</a></p>
+<h3 id="Course"><a href="#Course" class="headerlink" title="Course"></a>Course</h3><p>Siggraph Course 2020: <a target="_blank" rel="noopener" href="https://shuangz.com/courses/pbdr-course-sg20/">Physics-Based Differentiable Rendering A Comprehensive Introduction</a></p>
+<p>CVPR Tutorial 2021: <a target="_blank" rel="noopener" href="https://www.diff-render.org/">Physics-Based Differentiable Rendering</a></p>
+<h3 id="Tool"><a href="#Tool" class="headerlink" title="Tool"></a>Tool</h3><p><a target="_blank" rel="noopener" href="https://github.com/mitsuba-renderer/mitsuba2">Mitsuba2</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/mitsuba-renderer/mitsuba3">Mitsuba3</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/mitsuba-renderer/enoki">enoki</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/mitsuba-renderer/drjit">drjit</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/uci-rendering/psdr-cuda">PSDR</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/BachiLi/redner">redner</a></p>
+<h3 id="Paper"><a href="#Paper" class="headerlink" title="Paper"></a>Paper</h3><p><a target="_blank" rel="noopener" href="https://cseweb.ucsd.edu/~tzli/diffrt/">Differentiable Monte Carlo Ray Tracing through Edge Sampling</a> SIGGRAPH Asia 2018</p>
+<p>TODO</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>Post author:  </strong>Chaf Chen
+  </li>
+  <li class="post-copyright-link">
+      <strong>Post link: </strong>
+      <a href="https://chaphlagical.github.io/2022/12/13/note/differentiable_rendering_basic/" title="Physics Based Differentiable Rendering: Preliminaries">https://chaphlagical.github.io/2022/12/13/note/differentiable_rendering_basic/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Differentiable-Rendering/" rel="tag"># Differentiable Rendering</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/03/18/gaming/god_of_war_4/" rel="prev" title="God of War IV">
+                  <i class="fa fa-chevron-left"></i> God of War IV
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chaf Chen</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/9.2.2/mermaid.min.js","integrity":"sha256-o5AUfgOkNFWuInA78GVCoVdGoN9eTaB3Hxu+ep7TTrY="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"chaphlagical-github-io","count":true,"i18n":{"disqus":"disqus"}}</script>
+<script src="/js/third-party/comments/disqus.js"></script>
+
+</body>
+</html>
