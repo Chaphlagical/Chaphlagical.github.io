@@ -27,8 +27,8 @@
 <meta property="og:site_name" content="Chaf&#39;s Blog">
 <meta property="og:description" content="ACM Transactions on Graphics 2021 paper reading">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2022-12-15T06:47:12.455Z">
-<meta property="article:modified_time" content="2022-12-15T06:47:12.455Z">
+<meta property="article:published_time" content="2022-12-15T08:26:42.453Z">
+<meta property="article:modified_time" content="2022-12-15T08:26:42.453Z">
 <meta property="article:author" content="Chaf Chen">
 <meta property="article:tag" content="Differentiable Rendering">
 <meta property="article:tag" content="Rendering">
@@ -105,7 +105,7 @@
   
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           Table of Contents
@@ -118,6 +118,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Introduction"><span class="nav-number">1.</span> <span class="nav-text">1. Introduction</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-Main-Problem"><span class="nav-number">1.1.</span> <span class="nav-text">1.3. Main Problem</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-Key-Idea"><span class="nav-number">1.2.</span> <span class="nav-text">1.2. Key Idea</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-Main-Contribution"><span class="nav-number">1.3.</span> <span class="nav-text">1.2. Main Contribution</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Related-Work"><span class="nav-number">2.</span> <span class="nav-text">2. Related Work</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Overview"><span class="nav-number">3.</span> <span class="nav-text">3. Overview</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-The-Point-to-Region-Light-Transport-Problem"><span class="nav-number">3.1.</span> <span class="nav-text">3.1. The Point-to-Region Light Transport Problem</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-Analysis"><span class="nav-number">3.2.</span> <span class="nav-text">3.2. Analysis</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Geometry-Vectorization"><span class="nav-number">4.</span> <span class="nav-text">4. Geometry Vectorization</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-Computing-Visible-Polygons"><span class="nav-number">4.1.</span> <span class="nav-text">4.1. Computing Visible Polygons</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-Visibility-Bounding-Volume-Hierarchy"><span class="nav-number">4.2.</span> <span class="nav-text">4.2. Visibility Bounding Volume Hierarchy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-Numerical-Robustness"><span class="nav-number">4.3.</span> <span class="nav-text">4.3. Numerical Robustness</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-Application"><span class="nav-number">5.</span> <span class="nav-text">5. Application</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-Anti-Aliased-Primary-Visibility"><span class="nav-number">5.1.</span> <span class="nav-text">5.1. Anti-Aliased Primary Visibility</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-Accurate-Shading-from-Area-Lights"><span class="nav-number">5.2.</span> <span class="nav-text">5.2. Accurate Shading from Area Lights</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-3-Anti-Aliased-Shadows-from-Point-Lights"><span class="nav-number">5.3.</span> <span class="nav-text">5.3. Anti-Aliased Shadows from Point Lights</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-4-Pure-Specular-Reflection"><span class="nav-number">5.4.</span> <span class="nav-text">5.4. Pure Specular Reflection</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-5-Differentiable-Rendering"><span class="nav-number">5.5.</span> <span class="nav-text">5.5. Differentiable Rendering</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -222,7 +223,7 @@
       </span>
       <span class="post-meta-item-text">Posted on</span>
 
-      <time title="Created: 2022-12-15 06:47:12" itemprop="dateCreated datePublished" datetime="2022-12-15T06:47:12+00:00">2022-12-15</time>
+      <time title="Created: 2022-12-15 08:26:42" itemprop="dateCreated datePublished" datetime="2022-12-15T08:26:42+00:00">2022-12-15</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -259,7 +260,38 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        
+        <p><strong>Author</strong>: <a target="_blank" rel="noopener" href="https://www.mangosister.me/">Yang Zhou</a>, <a target="_blank" rel="noopener" href="https://winmad.github.io/">Lifan Wu</a>, <a target="_blank" rel="noopener" href="http://cseweb.ucsd.edu/~ravir/">Ravi Ramamoorthi</a>, <a target="_blank" rel="noopener" href="https://sites.cs.ucsb.edu/~lingqi/">Ling-Qi Yan</a></p>
+<p><strong>Link</strong>: <a target="_blank" rel="noopener" href="https://dl.acm.org/doi/10.1145/3446790">https://dl.acm.org/doi/10.1145/3446790</a>  </p>
+<h2 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1. Introduction"></a>1. Introduction</h2><p>There are generally two approaches to render images:</p>
+<ul>
+<li>Rasterization: Project scene geometry onto the screen and breaks the geometry into pixels<ul>
+<li>Fast but prone to aliasing</li>
+</ul>
+</li>
+<li>Ray Tracing: Cast rays into the scene and bounces them stochastically to find paths connecting the light and the camera<ul>
+<li>High-quality but is slow and noisy</li>
+</ul>
+</li>
+</ul>
+<h3 id="1-3-Main-Problem"><a href="#1-3-Main-Problem" class="headerlink" title="1.3. Main Problem"></a>1.3. Main Problem</h3><p>Main problem for both approaches: point sampling</p>
+<ul>
+<li>The central point of each pixel is typically used to detect the coverage of geometry in rasterization, producing aliasing.</li>
+<li>The sampled paths in ray tracing are essentially points in the high dimensional pathspace, and such random point sampling of the path space introduces variance.</li>
+<li>Since the point samples are discrete, it is difficult to calculate the gradients of the rendering process with respect to scene parameters in order to enable differentiable rendering, especially with discontinuities that are commonly seen, such asboundaries of geometry and shadows.</li>
+</ul>
+<h3 id="1-2-Key-Idea"><a href="#1-2-Key-Idea" class="headerlink" title="1.2. Key Idea"></a>1.2. Key Idea</h3><h3 id="1-2-Main-Contribution"><a href="#1-2-Main-Contribution" class="headerlink" title="1.2. Main Contribution"></a>1.2. Main Contribution</h3><ul>
+<li>A novel vectorization pipeline different from both ray tracing and rasterization, eliminating point sampling in the 2D integrationdomain, producing fully analytic, accurate and anti-aliased point-to-region shading results.</li>
+<li>A hierarchical data structure for efficient, robust, depth-aware andorder-independent insertion and maintenance of polygons, and most important.</li>
+<li>A differentiable rendering framework for visibility using only automatic differentiation or finite differences without special treat-ments to the rendering pipeline, resulting in noise-free gradients, which enables second-order optimization methods in inverse rendering for the first time, and orders of magnitude faster performance than existing approaches.</li>
+</ul>
+<h2 id="2-Related-Work"><a href="#2-Related-Work" class="headerlink" title="2. Related Work"></a>2. Related Work</h2><p><strong>Beam Tracing</strong></p>
+<p><strong>Visibility</strong></p>
+<p><strong>Hidden Surface Removal</strong></p>
+<p><strong>Differentiable Light Transport</strong></p>
+<p><strong>Differentiable Rasterization</strong></p>
+<p><strong>Automatic Differentiation</strong></p>
+<p><strong>Vector Representation in Images</strong></p>
+<h2 id="3-Overview"><a href="#3-Overview" class="headerlink" title="3. Overview"></a>3. Overview</h2><h3 id="3-1-The-Point-to-Region-Light-Transport-Problem"><a href="#3-1-The-Point-to-Region-Light-Transport-Problem" class="headerlink" title="3.1. The Point-to-Region Light Transport Problem"></a>3.1. The Point-to-Region Light Transport Problem</h3><h3 id="3-2-Analysis"><a href="#3-2-Analysis" class="headerlink" title="3.2. Analysis"></a>3.2. Analysis</h3><h2 id="4-Geometry-Vectorization"><a href="#4-Geometry-Vectorization" class="headerlink" title="4. Geometry Vectorization"></a>4. Geometry Vectorization</h2><h3 id="4-1-Computing-Visible-Polygons"><a href="#4-1-Computing-Visible-Polygons" class="headerlink" title="4.1. Computing Visible Polygons"></a>4.1. Computing Visible Polygons</h3><h3 id="4-2-Visibility-Bounding-Volume-Hierarchy"><a href="#4-2-Visibility-Bounding-Volume-Hierarchy" class="headerlink" title="4.2. Visibility Bounding Volume Hierarchy"></a>4.2. Visibility Bounding Volume Hierarchy</h3><h3 id="4-3-Numerical-Robustness"><a href="#4-3-Numerical-Robustness" class="headerlink" title="4.3. Numerical Robustness"></a>4.3. Numerical Robustness</h3><h2 id="5-Application"><a href="#5-Application" class="headerlink" title="5. Application"></a>5. Application</h2><h3 id="5-1-Anti-Aliased-Primary-Visibility"><a href="#5-1-Anti-Aliased-Primary-Visibility" class="headerlink" title="5.1. Anti-Aliased Primary Visibility"></a>5.1. Anti-Aliased Primary Visibility</h3><h3 id="5-2-Accurate-Shading-from-Area-Lights"><a href="#5-2-Accurate-Shading-from-Area-Lights" class="headerlink" title="5.2. Accurate Shading from Area Lights"></a>5.2. Accurate Shading from Area Lights</h3><h3 id="5-3-Anti-Aliased-Shadows-from-Point-Lights"><a href="#5-3-Anti-Aliased-Shadows-from-Point-Lights" class="headerlink" title="5.3. Anti-Aliased Shadows from Point Lights"></a>5.3. Anti-Aliased Shadows from Point Lights</h3><h3 id="5-4-Pure-Specular-Reflection"><a href="#5-4-Pure-Specular-Reflection" class="headerlink" title="5.4. Pure Specular Reflection"></a>5.4. Pure Specular Reflection</h3><h3 id="5-5-Differentiable-Rendering"><a href="#5-5-Differentiable-Rendering" class="headerlink" title="5.5. Differentiable Rendering"></a>5.5. Differentiable Rendering</h3>
     </div>
 
     
