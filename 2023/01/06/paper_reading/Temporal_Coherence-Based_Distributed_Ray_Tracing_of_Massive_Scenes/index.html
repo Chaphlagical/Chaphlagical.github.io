@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"chaphlagical.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.14.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":true,"storage":true,"lazyload":false,"nav":{"disqus":{"text":"Load Disqus","order":-1}}},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="TVCG 2022 paper reading">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="Temporal Coherence-based Distributed Ray Tracing of Massive Scenes">
+<meta property="og:url" content="https://chaphlagical.github.io/2023/01/06/paper_reading/Temporal_Coherence-Based_Distributed_Ray_Tracing_of_Massive_Scenes/index.html">
+<meta property="og:site_name" content="Chaf&#39;s Blog">
+<meta property="og:description" content="TVCG 2022 paper reading">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://chaphlagical.github.io/2023/01/06/paper_reading/Temporal_Coherence-Based_Distributed_Ray_Tracing_of_Massive_Scenes/image-20230107003324301.png">
+<meta property="og:image" content="https://chaphlagical.github.io/2023/01/06/paper_reading/Temporal_Coherence-Based_Distributed_Ray_Tracing_of_Massive_Scenes/image-20230107005918205.png">
+<meta property="og:image" content="https://chaphlagical.github.io/2023/01/06/paper_reading/Temporal_Coherence-Based_Distributed_Ray_Tracing_of_Massive_Scenes/image-20230107105019966.png">
+<meta property="og:image" content="https://chaphlagical.github.io/2023/01/06/paper_reading/Temporal_Coherence-Based_Distributed_Ray_Tracing_of_Massive_Scenes/image-20230107113109786.png">
+<meta property="og:image" content="https://chaphlagical.github.io/2023/01/06/paper_reading/Temporal_Coherence-Based_Distributed_Ray_Tracing_of_Massive_Scenes/image-20230107152316293.png">
+<meta property="og:image" content="https://chaphlagical.github.io/2023/01/06/paper_reading/Temporal_Coherence-Based_Distributed_Ray_Tracing_of_Massive_Scenes/image-20230107155648470.png">
+<meta property="og:image" content="https://chaphlagical.github.io/2023/01/06/paper_reading/Temporal_Coherence-Based_Distributed_Ray_Tracing_of_Massive_Scenes/image-20230107155925042.png">
+<meta property="og:image" content="https://chaphlagical.github.io/2023/01/06/paper_reading/Temporal_Coherence-Based_Distributed_Ray_Tracing_of_Massive_Scenes/image-20230107155948308.png">
+<meta property="og:image" content="https://chaphlagical.github.io/2023/01/06/paper_reading/Temporal_Coherence-Based_Distributed_Ray_Tracing_of_Massive_Scenes/image-20230107160026174.png">
+<meta property="og:image" content="https://chaphlagical.github.io/2023/01/06/paper_reading/Temporal_Coherence-Based_Distributed_Ray_Tracing_of_Massive_Scenes/image-20230107160035577.png">
+<meta property="og:image" content="https://chaphlagical.github.io/2023/01/06/paper_reading/Temporal_Coherence-Based_Distributed_Ray_Tracing_of_Massive_Scenes/image-20230107160048650.png">
+<meta property="article:published_time" content="2023-01-06T22:13:11.000Z">
+<meta property="article:modified_time" content="2023-01-07T09:06:36.401Z">
+<meta property="article:author" content="Chaf Chen">
+<meta property="article:tag" content="Rendering">
+<meta property="article:tag" content="Distributed Computing">
+<meta property="article:tag" content="TVCG 2022">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://chaphlagical.github.io/2023/01/06/paper_reading/Temporal_Coherence-Based_Distributed_Ray_Tracing_of_Massive_Scenes/image-20230107003324301.png">
+
+
+<link rel="canonical" href="https://chaphlagical.github.io/2023/01/06/paper_reading/Temporal_Coherence-Based_Distributed_Ray_Tracing_of_Massive_Scenes/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://chaphlagical.github.io/2023/01/06/paper_reading/Temporal_Coherence-Based_Distributed_Ray_Tracing_of_Massive_Scenes/","path":"2023/01/06/paper_reading/Temporal_Coherence-Based_Distributed_Ray_Tracing_of_Massive_Scenes/","title":"Temporal Coherence-based Distributed Ray Tracing of Massive Scenes"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Temporal Coherence-based Distributed Ray Tracing of Massive Scenes | Chaf's Blog</title>
+  
+
+
+
+
+
+
+  <script async defer data-website-id="" src=""></script>
+
+  <script defer data-domain="" src=""></script>
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Chaf's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Here I share some fun stuff</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Contribution"><span class="nav-number">1.</span> <span class="nav-text">Contribution</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Related-Work"><span class="nav-number">2.</span> <span class="nav-text">Related Work</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Distributed-Ray-Tracing-Framework"><span class="nav-number">3.</span> <span class="nav-text">Distributed Ray Tracing Framework</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Temporal-Information-Collection"><span class="nav-number">4.</span> <span class="nav-text">Temporal Information Collection</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Transmission-Information-Statistics-for-Domains"><span class="nav-number">4.1.</span> <span class="nav-text">Transmission Information Statistics for Domains</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Virtual-Portal-with-Radiance-Caching"><span class="nav-number">4.2.</span> <span class="nav-text">Virtual Portal with Radiance Caching</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Temporal-Coherence-Based-Domain-Assignment-and-Scheduling"><span class="nav-number">5.</span> <span class="nav-text">Temporal Coherence-Based Domain Assignment and Scheduling</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Domain-Assignment"><span class="nav-number">5.1.</span> <span class="nav-text">Domain Assignment</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Domain-Scheduling"><span class="nav-number">5.2.</span> <span class="nav-text">Domain Scheduling</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Temporal-Coherence-Based-Simplified-Model-Tracing-Algorithm"><span class="nav-number">6.</span> <span class="nav-text">Temporal Coherence-Based Simplified Model Tracing Algorithm</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Tracing-with-Simplified-Models"><span class="nav-number">6.1.</span> <span class="nav-text">Tracing with Simplified Models</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Radiance-Prediction"><span class="nav-number">6.2.</span> <span class="nav-text">Radiance Prediction</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Result"><span class="nav-number">7.</span> <span class="nav-text">Result</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Experiment-Setting"><span class="nav-number">7.1.</span> <span class="nav-text">Experiment Setting</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Rendering-Time-amp-Scalability"><span class="nav-number">7.2.</span> <span class="nav-text">Rendering Time &amp; Scalability</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Dynamic-Scene"><span class="nav-number">7.3.</span> <span class="nav-text">Dynamic Scene</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Limitations"><span class="nav-number">8.</span> <span class="nav-text">Limitations</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Chaf Chen"
+      src="/images/logo.jpg">
+  <p class="site-author-name" itemprop="name">Chaf Chen</p>
+  <div class="site-description" itemprop="description">USTC CG Student</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/chaphlagical" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;chaphlagical" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:chaf@mail.ustc.cn" title="E-Mail → mailto:chaf@mail.ustc.cn" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+          Links
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="http://gcl.ustc.edu.cn/" title="http:&#x2F;&#x2F;gcl.ustc.edu.cn&#x2F;" rel="noopener" target="_blank">GCL</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://chaphlagical.github.io/2023/01/06/paper_reading/Temporal_Coherence-Based_Distributed_Ray_Tracing_of_Massive_Scenes/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Chaf Chen">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chaf's Blog">
+      <meta itemprop="description" content="USTC CG Student">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Temporal Coherence-based Distributed Ray Tracing of Massive Scenes | Chaf's Blog">
+      <meta itemprop="description" content="TVCG 2022 paper reading">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Temporal Coherence-based Distributed Ray Tracing of Massive Scenes
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2023-01-06 22:13:11" itemprop="dateCreated datePublished" datetime="2023-01-06T22:13:11+00:00">2023-01-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-01-07 09:06:36" itemprop="dateModified" datetime="2023-01-07T09:06:36+00:00">2023-01-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Paper-Reading/" itemprop="url" rel="index"><span itemprop="name">Paper Reading</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2023/01/06/paper_reading/Temporal_Coherence-Based_Distributed_Ray_Tracing_of_Massive_Scenes/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023/01/06/paper_reading/Temporal_Coherence-Based_Distributed_Ray_Tracing_of_Massive_Scenes/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+            <div class="post-description">TVCG 2022 paper reading</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="Contribution"><a href="#Contribution" class="headerlink" title="Contribution"></a>Contribution</h2><ul>
+<li>An efficient temporal coherence-based scheduling algorithm<ul>
+<li>A domain assignment algorithm<ul>
+<li>Assign domains to all nodes according to the ray transmission information among domains in the previous frame</li>
+</ul>
+</li>
+<li>A runtime scheduling algorithm<ul>
+<li>Estimate each domain’s pre-loading prior based on the node’s current situation and information of the previous frame</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>A new virtual portal structure to record the radiance of rays passing through domains in the previous frame<ul>
+<li>In the current frame, predict the radiance of the ray intersects with the virtual portal and send the low radiance rays to a pre-loaded simplified model in the current node by the recorded radiance in the virtual portal.</li>
+</ul>
+</li>
+<li>An asynchronous distributed path tracing framework<ul>
+<li>Can process domain loading, rendering and communication asynchronously</li>
+</ul>
+</li>
+</ul>
+<h2 id="Related-Work"><a href="#Related-Work" class="headerlink" title="Related Work"></a>Related Work</h2><ul>
+<li>Out-of-Core Ray Tracing</li>
+<li>Distributed Ray Tracing<ul>
+<li>Image-space decomposition</li>
+<li>Domain-space decomposition</li>
+<li>Dynamic scheduling method</li>
+</ul>
+</li>
+<li>Spatial Directional Radiance Caching</li>
+</ul>
+<h2 id="Distributed-Ray-Tracing-Framework"><a href="#Distributed-Ray-Tracing-Framework" class="headerlink" title="Distributed Ray Tracing Framework"></a>Distributed Ray Tracing Framework</h2><p><img src="/2023/01/06/paper_reading/Temporal_Coherence-Based_Distributed_Ray_Tracing_of_Massive_Scenes/image-20230107003324301.png"></p>
+<ul>
+<li>Architecture<ul>
+<li>Hybrid ray tracing framework<ul>
+<li>Combining the domain-space decomposition and out-of-core rendering</li>
+</ul>
+</li>
+<li>Before rendering, a group of domains is assigned to a node<ul>
+<li>Each node uses a cost-benefit formula to choose a domain to load or a cached domain to render at runtime</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Temporal coherence based distributed algorithm<ol>
+<li>The ray transmission and radiance information is recorded when rendering the previous frame and further used as input data for the current frame</li>
+<li>A temporal coherence-based domain assignment and a domain scheduling algorithm are proposed for the current frame by using the ray transmission data of the previous frame to improve the load balance and resource utilization</li>
+<li>The cached radiance information on the virtual portal in the previous frame is used to predict the radiance of the ray intersected with the virtual portal in the current frame. A low memory-cost simplified model is used to render the predicted low radiance ray</li>
+</ol>
+</li>
+<li>Asynchronous execution thread:<ul>
+<li>Management thread: responsible for communicating with other distributed nodes and managing other threads</li>
+<li>Domain preloading thread: used to preload the uncached domain</li>
+<li>Rendering thread: process the exact rendering task</li>
+</ul>
+</li>
+</ul>
+<h2 id="Temporal-Information-Collection"><a href="#Temporal-Information-Collection" class="headerlink" title="Temporal Information Collection"></a>Temporal Information Collection</h2><ul>
+<li>Temporal information<ul>
+<li>Ray transmission information between domains<ul>
+<li>Recorded in the form of statistics</li>
+</ul>
+</li>
+<li>The radiance of the rays passing through the domain<ul>
+<li>Propose a cache made of virtual portal structure</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Transmission-Information-Statistics-for-Domains"><a href="#Transmission-Information-Statistics-for-Domains" class="headerlink" title="Transmission Information Statistics for Domains"></a>Transmission Information Statistics for Domains</h3><p><img src="/2023/01/06/paper_reading/Temporal_Coherence-Based_Distributed_Ray_Tracing_of_Massive_Scenes/image-20230107005918205.png"></p>
+<p>Take the domain $A$ in above figure as an example. The recorded information includes:</p>
+<ul>
+<li>For domain $A$’s neighbors, domain $B$ and domain $C$, record the numbers of rays sent from domain $A$ to each of them as $s(A, B)$ and $s(A, C)$, respectively</li>
+<li>The total number of rays sent from domain $A$ to other domains, recorded as $s(A)$</li>
+<li>The total number of rays received by domain $A$ from other domains, recorded as $r(A)$</li>
+<li>The proportion of $s(A)$ to $r(A)$, recorded as $R(A)$</li>
+<li>The proportion of $s(A, B)$ to $r(A)$, recorded as $R(A, B)$</li>
+<li>The data loading times of domain $A$</li>
+</ul>
+<h3 id="Virtual-Portal-with-Radiance-Caching"><a href="#Virtual-Portal-with-Radiance-Caching" class="headerlink" title="Virtual Portal with Radiance Caching"></a>Virtual Portal with Radiance Caching</h3><p><img src="/2023/01/06/paper_reading/Temporal_Coherence-Based_Distributed_Ray_Tracing_of_Massive_Scenes/image-20230107105019966.png"></p>
+<p><strong>Virtual Portal Structure</strong></p>
+<ul>
+<li>Place virtual portals on each of the six faces of a domain’s bounding box to determine whether rays need to be sent to other domains<ul>
+<li>Record spatial and directional information (2D each, 4D total)</li>
+</ul>
+</li>
+<li>Divide each virtual portal into uniform 2D grids (32×32) in spatial space to represent the position of the intersection between the ray and virtual portal at the virtual portal’s local coordinate system</li>
+<li>In practice, for each spatial grid, separate it into eight angle areas, each representing a 2D direction</li>
+</ul>
+<p><strong>Radiance Recording on Virtual Portal</strong></p>
+<ul>
+<li>When a ray intersects a virtual portal for the first time, calculate its virtual portal coordinates and record it onto the ray’s structure, and keep tracing the ray until it intersects geometry in a domain</li>
+<li>After finishing the light source visibility test (shadow ray intersection) and shading, record the radiance of this ray path to the proper coordinates on the virtual portal</li>
+<li>Once the current frame has been finished, the recorded virtual portal is gathered and broadcast to each node and will be used to predict the radiance of rays in the next frame</li>
+<li>Only keep the maximum radiance on the coordinate if there is already a radiance value when recording radiance in the virtual portal to resolve potential conflicts</li>
+</ul>
+<p><strong>Node Information</strong></p>
+<ul>
+<li>As the distances between each node and the respective network storage system have wide variations, the data loading speeds are different for each node</li>
+<li>In the first frame, when a node is loading a domain, record:<ul>
+<li>Storage size</li>
+<li>Loading time of the domain</li>
+<li>Calculate their ratio as the data loading speed $S_{PROC}$ of the node</li>
+</ul>
+</li>
+<li>After one frame is completed, node 0 gathers all the recorded information from other nodes and broadcasts the results to all nodes</li>
+</ul>
+<h2 id="Temporal-Coherence-Based-Domain-Assignment-and-Scheduling"><a href="#Temporal-Coherence-Based-Domain-Assignment-and-Scheduling" class="headerlink" title="Temporal Coherence-Based Domain Assignment and Scheduling"></a>Temporal Coherence-Based Domain Assignment and Scheduling</h2><p>Domain assignment algorithm:</p>
+<ul>
+<li>Assign the domains to each node</li>
+<li>Runtime domain scheduling algorithm<ul>
+<li>Select the next domain to pre-load during rendering<br>Improve data utilization and balance the workload between each node</li>
+</ul>
+</li>
+</ul>
+<h3 id="Domain-Assignment"><a href="#Domain-Assignment" class="headerlink" title="Domain Assignment"></a>Domain Assignment</h3><p><img src="/2023/01/06/paper_reading/Temporal_Coherence-Based_Distributed_Ray_Tracing_of_Massive_Scenes/image-20230107113109786.png"></p>
+<ul>
+<li>When rendering with $n$ nodes<ul>
+<li>Divide the screen space evenly into $n$ tiles</li>
+<li>Group the domains into an equal number of $n$ domain groups</li>
+<li>Pack a screen tile and a domain group as an <em>AssignmentUnit</em> structure</li>
+</ul>
+</li>
+<li>Each node<ul>
+<li>Aassigned an AssignmentUnit<ul>
+<li>The screen tile is the node’s ray generating task</li>
+<li>The domain group is its processing data</li>
+</ul>
+</li>
+<li>Can only load its local domains for ray tracing at runtime<ul>
+<li>For a given node, domains inside its domain group are called its local domains</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>For massive scene ray tracing<ul>
+<li>Transmitting rays between nodes is faster than out-of-core domain loading</li>
+<li>Hope to minimize the ray transmission between domains inside an AssignmentUnit, to reduce the domain loading times of each node</li>
+</ul>
+</li>
+<li>Assignment algorithm:<ol>
+<li>Select initial domains for each AssignmentUnit<ul>
+<li>Assign the $n$ screen tiles to the $n$ AssignmentUnits in turn</li>
+<li>Project the bounding box of each domain to screen space</li>
+<li>For each tile, select the domain with the largest projection area with it, and set the domain as the initial domain for this tile’s AssignmentUnit</li>
+</ul>
+</li>
+<li>Group remaining domains<ul>
+<li>Add a remaining domain to the AssignmentUnit with the fewest domain numbers in a loop until all domains have been assigned</li>
+<li>Each time<ul>
+<li>Choose an AssignmentUnit $U$ with the fewest domains</li>
+<li>Find a remaining domain with lowest ray transmission number with all existing domains in $U$ according to the information recorded in previous frame</li>
+<li>Add the domain to the domain group for $U$</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Assign AssignmentUnits to nodes<ul>
+<li>Sort all AssignmentUnits by the data size of domains in each AssignmentUnit</li>
+<li>Sort all nodes by the data loading speed</li>
+<li>Assign the AssignmentUnit with a larger data volume to the node with the faster loading speed</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<h3 id="Domain-Scheduling"><a href="#Domain-Scheduling" class="headerlink" title="Domain Scheduling"></a>Domain Scheduling</h3><ul>
+<li>For each node<ul>
+<li>Use a temporal coherent-based domain scheduling algorithm to choose a candidate domain as the next active domain for further rendering</li>
+<li>When a node is rendering an active domain, its management thread will calculate the priority of other local domains according to a cost-benefit function and select the domain with the highest priority as the next active domain<ul>
+<li>If the next active domain is not cached, the domain pre-loading thread will load this domain when the active domain is being rendered</li>
+<li>If the domain cache is full, the domain with the lowest priority will be selected to unload</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Cost-benefit function calculates the domain’s priority by predicting its computation time and domain loading time<ul>
+<li>For a node $n$ and a candidate local domain $d$<ul>
+<li>$Q_{PRED}(d)$: denote the predicted quantity of rays that may be processed when domain $d$ is loaded</li>
+<li>$S_{PROC}(d)$: denote the ray processing speed of the domain $d$ in the previous frame</li>
+<li>$T_{LOAD}(n,d)$: denote the time of node $n$ to load domain $d$</li>
+<li>$Dep’(d)$: denote the normalized distance between the viewpoint and domain $d$</li>
+</ul>
+</li>
+<li>The priority of domain $d$, $P(n,d)$ is calculated as follows<br>  $$<br>  P(n,d)&#x3D;(1-Dep’(d))\cdot\left(\frac{Q_{PRED}(d)}{S_{PROC}(d)}-T_{LOAD}(n,d)\right)<br>  $$<ul>
+<li>The larger the difference of $Q_{PRED}(d)&#x2F;S_{PROC}(d)$ and $T_{LOAD}(n,d)$, means that domain $d$ is more computationally intensive, while its loading overhead is relatively small<ul>
+<li>This domain has a higher priority to be loaded</li>
+</ul>
+</li>
+<li>When rays are transmitted in a scene, domains that are closer to the viewpoint tend to be requested earlier<ul>
+<li>Use $1 − Dep’(d)$ as a term to schedule the closer domain to viewpoint</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>The parameter $T_{LOAD}(n,d)$ is calculated as follows:<br>  $$<br>  T_{LOAD}(n,d)&#x3D;\begin{cases}<br>  0&amp;\mathrm{if\ domain\ loaded}\\<br>  \frac{V(d)}{S_{LOAD}(n)}&amp;\mathrm{otherwise}<br>  \end{cases}<br>  $$<ul>
+<li>$V(d)$: denote the data size of domain $d$</li>
+<li>$S_{LOAD}(n)$: denote the loading speed of node $n$</li>
+</ul>
+</li>
+<li>The parameter $Q_{PRED}(d)$ is calculated as follows:<br>  $$<br>  \begin{aligned}<br>      Q_{PRED}(d)&amp;&#x3D;Q_{CUR}(d)\\<br>      &amp;+Q_{CUR}(act)R(act)R(act,d)\\<br>      &amp;+Q_{POT}(d)<br>  \end{aligned}<br>  $$<ul>
+<li>Predict this quantity as $Q_{PRED}(d)$ based on the current ray transmission status and the ray transmission information in the previous frame<ul>
+<li>$act$: currently active domain</li>
+<li>$d$: candidate domain</li>
+<li>$Q_{CUR}(d)$: represents the current ray quantity of domain $d$</li>
+<li>$Q_{CUR}(act)R(act)R(act,d)$: approximate the ray quantity generated from the active domain act for domain $d$ after domain act finishes rendering the current ray $Q_{CUR}(act)$<ul>
+<li>$R(act)$ and $R(act, d)$ are recorded at the previous frame</li>
+</ul>
+</li>
+<li>$Q_{POT}(d)$: represents the received ray quantity from other nodes’ (non-local) domain when domain $d$ is selected as the active domain and being rendered<br>  $$<br>  Q_{POT}(d)&#x3D;\frac{Q_{PRE}(d)-Q_{CUR_RECV}(d)}{N_{PRE}(d)-N_{CUR}(d)}<br>  $$<ul>
+<li>$Q_{PRE}(d)$: represent the rays sent to domain $d$ from the non-local domains in the previous frame</li>
+<li>$Q_{CUR_RECV}(d)$: represent the number of rays that the domain $d$ has received from them in the current frame</li>
+<li>$Q_{PRE}(d)-Q_{CUR_RECV}(d)$: approximate the remaining rays that may be received from other nodes</li>
+<li>$N_{PRE}(d)$: the total loading times of domain $d$ in the previous frame</li>
+<li>$N_{CUR}(d)$: counts the number of times the domain $d$ has been loaded in the current frame</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="Temporal-Coherence-Based-Simplified-Model-Tracing-Algorithm"><a href="#Temporal-Coherence-Based-Simplified-Model-Tracing-Algorithm" class="headerlink" title="Temporal Coherence-Based Simplified Model Tracing Algorithm"></a>Temporal Coherence-Based Simplified Model Tracing Algorithm</h2><ul>
+<li>Optimized ray tracing algorithm by using a simplified model<ul>
+<li>Reduce the overhead of ray computation and transmission</li>
+<li>Store precomputed simplified models of the whole scene in each node<ul>
+<li>For those unimportant rays (with low radiance) passing through its neighboring domains, prefer to trace them with simplified models in the current node to reduce the data transfer overhead</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Tracing-with-Simplified-Models"><a href="#Tracing-with-Simplified-Models" class="headerlink" title="Tracing with Simplified Models"></a>Tracing with Simplified Models</h3><ul>
+<li>Based on the rays’ depths<ul>
+<li>The camera rays (depth of 0)<ul>
+<li>Contribute the most to the radiance</li>
+<li>Use the original fine model to trace</li>
+</ul>
+</li>
+<li>For rays with depths ≥ 2<ul>
+<li>Provide almost exclusively low frequency radiance contributions</li>
+<li>Trace them all using the simplified model</li>
+</ul>
+</li>
+<li>For rays at a depth of 1<ul>
+<li>Use virtual portal data structure to predict ray radiance and trace those rays with low radiance with the simplified model</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Simplified models are resident in memory for all nodes<ul>
+<li>No need to transfer data for further tracing</li>
+</ul>
+</li>
+<li>For perfect reflection and refraction rays<ul>
+<li>Use original fine model</li>
+</ul>
+</li>
+</ul>
+<h3 id="Radiance-Prediction"><a href="#Radiance-Prediction" class="headerlink" title="Radiance Prediction"></a>Radiance Prediction</h3><p><img src="/2023/01/06/paper_reading/Temporal_Coherence-Based_Distributed_Ray_Tracing_of_Massive_Scenes/image-20230107152316293.png"></p>
+<ul>
+<li>When a ray intersects the virtual portal<ul>
+<li>Get its coordinates in our 4D virtual portal grid according to the intersection position and the ray’s direction</li>
+<li>Get the recorded radiance at this coordinate in the previous frame and using it as the predicted radiance of the current ray</li>
+<li>If the predicted radiance of the ray is greater than a threshold, trace it with the original fine model; otherwise, render it with the simplified model</li>
+</ul>
+</li>
+</ul>
+<h2 id="Result"><a href="#Result" class="headerlink" title="Result"></a>Result</h2><h3 id="Experiment-Setting"><a href="#Experiment-Setting" class="headerlink" title="Experiment Setting"></a>Experiment Setting</h3><ul>
+<li>Sugon advanced computing cluster<ul>
+<li>Each computing node has a 32-core 2.0 GHz x86 Hygon Dhyana processor with 128 GB main memory, each distributed node and storage system is connected by 200 GB&#x2F;s HDR InfiniBand network</li>
+<li>Path tracing implementation is based on the Rodent path tracer with a BVH with branching factors eight as the accelerated structure and supports multiple importance sampling, area lights, next event estimation (NEE) , and physically-based materials</li>
+<li>Use MPI for message passing between nodes</li>
+</ul>
+</li>
+</ul>
+<h3 id="Rendering-Time-amp-Scalability"><a href="#Rendering-Time-amp-Scalability" class="headerlink" title="Rendering Time &amp; Scalability"></a>Rendering Time &amp; Scalability</h3><p><img src="/2023/01/06/paper_reading/Temporal_Coherence-Based_Distributed_Ray_Tracing_of_Massive_Scenes/image-20230107155648470.png"></p>
+<p><img src="/2023/01/06/paper_reading/Temporal_Coherence-Based_Distributed_Ray_Tracing_of_Massive_Scenes/image-20230107155925042.png"></p>
+<p><img src="/2023/01/06/paper_reading/Temporal_Coherence-Based_Distributed_Ray_Tracing_of_Massive_Scenes/image-20230107155948308.png"></p>
+<h3 id="Dynamic-Scene"><a href="#Dynamic-Scene" class="headerlink" title="Dynamic Scene"></a>Dynamic Scene</h3><p><img src="/2023/01/06/paper_reading/Temporal_Coherence-Based_Distributed_Ray_Tracing_of_Massive_Scenes/image-20230107160026174.png"></p>
+<p><img src="/2023/01/06/paper_reading/Temporal_Coherence-Based_Distributed_Ray_Tracing_of_Massive_Scenes/image-20230107160035577.png"></p>
+<p><img src="/2023/01/06/paper_reading/Temporal_Coherence-Based_Distributed_Ray_Tracing_of_Massive_Scenes/image-20230107160048650.png"></p>
+<h2 id="Limitations"><a href="#Limitations" class="headerlink" title="Limitations"></a>Limitations</h2><ul>
+<li>Inefficient for scenes with many perfectly reflected and refracted rays</li>
+<li>Use a uniform grid to divide the scene into domains and assign domains for each node according to the number of domains regardless of the different memory footprints of each domain, resulting in an unbalanced data distribution among nodes</li>
+<li>In domain scheduling, considering only the number of domains also leads to low memory usage</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>Post author:  </strong>Chaf Chen
+  </li>
+  <li class="post-copyright-link">
+      <strong>Post link: </strong>
+      <a href="https://chaphlagical.github.io/2023/01/06/paper_reading/Temporal_Coherence-Based_Distributed_Ray_Tracing_of_Massive_Scenes/" title="Temporal Coherence-based Distributed Ray Tracing of Massive Scenes">https://chaphlagical.github.io/2023/01/06/paper_reading/Temporal_Coherence-Based_Distributed_Ray_Tracing_of_Massive_Scenes/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Rendering/" rel="tag"># Rendering</a>
+              <a href="/tags/Distributed-Computing/" rel="tag"># Distributed Computing</a>
+              <a href="/tags/TVCG-2022/" rel="tag"># TVCG 2022</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/12/13/note/differentiable_rendering_basic/" rel="prev" title="Physics Based Differentiable Rendering: Preliminaries">
+                  <i class="fa fa-chevron-left"></i> Physics Based Differentiable Rendering: Preliminaries
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/01/07/gaming/spiderman_miles/" rel="next" title="Marvel's Spider-Man Miles Morales">
+                  Marvel's Spider-Man Miles Morales <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chaf Chen</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/9.2.2/mermaid.min.js","integrity":"sha256-o5AUfgOkNFWuInA78GVCoVdGoN9eTaB3Hxu+ep7TTrY="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"chaphlagical-github-io","count":true,"i18n":{"disqus":"disqus"}}</script>
+<script src="/js/third-party/comments/disqus.js"></script>
+
+</body>
+</html>
