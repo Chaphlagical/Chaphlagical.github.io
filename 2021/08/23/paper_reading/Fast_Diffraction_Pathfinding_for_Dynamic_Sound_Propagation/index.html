@@ -1,296 +1,184 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width">
-<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
-  <link rel="mask-icon" href="/images/logo.svg" color="#222">
-
-<link rel="stylesheet" href="/css/main.css">
-
-
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
-
-<script class="next-config" data-name="main" type="application/json">{"hostname":"chaphlagical.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.14.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":true,"storage":true,"lazyload":false,"nav":{"disqus":{"text":"Load Disqus","order":-1}}},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
-
-    <meta name="description" content="Siggraph 2021 paper reading">
-<meta property="og:type" content="blog">
+<!DOCTYPE html><html lang="[&quot;en&quot;,&quot;zh-CN&quot;,&quot;default&quot;]" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>Fast Diffraction Pathfinding for Dynamic Sound Propagation | Chaf's Blog</title><meta name="author" content="Chaf Chen"><meta name="copyright" content="Chaf Chen"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="Siggraph 2021 paper reading">
+<meta property="og:type" content="article">
 <meta property="og:title" content="Fast Diffraction Pathfinding for Dynamic Sound Propagation">
 <meta property="og:url" content="https://chaphlagical.github.io/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/index.html">
 <meta property="og:site_name" content="Chaf&#39;s Blog">
 <meta property="og:description" content="Siggraph 2021 paper reading">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://chaphlagical.github.io/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210821161415010.png">
-<meta property="og:image" content="https://chaphlagical.github.io/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210822093047703.png">
-<meta property="og:image" content="https://chaphlagical.github.io/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210822151840621.png">
-<meta property="og:image" content="https://chaphlagical.github.io/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210822152155452.png">
-<meta property="og:image" content="https://chaphlagical.github.io/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210822160819792.png">
-<meta property="og:image" content="https://chaphlagical.github.io/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210822162719475.png">
-<meta property="og:image" content="https://chaphlagical.github.io/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210822201205087.png">
-<meta property="og:image" content="https://chaphlagical.github.io/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210822152155452.png">
-<meta property="og:image" content="https://chaphlagical.github.io/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210823195554438.png">
-<meta property="og:image" content="https://chaphlagical.github.io/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210823215019823.png">
-<meta property="og:image" content="https://chaphlagical.github.io/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210823215048917.png">
-<meta property="og:image" content="https://chaphlagical.github.io/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210823215109007.png">
-<meta property="og:image" content="https://chaphlagical.github.io/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210823215127730.png">
-<meta property="og:image" content="https://chaphlagical.github.io/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210823215200235.png">
-<meta property="og:image" content="https://chaphlagical.github.io/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210823215222200.png">
-<meta property="og:image" content="https://chaphlagical.github.io/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210823215334108.png">
-<meta property="og:image" content="https://chaphlagical.github.io/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210823215444442.png">
-<meta property="og:image" content="https://chaphlagical.github.io/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210823221752265.png">
-<meta property="og:image" content="https://chaphlagical.github.io/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210823221837251.png">
-<meta property="og:image" content="https://chaphlagical.github.io/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210823215852679.png">
-<meta property="og:image" content="https://chaphlagical.github.io/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210824085947838.png">
-<meta property="og:image" content="https://chaphlagical.github.io/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210824090007192.png">
-<meta property="og:image" content="https://chaphlagical.github.io/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210823220010421.png">
+<meta property="og:image" content="https://chaphlagical.github.io/img/logo.jpg">
 <meta property="article:published_time" content="2021-08-23T21:20:00.000Z">
-<meta property="article:modified_time" content="2023-01-14T14:37:59.656Z">
+<meta property="article:modified_time" content="2023-03-02T12:40:59.598Z">
 <meta property="article:author" content="Chaf Chen">
 <meta property="article:tag" content="Siggraph 2021">
 <meta property="article:tag" content="Sound Rendering">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://chaphlagical.github.io/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210821161415010.png">
+<meta name="twitter:image" content="https://chaphlagical.github.io/img/logo.jpg"><link rel="shortcut icon" href="/img/logo.jpg"><link rel="canonical" href="https://chaphlagical.github.io/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"Traditional Chinese Activated Manually","cht_to_chs":"Simplified Chinese Activated Manually","day_to_night":"Dark Mode Activated Manually","night_to_day":"Light Mode Activated Manually","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Fast Diffraction Pathfinding for Dynamic Sound Propagation',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-03-02 12:40:59'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
 
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
 
-<link rel="canonical" href="https://chaphlagical.github.io/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/">
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
 
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
 
-
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://chaphlagical.github.io/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/","path":"2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/","title":"Fast Diffraction Pathfinding for Dynamic Sound Propagation"}</script>
-
-<script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>Fast Diffraction Pathfinding for Dynamic Sound Propagation | Chaf's Blog</title>
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
   
-
-
-
-
-
-
-  <script async defer data-website-id="" src=""></script>
-
-  <script defer data-domain="" src=""></script>
-
-  <noscript>
-    <link rel="stylesheet" href="/css/noscript.css">
-  </noscript>
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
-  <div class="headband"></div>
-
-  <main class="main">
-    <div class="column">
-      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
-  <div class="site-nav-toggle">
-    <div class="toggle" aria-label="Toggle navigation bar" role="button">
-        <span class="toggle-line"></span>
-        <span class="toggle-line"></span>
-        <span class="toggle-line"></span>
-    </div>
-  </div>
-
-  <div class="site-meta">
-
-    <a href="/" class="brand" rel="start">
-      <i class="logo-line"></i>
-      <p class="site-title">Chaf's Blog</p>
-      <i class="logo-line"></i>
-    </a>
-      <p class="site-subtitle" itemprop="description">Here I share some fun stuff</p>
-  </div>
-
-  <div class="site-nav-right">
-    <div class="toggle popup-trigger" aria-label="Search" role="button">
-    </div>
-  </div>
-</div>
-
-
-
-<nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
-  </ul>
-</nav>
-
-
-
-
-</header>
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
         
-  
-  <aside class="sidebar">
-
-    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
-      <ul class="sidebar-nav">
-        <li class="sidebar-nav-toc">
-          Table of Contents
-        </li>
-        <li class="sidebar-nav-overview">
-          Overview
-        </li>
-      </ul>
-
-      <div class="sidebar-panel-container">
-        <!--noindex-->
-        <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Introduction"><span class="nav-number">2.</span> <span class="nav-text">1. Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Background"><span class="nav-number">3.</span> <span class="nav-text">2. Background</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-Sound-Propagation"><span class="nav-number">3.1.</span> <span class="nav-text">2.1. Sound Propagation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-Diffraction-for-Geometric-Acoustic"><span class="nav-number">3.2.</span> <span class="nav-text">2.2. Diffraction for Geometric Acoustic</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-Mesh-Simplification-for-Acoustics"><span class="nav-number">3.3.</span> <span class="nav-text">2.3. Mesh Simplification for Acoustics</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Overview"><span class="nav-number">4.</span> <span class="nav-text">3. Overview</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Diffraction-Mesh-Preprocessing"><span class="nav-number">5.</span> <span class="nav-text">4. Diffraction Mesh Preprocessing</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-Mesh-Simplification"><span class="nav-number">5.1.</span> <span class="nav-text">4.1. Mesh Simplification</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-Diffraction-Edge-Extraction"><span class="nav-number">5.2.</span> <span class="nav-text">4.2. Diffraction Edge Extraction</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-1-Initial-Edge-Selection"><span class="nav-number">5.2.1.</span> <span class="nav-text">4.2.1. Initial Edge Selection</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-2-Curved-Boundary-Splitting"><span class="nav-number">5.2.2.</span> <span class="nav-text">4.2.2. Curved Boundary Splitting</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-3-Silhouette-Edges"><span class="nav-number">5.2.3.</span> <span class="nav-text">4.2.3. Silhouette Edges</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-3-Diffraction-Geometry-Construction"><span class="nav-number">5.2.4.</span> <span class="nav-text">4.3. Diffraction Geometry Construction</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-4-Diffraction-Graph"><span class="nav-number">5.3.</span> <span class="nav-text">4.4. Diffraction Graph</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-Diffraction-Runtime"><span class="nav-number">6.</span> <span class="nav-text">5. Diffraction Runtime</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-Ray-Tracing"><span class="nav-number">6.1.</span> <span class="nav-text">5.1. Ray Tracing</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-Path-Validation"><span class="nav-number">6.2.</span> <span class="nav-text">5.2. Path Validation</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#5-2-1-Shadow-Test"><span class="nav-number">6.2.1.</span> <span class="nav-text">5.2.1. Shadow Test</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-2-2-Shadow-Test-Tolerances"><span class="nav-number">6.2.2.</span> <span class="nav-text">5.2.2. Shadow Test Tolerances</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-2-3-Visibility-Test"><span class="nav-number">6.2.3.</span> <span class="nav-text">5.2.3. Visibility Test</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-3-Diffraction-Path-Cache"><span class="nav-number">6.3.</span> <span class="nav-text">5.3. Diffraction Path Cache</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-4-Diffraction-Graph-Traversal"><span class="nav-number">6.4.</span> <span class="nav-text">5.4. Diffraction Graph Traversal</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-Implementation"><span class="nav-number">7.</span> <span class="nav-text">6. Implementation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-Result"><span class="nav-number">8.</span> <span class="nav-text">7. Result</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#7-1-Scene"><span class="nav-number">8.1.</span> <span class="nav-text">7.1. Scene</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-2-Preprocessing"><span class="nav-number">8.2.</span> <span class="nav-text">7.2. Preprocessing</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-3-Runtime"><span class="nav-number">8.3.</span> <span class="nav-text">7.3. Runtime</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-4-Validation"><span class="nav-number">8.4.</span> <span class="nav-text">7.4. Validation</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-Conclusions"><span class="nav-number">9.</span> <span class="nav-text">8. Conclusions</span></a></li></ol></div>
-        </div>
-        <!--/noindex-->
-
-        <div class="site-overview-wrap sidebar-panel">
-          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <img class="site-author-image" itemprop="image" alt="Chaf Chen"
-      src="/images/logo.jpg">
-  <p class="site-author-name" itemprop="name">Chaf Chen</p>
-  <div class="site-description" itemprop="description">USTC CG Student</div>
-</div>
-<div class="site-state-wrap animated">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-        <a href="/archives/">
-          <span class="site-state-item-count">16</span>
-          <span class="site-state-item-name">posts</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-          <a href="/categories/">
-        <span class="site-state-item-count">3</span>
-        <span class="site-state-item-name">categories</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-          <a href="/tags/">
-        <span class="site-state-item-count">13</span>
-        <span class="site-state-item-name">tags</span></a>
-      </div>
-  </nav>
-</div>
-  <div class="links-of-author animated">
-      <span class="links-of-author-item">
-        <a href="https://github.com/chaphlagical" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;chaphlagical" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="mailto:chaf@mail.ustc.cn" title="E-Mail → mailto:chaf@mail.ustc.cn" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
-      </span>
-  </div>
-  <div class="cc-license animated" itemprop="license">
-    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
-  </div>
-
-        </div>
-      </div>
-    </div>
-
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
     
-    <div class="sidebar-inner sidebar-blogroll">
-      <div class="links-of-blogroll animated">
-        <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
-          Links
-        </div>
-        <ul class="links-of-blogroll-list">
-            <li class="links-of-blogroll-item">
-              <a href="http://gcl.ustc.edu.cn/" title="http:&#x2F;&#x2F;gcl.ustc.edu.cn&#x2F;" rel="noopener" target="_blank">GCL</a>
-            </li>
-        </ul>
-      </div>
-    </div>
-  </aside>
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
 
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
 
-    </div>
-
-    <div class="main-inner post posts-expand">
-
-
-  
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://chaphlagical.github.io/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Chaf Chen">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Chaf's Blog">
-      <meta itemprop="description" content="USTC CG Student">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="Fast Diffraction Pathfinding for Dynamic Sound Propagation | Chaf's Blog">
-      <meta itemprop="description" content="Siggraph 2021 paper reading">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          Fast Diffraction Pathfinding for Dynamic Sound Propagation
-        </h1>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2021-08-23 21:20:00" itemprop="dateCreated datePublished" datetime="2021-08-23T21:20:00+00:00">2021-08-23</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2023-01-14 14:37:59" itemprop="dateModified" datetime="2023-01-14T14:37:59+00:00">2023-01-14</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Paper-Reading/" itemprop="url" rel="index"><span itemprop="name">Paper Reading</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-</div>
-
-            <div class="post-description">Siggraph 2021 paper reading</div>
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-        <p><strong>Author</strong>: Carl Schissler, Gregor Mückl, Paul Calamia</p>
+if (false) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/logo.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">16</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">13</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">3</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="Chaf's Blog"><img class="site-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/logo.jpg"/><span class="site-name">Chaf's Blog</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">Fast Diffraction Pathfinding for Dynamic Sound Propagation</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2021-08-23T21:20:00.000Z" title="Created 2021-08-23 21:20:00">2021-08-23</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-03-02T12:40:59.598Z" title="Updated 2023-03-02 12:40:59">2023-03-02</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Paper-Reading/">Paper Reading</a></span></div><div class="meta-secondline"></div></div></div><article class="post-content" id="article-container"><p><strong>Author</strong>: Carl Schissler, Gregor Mückl, Paul Calamia</p>
 <p><strong>Institution</strong>: Facebook Reality Labs Research, USA</p>
 <p><strong>Link</strong>: <a target="_blank" rel="noopener" href="https://dl.acm.org/doi/10.1145/3450626.3459751">https://dl.acm.org/doi/10.1145/3450626.3459751</a></p>
 <h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><ul>
@@ -482,7 +370,7 @@
 </ul>
 </li>
 </ul>
-<h2 id="4-Diffraction-Mesh-Preprocessing"><a href="#4-Diffraction-Mesh-Preprocessing" class="headerlink" title="4. Diffraction Mesh Preprocessing"></a>4. Diffraction Mesh Preprocessing</h2><p><img src="/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210821161415010.png" alt="image-20210821161415010"></p>
+<h2 id="4-Diffraction-Mesh-Preprocessing"><a href="#4-Diffraction-Mesh-Preprocessing" class="headerlink" title="4. Diffraction Mesh Preprocessing"></a>4. Diffraction Mesh Preprocessing</h2><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210821161415010.png" alt="image-20210821161415010"></p>
 <ul>
 <li>Input: Raw triangle mesh with acoustic materials assigned to each triangle</li>
 <li>Stages:<ol>
@@ -576,7 +464,7 @@
 <ul>
 <li>Compute the merged normal cone for the two clusters, i.e. the smallest cone that contains both merged cones<ul>
 <li>Given two cones $i$ and $j$, this can be efficiently approximated by first computing the vector $\vec x_i$, on the boundary of cone $i$ that has the greatest angle with the axis of cone $j$​, and vice versa to yield $\vec x_j$</li>
-<li>The average of the two extreme<br>vectors is then used as the merged cone axis and the angle between them is used as the opening angle of the cone $\theta_{\vec n}$<br><img src="/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210822093047703.png" alt="image-20210822093047703.png"></li>
+<li>The average of the two extreme<br>vectors is then used as the merged cone axis and the angle between them is used as the opening angle of the cone $\theta_{\vec n}$<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210822093047703.png" alt="image-20210822093047703.png"></li>
 <li>The clusters are then merged if $\theta_\vec n$ is less than merging threshold for either cluster<ul>
 <li><p>The merging threshold is maintained separately for each cluster and is initially set to $\tau&#x3D;\epsilon_\theta$ at the beginning of the algorithm, where $\epsilon_\theta$ is the minimum dihedral angle to consider for diffraction</p>
 </li>
@@ -639,14 +527,14 @@
 </li>
 <li>The output of this stage is a collection of mesh boundaries that are known to be approximately straight.</li>
 </ul>
-<p><img src="/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210822151840621.png" alt="image-20210822151840621.png"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210822151840621.png" alt="image-20210822151840621.png"></p>
 </li>
 </ul>
 <h4 id="4-2-3-Silhouette-Edges"><a href="#4-2-3-Silhouette-Edges" class="headerlink" title="4.2.3. Silhouette Edges"></a>4.2.3. Silhouette Edges</h4><ul>
 <li><p>Only consider the diffraction that occurs in the shadow region of an edge</p>
 <ul>
 <li>The only edges that can produce diffraction are silhouette edges</li>
-<li>i.e. Those edges that can cast a “shadow” when illuminated from a point in the conservative shadow region<br><img src="/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210822152155452.png" alt="image-20210822152155452.png"><ul>
+<li>i.e. Those edges that can cast a “shadow” when illuminated from a point in the conservative shadow region<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210822152155452.png" alt="image-20210822152155452.png"><ul>
 <li>The edge axis is perpendicular to the image</li>
 <li>The edge is shared by faces $f_0$ and $f_1$ that have face normals $\vec n_0$ and $\vec n_1$</li>
 <li>The exterior angle between $f_0$ and $f_1$ is bisected by edge normal $\vec n_e$ and a planar diffraction flag that extend a distance $d_{flag}$ from the edge</li>
@@ -685,7 +573,7 @@
 </li>
 </ul>
 </li>
-<li>To sample the outgoing ray direction, use a uniform spherical distribution that has been modified to generate rays in a wedge<br>shape<br><img src="/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210822160819792.png" alt="image-20210822160819792.png"><ul>
+<li>To sample the outgoing ray direction, use a uniform spherical distribution that has been modified to generate rays in a wedge<br>shape<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210822160819792.png" alt="image-20210822160819792.png"><ul>
 <li><p>The outgoing ray direction in the local tangent space is given by:<br>$$<br>\vec r_d&#x3D;\Big(u_0, \sqrt{1-u_0^2}\sin u_1, \sqrt{1-u_0^2}\cos u_1 \Big)<br>$$</p>
 <ul>
 <li>$u_0$: a uniform random variable in the range $[0,\theta_s)$</li>
@@ -714,7 +602,7 @@
 </ul>
 </li>
 </ul>
-<p><img src="/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210822162719475.png" alt="image-20210822162719475.png"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210822162719475.png" alt="image-20210822162719475.png"></p>
 <ul>
 <li>Yellow circle: a sound source or listener with diameter $d_s$</li>
 <li>Red rays: represent random rays generated by $\vec r_d&#x3D;\Big(u_0, \sqrt{1-u_0^2}\sin u_1, \sqrt{1-u_0^2}\cos u_1 \Big)$ </li>
@@ -784,7 +672,7 @@
 <li>Work well in many cases, but can fail with certain meshes</li>
 <li>Consider the diffraction edges at the top ring of a tessellated cylinder, like follow figure:</li>
 </ul>
-<p><img src="/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210822201205087.png" alt="image-20210822201205087.png"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210822201205087.png" alt="image-20210822201205087.png"></p>
 <ul>
 <li>Placing the far vertices along the edge normal produces many gaps in the ring of flags that may reduce the effectiveness of the runtime diffraction algorithm</li>
 </ul>
@@ -920,7 +808,7 @@
 <li><p>Ray tracing repeats until a surface mesh is intersected or a maximum number of diffractions occur, at which point the further rays for the subpath are handled using standard BDPT</p>
 </li>
 </ul>
-<h3 id="5-2-Path-Validation"><a href="#5-2-Path-Validation" class="headerlink" title="5.2. Path Validation"></a>5.2. Path Validation</h3><h4 id="5-2-1-Shadow-Test"><a href="#5-2-1-Shadow-Test" class="headerlink" title="5.2.1. Shadow Test"></a>5.2.1. Shadow Test</h4><p><img src="/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210822152155452.png" alt="image-20210822152155452.png"></p>
+<h3 id="5-2-Path-Validation"><a href="#5-2-Path-Validation" class="headerlink" title="5.2. Path Validation"></a>5.2. Path Validation</h3><h4 id="5-2-1-Shadow-Test"><a href="#5-2-1-Shadow-Test" class="headerlink" title="5.2.1. Shadow Test"></a>5.2.1. Shadow Test</h4><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210822152155452.png" alt="image-20210822152155452.png"></p>
 <ul>
 <li>Each diffraction edge in a subpath must intersect the shadow region of the previous edge, if one exists<ul>
 <li>The shadow region is defined as the intersection of the two half-spaces corresponding to the shadow face plane and the shadow horizon plane</li>
@@ -991,7 +879,7 @@
 <ul>
 <li>Use $\beta_\min&#x3D;0.01\mathrm m$ and $\beta_\max&#x3D;1.0\mathrm m$</li>
 </ul>
-<p><img src="/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210823195554438.png" alt="image-20210823195554438.png"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210823195554438.png" alt="image-20210823195554438.png"></p>
 </li>
 </ul>
 </li>
@@ -1103,38 +991,38 @@
 </ul>
 </li>
 </ul>
-<h2 id="6-Implementation"><a href="#6-Implementation" class="headerlink" title="6. Implementation"></a>6. Implementation</h2><h2 id="7-Result"><a href="#7-Result" class="headerlink" title="7. Result"></a>7. Result</h2><h3 id="7-1-Scene"><a href="#7-1-Scene" class="headerlink" title="7.1. Scene"></a>7.1. Scene</h3><p><img src="/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210823215019823.png" alt="image-20210823215019823.png"></p>
-<p><img src="/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210823215048917.png" alt="image-20210823215048917.png"></p>
-<p><img src="/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210823215109007.png" alt="image-20210823215109007.png"></p>
-<p><img src="/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210823215127730.png" alt="image-20210823215127730.png"></p>
-<p><img src="/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210823215200235.png" alt="image-20210823215200235.png"></p>
-<p><img src="/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210823215222200.png" alt="image-20210823215222200.png"></p>
+<h2 id="6-Implementation"><a href="#6-Implementation" class="headerlink" title="6. Implementation"></a>6. Implementation</h2><h2 id="7-Result"><a href="#7-Result" class="headerlink" title="7. Result"></a>7. Result</h2><h3 id="7-1-Scene"><a href="#7-1-Scene" class="headerlink" title="7.1. Scene"></a>7.1. Scene</h3><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210823215019823.png" alt="image-20210823215019823.png"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210823215048917.png" alt="image-20210823215048917.png"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210823215109007.png" alt="image-20210823215109007.png"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210823215127730.png" alt="image-20210823215127730.png"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210823215200235.png" alt="image-20210823215200235.png"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210823215222200.png" alt="image-20210823215222200.png"></p>
 <h3 id="7-2-Preprocessing"><a href="#7-2-Preprocessing" class="headerlink" title="7.2. Preprocessing"></a>7.2. Preprocessing</h3><ul>
 <li>The time taken by each section of our preprocessing pipeline</li>
 </ul>
-<p><img src="/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210823215334108.png" alt="image-20210823215334108.png"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210823215334108.png" alt="image-20210823215334108.png"></p>
 <h3 id="7-3-Runtime"><a href="#7-3-Runtime" class="headerlink" title="7.3. Runtime"></a>7.3. Runtime</h3><ul>
 <li>The runtime performance with respect to the maximum diffraction order</li>
 </ul>
-<p><img src="/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210823215444442.png" alt="image-20210823215444442.png"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210823215444442.png" alt="image-20210823215444442.png"></p>
 <ul>
 <li><p>The runtime performance with respect to the varying diffraction flag lengths  </p>
-<p><img src="/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210823221752265.png" alt="image-20210823221752265.png"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210823221752265.png" alt="image-20210823221752265.png"></p>
 </li>
 <li><p>The number of paths found for varying diffraction flag lengths</p>
-<p><img src="/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210823221837251.png" alt="image-20210823221837251.png"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210823221837251.png" alt="image-20210823221837251.png"></p>
 </li>
 </ul>
 <h3 id="7-4-Validation"><a href="#7-4-Validation" class="headerlink" title="7.4. Validation"></a>7.4. Validation</h3><ul>
 <li>Paper’s approach vs. Offline FDTD simulation</li>
 </ul>
-<p><img src="/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210823215852679.png" alt="image-20210823215852679.png"></p>
-<p><img src="/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210824085947838.png" alt="image-20210824085947838.png"></p>
-<p><img src="/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210824090007192.png" alt="image-20210824090007192.png"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210823215852679.png" alt="image-20210823215852679.png"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210824085947838.png" alt="image-20210824085947838.png"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210824090007192.png" alt="image-20210824090007192.png"></p>
 <ul>
 <li>Two different configuration of paper’s approach vs. Offline FDTD simulation</li>
 </ul>
-<p><img src="/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210823220010421.png" alt="image-20210823220010421.png"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/image-20210823220010421.png" alt="image-20210823220010421.png"></p>
 <h2 id="8-Conclusions"><a href="#8-Conclusions" class="headerlink" title="8. Conclusions"></a>8. Conclusions</h2><ul>
 <li><p>Presented a complete approach for simulating approximate acoustic diffraction for real-time AR and VR applications </p>
 <ul>
@@ -1169,120 +1057,127 @@
 </ul>
 </li>
 </ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="https://chaphlagical.github.io">Chaf Chen</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://chaphlagical.github.io/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/">https://chaphlagical.github.io/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Siggraph-2021/">Siggraph 2021</a><a class="post-meta__tags" href="/tags/Sound-Rendering/">Sound Rendering</a></div><div class="post_share"><div class="social-share" data-image="/img/logo.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2021/08/25/paper_reading/Neural_Light_Transport_for_Relighting_and_View_Synthesis/" title="Neural Light Transport for Relighting and View Synthesis"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">Neural Light Transport for Relighting and View Synthesis</div></div></a></div><div class="next-post pull-right"><a href="/2021/08/18/paper_reading/Temporally_Adaptive_Shading_Reuse_for_Real_time_Rendering_and_Virtual_Reality/" title="Temporally Adaptive Shading Reuse for Real-time Rendering and Virtual Reality"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">Temporally Adaptive Shading Reuse for Real-time Rendering and Virtual Reality</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><div><a href="/2021/08/29/paper_reading/Low_Cost_SPAD_Sensing_for_Non_Line_Of_Sight_Tracking_Material/" title="Low-Cost SPAD Sensing for Non-Line-Of-Sight Tracking, Material Classification and Depth Imaging"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-08-29</div><div class="title">Low-Cost SPAD Sensing for Non-Line-Of-Sight Tracking, Material Classification and Depth Imaging</div></div></a></div><div><a href="/2021/08/25/paper_reading/Neural_Light_Transport_for_Relighting_and_View_Synthesis/" title="Neural Light Transport for Relighting and View Synthesis"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-08-25</div><div class="title">Neural Light Transport for Relighting and View Synthesis</div></div></a></div><div><a href="/2021/08/15/paper_reading/GPU_Accelerated_Path_Tracing_of_Massive_Scenes/" title="GPU Accelerated Path Tracing of Massive Scenes"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-08-15</div><div class="title">GPU Accelerated Path Tracing of Massive Scenes</div></div></a></div><div><a href="/2021/08/27/paper_reading/Real_Time_Global_Illumination_Decomposition_of_Videos/" title="Real-Time Global Illumination Decomposition of Videos"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-08-27</div><div class="title">Real-Time Global Illumination Decomposition of Videos</div></div></a></div><div><a href="/2021/08/18/paper_reading/Temporally_Adaptive_Shading_Reuse_for_Real_time_Rendering_and_Virtual_Reality/" title="Temporally Adaptive Shading Reuse for Real-time Rendering and Virtual Reality"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-08-18</div><div class="title">Temporally Adaptive Shading Reuse for Real-time Rendering and Virtual Reality</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comment</span></div></div><div class="comment-wrap"><div><div id="disqus_thread"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/logo.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Chaf Chen</div><div class="author-info__description">USTC CG Student</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">16</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">13</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">3</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Chaphlagical"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/Chaphlagical" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:mail@ustc.edu.cn" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">Looking for a Ph.D position!</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Abstract"><span class="toc-number">1.</span> <span class="toc-text">Abstract</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Introduction"><span class="toc-number">2.</span> <span class="toc-text">1. Introduction</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Background"><span class="toc-number">3.</span> <span class="toc-text">2. Background</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-Sound-Propagation"><span class="toc-number">3.1.</span> <span class="toc-text">2.1. Sound Propagation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-Diffraction-for-Geometric-Acoustic"><span class="toc-number">3.2.</span> <span class="toc-text">2.2. Diffraction for Geometric Acoustic</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-Mesh-Simplification-for-Acoustics"><span class="toc-number">3.3.</span> <span class="toc-text">2.3. Mesh Simplification for Acoustics</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Overview"><span class="toc-number">4.</span> <span class="toc-text">3. Overview</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-Diffraction-Mesh-Preprocessing"><span class="toc-number">5.</span> <span class="toc-text">4. Diffraction Mesh Preprocessing</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-Mesh-Simplification"><span class="toc-number">5.1.</span> <span class="toc-text">4.1. Mesh Simplification</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-Diffraction-Edge-Extraction"><span class="toc-number">5.2.</span> <span class="toc-text">4.2. Diffraction Edge Extraction</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-1-Initial-Edge-Selection"><span class="toc-number">5.2.1.</span> <span class="toc-text">4.2.1. Initial Edge Selection</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-2-Curved-Boundary-Splitting"><span class="toc-number">5.2.2.</span> <span class="toc-text">4.2.2. Curved Boundary Splitting</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-3-Silhouette-Edges"><span class="toc-number">5.2.3.</span> <span class="toc-text">4.2.3. Silhouette Edges</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-3-Diffraction-Geometry-Construction"><span class="toc-number">5.2.4.</span> <span class="toc-text">4.3. Diffraction Geometry Construction</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-4-Diffraction-Graph"><span class="toc-number">5.3.</span> <span class="toc-text">4.4. Diffraction Graph</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-Diffraction-Runtime"><span class="toc-number">6.</span> <span class="toc-text">5. Diffraction Runtime</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-Ray-Tracing"><span class="toc-number">6.1.</span> <span class="toc-text">5.1. Ray Tracing</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-Path-Validation"><span class="toc-number">6.2.</span> <span class="toc-text">5.2. Path Validation</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#5-2-1-Shadow-Test"><span class="toc-number">6.2.1.</span> <span class="toc-text">5.2.1. Shadow Test</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-2-2-Shadow-Test-Tolerances"><span class="toc-number">6.2.2.</span> <span class="toc-text">5.2.2. Shadow Test Tolerances</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-2-3-Visibility-Test"><span class="toc-number">6.2.3.</span> <span class="toc-text">5.2.3. Visibility Test</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-3-Diffraction-Path-Cache"><span class="toc-number">6.3.</span> <span class="toc-text">5.3. Diffraction Path Cache</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-4-Diffraction-Graph-Traversal"><span class="toc-number">6.4.</span> <span class="toc-text">5.4. Diffraction Graph Traversal</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-Implementation"><span class="toc-number">7.</span> <span class="toc-text">6. Implementation</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-Result"><span class="toc-number">8.</span> <span class="toc-text">7. Result</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#7-1-Scene"><span class="toc-number">8.1.</span> <span class="toc-text">7.1. Scene</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-2-Preprocessing"><span class="toc-number">8.2.</span> <span class="toc-text">7.2. Preprocessing</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-3-Runtime"><span class="toc-number">8.3.</span> <span class="toc-text">7.3. Runtime</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-4-Validation"><span class="toc-number">8.4.</span> <span class="toc-text">7.4. Validation</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-Conclusions"><span class="toc-number">9.</span> <span class="toc-text">8. Conclusions</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/01/25/paper_reading/Adaptive_Incident_Radiance_Field_Sampling_and_Reconstruction_Using_Deep_Reinforcement_Learning/" title="Adaptive Incident Radiance Field Sampling and Reconstruction Using Deep Reinforcement Learning">Adaptive Incident Radiance Field Sampling and Reconstruction Using Deep Reinforcement Learning</a><time datetime="2023-01-25T00:04:00.000Z" title="Created 2023-01-25 00:04:00">2023-01-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/01/06/paper_reading/Temporal_Coherence-Based_Distributed_Ray_Tracing_of_Massive_Scenes/" title="Temporal Coherence-based Distributed Ray Tracing of Massive Scenes">Temporal Coherence-based Distributed Ray Tracing of Massive Scenes</a><time datetime="2023-01-06T22:13:11.000Z" title="Created 2023-01-06 22:13:11">2023-01-06</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/12/29/gaming/spiderman_miles/" title="Marvel's Spider-Man Miles Morales">Marvel's Spider-Man Miles Morales</a><time datetime="2022-12-29T21:13:11.000Z" title="Created 2022-12-29 21:13:11">2022-12-29</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/12/17/paper_reading/Vectorization_for_Fast_Analytic_and_Differentiable_Visibility/" title="Vectorization for Fast, Analytic, and Differentiable Visibility">Vectorization for Fast, Analytic, and Differentiable Visibility</a><time datetime="2022-12-17T21:13:11.000Z" title="Created 2022-12-17 21:13:11">2022-12-17</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/12/14/note/edge_sampling/" title="Physics Based Differentiable Rendering: Edge Sampling">Physics Based Differentiable Rendering: Edge Sampling</a><time datetime="2022-12-14T00:00:00.000Z" title="Created 2022-12-14 00:00:00">2022-12-14</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By Chaf Chen</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll To Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
 
-    </div>
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
 
-    
-    
-    
-
-    <footer class="post-footer">
-          
-
-<div class="post-copyright">
-<ul>
-  <li class="post-copyright-author">
-      <strong>Post author:  </strong>Chaf Chen
-  </li>
-  <li class="post-copyright-link">
-      <strong>Post link: </strong>
-      <a href="https://chaphlagical.github.io/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/" title="Fast Diffraction Pathfinding for Dynamic Sound Propagation">https://chaphlagical.github.io/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/</a>
-  </li>
-  <li class="post-copyright-license">
-    <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
-  </li>
-</ul>
-</div>
-
-          <div class="post-tags">
-              <a href="/tags/Siggraph-2021/" rel="tag"># Siggraph 2021</a>
-              <a href="/tags/Sound-Rendering/" rel="tag"># Sound Rendering</a>
-          </div>
-
-        
-
-          <div class="post-nav">
-            <div class="post-nav-item">
-                <a href="/2021/08/18/paper_reading/Temporally_Adaptive_Shading_Reuse_for_Real_time_Rendering_and_Virtual_Reality/" rel="prev" title="Temporally Adaptive Shading Reuse for Real-time Rendering and Virtual Reality">
-                  <i class="fa fa-chevron-left"></i> Temporally Adaptive Shading Reuse for Real-time Rendering and Virtual Reality
-                </a>
-            </div>
-            <div class="post-nav-item">
-                <a href="/2021/08/25/paper_reading/Neural_Light_Transport_for_Relighting_and_View_Synthesis/" rel="next" title="Neural Light Transport for Relighting and View Synthesis">
-                  Neural Light Transport for Relighting and View Synthesis <i class="fa fa-chevron-right"></i>
-                </a>
-            </div>
-          </div>
-    </footer>
-  </article>
-</div>
-
-
-
-
-
-
-    
-  <div class="comments" id="disqus_thread">
-    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
-  </div>
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container').forEach(node => {
+            if (node.hasAttribute('display')) {
+              btf.wrap(node, 'div', { class: 'mathjax-overflow' })
+            } else {
+              btf.wrap(node, 'span', { class: 'mathjax-overflow' })
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
   
-</div>
-  </main>
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
 
-  <footer class="footer">
-    <div class="footer-inner">
+      Array.from($mermaidWrap).forEach((item, index) => {
+        const mermaidSrc = item.firstElementChild
+        const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+        const mermaidID = 'mermaid-' + index
+        const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+        mermaid.mermaidAPI.render(mermaidID, mermaidDefinition, (svgCode) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svgCode)
+        })
+      })
+    }
 
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+    }
 
-<div class="copyright">
-  &copy; 
-  <span itemprop="copyrightYear">2023</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Chaf Chen</span>
-</div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a>
-  </div>
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script><script>function loadDisqus () {
+  var disqus_config = function () {
+    this.page.url = 'https://chaphlagical.github.io/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/'
+    this.page.identifier = '/2021/08/23/paper_reading/Fast_Diffraction_Pathfinding_for_Dynamic_Sound_Propagation/'
+    this.page.title = 'Fast Diffraction Pathfinding for Dynamic Sound Propagation'
+  };
 
-    </div>
-  </footer>
+  window.disqusReset = () => {
+    DISQUS.reset({
+      reload: true,
+      config: disqus_config
+    })
+  }
 
-  
-  <div class="back-to-top" role="button" aria-label="Back to top">
-    <i class="fa fa-arrow-up fa-lg"></i>
-    <span>0%</span>
-  </div>
+  if (window.DISQUS) disqusReset()
+  else {
+    (function() { 
+      var d = document, s = d.createElement('script');
+      s.src = 'https://chaphlagical-github-io.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  }
 
-<noscript>
-  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
-</noscript>
+  document.getElementById('darkmode').addEventListener('click', () => {
+    setTimeout(() => window.disqusReset(), 200)
+  })
+}
 
-
-  
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
-<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
-
-  
-
-  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/9.2.2/mermaid.min.js","integrity":"sha256-o5AUfgOkNFWuInA78GVCoVdGoN9eTaB3Hxu+ep7TTrY="}}</script>
-  <script src="/js/third-party/tags/mermaid.js"></script>
-
-
-
-  
-
-
-
-
-  
-
-  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
-<script src="/js/third-party/math/mathjax.js"></script>
-
-
-<script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"chaphlagical-github-io","count":true,"i18n":{"disqus":"disqus"}}</script>
-<script src="/js/third-party/comments/disqus.js"></script>
-
-</body>
-</html>
+if ('Disqus' === 'Disqus' || !false) {
+  if (false) btf.loadComment(document.getElementById('disqus_thread'), loadDisqus)
+  else loadDisqus()
+} else {
+  function loadOtherComment () {
+    loadDisqus()
+  }
+}
+</script></div></div></body></html>
