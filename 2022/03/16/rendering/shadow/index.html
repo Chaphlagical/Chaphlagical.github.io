@@ -1,0 +1,500 @@
+<!DOCTYPE html><html lang="[&quot;en&quot;,&quot;zh-CN&quot;,&quot;default&quot;]" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>实时阴影系统 | Chaf's Blog</title><meta name="author" content="Chaf Chen"><meta name="copyright" content="Chaf Chen"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="实时阴影系统，包括聚光灯、平行光和点光源阴影，支持多光源阴影与软阴影滤波">
+<meta property="og:type" content="article">
+<meta property="og:title" content="实时阴影系统">
+<meta property="og:url" content="https://chaphlagical.github.io/2022/03/16/rendering/shadow/index.html">
+<meta property="og:site_name" content="Chaf&#39;s Blog">
+<meta property="og:description" content="实时阴影系统，包括聚光灯、平行光和点光源阴影，支持多光源阴影与软阴影滤波">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://chaphlagical.github.io/2022/03/16/rendering/shadow/shadow.png">
+<meta property="article:published_time" content="2022-03-16T00:00:00.000Z">
+<meta property="article:modified_time" content="2023-03-02T13:45:40.531Z">
+<meta property="article:author" content="Chaf Chen">
+<meta property="article:tag" content="Rendering">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://chaphlagical.github.io/2022/03/16/rendering/shadow/shadow.png"><link rel="shortcut icon" href="/img/logo.jpg"><link rel="canonical" href="https://chaphlagical.github.io/2022/03/16/rendering/shadow/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"Traditional Chinese Activated Manually","cht_to_chs":"Simplified Chinese Activated Manually","day_to_night":"Dark Mode Activated Manually","night_to_day":"Light Mode Activated Manually","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '实时阴影系统',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-03-02 13:45:40'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+
+if (false) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/logo.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">33</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">6</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="Chaf's Blog"><img class="site-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/logo.jpg"/><span class="site-name">Chaf's Blog</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">实时阴影系统</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2022-03-16T00:00:00.000Z" title="Created 2022-03-16 00:00:00">2022-03-16</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-03-02T13:45:40.531Z" title="Updated 2023-03-02 13:45:40">2023-03-02</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Rendering/">Rendering</a></span></div><div class="meta-secondline"></div></div></div><article class="post-content" id="article-container"><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2022/03/16/rendering/shadow/shadow.png" alt="shadow"></p>
+<p>阴影系统是一个渲染器的重要部分，对渲染品质有至关重要的作用。本文将介绍Ilum渲染器的阴影系统，针对渲染器目前支持的三种光源：聚光灯、平行光和点光源，我们分别有三种不同的阴影渲染策略：Shadow Map、Cascade Shadow Map和Omnidirectional Shadow Map，并通过实现PCF和PCSS两种软阴影滤波方式，提高阴影渲染的品质，后续有时间也可能将继续探索VSM、SDF Shadow等阴影渲染方法，目前我们只实现一个最基本的阴影系统。</p>
+<h2 id="1-实时阴影渲染概述"><a href="#1-实时阴影渲染概述" class="headerlink" title="1. 实时阴影渲染概述"></a>1. 实时阴影渲染概述</h2><p>实时渲染阴影主要是解决一个可见性的问题，将渲染方程引入可见性可以建模为：<br>$$<br>L_o(p,\omega_o)&#x3D;\int_{\Omega^+}L_i(p,\omega_i)f_r(p,\omega_i,\omega_o)\cos\theta_iV(p,\omega_i)\mathrm d\omega_i<br>$$<br>利用实时渲染中一个常用的近似：<br>$$<br>\int_\Omega f(x)g(x)\mathrm dx\approx \frac{\int_\Omega f(x)\mathrm dx}{\int_\Omega \mathrm dx}\cdot\int_\Omega g(x)\mathrm dx<br>$$<br>可以得到：<br>$$<br>L_o(p,\omega_o)\approx \frac{\int_{\Omega^+}V(p,\omega_i)\mathrm d\omega_i}{\int_{\Omega^+}\mathrm d\omega_i}\cdot\int_{\Omega^+}L_i(p,\omega_i)f_r(p,\omega_i,\omega_o)\cos\theta_i\mathrm d\omega_i<br>$$<br>这样一来我们便将着色项和可见性项分开，对于上述近似，在特定情况下为完全精确：</p>
+<ul>
+<li>$\Omega^+$范围很小，如点光源、方向光</li>
+<li>被积函数光滑、低频，如漫反射BSDF、均匀辐射率的面光源</li>
+</ul>
+<p>所以，阴影渲染将解决的问题便是求解可见性项$\frac{\int_{\Omega^+}V(p,\omega_i)\mathrm d\omega_i}{\int_{\Omega^+}\mathrm d\omega_i}$，常用的方法包括：</p>
+<ul>
+<li>两Pass的阴影映射</li>
+<li>屏幕空间阴影映射</li>
+<li>光线追踪阴影</li>
+<li>有向距离场阴影</li>
+<li>……</li>
+</ul>
+<p>这里我们只实现了基于两Pass的阴影映射方法，在这种方法下，对于一个带有光源的场景</p>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="image-20200821184459801.png" alt="image-20200821184459801" style="zoom:50%;" />
+
+<p>第一个Pass需要从光源出发，架设一台摄像机，生成从光源角度看到的场景深度图</p>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="image-20220316213721776.png" alt="image-20220316213721776" style="zoom:50%;" />
+
+<p>第二个Pass需要从主摄像机出发，通过采样光源深度图进行比较，计算各个着色点的可见性</p>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="image-20220316213839050.png" alt="image-20220316213839050" style="zoom:50%;" />
+
+<p>得到最终结果</p>
+<h2 id="2-聚光灯阴影——Shadow-Mapping"><a href="#2-聚光灯阴影——Shadow-Mapping" class="headerlink" title="2. 聚光灯阴影——Shadow Mapping"></a>2. 聚光灯阴影——Shadow Mapping</h2><p>聚光灯阴影相对其他两个光源比较简单，因为聚光灯的位置与朝向是已知的，聚光灯的照明范围为一个圆锥体：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2022/03/16/rendering/shadow/image-20220316213256815.png" alt="image-20220316213256815"></p>
+<p>因此我们需要的光源相机便很明确了，只需一个视锥体能够覆盖聚光灯锥体的透视相机，朝向与聚光灯方向相等，FOV与聚光灯的裁剪角相等即可。每一盏聚光灯只需一张深度图，实现过程中，我们希望在一个Pass内生成所有聚光灯的Shadow Map，这里我们将Render Target的层数设为当前支持的最大聚光灯数，利用Vulkan扩展<code>shaderOutputLayer</code>和<code>shaderOutputViewportIndex</code>（在Vulkan1.2中已升至Core特性），我们可以直接在vertex shader中直接对<code>gl_Layer</code>进行赋值，将渲染结果输出到目标的图层上（若未启用上述两个扩展&#x2F;功能，则只能在geometry shader中写入<code>gl_Layer</code>），渲染完深度图后，我们将聚光灯Shadow Map作为TextureArray绑定到光照阶段的着色器上，进行可见性的计算和阴影的渲染：</p>
+<ol>
+<li>先将世界空间内的着色点<code>frag_pos</code>变换到聚光灯相机的裁剪空间内<code>clip_pos</code>（乘VP矩阵）</li>
+<li>对裁剪空间的着色点进行透视除法得到<code>ndc_pos</code>，同时将xy分量归一化到$[0,1]$，得到阴影采样坐标<code>shadow_coord</code></li>
+<li>利用<code>shadow_coord</code>采样Shadow Map，比较采样值与<code>ndc_pos.z</code>，若采样值小，说明光线在达到着色点前先打到了其他的物体上，因此着色点被遮挡，产生阴影</li>
+</ol>
+<p><strong>基本代码如下：</strong></p>
+<figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">vec3</span> spot_light_shadow(SpotLight light, <span class="type">vec3</span> frag_color, <span class="type">vec3</span> frag_pos, <span class="type">float</span> layer)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">vec4</span> shadow_clip = light.view_projection * <span class="type">vec4</span>(frag_pos, <span class="number">1.0</span>);</span><br><span class="line">    <span class="type">vec4</span> shadow_coord = <span class="type">vec4</span>(shadow_clip.xyz / shadow_clip.w, shadow_clip.w);</span><br><span class="line">    shadow_coord.st = shadow_coord.st * <span class="number">0.5</span> + <span class="number">0.5</span>;	<span class="comment">// [-1, 1] -&gt; [0, 1]</span></span><br><span class="line">    shadow_coord.t = <span class="number">1.0</span> - shadow_coord.t;	<span class="comment">// Flip Y</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> frag_color * sample_shadowmap(CascadeShadowMaps, shadow_coord, layer, <span class="type">vec2</span>(<span class="number">0.0</span>));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">float</span> sample_shadowmap(<span class="type">sampler2DArray</span> shadowmap, <span class="type">vec4</span> shadow_coord, <span class="type">float</span> layer, <span class="type">vec2</span> <span class="keyword">offset</span>)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">float</span> shadow = <span class="number">1.0</span>;</span><br><span class="line">	</span><br><span class="line">    <span class="keyword">if</span> (shadow_coord.z &gt; <span class="number">-1.0</span> &amp;&amp; shadow_coord.z &lt; <span class="number">1.0</span>) </span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">float</span> dist = <span class="built_in">texture</span>(shadowmap, <span class="type">vec3</span>(shadow_coord.st + <span class="keyword">offset</span>, layer)).r;</span><br><span class="line">        <span class="keyword">if</span> (shadow_coord.w &gt; <span class="number">0.0</span> &amp;&amp; dist &lt; shadow_coord.z)</span><br><span class="line">        &#123;</span><br><span class="line">            shadow = <span class="number">0.0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> shadow;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>实现效果：</strong></p>
+<p>无阴影：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2022/03/16/rendering/shadow/no_shadow1.png" alt="no_shadow1"></p>
+<p>聚光灯Shadow Map：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2022/03/16/rendering/shadow/shadowmap.png" alt="shadowmap"></p>
+<p>聚光灯阴影：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2022/03/16/rendering/shadow/shadow1.png" alt="shadow1"></p>
+<h2 id="3-平行光阴影——Cascade-Shadow-Map"><a href="#3-平行光阴影——Cascade-Shadow-Map" class="headerlink" title="3. 平行光阴影——Cascade Shadow Map"></a>3. 平行光阴影——Cascade Shadow Map</h2><p>平行光相对于聚光灯要复杂不少，平行光没有具体的光源位置，只有一个方向，且覆盖范围为无穷远，在场景搭建中常常用来表示日光等主光源。由于没有具体的位置与范围，我们很难进行投影摄像机的设置，好在已经有成熟的方案来帮助我们实现平行光的阴影，那就是级联阴影映射，即Cascade Shadow Map，aka CSM。</p>
+<p>CSM的核心思想是根据当前主相机的视锥体进行架设投影相机，因为在主相机可见范围之外的深度判断没有意义，因此我们希望把深度信息用在刀刃上，只考虑主相机看得到的部分。一个最直接的想法是选择一个能够覆盖整个主相机视锥体的投影相机，但由于主相机可见范围可能很远，视锥体范围很大，相应的投影相机也会覆盖较大的范围，势必将会降低生成的Shadow Map的精度，而事实上用户往往只关心里自己近的渲染细节品质，大范围渲染一视同仁，将会带来不够让人满意的结果。而CSM则是对主相机视锥进行分割，对每一块都架设投影相机，这样一来既能保证覆盖主相机所有可见范围，又能保证近处的深度图精度。为了方便对齐，Ilum渲染器将Cascade级数设置为4，$n$个平行光需要$4n$张贴图，将其打包成TextureArray，每四张归于一个平行光。总结起来，CSM的基本步骤如下：</p>
+<ol>
+<li>将视锥体$V$通过分割平面$\{C_i\}$分割为$m$份$\{V_i\}$</li>
+<li>对每一份视锥体$V_i$计算平行光相机的View Projection矩阵</li>
+<li>对每一份视锥体$V_i$生成一张Shadow Map $\{T_i\}$</li>
+<li>在场景中渲染阴影结果</li>
+</ol>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/10fig02.jpg" alt="10fig02.jpg"></p>
+<h3 id="3-1-视锥分割"><a href="#3-1-视锥分割" class="headerlink" title="3.1. 视锥分割"></a>3.1. 视锥分割</h3><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2022/03/16/rendering/shadow/10fig03.jpg" alt="10fig03"></p>
+<p>假设单位像素在阴影贴图中的边长为$\mathrm ds$，由上图所示，模型表面的混淆误差定义为：<br>$$<br>\frac{\mathrm dp}{\mathrm ds}&#x3D;n\frac{\mathrm dz}{z\mathrm ds}\frac{\cos\phi}{\cos\theta}<br>$$<br>其中$n$即相机到近平面的距离。</p>
+<p>为了使得整个画面的阴影看起来质量一致，不会因为和相机的距离而出现明显的质量变化，我们应尽量使$\frac{\mathrm dp}{\mathrm ds}$项为一个常数，则余弦项系数$\frac{\mathrm dz}{z\mathrm ds}$也应保持常数，则有<br>$$<br>\frac{\mathrm dz}{z\mathrm ds}&#x3D;\rho\Rightarrow s(z)&#x3D;\int_0^s\mathrm ds&#x3D;\frac{1}{\rho}\int_n^z\frac{1}{z}\mathrm dz&#x3D;\frac{1}{\rho}\ln\frac{z}{n}<br>$$<br>又有$s(f)&#x3D;1$，因此<br>$$<br>\rho&#x3D;\ln\frac{f}{n}<br>$$<br>因此对于共计$m$次分割的第$i$个视锥体分割，有：<br>$$<br>s(z_i)&#x3D;\frac{1}{\ln(f&#x2F;n)}\ln\frac{z_i}{n}&#x3D;\frac{i}{m}\Rightarrow z_i&#x3D;n\left(\frac{f}{n}\right)^{i&#x2F;m}<br>$$<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="image-20220317191201141.png" alt="image-20220317191201141" style="zoom:50%;" /></p>
+<p>从上图中可以看到光锥体包含了很大一部分不可见的区域，造成阴影贴图的浪费，因此我们可以添加一个线性项来改善这个问题：<br>$$<br>z_i&#x3D;\lambda n\left(\frac{f}{n}\right)^{i&#x2F;m}+(1-\lambda)(n+(f-n)\frac{i}{m})<br>$$<br>这样一来，我们便得到一个采样相对均匀的视锥体分割方法</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2022/03/16/rendering/shadow/10fig04.jpg" alt="10fig04.jpg"></p>
+<p>实现代码：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">float</span> cascade_splits[<span class="number">4</span>] = &#123;<span class="number">0.f</span>&#125;;</span><br><span class="line"></span><br><span class="line"><span class="type">float</span> near_clip  = camera-&gt;near_plane;</span><br><span class="line"><span class="type">float</span> far_clip   = camera-&gt;far_plane;</span><br><span class="line"><span class="type">float</span> clip_range = far_clip - near_clip;</span><br><span class="line"><span class="type">float</span> ratio      = far_clip / near_clip;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="type">uint32_t</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; i++)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">float</span> p           = (<span class="built_in">static_cast</span>&lt;<span class="type">float</span>&gt;(i) + <span class="number">1.f</span>) / <span class="number">4.f</span>;</span><br><span class="line">    <span class="type">float</span> log         = near_clip * std::<span class="built_in">pow</span>(ratio, p);</span><br><span class="line">    <span class="type">float</span> uniform     = near_clip + clip_range * p;</span><br><span class="line">    <span class="type">float</span> d           = <span class="number">0.95f</span> * (log - uniform) + uniform;</span><br><span class="line">    cascade_splits[i] = (d - near_clip) / clip_range;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-2-计算光源的相机参数"><a href="#3-2-计算光源的相机参数" class="headerlink" title="3.2. 计算光源的相机参数"></a>3.2. 计算光源的相机参数</h3><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="image-20220318094640099.png" alt="image-20220318094640099" style="zoom:50%;" />
+
+<p>每一级Cascade的阴影相机应覆盖相应的视锥体，首先计算分割后的视锥体各个顶点坐标，在屏幕空间中，视锥体应为屏幕边界，由于Vulkan中的深度范围为$[0,1]$，因此八个顶点坐标分别为：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">glm::vec3 frustum_corners[<span class="number">8</span>] = &#123;</span><br><span class="line">    glm::<span class="built_in">vec3</span>(<span class="number">-1.0f</span>, <span class="number">1.0f</span>, <span class="number">0.0f</span>),</span><br><span class="line">    glm::<span class="built_in">vec3</span>(<span class="number">1.0f</span>, <span class="number">1.0f</span>, <span class="number">0.0f</span>),</span><br><span class="line">    glm::<span class="built_in">vec3</span>(<span class="number">1.0f</span>, <span class="number">-1.0f</span>, <span class="number">0.0f</span>),</span><br><span class="line">    glm::<span class="built_in">vec3</span>(<span class="number">-1.0f</span>, <span class="number">-1.0f</span>, <span class="number">0.0f</span>),</span><br><span class="line">    glm::<span class="built_in">vec3</span>(<span class="number">-1.0f</span>, <span class="number">1.0f</span>, <span class="number">1.0f</span>),</span><br><span class="line">    glm::<span class="built_in">vec3</span>(<span class="number">1.0f</span>, <span class="number">1.0f</span>, <span class="number">1.0f</span>),</span><br><span class="line">    glm::<span class="built_in">vec3</span>(<span class="number">1.0f</span>, <span class="number">-1.0f</span>, <span class="number">1.0f</span>),</span><br><span class="line">    glm::<span class="built_in">vec3</span>(<span class="number">-1.0f</span>, <span class="number">-1.0f</span>, <span class="number">1.0f</span>)&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>通过主相机的View Projection矩阵反变换到世界坐标中：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">glm::mat4 inv_cam = glm::<span class="built_in">inverse</span>(camera-&gt;view_projection);</span><br><span class="line"><span class="keyword">for</span> (<span class="type">uint32_t</span> j = <span class="number">0</span>; j &lt; <span class="number">8</span>; j++)</span><br><span class="line">&#123;</span><br><span class="line">    glm::vec4 inv_corner = inv_cam * glm::<span class="built_in">vec4</span>(frustum_corners[j], <span class="number">1.f</span>);</span><br><span class="line">    frustum_corners[j]   = glm::<span class="built_in">vec3</span>(inv_corner / inv_corner.w);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>再通过分割比例对视锥体进行裁剪：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="type">uint32_t</span> j = <span class="number">0</span>; j &lt; <span class="number">4</span>; j++)</span><br><span class="line">&#123;</span><br><span class="line">    glm::vec3 corner_ray   = frustum_corners[j + <span class="number">4</span>] - frustum_corners[j];</span><br><span class="line">    frustum_corners[j + <span class="number">4</span>] = frustum_corners[j] + corner_ray * split_dist;</span><br><span class="line">    frustum_corners[j]     = frustum_corners[j] + corner_ray * last_split_dist;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>得到当前级的视锥体后，可以计算其包围球：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">glm::vec3 frustum_center = glm::<span class="built_in">vec3</span>(<span class="number">0.0f</span>);</span><br><span class="line"><span class="keyword">for</span> (<span class="type">uint32_t</span> j = <span class="number">0</span>; j &lt; <span class="number">8</span>; j++)</span><br><span class="line">&#123;</span><br><span class="line">    frustum_center += frustum_corners[j];</span><br><span class="line">&#125;</span><br><span class="line">frustum_center /= <span class="number">8.0f</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">float</span> radius = <span class="number">0.0f</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="type">uint32_t</span> j = <span class="number">0</span>; j &lt; <span class="number">8</span>; j++)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">float</span> distance = glm::<span class="built_in">length</span>(frustum_corners[j] - frustum_center);</span><br><span class="line">    radius         = glm::<span class="built_in">max</span>(radius, distance);</span><br><span class="line">&#125;</span><br><span class="line">radius = std::<span class="built_in">ceil</span>(radius * <span class="number">16.0f</span>) / <span class="number">16.0f</span>;</span><br></pre></td></tr></table></figure>
+
+<p>有了包围球，便能够很容易地求出相机参数了：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">glm::vec3 max_extents = glm::<span class="built_in">vec3</span>(radius);</span><br><span class="line">glm::vec3 min_extents = -max_extents;</span><br><span class="line"></span><br><span class="line">glm::vec3 light_dir = glm::<span class="built_in">normalize</span>(light.direction);</span><br><span class="line"></span><br><span class="line">glm::mat4 light_view_matrix  = glm::<span class="built_in">lookAt</span>(frustum_center - light_dir * max_extents.z, </span><br><span class="line">                                           frustum_center, </span><br><span class="line">                                           glm::<span class="built_in">vec3</span>(<span class="number">0.0f</span>, <span class="number">1.0f</span>, <span class="number">0.0f</span>));</span><br><span class="line"></span><br><span class="line">glm::mat4 light_ortho_matrix = glm::<span class="built_in">ortho</span>(min_extents.x, </span><br><span class="line">                                          max_extents.x, </span><br><span class="line">                                          min_extents.y, </span><br><span class="line">                                          max_extents.y, </span><br><span class="line">                                          <span class="number">-2.f</span> * (max_extents.z - min_extents.z), </span><br><span class="line">                                          max_extents.z - min_extents.z);</span><br><span class="line"></span><br><span class="line">light.split_depth[i]     = -(near_clip + split_dist * clip_range);</span><br><span class="line">light.view_projection[i] = light_ortho_matrix * light_view_matrix;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-3-渲染深度图"><a href="#3-3-渲染深度图" class="headerlink" title="3.3. 渲染深度图"></a>3.3. 渲染深度图</h3><p>知道了各级相机参数，我们便可以进行深度图的渲染了，一个简单的想法是对所以四个Cascade级渲染四遍场景，事实上为了减少Drawcall，我们可以利用几何着色器在一个Pass中绘制四遍场景。</p>
+<p>渲染方法延续此前的GPU Driven Rendering Pipeline中的Indirect Draw，不过在渲染深度图时没有做剔除操作，一方面是生成深度图开销较小，另外一方面是框架本身的局限性导致难以添加阴影剔除功能。</p>
+<p>顶点着色器中，我们只需要简单地将实例的索引传给下一阶段的几何着色器即可：</p>
+<figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#version 450</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#extension GL_KHR_vulkan_glsl : enable</span></span><br><span class="line"><span class="meta">#extension GL_ARB_shader_viewport_layer_array : enable</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#include &quot;../../GlobalBuffer.glsl&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">layout</span>(<span class="keyword">location</span> = <span class="number">0</span>) <span class="keyword">in</span> <span class="type">vec3</span> inPos;</span><br><span class="line"><span class="keyword">layout</span>(<span class="keyword">location</span> = <span class="number">1</span>) <span class="keyword">in</span> <span class="type">vec2</span> inUV;</span><br><span class="line"><span class="keyword">layout</span>(<span class="keyword">location</span> = <span class="number">2</span>) <span class="keyword">in</span> <span class="type">vec3</span> inNormal;</span><br><span class="line"><span class="keyword">layout</span>(<span class="keyword">location</span> = <span class="number">3</span>) <span class="keyword">in</span> <span class="type">vec3</span> inTangent;</span><br><span class="line"><span class="keyword">layout</span>(<span class="keyword">location</span> = <span class="number">4</span>) <span class="keyword">in</span> <span class="type">vec3</span> inBiTangent;</span><br><span class="line"></span><br><span class="line"><span class="keyword">layout</span>(<span class="keyword">location</span> = <span class="number">0</span>) <span class="keyword">out</span> <span class="type">int</span> outInstanceIndex;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> main()</span><br><span class="line">&#123;</span><br><span class="line">    outInstanceIndex = gl_InstanceIndex;</span><br><span class="line">    <span class="built_in">gl_Position</span> =  <span class="type">vec4</span>(inPos, <span class="number">1.0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在几何着色器中，渲染四遍场景：</p>
+<figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#version 450</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#extension GL_KHR_vulkan_glsl : enable</span></span><br><span class="line"><span class="meta">#extension GL_ARB_shader_viewport_layer_array : enable</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#include &quot;../../GlobalBuffer.glsl&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">layout</span> (<span class="keyword">triangles</span>, <span class="keyword">invocations</span> = <span class="number">4</span>) <span class="keyword">in</span>;</span><br><span class="line"><span class="keyword">layout</span> (<span class="keyword">triangle_strip</span>, <span class="keyword">max_vertices</span> = <span class="number">3</span>) <span class="keyword">out</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">layout</span> (<span class="keyword">location</span> = <span class="number">0</span>) <span class="keyword">in</span> <span class="type">int</span> inInstanceIndex[];</span><br><span class="line"></span><br><span class="line"><span class="keyword">layout</span>(set = <span class="number">0</span>, <span class="keyword">binding</span> = <span class="number">0</span>) <span class="keyword">buffer</span> PerInstanceBuffer</span><br><span class="line">&#123;</span><br><span class="line">    PerInstanceData instance_data[ ];</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">layout</span>(set = <span class="number">0</span>, <span class="keyword">binding</span> = <span class="number">1</span>) <span class="keyword">buffer</span> DirectionalLights&#123;</span><br><span class="line">    DirectionalLight directional_lights[ ];</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">layout</span>(push_constant) <span class="keyword">uniform</span> PushBlock&#123;</span><br><span class="line">    <span class="type">mat4</span> transform;</span><br><span class="line">    <span class="type">uint</span> dynamic;</span><br><span class="line">    <span class="type">uint</span> light_id;</span><br><span class="line">&#125;push_data;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> main() </span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">mat4</span> trans = push_data.dynamic == <span class="number">1</span>? push_data.transform : instance_data[inInstanceIndex[<span class="number">0</span>]].transform;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="built_in">gl_in</span>.<span class="built_in">length</span>(); i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">gl_Position</span> =  directional_lights[push_data.light_id].view_projection[<span class="built_in">gl_InvocationID</span>] * trans * <span class="built_in">gl_in</span>[i].<span class="built_in">gl_Position</span>;</span><br><span class="line">        <span class="built_in">gl_Layer</span> = <span class="type">int</span>(push_data.light_id * <span class="number">4</span> + <span class="built_in">gl_InvocationID</span>);</span><br><span class="line">        <span class="built_in">EmitVertex</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">EndPrimitive</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-4-渲染CSM"><a href="#3-4-渲染CSM" class="headerlink" title="3.4. 渲染CSM"></a>3.4. 渲染CSM</h3><p>在渲染CSM时，先计算当前像素位于哪一级Cascade的范围，索引相应的深度图，再按照之前计算Spot Light的Shadow Map的方法进行计算可见性，代码如下：</p>
+<figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">vec3</span> directional_light_shadow(DirectionalLight light, <span class="type">vec3</span> frag_color, <span class="type">vec3</span> frag_pos, <span class="type">vec3</span> view_pos, <span class="type">float</span> layer)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">uint</span> cascade_index = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">uint</span> i = <span class="number">0</span>; i &lt; <span class="number">3</span>; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(light.split_depth[i] &gt; view_pos.z)</span><br><span class="line">        &#123;</span><br><span class="line">            cascade_index = i + <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    layer = layer * <span class="number">4</span> + cascade_index;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Same as Spot Light ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-5-实现结果"><a href="#3-5-实现结果" class="headerlink" title="3.5. 实现结果"></a>3.5. 实现结果</h3><p>无阴影：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2022/03/16/rendering/shadow/no_shadow2.png" alt="no_shadow2"></p>
+<p>Cascade Shadow Map：</p>
+<table>
+<thead>
+<tr>
+<th align="center">Cascade #0</th>
+<th align="center">Cascade #1</th>
+<th align="center">Cascade #2</th>
+<th align="center">Cascade #3</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2022/03/16/rendering/shadow/csm0.png" alt="csm0"></td>
+<td align="center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2022/03/16/rendering/shadow/csm1.png" alt="csm1"></td>
+<td align="center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2022/03/16/rendering/shadow/csm2.png" alt="csm2"></td>
+<td align="center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2022/03/16/rendering/shadow/csm3.png" alt="csm3"></td>
+</tr>
+</tbody></table>
+<p>渲染结果：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2022/03/16/rendering/shadow/cascade.png" alt="cascade"></p>
+<h3 id="4-点光源阴影——Omnidirectional-Shadow-Map"><a href="#4-点光源阴影——Omnidirectional-Shadow-Map" class="headerlink" title="4. 点光源阴影——Omnidirectional Shadow Map"></a>4. 点光源阴影——Omnidirectional Shadow Map</h3><p>点光源阴影的核心思想是渲染一张以点光源为中心的阴影立方体贴图，因此需要渲染六遍场景，开销也比较大。</p>
+<p>渲染相机方面，则是对点光源六个方向分别设置FOV为90°的透视相机，且远平面不宜过大，否则效果不佳，各个方向的相机参数通过如下计算：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">glm::mat4 <span class="title">get_point_light_shadow_matrix</span><span class="params">(<span class="type">const</span> glm::vec3 &amp;position, <span class="type">uint32_t</span> face)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    glm::mat4 projection_matrix = glm::<span class="built_in">perspective</span>(glm::<span class="built_in">radians</span>(<span class="number">90.0f</span>), <span class="number">1.0f</span>, <span class="number">0.01f</span>, <span class="number">100.f</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">switch</span> (face)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">0</span>:        <span class="comment">// POSITIVE_X</span></span><br><span class="line">            <span class="keyword">return</span> projection_matrix * glm::<span class="built_in">lookAt</span>(position, position + glm::<span class="built_in">vec3</span>(<span class="number">1.0f</span>, <span class="number">0.0f</span>, <span class="number">0.0f</span>), glm::<span class="built_in">vec3</span>(<span class="number">0.0f</span>, <span class="number">1.0f</span>, <span class="number">0.0f</span>));</span><br><span class="line">        <span class="keyword">case</span> <span class="number">1</span>:        <span class="comment">// NEGATIVE_X</span></span><br><span class="line">            <span class="keyword">return</span> projection_matrix * glm::<span class="built_in">lookAt</span>(position, position + glm::<span class="built_in">vec3</span>(<span class="number">-1.0f</span>, <span class="number">0.0f</span>, <span class="number">0.0f</span>), glm::<span class="built_in">vec3</span>(<span class="number">0.0f</span>, <span class="number">1.0f</span>, <span class="number">0.0f</span>));</span><br><span class="line">        <span class="keyword">case</span> <span class="number">2</span>:        <span class="comment">// POSITIVE_Y</span></span><br><span class="line">            <span class="keyword">return</span> projection_matrix * glm::<span class="built_in">lookAt</span>(position, position + glm::<span class="built_in">vec3</span>(<span class="number">0.0f</span>, <span class="number">1.0f</span>, <span class="number">0.0f</span>), glm::<span class="built_in">vec3</span>(<span class="number">0.0f</span>, <span class="number">0.0f</span>, <span class="number">1.0f</span>));</span><br><span class="line">        <span class="keyword">case</span> <span class="number">3</span>:        <span class="comment">// NEGATIVE_Y</span></span><br><span class="line">            <span class="keyword">return</span> projection_matrix * glm::<span class="built_in">lookAt</span>(position, position + glm::<span class="built_in">vec3</span>(<span class="number">0.0f</span>, <span class="number">-1.0f</span>, <span class="number">0.0f</span>), glm::<span class="built_in">vec3</span>(<span class="number">0.0f</span>, <span class="number">0.0f</span>, <span class="number">-1.0f</span>));</span><br><span class="line">        <span class="keyword">case</span> <span class="number">4</span>:        <span class="comment">// POSITIVE_Z</span></span><br><span class="line">            <span class="keyword">return</span> projection_matrix * glm::<span class="built_in">lookAt</span>(position, position + glm::<span class="built_in">vec3</span>(<span class="number">0.0f</span>, <span class="number">0.0f</span>, <span class="number">-1.0f</span>), glm::<span class="built_in">vec3</span>(<span class="number">0.0f</span>, <span class="number">1.0f</span>, <span class="number">0.0f</span>));</span><br><span class="line">        <span class="keyword">case</span> <span class="number">5</span>:        <span class="comment">// NEGATIVE_Z</span></span><br><span class="line">            <span class="keyword">return</span> projection_matrix * glm::<span class="built_in">lookAt</span>(position, position + glm::<span class="built_in">vec3</span>(<span class="number">0.0f</span>, <span class="number">0.0f</span>, <span class="number">1.0f</span>), glm::<span class="built_in">vec3</span>(<span class="number">0.0f</span>, <span class="number">1.0f</span>, <span class="number">0.0f</span>));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> glm::<span class="built_in">mat4</span>(<span class="number">1.f</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在后续计算中，由于我们需要通过深度图还原出实际的世界深度，再与点光源和着色点之间连线的距离大小做判断，在实际开发中发现精确还原世界深度有一定难度，因此我们另辟蹊径，在片元着色器中计算点光源和阴影相机下着色点之间连线的距离，通过除以远平面进行归一化，赋值到<code>gl_FragDepth</code>，手动写入的深度信息不会进行深度校正，在后续计算中可以简单地进行采样并乘上远平面得到实际的世界深度。</p>
+<p>光照阶段的着色器代码如下：</p>
+<figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">float</span> sample_shadowmap_cube(<span class="type">samplerCubeArray</span> shadowmap, <span class="type">vec3</span> L, <span class="type">float</span> layer, <span class="type">vec3</span> <span class="keyword">offset</span>)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">float</span> shadow = <span class="number">1.0</span>;</span><br><span class="line">    <span class="type">float</span> light_depth = <span class="built_in">length</span>(L);</span><br><span class="line">    L.z = -L.z;</span><br><span class="line">    <span class="type">float</span> dist = <span class="built_in">texture</span>(shadowmap, <span class="type">vec4</span>(L + <span class="keyword">offset</span>, layer)).r;</span><br><span class="line">    dist *= <span class="number">100.0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (light_depth &gt; dist)</span><br><span class="line">    &#123;</span><br><span class="line">        shadow = <span class="number">0.0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> shadow;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">vec3</span> point_light_shadow(PointLight light, <span class="type">vec3</span> frag_color, <span class="type">vec3</span> frag_pos, <span class="type">float</span> layer)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> frag_color * sample_shadowmap_cube(OmniShadowMaps, L, layer, <span class="type">vec3</span>(<span class="number">0.0</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>实现效果：</strong></p>
+<p>无阴影：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2022/03/16/rendering/shadow/no_shadow3.png" alt="no_shadow3"></p>
+<p>立方体阴影贴图：</p>
+<table>
+<thead>
+<tr>
+<th align="center">X+</th>
+<th align="center">X-</th>
+<th align="center">Y+</th>
+<th align="center">Y-</th>
+<th align="center">Z+</th>
+<th align="center">Z-</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2022/03/16/rendering/shadow/onmi_X+.png" alt="onmi_X+"></td>
+<td align="center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2022/03/16/rendering/shadow/onmi_X-.png" alt="onmi_X-"></td>
+<td align="center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2022/03/16/rendering/shadow/onmi_Y+.png" alt="onmi_Y+"></td>
+<td align="center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2022/03/16/rendering/shadow/onmi_Y-.png" alt="onmi_Y-"></td>
+<td align="center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2022/03/16/rendering/shadow/onmi_Z+.png" alt="onmi_Z+"></td>
+<td align="center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2022/03/16/rendering/shadow/onmi_Z-.png" alt="onmi_Z-"></td>
+</tr>
+</tbody></table>
+<p>渲染结果：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2022/03/16/rendering/shadow/omni.png" alt="omni"></p>
+<h2 id="5-实时阴影的效果提升"><a href="#5-实时阴影的效果提升" class="headerlink" title="5. 实时阴影的效果提升"></a>5. 实时阴影的效果提升</h2><h3 id="5-1-自遮挡问题"><a href="#5-1-自遮挡问题" class="headerlink" title="5.1. 自遮挡问题"></a>5.1. 自遮挡问题</h3><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2022/03/16/rendering/shadow/image-20220318114924723.png" alt="image-20220318114924723"></p>
+<p>直接使用Shadow Map容易出现上图的自遮挡现象，自遮挡现象出现的原因是数值精度问题，如下图所示，</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2022/03/16/rendering/shadow/image-20220318115653757.png" alt="image-20220318115653757"></p>
+<p>由于阴影贴图分辨率有限，当距离光源比较远时，多个片元可能从深度图的同一个值中去采样，此时当光源以一个角度朝向表面时，不同的片元对深度图中同一个值可能出现差异，有些偏大，有些偏小，此时采样渲染结果将导致交错的黑白条纹，出现失真现象。而解决这个问题的思路也很简单，只需简单地给深度图增加一个偏置Bias即可，但当光线接近于平行入射时，依然会失败，一个更高效的方法是使用Slope Scale Bias，使得偏置正比于入射角。深度偏置可以在着色器中手动添加，也可以利用图形API驱动，调用Vulkan函数<code>vkCmdSetDepthBias</code>进行设置。深度偏置过小会导致自遮挡现象不能很好的消除，偏置过大则会出现漏光现象，事实上，Shadow Map的误差问题是可以进行定量计算的，即可以计算出自适应最优的Depth Bias，但在大多数时候使用固定的Bias即可解决问题，知乎上也有人提供了关于自适应Depth Bias的计算方法（<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/370951892">链接</a>），可以作为参考</p>
+<h3 id="5-2-Percentage-Closer-Filtering-PCF"><a href="#5-2-Percentage-Closer-Filtering-PCF" class="headerlink" title="5.2. Percentage-Closer Filtering(PCF)"></a>5.2. Percentage-Closer Filtering(PCF)</h3><p>直接通过采样阴影相机深度图得到的阴影结果通常为硬阴影，即边缘会有走样问题，如下图所示：</p>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="no_pcf.png" alt="no_pcf" style="zoom:50%;" />
+
+<p>而且，实际光源常常具有一定的体积，产生阴影时往往会得到边缘较为柔和的软阴影，如下图所示：</p>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="image-20220318132949840.png" alt="image-20220318132949840" style="zoom:50%;" />
+
+<p>对于理想点光源，图中$P$点作为一个分界点，$P$点右侧无法被光源看到，表现为阴影；$P$点左侧能够被光源看到，表现为光照。而对于带有一定面积的光源，$P$点左右会被光源部分照射到，往左光照逐渐增加，往右逐渐减少，表现出来便是从阴影处到照明处有一段渐变，即软阴影。</p>
+<p>而Shadow Map方法，我们难以捕捉到面积光这种特性，因此需要采用一些滤波方法来近似达到软阴影和反走样的效果，其中一个最简单的便是Percentage-Closer Filtering(PCF)。</p>
+<p>PCF的思路是对阴影进行模糊，和普通的图像模糊一样，设计一个滤波核，采样邻域像素进行卷积即可，卷积核的大小和权重将影响PCF滤波结果。Ilum渲染器中利用均值滤波器，支持均匀随机采样与泊松盘随机采样，进行PCF滤波。</p>
+<p>实现效果：</p>
+<table>
+<thead>
+<tr>
+<th align="center">硬阴影</th>
+<th align="center">均匀采样PCF</th>
+<th align="center">泊松采样PCF</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2022/03/16/rendering/shadow/no_pcf.png" alt="no_pcf"></td>
+<td align="center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2022/03/16/rendering/shadow/uniform_pcf.png" alt="uniform_pcf"></td>
+<td align="center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2022/03/16/rendering/shadow/poisson_pcf.png" alt="poisson_pcf"></td>
+</tr>
+</tbody></table>
+<h3 id="5-3-Percentage-Closer-Soft-Shadows-PCSS"><a href="#5-3-Percentage-Closer-Soft-Shadows-PCSS" class="headerlink" title="5.3. Percentage-Closer Soft Shadows(PCSS)"></a>5.3. Percentage-Closer Soft Shadows(PCSS)</h3><p>PCSS算法是PCF算法的一个改进，考虑了光源面积的大小，如下图所示：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2022/03/16/rendering/shadow/image-20220318134625721.png" alt="image-20220318134625721"></p>
+<p>$w_{\mathrm{Light}}$为光源大小，$d_{\mathrm{block}}$为光源到遮挡物的垂直距离，$d_{\mathrm{receiver}}$为光源到着色点的垂直距离，根据简单的相似三角形原理，很容易得到关系：<br>$$<br>\frac{w_{\mathrm{Light}}}{w_{\mathrm{Penumbra}}}&#x3D;\frac{d_{\mathrm{Block}}}{d_{\mathrm{Receiver}}-d_{\mathrm{Block}}}\Rightarrow w_{\mathrm{Penumbra}}&#x3D;\frac{d_{\mathrm{Receiver}}-d_{\mathrm{Block}}}{d_{\mathrm{Block}}}\cdot w_{\mathrm{Light}}<br>$$<br>其中$w_{\mathrm{Penumbra}}$为PCF算法中的采样范围，PCSS考虑了光源面积，能够得到更加自然的软阴影，但同时计算开销也将增加，因为需要多次采样深度图</p>
+<p>实现效果：</p>
+<table>
+<thead>
+<tr>
+<th align="center">硬阴影</th>
+<th align="center">均匀采样PCSS</th>
+<th align="center">泊松采样PCSS</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2022/03/16/rendering/shadow/no_pcf.png" alt="no_pcf"></td>
+<td align="center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2022/03/16/rendering/shadow/uniform_pcss.png" alt="uniform_pcss"></td>
+<td align="center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2022/03/16/rendering/shadow/poisson_pcss.png" alt="poisson_pcss"></td>
+</tr>
+</tbody></table>
+<h2 id="6-效果展示"><a href="#6-效果展示" class="headerlink" title="6. 效果展示"></a>6. 效果展示</h2><p>我们已经基本实现了各种光源的阴影渲染以及相应的软阴影优化，后续也将探索VSSM、SDF Shadow以及Moment Shadow Maps等更先进的软阴影技术，Ilum渲染器阴影渲染效果展示如下：</p>
+<p><video src="demo.mp4" controls = true width = 400></video></p>
+<h2 id="7-参考资料"><a href="#7-参考资料" class="headerlink" title="7. 参考资料"></a>7. 参考资料</h2><p>[1] Akenine-Moller, Tomas, Eric Haines, and Naty Hoffman. <em>Real-time rendering</em>. AK Peters&#x2F;crc Press, 2019.</p>
+<p>[2] <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1YK4y1T7yY?from=search&seid=15576827308893416813&spm_id_from=333.337.0.0">GAMES202:高质量实时渲染</a></p>
+<p>[3] <a target="_blank" rel="noopener" href="https://developer.nvidia.com/gpugems/gpugems3/part-ii-light-and-shadows/chapter-10-parallel-split-shadow-maps-programmable-gpus">GPU Gems3 Chapter 10</a></p>
+<p>[4] <a target="_blank" rel="noopener" href="https://johanmedestrom.wordpress.com/2016/03/18/opengl-cascaded-shadow-maps/">https://johanmedestrom.wordpress.com/2016/03/18/opengl-cascaded-shadow-maps/</a></p>
+<p>[5] Lloyd, Brandon, et al. “Warping and Partitioning for Low Error Shadow Maps.” <em>Rendering Techniques</em>. 2006.</p>
+<p>[6] <a target="_blank" rel="noopener" href="https://learnopengl.com/">https://learnopengl.com/</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="https://chaphlagical.github.io">Chaf Chen</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://chaphlagical.github.io/2022/03/16/rendering/shadow/">https://chaphlagical.github.io/2022/03/16/rendering/shadow/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Rendering/">Rendering</a></div><div class="post_share"><div class="social-share" data-image="/2022/03/16/rendering/shadow/shadow.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/03/18/gaming/god_of_war_4/" title="God of War IV"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2022/03/18/gaming/god_of_war_4/image-20220318144420681.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">God of War IV</div></div></a></div><div class="next-post pull-right"><a href="/2022/01/04/geometry/subdivision/" title="计算机辅助几何设计(7)：细分曲线与曲面"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2022/01/04/geometry/subdivision/image-20220104150438787.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">计算机辅助几何设计(7)：细分曲线与曲面</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><div><a href="/2023/01/25/paper_reading/Adaptive_Incident_Radiance_Field_Sampling_and_Reconstruction_Using_Deep_Reinforcement_Learning/" title="Adaptive Incident Radiance Field Sampling and Reconstruction Using Deep Reinforcement Learning"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-25</div><div class="title">Adaptive Incident Radiance Field Sampling and Reconstruction Using Deep Reinforcement Learning</div></div></a></div><div><a href="/2021/08/29/paper_reading/Low_Cost_SPAD_Sensing_for_Non_Line_Of_Sight_Tracking_Material/" title="Low-Cost SPAD Sensing for Non-Line-Of-Sight Tracking, Material Classification and Depth Imaging"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-08-29</div><div class="title">Low-Cost SPAD Sensing for Non-Line-Of-Sight Tracking, Material Classification and Depth Imaging</div></div></a></div><div><a href="/2021/08/25/paper_reading/Neural_Light_Transport_for_Relighting_and_View_Synthesis/" title="Neural Light Transport for Relighting and View Synthesis"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-08-25</div><div class="title">Neural Light Transport for Relighting and View Synthesis</div></div></a></div><div><a href="/2023/01/06/paper_reading/Temporal_Coherence-Based_Distributed_Ray_Tracing_of_Massive_Scenes/" title="Temporal Coherence-based Distributed Ray Tracing of Massive Scenes"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-06</div><div class="title">Temporal Coherence-based Distributed Ray Tracing of Massive Scenes</div></div></a></div><div><a href="/2021/12/14/rendering/mouse_picking/" title="场景编辑器：鼠标拾取"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2021/12/14/rendering/mouse_picking/image-20211214200711937.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-12-14</div><div class="title">场景编辑器：鼠标拾取</div></div></a></div><div><a href="/2021/08/10/paper_reading/ExtraNet/" title="ExtraNet: Real-time Extrapolated Rendering for Low-latency Temporal Supersampling"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-08-10</div><div class="title">ExtraNet: Real-time Extrapolated Rendering for Low-latency Temporal Supersampling</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comment</span></div></div><div class="comment-wrap"><div><div id="disqus_thread"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/logo.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Chaf Chen</div><div class="author-info__description">USTC CG Student</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">33</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">6</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Chaphlagical"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/Chaphlagical" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:mail@ustc.edu.cn" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">Looking for a Ph.D position!</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%AE%9E%E6%97%B6%E9%98%B4%E5%BD%B1%E6%B8%B2%E6%9F%93%E6%A6%82%E8%BF%B0"><span class="toc-number">1.</span> <span class="toc-text">1. 实时阴影渲染概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E8%81%9A%E5%85%89%E7%81%AF%E9%98%B4%E5%BD%B1%E2%80%94%E2%80%94Shadow-Mapping"><span class="toc-number">2.</span> <span class="toc-text">2. 聚光灯阴影——Shadow Mapping</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%B9%B3%E8%A1%8C%E5%85%89%E9%98%B4%E5%BD%B1%E2%80%94%E2%80%94Cascade-Shadow-Map"><span class="toc-number">3.</span> <span class="toc-text">3. 平行光阴影——Cascade Shadow Map</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E8%A7%86%E9%94%A5%E5%88%86%E5%89%B2"><span class="toc-number">3.1.</span> <span class="toc-text">3.1. 视锥分割</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-%E8%AE%A1%E7%AE%97%E5%85%89%E6%BA%90%E7%9A%84%E7%9B%B8%E6%9C%BA%E5%8F%82%E6%95%B0"><span class="toc-number">3.2.</span> <span class="toc-text">3.2. 计算光源的相机参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-%E6%B8%B2%E6%9F%93%E6%B7%B1%E5%BA%A6%E5%9B%BE"><span class="toc-number">3.3.</span> <span class="toc-text">3.3. 渲染深度图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-%E6%B8%B2%E6%9F%93CSM"><span class="toc-number">3.4.</span> <span class="toc-text">3.4. 渲染CSM</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-5-%E5%AE%9E%E7%8E%B0%E7%BB%93%E6%9E%9C"><span class="toc-number">3.5.</span> <span class="toc-text">3.5. 实现结果</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E7%82%B9%E5%85%89%E6%BA%90%E9%98%B4%E5%BD%B1%E2%80%94%E2%80%94Omnidirectional-Shadow-Map"><span class="toc-number">3.6.</span> <span class="toc-text">4. 点光源阴影——Omnidirectional Shadow Map</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E5%AE%9E%E6%97%B6%E9%98%B4%E5%BD%B1%E7%9A%84%E6%95%88%E6%9E%9C%E6%8F%90%E5%8D%87"><span class="toc-number">4.</span> <span class="toc-text">5. 实时阴影的效果提升</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-%E8%87%AA%E9%81%AE%E6%8C%A1%E9%97%AE%E9%A2%98"><span class="toc-number">4.1.</span> <span class="toc-text">5.1. 自遮挡问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-Percentage-Closer-Filtering-PCF"><span class="toc-number">4.2.</span> <span class="toc-text">5.2. Percentage-Closer Filtering(PCF)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-3-Percentage-Closer-Soft-Shadows-PCSS"><span class="toc-number">4.3.</span> <span class="toc-text">5.3. Percentage-Closer Soft Shadows(PCSS)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E6%95%88%E6%9E%9C%E5%B1%95%E7%A4%BA"><span class="toc-number">5.</span> <span class="toc-text">6. 效果展示</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-number">6.</span> <span class="toc-text">7. 参考资料</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/01/25/paper_reading/Adaptive_Incident_Radiance_Field_Sampling_and_Reconstruction_Using_Deep_Reinforcement_Learning/" title="Adaptive Incident Radiance Field Sampling and Reconstruction Using Deep Reinforcement Learning">Adaptive Incident Radiance Field Sampling and Reconstruction Using Deep Reinforcement Learning</a><time datetime="2023-01-25T00:04:00.000Z" title="Created 2023-01-25 00:04:00">2023-01-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/01/06/paper_reading/Temporal_Coherence-Based_Distributed_Ray_Tracing_of_Massive_Scenes/" title="Temporal Coherence-based Distributed Ray Tracing of Massive Scenes">Temporal Coherence-based Distributed Ray Tracing of Massive Scenes</a><time datetime="2023-01-06T22:13:11.000Z" title="Created 2023-01-06 22:13:11">2023-01-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/29/gaming/spiderman_miles/" title="Marvel's Spider-Man Miles Morales"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2022/12/29/gaming/spiderman_miles/image-20221229175057590.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Marvel's Spider-Man Miles Morales"/></a><div class="content"><a class="title" href="/2022/12/29/gaming/spiderman_miles/" title="Marvel's Spider-Man Miles Morales">Marvel's Spider-Man Miles Morales</a><time datetime="2022-12-29T21:13:11.000Z" title="Created 2022-12-29 21:13:11">2022-12-29</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/12/17/paper_reading/Vectorization_for_Fast_Analytic_and_Differentiable_Visibility/" title="Vectorization for Fast, Analytic, and Differentiable Visibility">Vectorization for Fast, Analytic, and Differentiable Visibility</a><time datetime="2022-12-17T21:13:11.000Z" title="Created 2022-12-17 21:13:11">2022-12-17</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/12/14/note/edge_sampling/" title="Physics Based Differentiable Rendering: Edge Sampling">Physics Based Differentiable Rendering: Edge Sampling</a><time datetime="2022-12-14T00:00:00.000Z" title="Created 2022-12-14 00:00:00">2022-12-14</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By Chaf Chen</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll To Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container').forEach(node => {
+            if (node.hasAttribute('display')) {
+              btf.wrap(node, 'div', { class: 'mathjax-overflow' })
+            } else {
+              btf.wrap(node, 'span', { class: 'mathjax-overflow' })
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        const mermaidSrc = item.firstElementChild
+        const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+        const mermaidID = 'mermaid-' + index
+        const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+        mermaid.mermaidAPI.render(mermaidID, mermaidDefinition, (svgCode) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svgCode)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script><script>function loadDisqus () {
+  var disqus_config = function () {
+    this.page.url = 'https://chaphlagical.github.io/2022/03/16/rendering/shadow/'
+    this.page.identifier = '/2022/03/16/rendering/shadow/'
+    this.page.title = '实时阴影系统'
+  };
+
+  window.disqusReset = () => {
+    DISQUS.reset({
+      reload: true,
+      config: disqus_config
+    })
+  }
+
+  if (window.DISQUS) disqusReset()
+  else {
+    (function() { 
+      var d = document, s = d.createElement('script');
+      s.src = 'https://chaphlagical-github-io.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  }
+
+  document.getElementById('darkmode').addEventListener('click', () => {
+    setTimeout(() => window.disqusReset(), 200)
+  })
+}
+
+if ('Disqus' === 'Disqus' || !false) {
+  if (false) btf.loadComment(document.getElementById('disqus_thread'), loadDisqus)
+  else loadDisqus()
+} else {
+  function loadOtherComment () {
+    loadDisqus()
+  }
+}
+</script></div></div></body></html>

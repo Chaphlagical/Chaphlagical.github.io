@@ -1,0 +1,439 @@
+<!DOCTYPE html><html lang="[&quot;en&quot;,&quot;zh-CN&quot;,&quot;default&quot;]" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>计算机辅助几何设计(5)：有理样条曲线 | Chaf's Blog</title><meta name="author" content="Chaf Chen"><meta name="copyright" content="Chaf Chen"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="有理样条曲线的原理与实现">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算机辅助几何设计(5)：有理样条曲线">
+<meta property="og:url" content="https://chaphlagical.github.io/2022/01/03/geometry/rational/index.html">
+<meta property="og:site_name" content="Chaf&#39;s Blog">
+<meta property="og:description" content="有理样条曲线的原理与实现">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://chaphlagical.github.io/2022/01/03/geometry/rational/image-20220105110839764.png">
+<meta property="article:published_time" content="2022-01-03T15:25:11.000Z">
+<meta property="article:modified_time" content="2023-03-02T13:45:38.979Z">
+<meta property="article:author" content="Chaf Chen">
+<meta property="article:tag" content="Computer Aided Geometric Design">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://chaphlagical.github.io/2022/01/03/geometry/rational/image-20220105110839764.png"><link rel="shortcut icon" href="/img/logo.jpg"><link rel="canonical" href="https://chaphlagical.github.io/2022/01/03/geometry/rational/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"Traditional Chinese Activated Manually","cht_to_chs":"Simplified Chinese Activated Manually","day_to_night":"Dark Mode Activated Manually","night_to_day":"Light Mode Activated Manually","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '计算机辅助几何设计(5)：有理样条曲线',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-03-02 13:45:38'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+
+if (false) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/logo.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">33</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">6</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="Chaf's Blog"><img class="site-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/logo.jpg"/><span class="site-name">Chaf's Blog</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">计算机辅助几何设计(5)：有理样条曲线</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2022-01-03T15:25:11.000Z" title="Created 2022-01-03 15:25:11">2022-01-03</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-03-02T13:45:38.979Z" title="Updated 2023-03-02 13:45:38">2023-03-02</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Geometry/">Geometry</a></span></div><div class="meta-secondline"></div></div></div><article class="post-content" id="article-container"><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2022/01/03/geometry/rational/image-20220105110839764.png" alt="image-20220105110839764"></p>
+<p>Bézier曲线和B样条曲线均不能用于表示圆锥曲线（如圆、椭圆、双曲线），我们需要一种更强大的样条曲线表示方法。</p>
+<h2 id="1-二次曲面与圆锥曲线"><a href="#1-二次曲面与圆锥曲线" class="headerlink" title="1. 二次曲面与圆锥曲线"></a>1. 二次曲面与圆锥曲线</h2><h3 id="1-1-定义"><a href="#1-1-定义" class="headerlink" title="1.1. 定义"></a>1.1. 定义</h3><p>圆锥曲线可以表示为二次函数的零集：<br>$$<br>\begin{aligned}<br>ax^2+bxy+cy^2+dx+ey+f&amp;&#x3D;0\\\\<br>\pmb{x}^\top\left[\begin{matrix}<br>a &amp; \frac{b}{2}\\\\<br>\frac{b}{2} &amp; c<br>\end{matrix}\right]<br>\pmb{x}<br>+<br>\left[\begin{matrix}<br>d &amp; e<br>\end{matrix}\right]<br>\pmb{x}<br>+f&#x3D;0<br>\end{aligned}<br>$$</p>
+<blockquote>
+<p>示例：</p>
+<p>圆锥的隐式表示 $Ax^2+By^2&#x3D;z^2$ </p>
+<p>平面的隐式表示 $z&#x3D;Dx+Ey+F$ </p>
+<p>圆锥曲线 $Ax^2+By^2&#x3D;(Dx+Ey+F)^2$ </p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2022/01/03/geometry/rational/image-20220103165719618.png" alt="image-20220103165719618"></p>
+</blockquote>
+<p>二次曲线是二次方程（任意维数）的零集：<br>$$<br>\{\pmb{x}\in \mathbb{R}^d|\pmb{x}^\top M \pmb{x}+\pmb{b}^\top \pmb{x}+\pmb{c}&#x3D;0\}<br>$$</p>
+<ul>
+<li>圆锥曲线是$d&#x3D;2$时的二次曲线</li>
+</ul>
+<h3 id="1-2-圆锥曲线的类型"><a href="#1-2-圆锥曲线的类型" class="headerlink" title="1.2. 圆锥曲线的类型"></a>1.2. 圆锥曲线的类型</h3><p>记<br>$$<br>M:&#x3D; \left[\begin{matrix}<br>a &amp; \frac{b}{2} \\\\<br>\frac{b}{2} &amp; c<br>\end{matrix}\right]<br>$$<br>$M$的特征值为：<br>$$<br>\lambda_{1,2}&#x3D;\frac{a+c \pm \sqrt{(a-c)^2+b^2}}{2}<br>$$<br>则：</p>
+<ul>
+<li>椭圆：$b^2&lt;4ac$，$\lambda_2&gt;0$<ul>
+<li>圆：$b&#x3D;0$，$a&#x3D;c$</li>
+</ul>
+</li>
+<li>抛物线：$b^2&#x3D;4ac$，$\lambda_2&#x3D;0$</li>
+<li>双曲线：$b^2&gt;4ac$，$\lambda&lt;0$</li>
+</ul>
+<h3 id="1-3-二次曲线投影"><a href="#1-3-二次曲线投影" class="headerlink" title="1.3. 二次曲线投影"></a>1.3. 二次曲线投影</h3><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="image-20220103170430946.png" alt="image-20220103170430946" style="zoom:50%;" />
+
+<p>定义：</p>
+<ul>
+<li>给定一条三维空间中的二次曲线</li>
+<li>将$z$坐标设为齐次项$\omega$，将曲线投影到平面$\omega&#x3D;1$说</li>
+</ul>
+<p>齐次空间（Homogeneous）二次曲线为：<br>$$<br>\pmb{f} ^ { ( h o m ) } ( t ) &#x3D; \pmb{p} _ { 0 } + t \pmb{p} _ { 1 } + t ^ { 2 } \pmb{p} _ { 2 } &#x3D; \left( \begin{array} { c } { \pmb{p} _ { 0 } \cdot x } \\\ { \pmb{p} _ { 0 } \cdot y } \\\ { \pmb{p} _ { 0 } \cdot \omega } \end{array} \right) + t \left( \begin{array} { c } { \pmb{p} _ { 1 } \cdot x } \\\ { \pmb{p} _ { 1 } \cdot y } \\\ { \pmb{p} _ { 1 } \cdot \omega } \end{array} \right) + t ^ { 2 } \left( \begin{array} { c } { \pmb{p} _ { 2 } \cdot x } \\\ { \pmb{p} _ { 2 } \cdot y } \\\ { \pmb{p} _ { 2 } \cdot \omega } \end{array} \right)<br>$$<br>欧氏空间（Euclidean）投影曲线：<br>$$<br>\pmb{f} ^ { ( e u c l ) } ( t ) &#x3D; \frac { \left( \begin{array} { c } { \pmb{p} _ { 0 } \cdot x } \\\\ { \pmb{p} _ { 0 } \cdot y } \end{array} \right) + t \left( \begin{array} { c } { \pmb{p} _ { 1 } \cdot x } \\\\ { \pmb{p} _ { 1 } \cdot y } \end{array} \right) + t ^ { 2 } \left( \begin{array} { c } { \pmb{p} _ { 2 } \cdot x } \\\\ { \pmb{p} _ { 2 } \cdot y } \end{array} \right) } { \pmb{p} _ { 0 } \cdot \omega + t \pmb{p} _ { 1 } \cdot \omega + t ^ { 2 } \pmb{p} _ { 2 } \cdot \omega }<br>$$</p>
+<h4 id="1-3-1-抛物线"><a href="#1-3-1-抛物线" class="headerlink" title="1.3.1. 抛物线"></a>1.3.1. 抛物线</h4><p>对于抛物线方程<br>$$<br>y&#x3D;ax^2<br>$$<br>参数化为<br>$$<br>\begin{cases}<br>x&#x3D;t\\\\<br>y&#x3D;at^2<br>\end{cases}<br>$$<br>则齐次空间方程：<br>$$<br>\pmb f^{(hom)}(t)&#x3D;<br>\begin{pmatrix}0\\0\\1\end{pmatrix}+<br>\begin{pmatrix}1\\0\\0\end{pmatrix}t+<br>\begin{pmatrix}0\\a\\0\end{pmatrix}t^2<br>$$<br>因此投影曲线为：<br>$$<br>\pmb f^{(eucl)}&#x3D;\frac{<br>\begin{pmatrix}0\\0\end{pmatrix}+<br>\begin{pmatrix}1\\0\end{pmatrix}t+<br>\begin{pmatrix}0\\a\end{pmatrix}t^2<br>}{1+0t+0t^2}<br>$$</p>
+<h4 id="1-3-2-椭圆"><a href="#1-3-2-椭圆" class="headerlink" title="1.3.2. 椭圆"></a>1.3.2. 椭圆</h4><p>对椭圆方程：<br>$$<br>\frac{x^2}{a^2}+\frac{y^2}{b^2}&#x3D;1<br>$$<br>参数化为：<br>$$<br>\begin{cases}<br>x&#x3D;a\cos\theta\\\\<br>y&#x3D;b\cos\theta<br>\end{cases}<br>$$<br>令$t&#x3D;\tan\frac{\theta}{2}$，当$t\in[0,1]$时，$\theta\in[0,\frac{\pi}{4}]$，为四分之一圆，先考虑这四分之一的部分</p>
+<p>则参数方程可化为：<br>$$<br>\begin{cases}<br>x&#x3D;\dfrac{a(1-t^2)}{1+t^2}\\\\<br>y&#x3D;\dfrac{2bt}{1+t^2}<br>\end{cases}<br>$$<br>则齐次空间方程：<br>$$<br>\pmb f^{(hom)}(t)&#x3D;<br>\begin{pmatrix}a\\0\\1\end{pmatrix}+<br>\begin{pmatrix}0\\2b\\0\end{pmatrix}t+<br>\begin{pmatrix}-a\\0\\1\end{pmatrix}t^2<br>$$<br>因此投影曲线为：<br>$$<br>\pmb f^{(eucl)}&#x3D;\frac{<br>\begin{pmatrix}a\\0\end{pmatrix}+<br>\begin{pmatrix}0\\2b\end{pmatrix}t+<br>\begin{pmatrix}-a\\0\end{pmatrix}t^2<br>}{1+0t+1t^2}<br>$$</p>
+<h4 id="1-3-3-双曲线"><a href="#1-3-3-双曲线" class="headerlink" title="1.3.3. 双曲线"></a>1.3.3. 双曲线</h4><p>对双曲线方程：<br>$$<br>\frac{x^2}{a^2}-\frac{y^2}{b^2}&#x3D;1<br>$$<br>参数化为：<br>$$<br>\begin{cases}<br>x&#x3D;\dfrac{a}{\cos\theta}\\\\<br>y&#x3D;b\tan\theta<br>\end{cases}<br>$$<br>令$t&#x3D;\tan\frac{\theta}{2}$，当$t\in[0,1]$时，$\theta\in[0,\frac{\pi}{4}]$，为四分之一圆，先考虑这四分之一的部分</p>
+<p>则参数方程可化为：<br>$$<br>\begin{cases}<br>x&#x3D;\dfrac{a(1+t^2)}{1-t^2}\\\\<br>y&#x3D;\dfrac{2bt}{1-t^2}<br>\end{cases}<br>$$<br>则齐次空间方程：<br>$$<br>\pmb f^{(hom)}(t)&#x3D;<br>\begin{pmatrix}a\\0\\1\end{pmatrix}+<br>\begin{pmatrix}0\\2b\\0\end{pmatrix}t+<br>\begin{pmatrix}a\\0\\-1\end{pmatrix}t^2<br>$$<br>因此投影曲线为：<br>$$<br>\pmb f^{(eucl)}&#x3D;\frac{<br>\begin{pmatrix}a\\0\end{pmatrix}+<br>\begin{pmatrix}0\\2b\end{pmatrix}t+<br>\begin{pmatrix}a\\0\end{pmatrix}t^2<br>}{1+0t-1t^2}<br>$$</p>
+<h2 id="2-有理Bezier曲线"><a href="#2-有理Bezier曲线" class="headerlink" title="2. 有理Bézier曲线"></a>2. 有理Bézier曲线</h2><h3 id="2-1-定义"><a href="#2-1-定义" class="headerlink" title="2.1. 定义"></a>2.1. 定义</h3><p>$\mathbb R^n$上定义的$d$阶有理Bézier曲线：</p>
+<ul>
+<li>构成$n+1$维上的$d$阶Bézier曲线</li>
+<li>最后一维视为齐次项</li>
+<li>欧式坐标由投影变换得到</li>
+</ul>
+<p>$$<br>\begin{aligned}<br>\pmb f^{(hom)}(t)&amp;&#x3D;\sum_{i&#x3D;0}^nB_i^{(d)}(t)\pmb p_i,\quad \pmb p_i\in\mathbb{R}^{n+1}\\\\<br>\pmb f^{(eucl)}(t)&amp;&#x3D;\dfrac{\sum_{i&#x3D;0}^nB_i^{(d)}(t)\begin{pmatrix}p_i^{(1)}\\\vdots\\p_i^{(n)}\end{pmatrix}}{\sum_{i&#x3D;0}^nB_i^{(d)}(t)p_i^{(n+1)}}<br>\end{aligned}<br>$$</p>
+<p>等价地可写为权重形式：<br>$$<br>\begin{aligned}<br>\pmb f^{(eucl)}(t)&amp;&#x3D;\dfrac{\sum_{i&#x3D;0}^nB_i^{(d)}(t)\omega_i\begin{pmatrix}p_i^{(1)}\\\vdots\\p_i^{(n)}\end{pmatrix}}{\sum_{i&#x3D;0}^nB_i^{(d)}(t)\omega_i}\\\\<br>&amp;&#x3D;\sum_{i&#x3D;0}^nq_i(t)\pmb p_i<br>\end{aligned}<br>$$<br>其中，<br>$$<br>q_i(t)&#x3D;\dfrac{B_i^{(d)}(t)\omega_i}{\sum_{i&#x3D;0}^nB_i^{(d)}(t)\omega_i}<br>$$<br>满足：$\sum_{i&#x3D;0}^nq_i(t)&#x3D;1$</p>
+<blockquote>
+<p>几何解释：</p>
+<p>普通的Bézier曲线通过中心投影变换得到有理Bézier曲线</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2022/01/03/geometry/rational/image-20220103193652837.png" alt="image-20220103193652837"></p>
+</blockquote>
+<h3 id="2-2-有理de-Casteljau算法"><a href="#2-2-有理de-Casteljau算法" class="headerlink" title="2.2. 有理de Casteljau算法"></a>2.2. 有理de Casteljau算法</h3><p>三种计算方法：</p>
+<ol>
+<li><p>在$n+1$维上进行计算，最后再投影：$\boldsymbol { b } _ { i } ^ { ( r ) } ( t ) &#x3D; ( 1 - t ) \boldsymbol { b } _ { i } ^ { ( r - 1 ) } ( t ) + t \boldsymbol { b } _ { i + 1 } ^ { ( r - 1 ) } ( t )$</p>
+</li>
+<li><p>分别计算分子和分母，最后进行除法，类似于第一种</p>
+</li>
+<li><p>每一步都作投影除法：<br>$$<br>\begin{aligned}<br>\pmb b_i^{(r)}(t)&#x3D;(1-t)\frac{\omega_i^{(r-1)}(t)}{\omega_i^{(r)}(t)}\pmb b_i^{(r-1)}(t)+t\frac{\omega_{i+1}^{(r-1)}(t)}{\omega_i^{(r)}(t)}\pmb b_{i+1}^{(r-1)}(t)<br>\end{aligned}<br>$$<br>其中，<br>$$<br>\omega_i^{(r)}(t)&#x3D;(1-t)\omega_i^{(r-1)}(t)+t\omega_{i+1}^{(r-1)}(t)<br>$$</p>
+</li>
+</ol>
+<h2 id="3-二次有理Bezier曲线"><a href="#3-二次有理Bezier曲线" class="headerlink" title="3. 二次有理Bézier曲线"></a>3. 二次有理Bézier曲线</h2><h3 id="3-1-二次有理Bezier曲线的标准型"><a href="#3-1-二次有理Bezier曲线的标准型" class="headerlink" title="3.1. 二次有理Bézier曲线的标准型"></a>3.1. 二次有理Bézier曲线的标准型</h3><p>二次有理曲线能够充要地表达圆锥曲线，二次有理Bézier曲线形式如下：<br>$$<br>\begin{aligned}<br>\pmb{f} ^ { ( e u c l ) } ( t )<br>&amp;&#x3D; \frac { B _ { 0 } ^ { ( 2 ) } ( t ) \omega _ { 0 } \boldsymbol { p } _ { 0 } + B _ { 1 } ^ { ( 2 ) } ( t ) \omega _ { 1 } \boldsymbol { p } _ { 1 } + B _ { 2 } ^ { ( 2 ) } ( t ) \omega _ { 2 } \boldsymbol { p } _ { 2 } } { B _ { 0 } ^ { ( 2 ) } ( t ) \omega _ { 0 } + B _ { 1 } ^ { ( 2 ) } ( t ) \omega _ { 1 } + B _ { 2 } ^ { ( 2 ) } ( t ) \omega _ { 2 } }\\\\<br>&amp;&#x3D;\frac { (1-t)^2 \omega _ { 0 } \boldsymbol { p } _ { 0 } + 2t(1-t) \omega _ { 1 } \boldsymbol { p } _ { 1 } + t^2 \omega _ { 2 } \boldsymbol { p } _ { 2 } } { (1-t)^2 \omega _ { 0 } + 2t(1-t) \omega _ { 1 } + t^2 \omega _ { 2 } }<br>\end{aligned}<br>$$<br>只考虑曲线的形状，进行重参数化：<br>$$<br>t&#x3D;\frac{\tilde{t}}{\alpha(1-\tilde{t})+\tilde{t}}<br>$$<br>这样一来形状仅与参数$\alpha$有关</p>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="image-20220103195745092.png" alt="image-20220103195745092" style="zoom:50%;" />
+
+<p>代入二次有理Bézier曲线形式：<br>$$<br>\begin{aligned} f ^ { ( e u c l ) } ( t )<br>&#x3D;&amp; \frac {<br>    \left( \frac { \alpha ( 1 - \tilde { t } ) } { \alpha ( 1 - \tilde { t } ) + \tilde { t } } \right) ^ { 2 } \omega _ { 0 } \boldsymbol { p } _ { 0 }<br>    + 2 \left( \frac { \alpha ( 1 - \tilde { t } ) } { \alpha ( 1 - \tilde { t } ) + \tilde { t } } \right) \left( \frac { \tilde { t } } { \alpha ( 1 - \tilde { t } ) + \tilde { t } } \right) \omega _ { 1 } \boldsymbol { p } _ { 1 }<br>    + \left( \frac { \tilde { t } } { \alpha ( 1 - \tilde { t } ) + \tilde { t } } \right) ^ { 2 } \omega _ { 2 } \boldsymbol { p } _ { 2 }<br>}{<br>    \left( \frac { \alpha ( 1 - \tilde { t } )} { \alpha ( 1 - \tilde { t } ) + \tilde { t } } \right) ^ { 2 } \omega _ { 0 }<br>    + 2 \left( \frac { \alpha ( 1 - \tilde { t } ) } { \alpha ( 1 - \tilde { t } ) + \tilde { t } } \right) \left( \frac { \tilde { t } } { \alpha ( 1 - \tilde { t } ) + \tilde { t } } \right) \omega _ { 1 }<br>    + \left( \frac { \tilde { t } } { \alpha ( 1 - \tilde { t } ) + \tilde { t } } \right) ^ { 2 } \omega _ { 2 }<br>}\\\\<br>&#x3D; &amp;\frac { \alpha ^ { 2 } ( 1 - \tilde { t } ) ^ { 2 } \omega _ { 0 } \boldsymbol { p } _ { 0 } + 2 \alpha ( 1 - \tilde { t } ) \tilde { t } \omega _ { 1 } \boldsymbol { p } _ { 1 } + \tilde { t } ^ { 2 } \omega _ { 2 } \boldsymbol { p } _ { 2 } } { \alpha ^ { 2 } ( 1 - \tilde { t } ) ^ { 2 } \omega _ { 0 } + 2 \alpha ( 1 - \tilde { t } ) \tilde { t } \omega _ { 1 } + \tilde { t } ^ { 2 } \omega _ { 2 } }\\\\<br>&#x3D; &amp;\frac { \alpha ^ { 2 } B_0^{(2)}(\tilde{t}) \omega _ { 0 } \boldsymbol { p } _ { 0 } + \alpha B_1^{(2)}(\tilde{t}) \omega _ { 1 } \boldsymbol { p } _ { 1 } + B_2^{(2)}(\tilde{t}) \omega _ { 2 } \boldsymbol { p } _ { 2 } } { \alpha ^ { 2 } B_0^{(2)}(\tilde{t}) \omega _ { 0 } + \alpha B_1^{(2)}(\tilde{t}) \omega _ { 1 } + B_2^{(2)}(\tilde{t}) \omega _ { 2 } }\\\\<br>\xlongequal{\alpha&#x3D;\sqrt{\frac{\omega_2}{\omega_0}}}&amp;\frac { B_0^{(2)}(\tilde{t}) \omega _ { 2 } \boldsymbol { p } _ { 0 } + B_1^{(2)}(\tilde{t}) \sqrt{\frac{\omega_2}{\omega_0}} \omega _ { 1 } \boldsymbol { p } _ { 1 } + B_2^{(2)}(\tilde{t}) \omega _ { 2 } \boldsymbol { p } _ { 2 } } { B_0^{(2)}(\tilde{t}) \omega _ { 2 } + B_1^{(2)}(\tilde{t}) \sqrt{\frac{\omega_2}{\omega_0}} \omega _ { 1 } + B_2^{(2)}(\tilde{t}) \omega _ { 2 } }\\\\<br>&#x3D;&amp;\frac { B_0^{(2)}(\tilde{t})\boldsymbol { p } _ { 0 } + B_1^{(2)}(\tilde{t}) \sqrt{\frac{1}{\omega_0\omega_2}} \omega _ { 1 } \boldsymbol { p } _ { 1 } + B_2^{(2)}(\tilde{t}) \boldsymbol { p } _ { 2 } } { B_0^{(2)}(\tilde{t}) + B_1^{(2)}(\tilde{t}) \sqrt{\frac{1}{\omega_0\omega_2}} \omega _ { 1 } + B_2^{(2)}(\tilde{t}) }\\\\<br>\xlongequal{\omega&#x3D;\sqrt{\frac{1}{\omega_0\omega_2}}\omega_1}&amp;\frac { B_0^{(2)}(\tilde{t})\boldsymbol { p } _ { 0 } + B_1^{(2)}(\tilde{t}) \omega \boldsymbol { p } _ { 1 } + B_2^{(2)}(\tilde{t}) \boldsymbol { p } _ { 2 } } { B_0^{(2)}(\tilde{t}) + B_1^{(2)}(\tilde{t}) \omega + B_2^{(2)}(\tilde{t}) }<br>\end{aligned}<br>$$<br>得到二次有理Bézier曲线的标准形式</p>
+<h3 id="3-2-分类"><a href="#3-2-分类" class="headerlink" title="3.2. 分类"></a>3.2. 分类</h3><p>从标准形式出发，设$\omega_0&#x3D;\omega_2&#x3D;1$，$\omega_1&#x3D;\omega$</p>
+<p>则有：</p>
+<ul>
+<li>$\omega&lt;1$：椭圆曲线段</li>
+<li>$\omega&#x3D;1$：抛物线曲线段</li>
+<li>$\omega&gt;1$：双曲线曲线段</li>
+</ul>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="image-20220103200135591.png" alt="image-20220103200135591" style="zoom:50%;" />
+
+<blockquote>
+<p>证明：</p>
+<p>将参数形式转化为隐式形式，将曲线表示为重心坐标：<br>$$<br>\pmb{f}(t)&#x3D;\tau_0(t)\pmb{p}_0+\tau_1(t)\pmb{p}_1+\tau_2(t)\pmb{p}_2<br>$$<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2022/01/03/geometry/rational/image-20220103200314395.png" alt="image-20220103200314395"></p>
+<p>对比有理二次Bézier曲线的标准形式有：<br>$$<br>\begin{array}{lll}<br>\tau_0(t) &amp;&#x3D; \frac{(1-t)^2\omega_0}{\omega(t)}<br>&amp;\Rightarrow 1-t&#x3D;\sqrt{\frac{\tau_0(t)\omega(t)}{\omega_0}}\\\\<br>\tau_1(t) &amp;&#x3D; \frac{2t(1-t)\omega_1}{\omega(t)}\\\\<br>\tau_2(t) &amp;&#x3D; \frac{t^2\omega_2}{\omega(t)}<br>&amp;\Rightarrow t&#x3D;\sqrt{\frac{\tau_2(t)\omega(t)}{\omega_2}}\<br>\end{array}<br>$$<br>其中，<br>$$<br>\omega(t)&#x3D;(1-t)^2\omega_0+2t(1-t)\omega_1+t^2\omega_2<br>$$<br>则有：<br>$$<br>\tau_1(t)<br>&#x3D;2\frac{\omega_1}{\omega(t)}\sqrt{\frac{\tau_0(t)\omega(t)}{\omega_0}\frac{\tau_2(t)\omega(t)}{\omega_2}}<br>&#x3D;2\omega_1\sqrt{\frac{\tau_0(t)\tau_2(t)}{\omega_0\omega_2}}<br>$$<br>利用：<br>$$<br>\tau_2(t)&#x3D;1-\tau_0(t)-\tau_1(t)<br>$$<br>整理得到：<br>$$<br>4\omega_1^2\tau_0^2(t)+4\omega_1^2\tau_0(t)\tau_1(t)+\omega_0\omega_2\tau_1^2(t)-4\omega_1^2\tau_0(t)&#x3D;0<br>$$<br>对于标准形式 $\omega_0&#x3D;\omega_2&#x3D;1$，$\omega_1&#x3D;\omega$，则<br>$$<br>4\omega^2\tau_0^2(t)+4\omega^2\tau_0(t)\tau_1(t)+\tau_1^2(t)-4\omega^2\tau_0(t)&#x3D;0<br>$$<br>这里$\tau_0$ 和 $\tau_1$ 就相当于 $x$ 和 $y$，因此，由圆锥曲线的隐式表达可知：<br>$$<br>\lambda_{1,2}&#x3D;\frac{4\omega^2+1\pm\sqrt{(4\omega^2-1)^2+16\omega^4}}{2}<br>$$<br>得到：</p>
+<ul>
+<li>$\omega&#x3D;1$：抛物线</li>
+<li>$\omega&lt;1$：椭圆</li>
+<li>$\omega&gt;1$：双曲线</li>
+</ul>
+</blockquote>
+<h3 id="3-3-对偶"><a href="#3-3-对偶" class="headerlink" title="3.3. 对偶"></a>3.3. 对偶</h3><p>对于二次有理曲线的一般形式，$t\in[0,1]$：<br>$$<br>\pmb x(t)&#x3D;\frac{(1-t)^2\pmb b_0+2t(1-t)\omega\pmb b_1+t^2\pmb b_2}{(1-t)^2+2t(1-t)\omega+t^2}<br>$$<br>对偶段为$t\in\mathbb R\backslash  [0,1]$，则可用参数化<br>$$<br>\hat t&#x3D;\frac{t}{2t-1}<br>$$<br>当$t\in(0,\frac{1}{2})$时，$\hat t\in(0,-\infty)$；当$t\in(\frac{1}{2},1)$时，$\hat t\in(+\infty，1)$</p>
+<p>代入二次有理曲线的一般形式可得：<br>$$<br>\begin{aligned}<br>\pmb{x}(\hat{t})&amp;&#x3D; \frac { ( 1 - \hat { t } ) ^ { 2 } \pmb{p} _ { 0 } + 2 \hat { t } ( 1 - \hat { t } ) \omega \pmb{p} _ { 1 } + \hat { t } ^ { 2 } \pmb{p} _ { 2 } } { ( 1 - \hat { t } ) ^ { 2 } + 2 \hat { t } ( 1 - \hat { t } ) \omega + \hat { t } ^ { 2 } }\\\\<br>&amp;&#x3D; \frac { ( 1 - t ) ^ { 2 } \pmb{p} _ { 0 } - 2 t ( 1 - t ) \omega \pmb{p} _ { 1 } + t ^ { 2 } \pmb{p} _ { 2 } } { ( 1 - t ) ^ { 2 } - 2 t ( 1 - t ) \omega + t ^ { 2 } }\end{aligned}<br>$$<br>区别在于$\omega$取反</p>
+<blockquote>
+<p>示例：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2022/01/03/geometry/rational/image-20220103203538006.png" alt="image-20220103203538006"></p>
+</blockquote>
+<p>考虑分母<br>$$<br>\omega(t)&#x3D;(1-t)^2-2t(1-t)\omega+t^2<br>$$<br>为一个图像如下的抛物线：</p>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="image-20220103203812702.png" alt="image-20220103203812702" style="zoom:50%;" />
+
+<p>可推得：</p>
+<ul>
+<li>$\omega&lt;1$：没有奇异点，椭圆</li>
+<li>$\omega&#x3D;1$：有一个奇异点，抛物线</li>
+<li>$\omega&gt;1$：有两个奇异点，双曲线</li>
+</ul>
+<h3 id="3-4-圆锥曲线的绘制"><a href="#3-4-圆锥曲线的绘制" class="headerlink" title="3.4. 圆锥曲线的绘制"></a>3.4. 圆锥曲线的绘制</h3><ol>
+<li><p>先将圆锥曲线的隐式表示转为参数表示：<br>$$<br>\begin{cases}<br>x&#x3D;x(t)\\\\<br>y&#x3D;y(t)<br>\end{cases}<br>$$</p>
+</li>
+<li><p>计算二次有理曲线形式：<br>$$<br>\pmb f(t)&#x3D;\frac{(1-t)^2\pmb b_0+2t(1-t)\omega\pmb b_1+t^2\pmb b_2}{(1-t)^2+2t(1-t)\omega+t^2}<br>$$</p>
+</li>
+<li><p>求得控制点$\pmb b_0$，$\pmb b_1$，$\pmb b_2$，构成矩阵$P$：<br>$$<br>P&#x3D;(\pmb b_0,\pmb b_1,\pmb b_2)<br>$$</p>
+</li>
+<li><p>对于采样点$0&#x3D;t_0&#x3D;t_1&#x3D;\cdots&#x3D;t_n&#x3D;1$，构成矩阵：<br>$$<br>T&#x3D;\begin{pmatrix}<br>(1-t_0)^2&amp;(1-t_1)^2&amp;\cdots&amp;(1-t_n)^2\\<br>2t_0(1-t_0)&amp;2t_1(1-t_1)&amp;\cdots&amp;2t_n(1-t_n)\\<br>t_0^2&amp;t_1^2&amp;\cdots&amp;t_n^2<br>\end{pmatrix}<br>$$</p>
+</li>
+<li><p>曲线点由$X&#x3D;PT$进行计算</p>
+</li>
+<li><p>对于对偶曲线，控制点矩阵为：<br>$$<br>\tilde P&#x3D;(\pmb b_0,-\pmb b_1,\pmb b_2)<br>$$</p>
+</li>
+<li><p>对偶曲线由$X&#x3D;\tilde PT$进行计算</p>
+</li>
+</ol>
+<h3 id="3-5-Farin点"><a href="#3-5-Farin点" class="headerlink" title="3.5. Farin点"></a>3.5. Farin点</h3><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="image-20220103211628519.png" alt="image-20220103211628519" style="zoom:50%;" />
+$$
+\begin{aligned}
+\overline{\pmb{f}_ i}
+&=\frac{1}{2}(\overline{\pmb{b}_ i}+\overline{\pmb{b}_ {i+1}})\\\\\\\\
+\pmb{f}_ i&=\frac{\omega_ ib_ i+\omega_{i+1}b_ {i+1}}{\omega_ i+\omega_ {i+1}}
+\end{aligned}
+$$
+满足关系
+$$
+\frac { \omega _ { i + 1 } } { \omega _ { i } } = \frac { \left\\| \pmb{b} _ { i } - \pmb{f} _ { i } \right\\| } { \left\\| \pmb{b} _ { i + 1 } - \pmb{f} _ { i } \right\\| }
+$$
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="image-20220103212146824.png" alt="image-20220103212146824" style="zoom:50%;" />
+
+<p>对于标准形式，有<br>$$<br>\pmb{q} _ { 0 } &#x3D; \frac { \pmb{p} _ { 0 } + \omega _ { 1 } \pmb{p} _ { 1 } } { 1 + \omega _ { 1 } } , \pmb{q} _ { 1 } &#x3D; \frac { \pmb{p} _ { 1 } + \omega _ { 1 } \pmb{p} _ { 2 } } { 1 + \omega _ { 1 } }<br>$$</p>
+<h3 id="3-6-二次有理Bezier曲线的性质"><a href="#3-6-二次有理Bezier曲线的性质" class="headerlink" title="3.6. 二次有理Bézier曲线的性质"></a>3.6. 二次有理Bézier曲线的性质</h3><h4 id="3-6-1-端点插值"><a href="#3-6-1-端点插值" class="headerlink" title="3.6.1. 端点插值"></a>3.6.1. 端点插值</h4><p>$$<br>\begin{align}<br>\pmb f(0)&amp;&#x3D;\pmb b_0\\\\<br>\pmb f(1)&amp;&#x3D;\pmb b_2<br>\end{align}<br>$$</p>
+<h4 id="3-6-2-凸包性质"><a href="#3-6-2-凸包性质" class="headerlink" title="3.6.2. 凸包性质"></a>3.6.2. 凸包性质</h4><p>曲线位于凸包$(\pmb{b}_ 0,\pmb{f}_ 0,\dots,\pmb{f}_ {n-1},\pmb{b}_ n)$内</p>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="image-20220103212557669.png" alt="image-20220103212557669" style="zoom:50%;" />
+
+<h4 id="3-6-3-导数性质"><a href="#3-6-3-导数性质" class="headerlink" title="3.6.3. 导数性质"></a>3.6.3. 导数性质</h4><p>令：<br>$$<br>\pmb f(t)&#x3D;\frac{\sum_{i&#x3D;0}^nB_i^{(d)}(t)\omega_i\pmb p_i}{\sum_{i&#x3D;0}^nB_i^{(d)}(t)\omega_i}&#x3D;:\frac{\pmb p(t)}{\omega(t)}<br>$$<br>因此，有<br>$$<br>\begin{aligned}<br>\pmb f(t)&#x3D;\frac{\pmb p(t)}{\omega(t)}&amp;\Rightarrow\pmb p(t)&#x3D;\pmb f(t)\omega(t)\\\\<br>&amp;\Rightarrow \pmb p’(t)&#x3D;\pmb f’(t)\omega(t)+\pmb f(t)\omega’(t)\\\\<br>&amp;\Rightarrow \pmb f’(t)&#x3D;\frac{\pmb p’(t)-\pmb f(t)\omega’(t)}{\omega(t)}<br>\end{aligned}<br>$$<br>对于边界点，有：<br>$$<br>\begin{aligned}<br>\pmb{f}^\prime(0)&amp;&#x3D;\frac{d(\omega_1\pmb{p}<em>1-\omega_0\pmb{p}<em>0)-d(\omega_1-\omega_0)\pmb{p}<em>0}{\omega_0}&#x3D;d\frac{\omega_1}{\omega_0}(\pmb{p}<em>1-\pmb{p}<em>0)\\\\<br>\pmb{f}^\prime(1)&amp;&#x3D;\frac{d(\omega</em>{d}\pmb{p}</em>{d}-\omega</em>{d-1}\pmb{p}</em>{d-1})-d(\omega</em>{d}-\omega_{d-1})\pmb{p}<em>{d}}{\omega_d}&#x3D;d\frac{\omega</em>{d-1}}{\omega_d}(\pmb{p}<em>d-\pmb{p}</em>{d-1})<br>\end{aligned}<br>$$</p>
+<h2 id="4-非均匀有理B样条NURB"><a href="#4-非均匀有理B样条NURB" class="headerlink" title="4. 非均匀有理B样条NURB"></a>4. 非均匀有理B样条NURB</h2><p>$$<br>\boldsymbol { f } ( t ) &#x3D; \frac { \sum _ { i &#x3D; 1 } ^ { n } N _ { i,k } ( t ) \omega _ { i } \boldsymbol { p } _ { i } } { \sum _ { i &#x3D; 1 } ^ { n } N _ { i,k } ( t ) \omega _ { i } }<br>$$</p>
+<p>类似于有理Bézier曲线</p>
+<h2 id="5-视频演示"><a href="#5-视频演示" class="headerlink" title="5. 视频演示"></a>5. 视频演示</h2><p>IlumEngine中已实现有理Bézier曲线的绘制，通过调节控制点的权重得到不同的曲线形态。</p>
+<p><video src="demo.mp4" controls=true></video></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="https://chaphlagical.github.io">Chaf Chen</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://chaphlagical.github.io/2022/01/03/geometry/rational/">https://chaphlagical.github.io/2022/01/03/geometry/rational/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Computer-Aided-Geometric-Design/">Computer Aided Geometric Design</a></div><div class="post_share"><div class="social-share" data-image="/2022/01/03/geometry/rational/image-20220105110839764.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/01/04/geometry/subdivision/" title="计算机辅助几何设计(7)：细分曲线与曲面"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2022/01/04/geometry/subdivision/image-20220104150438787.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">计算机辅助几何设计(7)：细分曲线与曲面</div></div></a></div><div class="next-post pull-right"><a href="/2022/01/03/geometry/polar_form/" title="计算机辅助几何设计(4)：极形式和开花算法"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2022/01/03/geometry/polar_form/image-20220103164358187.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">计算机辅助几何设计(4)：极形式和开花算法</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><div><a href="/2021/12/29/geometry/b_spline/" title="计算机辅助几何设计：B样条曲线"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2021/12/29/geometry/b_spline/b_spline.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-12-29</div><div class="title">计算机辅助几何设计：B样条曲线</div></div></a></div><div><a href="/2021/12/14/geometry/bezier_curve/" title="计算机辅助几何设计：Bézier曲线"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2021/12/14/geometry/bezier_curve/image-20211221222844217.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-12-14</div><div class="title">计算机辅助几何设计：Bézier曲线</div></div></a></div><div><a href="/2021/12/23/geometry/bezier_spline/" title="计算机辅助几何设计(2)：Bézier样条曲线"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2021/12/23/geometry/bezier_spline/image-20211223205004058.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-12-23</div><div class="title">计算机辅助几何设计(2)：Bézier样条曲线</div></div></a></div><div><a href="/2022/01/03/geometry/polar_form/" title="计算机辅助几何设计(4)：极形式和开花算法"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2022/01/03/geometry/polar_form/image-20220103164358187.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-03</div><div class="title">计算机辅助几何设计(4)：极形式和开花算法</div></div></a></div><div><a href="/2022/01/04/geometry/subdivision/" title="计算机辅助几何设计(7)：细分曲线与曲面"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2022/01/04/geometry/subdivision/image-20220104150438787.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-04</div><div class="title">计算机辅助几何设计(7)：细分曲线与曲面</div></div></a></div><div><a href="/2022/01/03/geometry/spline_surface/" title="计算机辅助几何设计：样条曲面"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2022/01/03/geometry/spline_surface/image-20220103223926601.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-03</div><div class="title">计算机辅助几何设计：样条曲面</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comment</span></div></div><div class="comment-wrap"><div><div id="disqus_thread"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/logo.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Chaf Chen</div><div class="author-info__description">USTC CG Student</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">33</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">6</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Chaphlagical"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/Chaphlagical" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:mail@ustc.edu.cn" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">Looking for a Ph.D position!</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E4%BA%8C%E6%AC%A1%E6%9B%B2%E9%9D%A2%E4%B8%8E%E5%9C%86%E9%94%A5%E6%9B%B2%E7%BA%BF"><span class="toc-number">1.</span> <span class="toc-text">1. 二次曲面与圆锥曲线</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-%E5%AE%9A%E4%B9%89"><span class="toc-number">1.1.</span> <span class="toc-text">1.1. 定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-%E5%9C%86%E9%94%A5%E6%9B%B2%E7%BA%BF%E7%9A%84%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.2.</span> <span class="toc-text">1.2. 圆锥曲线的类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-%E4%BA%8C%E6%AC%A1%E6%9B%B2%E7%BA%BF%E6%8A%95%E5%BD%B1"><span class="toc-number">1.3.</span> <span class="toc-text">1.3. 二次曲线投影</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-1-%E6%8A%9B%E7%89%A9%E7%BA%BF"><span class="toc-number">1.3.1.</span> <span class="toc-text">1.3.1. 抛物线</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-2-%E6%A4%AD%E5%9C%86"><span class="toc-number">1.3.2.</span> <span class="toc-text">1.3.2. 椭圆</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-3-%E5%8F%8C%E6%9B%B2%E7%BA%BF"><span class="toc-number">1.3.3.</span> <span class="toc-text">1.3.3. 双曲线</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E6%9C%89%E7%90%86Bezier%E6%9B%B2%E7%BA%BF"><span class="toc-number">2.</span> <span class="toc-text">2. 有理Bézier曲线</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E5%AE%9A%E4%B9%89"><span class="toc-number">2.1.</span> <span class="toc-text">2.1. 定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E6%9C%89%E7%90%86de-Casteljau%E7%AE%97%E6%B3%95"><span class="toc-number">2.2.</span> <span class="toc-text">2.2. 有理de Casteljau算法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E4%BA%8C%E6%AC%A1%E6%9C%89%E7%90%86Bezier%E6%9B%B2%E7%BA%BF"><span class="toc-number">3.</span> <span class="toc-text">3. 二次有理Bézier曲线</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E4%BA%8C%E6%AC%A1%E6%9C%89%E7%90%86Bezier%E6%9B%B2%E7%BA%BF%E7%9A%84%E6%A0%87%E5%87%86%E5%9E%8B"><span class="toc-number">3.1.</span> <span class="toc-text">3.1. 二次有理Bézier曲线的标准型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-%E5%88%86%E7%B1%BB"><span class="toc-number">3.2.</span> <span class="toc-text">3.2. 分类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-%E5%AF%B9%E5%81%B6"><span class="toc-number">3.3.</span> <span class="toc-text">3.3. 对偶</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-%E5%9C%86%E9%94%A5%E6%9B%B2%E7%BA%BF%E7%9A%84%E7%BB%98%E5%88%B6"><span class="toc-number">3.4.</span> <span class="toc-text">3.4. 圆锥曲线的绘制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-5-Farin%E7%82%B9"><span class="toc-number">3.5.</span> <span class="toc-text">3.5. Farin点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-6-%E4%BA%8C%E6%AC%A1%E6%9C%89%E7%90%86Bezier%E6%9B%B2%E7%BA%BF%E7%9A%84%E6%80%A7%E8%B4%A8"><span class="toc-number">3.6.</span> <span class="toc-text">3.6. 二次有理Bézier曲线的性质</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-6-1-%E7%AB%AF%E7%82%B9%E6%8F%92%E5%80%BC"><span class="toc-number">3.6.1.</span> <span class="toc-text">3.6.1. 端点插值</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-6-2-%E5%87%B8%E5%8C%85%E6%80%A7%E8%B4%A8"><span class="toc-number">3.6.2.</span> <span class="toc-text">3.6.2. 凸包性质</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-6-3-%E5%AF%BC%E6%95%B0%E6%80%A7%E8%B4%A8"><span class="toc-number">3.6.3.</span> <span class="toc-text">3.6.3. 导数性质</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E9%9D%9E%E5%9D%87%E5%8C%80%E6%9C%89%E7%90%86B%E6%A0%B7%E6%9D%A1NURB"><span class="toc-number">4.</span> <span class="toc-text">4. 非均匀有理B样条NURB</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E8%A7%86%E9%A2%91%E6%BC%94%E7%A4%BA"><span class="toc-number">5.</span> <span class="toc-text">5. 视频演示</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/01/25/paper_reading/Adaptive_Incident_Radiance_Field_Sampling_and_Reconstruction_Using_Deep_Reinforcement_Learning/" title="Adaptive Incident Radiance Field Sampling and Reconstruction Using Deep Reinforcement Learning">Adaptive Incident Radiance Field Sampling and Reconstruction Using Deep Reinforcement Learning</a><time datetime="2023-01-25T00:04:00.000Z" title="Created 2023-01-25 00:04:00">2023-01-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/01/06/paper_reading/Temporal_Coherence-Based_Distributed_Ray_Tracing_of_Massive_Scenes/" title="Temporal Coherence-based Distributed Ray Tracing of Massive Scenes">Temporal Coherence-based Distributed Ray Tracing of Massive Scenes</a><time datetime="2023-01-06T22:13:11.000Z" title="Created 2023-01-06 22:13:11">2023-01-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/29/gaming/spiderman_miles/" title="Marvel's Spider-Man Miles Morales"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2022/12/29/gaming/spiderman_miles/image-20221229175057590.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Marvel's Spider-Man Miles Morales"/></a><div class="content"><a class="title" href="/2022/12/29/gaming/spiderman_miles/" title="Marvel's Spider-Man Miles Morales">Marvel's Spider-Man Miles Morales</a><time datetime="2022-12-29T21:13:11.000Z" title="Created 2022-12-29 21:13:11">2022-12-29</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/12/17/paper_reading/Vectorization_for_Fast_Analytic_and_Differentiable_Visibility/" title="Vectorization for Fast, Analytic, and Differentiable Visibility">Vectorization for Fast, Analytic, and Differentiable Visibility</a><time datetime="2022-12-17T21:13:11.000Z" title="Created 2022-12-17 21:13:11">2022-12-17</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/12/14/note/edge_sampling/" title="Physics Based Differentiable Rendering: Edge Sampling">Physics Based Differentiable Rendering: Edge Sampling</a><time datetime="2022-12-14T00:00:00.000Z" title="Created 2022-12-14 00:00:00">2022-12-14</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By Chaf Chen</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll To Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container').forEach(node => {
+            if (node.hasAttribute('display')) {
+              btf.wrap(node, 'div', { class: 'mathjax-overflow' })
+            } else {
+              btf.wrap(node, 'span', { class: 'mathjax-overflow' })
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        const mermaidSrc = item.firstElementChild
+        const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+        const mermaidID = 'mermaid-' + index
+        const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+        mermaid.mermaidAPI.render(mermaidID, mermaidDefinition, (svgCode) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svgCode)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script><script>function loadDisqus () {
+  var disqus_config = function () {
+    this.page.url = 'https://chaphlagical.github.io/2022/01/03/geometry/rational/'
+    this.page.identifier = '/2022/01/03/geometry/rational/'
+    this.page.title = '计算机辅助几何设计(5)：有理样条曲线'
+  };
+
+  window.disqusReset = () => {
+    DISQUS.reset({
+      reload: true,
+      config: disqus_config
+    })
+  }
+
+  if (window.DISQUS) disqusReset()
+  else {
+    (function() { 
+      var d = document, s = d.createElement('script');
+      s.src = 'https://chaphlagical-github-io.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  }
+
+  document.getElementById('darkmode').addEventListener('click', () => {
+    setTimeout(() => window.disqusReset(), 200)
+  })
+}
+
+if ('Disqus' === 'Disqus' || !false) {
+  if (false) btf.loadComment(document.getElementById('disqus_thread'), loadDisqus)
+  else loadDisqus()
+} else {
+  function loadOtherComment () {
+    loadDisqus()
+  }
+}
+</script></div></div></body></html>

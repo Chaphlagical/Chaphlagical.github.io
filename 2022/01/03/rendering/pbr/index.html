@@ -1,0 +1,599 @@
+<!DOCTYPE html><html lang="[&quot;en&quot;,&quot;zh-CN&quot;,&quot;default&quot;]" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>基于物理的实时渲染着色方法 | Chaf's Blog</title><meta name="author" content="Chaf Chen"><meta name="copyright" content="Chaf Chen"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="PBR着色的相关理论推导与实现">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于物理的实时渲染着色方法">
+<meta property="og:url" content="https://chaphlagical.github.io/2022/01/03/rendering/pbr/index.html">
+<meta property="og:site_name" content="Chaf&#39;s Blog">
+<meta property="og:description" content="PBR着色的相关理论推导与实现">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://chaphlagical.github.io/2022/01/03/rendering/pbr/image-20211231141039926.png">
+<meta property="article:published_time" content="2022-01-03T00:00:00.000Z">
+<meta property="article:modified_time" content="2023-03-02T13:45:40.499Z">
+<meta property="article:author" content="Chaf Chen">
+<meta property="article:tag" content="Rendering">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://chaphlagical.github.io/2022/01/03/rendering/pbr/image-20211231141039926.png"><link rel="shortcut icon" href="/img/logo.jpg"><link rel="canonical" href="https://chaphlagical.github.io/2022/01/03/rendering/pbr/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"Traditional Chinese Activated Manually","cht_to_chs":"Simplified Chinese Activated Manually","day_to_night":"Dark Mode Activated Manually","night_to_day":"Light Mode Activated Manually","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '基于物理的实时渲染着色方法',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-03-02 13:45:40'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+
+if (false) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/logo.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">33</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">6</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="Chaf's Blog"><img class="site-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/logo.jpg"/><span class="site-name">Chaf's Blog</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">基于物理的实时渲染着色方法</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2022-01-03T00:00:00.000Z" title="Created 2022-01-03 00:00:00">2022-01-03</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-03-02T13:45:40.499Z" title="Updated 2023-03-02 13:45:40">2023-03-02</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Rendering/">Rendering</a></span></div><div class="meta-secondline"></div></div></div><article class="post-content" id="article-container"><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/image-20211231141039926.png" alt="image-20211231141039926"></p>
+<p>事实上，从IlumEngine能够显示东西之初，我就已经搭建了一套基于金属工作流的延迟PBR渲染管线，但之前对于PBR材质模型的理解还不够深入，很多情况下都是以抄公式为主，这次借实现Kulla-Conty对微表面模型能量不守恒的修正，从理论上来深入理解实时PBR着色方法。</p>
+<h2 id="1-渲染着色的物理原理"><a href="#1-渲染着色的物理原理" class="headerlink" title="1. 渲染着色的物理原理"></a>1. 渲染着色的物理原理</h2><p>从物理角度上看，渲染着色即光与物体的材质表面、材质介质的相互作用后，射入摄像机的结果。</p>
+<h3 id="1-1-光的物理本质"><a href="#1-1-光的物理本质" class="headerlink" title="1.1. 光的物理本质"></a>1.1. 光的物理本质</h3><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/image-20211231152041053.png" alt="image-20211231152041053"></p>
+<p>光是具有一定波长的电磁波，限定自由电荷密度$\rho$和自由电流密度$\pmb J$，根据欧姆定律有电流密度正比于电场：<br>$$<br>\pmb J&#x3D;\sigma \pmb E<br>$$<br>对于光在线性介质中的传播，满足麦克斯韦方程组：<br>$$<br>\begin{aligned}<br>\nabla \cdot\pmb E &amp;&#x3D; \frac{1}{\varepsilon}\pmb \rho\\\\<br>\nabla\cdot\pmb B&amp;&#x3D;0\\\\<br>\nabla\times \pmb E&amp;&#x3D;-\frac{\partial \pmb B}{\partial t}\\\\<br>\nabla\times \pmb B&amp;&#x3D;\mu\sigma\pmb E+ \mu_0\varepsilon_0\frac{\partial \pmb E}{\partial t}<br>\end{aligned}<br>$$<br>由自由电荷的连续性方程：<br>$$<br>\nabla\cdot\pmb J&#x3D;-\frac{\partial \rho}{\partial t}<br>$$<br>有：<br>$$<br>\frac{\partial \rho}{\partial t}&#x3D;-\sigma(\nabla\cdot\pmb E)&#x3D;-\frac{\sigma}{\varepsilon}\rho<br>$$<br>可以解出：<br>$$<br>\rho(t)&#x3D;\rho(0)e^{-(\sigma&#x2F;\varepsilon)t}<br>$$<br>看到自由电荷密度$\rho$以特征时间$\tau\equiv \varepsilon&#x2F;\sigma$耗散，</p>
+<ul>
+<li>对于理想导体，$\sigma &#x3D;\infty$，$\tau&#x3D;0$</li>
+<li>对于良导体，$\tau$比电磁波的角周期小得多：$\tau\ll1&#x2F;\omega$</li>
+<li>对于不良导体，则$\tau$比电磁波的角周期大得多：$\tau\gg 1&#x2F;\omega$</li>
+</ul>
+<p>对电场与磁场的旋度再取其旋度，有：<br>$$<br>\begin{align}<br>\nabla\times(\nabla\times \pmb E)&amp;&#x3D;\nabla(\nabla\cdot\pmb E)-\nabla^2\pmb E&#x3D;\nabla\times(-\frac{\partial \pmb B}{\partial t})\\\\<br>&amp;&#x3D;-\frac{\partial}{\partial t}(\nabla\times\pmb B)&#x3D;-\mu\sigma\frac{\partial \pmb E}{\partial t}-\mu_0\varepsilon_0\frac{\partial^2\pmb E}{\partial t^2}\\\\<br>\nabla\times(\nabla\times \pmb B)&amp;&#x3D;\nabla(\nabla\cdot\pmb B)-\nabla^2\pmb B&#x3D;\nabla\times(\mu\sigma\pmb E+\mu_0\varepsilon_0\frac{\partial \pmb E}{\partial t})\\\\<br>&amp;&#x3D;\mu\sigma(\nabla\times\pmb E) +\mu_0\varepsilon_0\frac{\partial}{\partial t}(\nabla\times\pmb E)&#x3D;-\mu\sigma\frac{\partial B}{\partial t}-\mu_0\varepsilon_0\frac{\partial^2\pmb B}{\partial t^2}<br>\end{align}<br>$$<br>忽略电磁波在线性介质中的瞬态效应，即自由电荷消失，$\rho&#x3D;0$，则有：<br>$$<br>\begin{align}<br>&amp;\begin{matrix}<br>\nabla \cdot \pmb E&#x3D;0&amp;\nabla\cdot \pmb B&#x3D;0<br>\end{matrix}\\\\<br>\Rightarrow\ \ \ &amp;<br>\begin{matrix}<br>\nabla^2\pmb E&#x3D;\mu\sigma\dfrac{\partial \pmb E}{\partial t}+\mu_0\varepsilon_0\dfrac{\partial^2\pmb E}{\partial t^2}<br>\\\<br>\nabla^2\pmb B&#x3D;\mu\sigma\dfrac{\partial B}{\partial t}+\mu_0\varepsilon_0\dfrac{\partial^2\pmb B}{\partial t^2}<br>\end{matrix}<br>\end{align}<br>$$<br>可以得到平面波解：<br>$$<br>\begin{aligned}<br>\tilde {\pmb E}(z,t)&#x3D;\tilde{\pmb E}_0e^{i(\tilde k z-\omega t)}\\\\<br>\tilde {\pmb B}(z,t)&#x3D;\tilde{\pmb B}_0e^{i(\tilde k z-\omega t)}<br>\end{aligned}<br>$$<br>其中，波数$\tilde k$为复数：<br>$$<br>\tilde k^2&#x3D;\mu\varepsilon\omega^2+i\mu\sigma\omega<br>$$<br>取平方根得：<br>$$<br>\tilde k&#x3D;k+i\kappa<br>$$<br>其中，<br>$$<br>\begin{align}<br>k&amp;\equiv \omega\sqrt{\frac{\mu\varepsilon}{2}}\left[\sqrt{1+\left(\frac{\sigma}{\varepsilon\omega}\right)^2}+1 \right]^{1&#x2F;2}\\\\<br>\kappa&amp;\equiv \omega\sqrt{\frac{\mu\varepsilon}{2}}\left[\sqrt{1+\left(\frac{\sigma}{\varepsilon\omega}\right)^2}-1 \right]^{1&#x2F;2}<br>\end{align}<br>$$<br>提取虚部：<br>$$<br>\begin{aligned}<br>\tilde {\pmb E}(z,t)&#x3D;\tilde{\pmb E}_0e^{-\kappa z} e^{i(k z-\omega t)}\\\\<br>\tilde {\pmb B}(z,t)&#x3D;\tilde{\pmb E}_0e^{-\kappa z} e^{i(k z-\omega t)}<br>\end{aligned}<br>$$<br>可以看到：</p>
+<ul>
+<li>$\tilde k$的虚部导致波的衰减，振幅随着$z$的增大而减小，度量了波进入导体的深度，也度量了导体阻尼对波能量的吸收（吸收系数$\alpha\equiv 2\kappa$）</li>
+<li>$\tilde k$的实部定义了波的属性，如波长$\lambda &#x3D; \frac{2\pi}{k}$，波速$v&#x3D;\frac{\omega}{k}$，折射率$n&#x3D;\frac{ck}{\omega}$</li>
+</ul>
+<p>综合起来，材质通过影响光的$\tilde k$，对光的传播效应造成影响，从而带来不同的光照效果。</p>
+<p>在成像理论中，光的吸收对视觉效果有直接影响，将降低光的强度，对特定可见波长的吸收将改变光的颜色。</p>
+<p>在渲染中，通常将材质与光的相互作用归结为散射和吸收两类：</p>
+<ul>
+<li>散射：决定介质的浑浊程度（下图右）</li>
+<li>吸收：决定材质的外观颜色（下图左）</li>
+</ul>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/v2-bca07726a8c13a11a760f694106993a6_1440w.jpg" alt="img"></p>
+<p>每种介质外观均为散射和吸收两种现象的综合结果：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/image-20211231163217455.png" alt="image-20211231163217455"></p>
+<h3 id="1-2-渲染中的光学模型"><a href="#1-2-渲染中的光学模型" class="headerlink" title="1.2. 渲染中的光学模型"></a>1.2. 渲染中的光学模型</h3><p>从电磁波角度出发可以很方便我们理解光、物质和成像之间的相互关系，但在渲染领域尤其是实时渲染领域，我们常常对问题进行简化，现在，我们只考虑物体的表面着色以及几何光学模型。</p>
+<h4 id="1-2-1-光与物体表面的交互"><a href="#1-2-1-光与物体表面的交互" class="headerlink" title="1.2.1. 光与物体表面的交互"></a>1.2.1. 光与物体表面的交互</h4><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/image-20211231163830087.png" alt="image-20211231163830087"></p>
+<p>当一种介质进入到另一种介质，光线将发生反射、折射及其各种衍生现象：</p>
+<ul>
+<li>镜面反射：光线在两种介质交界处发生直接反射，满足反射定律</li>
+<li>折射：从表面进入介质的光由于介质折射率的变化，传播方向发生改变，出现折射现象，介质中的光将发生吸收和散射</li>
+<li>吸收：由前推导，当介质中的吸收系数$\alpha&gt;0$时，在光传播过程中部分能量将会被介质所吸收</li>
+<li>散射：光的传播方向由于折射率的剧烈变化发生改变，分裂为多个方向，但光的总能量保持不变<ul>
+<li>次表面散射：观察像素小于散射距离<ul>
+<li>透射：入射光进入介质后又穿过该介质出射</li>
+</ul>
+</li>
+<li>漫反射：观察像素大于散射距离</li>
+</ul>
+</li>
+</ul>
+<h4 id="1-2-2-不同物质与光的交互"><a href="#1-2-2-不同物质与光的交互" class="headerlink" title="1.2.2. 不同物质与光的交互"></a>1.2.2. 不同物质与光的交互</h4><p>不同物质对光的反射、折射效应有所不同，根据光学特性大致分为金属与非金属两大类：</p>
+<ul>
+<li>金属：金属的外观取决于材质表面的镜面反射，且入射金属的光不存在散射，会被自由粒子完全吸收</li>
+<li>非金属：非金属又称电介质，非金属外观取决于吸收和散射特性：<ul>
+<li>均匀介质：主要为透明介质，无折射率变化，光总以直线传播，不存在散射，但存在吸收</li>
+<li>非均匀介质：通常可建模为具有嵌入散射粒子的均匀介质，具有折射率的变化<ul>
+<li>浑浊介质：具有弱散射</li>
+<li>半透明介质：具有强散射</li>
+<li>不透明介质：与半透明介质类似，具有强散射</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="2-光线传输基础"><a href="#2-光线传输基础" class="headerlink" title="2. 光线传输基础"></a>2. 光线传输基础</h2><h3 id="2-1-反射方程"><a href="#2-1-反射方程" class="headerlink" title="2.1. 反射方程"></a>2.1. 反射方程</h3><p>所有的渲染方法其实就是在干一件事，求解渲染方程：<br>$$<br>L_o(\pmb p,\pmb \omega_o)&#x3D;L_e(\pmb p,\pmb \omega_o)+\int_\Omega f_r(\pmb p,\pmb \omega_i\rightarrow\pmb \omega_o)L_i(\pmb p,\pmb \omega_i)\cdot(\pmb \omega_i\cdot\pmb n)\cdot\mathrm d\pmb \omega_i<br>$$<br>这里我们不考虑物体的自发光，因此$L_e$项恒为0，渲染方程退化为反射方程：<br>$$<br>L_o(\pmb p,\pmb \omega_o)&#x3D;\int_\Omega f_r(\pmb p,\pmb \omega_i\rightarrow\pmb \omega_o)L_i(\pmb p,\pmb \omega_i)\cdot(\pmb \omega_i\cdot\pmb n)\cdot\mathrm d\pmb \omega_i<br>$$<br>其中$f_r(\pmb p,\pmb \omega_i\rightarrow\pmb \omega_o)$定义了入射光与出射光的反射比例，称为BxDF，通常为双向反射分布函数BRDF，在离线渲染中我们还常用到BSDF(&#x3D;BTDF+BRDF)等：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://pic4.zhimg.com/80/v2-fd423d425558e5b68d7ba02cff980e4f_1440w.jpg" alt="img"></p>
+<h3 id="2-2-BRDF"><a href="#2-2-BRDF" class="headerlink" title="2.2. BRDF"></a>2.2. BRDF</h3><h4 id="2-2-1-辐射度量学的基本概念"><a href="#2-2-1-辐射度量学的基本概念" class="headerlink" title="2.2.1. 辐射度量学的基本概念"></a>2.2.1. 辐射度量学的基本概念</h4><p>BRDF是定义在辐射度量学上的，简单介绍相关概念：</p>
+<p><strong>辐射能</strong></p>
+<p>光的能量可以由光子动能定义：<br>$$<br>Q&#x3D;hv<br>$$<br>其中$h$为普朗克常量，$v$为光子振动频率，由光的波动性，有：<br>$$<br>c&#x3D;\lambda v<br>$$<br>因此光的能量也可表示为：<br>$$<br>Q&#x3D;\frac{hc}{\lambda}<br>$$<br>其中$\lambda$为光的波长，$c$为光速，能量的量纲为[$J$]，即Joule</p>
+<p><strong>辐射通量</strong></p>
+<p>辐射通量是单位时间内发射、接收或传输的能量，定义为：<br>$$<br>\Phi&#x3D;\frac{\mathrm dQ}{\mathrm dt}<br>$$<br>功率的量纲为[$lm$]即Lumen，</p>
+<p><strong>辐射强度Radiant Intensity</strong></p>
+<p>定义为单位立体角的光通量：<br>$$<br>I&#x3D;\frac{\mathrm d\Phi}{\mathrm d\Omega}<br>$$<br>辐射强度量纲为$[cd]$即candela</p>
+<p><strong>辐照度Irradiance</strong></p>
+<p>辐照度定义为单位面积的辐射通量：<br>$$<br>E&#x3D;\frac{\mathrm d\Phi}{\mathrm d A}<br>$$<br>辐照度量纲为$[lx]$即lux</p>
+<p>辐射通量为$\Phi$的点光源在距离$r$处的球面上的辐照度为：<br>$$<br>E_e&#x3D;\frac{\Phi}{4\pi r^2}<br>$$<br><strong>辐亮度Radiance</strong></p>
+<p>辐亮度定义为单位面积和单位立体角的辐射通量<br>$$<br>L&#x3D;\frac{\mathrm d^2\Phi}{\mathrm d\Omega\mathrm dA^\perp}&#x3D;\frac{\mathrm d^2\Phi}{\mathrm d\Omega\mathrm dA\cos\theta}<br>$$<br>辐亮度的量纲为$[cd&#x2F;m^2]$或nits</p>
+<p>辐亮度是成像理论中最经常使用的物理量，因为它最符合人和摄像机成像的辐射度量。</p>
+<h4 id="2-2-2-双向反射分布函数"><a href="#2-2-2-双向反射分布函数" class="headerlink" title="2.2.2. 双向反射分布函数"></a>2.2.2. 双向反射分布函数</h4><p>对于入射光$L_i(\pmb p,\pmb \omega_i)$，计算它在半球上的辐照度$E$：<br>$$<br>E(\pmb p)&#x3D;\int_\Omega L_i(\pmb p,\pmb \omega_i)\cos\theta_i\mathrm d\pmb \omega_i<br>$$<br>即：<br>$$<br>\mathrm dE(\pmb p,\pmb \omega_i)&#x3D;L_i(\pmb p,\pmb \omega_i)\cos\theta_i\mathrm d\pmb \omega_i<br>$$<br>而任意方向上，出射光的辐亮度微分应与入射光辐照度成正比，即：<br>$$<br>\mathrm dL_o(\pmb p,\pmb \omega_o)\propto\mathrm d E(\pmb p,\pmb \omega_i)<br>$$<br>该比例定义为关于$\pmb\omega_i$和$\pmb \omega_o$的双向反射分布函数即BRDF：<br>$$<br>f_r(\pmb p, \pmb \omega_o,\pmb \omega_i)&#x3D;\frac{\mathrm dL_o(\pmb p,\pmb \omega_o)}{\mathrm d E(\pmb p,\pmb \omega_i)}&#x3D;\frac{\mathrm dL_o(\pmb p,\pmb \omega_o)}{L_i(\pmb p,\pmb \omega_i)\cos\theta_i\mathrm d\pmb \omega_i}<br>$$<br>因此在半球上积分有：<br>$$<br>L_o(\pmb p,\pmb \omega_o,\pmb \omega_i)&#x3D;\int_\Omega f_r(\pmb p, \pmb \omega_o,\pmb \omega_i)L_i(\pmb p,\pmb \omega_i)\cos\theta_i\mathrm d\pmb \omega_i<br>$$<br>BRDF的性质：</p>
+<ol>
+<li>交换律：$f_r(\pmb p,\pmb \omega_o,\pmb \omega_i)&#x3D;f_r(\pmb p,\pmb \omega_i,\pmb \omega_o)$</li>
+<li>能量守恒：$\int_\Omega f_r(\pmb p,\pmb \omega_o,\pmb \omega_i)\cos\theta\mathrm d\omega\leq 1$</li>
+</ol>
+<h4 id="2-2-3-Cook-Torrance-BRDF"><a href="#2-2-3-Cook-Torrance-BRDF" class="headerlink" title="2.2.3. Cook-Torrance BRDF"></a>2.2.3. Cook-Torrance BRDF</h4><p>本文将主要介绍目前主流的Cook-Torrance BRDF模型，Cook-Torrance BRDF由漫反射项和镜面反射项组成：<br>$$<br>f_r&#x3D;k_d\cdot f_{\mathrm{diffuse}} +k_s\cdot f_{\mathrm{specular}}<br>$$<br>其中漫反射项使用Lambertian光照模型，镜面反射项使用微表面模型进行建模，随后将具体介绍。</p>
+<h2 id="3-Lambertian漫反射材质模型"><a href="#3-Lambertian漫反射材质模型" class="headerlink" title="3. Lambertian漫反射材质模型"></a>3. Lambertian漫反射材质模型</h2><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/image-20211231183859670.png" alt="image-20211231183859670"></p>
+<p>Lambertian漫反射模型假定出射光线在各个方向上都是均匀的（强度相等），由反射方程：<br>$$<br>\begin{aligned}<br>L_o(\pmb\omega_o)&amp;&#x3D;\int_\Omega f_rL_i(\pmb\omega_i)\cos\theta_i\mathrm d\pmb \omega_i\\\\<br>&amp;&#x3D;f_rL_i\int_\Omega \cos\theta_i\mathrm d\pmb \omega_i\\\\<br>&amp;&#x3D;\pi f_rL_i<br>\end{aligned}<br>$$<br>为了保证能量守恒，BRDF选择：<br>$$<br>f_r&#x3D;\frac{\rho}{\pi}<br>$$<br>其中$\rho$为材质颜色Albedo参数，通常有RGB三个分量，当$\rho&#x3D;(1,1,1)$时，说明材质为白色，没有吸收任何色光，此时$L_o&#x3D;L_i$。</p>
+<h2 id="4-镜面反射模型"><a href="#4-镜面反射模型" class="headerlink" title="4. 镜面反射模型"></a>4. 镜面反射模型</h2><h3 id="4-1-微表面理论"><a href="#4-1-微表面理论" class="headerlink" title="4.1. 微表面理论"></a>4.1. 微表面理论</h3><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/v2-ace46e1373fc84a9e5d7e784c492a1c0_1440w.jpg" alt="img"></p>
+<p>真实世界中不存在绝对光滑的物体表面，即使是看起来很光滑的表面也具有比光的波长大得多的微尺度不规则性。这种微表面现象将导致每个表面点反射和折射不同方向的光，带来不同的材质外观。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/diagram_macrosurface.png" alt="img"></p>
+<p>同时，在微表面作用的光还会因为自遮挡带来阴影和遮罩：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/diagram_shadowing_masking.png" alt="img"></p>
+<p>微表面BRDF很大程度由材质的粗糙度所影响，粗糙度度量了微表面材质表面的粗糙程度，如下图从左到右粗糙度依次降低：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/diagram_roughness.png" alt="img"></p>
+<h3 id="4-2-法线分布函数（Normal-Distribution-Function）"><a href="#4-2-法线分布函数（Normal-Distribution-Function）" class="headerlink" title="4.2. 法线分布函数（Normal Distribution Function）"></a>4.2. 法线分布函数（Normal Distribution Function）</h3><p>法线分布是描述微表面的一个重要几何性质，通常物体表面会有一个法向量$\pmb n$，可以认为是物体表面绝对光滑时具有的法向量，但由于微表面具有的各种微小几何结构，局部的表面法向量可能与法向量$\pmb n$不同，这种局部法向量称为微表面法向量$\pmb m$，而法线分布函数$D(\pmb m)$则是描述了微表面法线的分布概率密度。</p>
+<p>在渲染中，常用宏观表面的半矢量$\pmb h$来表示微表面法向，因为只有$\pmb m&#x3D;\pmb h$的表面点能够将入射光反射到视线方向，而其他朝向的表面点对最终的渲染结果没有贡献</p>
+<p>在整个微表面法线上积分$D(\pmb m)$将得到微表面的面积，不过更常用的是对$D(\pmb m)(\pmb n\cdot\pmb m)$进行积分，将$D(\pmb m)$投影到宏观表面平面上，将得到宏观表面的元面积，规定为1，如下图所示：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/image-20220101143813089.png" alt="image-20220101143813089"></p>
+<p>又称为投影$D(\pmb m)(\pmb n\cdot\pmb m)$的归一化：<br>$$<br>\int_{\pmb m\in\Theta}D(\pmb m)(\pmb n\cdot\pmb m)\mathrm d{\pmb m}&#x3D;1<br>$$<br>上式中的$\Theta$表示在整个球体上进行积分，虽然在图形学中的微结构模型多为高度场，即在以$\pmb n$为中心的半球$\Omega$以外的所有方向有$D(\pmb m)\equiv 0$。</p>
+<p>更一般地，微表面和宏观表面在垂直于任何视图方向$\pmb v$的平面上的投影总是相等的：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/image-20220101145100102.png" alt="image-20220101145100102"></p>
+<p>即：<br>$$<br>\int_{\pmb m\in\Theta}D(\pmb m)(\pmb v\cdot\pmb m)\mathrm d{\pmb m}&#x3D;\pmb v\cdot\pmb n<br>$$<br>上式定义了一个合理的法线分布函数应当具有的约束性质，一种直观的理解是一片宏观表面的法向等于其微表面所有法向的均值，至于实际法线分布函数应长什么样，那就有特别多的建模手段得到了，例如，对于绝对光滑的表面，显然$\pmb m$与$\pmb n$恒相等，法线分布函数则可以由一个冲激函数进行表示：<br>$$<br>D(\pmb m)&#x3D;\delta(\pmb m-\pmb n)<br>$$<br>注意到式子$\int_{\pmb m\in\Theta}D(\pmb m)(\pmb v\cdot\pmb m)\mathrm d{\pmb m}&#x3D;\pmb v\cdot\pmb n$中，$\pmb v\cdot\pmb m$的正负不受限制，这是由于投影会产生正负造成抵消，如前图所示，但在实际渲染中，我们常常只关注可见的微表面，即离相机最近的那个微表面，可以通过定义几何函数$G_1(\pmb m,\pmb v)$来给出沿着视图向量$\pmb v$可见的具有法向$\pmb m$的微平面比例，则原式可改写为：<br>$$<br>\int_{m\in\Theta}G_1(\pmb m, \pmb v)D(\pmb m)(\pmb v\cdot\pmb m)^+\mathrm d\pmb m&#x3D;\pmb v\cdot \pmb m<br>$$<br>如下图所示，而几何遮蔽函数的具体内容待会将作介绍。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/v2-81af241fc41500f7b7665d445a9df378_1440w.jpg" alt="img"></p>
+<h4 id="4-2-1-法线分布函数的基本性质"><a href="#4-2-1-法线分布函数的基本性质" class="headerlink" title="4.2.1. 法线分布函数的基本性质"></a>4.2.1. 法线分布函数的基本性质</h4><p>法线分布函数是一种概率密度函数，很自然地有如下性质：</p>
+<ol>
+<li><p>非负性<br>$$<br>0\leq D(\pmb m)\leq \infty<br>$$</p>
+</li>
+<li><p>法线分布函数的积分表征了微表面的面积，显然微表面面积应大于等于宏观表面面积<br>$$<br>\int_{\pmb m\in \Theta}D(\pmb m)\mathrm d\pmb m\geq 1<br>$$</p>
+</li>
+<li><p>微表面和宏观表面在垂直于任何视图方向$\pmb v$的平面上的投影总是相等的<br>$$<br>\int_{\pmb m\in\Theta}D(\pmb m)(\pmb v\cdot\pmb m)\mathrm d{\pmb m}&#x3D;\pmb v\cdot\pmb n<br>$$</p>
+</li>
+<li><p>特别地，当视图法向沿着宏观法向时，积分归一化<br>$$<br>\int_{\pmb m\in\Theta}D(\pmb m)(\pmb n\cdot\pmb m)\mathrm d{\pmb m}&#x3D;1<br>$$</p>
+</li>
+</ol>
+<h4 id="4-2-2-法线分布函数的形状不变性"><a href="#4-2-2-法线分布函数的形状不变性" class="headerlink" title="4.2.2. 法线分布函数的形状不变性"></a>4.2.2. 法线分布函数的形状不变性</h4><p>形状不变性（shape-invariant）是设计合理法线分布函数的一个重要依据，具有形状不变性的法线分布函数，能够推导该函数归一化的各向异性版本，且可以很方便地推导相应的几何函数项$G$</p>
+<p>Heitz定义各向同性的法线分布函数具有形状不变性即材质粗糙度的影响等价于微表面的拉伸，具有形状不变性的微表面法线分布函数可以表示为以下形式：<br>$$<br>D(\pmb m)&#x3D;\frac{\chi^+(\pmb n\cdot\pmb m)}{\alpha^2(\pmb n\cdot\pmb m)^4}g\left(\frac{\sqrt{1-(\pmb n\cdot\pmb m)^2}}{\alpha(\pmb n\cdot\pmb m)}\right)<br>$$<br>其中$g(\cdot)$代表一个表示法线分布函数形状的一维函数</p>
+<h4 id="4-2-3-常用的法线分布函数"><a href="#4-2-3-常用的法线分布函数" class="headerlink" title="4.2.3. 常用的法线分布函数"></a>4.2.3. 常用的法线分布函数</h4><p><strong>Blinn-Phong分布</strong></p>
+<p>Blinn-Phong分布函数具有如下形式：<br>$$<br>D(\pmb m)&#x3D;\frac{\alpha_p+2}{2\pi}(\pmb n\cdot\pmb m)^{\alpha_p}<br>$$<br>其中，幂$\alpha_p$为Blinn-Phong法线分布函数的粗糙度参数，$\alpha_p$越高，表示表面越光滑，$\alpha_p$的取值可以是$[0,\infty)$，$\alpha_p$参数不便于艺术家进行调节，UE4中采用映射$\alpha_p&#x3D;2\alpha^{-2}-2$，使用材质粗糙度$\alpha$进行控制，得到的Blinn-Phong法线分布函数如下：<br>$$<br>D(\pmb m)&#x3D;\frac{1}{\pi\alpha^2}(\pmb n\cdot\pmb m)^{(\frac{2}{\alpha^2}-2)}<br>$$<br>Blinn-Phong分布函数不具有形状不变性。</p>
+<p><strong>Beckmann分布</strong></p>
+<p>Beckmann分布函数具有如下形式：<br>$$<br>D(\pmb m)&#x3D;\frac{1}{\pi\alpha^2(\pmb n\cdot\pmb m)^4}\exp(\frac{(\pmb n\cdot\pmb m)^2-1}{\alpha^2(\pmb n\cdot\pmb m)^2})<br>$$</p>
+<ul>
+<li>Beckmann分布函数呈高斯函数形态，在对称轴$\pmb n\cdot\pmb m$处取得最值，如下图所示呈现一种中间亮两边暗的渲染效果。</li>
+</ul>
+<p>Beckmann分布与Blinn-Phong分布可以通过关系式$\alpha_p&#x3D;2\alpha_b^{-2}-2$进行等效，如下图所示，蓝色虚线为Blinn-Phong分布、绿色实线为Beckmann分布：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/image-20220101205711877.png" alt="image-20220101205711877"></p>
+<p>Beckmann分布函数具有形状不变性。</p>
+<p><strong>GGX（Trowbridge-Reitz）分布</strong></p>
+<p>GGX分布函数具有如下形式：<br>$$<br>D(\pmb m)&#x3D;\frac{\alpha^2}{\pi((\pmb n\cdot \pmb m)^2(\alpha^2-1)+1)^2}<br>$$<br>GGX是目前业界最流行的微表面法线分布函数模型，因为它在主流模型中拥有最长的尾部，如下图所示，Beckmann分布函数会很快地逼近于0，而GGX能维持较长的一段尾部：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/image-20220101210228167.png" alt="image-20220101210228167"></p>
+<p>GGX分布函数具有形状不变性。</p>
+<p><strong>GTR（Generalized-Trowbridge-Reitz）分布</strong></p>
+<p>广义的Trowbridge-Reitz分布，具有如下形式：<br>$$<br>D(\pmb m)&#x3D;\frac{c}{(1+(\pmb n\cdot\pmb m)^2(\alpha^2-1))^\gamma}<br>$$<br>其中，参数$\gamma$用于控制函数的尾部形状，当$\gamma&#x3D;2$时，则退化为GGX分布。各个$\gamma$取值与GTR分布曲线的关系如下：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/v2-05b7abecb2c7a497f57ab208f4c67084_1440w.jpg" alt="img"></p>
+<p>GTR分布函数不具有形状不变性。</p>
+<h4 id="4-2-4-各项异性的法线分布函数"><a href="#4-2-4-各项异性的法线分布函数" class="headerlink" title="4.2.4. 各项异性的法线分布函数"></a>4.2.4. 各项异性的法线分布函数</h4><p>我们已知对于一个各向同性的具有形状不变性的法线分布函数，可以用下述形式所表示（考虑定义在正半球上）：</p>
+<p>$$<br>D(\pmb m)&#x3D;\frac{1}{\alpha^2(\pmb n\cdot\pmb m)^4}g\left(\frac{\sqrt{1-(\pmb n\cdot\pmb m)^2}}{\alpha(\pmb n\cdot\pmb m)}\right)<br>$$</p>
+<p>则对应的各项异性法线分布函数则为：<br>$$<br>D(\pmb m)&#x3D;\frac{1}{\alpha_x\alpha_y(\pmb n\cdot\pmb m)^4}g\left(\frac{<br>\sqrt{\frac{(\pmb t\cdot\pmb m)^2}{\alpha_x^2}+\frac{(\pmb b\cdot\pmb m)^2}{\alpha_y^2}}}{\pmb n\cdot\pmb m}\right)<br>$$<br>其中，$\alpha_x$和$\alpha_y$分别表示沿切线$\pmb t$方向和副法线$\pmb b$方向的粗糙度，当$\alpha_x&#x3D;\alpha_y$时，则退化为各向同性的形式。</p>
+<p><strong>各向异性的Beckmann分布</strong><br>$$<br>D(\pmb m)&#x3D;\frac{1}{\pi\alpha_x\alpha_y(\pmb n\cdot\pmb m)^4}\exp\left(<br>-\frac{\frac{(\pmb t\cdot\pmb m)^2}{\alpha_x^2}+\frac{(\pmb b\cdot\pmb m)^2}{\alpha_y^2}}{(\pmb n\cdot\pmb m)^2}\right)<br>$$<br><strong>各项异性的GGX分布</strong><br>$$<br>D(\pmb m)&#x3D;\frac{1}{\pi\alpha_x\alpha_y}\frac{1}{\left(\frac{(\pmb t\cdot\pmb m)^2}{\alpha_x^2}+\frac{(\pmb b\cdot\pmb m)^2}{\alpha_y^2}+(\pmb n\cdot\pmb m)^2\right)^2}<br>$$</p>
+<h4 id="4-2-5-Beckmann与GGX法线分布函数效果比较"><a href="#4-2-5-Beckmann与GGX法线分布函数效果比较" class="headerlink" title="4.2.5. Beckmann与GGX法线分布函数效果比较"></a>4.2.5. Beckmann与GGX法线分布函数效果比较</h4><p>各向同性比较：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/image-20220101225554052.png" alt="image-20220101225554052"></p>
+<p>各向异性比较（上一行为Beckmann分布，下一行为GGX分布，$\alpha_x$从左到右依次递增，$\alpha_y$保持不变）：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/image-20220102110241030.png" alt="image-20220102110241030"></p>
+<h3 id="4-3-几何函数（Geometry-Function）"><a href="#4-3-几何函数（Geometry-Function）" class="headerlink" title="4.3. 几何函数（Geometry Function）"></a>4.3. 几何函数（Geometry Function）</h3><p>从法线分布函数一节中我们从微表面模型导出了几何函数的基本概念：<br>$$<br>\int_{m\in\Theta}G_1(\pmb m, \pmb v)D(\pmb m)(\pmb v\cdot\pmb m)^+\mathrm d\pmb m&#x3D;\pmb v\cdot \pmb m<br>$$<br>几何函数$G$作为一个取值范围为$[0,1]$的标量，描述了微表面的自阴影的属性，表示了具有半矢量的微表面中，同时被入射方向和反射方向可见的比例</p>
+<p>几何函数具有两种主要的形式：</p>
+<ol>
+<li>$G_1$：微表面在单个方向（光照方向或观察方向）上的可见比例，一般表示阴影函数或遮蔽函数</li>
+<li>$G_2$：微表面在光照方向和观察方向上均可见的比例，一般表示联合遮蔽阴影函数</li>
+</ol>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/v2-4d7971c6d8ce60a6e5729024887f1b05_1440w.jpg" alt="img"></p>
+<p>一般默认情况下，几何函数指代$G_2$。</p>
+<p>几何函数的设计也有很多，其中基于物理的相对经典的模型为Smith遮蔽函数和V-cavity遮蔽函数</p>
+<p>Smith模型具有不相关的表面，即每个微表面与其邻域不相关，与真实世界的连续微表面对比如下（右图为Smith模型）：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/v2-296894071c9d566eeafdd8b0eecf418e_1440w.jpg" alt="img"></p>
+<p>V-cavity遮蔽函数计算单独微表面上的散射并混合计算结果：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/v2-07307404535e9411228134352694a8ef_1440w.jpg" alt="img"></p>
+<p>Heitz证明了Smith遮蔽函数是唯一既遵循公式：<br>$$<br>\int_{m\in\Theta}G_1(\pmb m, \pmb v)D(\pmb m)(\pmb v\cdot\pmb m)^+\mathrm d\pmb m&#x3D;\pmb v\cdot \pmb m<br>$$<br>又具有法线遮蔽独立性的便利特性的函数，因此业界更青睐于使用Smith模型，Smith模型也比V-cavity模型能够更好地拟合真实世界的反射现象：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/v2-13e64081024b7006b835e143751fa0ac_1440w.jpg" alt="img"></p>
+<h4 id="4-3-1-Smith遮蔽函数"><a href="#4-3-1-Smith遮蔽函数" class="headerlink" title="4.3.1. Smith遮蔽函数"></a>4.3.1. Smith遮蔽函数</h4><p>下面我们将从各项同性的法线分布函数出发，详细推导Smith几何函数模型。</p>
+<p>在前面的介绍中我们已经得到微表面模型的基本方程：<br>$$<br>\int_{m\in\Theta}G_1(\pmb m, \pmb v)D(\pmb m)(\pmb v\cdot\pmb m)^+\mathrm d\pmb m&#x3D;\pmb v\cdot \pmb m<br>$$<br>其中的$G_1(\pmb m,\pmb v)$项则是我们要求的几何函数项，这里我们仅考虑以高度场建模的微表面，由于几何函数$G_1$将筛选出在单个方向上（即$\pmb m\cdot\pmb v&gt;0$）可见的光，我们可以将$G_1$项分离为：<br>$$<br>G_1(\pmb m,\pmb v)&#x3D;\chi^+(\pmb m,\pmb v)G_1’(\pmb v)<br>$$<br>原方程可化为：<br>$$<br>\int_{m\in\Theta}\chi^+(\pmb m,\pmb v)G_1’(\pmb v)D(\pmb m)(\pmb v\cdot\pmb m)\mathrm d\pmb m&#x3D;\pmb v\cdot \pmb m<br>$$<br>提取出与$\pmb m$无关的$G’(\pmb v)$，有：<br>$$<br>\pmb v\cdot \pmb m&#x3D;G_1’(\pmb v)\int_{m\in\Theta}\chi^+(\pmb m,\pmb v)D(\pmb m)(\pmb v\cdot\pmb m)\mathrm d\pmb m<br>$$<br>定义与微表面法向$\pmb m(x_m,y_m,z_m)$相关的微表面坡度：<br>$$<br>\tilde m(\pmb m)&#x3D;(x_{\tilde m}, y_{\tilde m})&#x3D;(-x_m&#x2F;z_m,-y_m&#x2F;z_m)<br>$$<br>反过来，微表面法向也可表示为：<br>$$<br>\pmb m(\tilde m)&#x3D;(x_m,y_m,z_m)&#x3D;\frac{1}{\sqrt{x_{\tilde m}^2+ y_{\tilde m}^2+1}}(-x_{\tilde m}, -y_{\tilde m},1)<br>$$<br>定义微表面坡度的分布函数$P^{22}$，由$P^{22}$所应满足的归一性：<br>$$<br>\int_{-\infty}^\infty\int_{-\infty}^\infty P^{22}(\tilde m)\mathrm d\tilde m&#x3D;1<br>$$<br>以及法线分布函数的归一性（高度场，仅考虑半球）：<br>$$<br>\int_{\Omega}D(\pmb m)(\pmb n\cdot\pmb m)\mathrm d{\pmb m}&#x3D;1<br>$$<br>建立关联：<br>$$<br>P^{22}(\tilde m)\mathrm d\tilde m&#x3D;D(\pmb m)(\pmb n\cdot\pmb m)\mathrm d{\pmb m}<br>$$<br>整理后积分有：<br>$$<br>\int_{\Omega}\chi^+(\pmb m,\pmb v)D(\pmb m)(\pmb v\cdot\pmb m)\mathrm d\pmb m&#x3D;\int_{-\infty}^\infty\int_{-\infty}^\infty \chi^+(\pmb m,\pmb v)\frac{\pmb v\cdot\pmb m(\tilde m)}{\pmb n\cdot\pmb m(\tilde m)}P^{22}(\tilde m) \mathrm d\tilde m<br>$$<br>由于$\pmb n&#x3D;(0,0,1)$，因此<br>$$<br>\pmb n\cdot\pmb m(\tilde m)&#x3D;\frac{1}{\sqrt{x_{\tilde m}^2+ y_{\tilde m}^2+1}}<br>$$<br>与$\chi^+(\pmb m,\pmb v)$项结合起来有：<br>$$<br>\chi^+(\pmb m,\pmb v)\pmb v\cdot\pmb m(\tilde m)&#x3D;\frac{\chi^+(-x_0x_{\tilde m}-y_0y_{\tilde m}+z_0)(-x_0x_{\tilde m}-y_0y_{\tilde m}+z_0)}{\sqrt{x_{\tilde m}^2+ y_{\tilde m}^2+1}}<br>$$<br>因此积分可以写为：<br>$$<br>\int_{\Omega}\chi^+(\pmb m,\pmb v)D(\pmb m)(\pmb v\cdot\pmb m)\mathrm d\pmb m&#x3D;<br>\int_{-\infty}^\infty\int_{-\infty}^\infty \chi^+(-x_0x_{\tilde m}-y_0y_{\tilde m}+z_0)(-x_0x_{\tilde m}-y_0y_{\tilde m}+z_0) P^{22}(x_{\tilde m},y_{\tilde m})\mathrm dx_{\tilde m}\mathrm dy_{\tilde m}<br>$$<br>不失一般性地，我们可以假设视角方向与$x$轴对齐，即$\pmb v&#x3D;(\sin\theta_o,0,\cos\theta_o)$，则积分表示为：<br>$$<br>\begin{align}<br>&amp;\int_{\Omega}\chi^+(\pmb m,\pmb v)D(\pmb m)(\pmb v\cdot\pmb m)\mathrm d\pmb m\\\\<br>&#x3D;&amp;\int_{-\infty}^\infty\int_{-\infty}^\infty\chi^+(-\sin\theta_ox_{\tilde m}+\cos\theta_o)(-\sin\theta_ox_{\tilde m}+\cos\theta_o)P^{22}(x_{\tilde m},y_{\tilde m})\mathrm dx_{\tilde m}\mathrm dy_{\tilde m}\\\\<br>&#x3D;&amp;\int_{-\infty}^\infty\chi^+(-\sin\theta_ox_{\tilde m}+\cos\theta_o)(-\sin\theta_ox_{\tilde m}+\cos\theta_o)\left(\int_{-\infty}^\infty P^{22}(x_{\tilde m},y_{\tilde m})\mathrm dy_{\tilde m}\right)\mathrm dx_{\tilde m}\\\\<br>&#x3D;&amp;\int_{-\infty}^\infty \chi^+(-\sin\theta_ox_{\tilde m}+\cos\theta_o)(-\sin\theta_ox_{\tilde m}+\cos\theta_o)P^2(x_{\tilde m})\mathrm dx_{\tilde m}<br>\end{align}<br>$$<br>其中，$P^2(x_{\tilde m})$为沿着视角法向的一维坡度分布函数，定义为：<br>$$<br>P^2(x_{\tilde m})&#x3D;\int_{-\infty}^{+\infty}P^{22}(x_{\tilde m},y_{\tilde m})\mathrm dy_{\tilde m}<br>$$<br>又：<br>$$<br>-\sin\theta_ox_{\tilde m}+\cos\theta_o&gt;0\Rightarrow x_{\tilde m}&lt;\cot\theta_o<br>$$</p>
+<p>因此原积分又可化为：<br>$$<br>\int_{-\infty}^\infty \chi^+(-\sin\theta_ox_{\tilde m}+\cos\theta_o)(-\sin\theta_ox_{\tilde m}+\cos\theta_o)P^2(x_{\tilde m})\mathrm dx_{\tilde m}&#x3D;<br>\int_{-\infty}^{\cot\theta_o} (-\sin\theta_ox_{\tilde m}+\cos\theta_o)P^2(x_{\tilde m})\mathrm dx_{\tilde m}<br>$$<br>代入到方程：<br>$$<br>\pmb v\cdot \pmb m&#x3D;G_1’(\pmb v)\int_{m\in\Theta}\chi^+(\pmb m,\pmb v)D(\pmb m)(\pmb v\cdot\pmb m)\mathrm d\pmb m<br>$$<br>可以得到：<br>$$<br>\cos\theta_o&#x3D;G_1’(\pmb v)\int_{-\infty}^{\cot\theta_o} (-\sin\theta_ox_{\tilde m}+\cos\theta_o)P^2(x_{\tilde m})\mathrm dx_{\tilde m}<br>$$<br>两边同除以$\sin\theta_o$可得：<br>$$<br>\cot\theta_o&#x3D;G_1’(\pmb v)\int_{-\infty}^{\cot\theta_o} (-x_{\tilde m}+\cot\theta_o)P^2(x_{\tilde m})\mathrm dx_{\tilde m}<br>$$<br>由于微表面分布是中心对称的，且任意方向的平均坡度为零（正负抵消，分布的均值为0），即<br>$$<br>\int_{-\infty}^{+\infty} x_{\tilde m}P^2(x_{\tilde m})\mathrm dx_{\tilde m}&#x3D;0<br>$$<br>引入该项有：<br>$$<br>\cot\theta_o&#x3D;G_1’(\pmb v)\int_{-\infty}^{+\infty}x_{\tilde m}P^2(x_{\tilde m})\mathrm dx_{\tilde m}+  G_1’(\pmb v)\int_{-\infty}^{\cot\theta_o} (-x_{\tilde m}+\cot\theta_o)P^2(x_{\tilde m})\mathrm dx_{\tilde m}<br>$$<br>利用$\cot\theta_o&#x3D;(1-G_1’(\pmb v))\cot\theta_o+G_1’(\pmb v)\cot\theta_o$，代入有：<br>$$<br>\begin{align}<br>(1-G_1’(\pmb v))\cot\theta_o+G_1’(\pmb v)\cot\theta_o<br>&#x3D;&amp;G_1’(\pmb v)\int_{-\infty}^{+\infty}x_{\tilde m}P^2(x_{\tilde m})\mathrm dx_{\tilde m}+  G_1’(\pmb v)\int_{-\infty}^{\cot\theta_o} (-x_{\tilde m}+\cot\theta_o)P^2(x_{\tilde m})\mathrm dx_{\tilde m}\\\\<br>(1-G_1’(\pmb v))\cot\theta_o<br>&#x3D;&amp;G_1’(\pmb v)\int_{-\infty}^{+\infty}x_{\tilde m}P^2(x_{\tilde m})\mathrm dx_{\tilde m}+  G_1’(\pmb v)\int_{-\infty}^{\cot\theta_o} (-x_{\tilde m}+\cot\theta_o)P^2(x_{\tilde m})\mathrm dx_{\tilde m}\\\\<br>&amp;-G_1’(\pmb v)\cot\theta_o<br>\end{align}<br>$$<br>由于概率密度函数的归一性：<br>$$<br>\int_{-\infty}^{+\infty} P^2(x_{\tilde m})\mathrm dx_{\tilde m}&#x3D;1<br>$$<br>因此有<br>$$<br>G_1’(\pmb v)\cot\theta_o&#x3D;G_1’(\pmb v) \int_{-\infty}^{+\infty} \cot\theta_oP^2(x_{\tilde m})\mathrm dx_{\tilde m}<br>$$<br>代入得：<br>$$<br>\begin{align}<br>(1-G_1’(\pmb v))\cot\theta_o&#x3D;&amp;G_1’(\pmb v)\int_{-\infty}^{+\infty}x_{\tilde m}P^2(x_{\tilde m})\mathrm dx_{\tilde m}+  G_1’(\pmb v)\int_{-\infty}^{\cot\theta_o} (-x_{\tilde m}+\cot\theta_o)P^2(x_{\tilde m})\mathrm dx_{\tilde m}\\\\<br>&amp;-G_1’(\pmb v) \int_{-\infty}^{+\infty} \cot\theta_oP^2(x_{\tilde m})\mathrm dx_{\tilde m}\\\\<br>&#x3D;&amp;G_1’(\pmb v)\left(\int_{-\infty}^{+\infty}x_{\tilde m}P^2(x_{\tilde m})\mathrm dx_{\tilde m}-\int_{-\infty}^{\cot\theta_o} x_{\tilde m}P^2(x_{\tilde m})\mathrm dx_{\tilde m}\right)\\\\<br>&amp;+G_1’(\pmb v)\left(\int_{-\infty}^{\cot\theta_o}\cot\theta_oP^2(x_{\tilde m})\mathrm dx_{\tilde m}-\int_{-\infty}^{\infty}\cot\theta_oP^2(x_{\tilde m})\mathrm dx_{\tilde m}  \right)\\\\<br>&#x3D;&amp;G_1’(\pmb v)\int_{\cot\theta_o}^{+\infty}x_{\tilde m}P^2(x_{\tilde m})\mathrm dx_{\tilde m}-G_1’(\pmb v)\int_{\cot\theta_o}^{+\infty}\cot\theta_oP^2(x_{\tilde m})\mathrm dx_{\tilde m}\\\\<br>&#x3D;&amp;G_1’(\pmb v)\int_{\cot\theta_o}^{+\infty}(x_{\tilde m}-\cot\theta_o)P^2(x_{\tilde m})\mathrm dx_{\tilde m}<br>\end{align}<br>$$<br>等式变换一下有：<br>$$<br>\frac{1-G’<em>1(\pmb v)}{G’<em>1(\pmb v)}&#x3D;\frac{1}{\cot\theta_o}\int</em>{\cot\theta_o}^{+\infty}(x</em>{\tilde m}-\cot\theta_o)P^2(x_{\tilde m})\mathrm dx_{\tilde m}<br>$$<br>于是得到最终形式：<br>$$<br>G_1’(\pmb v)&#x3D;\frac{1}{1+\Lambda(\pmb v)}<br>$$<br>其中，$\Lambda(\cdot)$定义为：<br>$$<br>\Lambda(\pmb v)&#x3D;\frac{1}{\cot\theta_o}\int_{\cot\theta_o}^{+\infty}(x_{\tilde m}-\cot\theta_o)P^2(x_{\tilde m})\mathrm dx_{\tilde m}<br>$$<br>这是一个与法线分布函数$D(\pmb m)$相关的函数，每个$D(\pmb m)$都有唯一的$\Lambda(\pmb v)$与之对应。</p>
+<p>综合起来可得Smith几何函数$G_1$的具体形式：<br>$$<br>G_1(\pmb m, \pmb v)&#x3D;\frac{\chi^+(\pmb m\cdot\pmb v)}{1+\Lambda(\pmb v)}<br>$$<br>具有形状不变性的法线分布函数能够得到$\Lambda(\pmb v)$的解析解，如：</p>
+<p><strong>Beckmann分布函数</strong><br>$$<br>\begin{align}<br>P^{22}(x_{\tilde m},y_{\tilde m})&amp;&#x3D;\frac{1}{\pi\alpha^2}\exp\left(-\frac{x^2_{\tilde m}+y^2_{\tilde m}}{\alpha^2}\right)\\\\<br>D(\pmb m)&amp;&#x3D;\frac{1}{\pi\alpha^2(\pmb n\cdot\pmb m)^4}\exp(\frac{(\pmb n\cdot\pmb m)^2-1}{\alpha^2(\pmb n\cdot\pmb m)^2})\\\\<br>\Lambda(a)&amp;&#x3D;\frac{\mathrm{erf}(a)-1}{2}+\frac{1}{2a\sqrt{\pi}}\exp(-a^2)<br>\end{align}<br>$$<br>其中，<br>$$<br>\begin{align}<br>a&amp;&#x3D;\frac{\pmb n\cdot \pmb v}{a\sqrt{1-(\pmb n\cdot\pmb v)^2}}\\\\<br>\mathrm{erf}(x)&amp;&#x3D;\frac{2}{\sqrt{\pi}}\int_0^xe^{-x’^2}\mathrm dx’^2<br>\end{align}<br>$$<br>当然上述公式的计算开销很大，Walter等人给出一种近似逼近：<br>$$<br>\Lambda(a)&#x3D;\begin{cases}<br>\frac{1-1.259a+0.396a^2}{3.535a+2.181a^2},&amp;a&lt;1.6\\\\<br>0,&amp;a\geq 1.6<br>\end{cases}<br>$$<br><strong>GGX分布函数</strong><br>$$<br>\begin{aligned}<br>P^{22}(x_{\tilde m},y_{\tilde m})&amp;&#x3D;\frac{1}{\pi\alpha^2\left(1+\frac{x^2_{\tilde m}+y_{\tilde m}^2}{\alpha^2}\right)^2}\\\\<br>D(\pmb m)&amp;&#x3D;\frac{\alpha^2}{\pi((\pmb n\cdot \pmb m)^2(\alpha^2-1)+1)^2}\\\\<br>\Lambda(a)&amp;&#x3D;\frac{-1+\sqrt{1+\frac{1}{a^2}}}{2}<br>\end{aligned}<br>$$<br>其中，<br>$$<br>a&#x3D;\frac{\pmb n\cdot \pmb v}{a\sqrt{1-(\pmb n\cdot\pmb v)^2}}<br>$$<br>同时，Karis也给出了GGX的Smith $G_1$计算近似公式：<br>$$<br>G_1(\pmb v)\approx \frac{2(\pmb n\cdot\pmb v)}{(\pmb n\cdot\pmb v)(2-\alpha)+\alpha}<br>$$<br>可以很方便地用在实时渲染中。</p>
+<p>对于各向异性的法线分布函数，可以证明$\Lambda(\cdot)$与各向同性版本的一致。</p>
+<h4 id="4-3-2-Smith联合遮蔽函数-阴影函数"><a href="#4-3-2-Smith联合遮蔽函数-阴影函数" class="headerlink" title="4.3.2. Smith联合遮蔽函数-阴影函数"></a>4.3.2. Smith联合遮蔽函数-阴影函数</h4><p><strong>分离的遮蔽阴影函数</strong></p>
+<p>最简单和广泛使用的遮蔽阴影函数，认为遮蔽和阴影是独立的，可以分别计算并进行相乘：<br>$$<br>\begin{align}<br>G_2(\pmb v,\pmb l,\pmb m)&amp;&#x3D;G_1(\pmb v,\pmb m)G_1(\pmb l,\pmb m)\\\\<br>&amp;&#x3D;\frac{\chi^+(\pmb v\cdot\pmb m)}{1+\Lambda(\pmb v)}\frac{\chi^+(\pmb l\cdot\pmb m)}{1+\Lambda(\pmb l)}<br>\end{align}<br>$$<br>这种形式不模拟遮蔽和阴影之间的相关性，因此总会多估算阴影，因为一些相关性总是存在的</p>
+<p><strong>高度相关的遮蔽阴影函数</strong></p>
+<p>这种形式的遮蔽阴影函数更好地模拟了由于微表面高度引起的遮蔽和阴影之间的相关性。直观地说，微平面在微表面升高得越多，对于出射方向未被遮蔽和入射方向未被掩蔽的可见概率会同时增加，形式如下：<br>$$<br>G_2(\pmb v,\pmb l,\pmb m)&#x3D;\frac{\chi^+(\pmb v\cdot\pmb m)\chi^+(\pmb l\cdot\pmb m)}{1+\Lambda(\pmb v)+\Lambda(\pmb l)}<br>$$<br><strong>方向相关的遮蔽阴影函数</strong></p>
+<p>通过混合可分离的遮蔽阴影函数与两个方向完全相关的情形来表达方向相关：<br>$$<br>G_2(\pmb v,\pmb l,\pmb m)&#x3D;\lambda(\phi)G_1(\pmb v,\pmb m)G_1(\pmb l,\pmb m)+(1-\lambda(\phi))\min(G_1(\pmb v,\pmb m),G_1(\pmb l,\pmb m))<br>$$<br>其中$\lambda(\phi)$是一个经验公式，随着角度$\phi$的增大，$\lambda$从0增大到1，Ashikhmin等人建议使用一个高斯函数进行处理：<br>$$<br>\lambda(\phi)&#x3D;1-e^{-7.3\phi^2}<br>$$<br>van Ginneken则提出另外一种计算方法：<br>$$<br>\lambda(\phi)&#x3D;\frac{4.41\phi}{4.41\phi+1}<br>$$<br><strong>高度方向相关的遮蔽阴影函数</strong></p>
+<p>结合高度相关形式和方向相关形式，可以得到：<br>$$<br>G_2(\pmb v, \pmb l,\pmb m)&#x3D;\frac{\chi^+(\pmb v\cdot\pmb m)\chi^+(\pmb l\cdot\pmb m)}{1+\max(\Lambda(\pmb v),\Lambda(\pmb l))+\lambda(\pmb v\cdot\pmb l)\min(\Lambda(\pmb v),\Lambda(\pmb l))}<br>$$</p>
+<ul>
+<li><p>当出射方向与入射方向平行且$\lambda&#x3D;0$时，遮蔽和阴影完全相关</p>
+</li>
+<li><p>相关性随着方向之间的夹角增加而减小，当$\lambda&#x3D;1$时，遮蔽和阴影不再方向相关，而是退化为高度相关的形式</p>
+</li>
+<li><p>$\lambda$的计算同样可以通过：<br>$$<br>\lambda(\phi)&#x3D;\frac{4.41\phi}{4.41\phi+1}<br>$$<br>$\phi$为$\pmb v$和$\pmb l$之间的方位角</p>
+</li>
+</ul>
+<h3 id="4-4-菲涅尔反射"><a href="#4-4-菲涅尔反射" class="headerlink" title="4.4. 菲涅尔反射"></a>4.4. 菲涅尔反射</h3><p>我们已经知道光在两介质的交界表面会发生反射和折射现象，在不考虑次表面散射和透射的情况下我们常常只关注反射光（只有反射光对BRDF有贡献），由费马原理（光路最短原理）我们能够从几何上求出入射角和折射角的关系，但无法确定入射光和折射光、反射光的比例关系。而菲涅尔方程则能够描述了光在介质表面传播的能量关系。</p>
+<h4 id="4-4-1-菲涅尔方程的推导"><a href="#4-4-1-菲涅尔方程的推导" class="headerlink" title="4.4.1. 菲涅尔方程的推导"></a>4.4.1. 菲涅尔方程的推导</h4><p>要推导出菲涅尔方程，我们需要重新回到麦克斯韦方程组，假设在均匀线性物质中，不存在自由电荷和电流，则麦克斯韦方程组变为：<br>$$<br>\begin{aligned}<br>\nabla \cdot\pmb E &amp;&#x3D; 0\\\\<br>\nabla\cdot\pmb B&amp;&#x3D;0\\\\<br>\nabla\times \pmb E&amp;&#x3D;-\frac{\partial \pmb B}{\partial t}\\\\<br>\nabla\times \pmb B&amp;&#x3D;\varepsilon\mu\frac{\partial \pmb E}{\partial t}<br>\end{aligned}<br>$$<br>由前述推导中，我们可以很容易求得：<br>$$<br>\begin{matrix}<br>\nabla^2\pmb E&#x3D;\mu\varepsilon\dfrac{\partial^2\pmb E}{\partial t^2}&amp;\nabla^2\pmb B&#x3D;\mu\varepsilon\dfrac{\partial^2\pmb B}{\partial t^2}<br>\end{matrix}<br>$$<br>可以看到$\pmb E$和$\pmb B$的每个直角坐标分量都满足三维波方程的形式：<br>$$<br>\nabla^2f&#x3D;\frac{1}{v^2}\frac{\partial^2 f}{\partial t^2}<br>$$<br>波速：<br>$$<br>v&#x3D;\frac{1}{\sqrt{\mu\varepsilon}}<br>$$<br>这个波速也为光速，在真空中$v&#x3D;1&#x2F;\sqrt{\mu_0\varepsilon_0}&#x3D;3.00\times 10^8m&#x2F;s$</p>
+<p>定义折射率<br>$$<br>n&#x3D;\sqrt{\frac{\varepsilon\mu}{\varepsilon_0\mu_0}}<br>$$<br>则均匀线性物质中的光速为$v&#x3D;c&#x2F;n$</p>
+<p>能量密度为：<br>$$<br>u&#x3D;\frac{1}{2}\left(\varepsilon E^2+\frac{1}{\mu}B^2 \right)<br>$$<br>对于单色平面波，波的强度为：<br>$$<br>I&#x3D;\frac{1}{2}\varepsilon vE_0^2<br>$$<br><strong>边界条件</strong></p>
+<p>根据麦克斯韦的积分形式，我们可以推导出电磁场在无自由电荷或自由电流的线性介质的边界条件：<br>$$<br>\begin{aligned}<br>\varepsilon_1\pmb E_1^\perp-\varepsilon_2\pmb E_2^\perp&amp;&#x3D;0\\\\<br>\pmb E_1^{\parallel}-\pmb E_2^{\parallel}&amp;&#x3D;0\\\\<br>\pmb B_1^\perp-\pmb B_2^\perp&amp;&#x3D;0\\\\<br>\frac{1}{\mu_1}\pmb B_1^\parallel-\frac{1}{\mu_2}\pmb B_2^\parallel&amp;&#x3D;0<br>\end{aligned}<br>$$<br><strong>垂直入射的反射与折射</strong></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/image-20220102143146861.png" alt="image-20220102143146861"></p>
+<p>如上图所示，假设$xy$平面为两线性介质的界面，角频率为$\omega$，沿$z$方向传播和沿$x$方向偏振的平面波从左边入射到界面：<br>$$<br>\begin{align}<br>\tilde{\pmb E}_ I(z,t)&amp;&#x3D;\tilde E_{0I}e^{i(k_1z-\omega t)}\hat{\pmb x}\\\\<br>\tilde{\pmb B}_ I(z,t)&amp;&#x3D;\frac{1}{v_I}\tilde E_{0I}e^{i(k_1z-\omega t)}\hat{\pmb y}<br>\end{align}<br>$$<br>它将产生一个反射波：<br>$$<br>\begin{align}<br>\tilde{\pmb E}_ R(z,t)&amp;&#x3D;\tilde E_{0R}e^{i(-k_1z-\omega t)}\hat{\pmb x}\\\\<br>\tilde{\pmb B}_ R(z,t)&amp;&#x3D;-\frac{1}{v_1}\tilde E_{0R}e^{i(-k_1z-\omega t)}\hat{\pmb y}<br>\end{align}<br>$$<br>和一个透射波：<br>$$<br>\begin{align}<br>\tilde{\pmb E}_ T(z,t)&amp;&#x3D;\tilde E_{0T}e^{i(k_2z-\omega t)}\hat{\pmb x}\\\\<br>\tilde{\pmb B}_ T(z,t)&amp;&#x3D;\frac{1}{v_2}\tilde E_{0T}e^{i(k_2z-\omega t)}\hat{\pmb y}<br>\end{align}<br>$$<br>由边界条件可以得到：<br>$$<br>\begin{align}<br>\tilde E_{0I}+\tilde E_{0R}&amp;&#x3D;\tilde E_{0T}\\\\<br>\frac{1}{\mu_1}\left(\frac{1}{v_1}\tilde E_{0I}-\frac{1}{v_1}\tilde E_{0R} \right)&amp;&#x3D;\frac{1}{\mu_2}\left(\frac{1}{v_2}\tilde E_{0T}\right)<br>\end{align}<br>$$<br>解得：<br>$$<br>\begin{aligned}<br>\tilde E_{0R}&#x3D;\left(\frac{1-\beta}{1+\beta}\right)\tilde E_{0I}\\\\<br>\tilde E_{0T}&#x3D;\left(\frac{2}{1+\beta}\right)\tilde E_{0I}<br>\end{aligned}<br>$$<br>其中，<br>$$<br>\beta\equiv \frac{\mu_1v_1}{\mu_2v_2}&#x3D;\frac{\mu_1n_2}{\mu_2n_1}<br>$$<br>若介质的磁导率$\mu$与真空中的接近（大多数介质是这样），则$\beta\approx v_1&#x2F;v_2$，有：<br>$$<br>\begin{aligned}<br>\tilde E_{0R}&#x3D;\left(\frac{v_2-v_1}{v_2+v_1}\right)\tilde E_{0I}\\\\<br>\tilde E_{0T}&#x3D;\left(\frac{2v_2}{v_2+v_1}\right)\tilde E_{0I}<br>\end{aligned}<br>$$<br>实振幅间有以下关系：<br>$$<br>\begin{aligned}<br>E_{0R}&#x3D;\left|\frac{v_2-v_1}{v_2+v_1}\right|E_{0I}&#x3D;\left|\frac{n_1-n_2}{n_1+n_2}\right|E_{0I}\\\\<br>E_{0T}&#x3D;\left|\frac{2v_2}{v_2+v_1}\right|E_{0I}&#x3D;\left|\frac{2n_1}{n_1+n_2}\right|E_{0I}<br>\end{aligned}<br>$$<br>从能量角度看，反射波与入射波强度之比为：<br>$$<br>R\equiv\frac{I_R}{I_I}&#x3D;\left(\frac{E_{0R}}{E_{0I}}\right)^2&#x3D;\left(\frac{n_1-n_2}{n_1+n_2}\right)^2<br>$$<br>透射波与入射波强度之比为：<br>$$<br>T\equiv\frac{I_T}{I_I}&#x3D;\frac{\varepsilon_2v_2}{\varepsilon_1v_1}\left(\frac{E_{0T}}{E_{0I}}\right)^2&#x3D;\frac{4n_1n_2}{(n_1+n_2)^2}<br>$$<br>其中，$R$称为反射系数，$T$称为透射系数，注意到，$R+T&#x3D;1$，也是一种能量守恒。</p>
+<p><strong>倾斜入射的反射与折射</strong></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/image-20220102145704778.png" alt="image-20220102145704778"></p>
+<p>如上图所示，考虑更一般的入射情况，入射角度为$\theta_I$，假设一个单色平面波：<br>$$<br>\begin{align}<br>\tilde{\pmb E}_ I(\pmb r,t)&amp;&#x3D;\tilde E_{0I}e^{i(\pmb k_I\cdot\pmb r-\omega t)}\\\\<br>\tilde{\pmb B}_ I(\pmb r,t)&amp;&#x3D;\frac{1}{v_1}(\tilde{\pmb k_I}\times\tilde{\pmb E_I})<br>\end{align}<br>$$<br>从左边入射，得到一个反射波：<br>$$<br>\begin{align}<br>\tilde{\pmb E}_ R(\pmb r,t)&amp;&#x3D;\tilde {\pmb E}<em>{0R}e^{i(\pmb k_R\cdot\pmb r-\omega t)}\\\\<br>\tilde{\pmb B}</em> R(\pmb r,t)&amp;&#x3D;\frac{1}{v_1}(\tilde{\pmb k_R}\times\tilde{\pmb E_R})<br>\end{align}<br>$$<br>和一个透射波：<br>$$<br>\begin{align}<br>\tilde{\pmb E}_ T(\pmb r,t)&amp;&#x3D;\tilde {\pmb E}<em>{0T}e^{i(\pmb k_T\cdot\pmb r-\omega t)}\\\\<br>\tilde{\pmb B}</em> T(\pmb r,t)&amp;&#x3D;\frac{1}{v_2}(\tilde{\pmb k_T}\times\tilde{\pmb E_T})<br>\end{align}<br>$$<br>所有三个波具有相同的频率$\omega$，该物理量由光源所决定，因此三个波的波数之间存在关系：<br>$$<br>k_Iv_1&#x3D;k_Rv_1&#x3D;k_Tv_2&#x3D;\omega<br>$$<br>由边界条件，介质(1)中的合场强$\tilde{\pmb E}_I+\tilde{\pmb E}_R$和$\tilde{\pmb B}_I+\tilde{\pmb B}_R$必须拟合介质(2)中的合场强$\tilde{\pmb E_T}+\tilde{\pmb B}_T$，因此当$z&#x3D;0$时，应有：<br>$$<br>\pmb k_I\cdot \pmb r&#x3D;\pmb k_R\cdot\pmb r&#x3D;\pmb k_T\cdot\pmb r<br>$$<br>保证指数项相等，因此，对所有的$x$和$y$有：<br>$$<br>x(k_I)_x+y(k_I)_y&#x3D;<br>x(k_R)_x+y(k_R)_y&#x3D;<br>x(k_T)_x+y(k_T)_y<br>$$<br>对$x&#x3D;0$，有<br>$$<br>(k_I)_y&#x3D;(k_R)_y&#x3D;(k_T)_y<br>$$<br>对$y&#x3D;0$，有<br>$$<br>(k_I)_x&#x3D;(k_R)_x&#x3D;(k_T)_x<br>$$<br>因此，通过改变坐标轴的方向，我们可以使得$\pmb k_I$、$\pmb k_R$和$\pmb k_T$均在xz平面内，至此，我们可以得出几何光学的三个基本定律：</p>
+<ol>
+<li><p>入射光、反射光和折射光矢量在同一个平面内（称为入射面），入射面法线也在入射面内，同时满足：<br>$$<br>k_I\sin\theta_I&#x3D;k_R\sin\theta_R&#x3D;k_T\sin\theta_T<br>$$<br>式中，$\theta_I$为入射角，$\theta_R$为反射角，$\theta_T$为折射角，都是相对于法线方向考虑</p>
+</li>
+<li><p>由于$k_1v_1&#x3D;k_Rv_1&#x3D;\omega$，因此$k_I&#x3D;k_R$，于是有入射角等于反射角：<br>$$<br>\theta_I&#x3D;\theta_R<br>$$<br>即反射定律</p>
+</li>
+<li><p>由$k_Iv_1&#x3D;k_Tv_2&#x3D;\omega$，可得<br>$$<br>k_I&#x3D;\frac{n_1}{n_2}k_T<br>$$<br>因此有<br>$$<br>\frac{\sin\theta_T}{\sin\theta_I}&#x3D;\frac{n_1}{n_2}<br>$$<br>即折射定律，又称斯涅尔定律</p>
+</li>
+</ol>
+<p>回到边界条件问题，我们已经可以将指数项进行抵消，则可以得到下述新的边界条件方程：<br>$$<br>\begin{aligned}<br>\varepsilon_1(\tilde {\pmb E}_ {0I}+\tilde{\pmb E}_ {0R})<em>z&amp;&#x3D;\varepsilon_2(\tilde {\pmb E}</em> {0T})<em>z\\\\<br>(\tilde {\pmb B}</em>{0I}+\tilde{\pmb B}_ {0R})<em>z&amp;&#x3D;(\tilde {\pmb B}</em> {0T})<em>z\\\\<br>(\tilde{\pmb E}</em>{0T}+\tilde {\pmb E}_ {0R})<em>{x,y}&amp;&#x3D;(\tilde {\pmb E}</em> {0T})<em>{x,y}\\\\<br>\frac{1}{\mu_1}(\tilde{\pmb B}</em> {0T}+\tilde {\pmb B}_ {0R})<em>{x,y}&amp;&#x3D;\frac{1}{\mu_2}(\tilde {\pmb B}</em> {0T})_{x,y}<br>\end{aligned}<br>$$<br>其中，$\tilde{\pmb B}_0&#x3D;(1&#x2F;v)\hat{\pmb k}\times\tilde{\pmb E}_0$</p>
+<p>为了简化问题，假设入射波的电场的偏振方向平行于入射面，即图中的$xz$平面，这样一来反射和透射波的电场的偏振方向也在这个面内，则边界条件方程可表示为：<br>$$<br>\begin{align}<br>\varepsilon_1(-\tilde E_{0I}\sin\theta_I+\tilde E_{0R}\sin\theta_R)&amp;&#x3D;\varepsilon_2(-\tilde E_{0T}\sin\theta_T)\\\\<br>\tilde E_{0I}\cos\theta_I+\tilde E_{0R}\cos\theta_R&amp;&#x3D;\tilde{E}<em>{0T}\cos\theta_T\\\\<br>\frac{1}{\mu_1v_1}(\tilde E</em>{0I}-\tilde E_{0R})&amp;&#x3D;\frac{1}{\mu_2v_2}\tilde E_{0T}<br>\end{align}<br>$$<br>由反射定律和折射定律，上式可简化为：<br>$$<br>\begin{aligned}<br>\tilde E_{0I}-\tilde E_{0R}&amp;&#x3D;\beta\tilde E_{0T}\\\\<br>\tilde E_{0I}+\tilde E_{0R}&amp;&#x3D;\alpha\tilde E_{0T}<br>\end{aligned}<br>$$<br>其中，<br>$$<br>\begin{align}<br>\alpha&amp;\equiv\frac{\cos\theta_T}{\cos\theta_I}\\\\<br>\beta&amp;\equiv\frac{\mu_1v_1}{\mu_2v_2}&#x3D;\frac{\mu_1n_2}{\mu_2n_1}<br>\end{align}<br>$$<br>解得：<br>$$<br>\begin{aligned}<br>\tilde E_{0R}&amp;&#x3D;\left(\frac{\alpha-\beta}{\alpha+\beta}\right)\tilde E_{0I}\\\\<br>\tilde E_{0T}&amp;&#x3D;\left(\frac{2}{\alpha+\beta}\right)\tilde E_{0I}<br>\end{aligned}<br>$$</p>
+<p>上式则是大名鼎鼎的菲涅尔方程了，可以看到透射波和反射波的振幅受入射角度影响，因为$\alpha$是关于$\theta_I$的函数：<br>$$<br>\alpha&#x3D;\frac{\sqrt{1-\sin^2\theta_T}}{\cos\theta_I}&#x3D;\frac{\sqrt{1-[(n_1&#x2F;n_2)\sin\theta_I]^2}}{\cos\theta_I}<br>$$<br>反射率和透射率随入射角度的变化如下图所示：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/image-20220102160026088.png" alt="image-20220102160026088"></p>
+<p>而且可以看到，当$\alpha&#x3D;\beta$时，即<br>$$<br>\sin^2\theta_B&#x3D;\frac{1-\beta^2}{(n_1&#x2F;n_2)^2-\beta^2}<br>$$<br>反射波完全消失，$\theta_B$成为布鲁斯特角。而当入射角$\theta_I&#x3D;90°$时，$\tilde E_{0R}&#x3D;\tilde E_{0I}$，入射光全部反射，因此当光打在一个球体上，球面掠角方向应会有反光现象：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/fresnel.png" alt="img"></p>
+<p>再从能量角度看，单位入射面上的功率为$\pmb S\cdot\hat{\pmb z}$，入射强度为：<br>$$<br>I_I&#x3D;\frac{1}{2}\varepsilon_1v_1E_{0I}^2\cos\theta_I<br>$$<br>反射和折射强度分别为：<br>$$<br>\begin{align}<br>I_R&amp;&#x3D;\frac{1}{2}\varepsilon_1v_1E_ {0R}^2\cos\theta_R\\\\<br>I_T&amp;&#x3D;\frac{1}{2}\varepsilon_2v_2E_ {0T}^2\cos\theta_T<br>\end{align}<br>$$<br>反射系数和透射系数为：<br>$$<br>\begin{aligned}<br>R&amp;\equiv\frac{I_R}{I_I}&#x3D;\left(\frac{E_{0R}}{E_{0I}}\right)^2&#x3D;\left(\frac{\alpha-\beta}{\alpha+\beta}\right)^2\\\\<br>I_T&amp;\equiv\frac{I_T}{I_I}&#x3D;\frac{\varepsilon_2v_2}{\varepsilon_1v_1}\left(\frac{E_{0T}}{E_{0I}}\right)^2\frac{\cos\theta_T}{\cos\theta_I}&#x3D;\alpha\beta\left(\frac{2}{\alpha+\beta}\right)^2<br>\end{aligned}<br>$$</p>
+<h4 id="4-4-2-Schlick近似"><a href="#4-4-2-Schlick近似" class="headerlink" title="4.4.2. Schlick近似"></a>4.4.2. Schlick近似</h4><p>在实际渲染中，对菲涅尔项的处理经常采用Schlick近似方法进行逼近：<br>$$<br>R(\theta)&#x3D;R_0+(1-R_0)(1-\cos\theta)^5<br>$$<br>其中，<br>$$<br>R_0&#x3D;\left(\frac{n_1-n_2}{n_1+n_2}\right)^2<br>$$</p>
+<h3 id="4-5-镜面反射项"><a href="#4-5-镜面反射项" class="headerlink" title="4.5. 镜面反射项"></a>4.5. 镜面反射项</h3><p>至此，我们已经详细推导了基于物理的BRDF中镜面反射项的三个重要组成部分：</p>
+<ol>
+<li>法线分布函数$D(\pmb m)$</li>
+<li>几何函数$G(\pmb m,\pmb v)$</li>
+<li>菲涅尔项$F(\pmb v,\pmb m)$</li>
+</ol>
+<p>现在来研究如何将这三项整合到我们的PBR着色模型中。</p>
+<h4 id="4-5-1-半矢量"><a href="#4-5-1-半矢量" class="headerlink" title="4.5.1. 半矢量"></a>4.5.1. 半矢量</h4><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/image-20220102161421511.png" alt="image-20220102161421511"></p>
+<p>前面已经简单介绍过半矢量$\pmb h$的概念，这里再提一下。如上图所示，只有当入射光通过微表面反射后能够沿着视角方向的反射光才能对BRDF有贡献，因此我们定义使得反射光能够沿视角方向的法向量为半矢量：<br>$$<br>\pmb h&#x3D;\widehat{\pmb v+\pmb l}<br>$$<br>在渲染中，我们常用半矢量$\pmb h$代替微表面法向$\pmb m$。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/image-20220102162628836.png" alt="image-20220102162628836"></p>
+<p>下面推导中，我们采用的符号意义如上图所示</p>
+<h4 id="4-5-2-Torrance-Sparrow模型"><a href="#4-5-2-Torrance-Sparrow模型" class="headerlink" title="4.5.2. Torrance-Sparrow模型"></a>4.5.2. Torrance-Sparrow模型</h4><p>Torrance-Sparrow模型是微表面BRDF的一个经典模型，其镜面反射项与IlumEngine中所用的Cook-Torrance BRDF几乎一致，这里以Torrance-Sparrow模型为例推导从微表面模型到基于物理的BRDF。</p>
+<p>微表面上方向为$\pmb \omega_h$的微元面积为：<br>$$<br>\mathrm dA(\pmb \omega_h)&#x3D;D(\pmb \omega_h)\mathrm d\pmb \omega_h\mathrm dA<br>$$<br>因此微元面积上的辐射通量为：<br>$$<br>\begin{align}<br>\mathrm d\Phi_h&amp;&#x3D;L_i(\pmb \omega_i)\mathrm d\pmb \omega_i\mathrm dA^\perp(\pmb \omega_h)\\\\<br>&amp;&#x3D;L_i(\pmb \omega_i)\mathrm d\pmb \omega_i\cos\theta_h\mathrm dA(\pmb \omega_h)\\\\<br>&amp;&#x3D;L_i(\pmb \omega_i)\mathrm d\pmb \omega_i\cos\theta_hD(\pmb \omega_h)\mathrm d\pmb \omega_h\mathrm dA<br>\end{align}<br>$$<br>又由菲涅尔定律，出射辐射通量有：<br>$$<br>\mathrm d\Phi_o&#x3D;F(\pmb \omega_o)\mathrm d\Phi_h<br>$$<br>又根据辐亮度定义：<br>$$<br>L(\pmb \omega_o)&#x3D;\frac{\mathrm d\Phi_o}{\mathrm d\pmb \omega_o\cos\theta_o\mathrm dA}<br>$$<br>联立有：<br>$$<br>L(\pmb \omega_o)&#x3D;\frac{F(\pmb \omega_o)L_i(\pmb \omega_i)\mathrm d\pmb \omega_iD(\pmb \omega_h)\mathrm d\pmb \omega_h\mathrm dA\cos\theta_h}{\mathrm d\pmb \omega_o\mathrm dA\cos\theta_o}<br>$$<br>但是对半矢量$\pmb \omega_h$是困难的，我们将其转化为简单地对$\pmb \omega_o$采样，由立体角公式，我们有：<br>$$<br>\frac{\mathrm d\pmb \omega_h}{\mathrm d\pmb \omega_i}&#x3D;\frac{\sin\theta_h\mathrm d\theta_h\mathrm d\phi_h}{\sin\theta_i\mathrm d\theta_i\mathrm d\phi_i}<br>$$<br>如下图所示，</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/image-20220102164617227.png" alt="image-20220102164617227"></p>
+<p>由反射定律，显然有$\theta_i&#x3D;2\theta_h$，又由反射面性质，有$\phi_i&#x3D;\phi_h$，因此，<br>$$<br>\begin{align}<br>\frac{\mathrm d\pmb \omega_h}{\mathrm d\pmb \omega_i}&#x3D;\frac{\mathrm d\pmb \omega_h}{\mathrm d\pmb \omega_o}<br>&amp;&#x3D;\frac{\sin\theta_h\mathrm d\theta_h\mathrm d\phi_h}{\sin\theta_i\mathrm d\theta_i\mathrm d\phi_i}\\\\<br>&amp;&#x3D;\frac{\sin\theta_h\mathrm d\theta_h\mathrm d\phi_h}{2\sin2\theta_h\mathrm d\theta_h\mathrm d\phi_h}\\\\<br>&amp;&#x3D;\frac{1}{4\cos\theta_h}\\\\<br>&amp;&#x3D;\frac{1}{4(\pmb \omega_i\cdot\pmb \omega_h)}&#x3D;\frac{1}{4(\pmb \omega_o\cdot\pmb \omega_h)}<br>\end{align}<br>$$<br>代入到辐亮度求算公式，有：<br>$$<br>L(\pmb \omega_o)&#x3D;\frac{F(\pmb \omega_o)L_i(\pmb \omega_i)D(\pmb \omega_h)\mathrm d\pmb \omega_i}{4\cos\theta_o}<br>$$<br>进一步考虑几何函数，则BRDF可以写为：<br>$$<br>f_r(\pmb \omega_o,\pmb \omega_i)&#x3D;\frac{F(\pmb \omega_o)G(\pmb \omega_o,\pmb \omega_i)D(\pmb \omega_h)}{4\cos\theta_o\cos\theta_i}&#x3D;\frac{F(\pmb \omega_o)G(\pmb \omega_o,\pmb \omega_i)D(\pmb \omega_h)}{4(\pmb \omega_o\cdot \pmb n)(\pmb \omega_i\cdot \pmb n)}<br>$$</p>
+<p>至此，我们的基于物理BRDF的镜面反射项推导完成。</p>
+<h2 id="5-PBR着色模型"><a href="#5-PBR着色模型" class="headerlink" title="5. PBR着色模型"></a>5. PBR着色模型</h2><h3 id="5-1-Cook-Torrance-BRDF"><a href="#5-1-Cook-Torrance-BRDF" class="headerlink" title="5.1. Cook-Torrance BRDF"></a>5.1. Cook-Torrance BRDF</h3><p>综合前述推导，我们得到Cook-Torrance BRDF的最终形式：<br>$$<br>f_r(\pmb \omega_o,\pmb \omega_i)&#x3D;(1-F(\pmb\omega_o))\frac{\rho}{\pi}+\frac{F(\pmb \omega_o)G(\pmb \omega_o,\pmb \omega_i)D(\pmb \omega_h)}{4(\pmb \omega_o\cdot \pmb n)(\pmb \omega_i\cdot \pmb n)}<br>$$<br>其中，</p>
+<ul>
+<li><p>$\rho$为Albedo，材质的颜色</p>
+</li>
+<li><p>$F(\pmb\omega_o)$为菲涅尔系数，选用Schlick近似<br>$$<br>\begin{align}<br>F(\theta)&amp;&#x3D;F_0+(1-F_0)(1-\cos\theta)^5\\\\<br>F_0&amp;&#x3D;\left(\frac{n_1-n_2}{n_1+n_2}\right)^2<br>\end{align}<br>$$</p>
+</li>
+<li><p>$D(\pmb \omega_h)$为法线分布函数，选用GGX分布<br>$$<br>D(\pmb \omega_h)&#x3D;\frac{\alpha^2}{\pi((\pmb n\cdot \pmb \omega_h)^2(\alpha^2-1)+1)^2}<br>$$</p>
+</li>
+<li><p>$G(\pmb\omega_o,\pmb\omega_i)$为几何函数，选用Smith分布的Schlick近似<br>$$<br>G(\pmb \omega_o,\pmb\omega_i)&#x3D;\frac{\pmb \omega_o\cdot\pmb\omega_h}{(\pmb \omega_o\cdot\pmb\omega_h)(1-k)+k}<br>$$<br>其中，$k&#x3D;\frac{(\alpha+1)^2}{8}$</p>
+</li>
+</ul>
+<h3 id="5-2-金属工作流"><a href="#5-2-金属工作流" class="headerlink" title="5.2. 金属工作流"></a>5.2. 金属工作流</h3><p>Cook-Torrance BRDF中的Schlick近似的菲涅尔公式只能用于描述电介质材质（水、玻璃），对于导体（如金属）则需要使用另外一个菲涅尔公式，对材质设计造成不变，金属工作流则使用金属度参数进行插值金属属性，使得菲涅尔公式同时可以用于描述电介质和导体，非金属的$F_0$默认为0.04，而金属的$F_0$则为表面颜色，通过金属度插值$F_0$的GLSL代码如下：</p>
+<figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">vec3</span> F0 = <span class="type">vec3</span>(<span class="number">0.04</span>);</span><br><span class="line">F0 = <span class="built_in">mix</span>(F0, albedo, metallic);</span><br></pre></td></tr></table></figure>
+
+<p>不同金属度和粗糙度的着色结果：</p>
+<table>
+<thead>
+<tr>
+<th align="center"></th>
+<th align="center">Roughness &#x3D; 0.1</th>
+<th align="center">Roughness &#x3D; 0.4</th>
+<th align="center">Roughness &#x3D; 0.7</th>
+<th align="center">Roughness &#x3D; 1.0</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Metallic &#x3D; 0.1</td>
+<td align="center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/AnyConv.com__m10r10.jpeg" alt="AnyConv.com__m10r10"></td>
+<td align="center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/AnyConv.com__m10r40.jpeg" alt="AnyConv.com__m10r40"></td>
+<td align="center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/AnyConv.com__m10r70.jpeg" alt="AnyConv.com__m10r70"></td>
+<td align="center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/AnyConv.com__m10r100.jpeg" alt="AnyConv.com__m10r100"></td>
+</tr>
+<tr>
+<td align="center">Metallic &#x3D; 0.4</td>
+<td align="center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/AnyConv.com__m40r10.jpeg" alt="AnyConv.com__m40r10"></td>
+<td align="center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/AnyConv.com__m40r40.jpeg" alt="AnyConv.com__m40r40"></td>
+<td align="center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/AnyConv.com__m40r70.jpeg" alt="AnyConv.com__m40r70"></td>
+<td align="center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/AnyConv.com__m40r100.jpeg" alt="AnyConv.com__m40r100"></td>
+</tr>
+<tr>
+<td align="center">Metallic &#x3D; 0.7</td>
+<td align="center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/AnyConv.com__m70r10.jpeg" alt="AnyConv.com__m70r10"></td>
+<td align="center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/AnyConv.com__m70r40.jpeg" alt="AnyConv.com__m70r40"></td>
+<td align="center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/AnyConv.com__m70r70.jpeg" alt="AnyConv.com__m70r70"></td>
+<td align="center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/AnyConv.com__m70r100.png" alt="AnyConv.com__m70r100"></td>
+</tr>
+<tr>
+<td align="center">Metallic &#x3D; 1.0</td>
+<td align="center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/AnyConv.com__m100r10.jpeg" alt="AnyConv.com__m100r10"></td>
+<td align="center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/AnyConv.com__m100r40.jpeg" alt="AnyConv.com__m100r40"></td>
+<td align="center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/AnyConv.com__m100r70.jpeg" alt="AnyConv.com__m100r70"></td>
+<td align="center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/AnyConv.com__m100r100.jpeg" alt="AnyConv.com__m100r100"></td>
+</tr>
+</tbody></table>
+<h3 id="5-3-多次弹射Kulla-Conty能量补偿"><a href="#5-3-多次弹射Kulla-Conty能量补偿" class="headerlink" title="5.3. 多次弹射Kulla-Conty能量补偿"></a>5.3. 多次弹射Kulla-Conty能量补偿</h3><p>前述的微表面模型仅考虑光线与微表面的单次反射，而不考虑光线多次弹射的结果，这将带来能量损失的问题，具体表现为当材质粗糙度越大时，物体的亮度越低，如下图所示：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/image-20220102172010125.png" alt="image-20220102172010125"></p>
+<p>Heitz于2016年给出了能量补偿问题的精确解，但由于计算量过大并不适合于实时渲染，Kulla和Conty则给出了一种近似的能量补偿算法。</p>
+<p>首先，定义给定出射方向$\mu_o$二维BRDF lobe的总能量，这个能量表示了单次弹射的能量占比：<br>$$<br>E(\mu_o)&#x3D;\int_0^{2\pi}\int_0^1f(\mu_o,\mu_i,\phi)\mu_i\mathrm d\mu_i\mathrm d\phi<br>$$<br>在半球上进行积分，其中$\mu&#x3D;\sin\theta$</p>
+<p>Kulla-Conty方法的核心思想是设计另外一个BRDF，满足积分为$1-E(\mu_0)$，则这个能量将作为能量补偿项。</p>
+<p>通过经验性的拼凑，凑出了一个满足要求的BRDF函数：<br>$$<br>f_{ms}(\mu_o,\mu_i)&#x3D;\frac{(1-E(\mu_o))(1-E(\mu_i))}{\pi(1-E_{avg})}<br>$$<br>其中，<br>$$<br>E_{\mathrm{avg}}&#x3D;2\int_0^1E(\mu)\mu\mathrm d\mu<br>$$</p>
+<p>验证一下$f_{ms}(\mu_o,\mu_i)$是否满足要求：<br>$$<br>\begin{align}<br>E_{ms}(\mu_o)<br>&amp;&#x3D;\int_0^{2\pi}\int_0^1f_{ms}(\mu_o,\mu_i,\phi)\mu_i\mathrm d\mu_i\mathrm d\phi\\\\<br>&amp;&#x3D;2\pi\int_0^1\frac{(1-E(\mu_o))(1-E(\mu_i))}{\pi(1-E_{\mathrm{avg}})}\mu_i\mathrm d\mu_i\\\\<br>&amp;&#x3D;2\frac{1-E(\mu_o)}{1-E_{\mathrm {avg}}}\int_0^1(1-E(\mu_i))\mu_i\mathrm d\mu_i\\\\<br>&amp;&#x3D;\frac{1-E(\mu_o)}{1-E_{\mathrm {avg}}}(1-E_{\mathrm {avg}})\\\\<br>&amp;&#x3D;1-E(\mu_o)<br>\end{align}<br>$$<br>确实是可以的。</p>
+<p>然而$E(\mu)$和$E_{\mathrm {avg}}$都没有解析表达，因此在实际开发中应使用预计算的方法，用贴图预存积分结果。</p>
+<p>对于$E(\mu)$，采用一张单通道二维贴图进行存储，从上到下粗糙度依次增加，从左到右$\mu$依次增加</p>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="Emu.png" alt="Emu" style="zoom:200%;" />
+
+<p>对于$E_{\mathrm{avg}}$，采用一张单通道一维贴图进行存储，为了可视化方便，这里仍采用二维贴图进行展示，从上到下粗糙度依次增加</p>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="Eavg.png" alt="Eavg" style="zoom:200%;" />
+
+<p>从上图中可以看到的能量，在粗糙度低时微表面能量损失少，能量多存储结果较大；在粗糙度高时微表面能量损失多，能量少结果偏黑，与我们的认知是一致的。</p>
+<p>截至目前，我们仅讨论没有颜色的BRDF的能量补偿情况，对于具有颜色的BRDF，意味着会发生能量的吸收，能量将发生损失，因此我们仍需要计算损失的能量。</p>
+<p>定义平均菲涅尔系数（表示了被反射的能量的多少）：<br>$$<br>E_{\mathrm{avg}}&#x3D;\frac{\int_0^1F(\mu)\mu\mathrm d\mu}{\int_0^1\mu\mathrm d\mu}&#x3D;2\int_0^1F(\mu)\mu\mathrm d\mu<br>$$<br>因此带有颜色的反射能量为：$F_{\mathrm{avg}}E_{\mathrm{avg}}$</p>
+<ul>
+<li>一次弹射之后：$F_{\mathrm{avg}}(1-E_{\mathrm{avg}})\cdot F_{\mathrm{avg}}E_{\mathrm{avg}}$</li>
+<li>……</li>
+<li>$k$次弹射之后：$F_{\mathrm{avg}}^k(1-E_{\mathrm{avg}})^k\cdot F_{\mathrm{avg}}E_{\mathrm{avg}}$</li>
+</ul>
+<p>等比数列求和得到颜色项：<br>$$<br>\sum_{k&#x3D;0}^\infty F_{\mathrm{avg}}^k(1-E_{\mathrm{avg}})^k\cdot F_{\mathrm{avg}}E_{\mathrm{avg}}&#x3D;\frac{F_{\mathrm{avg}}E_{\mathrm{avg}}}{1-F_{\mathrm{avg}}(1-E_{\mathrm{avg}})}<br>$$<br>其中$F_{\mathrm{avg}}$也没有很好求，不过有一种近似的计算方法：<br>$$<br>\begin{aligned}<br>F_{\mathrm{avg}}(r,g)&amp;\approx 0.087237 + 0.0230685g - 0.0864902g^2 + 0.0774594g^3\\\\<br>           &amp;+ 0.782654r - 0.136432r^2 + 0.278708r^3\\\\<br>           &amp;+ 0.19744gr + 0.0360605g^2r - 0.2586gr^2;<br>\end{aligned}<br>$$<br>其中$r$为反射率，$g$为边缘色调，通常取$r$为Albedo颜色，$g&#x3D;(0.827, 0.792, 0.678)$即可</p>
+<p>下图展示了Kulla-Conty能量补偿的结果，其中上面一行为进行能量补偿的结果，下一行为未进行能量补偿的结果</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/image-20211231141039926.png" alt="image-20211231141039926"></p>
+<h3 id="6-参考资料"><a href="#6-参考资料" class="headerlink" title="6. 参考资料"></a>6. 参考资料</h3><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/53086060">【基于物理的渲染（PBR）白皮书】（一） 开篇：PBR核心知识体系总结与概览</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/56967462">【基于物理的渲染（PBR）白皮书】（二） PBR核心理论与渲染光学原理总结</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/69380665">【基于物理的渲染（PBR）白皮书】（四）法线分布函数相关总结</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/81708753">【基于物理的渲染（PBR）白皮书】（五）几何函数相关总结</a></p>
+<p>Akenine-Moller, Tomas, Eric Haines, and Naty Hoffman. <em>Real-time rendering</em>. AK Peters&#x2F;crc Press, 2019.</p>
+<p>Pharr, Matt, Wenzel Jakob, and Greg Humphreys. <em>Physically based rendering: From theory to implementation</em>. Morgan Kaufmann, 2016.</p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1YK4y1T7yY?from=search&seid=15576827308893416813&spm_id_from=333.337.0.0">GAMES202:高质量实时渲染</a></p>
+<p>Griffiths, David J. “Introduction to electrodynamics.” (2005): 574-574.</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="https://chaphlagical.github.io">Chaf Chen</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://chaphlagical.github.io/2022/01/03/rendering/pbr/">https://chaphlagical.github.io/2022/01/03/rendering/pbr/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Rendering/">Rendering</a></div><div class="post_share"><div class="social-share" data-image="/2022/01/03/rendering/pbr/image-20211231141039926.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/01/03/geometry/spline_surface/" title="计算机辅助几何设计：样条曲面"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2022/01/03/geometry/spline_surface/image-20220103223926601.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">计算机辅助几何设计：样条曲面</div></div></a></div><div class="next-post pull-right"><a href="/2022/01/02/gaming/uncharted4/" title="Uncharted 4"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2022/01/02/gaming/uncharted4/image-20230102012100417.jpeg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">Uncharted 4</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><div><a href="/2023/01/25/paper_reading/Adaptive_Incident_Radiance_Field_Sampling_and_Reconstruction_Using_Deep_Reinforcement_Learning/" title="Adaptive Incident Radiance Field Sampling and Reconstruction Using Deep Reinforcement Learning"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-25</div><div class="title">Adaptive Incident Radiance Field Sampling and Reconstruction Using Deep Reinforcement Learning</div></div></a></div><div><a href="/2021/08/29/paper_reading/Low_Cost_SPAD_Sensing_for_Non_Line_Of_Sight_Tracking_Material/" title="Low-Cost SPAD Sensing for Non-Line-Of-Sight Tracking, Material Classification and Depth Imaging"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-08-29</div><div class="title">Low-Cost SPAD Sensing for Non-Line-Of-Sight Tracking, Material Classification and Depth Imaging</div></div></a></div><div><a href="/2021/08/25/paper_reading/Neural_Light_Transport_for_Relighting_and_View_Synthesis/" title="Neural Light Transport for Relighting and View Synthesis"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-08-25</div><div class="title">Neural Light Transport for Relighting and View Synthesis</div></div></a></div><div><a href="/2023/01/06/paper_reading/Temporal_Coherence-Based_Distributed_Ray_Tracing_of_Massive_Scenes/" title="Temporal Coherence-based Distributed Ray Tracing of Massive Scenes"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-06</div><div class="title">Temporal Coherence-based Distributed Ray Tracing of Massive Scenes</div></div></a></div><div><a href="/2021/12/14/rendering/mouse_picking/" title="场景编辑器：鼠标拾取"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2021/12/14/rendering/mouse_picking/image-20211214200711937.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-12-14</div><div class="title">场景编辑器：鼠标拾取</div></div></a></div><div><a href="/2021/08/10/paper_reading/ExtraNet/" title="ExtraNet: Real-time Extrapolated Rendering for Low-latency Temporal Supersampling"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-08-10</div><div class="title">ExtraNet: Real-time Extrapolated Rendering for Low-latency Temporal Supersampling</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comment</span></div></div><div class="comment-wrap"><div><div id="disqus_thread"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/logo.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Chaf Chen</div><div class="author-info__description">USTC CG Student</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">33</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">6</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Chaphlagical"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/Chaphlagical" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:mail@ustc.edu.cn" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">Looking for a Ph.D position!</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E6%B8%B2%E6%9F%93%E7%9D%80%E8%89%B2%E7%9A%84%E7%89%A9%E7%90%86%E5%8E%9F%E7%90%86"><span class="toc-number">1.</span> <span class="toc-text">1. 渲染着色的物理原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-%E5%85%89%E7%9A%84%E7%89%A9%E7%90%86%E6%9C%AC%E8%B4%A8"><span class="toc-number">1.1.</span> <span class="toc-text">1.1. 光的物理本质</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-%E6%B8%B2%E6%9F%93%E4%B8%AD%E7%9A%84%E5%85%89%E5%AD%A6%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.2.</span> <span class="toc-text">1.2. 渲染中的光学模型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-1-%E5%85%89%E4%B8%8E%E7%89%A9%E4%BD%93%E8%A1%A8%E9%9D%A2%E7%9A%84%E4%BA%A4%E4%BA%92"><span class="toc-number">1.2.1.</span> <span class="toc-text">1.2.1. 光与物体表面的交互</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-2-%E4%B8%8D%E5%90%8C%E7%89%A9%E8%B4%A8%E4%B8%8E%E5%85%89%E7%9A%84%E4%BA%A4%E4%BA%92"><span class="toc-number">1.2.2.</span> <span class="toc-text">1.2.2. 不同物质与光的交互</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%85%89%E7%BA%BF%E4%BC%A0%E8%BE%93%E5%9F%BA%E7%A1%80"><span class="toc-number">2.</span> <span class="toc-text">2. 光线传输基础</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E5%8F%8D%E5%B0%84%E6%96%B9%E7%A8%8B"><span class="toc-number">2.1.</span> <span class="toc-text">2.1. 反射方程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-BRDF"><span class="toc-number">2.2.</span> <span class="toc-text">2.2. BRDF</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-1-%E8%BE%90%E5%B0%84%E5%BA%A6%E9%87%8F%E5%AD%A6%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-number">2.2.1.</span> <span class="toc-text">2.2.1. 辐射度量学的基本概念</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-2-%E5%8F%8C%E5%90%91%E5%8F%8D%E5%B0%84%E5%88%86%E5%B8%83%E5%87%BD%E6%95%B0"><span class="toc-number">2.2.2.</span> <span class="toc-text">2.2.2. 双向反射分布函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-3-Cook-Torrance-BRDF"><span class="toc-number">2.2.3.</span> <span class="toc-text">2.2.3. Cook-Torrance BRDF</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Lambertian%E6%BC%AB%E5%8F%8D%E5%B0%84%E6%9D%90%E8%B4%A8%E6%A8%A1%E5%9E%8B"><span class="toc-number">3.</span> <span class="toc-text">3. Lambertian漫反射材质模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E9%95%9C%E9%9D%A2%E5%8F%8D%E5%B0%84%E6%A8%A1%E5%9E%8B"><span class="toc-number">4.</span> <span class="toc-text">4. 镜面反射模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-%E5%BE%AE%E8%A1%A8%E9%9D%A2%E7%90%86%E8%AE%BA"><span class="toc-number">4.1.</span> <span class="toc-text">4.1. 微表面理论</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-%E6%B3%95%E7%BA%BF%E5%88%86%E5%B8%83%E5%87%BD%E6%95%B0%EF%BC%88Normal-Distribution-Function%EF%BC%89"><span class="toc-number">4.2.</span> <span class="toc-text">4.2. 法线分布函数（Normal Distribution Function）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-1-%E6%B3%95%E7%BA%BF%E5%88%86%E5%B8%83%E5%87%BD%E6%95%B0%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%80%A7%E8%B4%A8"><span class="toc-number">4.2.1.</span> <span class="toc-text">4.2.1. 法线分布函数的基本性质</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-2-%E6%B3%95%E7%BA%BF%E5%88%86%E5%B8%83%E5%87%BD%E6%95%B0%E7%9A%84%E5%BD%A2%E7%8A%B6%E4%B8%8D%E5%8F%98%E6%80%A7"><span class="toc-number">4.2.2.</span> <span class="toc-text">4.2.2. 法线分布函数的形状不变性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-3-%E5%B8%B8%E7%94%A8%E7%9A%84%E6%B3%95%E7%BA%BF%E5%88%86%E5%B8%83%E5%87%BD%E6%95%B0"><span class="toc-number">4.2.3.</span> <span class="toc-text">4.2.3. 常用的法线分布函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-4-%E5%90%84%E9%A1%B9%E5%BC%82%E6%80%A7%E7%9A%84%E6%B3%95%E7%BA%BF%E5%88%86%E5%B8%83%E5%87%BD%E6%95%B0"><span class="toc-number">4.2.4.</span> <span class="toc-text">4.2.4. 各项异性的法线分布函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-5-Beckmann%E4%B8%8EGGX%E6%B3%95%E7%BA%BF%E5%88%86%E5%B8%83%E5%87%BD%E6%95%B0%E6%95%88%E6%9E%9C%E6%AF%94%E8%BE%83"><span class="toc-number">4.2.5.</span> <span class="toc-text">4.2.5. Beckmann与GGX法线分布函数效果比较</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-%E5%87%A0%E4%BD%95%E5%87%BD%E6%95%B0%EF%BC%88Geometry-Function%EF%BC%89"><span class="toc-number">4.3.</span> <span class="toc-text">4.3. 几何函数（Geometry Function）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-3-1-Smith%E9%81%AE%E8%94%BD%E5%87%BD%E6%95%B0"><span class="toc-number">4.3.1.</span> <span class="toc-text">4.3.1. Smith遮蔽函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-3-2-Smith%E8%81%94%E5%90%88%E9%81%AE%E8%94%BD%E5%87%BD%E6%95%B0-%E9%98%B4%E5%BD%B1%E5%87%BD%E6%95%B0"><span class="toc-number">4.3.2.</span> <span class="toc-text">4.3.2. Smith联合遮蔽函数-阴影函数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-4-%E8%8F%B2%E6%B6%85%E5%B0%94%E5%8F%8D%E5%B0%84"><span class="toc-number">4.4.</span> <span class="toc-text">4.4. 菲涅尔反射</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-4-1-%E8%8F%B2%E6%B6%85%E5%B0%94%E6%96%B9%E7%A8%8B%E7%9A%84%E6%8E%A8%E5%AF%BC"><span class="toc-number">4.4.1.</span> <span class="toc-text">4.4.1. 菲涅尔方程的推导</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-4-2-Schlick%E8%BF%91%E4%BC%BC"><span class="toc-number">4.4.2.</span> <span class="toc-text">4.4.2. Schlick近似</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-5-%E9%95%9C%E9%9D%A2%E5%8F%8D%E5%B0%84%E9%A1%B9"><span class="toc-number">4.5.</span> <span class="toc-text">4.5. 镜面反射项</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-5-1-%E5%8D%8A%E7%9F%A2%E9%87%8F"><span class="toc-number">4.5.1.</span> <span class="toc-text">4.5.1. 半矢量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-5-2-Torrance-Sparrow%E6%A8%A1%E5%9E%8B"><span class="toc-number">4.5.2.</span> <span class="toc-text">4.5.2. Torrance-Sparrow模型</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-PBR%E7%9D%80%E8%89%B2%E6%A8%A1%E5%9E%8B"><span class="toc-number">5.</span> <span class="toc-text">5. PBR着色模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-Cook-Torrance-BRDF"><span class="toc-number">5.1.</span> <span class="toc-text">5.1. Cook-Torrance BRDF</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-%E9%87%91%E5%B1%9E%E5%B7%A5%E4%BD%9C%E6%B5%81"><span class="toc-number">5.2.</span> <span class="toc-text">5.2. 金属工作流</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-3-%E5%A4%9A%E6%AC%A1%E5%BC%B9%E5%B0%84Kulla-Conty%E8%83%BD%E9%87%8F%E8%A1%A5%E5%81%BF"><span class="toc-number">5.3.</span> <span class="toc-text">5.3. 多次弹射Kulla-Conty能量补偿</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-number">5.4.</span> <span class="toc-text">6. 参考资料</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/01/25/paper_reading/Adaptive_Incident_Radiance_Field_Sampling_and_Reconstruction_Using_Deep_Reinforcement_Learning/" title="Adaptive Incident Radiance Field Sampling and Reconstruction Using Deep Reinforcement Learning">Adaptive Incident Radiance Field Sampling and Reconstruction Using Deep Reinforcement Learning</a><time datetime="2023-01-25T00:04:00.000Z" title="Created 2023-01-25 00:04:00">2023-01-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/01/06/paper_reading/Temporal_Coherence-Based_Distributed_Ray_Tracing_of_Massive_Scenes/" title="Temporal Coherence-based Distributed Ray Tracing of Massive Scenes">Temporal Coherence-based Distributed Ray Tracing of Massive Scenes</a><time datetime="2023-01-06T22:13:11.000Z" title="Created 2023-01-06 22:13:11">2023-01-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/29/gaming/spiderman_miles/" title="Marvel's Spider-Man Miles Morales"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2022/12/29/gaming/spiderman_miles/image-20221229175057590.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Marvel's Spider-Man Miles Morales"/></a><div class="content"><a class="title" href="/2022/12/29/gaming/spiderman_miles/" title="Marvel's Spider-Man Miles Morales">Marvel's Spider-Man Miles Morales</a><time datetime="2022-12-29T21:13:11.000Z" title="Created 2022-12-29 21:13:11">2022-12-29</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/12/17/paper_reading/Vectorization_for_Fast_Analytic_and_Differentiable_Visibility/" title="Vectorization for Fast, Analytic, and Differentiable Visibility">Vectorization for Fast, Analytic, and Differentiable Visibility</a><time datetime="2022-12-17T21:13:11.000Z" title="Created 2022-12-17 21:13:11">2022-12-17</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/12/14/note/edge_sampling/" title="Physics Based Differentiable Rendering: Edge Sampling">Physics Based Differentiable Rendering: Edge Sampling</a><time datetime="2022-12-14T00:00:00.000Z" title="Created 2022-12-14 00:00:00">2022-12-14</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By Chaf Chen</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll To Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container').forEach(node => {
+            if (node.hasAttribute('display')) {
+              btf.wrap(node, 'div', { class: 'mathjax-overflow' })
+            } else {
+              btf.wrap(node, 'span', { class: 'mathjax-overflow' })
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        const mermaidSrc = item.firstElementChild
+        const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+        const mermaidID = 'mermaid-' + index
+        const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+        mermaid.mermaidAPI.render(mermaidID, mermaidDefinition, (svgCode) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svgCode)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script><script>function loadDisqus () {
+  var disqus_config = function () {
+    this.page.url = 'https://chaphlagical.github.io/2022/01/03/rendering/pbr/'
+    this.page.identifier = '/2022/01/03/rendering/pbr/'
+    this.page.title = '基于物理的实时渲染着色方法'
+  };
+
+  window.disqusReset = () => {
+    DISQUS.reset({
+      reload: true,
+      config: disqus_config
+    })
+  }
+
+  if (window.DISQUS) disqusReset()
+  else {
+    (function() { 
+      var d = document, s = d.createElement('script');
+      s.src = 'https://chaphlagical-github-io.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  }
+
+  document.getElementById('darkmode').addEventListener('click', () => {
+    setTimeout(() => window.disqusReset(), 200)
+  })
+}
+
+if ('Disqus' === 'Disqus' || !false) {
+  if (false) btf.loadComment(document.getElementById('disqus_thread'), loadDisqus)
+  else loadDisqus()
+} else {
+  function loadOtherComment () {
+    loadDisqus()
+  }
+}
+</script></div></div></body></html>

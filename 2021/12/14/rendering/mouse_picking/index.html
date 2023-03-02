@@ -1,0 +1,355 @@
+<!DOCTYPE html><html lang="[&quot;en&quot;,&quot;zh-CN&quot;,&quot;default&quot;]" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>场景编辑器：鼠标拾取 | Chaf's Blog</title><meta name="author" content="Chaf Chen"><meta name="copyright" content="Chaf Chen"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="编辑器鼠标拾取原理">
+<meta property="og:type" content="article">
+<meta property="og:title" content="场景编辑器：鼠标拾取">
+<meta property="og:url" content="https://chaphlagical.github.io/2021/12/14/rendering/mouse_picking/index.html">
+<meta property="og:site_name" content="Chaf&#39;s Blog">
+<meta property="og:description" content="编辑器鼠标拾取原理">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://chaphlagical.github.io/2021/12/14/rendering/mouse_picking/image-20211214200711937.png">
+<meta property="article:published_time" content="2021-12-14T00:00:00.000Z">
+<meta property="article:modified_time" content="2023-03-02T13:45:39.675Z">
+<meta property="article:author" content="Chaf Chen">
+<meta property="article:tag" content="Rendering">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://chaphlagical.github.io/2021/12/14/rendering/mouse_picking/image-20211214200711937.png"><link rel="shortcut icon" href="/img/logo.jpg"><link rel="canonical" href="https://chaphlagical.github.io/2021/12/14/rendering/mouse_picking/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"Traditional Chinese Activated Manually","cht_to_chs":"Simplified Chinese Activated Manually","day_to_night":"Dark Mode Activated Manually","night_to_day":"Light Mode Activated Manually","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '场景编辑器：鼠标拾取',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-03-02 13:45:39'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+
+if (false) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/logo.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">33</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">6</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="Chaf's Blog"><img class="site-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/logo.jpg"/><span class="site-name">Chaf's Blog</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">场景编辑器：鼠标拾取</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2021-12-14T00:00:00.000Z" title="Created 2021-12-14 00:00:00">2021-12-14</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-03-02T13:45:39.675Z" title="Updated 2023-03-02 13:45:39">2023-03-02</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Rendering/">Rendering</a></span></div><div class="meta-secondline"></div></div></div><article class="post-content" id="article-container"><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2021/12/14/rendering/mouse_picking/image-20211214200711937.png" alt="image-20211214200711937"></p>
+<p>鼠标拾取是引擎场景编辑器的一个非常基础的功能，通过点击屏幕像素选择场景中的物体，能够使用户更加方便地选择物体、编辑场景。利用空闲时间我将IlumEngine场景编辑器的鼠标拾取功能做了一个优化，从原来的基于Ray Casting方法到现在所使用的G-Buffer回读的方法，两种方法各有优劣，下面详细介绍这两种鼠标拾取的方法。</p>
+<h2 id="1-基于Ray-Casting的鼠标拾取方法"><a href="#1-基于Ray-Casting的鼠标拾取方法" class="headerlink" title="1. 基于Ray Casting的鼠标拾取方法"></a>1. 基于Ray Casting的鼠标拾取方法</h2><p>基于Ray Casting的鼠标拾取是一种几何方法，其基本原理如下：</p>
+<ol>
+<li>由鼠标点击的屏幕像素坐标，生成一条从摄像机发射的射线</li>
+<li>对场景作求交计算（与Ray Tracing中的相交检测相同）</li>
+<li>寻找与光线相交的最近包围盒，其对应的物体即为鼠标将选中的物体</li>
+</ol>
+<p>已知我们已从窗口&#x2F;UI系统中得到鼠标点击的像素坐标<code>click_pos</code>，首先将其转化为屏幕空间坐标：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">float</span> x = (click_pos.x / scene_view_size.x) * <span class="number">2.f</span> - <span class="number">1.f</span>;</span><br><span class="line"><span class="type">float</span> y = -((click_pos.y / scene_view_size.y) * <span class="number">2.f</span> - <span class="number">1.f</span>);</span><br></pre></td></tr></table></figure>
+
+<p>我们希望利用拾取点的屏幕空间坐标从相机发射一条射线，一种思路是计算拾取点的远近平面投影坐标，然后将它们连起来即可：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">glm::mat4 inv = glm::<span class="built_in">inverse</span>(main_camera.view_projection);</span><br><span class="line"></span><br><span class="line">glm::vec4 near_point = inv * glm::<span class="built_in">vec4</span>(x, y, <span class="number">0.f</span>, <span class="number">1.f</span>);</span><br><span class="line">near_point /= near_point.w;</span><br><span class="line">glm::vec4 far_point = inv * glm::<span class="built_in">vec4</span>(x, y, <span class="number">1.f</span>, <span class="number">1.f</span>);</span><br><span class="line">far_point /= far_point.w;</span><br><span class="line"></span><br><span class="line">geometry::Ray ray;</span><br><span class="line">ray.origin    = main_camera.position;</span><br><span class="line">ray.direction = glm::<span class="built_in">normalize</span>(glm::<span class="built_in">vec3</span>(far_point - near_point));</span><br></pre></td></tr></table></figure>
+
+<p>最后，用射线做与包围盒的求交，求交的计算也可用BVH、KD-Tree等加速结构进行加速，这里为了快速实现只是简单遍历并对每个包围盒进行求交：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">float</span> distance = std::numeric_limits&lt;<span class="type">float</span>&gt;::<span class="built_in">infinity</span>();</span><br><span class="line"><span class="type">const</span> <span class="keyword">auto</span> group    = Scene::<span class="built_in">instance</span>()-&gt;<span class="built_in">getRegistry</span>().group&lt;&gt;(entt::get&lt;cmpt::MeshRenderer, cmpt::Transform&gt;);</span><br><span class="line">group.<span class="built_in">each</span>([&amp;](<span class="type">const</span> entt::entity &amp;entity, <span class="type">const</span> cmpt::MeshRenderer &amp;mesh_renderer, <span class="type">const</span> cmpt::Transform &amp;transform) &#123;</span><br><span class="line">    <span class="keyword">if</span> (!Renderer::<span class="built_in">instance</span>()-&gt;<span class="built_in">getResourceCache</span>().<span class="built_in">hasModel</span>(mesh_renderer.model))</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">auto</span> &amp;model = Renderer::<span class="built_in">instance</span>()-<span class="built_in">getResourceCache</span>().<span class="built_in">loadModel</span>(mesh_renderer.model);</span><br><span class="line">    <span class="type">float</span> hit_distance = ray.<span class="built_in">hit</span>(model.<span class="built_in">get</span>().bounding_box.<span class="built_in">transform</span>(transform.world_transform));</span><br><span class="line">    <span class="keyword">if</span> (distance &gt; hit_distance)</span><br><span class="line">    &#123;</span><br><span class="line">        distance = hit_distance;</span><br><span class="line">        Editor::<span class="built_in">instance</span>()-&gt;<span class="built_in">select</span>(<span class="built_in">Entity</span>(entity));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>具体求交的计算后续光线追踪模块的开发将会提到，这里不作具体阐述。</p>
+<h2 id="2-基于G-Buffer回读的鼠标拾取方法"><a href="#2-基于G-Buffer回读的鼠标拾取方法" class="headerlink" title="2. 基于G-Buffer回读的鼠标拾取方法"></a>2. 基于G-Buffer回读的鼠标拾取方法</h2><p>基于G-Buffer的鼠标拾取是一种图像方法，在几何阶段生成G-Buffers时我们顺带生成一张带有场景物体实体ID的G-Buffer，格式为<code>VK_FORMAT_R32_UINT</code>。在得到鼠标响应时，将该G-Buffer的数据回读到CPU中，利用像素坐标查找相应的实体ID，得到拾取到的对象。完整过程的源码如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">ImageReference entity_id_buffer = Renderer::<span class="built_in">instance</span>()-&gt;<span class="built_in">getRenderGraph</span>()-&gt;<span class="built_in">getAttachment</span>(<span class="string">&quot;debug - entity&quot;</span>);</span><br><span class="line"></span><br><span class="line">CommandBuffer cmd_buffer;</span><br><span class="line">cmd_buffer.<span class="built_in">begin</span>();</span><br><span class="line"><span class="function">Buffer <span class="title">staging_buffer</span><span class="params">(<span class="keyword">static_cast</span>&lt;VkDeviceSize&gt;(entity_id_buffer.get().getWidth() * entity_id_buffer.get().getHeight()) * <span class="keyword">sizeof</span>(<span class="type">uint32_t</span>), VK_BUFFER_USAGE_TRANSFER_DST_BIT, VMA_MEMORY_USAGE_GPU_TO_CPU)</span></span>;</span><br><span class="line">cmd_buffer.<span class="built_in">transferLayout</span>(entity_id_buffer, VK_IMAGE_USAGE_SAMPLED_BIT, VK_IMAGE_USAGE_TRANSFER_SRC_BIT);</span><br><span class="line">cmd_buffer.<span class="built_in">copyImageToBuffer</span>(ImageInfo&#123;entity_id_buffer, VK_IMAGE_USAGE_TRANSFER_SRC_BIT, <span class="number">0</span>, <span class="number">0</span>&#125;, BufferInfo&#123;staging_buffer, <span class="number">0</span>&#125;);</span><br><span class="line">cmd_buffer.<span class="built_in">transferLayout</span>(entity_id_buffer, VK_IMAGE_USAGE_TRANSFER_SRC_BIT, VK_IMAGE_USAGE_SAMPLED_BIT);</span><br><span class="line">cmd_buffer.<span class="built_in">end</span>();</span><br><span class="line">cmd_buffer.<span class="built_in">submitIdle</span>();</span><br><span class="line"><span class="function">std::vector&lt;<span class="type">uint32_t</span>&gt; <span class="title">image_data</span><span class="params">(entity_id_buffer.get().getWidth() * entity_id_buffer.get().getHeight())</span></span>;</span><br><span class="line">std::<span class="built_in">memcpy</span>(image_data.<span class="built_in">data</span>(), staging_buffer.<span class="built_in">map</span>(), image_data.<span class="built_in">size</span>() * <span class="built_in">sizeof</span>(<span class="type">uint32_t</span>));</span><br><span class="line"></span><br><span class="line">click_pos.x = glm::<span class="built_in">clamp</span>(click_pos.x, <span class="number">0.f</span>, <span class="built_in">static_cast</span>&lt;<span class="type">float</span>&gt;(entity_id_buffer.<span class="built_in">get</span>().<span class="built_in">getWidth</span>()));</span><br><span class="line">click_pos.y = glm::<span class="built_in">clamp</span>(click_pos.y, <span class="number">0.f</span>, <span class="built_in">static_cast</span>&lt;<span class="type">float</span>&gt;(entity_id_buffer.<span class="built_in">get</span>().<span class="built_in">getHeight</span>()));</span><br><span class="line"></span><br><span class="line"><span class="keyword">auto</span> entity = <span class="built_in">Entity</span>(<span class="built_in">static_cast</span>&lt;entt::entity&gt;(image_data[<span class="built_in">static_cast</span>&lt;<span class="type">uint32_t</span>&gt;(click_pos.y) * entity_id_buffer.<span class="built_in">get</span>().<span class="built_in">getWidth</span>() + <span class="built_in">static_cast</span>&lt;<span class="type">uint32_t</span>&gt;(click_pos.x)]));</span><br><span class="line">Editor::<span class="built_in">instance</span>()-&gt;<span class="built_in">select</span>(entity);</span><br><span class="line"></span><br><span class="line">staging_buffer.<span class="built_in">unmap</span>();</span><br></pre></td></tr></table></figure>
+
+<p>由于G-Buffer的内存访问方式均为<code>GPU_only</code>的，我们需要使用一块<code>GPU_to_CPU</code>的Buffer进行暂存，最后Map到CPU内存中。</p>
+<h2 id="3-比较与选择"><a href="#3-比较与选择" class="headerlink" title="3. 比较与选择"></a>3. 比较与选择</h2><ul>
+<li>Ray Casting方法<ul>
+<li>优点<ul>
+<li>CPU实现，不依赖于渲染管线，能够很方便地集成</li>
+</ul>
+</li>
+<li>缺点<ul>
+<li>不够精确，由于是射线与包围盒求交，拾取的实际上是物体对应的包围盒而不是物体本身，有时候会带来误差，在场景复杂时效果不好</li>
+<li>性能受场景规模影响较大，而使用加速结构进行求交加速实际上也增加了集成复杂度（需要引擎具有光追或物理模块支持）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>G-Buffer方法<ul>
+<li>优点<ul>
+<li>精准，由于是直接把实体ID贴到纹理上，因此能够做到像素级的拾取</li>
+</ul>
+</li>
+<li>缺点<ul>
+<li>需要一张G-Buffer，增加了带宽开销</li>
+<li>需要回读GPU数据，不过只有在鼠标点击时才会触发，影响并不大</li>
+<li>需要渲染管线支持，需要配合整个渲染系统进行设计</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>在开发前期，Render Graph还不够完善，渲染管线扩展能力一般，为了简便，我先直接用Ray Casting的方法给IlumEngine加上一个基本能用的拾取方法，后来为了拾取精度的需要，将拾取算法改为了基于G-Buffer方法。</p>
+<p>最终实现效果如下：</p>
+<p><video src="demo.mp4"  controls = true width = 400></video></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="https://chaphlagical.github.io">Chaf Chen</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://chaphlagical.github.io/2021/12/14/rendering/mouse_picking/">https://chaphlagical.github.io/2021/12/14/rendering/mouse_picking/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Rendering/">Rendering</a></div><div class="post_share"><div class="social-share" data-image="/2021/12/14/rendering/mouse_picking/image-20211214200711937.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2021/12/14/geometry/bezier_curve/" title="计算机辅助几何设计：Bézier曲线"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2021/12/14/geometry/bezier_curve/image-20211221222844217.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">计算机辅助几何设计：Bézier曲线</div></div></a></div><div class="next-post pull-right"><a href="/2021/12/11/rendering/optimization/" title="实时渲染优化技术"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2021/12/11/rendering/optimization/image-20211130105935862.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">实时渲染优化技术</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><div><a href="/2023/01/25/paper_reading/Adaptive_Incident_Radiance_Field_Sampling_and_Reconstruction_Using_Deep_Reinforcement_Learning/" title="Adaptive Incident Radiance Field Sampling and Reconstruction Using Deep Reinforcement Learning"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-25</div><div class="title">Adaptive Incident Radiance Field Sampling and Reconstruction Using Deep Reinforcement Learning</div></div></a></div><div><a href="/2021/08/29/paper_reading/Low_Cost_SPAD_Sensing_for_Non_Line_Of_Sight_Tracking_Material/" title="Low-Cost SPAD Sensing for Non-Line-Of-Sight Tracking, Material Classification and Depth Imaging"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-08-29</div><div class="title">Low-Cost SPAD Sensing for Non-Line-Of-Sight Tracking, Material Classification and Depth Imaging</div></div></a></div><div><a href="/2021/08/25/paper_reading/Neural_Light_Transport_for_Relighting_and_View_Synthesis/" title="Neural Light Transport for Relighting and View Synthesis"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-08-25</div><div class="title">Neural Light Transport for Relighting and View Synthesis</div></div></a></div><div><a href="/2023/01/06/paper_reading/Temporal_Coherence-Based_Distributed_Ray_Tracing_of_Massive_Scenes/" title="Temporal Coherence-based Distributed Ray Tracing of Massive Scenes"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-06</div><div class="title">Temporal Coherence-based Distributed Ray Tracing of Massive Scenes</div></div></a></div><div><a href="/2021/08/10/paper_reading/ExtraNet/" title="ExtraNet: Real-time Extrapolated Rendering for Low-latency Temporal Supersampling"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-08-10</div><div class="title">ExtraNet: Real-time Extrapolated Rendering for Low-latency Temporal Supersampling</div></div></a></div><div><a href="/2021/08/15/paper_reading/GPU_Accelerated_Path_Tracing_of_Massive_Scenes/" title="GPU Accelerated Path Tracing of Massive Scenes"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-08-15</div><div class="title">GPU Accelerated Path Tracing of Massive Scenes</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comment</span></div></div><div class="comment-wrap"><div><div id="disqus_thread"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/logo.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Chaf Chen</div><div class="author-info__description">USTC CG Student</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">33</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">6</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Chaphlagical"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/Chaphlagical" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:mail@ustc.edu.cn" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">Looking for a Ph.D position!</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%9F%BA%E4%BA%8ERay-Casting%E7%9A%84%E9%BC%A0%E6%A0%87%E6%8B%BE%E5%8F%96%E6%96%B9%E6%B3%95"><span class="toc-number">1.</span> <span class="toc-text">1. 基于Ray Casting的鼠标拾取方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%9F%BA%E4%BA%8EG-Buffer%E5%9B%9E%E8%AF%BB%E7%9A%84%E9%BC%A0%E6%A0%87%E6%8B%BE%E5%8F%96%E6%96%B9%E6%B3%95"><span class="toc-number">2.</span> <span class="toc-text">2. 基于G-Buffer回读的鼠标拾取方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E6%AF%94%E8%BE%83%E4%B8%8E%E9%80%89%E6%8B%A9"><span class="toc-number">3.</span> <span class="toc-text">3. 比较与选择</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/01/25/paper_reading/Adaptive_Incident_Radiance_Field_Sampling_and_Reconstruction_Using_Deep_Reinforcement_Learning/" title="Adaptive Incident Radiance Field Sampling and Reconstruction Using Deep Reinforcement Learning">Adaptive Incident Radiance Field Sampling and Reconstruction Using Deep Reinforcement Learning</a><time datetime="2023-01-25T00:04:00.000Z" title="Created 2023-01-25 00:04:00">2023-01-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/01/06/paper_reading/Temporal_Coherence-Based_Distributed_Ray_Tracing_of_Massive_Scenes/" title="Temporal Coherence-based Distributed Ray Tracing of Massive Scenes">Temporal Coherence-based Distributed Ray Tracing of Massive Scenes</a><time datetime="2023-01-06T22:13:11.000Z" title="Created 2023-01-06 22:13:11">2023-01-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/29/gaming/spiderman_miles/" title="Marvel's Spider-Man Miles Morales"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2022/12/29/gaming/spiderman_miles/image-20221229175057590.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Marvel's Spider-Man Miles Morales"/></a><div class="content"><a class="title" href="/2022/12/29/gaming/spiderman_miles/" title="Marvel's Spider-Man Miles Morales">Marvel's Spider-Man Miles Morales</a><time datetime="2022-12-29T21:13:11.000Z" title="Created 2022-12-29 21:13:11">2022-12-29</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/12/17/paper_reading/Vectorization_for_Fast_Analytic_and_Differentiable_Visibility/" title="Vectorization for Fast, Analytic, and Differentiable Visibility">Vectorization for Fast, Analytic, and Differentiable Visibility</a><time datetime="2022-12-17T21:13:11.000Z" title="Created 2022-12-17 21:13:11">2022-12-17</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/12/14/note/edge_sampling/" title="Physics Based Differentiable Rendering: Edge Sampling">Physics Based Differentiable Rendering: Edge Sampling</a><time datetime="2022-12-14T00:00:00.000Z" title="Created 2022-12-14 00:00:00">2022-12-14</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By Chaf Chen</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll To Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container').forEach(node => {
+            if (node.hasAttribute('display')) {
+              btf.wrap(node, 'div', { class: 'mathjax-overflow' })
+            } else {
+              btf.wrap(node, 'span', { class: 'mathjax-overflow' })
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        const mermaidSrc = item.firstElementChild
+        const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+        const mermaidID = 'mermaid-' + index
+        const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+        mermaid.mermaidAPI.render(mermaidID, mermaidDefinition, (svgCode) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svgCode)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script><script>function loadDisqus () {
+  var disqus_config = function () {
+    this.page.url = 'https://chaphlagical.github.io/2021/12/14/rendering/mouse_picking/'
+    this.page.identifier = '/2021/12/14/rendering/mouse_picking/'
+    this.page.title = '场景编辑器：鼠标拾取'
+  };
+
+  window.disqusReset = () => {
+    DISQUS.reset({
+      reload: true,
+      config: disqus_config
+    })
+  }
+
+  if (window.DISQUS) disqusReset()
+  else {
+    (function() { 
+      var d = document, s = d.createElement('script');
+      s.src = 'https://chaphlagical-github-io.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  }
+
+  document.getElementById('darkmode').addEventListener('click', () => {
+    setTimeout(() => window.disqusReset(), 200)
+  })
+}
+
+if ('Disqus' === 'Disqus' || !false) {
+  if (false) btf.loadComment(document.getElementById('disqus_thread'), loadDisqus)
+  else loadDisqus()
+} else {
+  function loadOtherComment () {
+    loadDisqus()
+  }
+}
+</script></div></div></body></html>

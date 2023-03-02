@@ -1,0 +1,465 @@
+<!DOCTYPE html><html lang="[&quot;en&quot;,&quot;zh-CN&quot;,&quot;default&quot;]" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>计算机辅助几何设计(4)：极形式和开花算法 | Chaf's Blog</title><meta name="author" content="Chaf Chen"><meta name="copyright" content="Chaf Chen"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="多项式曲线的极形式应用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算机辅助几何设计(4)：极形式和开花算法">
+<meta property="og:url" content="https://chaphlagical.github.io/2022/01/03/geometry/polar_form/index.html">
+<meta property="og:site_name" content="Chaf&#39;s Blog">
+<meta property="og:description" content="多项式曲线的极形式应用">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://chaphlagical.github.io/2022/01/03/geometry/polar_form/image-20220103164358187.png">
+<meta property="article:published_time" content="2022-01-03T10:25:11.000Z">
+<meta property="article:modified_time" content="2023-03-02T13:45:38.971Z">
+<meta property="article:author" content="Chaf Chen">
+<meta property="article:tag" content="Computer Aided Geometric Design">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://chaphlagical.github.io/2022/01/03/geometry/polar_form/image-20220103164358187.png"><link rel="shortcut icon" href="/img/logo.jpg"><link rel="canonical" href="https://chaphlagical.github.io/2022/01/03/geometry/polar_form/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"Traditional Chinese Activated Manually","cht_to_chs":"Simplified Chinese Activated Manually","day_to_night":"Dark Mode Activated Manually","night_to_day":"Light Mode Activated Manually","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '计算机辅助几何设计(4)：极形式和开花算法',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-03-02 13:45:38'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+
+if (false) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/logo.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">33</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">6</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="Chaf's Blog"><img class="site-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/logo.jpg"/><span class="site-name">Chaf's Blog</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">计算机辅助几何设计(4)：极形式和开花算法</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2022-01-03T10:25:11.000Z" title="Created 2022-01-03 10:25:11">2022-01-03</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-03-02T13:45:38.971Z" title="Updated 2023-03-02 13:45:38">2023-03-02</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Geometry/">Geometry</a></span></div><div class="meta-secondline"></div></div></div><article class="post-content" id="article-container"><h2 id="1-基本思想"><a href="#1-基本思想" class="headerlink" title="1. 基本思想"></a>1. 基本思想</h2><h3 id="1-1-仿射组合-Affine-Combinations"><a href="#1-1-仿射组合-Affine-Combinations" class="headerlink" title="1.1. 仿射组合(Affine Combinations)"></a>1.1. 仿射组合(Affine Combinations)</h3><p>$n$点的仿射组合为：<br>$$<br>p_{\pmb\alpha}&#x3D;\sum_{i&#x3D;1}^n\alpha_i\pmb{p}<em>i<br>$$<br>其中，$\sum</em>{i&#x3D;1}^n\alpha_i&#x3D;1$</p>
+<p>函数 $f$ 对参数 $x_i$ 是仿射的是指：<br>$$<br>f \left( x _ { 1 } , \ldots , \sum _ { k &#x3D; 1 } ^ { n } \alpha _ { k } x _ { i } ^ { ( k ) } , \ldots , x _ { m } \right) &#x3D; \sum _ { k &#x3D; 1 } ^ { n } \alpha _ { k } f \left( x _ { 1 } , \ldots , x _ { i } ^ { ( k ) } , \ldots , x _ { m } \right)<br>$$<br>其中，$\sum_{i&#x3D;1}^n\alpha_i&#x3D;1$</p>
+<p><strong>示例：</strong></p>
+<blockquote>
+<ul>
+<li><p>两点间的仿射插值为：<br>$$<br>\pmb{p}_\alpha &#x3D; (1-\alpha)\pmb{p}_1+\alpha\pmb{p}_2<br>$$<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2022/01/03/geometry/polar_form/image-20220103112000955.png" alt="image-20220103112000955"></p>
+</li>
+<li><p>三点间的仿射组合（亦为重心坐标）为：<br>$$<br>\pmb{p}&#x3D;\alpha\pmb{p}_1+\beta\pmb{p}_2+\gamma\pmb{p}_3<br>$$<br>其中，$\alpha+\beta+\gamma&#x3D;1$</p>
+<p>系数可用坐标表示：<br>$$<br>\alpha &#x3D; \frac { \operatorname { area } \left( \Delta \left( p _ { 2 } , p _ { 3 } , p \right) \right) } { \operatorname { area } \left( \Delta \left( p _ { 1 } , p _ { 2 } , p _ { 3 } \right) \right) } ,<br>\beta &#x3D; \frac { \operatorname { area } \left( \Delta \left( p _ { 1 } , p _ { 3 } , p \right) \right) } { \operatorname { area } \left( \Delta \left( p _ { 1 } , p _ { 2 } , p _ { 3 } \right) \right) } ,<br>\gamma &#x3D; \frac { \operatorname { area } \left( \Delta \left( p _ { 1 } , p _ { 2 } , p \right) \right) } { \operatorname { area } \left( \Delta \left( p _ { 1 } , p _ { 2 } , p _ { 3 } \right) \right) }<br>$$<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2022/01/03/geometry/polar_form/image-20220103112111944.png" alt="image-20220103112111944"></p>
+</li>
+</ul>
+</blockquote>
+<h3 id="1-2-动机"><a href="#1-2-动机" class="headerlink" title="1.2. 动机"></a>1.2. 动机</h3><p>我们希望：将（分段）多项式曲线表示为迭代线性（仿射）插值的形式</p>
+<p>例如：</p>
+<ul>
+<li><p>对于一个多项式：$p(t)&#x3D;at^3+bt^2+ct+d$</p>
+</li>
+<li><p>能够写为$p(t)&#x3D;a\cdot t\cdot t\cdot t+b\cdot t\cdot t+c\cdot t+d$</p>
+</li>
+<li><p>将每个变量t解释为单独的参数：<br>$$<br>\pmb p(t_1,t_2,t_3)&#x3D;\pmb at_1t_2t_3+\pmb bt_1t_2+\pmb ct_1+\pmb d<br>$$</p>
+<ul>
+<li>$t_1$控制$\pmb a+\pmb b+\pmb c$方向上的移动</li>
+<li>$t_2$控制$\pmb a+\pmb b$方向上的移动</li>
+<li>$t_3$控制$\pmb a$方向上的移动</li>
+</ul>
+</li>
+<li><p>上述方法存在的问题：固定方向，多种表示形式</p>
+</li>
+</ul>
+<h2 id="2-极形式"><a href="#2-极形式" class="headerlink" title="2. 极形式"></a>2. 极形式</h2><h3 id="2-1-定义"><a href="#2-1-定义" class="headerlink" title="2.1. 定义"></a>2.1. 定义</h3><p>将（分段）多项式曲线表示为迭代线性（仿射）插值的形式的升级版解决方法：极形式&#x2F;开花</p>
+<p>$n$次多项式$F:\mathbb{R}\to\mathbb{R}$ 的极形式&#x2F;开花$f:\mathbb{R}^n\to\mathbb{R}$ 是一个满足以下性质的$ d $维函数：</p>
+<ul>
+<li>对角性Diagonality：$f(t,\dots,t)&#x3D;F(t)$ </li>
+<li>对称性Symmetry：对任意置换 $\pi$，$f(t_1,\dots,t_d)&#x3D;f(t_{\pi(1)},\dots,t_{\pi(d)})$ </li>
+<li>多仿射Multi-affine：$f(t_1,\dots,\sum_\limits{k&#x3D;1}^n\alpha_kt_i^{(k)},\dots,t_d)&#x3D;\sum_{k&#x3D;1}^n\alpha_k f(t_1,\dots,t_i^{(k)},\dots,t_d)$</li>
+</ul>
+<h3 id="2-2-唯一性"><a href="#2-2-唯一性" class="headerlink" title="2.2. 唯一性"></a>2.2. 唯一性</h3><p>多项式 $F(t)$ 与极形式 $f(t_1,\dots,t_n)$ 是一一对应的，常用多项式的极形式如下：</p>
+<ul>
+<li>0 次：$f&#x3D;c_0$ </li>
+<li>1 次：$f(t_1)&#x3D;c_0+c_1t_1$ </li>
+<li>2 次：$f(t_1,t_2)&#x3D;c_0+c_1\frac{t_1+t_2}{2} + c_2t_1t_2$ </li>
+<li>3 次：$f(t_1,t_2,t_3)&#x3D;c_0+c_1\frac{t_1+t_2+t_3}{3}+c_2\frac{t_1t_2+t_2t_3+t_1t_3}{3}+c_3t_1t_2t_3$</li>
+</ul>
+<p>一般形式：<br>$$<br>\begin{aligned}<br>F(t)&amp;&#x3D;\sum_{i&#x3D;0}^n c_i t^i\\\\<br>f(t_1,\cdots,t_n)&amp;&#x3D;\sum_{i&#x3D;0}^n c_i \begin{pmatrix}n\\\\i\end{pmatrix}^{-1}\sum_{S\subseteq\{1,\cdots,n\},|S|&#x3D;i}\prod_{j\in S}t_i<br>\end{aligned}<br>$$</p>
+<h3 id="2-3-泛化"><a href="#2-3-泛化" class="headerlink" title="2.3. 泛化"></a>2.3. 泛化</h3><p>对于高维情况：<br>$$<br>\begin{aligned}<br>F&amp;:\mathbb{R}^m\to \mathbb{R}^n\<br>f&amp;:\mathbb{R}^{d\times m}\to \mathbb{R}^n<br>\end{aligned}<br>$$<br>满足性质</p>
+<ul>
+<li>对角性 diagonality：$f(\pmb{t},\dots,\pmb{t})&#x3D;F(\pmb{t})$ </li>
+<li>对称性 symmetry：对任意置换 $\pi$，$f(\pmb t_1,\cdots \pmb t_d)&#x3D;f(\pmb t_ {\pi(1)},\cdots,\pmb t_ {\pi(d)})$ </li>
+<li>多仿射 multi-affine：$f(\pmb t_1,\cdots,\sum_{k&#x3D;1}^n\alpha_k\pmb t_i^{(k)},\cdots,\pmb t_d)&#x3D;\sum_{k&#x3D;1}^n\alpha_kf(\pmb t_1,\cdots,\pmb t_i^{(k)},\cdots,\pmb t_d)$</li>
+</ul>
+<p>对于参数向量：</p>
+<ul>
+<li><p>需要区分点 point 和向量 vectors（点的差值）</p>
+</li>
+<li><p>使用“帽子”记号 $\hat{v}&#x3D;p-q$ 来表示向量</p>
+</li>
+<li><p>1向量：$\hat{1}&#x3D;1-0,\hat{\pmb{1}}&#x3D;[1,\dots,1]^\top-\pmb{0}$ </p>
+</li>
+<li><p>极形式中向量的递归定义：<br>$$<br>\begin{aligned}<br>f(\underbrace{t_1,\dots,t_{n-k}}<em>{n-k},\underbrace{\hat{v}<em>1,\dots,\hat{v}<em>k}<em>k)&amp;:&#x3D;\\\\<br>f(\underbrace{t_1,\dots,t</em>{n-k}}</em>{n-k},p_1,\underbrace{\hat{v}<em>2,\dots,\hat{v}</em>{k-1}}</em>{k-1})&amp;-f(\underbrace{t_1,\dots,t</em>{n-k}}<em>{n-k},q_1,\underbrace{\hat{v}<em>2,\dots,\hat{v}</em>{k-1}}</em>{k-1})<br>\end{aligned}<br>$$<br>其中 $\hat{v}_i&#x3D;p_i-q_i(i&#x3D;1,\dots,k)$</p>
+</li>
+</ul>
+<h3 id="2-4-导数"><a href="#2-4-导数" class="headerlink" title="2.4. 导数"></a>2.4. 导数</h3><p>$$<br>f(t_1,\cdots,t_n)&#x3D;\sum_{i&#x3D;0}^n c_i \begin{pmatrix}n\\\\i\end{pmatrix}^{-1}\sum_{S\subseteq\{1,\cdots,n\},|S|&#x3D;i}\prod_{j\in S}t_i<br>$$</p>
+<ul>
+<li><p>$c_i$与$t&#x3D;0$处的导数值相关</p>
+</li>
+<li><p>因此有：<br>$$<br>c_k&#x3D;\frac{1}{k!}\frac{\mathrm d^k}{\mathrm dt^k}F(0)&#x3D;\begin{pmatrix}n\\\\k\end{pmatrix}^{-1}f(\underbrace{0,\dots,0}_{n-k},\underbrace{\hat{1},\dots,\hat{1}}_k)<br>$$</p>
+</li>
+<li><p>一般情况：<br>$$<br>\frac{\mathrm d^k}{\mathrm dt^k}F(t)&#x3D;\frac{n!}{(n-k)!}f(\underbrace{t,\dots,t}_{n-k},\underbrace{\hat{1},\dots,\hat{1}}_k)<br>$$</p>
+</li>
+</ul>
+<p>示例：</p>
+<blockquote>
+<p>$$<br>\begin{aligned}<br>F(t)&amp;&#x3D;c_0+c_1t+c_2t^2+c_3t^3\\\\<br>f \left( t _ { 1 } , t _ { 2 } , t _ { 3 } \right) &amp;&#x3D; c _ { 0 } + c _ { 1 } \frac { t _ { 1 } + t _ { 2 } + t _ { 3 } } { 3 } + c _ { 1 } \frac { t _ { 1 } t _ { 2 } + t _ { 1 } t _ { 3 } + t _ { 2 } t _ { 3 } } { 3 } + c _ { 3 } t _ { 1 } t _ { 2 } t _ { 3 }\\\\<br>F ^ { \prime } ( t )<br>&amp;&#x3D; 3f(t,t,\hat{1})\\\\<br>&amp;&#x3D; 3 \left[f(t,t,1)-f(t,t,0)\right]\\\\<br>&amp;&#x3D; 3 \left[ \left( c _ { 0 } + c_1\frac { 1 + t + t } { 3 } + c _ { 2 } \frac { 1 t + t t + 1 t } { 3 } + c _ { 3 } 1 t t \right) - \left( c _ { 0 } + c_1\frac { 0 + t + t } { 3 } + c _ { 2 } \frac { t t } { 3 } \right) \right]\\\\<br>&amp;&#x3D; 3 \left( c _ { 1 } \frac { 1 } { 3 } + c _ { 2 } \frac { 2 t } { 3 } + c _ { 3 } t t \right)\\\\<br>&amp;&#x3D; 3 c _ { 3 } t ^ { 2 } + 2 c _ { 2 } t + c _ { 1 }<br>\end{aligned}<br>$$</p>
+</blockquote>
+<h3 id="2-5-连续性条件"><a href="#2-5-连续性条件" class="headerlink" title="2.5. 连续性条件"></a>2.5. 连续性条件</h3><p>下列三个条件分别等价</p>
+<ul>
+<li>$F$ 和 $G$ 在 $t$ 点 $C^k$ 连续</li>
+<li>$\forall t_1,\dots,t_k, f(t,\dots,t,t_1,\dots,t_k)&#x3D;g(t,\dots,t,t_1,\dots,t_k)$ </li>
+<li>$f ( t , \ldots , t , \underbrace{\hat { 1 } , \ldots , \hat { 1 }}_k ) &#x3D; g ( t , \ldots , t , \underbrace{\hat { 1 } , \ldots , \hat { 1 }}_k )$</li>
+</ul>
+<blockquote>
+<p>2$\Leftrightarrow$3证明：<br>$$<br>\begin{aligned}<br>f(t,\cdots,t,t_1)&amp;&#x3D;f(t,\cdots,t,(t_1-0))\\\\<br>&amp;&#x3D;t_1f(t,\cdots,t,1)-f(t,\cdots,t,0)\\\\<br>&amp;&#x3D;t_1f(t,\cdots,t,\hat 1)<br>\end{aligned}<br>$$</p>
+</blockquote>
+<p>举例：</p>
+<blockquote>
+<ul>
+<li>$\forall t_1,t_2,t_3$：$f(t_1,t_2,t_3)&#x3D;g(t_1,t_2,t_3)\Rightarrow$同一条曲线</li>
+<li>$\forall t_1,t_2$：$f(t_1,t_2,t)&#x3D;g(t_1,t_2,t)\Rightarrow$在$t$处$C^2$连续</li>
+<li>$\forall t_1$：$f(t_1,t,t)&#x3D;g(t_1,t,t)\Rightarrow$在$t$处$C^1$连续</li>
+<li>$f(t,t,t)&#x3D;g(t,t,t)\Rightarrow$在$t$处$C^0$连续</li>
+</ul>
+</blockquote>
+<h3 id="2-6-升阶"><a href="#2-6-升阶" class="headerlink" title="2.6. 升阶"></a>2.6. 升阶</h3><p>给定$ d $次函数 $f(t_1,\dots,t_d)$，升阶得：<br>$$<br>f ^ { ( + 1 ) } \left( t _ { 1 } , \ldots , t _ { d + 1 } \right) &#x3D; \frac { 1 } { d + 1 } \sum _ { i &#x3D; 1 } ^ { d + 1 } f \left( t _ { 1 } , \ldots , t _ { i - 1 } , t _ { i + 1 } , \ldots , t _ { d + 1 } \right)<br>$$</p>
+<ul>
+<li>注意：$t_i$没了</li>
+</ul>
+<blockquote>
+<p>证明$F^{(+1)}(t)&#x3D;F(t)$：<br>$$<br>\begin{aligned} \forall t : f ^ { ( + 1 ) } ( t , \ldots , t ) &amp; &#x3D; \left. \frac { 1 } { d + 1 } \sum _ { i &#x3D; 1 } ^ { d + 1 } f \left( t _ { 1 } , \ldots , t _ { i - 1 } , t _ { i + 1 } , \ldots , t _ { d + 1 } \right) \right| _ { t _ { 1 } &#x3D; \cdots t _ { d + 1 } &#x3D; t } \\\\ &amp; &#x3D; \frac { 1 } { d + 1 } \sum _ { i &#x3D; 1 } ^ { d + 1 } f ( t , \ldots , t ) \\\\ &amp; &#x3D; f ( t , \ldots , t ) \end{aligned}<br>$$</p>
+</blockquote>
+<h2 id="3-Bezier样条的极形式应用"><a href="#3-Bezier样条的极形式应用" class="headerlink" title="3. Bézier样条的极形式应用"></a>3. Bézier样条的极形式应用</h2><h3 id="3-1-回顾De-Casteljau算法"><a href="#3-1-回顾De-Casteljau算法" class="headerlink" title="3.1. 回顾De Casteljau算法"></a>3.1. 回顾De Casteljau算法</h3><p>之前我们已经推导过构造Bézier曲线的De Casteljau算法：<br>$$<br>\pmb b_i^{(r)}&#x3D;(1-t)\pmb b_i^{(r-1)}+t\pmb b_{i+1}^{(r-1)}<br>$$<br>三次Bézier曲线的构造过程如下图所示：</p>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="image-20220103120516305.png" alt="image-20220103120516305" style="zoom:50%;" />
+
+<h3 id="3-2-Bezier样条的极形式"><a href="#3-2-Bezier样条的极形式" class="headerlink" title="3.2. Bézier样条的极形式"></a>3.2. Bézier样条的极形式</h3><p>根据极形式的仿射组合性质，导出Bernstein基函数的组合形式：<br>$$<br>\begin{aligned}<br>f(t,\cdots,t)<br>&amp;&#x3D;(1-t)f(t,\cdots,t,0)+tf(t,\cdots,t,1)\\\\<br>&amp;&#x3D;(1-t)[(1-t)f(t,\cdots,t,0,0)+tf(t,\cdots,t,0,1)]+<br>t[(1-t)f(t,\cdots,t,1,0)+tf(t,\cdots,t,1,1)]\\\\<br>&amp;&#x3D;(1-t)^2f(t,\cdots,t,0,0)+2t(1-t)f(t,\cdots,0,1)+t^2f(t,\cdots,t,1,1)\\\\<br>&amp;&#x3D;\cdots\\\\<br>&amp;&#x3D;\sum_{i&#x3D;0}^n\begin{pmatrix}n\\\\i\end{pmatrix}t^i(1-t)^{n-i}f(\underbrace{0,\dots,0}<em>{n-i},\underbrace{1,\dots,1}<em>i)\\\\<br>&amp;&#x3D;\sum</em>{i&#x3D;0}^nB_n^i(t)f(\underbrace{0,\dots,0}</em>{n-i},\underbrace{1,\dots,1}_i)<br>\end{aligned}<br>$$<br>因此，我们可以看到：</p>
+<ul>
+<li><p>Bézier点为：$\pmb b_i^{(0)}(t)&#x3D;f(\underbrace{0,\dots,0}_{n-i},\underbrace{1,\dots,1}_i)$</p>
+</li>
+<li><p>中间的生成点为：$\pmb b_i^{(j)}(t)&#x3D;f(\underbrace{0,\dots,0}_{n-i-j},\underbrace{1,\dots,1}_i,\underbrace{t,\dots,t}_j)$</p>
+</li>
+<li><p>De Casteljau算法递归计算：<br>$$<br>\begin{aligned}<br>\pmb b_i^{(j)}(t)&amp;&#x3D;f(\underbrace{0,\dots,0}_ {n-i-j},\underbrace{1,\dots,1}<em>i,\underbrace{t,\dots,t}<em>j)\\\\<br>&amp;&#x3D;(1-t)f(\underbrace{0,\dots,0}</em> {n-i-j+1},\underbrace{1,\dots,1}<em>i,\underbrace{t,\dots,t}</em> {j-1})+tf(\underbrace{0,\dots,0}</em> {n-i-j},\underbrace{1,\dots,1}_ {i+1},\underbrace{t,\dots,t}_ {j-1})\\\\<br>&amp;&#x3D;(1-t)\pmb b_i^{(j-1)}+t\pmb b_ {i+1}^{(j-1)}(t)<br>\end{aligned}<br>$$</p>
+</li>
+</ul>
+<p>示例：</p>
+<blockquote>
+<p>仿射组合：<br>$$<br>\begin{align}<br>b(0,t,1)&amp;&#x3D;b(0,0(1-t)+1t,1(1-t)+1t)\\\\<br>&amp;&#x3D;(1-t)b(0,0,1)+tb(0,1,1)<br>\end{align}<br>$$<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="image-20220103163030843.png" alt="image-20220103163030843" style="zoom:50%;" /></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2022/01/03/geometry/polar_form/image-20220103122257916.png" alt="image-20220103122257916"></p>
+</blockquote>
+<h3 id="3-3-泛化情况"><a href="#3-3-泛化情况" class="headerlink" title="3.3. 泛化情况"></a>3.3. 泛化情况</h3><p>$f(t)$是$t\in [u,v]$的$d$阶 Bezier 曲线，$\pmb{p}$是$f$的极形式，则Bézier点用极形式表示为：<br>$$<br>\pmb b_i&#x3D;p(u,\cdots,u,v,\cdots,v)<br>$$<br>示例：</p>
+<blockquote>
+<p>三次Bézier曲线控制点为：</p>
+<p>$\pmb{p}(u,u,u),\pmb{p}(u,u,v),\pmb{p}(u,v,v),\pmb{p}(v,v,v)$</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2022/01/03/geometry/polar_form/image-20220103151232765.png" alt="image-20220103151232765"></p>
+</blockquote>
+<h3 id="3-4-换基"><a href="#3-4-换基" class="headerlink" title="3.4. 换基"></a>3.4. 换基</h3><p>给定$n$次多项式$\pmb p(t)$，反求Bézier控制点${\pmb b_i}^n_{i&#x3D;0}$</p>
+<p>计算方法：</p>
+<ul>
+<li>求出极形式：$\pmb p(t)\Rightarrow\pmb b(t_1,\cdots,t_n)$</li>
+<li>求出控制点：$\pmb{b}_ i&#x3D;\pmb{b}(\underbrace{0,\dots,0}_ {n-i},\underbrace{1,\dots,1}_ i)$，其中$i&#x3D;0,\cdots,n$</li>
+</ul>
+<p>示例：</p>
+<blockquote>
+<p>$p(t)&#x3D;1+2t+3t^2-t^3$</p>
+<p>极形式表示：<br>$$<br>\pmb{b} \left( t _ { 0 } , t _ { 1 } , t _ { 2 } \right) &#x3D; 1 + 2 \frac { t _ { 0 } + t _ { 1 } + t _ { 2 } } { 3 } + 3 \frac { t _ { 0 } t _ { 1 } + t _ { 1 } t _ { 2 } + t _ { 0 } t _ { 2 } } { 3 } - t _ { 0 } t _ { 1 } t _ { 2 }<br>$$<br>则有<br>$$<br>\begin{aligned}<br>\pmb{b}(0,0,0)&amp;&#x3D;1\<br>\pmb{b}(0,0,1)&amp;&#x3D;\frac{5}{3}\<br>\pmb{b}(0,1,1)&amp;&#x3D;\frac{10}{3}\<br>\pmb{b}(1,1,1)&amp;&#x3D;5\<br>\end{aligned}<br>$$</p>
+</blockquote>
+<h3 id="3-5-分段曲线"><a href="#3-5-分段曲线" class="headerlink" title="3.5. 分段曲线"></a>3.5. 分段曲线</h3><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2022/01/03/geometry/polar_form/image-20220103151955642.png" alt="image-20220103151955642"></p>
+<p>两条曲线段<br>$$<br>\{ \boldsymbol { p } ( 0,0,0 ) , \boldsymbol { p } ( 0,0,1 ) , \boldsymbol { p } ( 0,1,1 ) , \boldsymbol { p } ( 1,1,1 ) \} , \{ p ( 1,1,1 ) , \boldsymbol { p } ( 1,1,2 ) , \boldsymbol { p } ( 1,2,2 ) , \boldsymbol { p } ( 2,2,2 ) \}<br>$$</p>
+<h3 id="3-6-导数"><a href="#3-6-导数" class="headerlink" title="3.6. 导数"></a>3.6. 导数</h3><p>$$<br>\frac { \mathrm{d} } { \mathrm{d} t } F ( t ) &#x3D; n f ( t , \ldots , t , \hat { 1 } ) &#x3D; n ( f ( t , \ldots , t , 1 ) - f ( t , \ldots , t , 0 ) )<br>$$</p>
+<h3 id="3-7-细分"><a href="#3-7-细分" class="headerlink" title="3.7. 细分"></a>3.7. 细分</h3><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2022/01/03/geometry/polar_form/image-20220103154022104.png" alt="image-20220103154022104"></p>
+<ul>
+<li>每一次de Casteljau迭代都会产生两个新的控制多边形，分别描述Bézier曲线$f(t)$的左侧和右侧</li>
+<li>利用这两个新的控制多边形，可以将该Bézier曲线分割成两条，实现细分</li>
+</ul>
+<h3 id="3-8-升阶"><a href="#3-8-升阶" class="headerlink" title="3.8. 升阶"></a>3.8. 升阶</h3><p>对Bézier曲线$\pmb b(t_1,\cdots,t_n)$进行升阶得到：<br>$$<br>\pmb{b} ^ { ( + 1 ) } \left( t _ { 1 } , \ldots , t _ { n + 1 } \right) &#x3D; \frac { 1 } { n + 1 } \sum _ { i &#x3D; 1 } ^ { n + 1 } \pmb{b} \left( t _ { 1 } , \ldots , t _ { i - 1 } , t _ { i + 1 } , \ldots , t _ { n + 1 } \right)<br>$$<br>升阶后曲线 $\pmb{b}^{(+1)}$ 的 $n+2$ 个控制点 $\pmb{b}^{(+1)}_ 0,\dots,\pmb{b}^{(+1)}_ {n+1}$ 为：<br>$$<br>\begin{aligned}<br>\pmb b_i^{(+1)}&amp;&#x3D;\pmb b^{(+1)}(\underbrace{0,\dots,0}<em>{n+1-i},\underbrace{1,\dots,1}<em>i)\\\\<br>&amp;&#x3D;\frac{i}{n+i}\pmb b(\underbrace{0,\dots,0}</em>{d+1-i},\underbrace{1,\dots,1}</em>{i-1})+\left(1-\frac{i}{n+1}\right)\pmb{b}(\underbrace{0,\dots,0}_{n-i},\underbrace{1,\dots,1}<em>i)\\\\<br>&amp;&#x3D;\frac{i}{n+1}\pmb b</em>{i-1}+\left(1-\frac{i}{n+1}\right)\pmb b_i<br>\end{aligned}<br>$$<br>特别地，<br>$$<br>\begin{aligned}<br>\pmb{b}_0^{(+1)}&amp;&#x3D;\pmb{b}<em>0\\\\<br>\pmb{b}</em>{n+1}^{(+1)}&amp;&#x3D;\pmb{b}_n\<br>\end{aligned}<br>$$</p>
+<h2 id="4-B样条的极形式应用"><a href="#4-B样条的极形式应用" class="headerlink" title="4. B样条的极形式应用"></a>4. B样条的极形式应用</h2><h3 id="4-1-B样条的极形式"><a href="#4-1-B样条的极形式" class="headerlink" title="4.1. B样条的极形式"></a>4.1. B样条的极形式</h3><p>分段线性多项式曲线的极形式是存在且唯一的</p>
+<p>给定$k$阶（$k-1$次）B样条曲线$\pmb x$</p>
+<ul>
+<li>结向量：$T&#x3D;(t_0,\dots,t_{n+k})$</li>
+<li>de Boor 点 $\pmb{d}_0,\dots,\pmb{d}_n$</li>
+</ul>
+<p>设$\underline { \pmb{x} }(u_1,\dots,u_{k-1})$是$\pmb{x}(t)$的极形式，则de Boor点可表示为：<br>$$<br>\pmb{d}<em>i&#x3D;\underline{\pmb{x}}(t</em>{i+1},\dots,t_{i+k-1})<br>$$</p>
+<blockquote>
+<p>示例：</p>
+<p>$k&#x3D;4,n&#x3D;5$</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2022/01/03/geometry/polar_form/image-20220103161420023.png" alt="image-20220103161420023"></p>
+</blockquote>
+<h3 id="4-2-de-Boor算法的极形式"><a href="#4-2-de-Boor算法的极形式" class="headerlink" title="4.2. de Boor算法的极形式"></a>4.2. de Boor算法的极形式</h3><p>要确定$t$处B样条曲线的值，确定出$t$前后的$k-1$个结：<br>$$<br>r_{k-1}\leq\cdots\leq r_1\leq t\leq s_1\leq\cdots\leq s_{k-1}<br>$$<br>其中，$r_1\leq t&lt;s_1$，则中间结点为：<br>$$<br>\pmb d_j^l(t)&#x3D;\underline {\pmb x}(r_1,\cdots,r_{k-1-l-j},\underbrace{t,\cdots,t}<em>l,s_1,\cdots,s_j)<br>$$<br>最终的曲线为：<br>$$<br>\pmb x(t)&#x3D;\pmb d_0^{(k-1)}(t)&#x3D;\underline{\pmb x}(\underbrace{t,\cdots,t}</em>{k-1})<br>$$</p>
+<blockquote>
+<p>示例：</p>
+<p>$k&#x3D;4$</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2022/01/03/geometry/polar_form/image-20220103162640889.png" alt="image-20220103162640889"></p>
+<p>对于$t_2\leq t&lt;t_4$，进行如下迭代：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2022/01/03/geometry/polar_form/image-20220103164358187.png" alt="image-20220103164358187"></p>
+</blockquote>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="https://chaphlagical.github.io">Chaf Chen</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://chaphlagical.github.io/2022/01/03/geometry/polar_form/">https://chaphlagical.github.io/2022/01/03/geometry/polar_form/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Computer-Aided-Geometric-Design/">Computer Aided Geometric Design</a></div><div class="post_share"><div class="social-share" data-image="/2022/01/03/geometry/polar_form/image-20220103164358187.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/01/03/geometry/rational/" title="计算机辅助几何设计(5)：有理样条曲线"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2022/01/03/geometry/rational/image-20220105110839764.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">计算机辅助几何设计(5)：有理样条曲线</div></div></a></div><div class="next-post pull-right"><a href="/2022/01/03/geometry/spline_surface/" title="计算机辅助几何设计：样条曲面"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2022/01/03/geometry/spline_surface/image-20220103223926601.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">计算机辅助几何设计：样条曲面</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><div><a href="/2021/12/29/geometry/b_spline/" title="计算机辅助几何设计：B样条曲线"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2021/12/29/geometry/b_spline/b_spline.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-12-29</div><div class="title">计算机辅助几何设计：B样条曲线</div></div></a></div><div><a href="/2021/12/14/geometry/bezier_curve/" title="计算机辅助几何设计：Bézier曲线"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2021/12/14/geometry/bezier_curve/image-20211221222844217.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-12-14</div><div class="title">计算机辅助几何设计：Bézier曲线</div></div></a></div><div><a href="/2021/12/23/geometry/bezier_spline/" title="计算机辅助几何设计(2)：Bézier样条曲线"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2021/12/23/geometry/bezier_spline/image-20211223205004058.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-12-23</div><div class="title">计算机辅助几何设计(2)：Bézier样条曲线</div></div></a></div><div><a href="/2022/01/04/geometry/subdivision/" title="计算机辅助几何设计(7)：细分曲线与曲面"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2022/01/04/geometry/subdivision/image-20220104150438787.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-04</div><div class="title">计算机辅助几何设计(7)：细分曲线与曲面</div></div></a></div><div><a href="/2022/01/03/geometry/rational/" title="计算机辅助几何设计(5)：有理样条曲线"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2022/01/03/geometry/rational/image-20220105110839764.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-03</div><div class="title">计算机辅助几何设计(5)：有理样条曲线</div></div></a></div><div><a href="/2022/01/03/geometry/spline_surface/" title="计算机辅助几何设计：样条曲面"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2022/01/03/geometry/spline_surface/image-20220103223926601.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-03</div><div class="title">计算机辅助几何设计：样条曲面</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comment</span></div></div><div class="comment-wrap"><div><div id="disqus_thread"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/logo.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Chaf Chen</div><div class="author-info__description">USTC CG Student</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">33</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">6</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Chaphlagical"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/Chaphlagical" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:mail@ustc.edu.cn" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">Looking for a Ph.D position!</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%9F%BA%E6%9C%AC%E6%80%9D%E6%83%B3"><span class="toc-number">1.</span> <span class="toc-text">1. 基本思想</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-%E4%BB%BF%E5%B0%84%E7%BB%84%E5%90%88-Affine-Combinations"><span class="toc-number">1.1.</span> <span class="toc-text">1.1. 仿射组合(Affine Combinations)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-%E5%8A%A8%E6%9C%BA"><span class="toc-number">1.2.</span> <span class="toc-text">1.2. 动机</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E6%9E%81%E5%BD%A2%E5%BC%8F"><span class="toc-number">2.</span> <span class="toc-text">2. 极形式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E5%AE%9A%E4%B9%89"><span class="toc-number">2.1.</span> <span class="toc-text">2.1. 定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E5%94%AF%E4%B8%80%E6%80%A7"><span class="toc-number">2.2.</span> <span class="toc-text">2.2. 唯一性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-%E6%B3%9B%E5%8C%96"><span class="toc-number">2.3.</span> <span class="toc-text">2.3. 泛化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-%E5%AF%BC%E6%95%B0"><span class="toc-number">2.4.</span> <span class="toc-text">2.4. 导数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-5-%E8%BF%9E%E7%BB%AD%E6%80%A7%E6%9D%A1%E4%BB%B6"><span class="toc-number">2.5.</span> <span class="toc-text">2.5. 连续性条件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-6-%E5%8D%87%E9%98%B6"><span class="toc-number">2.6.</span> <span class="toc-text">2.6. 升阶</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Bezier%E6%A0%B7%E6%9D%A1%E7%9A%84%E6%9E%81%E5%BD%A2%E5%BC%8F%E5%BA%94%E7%94%A8"><span class="toc-number">3.</span> <span class="toc-text">3. Bézier样条的极形式应用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E5%9B%9E%E9%A1%BEDe-Casteljau%E7%AE%97%E6%B3%95"><span class="toc-number">3.1.</span> <span class="toc-text">3.1. 回顾De Casteljau算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-Bezier%E6%A0%B7%E6%9D%A1%E7%9A%84%E6%9E%81%E5%BD%A2%E5%BC%8F"><span class="toc-number">3.2.</span> <span class="toc-text">3.2. Bézier样条的极形式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-%E6%B3%9B%E5%8C%96%E6%83%85%E5%86%B5"><span class="toc-number">3.3.</span> <span class="toc-text">3.3. 泛化情况</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-%E6%8D%A2%E5%9F%BA"><span class="toc-number">3.4.</span> <span class="toc-text">3.4. 换基</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-5-%E5%88%86%E6%AE%B5%E6%9B%B2%E7%BA%BF"><span class="toc-number">3.5.</span> <span class="toc-text">3.5. 分段曲线</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-6-%E5%AF%BC%E6%95%B0"><span class="toc-number">3.6.</span> <span class="toc-text">3.6. 导数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-7-%E7%BB%86%E5%88%86"><span class="toc-number">3.7.</span> <span class="toc-text">3.7. 细分</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-8-%E5%8D%87%E9%98%B6"><span class="toc-number">3.8.</span> <span class="toc-text">3.8. 升阶</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-B%E6%A0%B7%E6%9D%A1%E7%9A%84%E6%9E%81%E5%BD%A2%E5%BC%8F%E5%BA%94%E7%94%A8"><span class="toc-number">4.</span> <span class="toc-text">4. B样条的极形式应用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-B%E6%A0%B7%E6%9D%A1%E7%9A%84%E6%9E%81%E5%BD%A2%E5%BC%8F"><span class="toc-number">4.1.</span> <span class="toc-text">4.1. B样条的极形式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-de-Boor%E7%AE%97%E6%B3%95%E7%9A%84%E6%9E%81%E5%BD%A2%E5%BC%8F"><span class="toc-number">4.2.</span> <span class="toc-text">4.2. de Boor算法的极形式</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/01/25/paper_reading/Adaptive_Incident_Radiance_Field_Sampling_and_Reconstruction_Using_Deep_Reinforcement_Learning/" title="Adaptive Incident Radiance Field Sampling and Reconstruction Using Deep Reinforcement Learning">Adaptive Incident Radiance Field Sampling and Reconstruction Using Deep Reinforcement Learning</a><time datetime="2023-01-25T00:04:00.000Z" title="Created 2023-01-25 00:04:00">2023-01-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/01/06/paper_reading/Temporal_Coherence-Based_Distributed_Ray_Tracing_of_Massive_Scenes/" title="Temporal Coherence-based Distributed Ray Tracing of Massive Scenes">Temporal Coherence-based Distributed Ray Tracing of Massive Scenes</a><time datetime="2023-01-06T22:13:11.000Z" title="Created 2023-01-06 22:13:11">2023-01-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/29/gaming/spiderman_miles/" title="Marvel's Spider-Man Miles Morales"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2022/12/29/gaming/spiderman_miles/image-20221229175057590.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Marvel's Spider-Man Miles Morales"/></a><div class="content"><a class="title" href="/2022/12/29/gaming/spiderman_miles/" title="Marvel's Spider-Man Miles Morales">Marvel's Spider-Man Miles Morales</a><time datetime="2022-12-29T21:13:11.000Z" title="Created 2022-12-29 21:13:11">2022-12-29</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/12/17/paper_reading/Vectorization_for_Fast_Analytic_and_Differentiable_Visibility/" title="Vectorization for Fast, Analytic, and Differentiable Visibility">Vectorization for Fast, Analytic, and Differentiable Visibility</a><time datetime="2022-12-17T21:13:11.000Z" title="Created 2022-12-17 21:13:11">2022-12-17</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/12/14/note/edge_sampling/" title="Physics Based Differentiable Rendering: Edge Sampling">Physics Based Differentiable Rendering: Edge Sampling</a><time datetime="2022-12-14T00:00:00.000Z" title="Created 2022-12-14 00:00:00">2022-12-14</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By Chaf Chen</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll To Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container').forEach(node => {
+            if (node.hasAttribute('display')) {
+              btf.wrap(node, 'div', { class: 'mathjax-overflow' })
+            } else {
+              btf.wrap(node, 'span', { class: 'mathjax-overflow' })
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        const mermaidSrc = item.firstElementChild
+        const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+        const mermaidID = 'mermaid-' + index
+        const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+        mermaid.mermaidAPI.render(mermaidID, mermaidDefinition, (svgCode) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svgCode)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script><script>function loadDisqus () {
+  var disqus_config = function () {
+    this.page.url = 'https://chaphlagical.github.io/2022/01/03/geometry/polar_form/'
+    this.page.identifier = '/2022/01/03/geometry/polar_form/'
+    this.page.title = '计算机辅助几何设计(4)：极形式和开花算法'
+  };
+
+  window.disqusReset = () => {
+    DISQUS.reset({
+      reload: true,
+      config: disqus_config
+    })
+  }
+
+  if (window.DISQUS) disqusReset()
+  else {
+    (function() { 
+      var d = document, s = d.createElement('script');
+      s.src = 'https://chaphlagical-github-io.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  }
+
+  document.getElementById('darkmode').addEventListener('click', () => {
+    setTimeout(() => window.disqusReset(), 200)
+  })
+}
+
+if ('Disqus' === 'Disqus' || !false) {
+  if (false) btf.loadComment(document.getElementById('disqus_thread'), loadDisqus)
+  else loadDisqus()
+} else {
+  function loadOtherComment () {
+    loadDisqus()
+  }
+}
+</script></div></div></body></html>

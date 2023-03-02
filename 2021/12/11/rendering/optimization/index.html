@@ -1,0 +1,646 @@
+<!DOCTYPE html><html lang="[&quot;en&quot;,&quot;zh-CN&quot;,&quot;default&quot;]" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>实时渲染优化技术 | Chaf's Blog</title><meta name="author" content="Chaf Chen"><meta name="copyright" content="Chaf Chen"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="IlumEngine v0.1的渲染性能优化">
+<meta property="og:type" content="article">
+<meta property="og:title" content="实时渲染优化技术">
+<meta property="og:url" content="https://chaphlagical.github.io/2021/12/11/rendering/optimization/index.html">
+<meta property="og:site_name" content="Chaf&#39;s Blog">
+<meta property="og:description" content="IlumEngine v0.1的渲染性能优化">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://chaphlagical.github.io/2021/12/11/rendering/optimization/image-20211130105935862.png">
+<meta property="article:published_time" content="2021-12-11T00:00:00.000Z">
+<meta property="article:modified_time" content="2023-03-02T13:45:39.715Z">
+<meta property="article:author" content="Chaf Chen">
+<meta property="article:tag" content="Rendering">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://chaphlagical.github.io/2021/12/11/rendering/optimization/image-20211130105935862.png"><link rel="shortcut icon" href="/img/logo.jpg"><link rel="canonical" href="https://chaphlagical.github.io/2021/12/11/rendering/optimization/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"Traditional Chinese Activated Manually","cht_to_chs":"Simplified Chinese Activated Manually","day_to_night":"Dark Mode Activated Manually","night_to_day":"Light Mode Activated Manually","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '实时渲染优化技术',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-03-02 13:45:39'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+
+if (false) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/logo.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">33</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">6</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="Chaf's Blog"><img class="site-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/logo.jpg"/><span class="site-name">Chaf's Blog</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">实时渲染优化技术</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2021-12-11T00:00:00.000Z" title="Created 2021-12-11 00:00:00">2021-12-11</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-03-02T13:45:39.715Z" title="Updated 2023-03-02 13:45:39">2023-03-02</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Rendering/">Rendering</a></span></div><div class="meta-secondline"></div></div></div><article class="post-content" id="article-container"><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2021/12/11/rendering/optimization/image-20211130105935862.png" alt="image-20211130105935862"></p>
+<p>前段时间初步完成了个人图形引擎<a target="_blank" rel="noopener" href="https://github.com/Chaf-Libraries/IlumEngine">IlumEngine</a>的第一次性能优化。此次优化主要集中在几何渲染与纹理系统上，主要内容大致有：</p>
+<ul>
+<li>Vertex&#x2F;Index Buffer Packing</li>
+<li>GPU Driven Rendering<ul>
+<li>GPU Based Culling<ul>
+<li>Frustum Culling</li>
+<li>Hierarchy Z Buffer Occlusion Culling</li>
+<li>Cone Back Face Culling</li>
+</ul>
+</li>
+<li>Multi Draw Indirect</li>
+<li>Bindless Texture System</li>
+</ul>
+</li>
+</ul>
+<p>利用现代API灵活的可操作性，解决了几何阶段大量DrawCalls带来的CPU压力，以及提高顶点、索引数据的利用率，并且该架构也有利于后续集成实时光线追踪等功能</p>
+<h2 id="1-IlumEngine简介"><a href="#1-IlumEngine简介" class="headerlink" title="1. IlumEngine简介"></a>1. IlumEngine简介</h2><p>IlumEngine是我目前正在开发的一个玩具图形引擎，名字取自<em>《星球大战》</em>中凯伯水晶的产地<a target="_blank" rel="noopener" href="https://starwars.fandom.com/wiki/Ilum">伊冷</a>（后传中被第一军团改造为弑星者基地），引擎使用Vulkan作为图形API（后续或重构为RHI层以支持DX12甚至向下兼容OpenGL），目的是锻炼软件系统工程能力和作为学习图形学经典技术复现和前沿技术的实验平台，预期功能：</p>
+<ul>
+<li><p>Render Graph高灵活度渲染管线架构</p>
+</li>
+<li><p>基于ImGui的交互友好的编辑器</p>
+</li>
+<li><p>异步资源加载系统（或进化至流式加载系统）</p>
+</li>
+<li><p>集成基本几何造型算法</p>
+<ul>
+<li>Bezier曲线</li>
+<li>三次样条曲线</li>
+<li>B样条曲线</li>
+<li>有理样条曲线</li>
+<li>有理样条曲面等</li>
+</ul>
+</li>
+<li><p>集成基本数字几何处理算法</p>
+<ul>
+<li>网格参数化</li>
+<li>网格简化与细分</li>
+<li>网格变形等</li>
+</ul>
+</li>
+<li><p>集成基本物理模拟算法</p>
+<ul>
+<li>刚体模拟</li>
+<li>布料模拟</li>
+<li>柔性体模拟</li>
+<li>流体模拟</li>
+</ul>
+</li>
+<li><p>集成基本光栅渲染算法</p>
+<ul>
+<li>Forward&#x2F;Deferred&#x2F;Tile Based渲染管线</li>
+<li>实时阴影<ul>
+<li>PCF、PCSS</li>
+<li>VSM</li>
+<li>CSM</li>
+</ul>
+</li>
+<li>环境光照：IBL、PRT</li>
+<li>全局光照<ul>
+<li>DDGI</li>
+<li>VXGI等</li>
+</ul>
+</li>
+<li>屏幕空间后处理<ul>
+<li>Blooming</li>
+<li>SSGI</li>
+<li>SSR等</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>集成基本离线渲染算法</p>
+<ul>
+<li>PT</li>
+<li>PM</li>
+<li>BDPT等</li>
+</ul>
+</li>
+</ul>
+<p>目前已将基础的架构部分搭建完成，能够支持Disney PBR材质的延迟渲染管线：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2021/12/11/rendering/optimization/image-20211207102525865.png" alt="image-20211207102525865"></p>
+<p>接下来几节将从存储优化、CPU负载优化、GPU负载优化方面来介绍此次引擎优化的主要内容。</p>
+<h2 id="2-几何缓存优化"><a href="#2-几何缓存优化" class="headerlink" title="2. 几何缓存优化"></a>2. 几何缓存优化</h2><p>在介绍引擎的几何缓存优化之前，先介绍一下目前引擎使用的场景图和几何模型存储结构。</p>
+<h3 id="2-1-场景图"><a href="#2-1-场景图" class="headerlink" title="2.1. 场景图"></a>2.1. 场景图</h3><p>场景图是渲染引擎中重要的一个部分，通常采用树状结构（有向无环图）进行组织，IlumEngine中使用基于<a target="_blank" rel="noopener" href="https://github.com/skypjack/entt">entt</a>的实体组件系统ECS来实现场景图：</p>
+<ul>
+<li>每个实体（Entity）作为场景图中的一个结点</li>
+<li>每个实体可以挂上若干个组件（Component）</li>
+<li>实体只是拓扑关系的结点，不存储实际数据</li>
+<li>组件仅存储数据，而不存储逻辑（函数、方法）</li>
+<li>组件中的数据由系统（System）使用，实现场景图的更新</li>
+</ul>
+<p>想让一个实体拥有几何数据，则将该实体挂载上<code>MeshRenderer</code>组件，在渲染循环系统中，将从所有实体的<code>MeshRenderer</code>中获取渲染所需的几何数据，以完成几何阶段的渲染。</p>
+<h3 id="2-2-几何模型存储结构"><a href="#2-2-几何模型存储结构" class="headerlink" title="2.2. 几何模型存储结构"></a>2.2. 几何模型存储结构</h3><p>组件<code>MeshRenderer</code>定义如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">MeshRenderer</span></span><br><span class="line">&#123;</span><br><span class="line">    std::string model;</span><br><span class="line">    std::vector&lt;scope&lt;IMaterial&gt;&gt; materials;</span><br><span class="line">    <span class="keyword">inline</span> <span class="type">static</span> <span class="type">bool</span> update = <span class="literal">false</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>其中，</p>
+<ul>
+<li><code>model</code>为模型数据的索引，这里使用模型文件所在位置的相对路径表示</li>
+<li><code>materials</code>为模型的材质，初始化时将拷贝为模型的默认材质，在编辑器中也可对某个实体的材质进行修改</li>
+<li><code>update</code>为全局静态更新变量，表示在某循环中与<code>MeshRenderer</code>相关的更新</li>
+</ul>
+<p>为得到实际的几何数据，我们还需要利用索引<code>model</code>在资源管理器<code>ResourceCache</code>中查询几何模型，<code>ResourceCache</code>实现了模型与贴图的多线程异步加载和缓存查询等功能，这里不作展开。通过查询，将得到实际模型对象的引用<code>ModelReference</code>：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> ModelReference = std::reference_wrapper&lt;Model&gt;;</span><br></pre></td></tr></table></figure>
+
+<p>而<code>Model</code>便是我们实际存储几何数据的对象了，<code>Model</code>中又有如下数据：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">Model</span></span><br><span class="line">&#123;</span><br><span class="line">    std::vector&lt;SubMesh&gt; submeshes;</span><br><span class="line">    geometry::BoundingBox bounding_box;</span><br><span class="line">    VertexInfo vertex_info;</span><br><span class="line">    IndexInfo index_info;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其中，<code>Submesh</code>为模型的子网格，为导入方便以及支持单个模型不同部分使用不同材质，IlumEngine采用了子网格的形式来组织大型模型，每个子网格拥有以下信息：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">Submesh</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">uint32_t</span> index = <span class="number">0</span>;</span><br><span class="line">    glm::mat4 pre_transform = glm::<span class="built_in">mat4</span>(<span class="number">1.f</span>);</span><br><span class="line">    material::DisneyPBR material;</span><br><span class="line">    geometry::BoundingBox bounding_box;</span><br><span class="line">    VertexInfo vertex_info;</span><br><span class="line">    IndexInfo index_info;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其实和<code>Model</code>是差不多的，<code>Submesh</code>是目前几何数据渲染的最小独立单位。</p>
+<h3 id="2-3-几何存储方案"><a href="#2-3-几何存储方案" class="headerlink" title="2.3. 几何存储方案"></a>2.3. 几何存储方案</h3><p>上文已介绍了几何模型的一个存储结构，但是并未涉及具体的几何数据存储方案，所谓的几何数据存储方案，一个是CPU端的存储，即顶点和索引数据的存储；一个是GPU端的存储，即Vertex Buffer与Index Buffer的存储。对于静态网格模型而已，完全可以将几何数据送入GPU后删除CPU端的数据，但由于本引擎后续需要加入几何处理的功能，为了方便起见依旧全部保留CPU端的几何信息。</p>
+<h4 id="2-3-1-极简方案"><a href="#2-3-1-极简方案" class="headerlink" title="2.3.1. 极简方案"></a>2.3.1. 极简方案</h4><p>最简单的一种也是最直观的一种策略，便是每个子网格存一份位置的几何信息，即：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">Submesh</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">uint32_t</span> index = <span class="number">0</span>;</span><br><span class="line">    glm::mat4 pre_transform = glm::<span class="built_in">mat4</span>(<span class="number">1.f</span>);</span><br><span class="line">    material::DisneyPBR material;</span><br><span class="line">    geometry::BoundingBox bounding_box;</span><br><span class="line">    std::vector&lt;Vertex&gt; vertices;</span><br><span class="line">    std::vector&lt;<span class="type">uint32_t</span>&gt; indices;</span><br><span class="line">    Buffer vertex_buffer;</span><br><span class="line">    Buffer index_buffer;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这种方法最为简单直观，也方便编程，但在实际渲染过程中会有渲染状态频繁切换的问题。假设有$N$个模型，第$i$个模型具有$M_i$个子网格，那么在一个渲染循环内需要做以下操作：</p>
+<ol>
+<li><p>遍历$N$个模型</p>
+</li>
+<li><p>遍历模型$i$中的$M_i$个子网格</p>
+</li>
+<li><p>绑定子网格对应的GPU资源</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vkCmdBindVertexBuffers</span>(cmd_buffer, <span class="number">0</span>, <span class="number">1</span>, &amp;vertex_buffer, <span class="number">0</span>);</span><br><span class="line"><span class="built_in">vkCmdBindIndexBuffer</span>(cmd_buffer, index_buffer, <span class="number">0</span>, VK_INDEX_TYPE_UINT32);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>执行渲染绘制操作</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vkCmdDrawIndexed</span>(cmd_buffer, index_count, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>因此在一个渲染循环中需要切换绑定$N*M$次顶点&#x2F;索引缓冲，当模型数量增加时会明显影响效率，而且多块小存储空间也不是一种好的存储分配策略，容易带来内存碎片等问题，同时，当模型具有多个重复的子网格时，这种存储策略将造成数据冗余，降低存储资源的利用率</p>
+<h4 id="2-3-2-基于模型的优化方案"><a href="#2-3-2-基于模型的优化方案" class="headerlink" title="2.3.2. 基于模型的优化方案"></a>2.3.2. 基于模型的优化方案</h4><p>既然子网格存储所有的几何数据不太好，那我就每个模型存储一份几何数据，然后子网格只存偏移和长度咯。基于模型的优化方案也确实是这样的设计思路：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">Model</span></span><br><span class="line">&#123;</span><br><span class="line">    std::vector&lt;SubMesh&gt; submeshes;</span><br><span class="line">    geometry::BoundingBox bounding_box;</span><br><span class="line">    std::vector&lt;Vertex&gt; vertices;</span><br><span class="line">    std::vector&lt;<span class="type">uint32_t</span>&gt; indices;</span><br><span class="line">    Buffer vertex_buffer;</span><br><span class="line">    Buffer index_buffer;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Submesh</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">uint32_t</span> index = <span class="number">0</span>;</span><br><span class="line">    glm::mat4 pre_transform = glm::<span class="built_in">mat4</span>(<span class="number">1.f</span>);</span><br><span class="line">    material::DisneyPBR material;</span><br><span class="line">    geometry::BoundingBox bounding_box;</span><br><span class="line">    <span class="type">uint32_t</span> indices_offset;</span><br><span class="line">    <span class="type">uint32_t</span> indices_count;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>模型中存储了所有子网格的几何数据，通过顶点索引的偏移<code>offset</code>和顶点索引数量<code>count</code>即可绘制出相应的子网格。由于目前的索引均从顶点缓冲的开头开始，因此暂不需要<code>vertex_offset</code>的参与。</p>
+<p>假设有$N$个模型，第$i$个模型具有$M_i$个子网格，那么在一个渲染循环内需要做以下操作：</p>
+<ol>
+<li><p>遍历$N$个模型</p>
+</li>
+<li><p>绑定模型对应的GPU资源</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vkCmdBindVertexBuffers</span>(cmd_buffer, <span class="number">0</span>, <span class="number">1</span>, &amp;vertex_buffer, <span class="number">0</span>);</span><br><span class="line"><span class="built_in">vkCmdBindIndexBuffer</span>(cmd_buffer, index_buffer, <span class="number">0</span>, VK_INDEX_TYPE_UINT32);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>遍历模型$i$中的$M_i$个子网格</p>
+</li>
+<li><p>执行渲染绘制操作</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vkCmdDrawIndexed</span>(cmd_buffer, index_count, <span class="number">1</span>, index_offset, <span class="number">0</span>, <span class="number">0</span>);</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>因此在一个渲染循环中需要切换绑定$N$次顶点&#x2F;索引缓冲，比前述的极简方案要好不少，同时模型存储也避免了多个重复子网格冗余的问题，相同的子网格只要有相同的索引偏移和数量即可。</p>
+<h4 id="2-3-3-统一存储的优化方案"><a href="#2-3-3-统一存储的优化方案" class="headerlink" title="2.3.3. 统一存储的优化方案"></a>2.3.3. 统一存储的优化方案</h4><p>基于模型的方案在渲染每个模型时依然需要切换绑定顶点索引缓冲，在模型数量很多时同样可能带来瓶颈，同时也不利于我们后面进行GPU Driven Rendering的single drawcall设计。所以这次一劳永逸，分配一个大块的GPU显存资源来存储所有的顶点和索引缓冲，而CPU端的几何数据则仍按基于模型的方案设计。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">Model</span></span><br><span class="line">&#123;</span><br><span class="line">    std::vector&lt;SubMesh&gt; submeshes;</span><br><span class="line">    geometry::BoundingBox bounding_box;</span><br><span class="line">    std::vector&lt;Vertex&gt; vertices;</span><br><span class="line">    std::vector&lt;<span class="type">uint32_t</span>&gt; indices;</span><br><span class="line">    <span class="type">uint32_t</span> indices_offset;</span><br><span class="line">    <span class="type">uint32_t</span> vertices_offset;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Submesh</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">uint32_t</span> index = <span class="number">0</span>;</span><br><span class="line">    glm::mat4 pre_transform = glm::<span class="built_in">mat4</span>(<span class="number">1.f</span>);</span><br><span class="line">    material::DisneyPBR material;</span><br><span class="line">    geometry::BoundingBox bounding_box;</span><br><span class="line">    <span class="type">uint32_t</span> vertex_offset;</span><br><span class="line">    <span class="type">uint32_t</span> indices_offset;</span><br><span class="line">    <span class="type">uint32_t</span> indices_count;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Renderer</span></span><br><span class="line">&#123;</span><br><span class="line">    Buffer vertex_buffer;</span><br><span class="line">    Buffer index_buffer;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>该方案的麻烦之处在于，每当有模型添加、修改或删除时需要对全局缓冲进行更新，同时也需要更新每个模型的偏移。下图为各个存储索引关系示例：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2021/12/11/rendering/optimization/image-20211209211621438.png" alt="image-20211209211621438"></p>
+<p>现在，假设有$N$个模型，第$i$个模型具有$M_i$个子网格，那么在一个渲染循环内需要做以下操作：</p>
+<ol>
+<li><p>绑定几何数据对应的GPU资源</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vkCmdBindVertexBuffers</span>(cmd_buffer, <span class="number">0</span>, <span class="number">1</span>, &amp;vertex_buffer, <span class="number">0</span>);</span><br><span class="line"><span class="built_in">vkCmdBindIndexBuffer</span>(cmd_buffer, index_buffer, <span class="number">0</span>, VK_INDEX_TYPE_UINT32);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>遍历$N$个模型</p>
+</li>
+<li><p>遍历模型$i$中的$M_i$个子网格</p>
+</li>
+<li><p>执行渲染绘制操作</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vkCmdDrawIndexed</span>(cmd_buffer, index_count, <span class="number">1</span>, index_offset, vertex_offset, <span class="number">0</span>);</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>现在，我们彻底地将几何资源绑定次数降低至single bind，无论场景多大，模型数量多少我们均只需单次绑定开销，而在后续的GPU Driven Rendering的管线设计中，我们也会看到这种Vertex&#x2F;Index Buffer packing的方法具有的巨大优势。</p>
+<h2 id="3-GPU驱动渲染管线"><a href="#3-GPU驱动渲染管线" class="headerlink" title="3. GPU驱动渲染管线"></a>3. GPU驱动渲染管线</h2><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2021/12/11/rendering/optimization/image-20211209212327003.png" alt="image-20211209212327003"></p>
+<p>GPU Driven Rendering Pipelien的概念最早在Siggraph2015上由育碧Ubisoft提出[1]，其相应技术也已在《刺客信条：大革命》中得以落地，在当时可以说是相当前卫的一种设计，但由于当年硬件条件所限，《刺客信条：大革命》却因为层出不穷的Bug被当时的玩家所诟病，一度将育碧和刺客信条系列推向低谷，不过回过头看，《刺客信条：大革命》确实在大型场景和复杂建筑、海量NPC、真实感渲染等方面都是前作所不能比拟的，可以算是3A大作进入画质内卷的一个分界线。</p>
+<p>在IlumEngine中，我也尝试了使用GPU Driven Rendering Pipeline的思想，来对引擎进行性能调优。</p>
+<h3 id="3-1-无绑定纹理"><a href="#3-1-无绑定纹理" class="headerlink" title="3.1. 无绑定纹理"></a>3.1. 无绑定纹理</h3><p>Bindless方法指不通过传统方法将资源通过bindTexture&#x2F;bindBuffer的方式进行绑定，而是直接将Texture&#x2F;Buffer等GPU资源的虚拟地址直接存储在Bindless Buffer中，在着色器中可以直接使用索引进行访问。Bindless技术最早来源于Nvidia提出的 AZDO（Approaching Zero Driver Overhead）技术框架，2008年Nvidia的Tesla架构就已经实现了Bindless Buffer，而在2012年的Kepler架构正式加入了Bindless Texture特性。</p>
+<p>对于传统的绑定模型，我们往往需要在着色器中声明所需要的纹理&#x2F;缓冲资源，并且分配相应的槽位（slot）：</p>
+<figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">layout</span> (<span class="keyword">binding</span> = <span class="number">0</span>) <span class="keyword">uniform</span> <span class="type">sampler2D</span> tex0;</span><br><span class="line"><span class="keyword">layout</span> (<span class="keyword">binding</span> = <span class="number">1</span>) <span class="keyword">uniform</span> <span class="type">sampler2D</span> tex1;</span><br><span class="line"><span class="keyword">layout</span> (<span class="keyword">binding</span> = <span class="number">2</span>) <span class="keyword">uniform</span> <span class="type">sampler2D</span> tex2;</span><br></pre></td></tr></table></figure>
+
+<p>在CPU端，需要显式绑定所有纹理资源：</p>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="image-20211209214836148.png" alt="image-20211209214836148" style="zoom:50%;" />
+
+<p>而使用Bindless绑定模型，在着色器中，我们相当于使用了一个无穷大的纹理数组：</p>
+<figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">layout</span> (<span class="keyword">binding</span> = <span class="number">0</span>) <span class="keyword">uniform</span> <span class="type">sampler2D</span> textureArray[];</span><br></pre></td></tr></table></figure>
+
+<p>所有的纹理数据可以一次性全部灌入其中，需要用到时，我们只需要一个下标索引即可进行访问，而对于材质而言，也不再像下图那样的贴图绑定：</p>
+<figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">layout</span> (<span class="keyword">binding</span> = <span class="number">0</span>) <span class="keyword">uniform</span> <span class="type">sampler2D</span> Albedo;</span><br><span class="line"><span class="keyword">layout</span> (<span class="keyword">binding</span> = <span class="number">1</span>) <span class="keyword">uniform</span> <span class="type">sampler2D</span> Metallic;</span><br><span class="line"><span class="keyword">layout</span> (<span class="keyword">binding</span> = <span class="number">2</span>) <span class="keyword">uniform</span> <span class="type">sampler2D</span> Roughness;</span><br></pre></td></tr></table></figure>
+
+<p>而是使用一个结构体，存储所有的材质贴图索引：</p>
+<figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">struct Material</span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">uint</span> Albedo;</span><br><span class="line">    <span class="type">uint</span> Metallic;</span><br><span class="line">    <span class="type">uint</span> Roughness;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>访问时只需：</p>
+<figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">vec4</span> albedo = <span class="built_in">texture</span>(textureArray[nonuniformEXT(material.Albedo)], inUV);</span><br></pre></td></tr></table></figure>
+
+<p>即可。对于GLSL，记得开启扩展<code>GL_EXT_nonuniform_qualifier</code></p>
+<p>Bindless访问模型如下：</p>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="image-20211209215522589.png" alt="image-20211209215522589" style="zoom:50%;" />
+
+<p>Bindless对GPU Driven Rendering Pipeline有至关重要的作用，它主要解决了传统API下绑定资源到管线的开销问题，同时突破了着色器的硬件访问限制，进一步降低CPU-GPU的交互，我们不需要在CPU端设置Bindless资源的绑定状态，是之后实现single drawcall for everything的基础。</p>
+<p>Vulkan中与Bindless相关的技术叫<code>descriptor_indexing</code>，在Vulkan 1.0属于EXT特性，但在Vulkan 1.2中已升为Core特性。在Logical Device的创建时指定：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">VkPhysicalDeviceVulkan12Features vulkan12_features = &#123;&#125;;</span><br><span class="line">vulkan12_features.sType                            = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_2_FEATURES;</span><br><span class="line"></span><br><span class="line">vulkan12_features.shaderSampledImageArrayNonUniformIndexing = VK_TRUE;</span><br><span class="line">vulkan12_features.runtimeDescriptorArray                    = VK_TRUE;</span><br><span class="line">vulkan12_features.descriptorBindingVariableDescriptorCount  = VK_TRUE;</span><br><span class="line">vulkan12_features.descriptorBindingPartiallyBound           = VK_TRUE;</span><br></pre></td></tr></table></figure>
+
+<p>其中，<code>shaderSampledImageArrayNonUniformIndexing</code>、<code>runtimeDescriptorArray</code>、<code>descriptorBindingVariableDescriptorCount</code>指定开启<code>descriptor_indexing</code>特性，<code>descriptorBindingPartiallyBound</code>解决了缺省绑定的问题。</p>
+<p>在创建Bindless Texture过程中，需要指定Bindless Texture的数组支持的最大容量，通常会指定为一个较大的数（如1024）以避免反复扩容，而大部分情况下场景中的纹理都不会填满最大容量，此时需要开启<code>descriptorBindingPartiallyBound</code>支持缺省绑定，以防止出错。</p>
+<p>Bindless Texture可视化：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2021/12/11/rendering/optimization/bindless_texture.png" alt="img"></p>
+<p>至此，我们又将一个费时的操作从CPU端移走了。</p>
+<h3 id="3-2-多重间接绘制"><a href="#3-2-多重间接绘制" class="headerlink" title="3.2. 多重间接绘制"></a>3.2. 多重间接绘制</h3><p>此前的一章一节中，我们将几何数据资源绑定的CPU开销降至最低，将纹理资源绑定的CPU开销给完全移走了，在本节中，我们将要把绘制开销降至最低，实现心心念念的single drawcall for everything。</p>
+<p>在最开始的设计中，我以一种非常低效的方式进行几何阶段的渲染，流程如下：</p>
+<ol>
+<li>绑定Pipeline、DescriptorSet、Vertex&#x2F;Index Buffer</li>
+<li>遍历模型</li>
+<li>遍历子网格</li>
+<li>收集材质信息，使用Push Constant操作将材质数据送往着色器</li>
+<li>调用绘制命令</li>
+</ol>
+<p>可以看到，每一个子网格都将贡献一次Push Constant开销和一次Drawcall的开销，更不用说其他的逻辑判断操作，结果可想而知，场景复杂度一上去，CPU开销裂开，非常不贴合现代图形API的设计初衷，我们需要更多类似Bindless Texture的低CPU开销设计。</p>
+<p>好在现代图形API已经帮我们考虑好了，多重间接绘制Multi Draw Indirect能够完美地满足我们的需求。不同于显式调用绘制命令，Multi Draw Indirect允许我们实现将绘制命令预存在GPU的显存中，在需要绘制时调用：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vkCmdDrawIndexedIndirect</span>(cmd_buffer, draw_buffer, buffer_size, draw_count, <span class="built_in">sizeof</span>(VkDrawIndexedIndirectCommand));</span><br></pre></td></tr></table></figure>
+
+<p>一个Drawcall即可完成所有的绘制指令提交。</p>
+<p>下面介绍多重间接绘制相关的技术细节：</p>
+<h4 id="3-2-1-指令缓冲"><a href="#3-2-1-指令缓冲" class="headerlink" title="3.2.1. 指令缓冲"></a>3.2.1. 指令缓冲</h4><p>前述中，Multi Draw Indirect使用我们预存在GPU显存中的绘制命令进行提交，这些绘制命令存储在指令缓冲。在Vulkan中，有结构体<code>VkDrawIndexedIndirectCommand</code>或<code>VkDrawIndirectCommand</code>帮助我们指定指令缓冲中需要存哪些信息，一般来讲我们使用索引进行绘制，因此用的是<code>VkDrawIndexedIndirectCommand</code>，其数据结构定义为：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">VkDrawIndexedIndirectCommand</span> &#123;</span></span><br><span class="line">    <span class="type">uint32_t</span>    indexCount;</span><br><span class="line">    <span class="type">uint32_t</span>    instanceCount;</span><br><span class="line">    <span class="type">uint32_t</span>    firstIndex;</span><br><span class="line">    <span class="type">int32_t</span>     vertexOffset;</span><br><span class="line">    <span class="type">uint32_t</span>    firstInstance;</span><br><span class="line">&#125; VkDrawIndexedIndirectCommand;</span><br></pre></td></tr></table></figure>
+
+<p>是不是和我们显式绘制指令的参数不能说很像，只能说一模一样？</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">vkCmdDrawIndexed</span><span class="params">(</span></span><br><span class="line"><span class="params">    VkCommandBuffer                             commandBuffer,</span></span><br><span class="line"><span class="params">    <span class="type">uint32_t</span>                                    indexCount,</span></span><br><span class="line"><span class="params">    <span class="type">uint32_t</span>                                    instanceCount,</span></span><br><span class="line"><span class="params">    <span class="type">uint32_t</span>                                    firstIndex,</span></span><br><span class="line"><span class="params">    <span class="type">int32_t</span>                                     vertexOffset,</span></span><br><span class="line"><span class="params">    <span class="type">uint32_t</span>                                    firstInstance)</span>;</span><br></pre></td></tr></table></figure>
+
+<p>当然用法也一样，就是把之前要在渲染循环里指定的参数一一写入一个<code>std::vector&lt;VkDrawIndexedIndirectCommand&gt;</code>容器里，然后在把里面的数据传到GPU显存中，使用其缓冲句柄即可调用<code>vkCmdDrawIndexedIndirect</code>了。</p>
+<h4 id="3-2-2-材质缓冲"><a href="#3-2-2-材质缓冲" class="headerlink" title="3.2.2. 材质缓冲"></a>3.2.2. 材质缓冲</h4><p>前文提到过，在一开始的实现中，我们将材质信息使用Push Constant的方法在几何遍历时传到着色器中，而使用多重间接绘制时我们不再需要遍历几何体，没办法使用Push Constant方法传送逐子网格数据，因此我们需要一种新的传送材质数据的方法。</p>
+<p>这里我也采用了一种比较暴力的方法，那就是将所有的材质数据都存在一个大的Storage Buffer，鉴于材质数据结构中只需存各个贴图的索引和一些简单的参数，需要的显存并不算多，在每帧循环时，根据需要进行更新。</p>
+<p>由于材质信息是每个子网格拥有一份（不支持多材质、分层材质等），连同如预变换（Pre-Transform，与模型变换矩阵相乘构成世界变换矩阵）、包围盒等信息组成<code>PerInstanceData</code>：</p>
+<figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">struct PerInstanceData</span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">mat4</span> world_transform;</span><br><span class="line">    <span class="type">mat4</span> pre_transform;</span><br><span class="line"></span><br><span class="line">    <span class="type">vec4</span> base_color;</span><br><span class="line">    <span class="type">vec3</span> emissive_color;</span><br><span class="line">    <span class="type">float</span> metallic_factor;</span><br><span class="line"></span><br><span class="line">    <span class="type">float</span> roughness_factor;</span><br><span class="line">    <span class="type">float</span> emissive_intensity;</span><br><span class="line">    <span class="type">uint</span> albedo_map;</span><br><span class="line">    <span class="type">uint</span> normal_map;</span><br><span class="line"></span><br><span class="line">    <span class="type">uint</span> metallic_map;</span><br><span class="line">    <span class="type">uint</span> roughness_map;</span><br><span class="line">    <span class="type">uint</span> emissive_map;</span><br><span class="line">    <span class="type">uint</span> ao_map;</span><br><span class="line"></span><br><span class="line">    <span class="type">vec3</span> min_;</span><br><span class="line">    <span class="type">float</span> displacement_height;</span><br><span class="line"></span><br><span class="line">    <span class="type">vec3</span> max_;</span><br><span class="line">    <span class="type">uint</span> displacement_map;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>（变量顺序是为了内存对齐需要）</p>
+<p>在着色器中，通过扩展<code>GL_ARB_shader_draw_parameters</code>，能够获得当前绘制物体的索引<code>gl_DrawIDARB</code>，由此来访问相应的<code>PerInstanceData</code>。</p>
+<p>这样一来，我们也顺利地使用一个DrawCall完成了所有的绘制指令提交，实际实验结果也很让人满意，CPU开销有了显著的降低，耗时仅为原来的十分之一不到，CPU也不再成为了渲染的瓶颈。</p>
+<h3 id="3-3-基于GPU的剔除"><a href="#3-3-基于GPU的剔除" class="headerlink" title="3.3. 基于GPU的剔除"></a>3.3. 基于GPU的剔除</h3><p>在前面几节中，我们已经彻底完成了CPU端的瓶颈解除，但我们也不应止步于此，接下来将进行GPU端的性能优化。要想在不减少场景规模的前提下减少GPU的计算耗时，一个基本的想法就是告诉GPU哪些东西是需要渲染的、哪些东西是不需要渲染的，也就是本节的主角——剔除技术了。</p>
+<p>剔除的本质是一种可见性测试，最常见的剔除有两种：视锥体剔除和遮挡剔除，这两种剔除方法能够排除大量不可见的可渲染物体，当然还有小片元剔除、背面剔除等其他方法。</p>
+<p>在传统管线中，通常采用CPU进行剔除处理，通过SSIM等硬件加速手段提高求交检测来实现各种剔除技术。但在本GPU Driven Rendering Pipeline中，我们已经将所有渲染数据和参数放在显存上了，很自然地，我们将利用现代GPU的通用计算功能（GPGPU），使用计算着色器来帮助我们完成剔除的操作。</p>
+<h4 id="3-3-1-视锥剔除"><a href="#3-3-1-视锥剔除" class="headerlink" title="3.3.1. 视锥剔除"></a>3.3.1. 视锥剔除</h4><p>在学习计算机图形学基础时，我们都会接触到相机投影等相关知识，简单来讲，相机投影定义了一个裁剪空间，对于正交相机，其平截头体是一个长方体：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2021/12/11/rendering/optimization/image-20211210101301254.png" alt="image-20211210101301254"></p>
+<p>而对于透视相机，其平截头体是一个台体</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2021/12/11/rendering/optimization/image-20211210101317723.png" alt="image-20211210101317723"></p>
+<p>在平截头体（或视锥体）之外的顶点将在裁剪阶段被渲染管线丢弃，尽管这些顶点不会参与最后的光栅化阶段，但还是会在顶点着色器中进行计算处理，造成不必要的性能浪费。通过视锥剔除计算，在不可见物体送入渲染管线前就进行排除，能够提高我们的计算效率和计算资源利用率。</p>
+<p>视锥剔除的检测，即包围盒与视锥平面的求交检测，这里涉及两个步骤：视锥平面的求算与包围盒的求交。</p>
+<p><strong>视锥平面的求算</strong></p>
+<p>在IlumEngine中，视锥平面的计算使用了Gribb-Hartmann方法进行求解，其详细数学推导可参考[2]。</p>
+<p>已知当前场景主摄像机的投影矩阵为$M_{P}$，视图矩阵为$M_V$，定义投影视图矩阵：<br>$$<br>M_{PV}&#x3D;M_PM_V&#x3D;\begin{bmatrix}<br>m_{11}&amp;m_{12}&amp;m_{13}&amp;m_{14}\\<br>m_{21}&amp;m_{22}&amp;m_{23}&amp;m_{24}\\<br>m_{31}&amp;m_{32}&amp;m_{33}&amp;m_{34}\\<br>m_{41}&amp;m_{42}&amp;m_{43}&amp;m_{44}<br>\end{bmatrix}<br>$$<br>则六个视锥面方程如下：<br>$$<br>\begin{aligned}<br>\begin{matrix}<br>\mathrm{Left: }&amp;(m_{41}+m_{11})x+(m_{42}+m_{12})y+(m_{43}+m_{13})z+(m_{44}+m_{14})&#x3D;0\\<br>\mathrm{Right: }&amp;(m_{41}-m_{11})x+(m_{42}-m_{12})y+(m_{43}-m_{13})z+(m_{44}-m_{14})&#x3D;0\\<br>\mathrm{Bottom: }&amp;(m_{41}+m_{21})x+(m_{42}+m_{22})y+(m_{43}+m_{23})z+(m_{44}+m_{24})&#x3D;0\\<br>\mathrm{Top: }&amp;(m_{41}-m_{21})x+(m_{42}-m_{22})y+(m_{43}-m_{23})z+(m_{44}-m_{24})&#x3D;0\\<br>\mathrm{Near: }&amp;(m_{41}+m_{31})x+(m_{42}+m_{32})y+(m_{43}+m_{33})z+(m_{44}+m_{34})&#x3D;0\\<br>\mathrm{Far: }&amp;(m_{41}-m_{31})x+(m_{42}-m_{32})y+(m_{43}-m_{33})z+(m_{44}-m_{34})&#x3D;0\\<br>\end{matrix}<br>\end{aligned}<br>$$</p>
+<p><strong>包围盒的求交</strong></p>
+<p>IlumEngine中使用了包围球和AABB包围盒两种包围结构，包围球具有旋转不变性、求交方便等优点，AABB包围盒的紧致性比包围球更胜一筹，可以提高更细粒度的剔除。</p>
+<p>对于点$\pmb p(\pmb p_x, \pmb p_y,\pmb p_z)$，设视锥平面为$a_ix+b_iy+c_iz+d_i&#x3D;0$，$(i&#x3D;0,1,\cdots,6)$，则点$\pmb p$处于视锥体内，当且仅当：<br>$$<br>a_i\pmb p_x+b_i\pmb p_y+c_i\pmb p_z+d_i&lt;0,\forall i&#x3D;0,1,\cdots,6<br>$$<br>成立。</p>
+<p>对于球心坐标为点$\pmb p(\pmb p_x, \pmb p_y,\pmb p_z)$，半径为$r$的包围球，当且仅当：<br>$$<br>a_i\pmb p_x+b_i\pmb p_y+c_i\pmb p_z+d_i+r&lt;0,\forall i&#x3D;0,1,\cdots,6<br>$$<br>成立时，物体不会被剔除，代码如下所示：</p>
+<figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">bool</span> checkSphere(<span class="type">vec3</span> pos, <span class="type">float</span> radius)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">uint</span> i = <span class="number">0</span>; i &lt; <span class="number">6</span>; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">dot</span>(camera.frustum[i], <span class="type">vec4</span>(pos, <span class="number">1</span>)) + radius &lt; <span class="number">0.0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>对于两端点为$\pmb p_{max}$和$\pmb p_{min}$的AABB包围盒，我们可以组合出八个包围盒顶点和视锥体的六个平面分别求交，但这样计算量太大，也没必要，对于每个视锥平面，我们只需挑选出其中离它最远的那个顶点进行判断即可，最远顶点可有下述公式决定：<br>$$<br>\begin{matrix}<br>\pmb p_x&#x3D;\begin{cases}<br>p_{min_x}&amp;a_i&lt;0\\<br>p_{max_x}&amp;\mathrm{otherwise}<br>\end{cases}<br>&amp;<br>\pmb p_y&#x3D;\begin{cases}<br>p_{min_y}&amp;b_i&lt;0\\<br>p_{max_y}&amp;\mathrm{otherwise}<br>\end{cases}<br>&amp;<br>\pmb p_z&#x3D;\begin{cases}<br>p_{min_z}&amp;c_i&lt;0\\<br>p_{max_z}&amp;\mathrm{otherwise}<br>\end{cases}<br>\end{matrix}<br>$$<br>使用该点进行判断即可。代码如下所示：</p>
+<figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">bool</span> checkAABB(<span class="type">vec3</span> min_val, <span class="type">vec3</span> max_val)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">uint</span> i=<span class="number">0</span>; i &lt; <span class="number">6</span>; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">vec4</span> plane = camera.frustum[i];</span><br><span class="line">        <span class="type">vec3</span> plane_normal = &#123; plane.x, plane.y, plane.z &#125;;</span><br><span class="line">        <span class="type">float</span> plane_constant = plane.w;</span><br><span class="line"></span><br><span class="line">        <span class="type">vec3</span> axis_vert = &#123; <span class="number">0.0</span>, <span class="number">0.0</span>, <span class="number">0.0</span> &#125;;</span><br><span class="line"></span><br><span class="line">        axis_vert.x = plane.x &lt; <span class="number">0.0</span> ? min_val.x : max_val.x;</span><br><span class="line">        axis_vert.y = plane.y &lt; <span class="number">0.0</span> ? min_val.y : max_val.y;</span><br><span class="line">        axis_vert.z = plane.z &lt; <span class="number">0.0</span> ? min_val.z : max_val.z;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">dot</span>(axis_vert, plane_normal) + plane_constant &gt; <span class="number">0.0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-3-2-Hierarchy-Z-Buffer遮挡剔除"><a href="#3-3-2-Hierarchy-Z-Buffer遮挡剔除" class="headerlink" title="3.3.2. Hierarchy Z-Buffer遮挡剔除"></a>3.3.2. Hierarchy Z-Buffer遮挡剔除</h4><p>除了视锥剔除，遮挡剔除也是一种重要的剔除技术，当场景中有大量体积较大的遮挡物时有比较好的性能提升效果。遮挡剔除的实现手段有很多种，有使用硬件的遮挡查询策略，不过开销较大一般不建议使用；有手动指定Occlude和Occluder，使用CPU低分辨率软光栅进行剔除（参考Battlefield 3实现）；也有通过离线烘培的方法来实现遮挡剔除。在IlumEngine中则利用帧间信息连续性的原理，使用前一帧的深度缓冲，利用计算着色器生成层级Mipmap，再通过屏幕空间包围结构在计算着色器中实现遮挡剔除。</p>
+<p><strong>Hierarchy Z-Buffer的生成</strong></p>
+<p>有了深度缓冲，要计算某物体是否被遮挡，一个直接的想法就是在深度图中采样该物体所在的像素位置，比较深度图采样值和该物体实际的深度值，若采样值小于深度值，则认为物体在该像素下被遮挡，当然物体的实际深度和像素位置在光栅化之前是很难算出来的，我们可以用简单的几何体例如包围结构来代替实际的物体，但即便如此，进行全分辨率的搜索和比较也是一个相当耗时的操作，这也是我们为什么需要层级深度缓冲的原因：通过包围结构在屏幕空间的投影大小，能够计算出相应的MipLevel，使得在该MipLevel下一个像素刚好能够覆盖全分辨率下包围结构的大小，这样一来，搜索和比较操作从原来的需要对包围结构所占像素逐个比对，优化至只需要搜索相应的MipLevel，通过一次采样即可完成比对。当然下采样也会带来一定的信息量损失，带来剔除精度的损失，但在剔除精度与开销之间的权衡，我们更倾向于后者。</p>
+<p>在每一帧的几何阶段中，我们都将使用一个格式为<code>VK_FORMAT_D32_SFLOAT_S8_UINT</code>的纹理来作为我们的Depth Stencil Buffer，由于深度图格式无法直接进行Mipmap操作，我们需要自己手动生成相应的Mipmap。</p>
+<p>出于框架的局限性，需要在每个渲染流程的结尾将Deth Stencil Buffer拷贝到另外一张深度贴图<code>Last_Frame.depth_buffer</code>中，在<code>HizPass</code>中，首先我们需要准备好<code>Last_Frame.hiz_buffer</code>的各个层级的<code>VkImageView</code>，以方便后续数据的写入：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">m_views.<span class="built_in">resize</span>(Renderer::<span class="built_in">instance</span>()-&gt;Last_Frame.hiz_buffer-&gt;<span class="built_in">getMipLevelCount</span>());</span><br><span class="line"></span><br><span class="line">VkImageViewCreateInfo image_view_create_info       = &#123;&#125;;</span><br><span class="line">image_view_create_info.sType                       = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;</span><br><span class="line">image_view_create_info.viewType                    = VK_IMAGE_VIEW_TYPE_2D;</span><br><span class="line">image_view_create_info.format                      = VK_FORMAT_R32_SFLOAT;</span><br><span class="line">image_view_create_info.components                  = &#123;VK_COMPONENT_SWIZZLE_R&#125;;</span><br><span class="line">image_view_create_info.subresourceRange.layerCount = <span class="number">1</span>;</span><br><span class="line">image_view_create_info.image                       = *Renderer::<span class="built_in">instance</span>()-&gt;Last_Frame.hiz_buffer;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="type">uint32_t</span> i = <span class="number">0</span>; i &lt; m_views.<span class="built_in">size</span>(); i++)</span><br><span class="line">&#123;</span><br><span class="line">    image_view_create_info.subresourceRange.aspectMask     = VK_IMAGE_ASPECT_COLOR_BIT;</span><br><span class="line">    image_view_create_info.subresourceRange.baseArrayLayer = <span class="number">0</span>;</span><br><span class="line">    image_view_create_info.subresourceRange.layerCount     = <span class="number">1</span>;</span><br><span class="line">    image_view_create_info.subresourceRange.baseMipLevel   = i;</span><br><span class="line">    image_view_create_info.subresourceRange.levelCount     = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">vkCreateImageView</span>(GraphicsContext::<span class="built_in">instance</span>()-&gt;<span class="built_in">getLogicalDevice</span>(), &amp;image_view_create_info, <span class="literal">nullptr</span>, &amp;m_views[i]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>出于保守剔除策略，在下采样过程中，我们不应使用线性过滤等方法进行处理，而是考虑选择一个$4\times 4$ Texels中最大的值（不使用反向Z缓冲），在Vulkan中，可以使用Reduction Mode在<code>VkSampler</code>创建时指定<code>VK_SAMPLER_REDUCTION_MODE_MAX</code>：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">VkSamplerCreateInfo createInfo = &#123;VK_STRUCTURE_TYPE_SAMPLER_CREATE_INFO&#125;;</span><br><span class="line"></span><br><span class="line">createInfo.magFilter    = VK_FILTER_LINEAR;</span><br><span class="line">createInfo.minFilter    = VK_FILTER_LINEAR;</span><br><span class="line">createInfo.mipmapMode   = VK_SAMPLER_MIPMAP_MODE_NEAREST;</span><br><span class="line">createInfo.addressModeU = VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE;</span><br><span class="line">createInfo.addressModeV = VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE;</span><br><span class="line">createInfo.addressModeW = VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE;</span><br><span class="line">createInfo.minLod       = <span class="number">0</span>;</span><br><span class="line">createInfo.maxLod       = <span class="number">16.f</span>;</span><br><span class="line"></span><br><span class="line">VkSamplerReductionModeCreateInfo createInfoReduction = &#123;VK_STRUCTURE_TYPE_SAMPLER_REDUCTION_MODE_CREATE_INFO_EXT&#125;;</span><br><span class="line">createInfoReduction.reductionMode = VK_SAMPLER_REDUCTION_MODE_MAX;</span><br><span class="line">createInfo.pNext = &amp;createInfoReduction;</span><br><span class="line"><span class="built_in">vkCreateSampler</span>(GraphicsContext::<span class="built_in">instance</span>()-&gt;<span class="built_in">getLogicalDevice</span>(), &amp;createInfo, <span class="number">0</span>, &amp;m_hiz_sampler);</span><br></pre></td></tr></table></figure>
+
+<p>接着生成好需要用到的<code>descriptor_sets</code>：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="type">uint32_t</span> level = <span class="number">0</span>; level &lt; m_views.<span class="built_in">size</span>(); level++)</span><br><span class="line">&#123;</span><br><span class="line">    VkDescriptorImageInfo dstTarget;</span><br><span class="line">    dstTarget.sampler     = m_hiz_sampler;</span><br><span class="line">    dstTarget.imageView   = m_views[level];</span><br><span class="line">    dstTarget.imageLayout = VK_IMAGE_LAYOUT_GENERAL;</span><br><span class="line"></span><br><span class="line">    VkDescriptorImageInfo srcTarget;</span><br><span class="line">    srcTarget.sampler = m_hiz_sampler;</span><br><span class="line">    <span class="keyword">if</span> (level == <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        srcTarget.imageView   = Renderer::<span class="built_in">instance</span>()-&gt;Last_Frame.depth_buffer-&gt;<span class="built_in">getView</span>(ImageViewType::Depth_Only);</span><br><span class="line">        srcTarget.imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        srcTarget.imageView   = m_views[level - <span class="number">1</span>];</span><br><span class="line">        srcTarget.imageLayout = VK_IMAGE_LAYOUT_GENERAL;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function">std::vector&lt;VkWriteDescriptorSet&gt; <span class="title">write_descriptor_sets</span><span class="params">(<span class="number">2</span>)</span></span>;</span><br><span class="line">    write_descriptor_sets[<span class="number">0</span>]                  = &#123;&#125;;</span><br><span class="line">    write_descriptor_sets[<span class="number">0</span>].sType            = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;</span><br><span class="line">    write_descriptor_sets[<span class="number">0</span>].dstSet           = m_descriptor_sets[level];</span><br><span class="line">    write_descriptor_sets[<span class="number">0</span>].descriptorType   = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;</span><br><span class="line">    write_descriptor_sets[<span class="number">0</span>].dstBinding       = <span class="number">0</span>;</span><br><span class="line">    write_descriptor_sets[<span class="number">0</span>].pImageInfo       = &amp;srcTarget;</span><br><span class="line">    write_descriptor_sets[<span class="number">0</span>].pBufferInfo      = <span class="literal">nullptr</span>;</span><br><span class="line">    write_descriptor_sets[<span class="number">0</span>].pTexelBufferView = <span class="literal">nullptr</span>;</span><br><span class="line">    write_descriptor_sets[<span class="number">0</span>].descriptorCount  = <span class="number">1</span>;</span><br><span class="line">    write_descriptor_sets[<span class="number">0</span>].pNext            = <span class="literal">nullptr</span>;</span><br><span class="line"></span><br><span class="line">    write_descriptor_sets[<span class="number">1</span>]                  = &#123;&#125;;</span><br><span class="line">    write_descriptor_sets[<span class="number">1</span>].sType            = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;</span><br><span class="line">    write_descriptor_sets[<span class="number">1</span>].dstSet           = m_descriptor_sets[level];</span><br><span class="line">    write_descriptor_sets[<span class="number">1</span>].descriptorType   = VK_DESCRIPTOR_TYPE_STORAGE_IMAGE;</span><br><span class="line">    write_descriptor_sets[<span class="number">1</span>].dstBinding       = <span class="number">1</span>;</span><br><span class="line">    write_descriptor_sets[<span class="number">1</span>].pImageInfo       = &amp;dstTarget;</span><br><span class="line">    write_descriptor_sets[<span class="number">1</span>].pBufferInfo      = <span class="literal">nullptr</span>;</span><br><span class="line">    write_descriptor_sets[<span class="number">1</span>].pTexelBufferView = <span class="literal">nullptr</span>;</span><br><span class="line">    write_descriptor_sets[<span class="number">1</span>].descriptorCount  = <span class="number">1</span>;</span><br><span class="line">    write_descriptor_sets[<span class="number">1</span>].pNext            = <span class="literal">nullptr</span>;</span><br><span class="line"></span><br><span class="line">    m_descriptor_sets[level].<span class="built_in">update</span>(write_descriptor_sets);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>每个<code>descriptor_set</code>规定了需要读取和写入的数据，在第一轮中，读取的应为上一帧的深度图，写入MipLevel为0的Hi-Z Buffer，而之后的每一轮都是读取MipLevel为$i$的Hi-Z Buffer，写入MipLevel为$i+1$的Hi-Z Buffer。</p>
+<p>至此准备阶段已经结束了，在每一轮渲染循环中，需要进行以下更新：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="type">uint32_t</span> level = <span class="number">0</span>; level &lt; views.<span class="built_in">size</span>(); level++)</span><br><span class="line">&#123;</span><br><span class="line">    &#123;</span><br><span class="line">        VkImageMemoryBarrier read_to_write&#123;&#125;;</span><br><span class="line">        read_to_write.sType               = VK_STRUCTURE_TYPE_IMAGE_MEMORY_BARRIER;</span><br><span class="line">        read_to_write.oldLayout           = VK_IMAGE_LAYOUT_GENERAL;</span><br><span class="line">        read_to_write.newLayout           = VK_IMAGE_LAYOUT_GENERAL;</span><br><span class="line">        read_to_write.srcAccessMask       = VK_ACCESS_SHADER_READ_BIT;</span><br><span class="line">        read_to_write.dstAccessMask       = VK_ACCESS_SHADER_WRITE_BIT;</span><br><span class="line">        read_to_write.image               = *Renderer::<span class="built_in">instance</span>()-&gt;Last_Frame.hiz_buffer;</span><br><span class="line">        read_to_write.subresourceRange    = VkImageSubresourceRange&#123;VK_IMAGE_ASPECT_COLOR_BIT, level, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>&#125;;</span><br><span class="line">        read_to_write.srcQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;</span><br><span class="line">        read_to_write.dstQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;</span><br><span class="line">        <span class="built_in">vkCmdPipelineBarrier</span>(</span><br><span class="line">            cmd_buffer,</span><br><span class="line">            VK_PIPELINE_STAGE_COMPUTE_SHADER_BIT,</span><br><span class="line">            VK_PIPELINE_STAGE_COMPUTE_SHADER_BIT,</span><br><span class="line">            VK_DEPENDENCY_BY_REGION_BIT,</span><br><span class="line">            <span class="number">0</span>, <span class="literal">nullptr</span>,</span><br><span class="line">            <span class="number">0</span>, <span class="literal">nullptr</span>,</span><br><span class="line">            <span class="number">1</span>, &amp;read_to_write);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">vkCmdBindDescriptorSets</span>(cmd_buffer, state.pass.bind_point, state.pass.pipeline_layout, <span class="number">0</span>, <span class="number">1</span>, &amp;m_descriptor_sets[level].<span class="built_in">getDescriptorSet</span>(), <span class="number">0</span>, <span class="literal">nullptr</span>);</span><br><span class="line"></span><br><span class="line">    <span class="type">uint32_t</span> level_width  = std::<span class="built_in">max</span>(<span class="number">1u</span>, Renderer::<span class="built_in">instance</span>()-&gt;Last_Frame.hiz_buffer-&gt;<span class="built_in">getWidth</span>() &gt;&gt; level);</span><br><span class="line">    <span class="type">uint32_t</span> level_height = std::<span class="built_in">max</span>(<span class="number">1u</span>, Renderer::<span class="built_in">instance</span>()-&gt;Last_Frame.hiz_buffer-&gt;<span class="built_in">getHeight</span>() &gt;&gt; level);</span><br><span class="line"></span><br><span class="line">    VkExtent2D extent = &#123;level_width, level_height&#125;;</span><br><span class="line">    <span class="built_in">vkCmdPushConstants</span>(cmd_buffer, state.pass.pipeline_layout, VK_SHADER_STAGE_COMPUTE_BIT, <span class="number">0</span>, <span class="built_in">sizeof</span>(VkExtent2D), &amp;extent);</span><br><span class="line"></span><br><span class="line">    <span class="type">uint32_t</span> group_count_x = (Renderer::<span class="built_in">instance</span>()-&gt;<span class="built_in">getRenderTargetExtent</span>().width + <span class="number">32</span> - <span class="number">1</span>) / <span class="number">32</span>;</span><br><span class="line">    <span class="type">uint32_t</span> group_count_y = (Renderer::<span class="built_in">instance</span>()-&gt;<span class="built_in">getRenderTargetExtent</span>().height + <span class="number">32</span> - <span class="number">1</span>) / <span class="number">32</span>;</span><br><span class="line">    <span class="built_in">vkCmdDispatch</span>(cmd_buffer, group_count_x, group_count_y, <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">    &#123;</span><br><span class="line">        VkImageMemoryBarrier write_to_read&#123;&#125;;</span><br><span class="line">        write_to_read.sType               = VK_STRUCTURE_TYPE_IMAGE_MEMORY_BARRIER;</span><br><span class="line">        write_to_read.oldLayout           = VK_IMAGE_LAYOUT_GENERAL;</span><br><span class="line">        write_to_read.newLayout           = VK_IMAGE_LAYOUT_GENERAL;</span><br><span class="line">        write_to_read.srcAccessMask       = VK_ACCESS_SHADER_WRITE_BIT;</span><br><span class="line">        write_to_read.dstAccessMask       = VK_ACCESS_SHADER_READ_BIT;</span><br><span class="line">        write_to_read.image               = *Renderer::<span class="built_in">instance</span>()-&gt;Last_Frame.hiz_buffer;</span><br><span class="line">        write_to_read.subresourceRange    = VkImageSubresourceRange&#123;VK_IMAGE_ASPECT_COLOR_BIT, level, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>&#125;;</span><br><span class="line">        write_to_read.srcQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;</span><br><span class="line">        write_to_read.dstQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;</span><br><span class="line">        <span class="built_in">vkCmdPipelineBarrier</span>(</span><br><span class="line">            cmd_buffer,</span><br><span class="line">            VK_PIPELINE_STAGE_COMPUTE_SHADER_BIT,</span><br><span class="line">            VK_PIPELINE_STAGE_COMPUTE_SHADER_BIT,</span><br><span class="line">            VK_DEPENDENCY_BY_REGION_BIT,</span><br><span class="line">            <span class="number">0</span>, <span class="literal">nullptr</span>,</span><br><span class="line">            <span class="number">0</span>, <span class="literal">nullptr</span>,</span><br><span class="line">            <span class="number">1</span>, &amp;write_to_read);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>每一次计算循环开始，需要切换相应的读写状态、绑定相应的<code>descriptor_set</code>，进行计算着色器的<code>dispatch</code>，最后再进行下一轮的状态切换准备，直到填满Hi-Z Buffer的所有Mipmap层级为止。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2021/12/11/rendering/optimization/image-20211210113933024.png" alt="image-20211210113933024"></p>
+<p><strong>屏幕空间包围结构的计算</strong></p>
+<p>有了Hi-Z Buffer，现在我们需要得到物体包围结构屏幕空间的投影，为了计算方便，只考虑包围球形式，使用的计算方法参考文献[3]，该算法将世界空间的包围球变换为屏幕空间AABB包围盒。</p>
+<p>首先我们回顾一下图形学基础中视图矩阵和投影矩阵的相关概念，视图矩阵$M_{view}$主要作用是将场景变换到相机空间中，所谓的相机空间，就是以相机为原点所定义的空间，视图矩阵可以由相机的模型矩阵求逆得到：$M_{view}&#x3D;M_{camera\<em>position}^{-1}$，当然一般很少通过这种方法来求取视图矩阵，因为不够直观，而是通过摄像机的朝向和摄像机的位置来进行求取：<br>$$<br>M</em>{view}&#x3D;\begin{bmatrix}<br>\pmb R_x&amp;\pmb R_y&amp;\pmb R_z&amp;0\\<br>\pmb U_x&amp;\pmb U_y&amp;\pmb U_z&amp;0\\<br>\pmb D_x&amp;\pmb D_y&amp;\pmb D_z&amp;0\\<br>0&amp;0&amp;0&amp;1<br>\end{bmatrix}<br>\ast<br>\begin{bmatrix}<br>1&amp;0&amp;0&amp;-\pmb P_x\\<br>0&amp;1&amp;0&amp;-\pmb P_y\\<br>0&amp;0&amp;1&amp;-\pmb P_z\\<br>0&amp;0&amp;0&amp;1<br>\end{bmatrix}<br>$$<br>其中，$\pmb R$为右向量，$\pmb U$为上向量，$\pmb D$为方向向量，$\pmb P$为摄像机的位置向量。</p>
+<p>而投影矩阵则是实现将三维空间的物体投影到二维屏幕上，投影矩阵将相机空间中的顶点数据变换到裁剪空间中，最后通过透视除法变换到标准化设备坐标，这里以透视投影为例：</p>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="gl_projectionmatrix03.png" alt="gl_projectionmatrix03" style="zoom:50%;" />
+
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="gl_projectionmatrix04.png" alt="gl_projectionmatrix04" style="zoom:50%;" />
+
+<p>从两个方向观察，由三角形近似可得：<br>$$<br>\begin{align}<br>\dfrac{x_p}{x_e}&amp;&#x3D;\dfrac{-n}{z_e}\Rightarrow x_p&#x3D;\dfrac{-n\cdot x_e}{z_e}&#x3D;\dfrac{n\cdot x_e}{-z_e}\\<br>\dfrac{y_p}{y_e}&amp;&#x3D;\dfrac{-n}{z_e}\Rightarrow y_p&#x3D;\dfrac{-n\cdot y_e}{z_e}&#x3D;\dfrac{n\cdot y_e}{-z_e}<br>\end{align}<br>$$<br>注意到$x_p$和$y_p$的计算均需要除以一个$-z_e$，这与裁剪空间到NDC正则化的透视除法相对应：<br>$$<br>\begin{align}<br>\begin{pmatrix}<br>x_{clip}\\y_{clip}\\z_{clip}\\w_{clip}<br>\end{pmatrix}<br>&amp;&#x3D;\pmb M_{projection}\cdot<br>\begin{pmatrix}<br>x_{eye}\\y_{eye}\\z_{eye}\\w_{eye}<br>\end{pmatrix}\\<br>\begin{pmatrix}<br>x_{ndc}\\y_{ndc}\\z_{ndc}<br>\end{pmatrix}<br>&amp;&#x3D;<br>\begin{pmatrix}<br>x_{clip}&#x2F;w_{clip}\\<br>y_{clip}&#x2F;w_{clip}\\<br>z_{clip}&#x2F;w_{clip}<br>\end{pmatrix}<br>\end{align}<br>$$<br>这里的$w_{clip}$便是$-z_e$了，因此透视投影矩阵有如下形式：<br>$$<br>\begin{align}<br>\begin{pmatrix}<br>x_c\\<br>y_c\\<br>z_c\\<br>w_c<br>\end{pmatrix}&#x3D;<br>\begin{pmatrix}<br>\cdot &amp; \cdot &amp; \cdot &amp; \cdot\\<br>\cdot &amp; \cdot &amp; \cdot &amp; \cdot\\<br>\cdot &amp; \cdot &amp; \cdot &amp; \cdot\\<br>0&amp;0&amp;-1&amp;0<br>\end{pmatrix}<br>\begin{pmatrix}<br>x_e\\<br>y_e\\<br>z_e\\<br>w_e<br>\end{pmatrix}<br>\end{align}<br>$$<br>下面我们需要把近平面坐标点$x_p$和$y_p$线性映射到NDC坐标$x_n$和$y_n$：$[l,r]\Rightarrow [-1,1]$以及$[b,t]\Rightarrow [-1,1]$<br>$$<br>\begin{align}<br>\dfrac{x_n-(-1)}{1-(-1)}&amp;&#x3D;\dfrac{x_p-l}{r-l}\Rightarrow x_n&#x3D;\dfrac{2x_p}{r-l}-\dfrac{r+l}{r-l}\\<br>\dfrac{y_n-(-1)}{1-(-1)}&amp;&#x3D;\dfrac{y_p-b}{t-b}\Rightarrow y_n&#x3D;\dfrac{2y_p}{t-b}-\dfrac{t+b}{t-b}<br>\end{align}<br>$$<br>将$x_p$和$y_p$代入得<br>$$<br>\begin{align}<br>x_n&#x3D;\Big(\dfrac{2n}{r-l}\cdot x_e+\dfrac{r+l}{r-l}\cdot z_e \Big)\Big&#x2F;-z_e\\<br>y_n&#x3D;\Big(\dfrac{2n}{t-b}\cdot y_e+\dfrac{t+b}{t-b}\cdot z_e \Big)\Big&#x2F;-z_e<br>\end{align}<br>$$<br>可填入透视投影矩阵：<br>$$<br>\begin{align}<br>\begin{pmatrix}<br>x_c\\<br>y_c\\<br>z_c\\<br>w_c<br>\end{pmatrix}&#x3D;<br>\begin{pmatrix}<br>\frac{2n}{r-l}&amp;0&amp;\frac{r+l}{r-l}&amp;0\\<br>0&amp;\frac{2n}{t-b}&amp;\frac{t+b}{t-b}&amp;0\\<br>\cdot &amp; \cdot &amp; \cdot &amp; \cdot\\<br>0&amp;0&amp;-1&amp;0<br>\end{pmatrix}<br>\begin{pmatrix}<br>x_e\\<br>y_e\\<br>z_e\\<br>w_e<br>\end{pmatrix}<br>\end{align}<br>$$<br>由于$z_c$不依赖于$x_e$与$y_e$且与$z_e$和$w_e$成线性关系，设<br>$$<br>\begin{align}<br>\begin{pmatrix}<br>x_c\\<br>y_c\\<br>z_c\\<br>w_c<br>\end{pmatrix}&#x3D;<br>\begin{pmatrix}<br>\frac{2n}{r-l}&amp;0&amp;\frac{r+l}{r-l}&amp;0\\<br>0&amp;\frac{2n}{t-b}&amp;\frac{t+b}{t-b}&amp;0\\<br>0&amp;0&amp;A&amp;B\\<br>0&amp;0&amp;-1&amp;0<br>\end{pmatrix}<br>\begin{pmatrix}<br>x_e\\<br>y_e\\<br>z_e\\<br>w_e<br>\end{pmatrix}<br>\end{align}<br>$$<br>即<br>$$<br>z_n&#x3D;z_c&#x2F;w_c&#x3D;\dfrac{Az_e+Bw_e}{-z_e}<br>$$<br>在视角空间中，$w_e&#x3D;1$，因此$z_n&#x3D;\frac{Az_e+B}{-z_e}$，利用边界关系：<br>$$<br>\begin{cases}<br>\dfrac{-An+B}{n}&#x3D;-1\\<br>\dfrac{-Af+B}{f}&#x3D;1<br>\end{cases}<br>\Rightarrow<br>\begin{cases}<br>A&#x3D;-\dfrac{f+n}{f-n}\\<br>B&#x3D;-\dfrac{2fn}{f-n}<br>\end{cases}<br>$$<br>因此完整的透视投影矩阵表示为：<br>$$<br>\begin{pmatrix}<br>\frac{2n}{r-l}&amp;0&amp;\frac{r+l}{r-l}&amp;0\\<br>0&amp;\frac{2n}{t-b}&amp;\frac{t+b}{t-b}&amp;0\\<br>0&amp;0&amp;\frac{-(f+n)}{f-n}&amp;\frac{-2fn}{f-n}\\<br>0&amp;0&amp;-1&amp;0<br>\end{pmatrix}<br>$$<br>如果视锥体对称，即$t&#x3D;-b$和$l&#x3D;-r$，则可简化为：<br>$$<br>\begin{pmatrix}<br>\frac{n}{r}&amp;0&amp;0&amp;0\\<br>0&amp;\frac{n}{t}&amp;0&amp;0\\<br>0&amp;0&amp;\frac{-(f+n)}{f-n}&amp;\frac{-2fn}{f-n}\\<br>0&amp;0&amp;-1&amp;0<br>\end{pmatrix}<br>$$<br>通常情况下我们会用参数$fovy$（$y$轴方向的视域角）、$aspect$（屏幕宽高比）、$near$（近平面）以及$far$（远平面）来构造透视投影矩阵，相关关系如下：<br>$$<br>\begin{align}<br>r-l&amp;&#x3D;width&#x3D;2<em>near</em>aspect<em>tan(fovy&#x2F;2)\\<br>t-b&amp;&#x3D;height&#x3D;2</em>near*tan(fovy&#x2F;2)<br>\end{align}<br>$$</p>
+<p>而对于正交投影，只需对各个方向作正则化即可：<br>$$<br>\begin{cases}<br>\dfrac{x_n-(-1)}{1-(-1)}&#x3D;\dfrac{x_e-l}{r-l}\\<br>\dfrac{y_n-(-1)}{1-(-1)}&#x3D;\dfrac{y_e-b}{t-b}\\<br>\dfrac{z_n-(-1)}{1-(-1)}&#x3D;\dfrac{z_e-n}{f-n}<br>\end{cases}<br>$$<br>得到正交投影矩阵：<br>$$<br>\begin{pmatrix}<br>\frac{2}{r-l}&amp;0&amp;0&amp;-\frac{r+l}{r-l}\\<br>0&amp;\frac{2}{t-b}&amp;0&amp;-\frac{t+b}{t-b}\\<br>0&amp;0&amp;\frac{-2}{f-n}&amp;-\frac{f+n}{f-n}\\<br>0&amp;0&amp;0&amp;1<br>\end{pmatrix}<br>$$<br>复习完视图矩阵和投影矩阵的相关概念后，我们正式计算世界空间中的包围球到屏幕空间AABB包围盒的投影。</p>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="image-20211210152957219.png" alt="image-20211210152957219" style="zoom:50%;" />
+
+<p>首先，需要将包围球投影到相机空间，这一步简单地乘上一个视图矩阵即可。</p>
+<p>求屏幕空间包围盒，即求包围球在投影面上的最大和最小坐标，从单方向看，如上图所示，若$\hat a$表示$x$轴，欲求取点$T$的坐标，连线$OT$与圆$C$相切，在该二维平面上，有球心坐标$C(C_x,C_z)$，设$\vec c&#x3D;(C_x,C_y)$，$c&#x3D;\sqrt{C_x^2+C_y^2}$，则从相机到$T$的单位向量可由旋转得到：<br>$$<br>\hat\omega &#x3D;\begin{bmatrix}\cos\theta&amp;\sin\theta\\-\sin\theta&amp;\cos\theta\end{bmatrix}\frac{\vec c}{|\vec c|}<br>$$<br>而$T$到相机的距离也很容易求得：$d&#x3D;\sqrt{c^2-r^2}$，且$\cos\theta &#x3D; \frac{d}{c}$，$\sin\theta&#x3D;\frac{r}{c}$</p>
+<p>解得$T&#x3D;O+\hat \omega d$，同理可求得点$B$的坐标，令$\tilde \theta &#x3D; -\theta$即可。</p>
+<p>点$B$和$T$即视图空间中，包围球在$x$轴方向上的最左点和最右点，我们还需要将其变换到裁剪空间中，进行归一化处理。</p>
+<p>由前述推导可知，透视投影过程可表示为如下形式：<br>$$<br>\begin{pmatrix}<br>P_{00}&amp;0&amp;0&amp;0\\<br>0&amp;P_{11}&amp;0&amp;0\\<br>0&amp;0&amp;P_{22}&amp;P_{23}\\<br>0&amp;0&amp;-1&amp;0<br>\end{pmatrix}<br>\begin{pmatrix}<br>x_e\\y_e\\z_e\\1<br>\end{pmatrix}&#x3D;<br>\begin{pmatrix}<br>P_{00}x_e\\P_{11}y_e\\P_{22}z_e+P_{23}\\-z_e<br>\end{pmatrix}<br>$$<br>通过透视除法投影到NDC空间中：<br>$$<br>\begin{aligned}<br>x_n &amp;&#x3D; \frac{Ax_e}{-z_e}\\<br>y_n &amp;&#x3D; \frac{By_e}{-z_e}<br>\end{aligned}<br>$$<br>最后通过简单的线性变换可以从NDC空间$[-1,1]$变换到UV空间$[0,1]$方便后续处理。</p>
+<p>GLSL实现如下：</p>
+<figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">bool</span> projectSphere(<span class="type">vec3</span> C, <span class="type">float</span> r, <span class="type">float</span> znear, <span class="type">float</span> P00, <span class="type">float</span> P11, <span class="keyword">out</span> <span class="type">vec4</span> aabb)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (-C.z &lt; r + znear)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">    <span class="type">vec2</span> cx = C.xz;</span><br><span class="line">    <span class="type">vec2</span> vx = <span class="type">vec2</span>(<span class="built_in">sqrt</span>(<span class="built_in">dot</span>(cx, cx) - r * r), r);</span><br><span class="line">    <span class="type">vec2</span> minx = <span class="type">mat2</span>(vx.x, vx.y, -vx.y, vx.x) * cx;</span><br><span class="line">    <span class="type">vec2</span> maxx = <span class="type">mat2</span>(vx.x, -vx.y, vx.y, vx.x) * cx;</span><br><span class="line"></span><br><span class="line">    <span class="type">vec2</span> cy = C.yz;</span><br><span class="line">    <span class="type">vec2</span> vy = <span class="type">vec2</span>(<span class="built_in">sqrt</span>(<span class="built_in">dot</span>(cy, cy) - r * r), r);</span><br><span class="line">    <span class="type">vec2</span> miny = <span class="type">mat2</span>(vy.x, vy.y, -vy.y, vy.x) * cy;</span><br><span class="line">    <span class="type">vec2</span> maxy = <span class="type">mat2</span>(vy.x, -vy.y, vy.y, vy.x) * cy;</span><br><span class="line"></span><br><span class="line">    aabb = <span class="type">vec4</span>(-minx.x / minx.y * P00, -miny.x / miny.y * P11, -maxx.x / maxx.y * P00, -maxy.x / maxy.y * P11);</span><br><span class="line">    aabb = aabb.xwzy * <span class="type">vec4</span>(<span class="number">0.5</span>f, <span class="number">-0.5</span>f, <span class="number">0.5</span>f, <span class="number">-0.5</span>f) + <span class="type">vec4</span>(<span class="number">0.5</span>f);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>深度值搜索与比较</strong></p>
+<p>得到Hi-Z Buffer和屏幕空间包围盒后，便可开始最后的计算环节。首先通过屏幕空间包围盒的大小获得需要索引的MipLevel：</p>
+<figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">float</span> width = (aabb.z - aabb.x) * cullData.zbuffer_width;</span><br><span class="line"><span class="type">float</span> height = (aabb.w - aabb.y) * cullData.zbuffer_height;</span><br><span class="line"><span class="type">float</span> mip_level = <span class="built_in">floor</span>(<span class="built_in">log2</span>(<span class="built_in">max</span>(width, height)));</span><br></pre></td></tr></table></figure>
+
+<p>通过包围盒中心位置来确定需要采样的UV坐标，为了保证不会误剔除，在其周围多采样几个像素：</p>
+<figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">vec2</span> uv = (aabb.xy + aabb.zw) * <span class="number">0.5</span>;</span><br><span class="line"><span class="type">vec2</span> uv0 = aabb.xy;</span><br><span class="line"><span class="type">vec2</span> uv1 = aabb.zw;</span><br><span class="line"><span class="type">vec2</span> uv2 = aabb.xw;</span><br><span class="line"><span class="type">vec2</span> uv3 = aabb.zy;</span><br></pre></td></tr></table></figure>
+
+<p>选择深度最大的那个深度值，保守剔除策略：</p>
+<figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">float</span> depth = <span class="built_in">textureLod</span>(hiz_buffer, uv, mip_level).r;</span><br><span class="line">depth = <span class="built_in">max</span>(depth, <span class="built_in">textureLod</span>(hiz_buffer, uv0, mip_level).r);</span><br><span class="line">depth = <span class="built_in">max</span>(depth, <span class="built_in">textureLod</span>(hiz_buffer, uv1, mip_level).r);</span><br><span class="line">depth = <span class="built_in">max</span>(depth, <span class="built_in">textureLod</span>(hiz_buffer, uv2, mip_level).r);</span><br><span class="line">depth = <span class="built_in">max</span>(depth, <span class="built_in">textureLod</span>(hiz_buffer, uv3, mip_level).r);</span><br></pre></td></tr></table></figure>
+
+<p>还需要将深度值通过逆透视除法还原到裁剪空间中，以避免浮点精度误差带来的剔除准确性降低，设采样得到的深度值为$z_n$，其裁剪空间对应的深度值为：<br>$$<br>z_c&#x3D;\frac{2f\cdot n}{(f-n)\cdot z_n-(f+n)}<br>$$<br>其中，$f$为远裁剪面距离，$n$为近裁剪面距离，注意这里得到的$z_c$为负，需要取反。</p>
+<p>在实际实验中，在摄像机远离物体的过程中可能会出现误剔除的情况，这是由于我们利用了上一帧的深度信息，而这一帧由于远离物体，深度变大，会导致自遮挡的现象出现，解决办法也很简单，我们需要保留上一帧的相机视图-投影矩阵，在计算用于比较的实际深度值时，应使用上一帧的相机参数，以解决自遮挡问题。</p>
+<p>完整的遮挡剔除代码如下所示：</p>
+<figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">float</span> LinearizeDepth(<span class="type">float</span> depth)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> -(<span class="number">2.0</span> * cullData.zfar * cullData.znear) / </span><br><span class="line">        (cullData.zfar + cullData.znear - depth * (cullData.zfar - cullData.znear));	</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">bool</span> checkOcclusion(<span class="type">vec3</span> center, <span class="type">float</span> radius)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">vec3</span> dir = <span class="built_in">normalize</span>(camera.position - center);</span><br><span class="line">    <span class="type">vec4</span> sceen_space_center_last = camera.last_view_projection * <span class="type">vec4</span>(center + dir*radius, <span class="number">1.0</span>);</span><br><span class="line"></span><br><span class="line">    <span class="type">vec3</span> C = ((cullData.view) * <span class="type">vec4</span>(center,<span class="number">1.0</span>)).xyz;</span><br><span class="line"></span><br><span class="line">    <span class="type">vec4</span> aabb;</span><br><span class="line">    <span class="keyword">if</span>(!projectSphere(C, radius, cullData.znear, cullData.P00, cullData.P11, aabb))</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="type">float</span> width = (aabb.z - aabb.x) * cullData.zbuffer_width;</span><br><span class="line">    <span class="type">float</span> height = (aabb.w - aabb.y) * cullData.zbuffer_height;</span><br><span class="line"></span><br><span class="line">    <span class="type">float</span> mip_level = <span class="built_in">floor</span>(<span class="built_in">log2</span>(<span class="built_in">max</span>(width, height)));</span><br><span class="line"></span><br><span class="line">    <span class="type">vec2</span> uv = (aabb.xy + aabb.zw) * <span class="number">0.5</span>;</span><br><span class="line">    <span class="type">vec2</span> uv0 = aabb.xy;</span><br><span class="line">    <span class="type">vec2</span> uv1 = aabb.zw;</span><br><span class="line">    <span class="type">vec2</span> uv2 = aabb.xw;</span><br><span class="line">    <span class="type">vec2</span> uv3 = aabb.zy;</span><br><span class="line"></span><br><span class="line">    <span class="type">float</span> depth = <span class="built_in">textureLod</span>(hiz_buffer, uv, mip_level).r;</span><br><span class="line">    depth = <span class="built_in">max</span>(depth, <span class="built_in">textureLod</span>(hiz_buffer, uv0, mip_level).r);</span><br><span class="line">    depth = <span class="built_in">max</span>(depth, <span class="built_in">textureLod</span>(hiz_buffer, uv1, mip_level).r);</span><br><span class="line">    depth = <span class="built_in">max</span>(depth, <span class="built_in">textureLod</span>(hiz_buffer, uv2, mip_level).r);</span><br><span class="line">    depth = <span class="built_in">max</span>(depth, <span class="built_in">textureLod</span>(hiz_buffer, uv3, mip_level).r);</span><br><span class="line">    </span><br><span class="line">    <span class="type">float</span> depthSphere = <span class="built_in">abs</span>(sceen_space_center_last.z);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> LinearizeDepth(depth) &gt;= depthSphere;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-4-基于Meshlet的渲染优化"><a href="#3-4-基于Meshlet的渲染优化" class="headerlink" title="3.4.  基于Meshlet的渲染优化"></a>3.4.  基于Meshlet的渲染优化</h3><p>前文中我们已经实现了基本的基于GPU的剔除优化技术，在多数场景下都能带来一定的性能增益，但目前我们还只是以子网格为单位进行的剔除与提交，当子网格较大时仍存在不少计算资源的浪费，由于我们已经使用了GPGPU技术来帮助我们完成剔除与绘制的操作，模型的数量和Drawcall已不再是我们的性能瓶颈，一个很自然的想法便是能否将一个大的网格切分为诸多一定规则的小网格，从而提高剔除的粒度，同时由于我们使用了GPU强大的并行处理能力进行剔除，对它们进行处理也不将成为问题，因此，我们引入了Mesh Shader中Meshlet的概念，只是我们为了平台灵活性，不打算用Mesh Shader进行处理，而是使用计算着色器来帮助我们完成相同的功能。</p>
+<p>Meshlet是网格划分为小块的单位，是Mesh Shader处理的基本单元，传统的顶点着色器是逐顶点处理模型的，而Mesh Shader则支持逐Meshlet处理模型。通常来讲，每个Meshlet具有相同的顶点数以及支持的最大三角形数，NVIDIA建议选取顶点数为64，三角形数为124的Meshlet进行处理，Meshlet的生成需要通过离线工具构建，IlumEngine中使用了开源库<a target="_blank" rel="noopener" href="https://github.com/zeux/meshoptimizer">meshoptimizer</a>进行处理，<code>meshoptimizer</code>使用非常方便，文档齐全，这里不多讲其使用。如下封面图所示，我们已经成功将整个场景分成了大量小网格块：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2021/12/11/rendering/optimization/image-20211130105935862.png" alt="image-20211130105935862"></p>
+<p>加入了Meshlet支持的模型存储方式与之前也基本一致，区别在于每个<code>Model</code>对象需要维护其所有的Meshlet，每个子网格需要存储其拥有的Meshlet的偏移和数量，Meshlet结构体定义如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">Meshlet</span></span><br><span class="line">&#123;</span><br><span class="line">    meshopt_Bounds bounds;</span><br><span class="line">    <span class="type">uint32_t</span>       indices_offset;</span><br><span class="line">    <span class="type">uint32_t</span>       indices_count;</span><br><span class="line">    <span class="type">uint32_t</span>       vertices_offset;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p><code>meshopt_Bounds</code>为<code>meshoptimizer</code>的包围体结构，使用的是包围球结构以及用于锥体背面剔除的相关参数。</p>
+<p>现在的<code>Model</code>和<code>Submesh</code>结构体定义如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">Model</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">public</span>:</span><br><span class="line">    std::vector&lt;SubMesh&gt; submeshes;</span><br><span class="line">    </span><br><span class="line">    <span class="type">uint32_t</span> vertices_count = <span class="number">0</span>;</span><br><span class="line">    <span class="type">uint32_t</span> indices_count  = <span class="number">0</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="type">uint32_t</span> vertices_offset = <span class="number">0</span>;</span><br><span class="line">    <span class="type">uint32_t</span> indices_offset  = <span class="number">0</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// Raw geometry, original data</span></span><br><span class="line">    std::vector&lt;Vertex&gt;   vertices;</span><br><span class="line">    std::vector&lt;<span class="type">uint32_t</span>&gt; indices;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// Meshlet, for mesh shading &amp; cluster culling</span></span><br><span class="line">    std::vector&lt;Meshlet&gt;  meshlets;</span><br><span class="line">    </span><br><span class="line">    geometry::BoundingBox bounding_box;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">SubMesh</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">public</span>:</span><br><span class="line">    <span class="type">uint32_t</span> index = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    glm::mat4 pre_transform = glm::<span class="built_in">mat4</span>(<span class="number">1.f</span>);</span><br><span class="line"></span><br><span class="line">    <span class="type">uint32_t</span> vertices_count = <span class="number">0</span>;</span><br><span class="line">    <span class="type">uint32_t</span> indices_count  = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="type">uint32_t</span> vertices_offset = <span class="number">0</span>;</span><br><span class="line">    <span class="type">uint32_t</span> indices_offset  = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="type">uint32_t</span> meshlet_offset = <span class="number">0</span>;</span><br><span class="line">    <span class="type">uint32_t</span> meshlet_count  = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    material::DisneyPBR material;</span><br><span class="line"></span><br><span class="line">    geometry::BoundingBox bounding_box;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>现在我们已经将最小渲染单位从子网格换成了Meshlet，原先的间接绘制、GPU剔除等操作照样进行。</p>
+<h4 id="3-4-1-Meshlet渲染性能调优1：压缩合批"><a href="#3-4-1-Meshlet渲染性能调优1：压缩合批" class="headerlink" title="3.4.1. Meshlet渲染性能调优1：压缩合批"></a>3.4.1. Meshlet渲染性能调优1：压缩合批</h4><p>由于我们将每个网格都分成了众多Meshlet，在提高剔除粒度的同时也增加了渲染物的数量，同时用于间接绘制所需要的<code>Draw_Buffer</code>也会相应的变大，在之前的实现中，我们通过设置<code>VkDrawIndexedIndirectCommand</code>中的<code>instanceCount</code>参数来决定是否进行绘制，设为0时则表示被剔除。但在直接从子网格处理转换到Meshlet处理时，却发现当场景规模很大时，渲染效率反而没有原来的高，经过Profile发现瓶颈出在了几何阶段的GPU开销上，尽管有了一系列CPU优化和GPU剔除，CPU已经基本不需要花什么时间了，但绘制过程中的GPU用时居高不下，经分析是由于<code>Draw_Buffer</code>过大造成，光是遍历里头每一条渲染指令就已经花了GPU很多时间了。这个问题的解决方法也很简单：只提交需要进行绘制的指令。</p>
+<p>在之前的实现中，我们是在CPU端事先设置好所有的<code>VkDrawIndexedIndirectCommand</code>数组，传到GPU中，通过GPU可见性判断来设置<code>instanceCount</code>参数决定是否绘制该物体，这种方法造成了最后进行提交的绘制缓冲中有效指令和无效指令相互混叠，容易产生流水线气泡，如果能够对绘制缓冲中的指令进行排序，将有效指令移至渲染队列的头部，将绘制指令数量设置为有效指令的数量，则可以大幅提升性能。但在着色器中实现排序操作似乎不是一件简单的操作，因此我们另辟蹊径，在剔除管线中不仅设置可见性，我们直接在里头设置整个渲染指令。</p>
+<p>为方便渲染队列的构建和有效指令数量的跟踪，我们使用了一个<code>Count_Buffer</code>来记录有效绘制指令的数量，在计算着色器中，通过原子加法操作，实现类似<code>push_back</code>的功能：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (visible)</span><br><span class="line">&#123;</span><br><span class="line">    uint dci = <span class="built_in">atomicAdd</span>(visible_count, <span class="number">1</span>);</span><br><span class="line">    indirectDraws[dci].indexCount = meshlet.index_count;</span><br><span class="line">    indirectDraws[dci].instanceCount = <span class="number">1</span>;</span><br><span class="line">    indirectDraws[dci].firstIndex = meshlet.index_offset;</span><br><span class="line">    indirectDraws[dci].vertexOffset = <span class="built_in">int</span>(meshlet.vertex_offset);</span><br><span class="line">    indirectDraws[dci].firstInstance = <span class="number">0</span>;</span><br><span class="line">    draw_data[dci] = meshlet.instance_id;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然而，在开发过程中，又遇到一个问题，如何获取<code>Count_Buffer</code>中的计数数据？使用GPU-CPU回读？那样在 一个渲染循环中只能获取到上一帧的计数结果。通过查阅文档发现，Vulkan开发者已经考虑过这个问题了，提供了<code>vkCmdDrawIndexedIndirectCount</code>函数，让我们能够直接使用<code>Count_Buffer</code>作为参数向GPU指定渲染指令数量。</p>
+<p>至此，Meshlet渲染带来的合批过大问题已被完美解决。</p>
+<h4 id="3-4-2-Meshlet渲染性能调优2：层次剔除"><a href="#3-4-2-Meshlet渲染性能调优2：层次剔除" class="headerlink" title="3.4.2. Meshlet渲染性能调优2：层次剔除"></a>3.4.2. Meshlet渲染性能调优2：层次剔除</h4><p>简单使用Meshlet进行渲染，除了有合批过大的问题外，还有剔除开销的问题，当场景面数一多，Meshlet数量一大，剔除阶段的计算量也是不可忽视的。这里IlumEngine采用的解决方案是分层次进行剔除，其实也就是先对实例（子网格）进行剔除，再进行Meshlet进行剔除。已经在实例剔除阶段剔除的实例，其包含的Meshlet也就不用再进行剔除了，减少了剔除用时。事实上，层次剔除还可以更进一步的，通过构建不同层级的Meshlet BVH，进行高效地索引需要剔除的层级，能够实现更加高效的剔除策略，和LOD方法相结合，也就是虚幻引擎5中Nanite虚拟几何体的处理方法了。</p>
+<h2 id="4-结果"><a href="#4-结果" class="headerlink" title="4. 结果"></a>4. 结果</h2><p><strong>场景总览</strong></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2021/12/11/rendering/optimization/image-20211211160655840.png" alt="image-20211211160655840"></p>
+<p><strong>渲染管线</strong></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2021/12/11/rendering/optimization/image-20211211161013525.png" alt="image-20211211161013525"></p>
+<p><strong>无优化</strong></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2021/12/11/rendering/optimization/image-20211211161304743.png" alt="image-20211211161304743"></p>
+<p><strong>仅视锥剔除</strong></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2021/12/11/rendering/optimization/image-20211211161400036.png" alt="image-20211211161400036"></p>
+<p><strong>仅背面剔除</strong></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2021/12/11/rendering/optimization/image-20211211161438056.png" alt="image-20211211161438056"></p>
+<p><strong>仅遮挡剔除</strong></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2021/12/11/rendering/optimization/image-20211211161504590.png" alt="image-20211211161504590"></p>
+<p><strong>使用所有剔除</strong></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2021/12/11/rendering/optimization/image-20211211161543245.png" alt="image-20211211161543245"></p>
+<p><strong>演示Demo</strong></p>
+<p><video src="demo.mp4" controls = true  width = 400></video></p>
+<p>可以看到由于使用了帧间连续性的原因，在某些地方仍会有部分闪烁，后续引入TAA等帧间累积方法可以一定程度上解决这个问题，但在帧率上确实有了实质性的提升。</p>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a><em>参考链接</em></h2><p>[1] <a target="_blank" rel="noopener" href="https://advances.realtimerendering.com/s2015/aaltonenhaar_siggraph2015_combined_final_footer_220dpi.pdf">Haar U, Aaltonen S. Gpu-driven rendering pipelines. Ubisoft, Siggraph 2015: Advances in Real-Time Rendering in Games course, 2015</a></p>
+<p>[2] <a target="_blank" rel="noopener" href="https://www.gamedevs.org/uploads/fast-extraction-viewing-frustum-planes-from-world-view-projection-matrix.pdf">Gribb G, Hartmann K. Fast extraction of viewing frustum planes from the worldview-projection matrix. Online document, 2001. </a></p>
+<p>[3] <a target="_blank" rel="noopener" href="https://jcgt.org/published/0002/02/05/paper.pdf">Mara, Michael, and Morgan McGuire. “2D polyhedral bounds of a clipped, perspective-projected 3D sphere.” <em>JCGT. in submission</em> 5 (2012).</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="https://chaphlagical.github.io">Chaf Chen</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://chaphlagical.github.io/2021/12/11/rendering/optimization/">https://chaphlagical.github.io/2021/12/11/rendering/optimization/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Rendering/">Rendering</a></div><div class="post_share"><div class="social-share" data-image="/2021/12/11/rendering/optimization/image-20211130105935862.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2021/12/14/rendering/mouse_picking/" title="场景编辑器：鼠标拾取"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2021/12/14/rendering/mouse_picking/image-20211214200711937.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">场景编辑器：鼠标拾取</div></div></a></div><div class="next-post pull-right"><a href="/2021/12/03/image_process/lazy_snapping/" title="Lazy Snapping"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2021/12/03/image_process/lazy_snapping/m_contour_map-16385200368971.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">Lazy Snapping</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><div><a href="/2023/01/25/paper_reading/Adaptive_Incident_Radiance_Field_Sampling_and_Reconstruction_Using_Deep_Reinforcement_Learning/" title="Adaptive Incident Radiance Field Sampling and Reconstruction Using Deep Reinforcement Learning"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-25</div><div class="title">Adaptive Incident Radiance Field Sampling and Reconstruction Using Deep Reinforcement Learning</div></div></a></div><div><a href="/2021/08/29/paper_reading/Low_Cost_SPAD_Sensing_for_Non_Line_Of_Sight_Tracking_Material/" title="Low-Cost SPAD Sensing for Non-Line-Of-Sight Tracking, Material Classification and Depth Imaging"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-08-29</div><div class="title">Low-Cost SPAD Sensing for Non-Line-Of-Sight Tracking, Material Classification and Depth Imaging</div></div></a></div><div><a href="/2021/08/25/paper_reading/Neural_Light_Transport_for_Relighting_and_View_Synthesis/" title="Neural Light Transport for Relighting and View Synthesis"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-08-25</div><div class="title">Neural Light Transport for Relighting and View Synthesis</div></div></a></div><div><a href="/2023/01/06/paper_reading/Temporal_Coherence-Based_Distributed_Ray_Tracing_of_Massive_Scenes/" title="Temporal Coherence-based Distributed Ray Tracing of Massive Scenes"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-06</div><div class="title">Temporal Coherence-based Distributed Ray Tracing of Massive Scenes</div></div></a></div><div><a href="/2021/12/14/rendering/mouse_picking/" title="场景编辑器：鼠标拾取"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2021/12/14/rendering/mouse_picking/image-20211214200711937.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-12-14</div><div class="title">场景编辑器：鼠标拾取</div></div></a></div><div><a href="/2021/08/10/paper_reading/ExtraNet/" title="ExtraNet: Real-time Extrapolated Rendering for Low-latency Temporal Supersampling"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-08-10</div><div class="title">ExtraNet: Real-time Extrapolated Rendering for Low-latency Temporal Supersampling</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comment</span></div></div><div class="comment-wrap"><div><div id="disqus_thread"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/logo.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Chaf Chen</div><div class="author-info__description">USTC CG Student</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">33</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">6</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Chaphlagical"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/Chaphlagical" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:mail@ustc.edu.cn" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">Looking for a Ph.D position!</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-IlumEngine%E7%AE%80%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text">1. IlumEngine简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%87%A0%E4%BD%95%E7%BC%93%E5%AD%98%E4%BC%98%E5%8C%96"><span class="toc-number">2.</span> <span class="toc-text">2. 几何缓存优化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E5%9C%BA%E6%99%AF%E5%9B%BE"><span class="toc-number">2.1.</span> <span class="toc-text">2.1. 场景图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E5%87%A0%E4%BD%95%E6%A8%A1%E5%9E%8B%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84"><span class="toc-number">2.2.</span> <span class="toc-text">2.2. 几何模型存储结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-%E5%87%A0%E4%BD%95%E5%AD%98%E5%82%A8%E6%96%B9%E6%A1%88"><span class="toc-number">2.3.</span> <span class="toc-text">2.3. 几何存储方案</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-1-%E6%9E%81%E7%AE%80%E6%96%B9%E6%A1%88"><span class="toc-number">2.3.1.</span> <span class="toc-text">2.3.1. 极简方案</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-2-%E5%9F%BA%E4%BA%8E%E6%A8%A1%E5%9E%8B%E7%9A%84%E4%BC%98%E5%8C%96%E6%96%B9%E6%A1%88"><span class="toc-number">2.3.2.</span> <span class="toc-text">2.3.2. 基于模型的优化方案</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-3-%E7%BB%9F%E4%B8%80%E5%AD%98%E5%82%A8%E7%9A%84%E4%BC%98%E5%8C%96%E6%96%B9%E6%A1%88"><span class="toc-number">2.3.3.</span> <span class="toc-text">2.3.3. 统一存储的优化方案</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-GPU%E9%A9%B1%E5%8A%A8%E6%B8%B2%E6%9F%93%E7%AE%A1%E7%BA%BF"><span class="toc-number">3.</span> <span class="toc-text">3. GPU驱动渲染管线</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E6%97%A0%E7%BB%91%E5%AE%9A%E7%BA%B9%E7%90%86"><span class="toc-number">3.1.</span> <span class="toc-text">3.1. 无绑定纹理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-%E5%A4%9A%E9%87%8D%E9%97%B4%E6%8E%A5%E7%BB%98%E5%88%B6"><span class="toc-number">3.2.</span> <span class="toc-text">3.2. 多重间接绘制</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-1-%E6%8C%87%E4%BB%A4%E7%BC%93%E5%86%B2"><span class="toc-number">3.2.1.</span> <span class="toc-text">3.2.1. 指令缓冲</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-2-%E6%9D%90%E8%B4%A8%E7%BC%93%E5%86%B2"><span class="toc-number">3.2.2.</span> <span class="toc-text">3.2.2. 材质缓冲</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-%E5%9F%BA%E4%BA%8EGPU%E7%9A%84%E5%89%94%E9%99%A4"><span class="toc-number">3.3.</span> <span class="toc-text">3.3. 基于GPU的剔除</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-1-%E8%A7%86%E9%94%A5%E5%89%94%E9%99%A4"><span class="toc-number">3.3.1.</span> <span class="toc-text">3.3.1. 视锥剔除</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-2-Hierarchy-Z-Buffer%E9%81%AE%E6%8C%A1%E5%89%94%E9%99%A4"><span class="toc-number">3.3.2.</span> <span class="toc-text">3.3.2. Hierarchy Z-Buffer遮挡剔除</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-%E5%9F%BA%E4%BA%8EMeshlet%E7%9A%84%E6%B8%B2%E6%9F%93%E4%BC%98%E5%8C%96"><span class="toc-number">3.4.</span> <span class="toc-text">3.4.  基于Meshlet的渲染优化</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4-1-Meshlet%E6%B8%B2%E6%9F%93%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%981%EF%BC%9A%E5%8E%8B%E7%BC%A9%E5%90%88%E6%89%B9"><span class="toc-number">3.4.1.</span> <span class="toc-text">3.4.1. Meshlet渲染性能调优1：压缩合批</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4-2-Meshlet%E6%B8%B2%E6%9F%93%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%982%EF%BC%9A%E5%B1%82%E6%AC%A1%E5%89%94%E9%99%A4"><span class="toc-number">3.4.2.</span> <span class="toc-text">3.4.2. Meshlet渲染性能调优2：层次剔除</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E7%BB%93%E6%9E%9C"><span class="toc-number">4.</span> <span class="toc-text">4. 结果</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-number">5.</span> <span class="toc-text">参考链接</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/01/25/paper_reading/Adaptive_Incident_Radiance_Field_Sampling_and_Reconstruction_Using_Deep_Reinforcement_Learning/" title="Adaptive Incident Radiance Field Sampling and Reconstruction Using Deep Reinforcement Learning">Adaptive Incident Radiance Field Sampling and Reconstruction Using Deep Reinforcement Learning</a><time datetime="2023-01-25T00:04:00.000Z" title="Created 2023-01-25 00:04:00">2023-01-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/01/06/paper_reading/Temporal_Coherence-Based_Distributed_Ray_Tracing_of_Massive_Scenes/" title="Temporal Coherence-based Distributed Ray Tracing of Massive Scenes">Temporal Coherence-based Distributed Ray Tracing of Massive Scenes</a><time datetime="2023-01-06T22:13:11.000Z" title="Created 2023-01-06 22:13:11">2023-01-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/29/gaming/spiderman_miles/" title="Marvel's Spider-Man Miles Morales"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2022/12/29/gaming/spiderman_miles/image-20221229175057590.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Marvel's Spider-Man Miles Morales"/></a><div class="content"><a class="title" href="/2022/12/29/gaming/spiderman_miles/" title="Marvel's Spider-Man Miles Morales">Marvel's Spider-Man Miles Morales</a><time datetime="2022-12-29T21:13:11.000Z" title="Created 2022-12-29 21:13:11">2022-12-29</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/12/17/paper_reading/Vectorization_for_Fast_Analytic_and_Differentiable_Visibility/" title="Vectorization for Fast, Analytic, and Differentiable Visibility">Vectorization for Fast, Analytic, and Differentiable Visibility</a><time datetime="2022-12-17T21:13:11.000Z" title="Created 2022-12-17 21:13:11">2022-12-17</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/12/14/note/edge_sampling/" title="Physics Based Differentiable Rendering: Edge Sampling">Physics Based Differentiable Rendering: Edge Sampling</a><time datetime="2022-12-14T00:00:00.000Z" title="Created 2022-12-14 00:00:00">2022-12-14</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By Chaf Chen</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll To Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container').forEach(node => {
+            if (node.hasAttribute('display')) {
+              btf.wrap(node, 'div', { class: 'mathjax-overflow' })
+            } else {
+              btf.wrap(node, 'span', { class: 'mathjax-overflow' })
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        const mermaidSrc = item.firstElementChild
+        const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+        const mermaidID = 'mermaid-' + index
+        const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+        mermaid.mermaidAPI.render(mermaidID, mermaidDefinition, (svgCode) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svgCode)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script><script>function loadDisqus () {
+  var disqus_config = function () {
+    this.page.url = 'https://chaphlagical.github.io/2021/12/11/rendering/optimization/'
+    this.page.identifier = '/2021/12/11/rendering/optimization/'
+    this.page.title = '实时渲染优化技术'
+  };
+
+  window.disqusReset = () => {
+    DISQUS.reset({
+      reload: true,
+      config: disqus_config
+    })
+  }
+
+  if (window.DISQUS) disqusReset()
+  else {
+    (function() { 
+      var d = document, s = d.createElement('script');
+      s.src = 'https://chaphlagical-github-io.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  }
+
+  document.getElementById('darkmode').addEventListener('click', () => {
+    setTimeout(() => window.disqusReset(), 200)
+  })
+}
+
+if ('Disqus' === 'Disqus' || !false) {
+  if (false) btf.loadComment(document.getElementById('disqus_thread'), loadDisqus)
+  else loadDisqus()
+} else {
+  function loadOtherComment () {
+    loadDisqus()
+  }
+}
+</script></div></div></body></html>

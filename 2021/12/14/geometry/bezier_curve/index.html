@@ -1,0 +1,398 @@
+<!DOCTYPE html><html lang="[&quot;en&quot;,&quot;zh-CN&quot;,&quot;default&quot;]" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>计算机辅助几何设计：Bézier曲线 | Chaf's Blog</title><meta name="author" content="Chaf Chen"><meta name="copyright" content="Chaf Chen"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="Bézier曲线原理与实现">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算机辅助几何设计：Bézier曲线">
+<meta property="og:url" content="https://chaphlagical.github.io/2021/12/14/geometry/bezier_curve/index.html">
+<meta property="og:site_name" content="Chaf&#39;s Blog">
+<meta property="og:description" content="Bézier曲线原理与实现">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://chaphlagical.github.io/2021/12/14/geometry/bezier_curve/image-20211221222844217.png">
+<meta property="article:published_time" content="2021-12-14T16:25:11.000Z">
+<meta property="article:modified_time" content="2023-03-02T13:45:38.839Z">
+<meta property="article:author" content="Chaf Chen">
+<meta property="article:tag" content="Computer Aided Geometric Design">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://chaphlagical.github.io/2021/12/14/geometry/bezier_curve/image-20211221222844217.png"><link rel="shortcut icon" href="/img/logo.jpg"><link rel="canonical" href="https://chaphlagical.github.io/2021/12/14/geometry/bezier_curve/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"Traditional Chinese Activated Manually","cht_to_chs":"Simplified Chinese Activated Manually","day_to_night":"Dark Mode Activated Manually","night_to_day":"Light Mode Activated Manually","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '计算机辅助几何设计：Bézier曲线',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-03-02 13:45:38'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+
+if (false) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/logo.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">33</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">6</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="Chaf's Blog"><img class="site-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/logo.jpg"/><span class="site-name">Chaf's Blog</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">计算机辅助几何设计：Bézier曲线</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2021-12-14T16:25:11.000Z" title="Created 2021-12-14 16:25:11">2021-12-14</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-03-02T13:45:38.839Z" title="Updated 2023-03-02 13:45:38">2023-03-02</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Geometry/">Geometry</a></span></div><div class="meta-secondline"></div></div></div><article class="post-content" id="article-container"><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2021/12/14/geometry/bezier_curve/image-20211221222844217.png" alt="image-20211221222844217"></p>
+<h2 id="1-基本原理"><a href="#1-基本原理" class="headerlink" title="1. 基本原理"></a>1. 基本原理</h2><p>Bézier曲线于1962年，由法国工程师Pierre Bézier所提出，用于汽车的主体的几何造型设计。</p>
+<p>二阶Bézier曲线如下图所示：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2021/12/14/geometry/bezier_curve/image-20211222091601106.png" alt="image-20211222091601106"></p>
+<p>其几何构造流程如下：</p>
+<ol>
+<li>依次选定控制点$A$、$B$、$C$</li>
+<li>在$AB$上选定一动点$D$，设参数$t&#x3D;\frac{AD}{AB}$，则$t\in[0,1]$</li>
+<li>在$BC$上构造一点$E$，满足$\frac{AD}{AB}&#x3D;\frac{BE}{BC}&#x3D;t$</li>
+<li>连接$DE$</li>
+<li>在$DE$上构造一点$F$，满足$\frac{DF}{DE}&#x3D;\frac{AD}{AB}&#x3D;\frac{BE}{BC}&#x3D;t$</li>
+<li>当$t$从0到1变化时，点$F$构成的轨迹即为二阶Bézier曲线</li>
+</ol>
+<p>从解析几何角度看，设控制点$A$、$B$、$C$坐标依次为$\pmb p_1$、$\pmb p_2$和$\pmb p_3$，则点$D$可表示为$\pmb p_4 &#x3D; (1-t)\pmb p_1+t\pmb p_2$，点$E$表示为$\pmb p_5&#x3D;(1-t)\pmb p_2+t\pmb p_3$，点$F$表示为$\pmb p_6&#x3D;(1-t)\pmb p_4+t\pmb p_5&#x3D;(1-t)^2\pmb p_1+2(1-t)t\pmb p_2+t^2\pmb p_3$</p>
+<p>同理我们还可以构造三阶Bézier曲线：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2021/12/14/geometry/bezier_curve/image-20211222092442814.png" alt="image-20211222092442814"></p>
+<p>我们可以从中看出规律，给定$N$个控制点，将生成$N-1$阶的Bézier曲线，几何构造方式都是通过在控制点连线上按比例参数选取新的控制点，然后通过新的控制点再往下生成控制点，直到最终只生成一个控制点，该点则对应参数下Bézier曲线的取值。</p>
+<h2 id="2-De-Casteljau算法"><a href="#2-De-Casteljau算法" class="headerlink" title="2. De Casteljau算法"></a>2. De Casteljau算法</h2><h3 id="2-1-算法原理"><a href="#2-1-算法原理" class="headerlink" title="2.1. 算法原理"></a>2.1. 算法原理</h3><p>De Casteljau算法是计算给定参数$t$下Bézier曲线上点的坐标的迭代求解方法。</p>
+<p>对于给定控制点$\pmb b_0,\pmb b_1,\cdots,\pmb b_n\in\mathbb R^3$，我们希望得到曲线$\pmb x(t),t\in[0,1]$，De Casteljau算法的迭代方程如下：<br>$$<br>\begin{align}<br>\pmb b_i^0(t)&amp;&#x3D;\pmb b_i,\ \ \ \ i&#x3D;0,\cdots,n\\<br>\pmb b_i^r(t)&amp;&#x3D;(1-t)\pmb b_i^{r-1}(t)+t\pmb b_{i+1}^{r-1}(t)\\<br>r&#x3D;&amp;1,\cdots,n\ \ \ \ i&#x3D;0,\cdots,n-r<br>\end{align}<br>$$<br>最后，$\pmb b_0^n(t)$为所找的曲线点$\pmb x(t)$在参数值$t$的取值，C++程序如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">glm::vec3 <span class="title">BezierCurve::value</span><span class="params">(<span class="type">const</span> std::vector&lt;glm::vec3&gt; &amp;control_points, <span class="type">float</span> t)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">size_t</span> n = control_points.<span class="built_in">size</span>();</span><br><span class="line"></span><br><span class="line">    <span class="function">std::vector&lt;glm::vec3&gt; <span class="title">br</span><span class="params">(control_points)</span></span>;</span><br><span class="line">    <span class="function">std::vector&lt;glm::vec3&gt; <span class="title">br_1</span><span class="params">(control_points)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">size_t</span> r = <span class="number">1</span>; r &lt; n; r++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">size_t</span> i = <span class="number">0</span>; i &lt; n - r; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            br[i] = (<span class="number">1</span> - t) * br_1[i] + t * br_1[i + <span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        br_1 = br;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> br_1[<span class="number">0</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-2-算法性质"><a href="#2-2-算法性质" class="headerlink" title="2.2. 算法性质"></a>2.2. 算法性质</h3><ul>
+<li>控制点$\pmb b_0,\pmb b_1,\cdots,\pmb b_n\in\mathbb R^3$依次构成的多边形称为Bézier多边形</li>
+<li>控制点$\pmb b_i$也称为Bézier点</li>
+<li>只使用凸组合，因此算法数值稳定</li>
+<li>算法复杂度<ul>
+<li>时间复杂度$O(n^2)$</li>
+<li>空间复杂度$O(n)$</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-Bezier曲线的解析表达"><a href="#3-Bezier曲线的解析表达" class="headerlink" title="3. Bézier曲线的解析表达"></a>3. Bézier曲线的解析表达</h2><h3 id="3-1-Bernstein基描述"><a href="#3-1-Bernstein基描述" class="headerlink" title="3.1. Bernstein基描述"></a>3.1. Bernstein基描述</h3><p>De Casteljau算法提供了一种迭代求解Bézier曲线的方法，同时我们也可以解析地写出Bézier曲线的基函数表达：<br>$$<br>\pmb x(t)&#x3D;\sum_{i&#x3D;0}^nC_n^it^i(1-t)^{n-i}\pmb b_i<br>$$<br>其中$C_n^i$为组合数$C_n^i&#x3D;\frac{n!}{i!(n-i)!}$，Bernstein基定义为：<br>$$<br>B_i^n(t)&#x3D;<br>\begin{cases}<br>C_n^it^i(1-t)^{n-i}&amp;t\in[0,1],i\in[0,n],i\in\mathbb N\\\\<br>0&amp;i&lt;0\ or\ i&gt;n\\\\<br>1&amp;i&#x3D;0\ and \ n&#x3D;0<br>\end{cases}<br>$$<br>Bernstein基示例：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2021/12/14/geometry/bezier_curve/image-20211222095828211.png" alt="image-20211222095828211"></p>
+<h3 id="3-2-Bernstein基的性质"><a href="#3-2-Bernstein基的性质" class="headerlink" title="3.2. Bernstein基的性质"></a>3.2. Bernstein基的性质</h3><p><strong>光滑性</strong></p>
+<p>Bernstein基函数为$n$次多项式，显然光滑</p>
+<p><strong>归一性</strong><br>$$<br>\sum\limits_{i&#x3D;0}^nB_i^{n}(t)&#x3D;(t+(1-t))^n&#x3D;1<br>$$</p>
+<p><strong>递推</strong><br>$$<br>B_i^n(t)&#x3D;(1-t)B_i^{n-1}(t)+tB^{n-1}_{i-1}(t)<br>$$</p>
+<blockquote>
+<p>证明：<br>$$<br>\begin{align}<br>(1-t)B_i^{n-1}(t)+tB^{n-1}_{i-1}(t)&amp;&#x3D;(1-t)C_{n-1}^{i}t^i(1-t)^{n-1-i}+tC_{n-1}^{i-1}t^{i-1}(1-t)^{n-i}\\\\<br>&amp;&#x3D;(C_{n-1}^{i}+C_{n-1}^{i-1})t^i(1-t)^{n-i}\\\\<br>&amp;&#x3D;C_n^it^i(1-t)^{n-i}\\\\<br>&amp;&#x3D;B_i^n(t)<br>\end{align}<br>$$</p>
+</blockquote>
+<p><strong>导数</strong><br>$$<br>\frac{\mathrm d}{\mathrm dt}B_i^{n}(t)&#x3D;n\left[B^{n-1}_{i-1}(t)-B_i^{n-1}(t)\right]<br>$$</p>
+<blockquote>
+<p>证明：<br>$$<br>\begin{align}<br>\frac{\mathrm d}{\mathrm dt}B^n_i(t)&amp;&#x3D;\frac{\mathrm d}{\mathrm dt}\left( C_n^it^i(1-t)^{n-i}\right)\\\\<br>&amp;&#x3D;iC_n^it^{i-1}(1-t)^{n-i}-(n-i)C_n^it^i(1-t)^{n-i-1}\\\\<br>&amp;&#x3D;\frac{n!}{(n-i)!i!}it^{i-1}(1-t)^{n-i}-\frac{n!}{(n-i)!i!}(n-i)t^i(1-t)^{n-i-1}\\\\<br>&amp;&#x3D;n\left[\frac{(n-1)!}{(n-i)!(i-1)!}t^{i-1}(1-t)^{n-i}-\frac{(n-1)!}{(n-i-1)!i!}t^i(1-t)^{n-i-1} \right]\\\\<br>&amp;&#x3D;n\left[C_{n-1}^{i-1}t^{i-1}(1-t)^{n-i}-C_{n-1}^i t^i(1-t)^{n-i-1} \right]\\\\<br>&amp;&#x3D;n\left[B^{n-1}_{i-1}(t)-B_i^{n-1}(t)\right]<br>\end{align}<br>$$</p>
+</blockquote>
+<p><strong>最值</strong></p>
+<p>$B^n_i(t)$在$t&#x3D;\frac{i}{n}$处取得最大值</p>
+<blockquote>
+<p>证明：</p>
+<p>由导数为0<br>$$<br>\frac{\mathrm d}{\mathrm dt}B_i^{n}(t)&#x3D;n\left[B^{n-1}_{i-1}(t)-B_i^{n-1}(t)\right]&#x3D;0<br>$$<br>可得当$t&#x3D;\frac{i}{n}$时取得最大值</p>
+</blockquote>
+<p><strong>对称性</strong><br>$$<br>B_i^n(t)&#x3D;B_{n-i}^n(1-t)<br>$$</p>
+<blockquote>
+<p>证明：<br>$$<br>\begin{align}<br>B_i^n(t)&amp;&#x3D;C_n^it^i(1-t)^{n-i}\\\\<br>&amp;&#x3D;\frac{n!}{(n-i)!i!}t^i(1-t)^{n-i}\\\\<br>&amp;&#x3D;\frac{n!}{(n-(n-i))!(n-i)!}(1-t)^{n-i}t^{n-(n-i)}\\\\<br>&amp;&#x3D;B_{n-i}^n(1-t)<br>\end{align}<br>$$</p>
+</blockquote>
+<p><strong>非负性</strong><br>$$<br>\begin{align}<br>B_i^n(t)&amp;\geq 0,t\in [0,1]\\\\<br>B_0^{(n)}(0)&#x3D;1,&amp;\ \ \ \ B_1^{(n)}(0)&#x3D;\cdots&#x3D;B_n^{(n)}(0)&#x3D;0\\\\<br>B_0^{(n)}(1)&#x3D;&amp;\cdots&#x3D;B_{n-1}^{(n)}&#x3D;0,\ \ \ \ B_n^{(n)}(1)&#x3D;1<br>\end{align}<br>$$</p>
+<h2 id="4-Bezier曲线的性质"><a href="#4-Bezier曲线的性质" class="headerlink" title="4. Bézier曲线的性质"></a>4. Bézier曲线的性质</h2><p>聊完Bézier曲线的构造方法以及Bernstein基函数的相关内容，我们再来聊聊Bézier曲线本身具有的几何性质。</p>
+<h3 id="4-1-仿射不变性"><a href="#4-1-仿射不变性" class="headerlink" title="4.1. 仿射不变性"></a>4.1. 仿射不变性</h3><p>仿射变换定义为：<br>$$<br>\pmb x\rightarrow\pmb A\pmb x+\pmb b<br>$$<br>包含线性部分和平移部分。</p>
+<p><strong>线性不变性</strong></p>
+<p>Bézier曲线的线性不变性是显然的，Bézier曲线表示为基函数的线性组合：<br>$$<br>\pmb f(t)&#x3D;\sum\limits_{i&#x3D;1}^nb_i(t)\pmb p_i&#x3D;\sum\limits_{i&#x3D;1}^nb_i(t)\begin{pmatrix}<br>p_i^{(x)}\\p_i^{(y)}\\p_i^{(z)}<br>\end{pmatrix}<br>$$<br>因此<br>$$<br>A(\pmb f(t))&#x3D;A\Big(\sum\limits_{i&#x3D;1}^nb_i(t)\pmb p_i \Big)&#x3D;\sum\limits_{i&#x3D;1}^nb_i(t)(A\pmb p_i)<br>$$</p>
+<p><strong>平移不变性</strong><br>$$<br>\sum\limits_{i&#x3D;1}^nb_i(t)(\pmb p_i+\pmb b)&#x3D;\sum\limits_{i&#x3D;1}^nb_i(t)\pmb p_i+\sum\limits_{i&#x3D;1}^nb_i(t)\pmb b&#x3D;\pmb f(t)+\Big(\sum\limits_{i&#x3D;1}^nb_i(t)\Big)\pmb b<br>$$</p>
+<p>其中，由Bernstein基函数的归一性，$\sum\limits_{i&#x3D;1}^nb_i(t)&#x3D;1$，满足平移不变性。</p>
+<h3 id="4-2-凸包性质"><a href="#4-2-凸包性质" class="headerlink" title="4.2. 凸包性质"></a>4.2. 凸包性质</h3><p>点集${\pmb p_1,\cdots,\pmb p_n}$的一个凸组合为如下形式：<br>$$<br>\sum\limits_{i&#x3D;1}^n\lambda_i\pmb p_i\ \mathrm{with}\sum\limits_{i&#x3D;1}^n\lambda_i&#x3D;1\ \mathrm{and}\ \forall i&#x3D;1,\cdots,n:0\leq\lambda_i\leq 1<br>$$<br>因此Bézier曲线为Bernstein基函数的凸组合，能够避免不良震荡，将构造的曲线限制在控制点的凸包中。</p>
+<h3 id="4-3-导数性质"><a href="#4-3-导数性质" class="headerlink" title="4.3. 导数性质"></a>4.3. 导数性质</h3><p>对于Bézier曲线<br>$$<br>\pmb x(t)&#x3D;\sum_{i&#x3D;0}^nB_i^n(t)\pmb p_i<br>$$<br>一阶导数：<br>$$<br>\begin{aligned}<br>\frac{\mathrm d\pmb x}{\mathrm dt}&amp;&#x3D;n\sum_{i&#x3D;0}^{n}\left[B^{n-1}<em>{i-1}(t)-B_i^{n-1}(t)\right]\pmb p_i\\\\<br>&amp;&#x3D;n\sum</em>{i&#x3D;0}^nB_{i-1}^{n-1}(t)\pmb p_i-n\sum_{i&#x3D;0}^n B_i^{n-1}(t)\pmb p_i\\\\<br>&amp;&#x3D;n\sum_{i&#x3D;-1}^{n-1}B_i^{n-1}(t)\pmb p_{i+1}-n\sum_{i&#x3D;0}^nB_i^{n-1}(t)\pmb p_i\\\\<br>&amp;&#x3D;n\sum_{i&#x3D;0}^{n-1}B_i^{n-1}(t)\pmb p_{i+1}-n\sum_{i&#x3D;0}^nB_i^{n-1}(t)\pmb p_i\\\\<br>&amp;&#x3D;n\sum_{i&#x3D;0}^{n-1}B_i^{n-1}(\pmb p_{i+1}-\pmb p_i)<br>\end{aligned}<br>$$<br>边界条件：<br>$$<br>\begin{cases}<br>\pmb x’(0)&#x3D;n(\pmb p_1-\pmb p_0)\\\\<br>\pmb x’(1)&#x3D;n(\pmb p_n-\pmb p_{n-1})<br>\end{cases}<br>$$<br>高阶导数：<br>$$<br>\frac{\mathrm d^r}{\mathrm dt^r}\pmb x(t)&#x3D;\frac{n!}{(n-r)!}\sum_{i&#x3D;0}^{n-r}B_i^{n-r}(t)\cdot\Delta^r\pmb p_i<br>$$<br>其中，</p>
+<p>一阶差分：$\Delta \pmb p_i&#x3D;\pmb p_{i+1}-\pmb p_i$</p>
+<p>二阶差分：$\Delta^2\pmb p_i&#x3D;\Delta\pmb p_{i+1}-\Delta \pmb p_i&#x3D;\pmb p_{i+2}-2\pmb p_{i+1}+\pmb p_i$</p>
+<p>高阶差分递推式：$\Delta^r\pmb p_i&#x3D;\Delta^{r-1} \pmb p_{i+1}-\Delta^{r-1} \pmb p_i$</p>
+<p>归纳法有：$\Delta^r\pmb p_i&#x3D;\sum_{k&#x3D;0}^r(-1)^kC_r^k\pmb p_{i+r-k}$</p>
+<h3 id="4-4-杂项性质结论"><a href="#4-4-杂项性质结论" class="headerlink" title="4.4. 杂项性质结论"></a>4.4. 杂项性质结论</h3><p><strong>一条 Bézier 曲线的弧长不大于其控制多边形的周长</strong></p>
+<blockquote>
+<p>证明：</p>
+<p>设Bézier曲线方程为$\pmb f(t)$，曲线弧长为$L$，多边形周长为$C$，则Bézier曲线弧长为：<br>$$<br>\begin{aligned}<br>        L&amp;&#x3D;\int_0^1\|\pmb f’(t)\|\mathrm dt\\\\<br>        &amp;&#x3D;\int_0^1\left\|n\sum_{i&#x3D;0}^{n-1}B_i^{(n-1)}(t)(\pmb p_{i+1}-\pmb p_i)\right\|\mathrm dt\\\\<br>        &amp;\leq n\sum_{i&#x3D;0}^{n-1}\|\pmb p_{i+1}-\pmb p_i\|\cdot \int_0^1B_i^{(n-1)}(t)\mathrm dt<br>    \end{aligned}<br>$$<br>由Bernstein基函数的性质，有：<br>$$<br>\frac{\mathrm d}{\mathrm dt}B_i^{(n)}(t)&#x3D;n\left[B_{i-1}^{(n-1)}(t)-B_i^{(n-1)}(t)\right]<br>$$<br>从0到1积分得：<br>$$<br>B_i^{(n)}(1)-B_i^{(n)}(0)&#x3D;n\left[\int_0^1B_{i-1}^{(n-1)}(t)-\int_0^1B_i^{(n-1)}(t)\right]&#x3D;0<br>$$<br>依此类推有：<br>$$<br>\int_0^1 B_0^{(n-1)}(t)\mathrm dt&#x3D;<br>    \int_0^1 B_1^{(n-1)}(t)\mathrm dt&#x3D;<br>    \cdots&#x3D;<br>    \int_0^1 B_{n-1}^{(n-1)}(t)\mathrm dt&#x3D;\frac{1}{n}<br>$$<br>因此，有：<br>$$<br>L\leq \sum_{i&#x3D;0}^{n-1}|\pmb p_{i+1}-\pmb p_i|&#x3D;C<br>$$<br>结论得证</p>
+</blockquote>
+<p><strong>圆弧不能用Bézier曲线精确表示</strong></p>
+<blockquote>
+<p>设有一圆弧圆心为$\pmb c$，半径为$r$，假设它能够用一Bézier曲线$\pmb f(t)$进行表示，则有：<br>$$<br>\left|\pmb f(t)-\pmb c\right|\equiv r<br>$$<br>其中，<br>$$<br>\begin{aligned}<br>        \pmb f(t)&amp;&#x3D;\sum_{i&#x3D;1}^{n}B_i^{n}(t)\pmb p_i\\\\<br>        &amp;&#x3D;\sum_{i&#x3D;1}^{n}\frac{n!}{i!(n-i)!}t^i(1-t)^{n-i}\pmb p_i<br>    \end{aligned}<br>$$<br>又<br>$$<br>\left\|\sum_{i&#x3D;1}^{n}\frac{n!}{i!(n-i)!}t^i(1-t)^{n-i}\pmb p_i-\pmb c\right\|\not\equiv\mathrm{const}<br>$$<br>因此假设不成立，圆弧不能用Bézier曲线精确表示</p>
+</blockquote>
+<h2 id="5-Bezier曲线的升阶-Degree-Elevation"><a href="#5-Bezier曲线的升阶-Degree-Elevation" class="headerlink" title="5. Bézier曲线的升阶(Degree Elevation)"></a>5. Bézier曲线的升阶(Degree Elevation)</h2><p>给定$n+1$个Bézier控制点$\pmb b_0,\pmb b_1,\cdots,\pmb b_n$，生成Bézier曲线$\pmb x(t)$</p>
+<p>Bézier曲线的升阶即希望生成$n+2$个Bézier控制点$\bar{\pmb b}_0,\bar{\pmb b}_1,\cdots,\bar{\pmb b}_n$，从而得到曲线$\bar{\pmb x}(t)$，满足$\bar{\pmb x}(t)&#x3D;\pmb x(t)$</p>
+<p>解决方法：<br>$$<br>\begin{aligned}<br>\bar{\pmb b}_0&amp;&#x3D;\pmb b_0\\\\<br>\bar{\pmb b}_{n+1}&amp;&#x3D;\pmb b_n\\\\<br>\bar{\pmb b}_j&amp;&#x3D;\dfrac{j}{n+1}\pmb b_{j-1}+\Big(1-\dfrac{j}{n+1}\Big)\pmb b_j\ \ \ \ \ \mathrm{for}\   j&#x3D;1,\cdots,n<br>\end{aligned}<br>$$</p>
+<blockquote>
+<p>证明：<br>$$<br>\begin{aligned}<br>(1-t)B_i^n(t)&amp;&#x3D;(1-t)C_n^it^i(1-t)^{n-i}\\\\<br>&amp;&#x3D;C_n^it^i(1-t)^{n+1-i}\\\\<br>&amp;&#x3D;\frac{n+1-i}{n+1}C_{n+1}^it^i(1-t)^{n+1-i}\\\\<br>&amp;&#x3D;\frac{n+1-i}{n+1}B_i^{n+1}(t)<br>\end{aligned}<br>$$<br>类似地，<br>$$<br>tB_i^n(t)&#x3D;\dfrac{i+1}{n+1}B_i^{n+1}(t)<br>$$<br>从而有：<br>$$<br>\begin{align}<br>\pmb f(t)&amp;&#x3D;[(1-t)+t]\pmb f(t)\\\\<br>&amp;&#x3D;[(1-t)+t]\sum\limits_{i&#x3D;0}^nB_i^n(t)\pmb P_i\\\\<br>&amp;&#x3D;\sum\limits_{i&#x3D;0}^n\Big[(1-t)B_i^n(t)+tB_i^n(t)\Big]\pmb P_i\\\\<br>&amp;&#x3D;\sum\limits_{i&#x3D;0}^n\Bigg[\dfrac{n+1-i}{n+1}B_i^{n+1}(t)+\dfrac{i+1}{n+1}B_{i+1}^{n+1}(t) \Bigg]\pmb P_i\\\\<br>&amp;&#x3D;\sum\limits_{i&#x3D;0}^n\dfrac{n+1-i}{n+1}B_i^{n+1}(t)\pmb P_i+\sum\limits_{i&#x3D;0}^n\dfrac{i+1}{n+1}B_{i+1}^{n+1}(t) \pmb P_i\\\\<br>&amp;&#x3D;\sum\limits_{i&#x3D;0}^n\dfrac{n+1-i}{n+1}B_i^{n+1}(t)\pmb P_i+\sum\limits_{i&#x3D;1}^n\dfrac{i}{n+1}B_{i}^{n+1}(t) \pmb P_{i-1}\\\\<br>&amp;&#x3D;\sum\limits_{i&#x3D;0}^{n+1}\dfrac{n+1-i}{n+1}B_i^{n+1}(t)\pmb P_i+\sum\limits_{i&#x3D;0}^n\dfrac{i}{n+1}B_{i}^{n+1}(t) \pmb P_{i-1}\\\\<br>&amp;&#x3D;\sum\limits_{i&#x3D;0}^{n+1}B_i^{n+1}(t)\Bigg[\dfrac{n+1-i}{n+1}\pmb P_i+\dfrac{i}{n+1}\pmb P_{i-1} \Bigg]<br>\end{align}<br>$$</p>
+</blockquote>
+<p>示例：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2021/12/14/geometry/bezier_curve/image-20211222135340285.png" alt="image-20211222135340285"></p>
+<h2 id="6-Bezier曲线的划分-Subdivision"><a href="#6-Bezier曲线的划分-Subdivision" class="headerlink" title="6. Bézier曲线的划分(Subdivision)"></a>6. Bézier曲线的划分(Subdivision)</h2><p>给定$n+1$个Bézier控制点$\pmb b_0,\pmb b_1,\cdots,\pmb b_n$，生成Bézier曲线$\pmb x(t)$</p>
+<p>Bézier曲线的划分即希望得到两条曲线：</p>
+<ul>
+<li>$\pmb{b}_0^{[1]},\dots,\pmb{b}_n^{[1]}\to \pmb{x}^{[1]}(t)$</li>
+<li>$\pmb{b}_0^{[2]},\dots,\pmb{b}_n^{[2]}\to \pmb{x}^{[2]}(t)$</li>
+</ul>
+<p>且两条曲线合并可得$\pmb{x}&#x3D;\pmb{x}^{[1]}\cup \pmb{x}^{[2]}$</p>
+<p>解决方法：<br>$$<br>\begin{aligned}<br>\pmb b_i^{(1)}&amp;&#x3D;\pmb b_0^i\\\\<br>\pmb b_i^{(2)}&amp;&#x3D;\pmb b_0^{n-i}\\\\<br>\mathrm{for}\ i&amp;&#x3D;0,\cdots,n<br>\end{aligned}<br>$$<br>该方法的依据如下图所示：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2021/12/14/geometry/bezier_curve/image-20211222140816109.png" alt="image-20211222140816109"></p>
+<h2 id="7-视频演示"><a href="#7-视频演示" class="headerlink" title="7. 视频演示"></a>7. 视频演示</h2><p>Bézier曲线已在IlumEngine中实现，使用De Casteljau算法进行构造。</p>
+<p><video src="demo.mp4"  controls = true width = 400></video></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="https://chaphlagical.github.io">Chaf Chen</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://chaphlagical.github.io/2021/12/14/geometry/bezier_curve/">https://chaphlagical.github.io/2021/12/14/geometry/bezier_curve/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Computer-Aided-Geometric-Design/">Computer Aided Geometric Design</a></div><div class="post_share"><div class="social-share" data-image="/2021/12/14/geometry/bezier_curve/image-20211221222844217.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2021/12/23/geometry/bezier_spline/" title="计算机辅助几何设计(2)：Bézier样条曲线"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2021/12/23/geometry/bezier_spline/image-20211223205004058.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">计算机辅助几何设计(2)：Bézier样条曲线</div></div></a></div><div class="next-post pull-right"><a href="/2021/12/14/rendering/mouse_picking/" title="场景编辑器：鼠标拾取"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2021/12/14/rendering/mouse_picking/image-20211214200711937.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">场景编辑器：鼠标拾取</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><div><a href="/2021/12/29/geometry/b_spline/" title="计算机辅助几何设计：B样条曲线"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2021/12/29/geometry/b_spline/b_spline.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-12-29</div><div class="title">计算机辅助几何设计：B样条曲线</div></div></a></div><div><a href="/2021/12/23/geometry/bezier_spline/" title="计算机辅助几何设计(2)：Bézier样条曲线"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2021/12/23/geometry/bezier_spline/image-20211223205004058.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-12-23</div><div class="title">计算机辅助几何设计(2)：Bézier样条曲线</div></div></a></div><div><a href="/2022/01/03/geometry/polar_form/" title="计算机辅助几何设计(4)：极形式和开花算法"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2022/01/03/geometry/polar_form/image-20220103164358187.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-03</div><div class="title">计算机辅助几何设计(4)：极形式和开花算法</div></div></a></div><div><a href="/2022/01/04/geometry/subdivision/" title="计算机辅助几何设计(7)：细分曲线与曲面"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2022/01/04/geometry/subdivision/image-20220104150438787.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-04</div><div class="title">计算机辅助几何设计(7)：细分曲线与曲面</div></div></a></div><div><a href="/2022/01/03/geometry/rational/" title="计算机辅助几何设计(5)：有理样条曲线"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2022/01/03/geometry/rational/image-20220105110839764.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-03</div><div class="title">计算机辅助几何设计(5)：有理样条曲线</div></div></a></div><div><a href="/2022/01/03/geometry/spline_surface/" title="计算机辅助几何设计：样条曲面"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2022/01/03/geometry/spline_surface/image-20220103223926601.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-03</div><div class="title">计算机辅助几何设计：样条曲面</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comment</span></div></div><div class="comment-wrap"><div><div id="disqus_thread"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/logo.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Chaf Chen</div><div class="author-info__description">USTC CG Student</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">33</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">6</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Chaphlagical"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/Chaphlagical" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:mail@ustc.edu.cn" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">Looking for a Ph.D position!</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86"><span class="toc-number">1.</span> <span class="toc-text">1. 基本原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-De-Casteljau%E7%AE%97%E6%B3%95"><span class="toc-number">2.</span> <span class="toc-text">2. De Casteljau算法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E7%AE%97%E6%B3%95%E5%8E%9F%E7%90%86"><span class="toc-number">2.1.</span> <span class="toc-text">2.1. 算法原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E7%AE%97%E6%B3%95%E6%80%A7%E8%B4%A8"><span class="toc-number">2.2.</span> <span class="toc-text">2.2. 算法性质</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Bezier%E6%9B%B2%E7%BA%BF%E7%9A%84%E8%A7%A3%E6%9E%90%E8%A1%A8%E8%BE%BE"><span class="toc-number">3.</span> <span class="toc-text">3. Bézier曲线的解析表达</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-Bernstein%E5%9F%BA%E6%8F%8F%E8%BF%B0"><span class="toc-number">3.1.</span> <span class="toc-text">3.1. Bernstein基描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-Bernstein%E5%9F%BA%E7%9A%84%E6%80%A7%E8%B4%A8"><span class="toc-number">3.2.</span> <span class="toc-text">3.2. Bernstein基的性质</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-Bezier%E6%9B%B2%E7%BA%BF%E7%9A%84%E6%80%A7%E8%B4%A8"><span class="toc-number">4.</span> <span class="toc-text">4. Bézier曲线的性质</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-%E4%BB%BF%E5%B0%84%E4%B8%8D%E5%8F%98%E6%80%A7"><span class="toc-number">4.1.</span> <span class="toc-text">4.1. 仿射不变性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-%E5%87%B8%E5%8C%85%E6%80%A7%E8%B4%A8"><span class="toc-number">4.2.</span> <span class="toc-text">4.2. 凸包性质</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-%E5%AF%BC%E6%95%B0%E6%80%A7%E8%B4%A8"><span class="toc-number">4.3.</span> <span class="toc-text">4.3. 导数性质</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-4-%E6%9D%82%E9%A1%B9%E6%80%A7%E8%B4%A8%E7%BB%93%E8%AE%BA"><span class="toc-number">4.4.</span> <span class="toc-text">4.4. 杂项性质结论</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-Bezier%E6%9B%B2%E7%BA%BF%E7%9A%84%E5%8D%87%E9%98%B6-Degree-Elevation"><span class="toc-number">5.</span> <span class="toc-text">5. Bézier曲线的升阶(Degree Elevation)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-Bezier%E6%9B%B2%E7%BA%BF%E7%9A%84%E5%88%92%E5%88%86-Subdivision"><span class="toc-number">6.</span> <span class="toc-text">6. Bézier曲线的划分(Subdivision)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-%E8%A7%86%E9%A2%91%E6%BC%94%E7%A4%BA"><span class="toc-number">7.</span> <span class="toc-text">7. 视频演示</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/01/25/paper_reading/Adaptive_Incident_Radiance_Field_Sampling_and_Reconstruction_Using_Deep_Reinforcement_Learning/" title="Adaptive Incident Radiance Field Sampling and Reconstruction Using Deep Reinforcement Learning">Adaptive Incident Radiance Field Sampling and Reconstruction Using Deep Reinforcement Learning</a><time datetime="2023-01-25T00:04:00.000Z" title="Created 2023-01-25 00:04:00">2023-01-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/01/06/paper_reading/Temporal_Coherence-Based_Distributed_Ray_Tracing_of_Massive_Scenes/" title="Temporal Coherence-based Distributed Ray Tracing of Massive Scenes">Temporal Coherence-based Distributed Ray Tracing of Massive Scenes</a><time datetime="2023-01-06T22:13:11.000Z" title="Created 2023-01-06 22:13:11">2023-01-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/29/gaming/spiderman_miles/" title="Marvel's Spider-Man Miles Morales"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2022/12/29/gaming/spiderman_miles/image-20221229175057590.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Marvel's Spider-Man Miles Morales"/></a><div class="content"><a class="title" href="/2022/12/29/gaming/spiderman_miles/" title="Marvel's Spider-Man Miles Morales">Marvel's Spider-Man Miles Morales</a><time datetime="2022-12-29T21:13:11.000Z" title="Created 2022-12-29 21:13:11">2022-12-29</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/12/17/paper_reading/Vectorization_for_Fast_Analytic_and_Differentiable_Visibility/" title="Vectorization for Fast, Analytic, and Differentiable Visibility">Vectorization for Fast, Analytic, and Differentiable Visibility</a><time datetime="2022-12-17T21:13:11.000Z" title="Created 2022-12-17 21:13:11">2022-12-17</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/12/14/note/edge_sampling/" title="Physics Based Differentiable Rendering: Edge Sampling">Physics Based Differentiable Rendering: Edge Sampling</a><time datetime="2022-12-14T00:00:00.000Z" title="Created 2022-12-14 00:00:00">2022-12-14</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By Chaf Chen</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll To Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container').forEach(node => {
+            if (node.hasAttribute('display')) {
+              btf.wrap(node, 'div', { class: 'mathjax-overflow' })
+            } else {
+              btf.wrap(node, 'span', { class: 'mathjax-overflow' })
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        const mermaidSrc = item.firstElementChild
+        const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+        const mermaidID = 'mermaid-' + index
+        const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+        mermaid.mermaidAPI.render(mermaidID, mermaidDefinition, (svgCode) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svgCode)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script><script>function loadDisqus () {
+  var disqus_config = function () {
+    this.page.url = 'https://chaphlagical.github.io/2021/12/14/geometry/bezier_curve/'
+    this.page.identifier = '/2021/12/14/geometry/bezier_curve/'
+    this.page.title = '计算机辅助几何设计：Bézier曲线'
+  };
+
+  window.disqusReset = () => {
+    DISQUS.reset({
+      reload: true,
+      config: disqus_config
+    })
+  }
+
+  if (window.DISQUS) disqusReset()
+  else {
+    (function() { 
+      var d = document, s = d.createElement('script');
+      s.src = 'https://chaphlagical-github-io.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  }
+
+  document.getElementById('darkmode').addEventListener('click', () => {
+    setTimeout(() => window.disqusReset(), 200)
+  })
+}
+
+if ('Disqus' === 'Disqus' || !false) {
+  if (false) btf.loadComment(document.getElementById('disqus_thread'), loadDisqus)
+  else loadDisqus()
+} else {
+  function loadOtherComment () {
+    loadDisqus()
+  }
+}
+</script></div></div></body></html>
