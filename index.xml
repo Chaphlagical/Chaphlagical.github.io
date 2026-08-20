@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Chaf Blog</title>
+    <link>https://chaphlagical.icu/</link>
+    <description>Recent content on Chaf Blog</description>
+    <image>
+      <title>Chaf Blog</title>
+      <url>https://chaphlagical.icu/img/logo.jpg</url>
+      <link>https://chaphlagical.icu/img/logo.jpg</link>
+    </image>
+    <generator>Hugo -- 0.132.2</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 01 Jan 0001 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://chaphlagical.icu/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>About</title>
+      <link>https://chaphlagical.icu/about/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://chaphlagical.icu/about/</guid>
+      <description>Chaf Chen joined NVIDIA in 2024 as a GPU Graphics Architect to work on problems at the performance of next generation GPU and new graphics methodology. Before that, he receive a Master&amp;rsquo;s degree and Bachelor&amp;rsquo;s degree from University of Science and Technology of China. Here he will share some recent projects and interesting stuff in graphics and GPU technology.
+Education
+University of Science and Technology of China, 2017.09~2021.07 School of Information Science and Technology, Automation Bachelor&amp;rsquo;s Degree University of Science and Technology of China, 2021.</description>
+    </item>
+  </channel>
+</rss>
